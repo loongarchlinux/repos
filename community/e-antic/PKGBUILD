@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=e-antic
-pkgver=0.1.8
+pkgver=0.1.9
 pkgrel=1
 pkgdesc="Embedded algebraic number fields (on top of antic)"
 arch=(loongarch64 x86_64)
@@ -10,7 +10,7 @@ license=(LGPL)
 depends=(arb)
 makedepends=()
 source=(https://www.labri.fr/perso/vdelecro/e-antic/$pkgname-$pkgver.tar.gz)
-sha256sums=('d8b6c18107756db86c7c4ca1593364e0ba9b4ad125910b45afd7ad5823d7100c')
+sha256sums=('f73dad444fd81422d9a1594668615da94405fb6428ce8f2535b58f4cfe88a72d')
 
 build() {
   cd $pkgname-$pkgver
@@ -19,6 +19,11 @@ build() {
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
   make
+}
+
+check() {
+  cd $pkgname-$pkgver
+  make check
 }
 
 package() {

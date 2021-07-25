@@ -1,0 +1,46 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Markus Richter <mqus at disroot dot org>
+
+pkgname=vaultwarden-web
+_pkgver=2.20.4
+pkgver=$_pkgver
+_upstreamver=$_pkgver
+_patchver=$_pkgver
+pkgrel=2
+pkgdesc='Bitwarden web vault with the patches to make it work with vaultwarden'
+arch=('any')
+url=https://github.com/dani-garcia/bw_web_builds
+license=('GPL3')
+depends=('vaultwarden')
+makedepends=('git' 'nodejs-lts-fermium' 'npm')
+provides=('bitwarden_rs-vault' 'bitwarden_rs-web')
+replaces=('bitwarden_rs-vault' 'bitwarden_rs-web')
+install=$pkgname.install
+source=("bitwarden-web::git+https://github.com/bitwarden/web.git#tag=v$_upstreamver"
+        'git+https://github.com/bitwarden/jslib.git'
+        "$pkgname-v$_patchver.patch::https://raw.githubusercontent.com/dani-garcia/bw_web_builds/v$_pkgver/patches/v$_patchver.patch")
+b2sums=('SKIP'
+        'SKIP'
+        'eff9329a4fe29e53c9f6bf2a4f453f447c5fbe63779a6331b388e44721e3ac888d5f2307a215f26a5f83e5cfbfd4ec134678982fe4dbfeddf58125699d50dec2')
+
+prepare() {
+  cd bitwarden-web
+  git submodule init
+  git config submodule.jslib.url ../jslib
+  git submodule update
+  patch --forward --strip=1 --input=../$pkgname-v$_patchver.patch
+  npm ci
+}
+
+build() {
+  cd bitwarden-web
+  npm run dist
+}
+
+package() {
+  cd bitwarden-web
+  install -d "$pkgdir"/usr/share/webapps/$pkgname
+  cp -R build/* "$pkgdir"/usr/share/webapps/$pkgname
+}
+
+# vim:set ts=2 sw=2 et:

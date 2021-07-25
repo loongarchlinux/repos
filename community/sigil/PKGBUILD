@@ -4,14 +4,14 @@
 # Contributor: Larry Hajali <larryhaja [at] gmail [dot] com>
 
 pkgname=sigil
-pkgver=1.3.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="multi-platform EPUB2/EPUB3 ebook editor"
 arch=('loongarch64' 'x86_64')
 url="https://sigil-ebook.com/"
 license=('GPL3')
 depends=('hicolor-icon-theme' 'hunspell' 'mathjax2' 'minizip' 'python-css-parser'
-         'python-dulwich' 'python-lxml' 'qt5-webengine')
+         'python-dulwich' 'python-lxml' 'qt5-svg' 'qt5-webengine')
 makedepends=('qt5-tools' 'cmake')
 optdepends=('hunspell-en_US: for English dictionary support'
             'hyphen-en: for English hyphenation support in plugins'
@@ -22,12 +22,13 @@ optdepends=('hunspell-en_US: for English dictionary support'
             'python-pillow: recommended for plugins'
             'python-regex: recommended for plugins'
             'python-pyqt5: recommended for plugins'
+            'python-pyqt5-webengine: recommended for plugins'
             'tk: recommended for plugins')
 source=("Sigil-${pkgver}.tar.gz::https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
         "https://github.com/Sigil-Ebook/Sigil/releases/download/${pkgver}/Sigil-${pkgver}.tar.gz.sig")
-sha256sums=('ac302328f0d0e0144e67bd4cbd7834650eb219f81a623f393271bf6f0686cc56'
+sha256sums=('ea0e41a56fa98d54c61e2148c6d4b152bd50d8faa59a95c148c8b32b058dacda'
             'SKIP')
-b2sums=('0ded5f2fa4a85a583113d268a0c287727faa9548a95ca3b564efac5db3528e0bf52b0df12f88cda46ae02851b0b85967c23c07cd3cd55073a87bcffbae8dec87'
+b2sums=('b200f81d9a1c59e4636e0b863a0f95f137915d00e92b78118a04dfbb14237e68687cd09837c4bdf2133ba74bee9c09842a85528f445a094ea2f72a85722f95b5'
         'SKIP')
 validpgpkeys=('B5A56206AB0FBC1A24EFAB8AA166D29A8FCDAC63') # Doug Massay <douglaslmassay@gmail.com>
 
@@ -39,6 +40,8 @@ build() {
         -DUSE_SYSTEM_LIBS=1 \
         -DSYSTEM_LIBS_REQUIRED=1 \
         -DINSTALL_BUNDLED_DICTS=0 \
+        -DINSTALL_HICOLOR_ICONS=1 \
+        -DDISABLE_UPDATE_CHECK=1 \
         -DMATHJAX_DIR=/usr/share/mathjax2 \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=lib \
@@ -51,14 +54,8 @@ build() {
 
 package() {
     cd "${srcdir}"/Sigil-${pkgver}/build
-    make install DESTDIR="${pkgdir}"
 
-    for _pic in 16 32 48 128 256; do
-        install -D -m 0644 ../src/Resource_Files/icon/app_icon_${_pic}.png \
-            "${pkgdir}"/usr/share/icons/hicolor/${_pic}x${_pic}/apps/${pkgname}.png
-    done
-    install -Dm644 ../src/Resource_Files/icon/app_icon_128.png \
-        "$pkgdir/usr/share/pixmaps/$pkgname.png"
+    make install DESTDIR="${pkgdir}"
 
     # Compile python bytecode
     python -m compileall "${pkgdir}"/usr/share/sigil/{plugin_launchers/python/,python3lib}

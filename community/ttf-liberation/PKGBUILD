@@ -7,28 +7,25 @@
 # Contributor: Stefan Husmann < stefan-husmann@t-online.de>
 
 pkgname=ttf-liberation
-pkgver=2.1.1
+pkgver=2.1.4
 pkgrel=1
-pkgdesc='Red Hats Liberation fonts'
+pkgdesc='Font family which aims at metric compatibility with Arial, Times New Roman, and Courier New'
 arch=('any')
-license=('custom:OFL')
 url=https://github.com/liberationfonts/liberation-fonts
+license=('custom:OFL')
 makedepends=('fontforge' 'python-fonttools')
 provides=('ttf-font')
 source=("$url/archive/$pkgver/liberation-fonts-$pkgver.tar.gz")
-sha512sums=('25de431b1ce71b9dd710757430ad3a5c370ce3e7f3a172fec96dbe578e778c8653c949c973382d791cef1807c7f7bf966784254ebb53e09169f861e3d35d16de')
+b2sums=('47770fc26bb3620a53d9bec77cd9698291ffe2d6979342e01fca5fd1103930f97236bcb75a7453d63d7f182da5c01c5c98e09ee9e792c71ad235e4812eae1a52')
 
 build() {
   cd liberation-fonts-$pkgver
-  make
+  make build
 }
 
 package() {
   cd liberation-fonts-$pkgver
-
   install -Dm644 -t "$pkgdir/usr/share/fonts/${pkgname#ttf-}" \
     liberation-fonts-ttf-$pkgver/*.ttf
-
-  # install license
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }

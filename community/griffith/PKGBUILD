@@ -10,28 +10,28 @@
 # Contributor: John Cheetham <https://gitlab.com/johncheetham>
 
 pkgname=griffith
-pkgver=0.15
-pkgrel=4
-pkgdesc="Movie collection manager application"
-arch=(any)
-url="https://gitlab.com/Strit/griffith"
-license=(GPL2)
-depends=(gtkspell3 python-chardet python-gobject python-pillow python-reportlab python-sqlalchemy)
+pkgver=0.17
+pkgrel=2
+pkgdesc='Movie collection manager application'
+arch=('any')
+url='https://gitlab.com/Strit/griffith'
+license=('GPL2')
+depends=('gtkspell3' 'python-chardet' 'python-gobject' 'python-pillow' 'python-reportlab'
+         'python-sqlalchemy')
 source=("https://gitlab.com/Strit/$pkgname/-/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        "build.patch"
-        "griffith.appdata.xml")
-sha256sums=('a8b0b9a8973d6906327af2d51b097b0c6806a7926e164ca5693f53ff4247899c'
-            '16fa6f25863a5e040b6d7e8e251ff172c0614a33b6bf7ae1f3f159a67ec0ed9c'
-            '2556b99b18e2d53ca1e96c9d0edded9673c80020f9f832faf343eb1a71632f20')
+        '0001-Add-missing-Gtk-version-declaration.patch'
+        '0001-Add-AppStream-metadata-file.patch')
+sha256sums=('e7d49717adc934801a0d810525f2b203b20672c18b4da889018121ef9019bc68'
+            '896aae0fc40de117f478e6b1bbc037178b885ca8ed4f649b5d4bc2258de68205'
+            '938dd09f8855d1731927cf265916b46f623a20d5aa2772949d58789be01ddb74')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 -i ../build.patch
-  sed -i 's|https://github.com/Strit|https://gitlab.com/Strit|' griffith
+  patch -Np1 -i ../0001-Add-missing-Gtk-version-declaration.patch
+  patch -Np1 -i ../0001-Add-AppStream-metadata-file.patch
 }
 
 package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
-  install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
 }

@@ -5,24 +5,23 @@
 
 pkgbase=spotifyd
 pkgname=('spotifyd')
-pkgver=0.2.24
-pkgrel=2
-pkgdesc='Leightweigt spotify streaming daemon with spotify connect support'
+pkgver=0.3.2
+pkgrel=1
+pkgdesc='Lightweigt spotify streaming daemon with spotify connect support'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/Spotifyd/spotifyd'
 license=('GPL3')
 depends=('alsa-lib' 'libogg' 'libpulse' 'dbus')
-makedepends=('cargo')
+makedepends=('rust')
 source=("https://github.com/Spotifyd/spotifyd/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('13d397a5b5870b2c1303efe07186599a54362b6b8251a93b3d4794615c63bb24a1afe57c4c22f0f5baafd5604f80af7fdce928f6ce318f4e7662fa3f763c683f')
-
+b2sums=('368c33e06dd681a2d6260df99929e889854226d17ebe6e681110961560bc1af1abd13642d39528dfbc01781cadbefd157aa698abf63fd71a599de8c57b777412')
 
 build() {
   cd spotifyd-${pkgver}
   cargo build --release --locked --features pulseaudio_backend,dbus_mpris,dbus_keyring,rodio_backend
 }
 
- check() {
+check() {
   cd spotifyd-${pkgver}
   cargo test --release --locked --target-dir=target
  }

@@ -3,17 +3,17 @@
 # Contributor : Jingbei Li <i@jingbei.li>
 
 pkgname=plantuml
-pkgver=1.2020.18
+pkgver=1.2021.6
 pkgrel=1
 pkgdesc="Component that allows to quickly write uml diagrams"
 arch=(any)
-url="http://plantuml.com/"
+url="https://plantuml.com/"
 license=('GPL')
 depends=("java-runtime>=8" "bash")
 makedepends=("apache-ant" "java-environment>=8")
-source=("http://downloads.sourceforge.net/project/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"
+source=("https://downloads.sourceforge.net/project/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"
         "$pkgname.run")
-sha256sums=('ffdabc70d9e9f7e384b6e151f44ed505da20840ff0f36dc62b1e9f0c85748aad'
+sha256sums=('24a2a40c2d1bc8e4020d4b44d97b1c8a27a979fb24e663668b4ad5cec3fd5d8f'
             'a3fb528f4c719cfd0ff6154c60fd54ce341011d132caf950cc30af4989f6aac8')
 optdepends=('plantuml-ascii-math: allow use AsciiMath or JLaTeXMath notation'
             'ditaa: allow use ditaa notation'
@@ -21,7 +21,7 @@ optdepends=('plantuml-ascii-math: allow use AsciiMath or JLaTeXMath notation'
 
 prepare(){
   cd "$srcdir/$pkgname-$pkgver"
-    sed 's/target="1.6"/target="1.7"/g' -i build.xml
+    sed 's/target="1.6"/target="1.7"/g;s/source="1.6"/source="1.7"/g' -i build.xml
 }
 
 build() {

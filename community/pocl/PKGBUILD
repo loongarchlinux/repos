@@ -4,7 +4,7 @@
 # Contributor: fabien Cellier <fabien.cellier@gmail.com>
 
 pkgname=pocl
-pkgver=1.5
+pkgver=1.7
 pkgrel=2
 pkgdesc="Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
 arch=('loongarch64' 'x86_64')
@@ -12,27 +12,27 @@ url="http://portablecl.org/"
 license=('GPL')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz")
 depends=('clang' 'hwloc' 'opencl-icd-loader')
-makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd')
-sha512sums=('a9c2879b6f0c0d9a78035ba8ed7531b8fa795074864ee5bab265d7dafedac9637025f994719f00f8d9e25bf5068bd9b074d95b964e5d2c0eddb8d8837e6e5da3')
+makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja')
+sha512sums=('23bb82b25a222186c001b2ed413f26253e1e0e16518e98c95173f51491e15d107e6ab1b334ffd490b41199743267d9ad64882a22fea327e17ec9604f9847fc38')
 
 build() {
-  mkdir -p build
-  cd build
-
+  cd "$pkgname-$pkgver"
   cmake \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DCMAKE_BUILD_TYPE=Release \
-    "$srcdir/$pkgname-$pkgver"
-  make
+      -GNinja \
+      -Bbuild \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DKERNELLIB_HOST_CPU_VARIANTS=distro
+  ninja -C build
 }
 
 check() {
-  cd build
-  make check
+  cd "$pkgname-$pkgver"
+  ninja -C build check
 }
 
 package() {
-  cd build
-  make DESTDIR="$pkgdir"/ install
+  cd "$pkgname-$pkgver"
+  DESTDIR="$pkgdir"/ ninja -C build install
 }

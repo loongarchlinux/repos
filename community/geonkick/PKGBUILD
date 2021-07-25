@@ -1,29 +1,27 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=geonkick
-pkgver=2.3.8
-pkgrel=1
+pkgver=2.8.0
+pkgrel=2
 pkgdesc="A free software percussion synthesizer"
 arch=('loongarch64' 'x86_64')
-url="https://gitlab.com/iurie/geonkick"
+url="https://gitlab.com/free-sm/geonkick"
 license=('GPL3')
 groups=('pro-audio')
 depends=('cairo' 'gcc-libs' 'glibc' 'hicolor-icon-theme' 'libx11')
-makedepends=('cmake' 'jack' 'libsndfile' 'lv2' 'rapidjson' 'redkite')
+makedepends=('cmake' 'jack' 'libsndfile' 'lv2' 'rapidjson')
 checkdepends=('lv2lint')
-optdepends=('jack: for standalone application')
-source=("https://gitlab.com/iurie/geonkick/-/archive/v${pkgver}/$pkgname-v$pkgver.tar.gz")
-sha512sums=('04af49a5ce1187b79125a84c5f5a4b96c69736578b941c0cf969a4939f44aaf18ff12e871c28dd7587e34c5831df499e2fca29cd1fc86960812c0591cca8133d')
-b2sums=('694890b71f820f7e66350479ac9bbfd0f77323702d3b43ce2ed70ef94daba00a5d7aa5662345c98427e117a50ae9964836b7746aeef5c01bff6cb20720fa5934')
-
-prepare() {
-  mv -v "$pkgname-v$pkgver" "$pkgname-$pkgver"
-}
+optdepends=(
+  'lv2-host: for LV2 plugin'
+  'jack: for standalone application'
+)
+source=("$pkgname-v$pkgver.tar.gz::https://github.com/free-sm/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
+sha512sums=('fff7e4390178dd667f048c731950e8e10731675aead9eedc1633ee47798cb867e81eb7d5191ee9d3ab75041bd20ae0aa6eedf0a314098c79c388349b1f23f28a')
+b2sums=('6c2ae6665cb8e6fdcc3bb608fa05180c44b41cd986ac3fefdde9762eb4a12d45b41755a8eaf211759936e12ef9ee2fc34a47e6c398cf91cc9e83abac0b6a98c5')
 
 build() {
   cd "$pkgname-$pkgver"
   cmake -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DGKICK_REDKITE_SDK_PATH='/usr' \
         -DCMAKE_BUILD_TYPE='None' \
         -Wno-dev \
         -B build \

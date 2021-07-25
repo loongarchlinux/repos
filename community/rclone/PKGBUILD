@@ -2,7 +2,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=rclone
-pkgver=1.53.1
+pkgver=1.55.1
 pkgrel=1
 pkgdesc="Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage"
 arch=('loongarch64' 'x86_64')
@@ -10,9 +10,9 @@ url="https://rclone.org/"
 license=('MIT')
 depends=('glibc')
 optdepends=('fuse2: for rclone mount')
-makedepends=('python' 'pandoc' 'go' 'git')
+makedepends=('python' 'pandoc' 'go' 'git' 'fuse2')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/rclone/rclone/archive/v$pkgver.tar.gz")
-sha512sums=('9fb0808d5f746e6056bccc152f80858510c9f76c60ca36b01e088bfc5d70c6fc14d146235150fe37345cb1c1f9465e34d6a1f98047b2612be576ba5ef8f1f858')
+sha512sums=('be8847d062f22ffbd57ae42bf2c36f32a29f5fc652051c7090232530a52e38edad39cc29679a522fcb55df783c304b6dcd59b5b45a528686a11bca67676128eb')
 
 prepare() {
   cd "rclone-$pkgver"
@@ -21,20 +21,18 @@ prepare() {
 
 build() {
   cd "rclone-$pkgver"
-  
   export GOFLAGS="-buildmode=pie -trimpath"
   export CGO_LDFLAGS="${LDFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
-
-  PATH=".:$PATH" make TAG=v$pkgver rclone rclone.1 MANUAL.html MANUAL.txt
- ./rclone genautocomplete bash rclone.bash_completion
- ./rclone genautocomplete zsh rclone.zsh_completion
+  PATH="/build/go/bin:$PATH" make TAG=v$pkgver rclone rclone.1 || true
+  PATH="/build/go/bin:$PATH" rclone genautocomplete bash rclone.bash_completion
+  PATH="/build/go/bin:$PATH" rclone genautocomplete zsh rclone.zsh_completion
 }
 
 check() {
   cd "rclone-$pkgver"
-  make TAG=v$pkgver test
+  PATH="/build/go/bin:$PATH" make TAG=v$pkgver test
 }
 
 package() {

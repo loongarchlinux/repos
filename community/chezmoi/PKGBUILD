@@ -3,7 +3,7 @@
 # Contributor:  <godeater@gmail.com>
 
 pkgname=chezmoi
-pkgver=1.8.7
+pkgver=2.0.16
 pkgrel=1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 makedepends=('go' 'git')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
-sha512sums=('bb1da178cc73a37d5b7bedd2a74d6f1eef3dcc28224dabaacdc8645e802d892810d8d8c5df2f9e3eb684f4a5ee409ab2c0bfb754f6fad65285dc7bb739bb12e6')
+sha512sums=('53988ec6f7ef7cc98493a7aa2cf705ac0b8e1d41ca88598f7ed2df964171628ead2f5c5c49e7d682c85fc54a53d2903bcf21159f31b4253599091070ddfea5c7')
 
 build() {
   cd "$pkgname-$pkgver"
@@ -29,8 +29,15 @@ build() {
     -tags noupgrade,noembeddocs \
     -ldflags "-X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
               -X main.version=$pkgver \
+              -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@${SOURCE_DATE_EPOCH}) \
               -extldflags ${LDFLAGS}" \
     .
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+
+  go test -v ./...
 }
 
 package() {
@@ -39,7 +46,7 @@ package() {
   install -D "$pkgname" "$pkgdir/usr/bin/$pkgname"
 
   mkdir -p "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm644 docs/* "$pkgdir/usr/share/doc/$pkgname/"
+  install -Dm644 docs/*.md "$pkgdir/usr/share/doc/$pkgname/"
 
   install -Dm644 completions/chezmoi-completion.bash "$pkgdir/usr/share/bash-completion/completions/chezmoi"
   install -Dm644 completions/chezmoi.fish "$pkgdir/usr/share/fish/vendor_completions.d/chezmoi.fish"

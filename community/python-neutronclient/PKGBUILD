@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-neutronclient
-pkgver=7.2.1
+pkgver=7.5.0
 pkgrel=1
 pkgdesc="OpenStack Networking (Neutron) Client"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python-pbr' 'python-cliff' 'python-debtcollector' 'python-iso8601' 'py
          'python-keystoneclient' 'python-requests' 'python-simplejson')
 checkdepends=('python-oslotest' 'python-osprofiler' 'python-requests-mock')
 source=("https://github.com/openstack/python-neutronclient/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('999d7867ed30c7584028d58d1ba95ff6e5426504f59575a86accc3616fd8b5edc62fac932dee5e913a7f738ae86a4fa99ae74c3e94c5759b7c727ea1946666d8')
+sha512sums=('e167622ac2862c703d7eeb49561634aad3f0174f4ff0178dc0f5dbc38f41a1b972535ae1807a11b5ebee522278e5b00b5d03436a5877f1413f4920d2e3b48657')
 
 export PBR_VERSION=$pkgver
 

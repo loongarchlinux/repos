@@ -1,28 +1,33 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-network-utils
-pkgver=5.1.0.2
+pkgver=5.4.6
 pkgrel=1
 pkgdesc='DDE network utils'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/dde-network-utils"
 license=('GPL3')
-depends=('deepin-qt-dbus-factory')
-makedepends=('qt5-tools')
+depends=('deepin-qt-dbus-factory' 'gio-qt' 'gsettings-qt')
+makedepends=('qt5-tools' 'gtest')
 groups=('deepin')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-network-utils/archive/$pkgver.tar.gz")
-sha512sums=('a68bd8c0174a0170722511f2a09f858fbeffc9d7cf8b2d5dd64fc42a5b846172e9d810bf7db2e2e70bc6267cc80a86e8dc02564c095b2373259b2294adcfba04')
+sha512sums=('0bd77ffad2dbc4c9c040f90bd9163e24390ad1f2546523211d774f89a0c491bf8b92602232f0c2ef47218531bd0fa44d78ee58e02b20ea661ca2b6a6f070c56d')
 
 prepare() {
   cd dde-network-utils-$pkgver
-  # Use our own url instead of third-party commercial company's homepage
-  sed -i '/www.baidu.com/i \    "https://www.archlinux.org/favicon.ico",' connectivitychecker.cpp
+  # Use our own url instead of commercial company's homepage
+  sed -i '/www.uniontech.com/i \    "https://archlinux.org/favicon.ico",' dde-network-utils/connectivitychecker.cpp
 }
 
-build(){
+build() {
   cd dde-network-utils-$pkgver
   qmake-qt5 PREFIX=/usr
   make
+}
+
+check() {
+  cd dde-network-utils-$pkgver
+  # make test
 }
 
 package() {

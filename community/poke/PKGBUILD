@@ -1,0 +1,34 @@
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Contributor: Yunxiang Li <shironeko@waifu.club>
+
+pkgname=poke
+pkgver=1.3
+pkgrel=1
+pkgdesc="Interactive, extensible editor for binary data."
+arch=(loongarch64 x86_64)
+url="http://www.jemarch.net/poke.html"
+license=('GPL3')
+depends=('gc' 'readline' 'gettext' 'json-c')
+makedepends=('help2man')
+checkdepends=('dejagnu')
+source=("https://ftp.gnu.org/gnu/poke/poke-${pkgver}.tar.gz"{,.sig})
+validpgpkeys=('BDFA5717FC1DD35C2C3832A23EF90523B304AF08')
+sha256sums=('ba7863034a1b08004b0ee8f88bda94160707e9a781d5556f555b507583cf0f1b'
+            'SKIP')
+
+build() {
+    cd "${pkgname}-${pkgver}"
+    # TODO: This vendors two dependencies I think.
+    ./configure --prefix=/usr
+    make
+}
+
+check() {
+    cd "${pkgname}-${pkgver}"
+    make -k check
+}
+
+package() {
+    cd "${pkgname}-${pkgver}"
+    make DESTDIR="${pkgdir}/" install
+}

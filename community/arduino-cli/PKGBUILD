@@ -1,7 +1,7 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=arduino-cli
-pkgver=0.13.0
+pkgver=0.18.3
 pkgrel=1
 arch=('loongarch64' 'x86_64')
 pkgdesc='Arduino command line interface'
@@ -14,13 +14,15 @@ sha512sums=('SKIP')
 
 build(){
   cd $pkgname
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS='-buildmode=pie -trimpath -mod=readonly -modcacherw'
+
   go build \
-        -ldflags "-X github.com/arduino/arduino-cli/version.versionString=$pkgver-arch -X github.com/arduino/arduino-cli/version.commit=$(git rev-parse HEAD)" \
+        -ldflags "-linkmode=external -X github.com/arduino/arduino-cli/version.versionString=$pkgver-arch -X github.com/arduino/arduino-cli/version.commit=$(git rev-parse HEAD)" \
         -v .
 }
 

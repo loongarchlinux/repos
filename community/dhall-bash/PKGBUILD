@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dhall-bash
-pkgver=1.0.33
-pkgrel=22
+pkgver=1.0.37
+pkgrel=5
 pkgdesc='Compile Dhall to Bash'
 url='https://dhall-lang.org'
 license=('BSD')
@@ -11,7 +11,7 @@ depends=('ghc-libs' 'dhall' 'haskell-neat-interpolation' 'haskell-shell-escape'
          'haskell-optparse-generic')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('b1f5e0a530b43bf3851b90aa1a5b13417a56c3264d122b153c37e8ea245478b9312122984f4ec330f0f7fc05cd3ed9a100ecb015a4708d741347eb9b6b0dbf2f')
+sha512sums=('c24a9b0862dc6ca5a6c7d8ed919e279e0ce76470991d672e8d1a5e3d3c2bb99cfc01581d4da26873e58019125ff583092ae2f18a8962c3ba1466ad1af132bc02')
 
 build() {
     cd $pkgname-$pkgver
@@ -28,7 +28,7 @@ build() {
 
 check() {
     cd $pkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

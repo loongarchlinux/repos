@@ -1,21 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-toposort
-pkgver=1.5
-pkgrel=4
+pkgver=1.6
+pkgrel=1
 pkgdesc='Implements a topological sort algorithm'
 arch=('any')
 license=('Apache')
-url='https://bitbucket.org/ericvsmith/toposort'
+url='https://gitlab.com/ericvsmith/toposort'
 depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://bitbucket.org/ericvsmith/toposort/get/$pkgver.tar.bz2")
-sha512sums=('f79ee4a04b157db164e484be054bed6d310023722cd13469454022eb96ccd3ff5bf6dc570384d3ca790c819b67afa4a96c716da2b99c458d8ddfe2e56e5222a0')
-
-prepare() {
-  mv ericvsmith-toposort-* toposort-$pkgver
-}
+source=("https://pypi.io/packages/source/t/toposort/toposort-$pkgver.tar.gz")
+sha512sums=('8dc30b5d5a6f476756520236bc93840243690779783ec8f0b5ef0f72c64d774177b25d10d2e024cda968f81352abbc4f89f3069760fc3a86bd5ee387e7951928')
 
 build() {
   cd toposort-$pkgver

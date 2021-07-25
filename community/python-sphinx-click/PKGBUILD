@@ -1,0 +1,41 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=sphinx-click
+pkgname=python-sphinx-click
+pkgver=3.0.1
+pkgrel=1
+pkgdesc="Sphinx plugin to automatically document click-based applications"
+arch=('any')
+url="https://github.com/click-contrib/sphinx-click"
+license=('MIT')
+depends=('python-pbr' 'python-sphinx')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'python-click')
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
+sha512sums=('ef3627e53e762e19f0b11824f32369aece053cfa861b49cd08e8d8e34d392883fff7df79a1eb23b256d401a803c93eed4bad91daf54eb2ad4c93655911c2e8e4')
+b2sums=('4110e7b69975d90729b48eaa8587771ee8b082574774f1fbc22278c0e3c8993f16c7682aafa273198b14c1d698faed39216d4ff3563e5a6b56e0646a987bf58e')
+
+prepare() {
+  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  python setup.py build
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  export PYTHONPATH="build:${PYTHONPATH}"
+  pytest -v
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --root="${pkgdir}"
+  install -vDm 644 {AUTHORS,ChangeLog,README.rst} -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 docs/*.rst -t "${pkgdir}/usr/share/doc/${pkgname}/docs/"
+  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

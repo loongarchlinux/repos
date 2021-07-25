@@ -2,10 +2,10 @@
 
 _hkgname=splitmix
 pkgname=haskell-splitmix
-pkgver=0.1.0.1
-pkgrel=18
+pkgver=0.1.0.3
+pkgrel=119
 pkgdesc="Fast Splittable PRNG"
-url="https://github.com/phadej/splitmix"
+url="https://github.com/haskellari/splitmix"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
@@ -13,7 +13,7 @@ makedepends=('ghc' 'haskell-async' 'haskell-base-compat' 'haskell-base-compat-ba
              'haskell-hunit' 'haskell-math-functions' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-tf-random' 'haskell-vector')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('488742d696a8770c3055a1711aeedc36ff39f2f544ee676842e6f64833e467b48f2231c46a3b82200e2a4e0a1b935d57f51902c03d68a1c0a50d6576b6d0e359')
+sha512sums=('22a3f0759e1c1150aabde01a77b48087509dfc7ff9614e97e5e06af73f533170993ff2e18101d940e7ddba81b8d6e496795be3851fccfa07b75e9d922f325064')
 
 build() {
     cd $_hkgname-$pkgver
@@ -36,7 +36,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

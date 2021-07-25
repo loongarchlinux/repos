@@ -4,41 +4,40 @@
 # Contributor: Sam May <sam.m4y@gmail.com>
 # Contributor: Pierre-Yves Ritschard <pyr@spootnik.org>
 # Contributor: Vladimir Tsanev <tsachev@gmail.com>
-
 pkgname=clojure
-pkgver=1.10.1
-# https://github.com/clojure/brew-install/CHANGELOG.md
-_toolver=708
-pkgrel=10
+pkgver=1.10.3.849
+pkgrel=1
 pkgdesc='Lisp dialect for the JVM'
 url='https://clojure.org/'
 arch=(any)
 license=(EPL)
 depends=(java-environment)
+makedepends=(setconf)
 optdepends=('leiningen: automate clojure projects'
             'rlwrap: friendly shell with readline support')
 install=clojure.install
-source=("https://download.clojure.org/install/clojure-tools-$pkgver.$_toolver.tar.gz"
-        clojure.sh)
-sha256sums=('e200f3e148918a12226026809f052f1be54bd43d490bb079072182488155dbc9'
-            'b3fa6257dad10fb39851e87563269b80b2473623126595d9c279bbd90e97f052')
+source=("https://download.clojure.org/install/clojure-tools-$pkgver.tar.gz")
+b2sums=('04ec99cc662b27902498d3585b5096cc3ea15eaea147e08dd83bab30c5a19d0711e908673bc1aef57b6b9a0e5883c4227d31eb514bd5fb879af73055ae8349b3')
 
 prepare() {
-  sed -i -e 's,PREFIX,/usr/share/clojure,g' clojure-tools/clojure
+  cd clojure-tools
+  setconf clj bin_dir=/usr/bin
+  setconf clojure install_dir=/usr/share/clojure
+  echo 'export CLOJURE_HOME=/usr/share/clojure' > clojure.sh
 }
 
 package() {
   cd clojure-tools
   install -Dm644 deps.edn "$pkgdir/usr/share/clojure/deps.edn"
   install -Dm644 example-deps.edn "$pkgdir/usr/share/clojure/example-deps.edn"
-  install -Dm644 clojure-tools-$pkgver.$_toolver.jar \
-    "$pkgdir/usr/share/clojure/libexec/clojure-tools-$pkgver.$_toolver.jar"
+  install -Dm644 clojure-tools-$pkgver.jar \
+    "$pkgdir/usr/share/clojure/libexec/clojure-tools-$pkgver.jar"
   install -Dm755 clojure "$pkgdir/usr/bin/clojure"
   install -Dm755 clj "$pkgdir/usr/bin/clj"
+  install -Dm755 exec.jar "$pkgdir/usr/share/clojure/libexec/exec.jar"
+  install -Dm755 clojure.sh "$pkgdir/etc/profile.d/clojure.sh"
   install -Dm644 clojure.1 "$pkgdir/usr/share/man/man1/clojure.1"
   install -Dm644 clj.1 "$pkgdir/usr/share/man/man1/clj.1"
-  install -Dm755 "$srcdir/clojure.sh" "$pkgdir/etc/profile.d/clojure.sh"
 }
 
-# getver: clojure.org/downloads
-# vim: ts=2 sw=2 et:
+# getver: raw.githubusercontent.com/clojure/brew-install/1.10.3/stable.properties

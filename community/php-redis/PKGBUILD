@@ -1,60 +1,102 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-pkgname=php-redis
 _name=redis
 _upstream=phpredis
-pkgver=5.3.1
+pkgbase=php-redis
+pkgname=('php-redis' 'php7-redis')
+pkgver=5.3.4
 pkgrel=1
 pkgdesc="An API for communicating with the Redis key-value store"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/phpredis/phpredis/"
 license=('PHP')
-depends=('glibc' 'php-igbinary')
-makedepends=('liblzf')
+depends=('glibc')
+makedepends=('liblzf' 'php-igbinary' 'php7-igbinary')
 checkdepends=('lsof' 'redis')
 optdepends=('redis: use a local redis instance')
-backup=("etc/php/conf.d/${_name}.ini")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/${_upstream}/${_upstream}/archive/${pkgver}.tar.gz")
-sha512sums=('7ab11c9b6583e4ba1aabebd7323de7d38b90274c0bee395b7a994a0d70b35ddee1bb6b6e6407b5237b0440b11f9c27f864707259ec130624aee3b71e7cee3536')
+sha512sums=('7e4410d6124de570db00d90a66a4a288b2f8b386ace0ca37bf14f50de0c54f5dec4257912daac89ffa1a7e1789adf3e4da9fc1120384d7f098437ca30d341796')
+b2sums=('c9537347d1cace4b1151b6bb80165475e444ada92d9f1cde7de1a6b3a0a858b566416f1bf5c874337836f8d10d04b49e153aa70c6bec2f460699db0f5b0a4e31')
 
 prepare() {
-  mv -v "${_upstream}-${pkgver}" "$pkgname-$pkgver"
-  cd "$pkgname-$pkgver"
+  mv -v "${_upstream}-${pkgver}" "$pkgbase-$pkgver"
   # tempfile is non-standard, Debian only
-  sed -e 's/tempfile/mktemp/g' -i tests/mkring.sh
+  sed -e 's/tempfile/mktemp/g' -i  "$pkgname-$pkgver/tests/mkring.sh"
   # the kill after shutdown of redis makes it exit with status code 1
-  sed -e '/kill -9/d' -i tests/mkring.sh
+  sed -e '/kill -9/d' -i "$pkgname-$pkgver/tests/mkring.sh"
   # disable the extension by default
-  echo -e "; this extension requires igbinary to be activated as well\n;extension=${_name}" > "${_name}.ini"
-  phpize
+  echo -e "; this extension requires igbinary to be activated as well\n;extension=${_name}" > "$pkgname-$pkgver/${_name}.ini"
+
+  cp -av "$pkgbase-$pkgver" "${pkgname[1]}-$pkgver"
+
+  (
+    cd "$pkgbase-$pkgver"
+    phpize
+  )
+  (
+    cd "${pkgname[1]}-$pkgver"
+    phpize7
+  )
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  ./configure --prefix=/usr \
-              --enable-redis-igbinary \
-              --enable-redis-lzf \
-              --with-liblzf=/usr/lib/
-  make
+  (
+    cd "$pkgname-$pkgver"
+    ./configure --prefix=/usr \
+                --enable-redis-igbinary \
+                --enable-redis-lzf \
+                --with-liblzf=/usr/lib/
+    make
+  )
+  (
+    cd "${pkgname[1]}-$pkgver"
+    ./configure --prefix=/usr \
+                --enable-redis-igbinary \
+                --enable-redis-lzf \
+                --with-liblzf=/usr/lib/
+    make
+  )
 }
 
 check() {
   # tests are partly broken:
   # https://github.com/phpredis/phpredis/issues/1593
-  export TEST_PHP_EXECUTABLE=/usr/bin/php
-  export TEST_PHP_ARGS="-d extension=igbinary -d extension=${srcdir}/${pkgname}-${pkgver}/modules/redis.so"
-  cd "$pkgname-$pkgver"
-  tests/mkring.sh start
-  $TEST_PHP_EXECUTABLE $TEST_PHP_ARGS tests/TestRedis.php --class Redis
-  $TEST_PHP_EXECUTABLE $TEST_PHP_ARGS tests/TestRedis.php --class RedisArray
-  tests/mkring.sh stop
+  (
+    export TEST_PHP_EXECUTABLE=/usr/bin/php
+    export TEST_PHP_ARGS="-d extension=igbinary -d extension=${srcdir}/${pkgbase}-${pkgver}/modules/redis.so"
+    cd "$pkgname-$pkgver"
+    tests/mkring.sh start
+    $TEST_PHP_EXECUTABLE $TEST_PHP_ARGS tests/TestRedis.php --class Redis
+    $TEST_PHP_EXECUTABLE $TEST_PHP_ARGS tests/TestRedis.php --class RedisArray
+    tests/mkring.sh stop
+  )
+  (
+    export TEST_PHP_EXECUTABLE=/usr/bin/php7
+    export TEST_PHP_ARGS="-d extension=igbinary -d extension=${srcdir}/${pkgname[1]}-${pkgver}/modules/redis.so"
+    cd "${pkgname[1]}-$pkgver"
+    tests/mkring.sh start
+    $TEST_PHP_EXECUTABLE $TEST_PHP_ARGS tests/TestRedis.php --class Redis
+    $TEST_PHP_EXECUTABLE $TEST_PHP_ARGS tests/TestRedis.php --class RedisArray
+    tests/mkring.sh stop
+  )
 }
 
-package() {
-  depends+=('liblzf.so')
+package_php-redis() {
+  depends+=('liblzf.so' 'php-igbinary')
+  backup=("etc/php/conf.d/${_name}.ini")
   cd "$pkgname-$pkgver"
   make INSTALL_ROOT="$pkgdir/" install
   install -vDm 644 "${_name}.ini" -t "${pkgdir}/etc/php/conf.d/"
+  install -vDm 644 {{README,arrays,cluster}.markdown,CREDITS} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+}
+
+package_php7-redis() {
+  depends+=('liblzf.so' 'php7-igbinary')
+  backup=("etc/php7/conf.d/${_name}.ini")
+  cd "$pkgname-$pkgver"
+  make INSTALL_ROOT="$pkgdir/" install
+  install -vDm 644 "${_name}.ini" -t "${pkgdir}/etc/php7/conf.d/"
   install -vDm 644 {{README,arrays,cluster}.markdown,CREDITS} \
     -t "${pkgdir}/usr/share/doc/${pkgname}/"
 }

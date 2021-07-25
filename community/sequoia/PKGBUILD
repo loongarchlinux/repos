@@ -3,26 +3,24 @@
 
 pkgbase=sequoia
 pkgname=(sequoia python-sequoia)
-pkgver=0.19.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc='Cool new OpenPGP implementation'
 url='https://sequoia-pgp.org/'
 arch=('loongarch64' 'x86_64')
 license=('GPL3')
 makedepends=('git' 'cargo' 'clang' 'python' 'python-setuptools' 'python-cffi'
-             'glibc' 'nettle' 'sqlite' 'capnproto' 'openssl' 'gcc-libs' 'gmp')
+             'glibc' 'nettle' 'sqlite' 'capnproto' 'openssl' 'gcc-libs' 'gmp'
+             'bzip2' 'libbz2.so')
 checkdepends=('python-pytest' 'python-pytest-runner')
 options=('!makeflags')
-source=(${pkgname}::"git+https://gitlab.com/sequoia-pgp/sequoia.git#tag=v${pkgver}"
-        build.patch)
-sha512sums=('SKIP'
-            '44c8f4af25b3a8c42939ea75e87fa90ac42499545b41c3dc6744debf318ecc6361f4aad2692663a0516b9f5a6e1d33435d82a7749cfd2c26c9baf94f5dcb6b09')
+source=(${pkgname}::"git+https://gitlab.com/sequoia-pgp/sequoia.git#tag=v${pkgver}")
+sha512sums=('SKIP')
 
 prepare() {
   cd ${pkgname}
   sed 's/debug/release/g' -i -- */Makefile */*/Makefile */*/*/Makefile
   sed "s/-L/${LDFLAGS},-L/g" -i ffi/lang/python/Makefile
-  patch -Np1 < ../build.patch
 }
 
 build() {
@@ -41,7 +39,7 @@ check() {
 
 package_sequoia() {
   depends=('glibc' 'nettle' 'libhogweed.so' 'libnettle.so' 'sqlite' 'capnproto'
-           'openssl' 'gcc-libs' 'gmp')
+           'openssl' 'gcc-libs' 'gmp' 'bzip2' 'libbz2.so')
   cd ${pkgbase}
   make DESTDIR="${pkgdir}" PREFIX=/usr CARGO_FLAGS='--locked' install
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"

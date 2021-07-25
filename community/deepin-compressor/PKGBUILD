@@ -1,22 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-compressor
-pkgver=5.8.0.9
-pkgrel=2
+pkgver=5.10.0.16
+pkgrel=1
 pkgdesc='A fast and lightweight application for creating and extracting archives'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/deepin-compressor"
 license=('GPL3')
 depends=('deepin-qt5integration' 'disomaster' 'karchive' 'kcodecs' 'libarchive' 'libzip' 'minizip' 'udisks2-qt5')
-makedepends=('cmake' 'ninja')
+makedepends=('cmake' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-compressor/archive/$pkgver.tar.gz")
-sha512sums=('da8db12191589254615219bf9a16d1b4668e381bb3ef0901c293076c6797b2e45e9cb802ae4d8f2b06ac604cb1de9e62e671db387956fe69d6a619a2d1f78319')
-
-prepare() {
-  cd deepin-compressor-$pkgver
-  sed -i '/include <QPainter>/a #include <QPainterPath>' deepin-compressor/source/src/openwithdialog/openwithdialog.cpp deepin-compressor/source/src/logviewheaderview.cpp
-}
+sha512sums=('83458b218078bf3d090847343213b8bfbf95f032563e48acbfb0389737bcbc1beb93398c551a2e58ed8ccac6fed5ac2ce0ac70739c57ee8cbedcf9e9ac349622')
 
 build() {
   cd deepin-compressor-$pkgver

@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=5.3.0.24
+pkgver=5.4.23
 pkgrel=1
 pkgdesc='New control center for linux deepin'
 arch=('loongarch64' 'x86_64')
@@ -11,8 +11,8 @@ url="https://github.com/linuxdeepin/dde-control-center"
 license=('GPL3')
 depends=('desktop-file-utils' 'dtkwidget' 'deepin-account-faces' 'deepin-api' 'geoip' 'libpwquality'
          'geoip-database' 'geoip-database-extra' 'deepin-daemon' 'startdde' 'networkmanager-qt'
-         'deepin-qt-dbus-factory' 'deepin-qt5integration' 'deepin-network-utils')
-makedepends=('cmake' 'deepin-dock' 'ninja' 'qt5-tools')
+         'deepin-qt-dbus-factory' 'deepin-qt5integration' 'deepin-network-utils' 'deepin-pw-check')
+makedepends=('cmake' 'deepin-dock' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 optdepends=('redshift: automatic color temperature support'
             'networkmanager-openconnect: for OpenConnect support'
             'networkmanager-openvpn: for OpenVPN support'
@@ -24,12 +24,12 @@ optdepends=('redshift: automatic color temperature support'
 conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-control-center/archive/$pkgver.tar.gz"
+source=("https://github.com/linuxdeepin/dde-control-center/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         $pkgname-systeminfo-deepin-icon.patch
         $pkgname-no-user-experience.patch)
-sha512sums=('afe7b0b708d0580890a2b32cea29f7e51f1c0df7f759069fb3b31b77296969eaf14bdd299d40548b9a3f7c60b343409fd287f1e320913bd28b47432f4bdd4fad'
+sha512sums=('619c4986a5cc7cb8e5dcecd69cf724fd40d74496f4d2344e44c1493cb53354ad9526983286a14602fe46690f1ad32e16250a685bd24cd9f5ac7c5f61920626a8'
             '74fd63391e923ca37f4559f30da967ba7f33d4426b60d58d1ece8cd9a154578e8184b1a376a8d7ff3ef81ffce530915f79d0845a2612ae4e06522b96855ab3dd'
-            '99fc7e369680f3a91cb30daaa9015fccf3f2b733522e917fbd94e69b48471dd739536e220d4a9c17a93834d51192832cabf355b633cca27c903f8dd3249f4c5d')
+            'b7f766e4dad9840a716ac22458b387626da712f56a546475f71639182273417bd3135b978a3926fe234bf7bae0c353c1d7cbb08ad386c2691f6b1223b1938bfa')
 
 prepare() {
   rm dde-control-center-$pkgver/src/frame/window/icons/icons/dcc_nav_systeminfo_{42,84}px.svg
@@ -38,25 +38,20 @@ prepare() {
   mkdir -p build
 
   cd dde-control-center-$pkgver
-  sed -i '/#include <QPainter>/a #include <QPainterPath>' src/frame/widgets/basiclistdelegate.cpp src/frame/window/modules/update/updatehistorybutton.cpp \
-                                                          src/frame/window/modules/commoninfo/commonbackgrounditem.cpp src/frame/modules/accounts/useroptionitem.cpp \
-                                                          src/frame/window/modules/sync/pages/avatarwidget.cpp src/frame/window/modules/accounts/avataritemdelegate.cpp \
-                                                          src/frame/modules/accounts/avatarwidget.cpp src/frame/window/modules/accounts/accountswidget.cpp \
-                                                          src/frame/modules/datetime/timezone_dialog/popup_menu.cpp src/frame/modules/display/recognizedialog.cpp \
-                                                          src/frame/window/modules/personalization/roundcolorwidget.cpp src/frame/window/modules/unionid/pages/avatarwidget.cpp
-  sed -i '/#include <QRect>/a #include <QPainterPath>' src/frame/window/modules/personalization/personalizationgeneral.cpp
-
-  sed -i 's|/bin/deepin-recovery-tool|/usr/bin/deepin-recovery-tool|' src/frame/window/modules/systeminfo/backupandrestoreworker.cpp
-
   # remove after they obey -DDISABLE_SYS_UPDATE properly
   sed -i '/new UpdateModule/d' src/frame/window/mainwindow.cpp
 }
 
 build() {
   cd build
-  cmake -GNinja -DDISABLE_SYS_UPDATE=YES -DDISABLE_ACTIVATOR=YES -DDISABLE_RECOVERY=YES -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+  cmake -GNinja -DDISABLE_SYS_UPDATE=YES -DDISABLE_RECOVERY=YES -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     ../dde-control-center-$pkgver
   ninja
+}
+
+check() {
+  cd build
+  ninja test
 }
 
 package() {

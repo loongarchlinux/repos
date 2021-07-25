@@ -4,8 +4,9 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-librsvg
-pkgver=2.50.1
+pkgver=2.50.7
 pkgrel=1
+epoch=2
 pkgdesc="SVG rendering library (32-bit)"
 url="https://wiki.gnome.org/Projects/LibRsvg"
 arch=(loongarch64 x86_64)
@@ -14,12 +15,11 @@ depends=(lib32-gdk-pixbuf2 lib32-pango lib32-libxml2 librsvg)
 makedepends=(gobject-introspection gtk-doc git rust lib32-rust-libs)
 checkdepends=(ttf-dejavu)
 provides=(librsvg-${pkgver%%.*}.so)
-_commit=1c5e533a8fc5e7211ced07d28151de3956c5dd75  # tags/2.50.1^0
+_commit=6ca387974e6a3e248c261d3dac15b8d4a742d3aa  # tags/2.50.7^0
 source=("git+https://gitlab.gnome.org/GNOME/librsvg.git#commit=$_commit"
-        lto.diff multilib.diff)
+        multilib.diff)
 sha256sums=('SKIP'
-            '3cc8ad1af515b2cb4071f0647319c1cf3280dc054875634239061800af1616b6'
-            'c32283a724e8d1a87ad64330ee72781396b6f439dcae0f56da074e9a988ec544')
+            '92818f59a43ba67d95fca36fc2fa51fd4b23ab0e010a1aec04ab797088a8964a')
 
 pkgver() {
   cd librsvg
@@ -29,9 +29,6 @@ pkgver() {
 prepare() {
   cd librsvg
 
-  # Turn LTO back on
-  git apply -3 ../lto.diff
-
   # Hack to cross-compile rust only
   git apply -3 ../multilib.diff
 
@@ -39,12 +36,16 @@ prepare() {
 }
 
 build() {
+  cd librsvg
+
   export CC='gcc -m32'
   export CXX='g++ -m32'
   export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
-  export RUST_TARGET=i686-unknown-linux-gnu
+  export RUST_TARGET=i686-pc-linux-gnu
 
-  cd librsvg
+  # Use LTO
+  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
   ./configure --prefix=/usr --disable-static --disable-vala \
     --disable-gtk-doc --disable-introspection --libdir=/usr/lib32
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool
@@ -53,8 +54,8 @@ build() {
 
 check() {
   cd librsvg
-  # Reftests are probably broken
-  # some reference images were created without the requested fonts
+  # Test suite is very dependent on the versions of
+  # Cairo, Pango, FreeType and HarfBuzz
   make check || :
 }
 

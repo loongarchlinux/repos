@@ -2,22 +2,23 @@
 # Contributor: Dimitris Kiziridis <ragouel at outlook dot com>
 
 pkgname=minder
-pkgver=1.9.0
+pkgver=1.12.4
 pkgrel=1
-pkgdesc='Mind-mapping application designed for elementary OS'
-arch=(loongarch64 x86_64)
+pkgdesc='Mind-mapping application designed for Pantheon'
+arch=('loongarch64' 'x86_64')
 url='https://github.com/phase1geo/Minder'
-license=(GPL3)
-depends=(discount granite gtksourceview3 libarchive)
-makedepends=(meson vala)
+license=('GPL3')
+depends=('discount' 'granite' 'gtksourceview3' 'libarchive')
+makedepends=('meson' 'vala')
 source=("https://github.com/phase1geo/Minder/archive/$pkgver/Minder-$pkgver.tar.gz")
-sha256sums=('33256914193327d7f5c7b8a11fbd86711863fb5f27200e5728d5449b55cd0d43')
+sha256sums=('02f69cde491fc14ee54088005abd20ba6b39dca5c7b97dca72a9017cc081b0c2')
 
 build() {
   arch-meson Minder-$pkgver build
-  ninja -C build
+  meson compile -C build
 }
 
 package() {
   DESTDIR="$pkgdir" meson install -C build
+  ln -s com.github.phase1geo.minder "$pkgdir/usr/bin/$pkgname"
 }

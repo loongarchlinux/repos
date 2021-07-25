@@ -2,27 +2,29 @@
 # Contributor: speps <speps at aur dot archlinux dot org>
 
 pkgname=drumkv1
-pkgver=0.9.17
+pkgver=0.9.22
 pkgrel=1
 pkgdesc="An old-school drum-kit sampler"
 arch=('loongarch64' 'x86_64')
 url="https://drumkv1.sourceforge.io/"
 license=('GPL2')
 groups=('lv2-plugins' 'pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
-makedepends=('alsa-lib' 'cmake' 'jack' 'liblo' 'libsndfile' 'lv2' 'qt5-tools')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'lv2-host' 'qt6-base')
+makedepends=('alsa-lib' 'cmake' 'jack' 'liblo' 'libsndfile' 'lv2' 'qt6-tools')
 optdepends=('alsa-lib: for standalone application'
             'jack: for standalone application'
             'liblo: for standalone application'
-            'non-session-manager: for session management using the standalone application')
+            'new-session-manager: for session management using the standalone application'
+            'qt6-wayland: for native wayland support')
 source=("https://download.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('148f1d112b1caaa770fb0968a048cc00aa542f263d4ca57e65f54ff85e8f5d316f4ec8e884c10eb51618c8abff6eb137529e9be0d967f0bc397add68d7a54a81')
-b2sums=('185f5f652be0d463593455c5419d7973b7200781a85ba5785ee1183ed39471392b4ab53b172c2c5bd746bc798d55f443faf78956337c27d4dbb93e373dbc1755')
+sha512sums=('ca5374ad83ce88753d44554d4c8094b44d845dc48a3a0c69f91afbdb44689cfff8a6ab0a8ea767da4030277d2b00bad31ebe30e1fb2b060581bc97d50c5de905')
+b2sums=('4088365fabab9666f3ec934820f1fc71381463e690830f2eab2b2355a247453720af8c793250645170ed790acbbb74c59f6b641b541aaa968cea4e33160c9372')
 
 build() {
   cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX='/usr' \
         -DCMAKE_BUILD_TYPE='None' \
+        -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
         -S .

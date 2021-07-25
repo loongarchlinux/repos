@@ -1,22 +1,24 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Julien Nicoulaud <julien dot nicoulaud at gmail dot com>
 
 pkgname=lsd
-pkgver=0.16.0
-pkgrel=2
+pkgver=0.20.1
+pkgrel=1
 pkgdesc='Modern ls with a lot of pretty colors and awesome icons'
 url='https://github.com/Peltoche/lsd'
 arch=('loongarch64' 'x86_64')
 license=('Apache')
 depends=('gcc-libs' 'awesome-terminal-fonts')
-makedepends=('rust' 'cargo')
+makedepends=('rust' 'pandoc')
 source=(https://github.com/Peltoche/lsd/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e2406748d78431a1c03bdd2404a204a006c19905d926e41a36587b93a791e003')
-sha512sums=('562c070d3e716af26ff3a54632cd176a1b95471fbb7e947f8175f89df483ff5b337d1a0d7578fa6ee41f77fa7ed1a618d37e91ebf1b8428e6a857918b415aa39')
+sha256sums=('a2086aa049b8bd21c880f23b21b0e9ef21d3c3829d40641aa8810c08be936c19')
+sha512sums=('d4e340947c1d94fa675d85b8cf07df4be5da28441b0d93449d4ab266bdfae8a0556f98ec320c07b968094a07250dc9e41a0165d6c27fc153e5a1730bfeb5d549')
 
 build() {
   cd ${pkgname}-${pkgver}
-  cargo build --release --locked
+  SHELL_COMPLETIONS_DIR=completions cargo build --release --locked
+  pandoc "doc/$pkgname.md" --standalone --to=man -o "doc/$pkgname.1"
 }
 
 check() {
@@ -28,6 +30,10 @@ package() {
   cd ${pkgname}-${pkgver}
   install -Dm 755 target/release/${pkgname} -t "${pkgdir}/usr/bin"
   install -Dm 644 README.md CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 "completions/${pkgname}.bash" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  install -Dm 644 "completions/${pkgname}.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+  install -Dm 644 "completions/_${pkgname}" "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  install -Dm 644 "doc/$pkgname.1" -t "$pkgdir/usr/share/man/man1"
 }
 
 # vim: ts=2 sw=2 et:

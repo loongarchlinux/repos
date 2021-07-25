@@ -3,8 +3,8 @@
 # Contributor: Dave Reisner <dreisner@archlinux.org>
 
 pkgname=mkosi
-pkgver=5
-pkgrel=2
+pkgver=9
+pkgrel=1
 pkgdesc='Build Legacy-Free OS Images'
 arch=('any')
 url='https://github.com/systemd/mkosi'
@@ -26,7 +26,7 @@ optdepends=('debootstrap: build Debian or Ubuntu images'
             'qemu: run bootable images in QEMU'
             'sbsigntools: sign EFI binaries for UEFI SecureBoot')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/systemd/mkosi/archive/v$pkgver.tar.gz")
-sha512sums=('cebb0f50b57a3285b4bb1301890436551c6931516e8c60a36c44ddc4c53f232178e1f56aa8c538dad2d12ce54e304b457d046bc0df6ac6d2a226a7b5fdbd1f36')
+sha512sums=('63851a2645bb35d7650ce526df38eab116160688847001f2952b0056a9a8ba4637d223d111406f1bf432642903238a4633c5c6bc594bfb85f2ba5034a3df4ad1')
 
 package() {
   cd "mkosi-$pkgver"

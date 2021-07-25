@@ -1,25 +1,26 @@
 # Maintainer: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=intellij-idea-community-edition
-pkgver=2020.2.3
-_build=202.7660.26
+pkgver=2021.1.2
+_build=211.7442.40
 pkgrel=1
-epoch=2
+epoch=4
 pkgdesc='IDE for Java, Groovy and other programming languages with advanced refactoring features'
 url='https://www.jetbrains.com/idea/'
 arch=('loongarch64' 'x86_64')
 license=('Apache')
 backup=('usr/share/idea/bin/idea.vmoptions'
         'usr/share/idea/bin/idea64.vmoptions')
-depends=('giflib' 'java-environment=11' 'java11-openjfx' 'python' 'sh' 'ttf-font' 'libdbusmenu-glib')
-makedepends=('ant' 'git' 'java-environment=8' 'java8-openjfx')
+depends=('giflib' 'java-environment=11' 'python' 'sh' 'ttf-font' 'libdbusmenu-glib' 'fontconfig' 'hicolor-icon-theme')
+makedepends=('ant' 'git' 'java-environment=8')
 optdepends=(
   'lldb: lldb frontend integration'
 )
 source=("git+https://github.com/JetBrains/intellij-community.git#tag=idea/${_build}"
-        idea-android::"git+https://github.com/JetBrains/android#tag=idea/${_build}"
+        idea-android::"git://git.jetbrains.org/idea/android.git#tag=idea/${_build}"
         idea-adt-tools-base::"git://git.jetbrains.org/idea/adt-tools-base.git#commit=17e9c8b666cac0b974b1efc5e1e4c33404f72904"
         idea.desktop
         idea.sh)

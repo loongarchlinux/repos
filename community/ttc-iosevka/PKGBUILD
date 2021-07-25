@@ -1,0 +1,97 @@
+# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Contributor: Markus Weimar <mail@markusweimar.de>
+_pkgbase='iosevka'
+_type='ttc'
+pkgbase="${_type}-${_pkgbase}"
+pkgname=(
+    "${pkgbase}" "${pkgbase}-aile" "${pkgbase}-curly" "${pkgbase}-curly-slab" "${pkgbase}-etoile" "${pkgbase}-slab"
+    "${pkgbase}-ss01" "${pkgbase}-ss02" "${pkgbase}-ss03" "${pkgbase}-ss04" "${pkgbase}-ss05" "${pkgbase}-ss06"
+    "${pkgbase}-ss07" "${pkgbase}-ss08" "${pkgbase}-ss09" "${pkgbase}-ss10" "${pkgbase}-ss11" "${pkgbase}-ss12"
+    "${pkgbase}-ss13" "${pkgbase}-ss14" "${pkgbase}-ss15" "${pkgbase}-ss16" "${pkgbase}-ss17" "${pkgbase}-ss18"
+    )
+pkgver=7.2.2
+pkgrel=2
+pkgdesc='Typeface family designed for coding, terminal use and technical documents.'
+arch=('any')
+url='https://typeof.net/Iosevka/'
+license=('OFL')
+source=("${pkgbase}-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-${pkgver}.zip"
+        "${pkgbase}-aile-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-aile-${pkgver}.zip"
+        "${pkgbase}-curly-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-curly-${pkgver}.zip"
+        "${pkgbase}-curly-slab-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-curly-slab-${pkgver}.zip"
+        "${pkgbase}-etoile-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-etoile-${pkgver}.zip"
+        "${pkgbase}-slab-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-slab-${pkgver}.zip"
+        "${pkgbase}-ss01-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss01-${pkgver}.zip"
+        "${pkgbase}-ss02-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss02-${pkgver}.zip"
+        "${pkgbase}-ss03-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss03-${pkgver}.zip"
+        "${pkgbase}-ss04-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss04-${pkgver}.zip"
+        "${pkgbase}-ss05-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss05-${pkgver}.zip"
+        "${pkgbase}-ss06-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss06-${pkgver}.zip"
+        "${pkgbase}-ss07-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss07-${pkgver}.zip"
+        "${pkgbase}-ss08-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss08-${pkgver}.zip"
+        "${pkgbase}-ss09-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss09-${pkgver}.zip"
+        "${pkgbase}-ss10-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss10-${pkgver}.zip"
+        "${pkgbase}-ss11-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss11-${pkgver}.zip"
+        "${pkgbase}-ss12-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss12-${pkgver}.zip"
+        "${pkgbase}-ss13-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss13-${pkgver}.zip"
+        "${pkgbase}-ss14-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss14-${pkgver}.zip"
+        "${pkgbase}-ss15-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss15-${pkgver}.zip"
+        "${pkgbase}-ss16-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss16-${pkgver}.zip"
+        "${pkgbase}-ss17-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss17-${pkgver}.zip"
+        "${pkgbase}-ss18-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss18-${pkgver}.zip"
+        "${pkgbase}-${pkgver}-${pkgrel}-LICENSE.md::https://raw.githubusercontent.com/be5invis/Iosevka/v${pkgver}/LICENSE.md")
+sha256sums=('0d93a0d44022090e028e43336a3e94ab47db72655af08beb08d443c2cb7bd5e3'
+            'd0007c51861a6669a9d6edace7768968f643552dc897200f68dd732e0139bee5'
+            '4ba0ae261958a6c81eef61adad3eae10e99deb9cee8d51cf36e367282e2416bf'
+            '12d8dcc9f2df7336f48af3b91df6a4e8f208638da76c59fec2801068b358a1fe'
+            '6f13853d2481a267d3f0f1a56f111dbd19d128f935b23c683bddd81e422575b3'
+            '08dbb017cc86162e306d8fbcc639c2c97e1a0a4321a471dd6242e471c83c44df'
+            'c28921bb0fad145852c7592f06411a98a09bac619bcff713648e94d07f4dd7f2'
+            '12180c766b40b182278803efa805f591419d499d872b86e1636aa193457e0667'
+            '10178c337026ec1b45b42a4e26ecac49f0f324fbd807542209a58bf584117367'
+            '60cbffe914771be3f6d5dc94d3bbec86c7ed8c2330f49d1d12b3c3df15c8a16f'
+            '36c91f25dfd0c12c6a03a5deee44df90d8a42d0877ab5f82a481b76aa6773ed5'
+            '9eace4f502ff9198d26ac158bf6c408074ad99da2aa11b852c74d6431954cf81'
+            '6c704d0225751b37c578ed42798e59e269a4c60440606835661e6641af8f9651'
+            'f99aacc11459542dcb74c591e7c285c4c60c7c1cb1fed29a59a8569c784acc8c'
+            '6d90b5cfcdafd74de63132fcfc30ae292093ec04e60d75f7d05912314163a61e'
+            'b8b955230815d690fb1d4f7ddd2e95d8169b3815112102f013af6e1eaa9d6678'
+            'f078a335fccc9a3103cc432ce764856562ff90037113099db6307e1f1f350c9b'
+            '4a59849394c75f8c9c5d9719a6cced82b8fa614084986e5616e4b380b399a962'
+            'd475bb0819db74858f5e386f4e288916d39cac9b3ae319ff00ca70e777cde567'
+            '804cd39a8f146f2af0274444a9d5fb09c7aacc96811795804ee4256902397de2'
+            'b2f315a46aa0c76a8d8b6ed92972759478af72ad6f91f5d0b0e3dbb7adc2266d'
+            '00b5eab0fba6baa73d6d2ce50a659d9438ae6317dc8f2608114223533ef2d2e3'
+            'c68f479b2a6de0ab0f38634f7838fd7952893e25580e816fbba94507732afe48'
+            '653c77e10de4ae0ec50e180d0b7f7f73a4e97d13ca7154c161bacec51b7ca816'
+            '72c3d557ff41d871680652f56afd565ba6834c90eadc45a4ec15410dce1c0c80')
+
+
+
+function _package() {
+    cd "${srcdir}/"
+    local pkgnm="${1}"
+    local fontname="${pkgnm#${_type}-}"
+    local fontvar="${pkgnm#${pkgbase}-}"
+    fontvar="${fontvar^}"
+    install -d "${pkgdir}"/usr/share/fonts/TTF
+    install -m644 "${fontname}"-*.ttc "${pkgdir}"/usr/share/fonts/TTF/
+    install -d "${pkgdir}"/usr/share/licenses
+    if [[ "${pkgnm}" == "${pkgbase}" ]]; then
+        rm -rf "${pkgdir}/usr/share/fonts/TTF"/*{aile,curly,etoile,slab,ss}*
+    else
+        if [[ "${pkgnm}" == "${pkgbase}-curly" ]]; then
+            rm -rf "${pkgdir}/usr/share/fonts/TTF"/*curly-slab*
+        fi
+        if [[ "${pkgnm}" == "${pkgbase}-curly-slab" ]]; then
+            pkgdesc+=" (Curly Slab variant)"
+        else
+            pkgdesc+=" (${fontvar} variant)"
+        fi
+    fi
+    install -D -m644 "${pkgbase}-${pkgver}-${pkgrel}-LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgnm}/LICENSE.md"
+}
+
+for _pkgname in ${pkgname[@]}; do
+    eval "function package_$_pkgname() { _package $_pkgname; }"
+done

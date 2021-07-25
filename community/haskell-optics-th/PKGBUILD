@@ -2,20 +2,20 @@
 
 _hkgname=optics-th
 pkgname=haskell-optics-th
-pkgver=0.3.0.2
-pkgrel=2
+pkgver=0.4
+pkgrel=3
 pkgdesc="Optics construction using TemplateHaskell"
 url="https://github.com/well-typed/optics"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-optics-core' 'haskell-th-abstraction')
-makedepends=('ghc' 'haskell-tagged')
+makedepends=('ghc' 'uusi' 'haskell-tagged')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('0ebce42453d8bbdc621f8f97aa4a34a8defc66d4ea9d09b466447f01ed440cf84896d8d9326a61eb77daa1b844dd2bf6b8e73b86f585b3c0b1c2ffbab7391691')
+sha512sums=('63e7aa80b4d34de5c31995162f66bea09456d8d2c57ab8a35fbd3094af350540ebae01e74c79c045c0d981e618c74c8c59051ddf5d841df5058c790ffc1c0d0c')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
 }
 
 build() {
@@ -33,7 +33,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

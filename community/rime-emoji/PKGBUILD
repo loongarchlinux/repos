@@ -1,15 +1,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-emoji
-pkgver=0.0.0.20191102
-_commit=6ee7ce65b21cd0fd8df0306a7c77a067f18fb55f
+pkgver=0.0.0.20210427
+_commit=4c8c51f4a3bc7298c99376eda9bbd86070fc4fa1
 pkgrel=1
 pkgdesc="Emoji support for rime"
 arch=('any')
 url="https://github.com/rime/rime-emoji"
 license=('LGPL')
 source=("https://github.com/rime/rime-emoji/archive/$_commit/rime-emoji-$_commit.tar.gz")
-sha512sums=('78b6a3199e1e1aadcb4fcfdeb95f475336503a7d70f8e4b8e2dbb825a75f303aca0b2c9dc0326c924d643974541c2466de33aad210b1926c0bd20c1c8996c753')
+sha512sums=('e2dda6b77f3d164aa03c1e93d66fd62e5dce852889f7bdb2d2cbd32631b63e9273c6536faab14b89593b912969b10c194b8a02bb55506eea3f6dcf8af4602003')
 
 package() {
   cd $pkgname-$_commit

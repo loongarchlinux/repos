@@ -4,7 +4,7 @@
 # Contributor: GordonGR <gordongr@freemail.gr>
 
 pkgname=lib32-polkit
-pkgver=0.117
+pkgver=0.119
 pkgrel=1
 pkgdesc='Application development toolkit for controlling system-wide privileges'
 arch=(loongarch64 x86_64)
@@ -24,7 +24,7 @@ makedepends=(
   gtk-doc
   intltool
 )
-_tag=585f4f2715639394e36319d4918389d26e250e7b
+_tag=2e5348bf4eb0ef984db32f7f96ec6722d441c6ca
 source=(git+https://gitlab.freedesktop.org/polkit/polkit/#tag=${_tag})
 sha256sums=(SKIP)
 

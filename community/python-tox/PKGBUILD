@@ -5,7 +5,7 @@
 
 pkgbase=python-tox
 pkgname=(python-tox python2-tox)
-pkgver=3.20.1
+pkgver=3.23.1
 pkgrel=1
 pkgdesc='Python virtualenv management and testing tool'
 arch=('any')
@@ -15,17 +15,14 @@ makedepends=('python-setuptools-scm' 'python2-setuptools-scm' 'python-py' 'pytho
              'python2-virtualenv' 'python-pluggy' 'python2-pluggy' 'python-toml' 'python2-toml'
              'python-filelock' 'python2-filelock' 'python-freezegun' 'python2-freezegun')
 checkdepends=('python-pytest-runner' 'python2-pytest-runner' 'python-pytest-mock'
-              'python2-pytest-mock' 'python2-pathlib2' 'python-flaky' 'python2-flaky'
-              'python-pathlib2' 'python2-pathlib2')
+              'python2-pytest-mock' 'python-flaky' 'python2-flaky' 'python2-pathlib2')
 source=("https://pypi.io/packages/source/t/tox/tox-$pkgver.tar.gz")
-sha512sums=('73d6b6ca98cc9de628038360fe0af50ecfac1e7949735fde49fd38d85c9fcc517d897eeb287da0388265e689941ef3b63956349b4be409197a164039cb1ba1ae')
+sha512sums=('94b58f12f0fa117e80e26e9d422e61f3b43d8467568644fac6fa4f270fee0089e2681709880e97c402f04aaddfb8d2dd65f6f5c7219f0b673b9d567729cdedbb')
 
 prepare() {
   find tox-$pkgver -name "*.pyc" -delete
 
   cp -a tox-$pkgver{,-py2}
-
-  sed -i 's|pathlib2|pathlib|' tox-$pkgver/tests/integration/*.py
 }
 
 build() {
@@ -59,8 +56,8 @@ check() {
 }
 
 package_python-tox() {
-  depends=('python-py' 'python-virtualenv' 'python-setuptools' 'python-pluggy' 'python-toml'
-           'python-filelock')
+  depends=('python-py' 'python-virtualenv' 'python-packaging' 'python-pluggy' 'python-toml'
+           'python-filelock' 'python-six')
 
   cd "$srcdir"/tox-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
@@ -68,8 +65,8 @@ package_python-tox() {
 }
 
 package_python2-tox() {
-  depends=('python2-py' 'python2-virtualenv' 'python2-setuptools' 'python2-pluggy' 'python2-toml'
-           'python2-filelock')
+  depends=('python2-py' 'python2-virtualenv' 'python2-packaging' 'python2-pluggy' 'python2-toml'
+           'python2-filelock' 'python2-six' 'python2-importlib-metadata')
 
   cd "$srcdir"/tox-$pkgver-py2
   python2 setup.py install --root="$pkgdir" --optimize=1

@@ -4,16 +4,16 @@
 # Contributor: Juan Miguel Cejuela <juanmi@jmcejuela.net>
 
 pkgname=python-apsw
-pkgver=3.33.0
-pkgrel=2
+pkgver=3.35.4
+pkgrel=1
 pkgdesc="Python wrapper for SQLite"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/rogerbinns/apsw"
 license=('MIT')
 depends=('python' 'sqlite')
 source=("apsw-$pkgver-r1.tar.gz::https://github.com/rogerbinns/apsw/archive/$pkgver-r1.tar.gz")
-sha512sums=('ff0a93e314531d8fe21969d3efc7ccaf2c1a11b2e1a14a46ef9e6325ca3e6a911edee29152a77a2482e7d59fc9f6dab97955daa33ea82df140c3bb6259b6ee67')
-b2sums=('01cb3eee3d3f4ccbef695292006b466bbb91ff9734ae61e2b41210b9fd7d7fc52242121fdfeea1fa2bda81712c94c3d584688cf6406951edad7a7fb4af7c222e')
+sha512sums=('4a566e90b7faf6a42b95fc496f76535a92a872e58e395d299cf8f0e3498d5659ba9f0a27970562f61fafa1ffae349201edd0fd1daa06d793a715b7eb5f561ecb')
+b2sums=('44f41546949c4e53e28d9ffbd5d31848594748b1fe159f96b02162a44e36aa16b359251b2311bb610ba736080ee241bc758b3268c17aa81a8dea210f6aae64b3')
 
 build() {
   cd apsw-${pkgver}-r1
@@ -24,6 +24,7 @@ build() {
 check() {
   cd "$srcdir"/apsw-${pkgver}-r1
 
+  gcc ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -fPIC -shared -o testextension.sqlext src/testextension.c
   # do glob expansion in variable assignment
   pythonpaths=("$PWD/build/lib.linux-$CARCH"-3*)
   PYTHONPATH="${pythonpaths[0]}" python setup.py test

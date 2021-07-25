@@ -1,18 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-game-libretro-mgba
-pkgver=0.8.3.13
-_codename=Leia
-pkgrel=2
+pkgver=0.8.4.19
+_codename=Matrix
+pkgrel=3
 pkgdesc="Libretro wrapper for Kodi's Game API"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/kodi-game/game.libretro.mgba'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-game')
-depends=('kodi-addon-game-libretro' 'libretro-mgba')
-makedepends=('cmake' 'kodi-dev')
+makedepends=('cmake' 'kodi-dev' 'kodi-addon-game-libretro' 'libretro-mgba')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kodi-game/game.libretro.mgba/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('abf00d81ed98d46501173a0dd5ac26d4bf9a927cfec092163bdde549e99e4cfbff650195cc90592024f43d3d421e3e926bd750ba0318b1ce8aad72d7c71df67d')
+sha512sums=('380e7737af4eea765e843424345ccd2efce2e93bc21a207e2f865037323819f2a9935984c10b5ee21d04599ae9b7e97fc54a1574c528a5b4b2998fd79578edca')
 
 build() {
     cd "game.libretro.mgba-$pkgver-$_codename"
@@ -26,6 +25,7 @@ build() {
 }
 
 package() {
+    depends=('kodi-addon-game-libretro' 'libretro-mgba')
     cd "game.libretro.mgba-$pkgver-$_codename"
 	make DESTDIR="$pkgdir/" install
 }

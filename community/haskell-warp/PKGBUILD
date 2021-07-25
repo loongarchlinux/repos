@@ -3,21 +3,21 @@
 
 _hkgname=warp
 pkgname=haskell-warp
-pkgver=3.3.13
-pkgrel=76
+pkgver=3.3.16
+pkgrel=7
 pkgdesc="A fast, light-weight web server for WAI applications."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-async' 'haskell-auto-update' 'haskell-bsb-http-chunked'
+depends=('ghc-libs' 'haskell-auto-update' 'haskell-bsb-http-chunked'
          'haskell-case-insensitive' 'haskell-hashable' 'haskell-http-date' 'haskell-http-types'
          'haskell-http2' 'haskell-iproute' 'haskell-network' 'haskell-simple-sendfile'
-         'haskell-streaming-commons' 'haskell-time-manager' 'haskell-unix-compat' 'haskell-vault'
-         'haskell-wai' 'haskell-word8' 'haskell-x509')
-makedepends=('ghc' 'haskell-doctest' 'haskell-http-client' 'haskell-hspec' 'haskell-hunit'
-             'haskell-lifted-base' 'haskell-quickcheck')
+         'haskell-streaming-commons' 'haskell-time-manager' 'haskell-unix-compat'
+         'haskell-unliftio' 'haskell-vault' 'haskell-wai' 'haskell-word8' 'haskell-x509')
+makedepends=('ghc' 'haskell-async' 'haskell-doctest' 'haskell-http-client' 'haskell-hspec'
+             'haskell-hunit' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ac37e1f274d26b2c846429960074d27010c0864efd87da6d79f03e3f833aca3269176bb99301ab8cb59c4476ff12bae35b26e0fe602e7b0e2cad2837592e07b1')
+sha512sums=('261fc37f4911bcb3cd335cbd4a1fecc3e03ee18ff5766c5182e2efbed8142cbb38bd404a81cb69eb4132210abb1553a6a5b958bf9808d9566a84e686c292b6a8')
 
 build() {
     cd $_hkgname-$pkgver
@@ -35,7 +35,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

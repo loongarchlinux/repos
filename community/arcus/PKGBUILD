@@ -3,16 +3,16 @@
 
 # upstreamed renamed to libarcus
 pkgname=arcus
-pkgver=4.7.1
-pkgrel=1
+pkgver=4.9.1
+pkgrel=2
 pkgdesc="Communication library between internal components for Ultimaker software"
 url="https://github.com/Ultimaker/libArcus"
 arch=('loongarch64' 'x86_64')
 license=('LGPL')
-makedepends=('cmake' 'sip')
-depends=('python' 'protobuf' 'python-sip')
+makedepends=('cmake' 'sip4')
+depends=('python' 'protobuf' 'python-sip4')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Ultimaker/libArcus/archive/${pkgver}.tar.gz")
-sha512sums=('be99b9381e61c50e6b08652485657c2b59a4a62caeaddf9265667a3d771e6ed04c2083e357bf8c2f87e2a41d9bd378feafaf825e8ba4678cf6ce7b1ec50d2c7c')
+sha512sums=('5124b80647cb0715ad94c5eaaeac797a867319de9a8064b689783fdb28598903a69e3a61393db90f5e0b3d10ee30aed844170cab63dc4b7c70509d5129a17cdd')
 
 build() {
   cd libArcus-${pkgver}

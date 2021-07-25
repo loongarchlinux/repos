@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hypothesis
-pkgver=5.36.1
+pkgver=6.14.0
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=('any')
@@ -13,14 +13,15 @@ optdepends=('python-pytz: for datetime and django module'
             'python-django: for django module'
             'python-numpy: for numpy module'
             'python-pytest: for pytest module'
-            'python-lark-parser: for lark module')
+            'python-lark-parser: for lark module'
+            'python-libcst: for codemods module')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'flake8' 'python-pytz' 'python-numpy' 'python-faker'
               'python-flaky' 'python-django' 'python-mock' 'python-pandas' 'python-dpcontracts'
               'python-pytest-xdist' 'python-lark-parser' 'python-pexpect' 'python-coverage'
-              'python-typing_extensions' 'python-black')
+              'python-typing_extensions' 'python-black' 'python-fakeredis' 'python-libcst')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-$pkgver.tar.gz")
-sha512sums=('97d0446ba5660c189e60b47b8f782818525fcc1c5c1d64eec997b85d5ae47fc7d52771439b5c249002380ffe7d95696728f81efe513993ff90c8e192e2ceca8d')
+sha512sums=('f7821449d3bf7f3656b52dad09027e40ea4af1779fcc7c0b995dac55843953fdab3f2ba69eb1b8de8258616f49cf8e5098c6a222d01071916c6f0c9fe184c80b')
 
 prepare() {
   mv hypothesis-hypothesis-python-$pkgver hypothesis-$pkgver
@@ -32,12 +33,21 @@ build() {
 }
 
 check() {
+  # tests/numpy/test_lazy_import.py: https://github.com/HypothesisWorks/hypothesis/issues/2411
+
   cd hypothesis-$pkgver/hypothesis-python
   python setup.py install --root="$PWD/tmp_install" --optimize=1
-  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.8/site-packages:$PYTHONPATH" PATH="$PWD/tmp_install/usr/bin:$PATH" pytest
+  python examples/example_hypothesis_entrypoint/setup.py install --root="$PWD/tmp_install" --optimize=1
+
+  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.9/site-packages:$PWD/examples/example_hypothesis_entrypoint" \
+  PATH="$PWD/tmp_install/usr/bin:$PATH" \
+    pytest --ignore tests/numpy/test_lazy_import.py --ignore tmp_install
 }
 
 package() {
   cd hypothesis-$pkgver/hypothesis-python
   python setup.py install --root="$pkgdir" --optimize=1
+
+  # It's only present when tests are enabled, so adding -f
+  rm -rf "$pkgdir"/usr/lib/python3.9/site-packages/tests
 }

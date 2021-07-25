@@ -2,9 +2,8 @@
 # Contributor: Ingo Bürk <admin at airblader dot de>
 
 pkgname=i3-gaps
-_pkgsourcename=i3
-pkgver=4.18.2
-pkgrel=2
+pkgver=4.19.1
+pkgrel=1
 pkgdesc='A fork of i3wm tiling window manager with more features, including gaps'
 arch=('i686' 'loongarch64' 'x86_64')
 url='https://github.com/Airblader/i3'
@@ -15,7 +14,7 @@ groups=('i3')
 depends=('xcb-util-keysyms' 'xcb-util-wm' 'libev' 'yajl'
          'startup-notification' 'pango' 'perl' 'xcb-util-cursor' 'xcb-util-xrm'
          'libxkbcommon-x11')
-makedepends=('bison' 'flex' 'asciidoc' 'xmlto')
+makedepends=('bison' 'flex' 'asciidoc' 'xmlto' 'meson')
 optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
             'dmenu: As menu.'
             'i3lock: For locking your screen.'
@@ -24,34 +23,22 @@ optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
             'perl-anyevent-i3: For i3-save-tree')
 backup=(etc/i3/config)
 options=('docs')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/Airblader/i3/archive/${pkgver}.tar.gz"
-        "fix-tray.patch::https://github.com/i3/i3/commit/838b600fead202416013db5c1b57f7031f06bed6.diff")
-sha256sums=('cc03cc008f51792b3c2fd5c8815ec213f8040385865fa558b0c78d5dc5f7150d'
-            'bade69559a83187375dbe12a23079225ad443fb90d23383647cdc7998e617d0c')
-
-prepare(){
-  mkdir build
-  cd "${_pkgsourcename}-${pkgver}"
-  autoreconf -fvi
-  patch -Np1 < "$srcdir/fix-tray.patch"
-}
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/Airblader/i3/archive/${pkgver}.tar.gz")
+sha256sums=('97f33544f0a64a325b7b98cd4ad17dcf6f2c8ead1350d378154b76af1798e8fc')
 
 build() {
-  cd build
-
-  ../i3-$pkgver/configure \
-    --disable-sanitizers \
-    --prefix=/usr \
-    --sysconfdir=/etc
-  make
+  cd "i3-${pkgver}"
+  arch-meson \
+    -Ddocs=true \
+    -Dmans=true \
+  ../build
+  meson compile -C ../build
 }
 
 package() {
-  cd build
-
-  make DESTDIR="${pkgdir}/" install
-  install -Dt "$pkgdir/usr/share/man/man1" -m644 man/*.1
-  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 ../i3-$pkgver/LICENSE
+  cd "i3-${pkgver}"
+  DESTDIR="$pkgdir" meson install -C ../build
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

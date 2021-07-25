@@ -3,16 +3,16 @@
 
 _hkgname=hslua-module-text
 pkgname=haskell-hslua-module-text
-pkgver=0.2.1
-pkgrel=81
+pkgver=0.3.0.1
+pkgrel=87
 pkgdesc="Lua module for text"
 url="https://github.com/hslua/hslua-module-text"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hslua')
-makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e2da17ec688c00968537e49c18d71a3e365a57bb0c8cb2639b2052d04771686ee695186726569e82f72723c78841bccdc0de33d0302e943e67f3432bd5fb9d13')
+sha512sums=('15ba5e97261e9fa0bb4053575a0dd368048141a401200c32bb53a969cc741d2bd2d04890fef5c488fb6f476438d28e4d5ab9fea4a62aecdee285e8f1a1adecc4')
 
 build() {
     cd $_hkgname-$pkgver
@@ -29,7 +29,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

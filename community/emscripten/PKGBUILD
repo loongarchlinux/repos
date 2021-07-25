@@ -5,19 +5,19 @@
 
 pkgname=emscripten
 # NOTE: You need to run ./get-compatible-versions.sh after changing the pkgver!
-_binaryen_revision=5ae1724add800780475e02e05a4af133e3729bd6
-_llvm_project_revision=25a8881b724abf7251a9278e72224af7e82cb9c2
+_binaryen_revision=83ae39af1f8ffe67856b16f7ee13de066169b48f
+_llvm_project_revision=91f147792e815d401ae408989992f3c1530cc18a
 # Sadly, upstream currently suggests bundling a binaryen version for the time being:
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
-pkgver=2.0.7
+pkgver=2.0.24
 pkgrel=1
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('loongarch64' 'x86_64')
-url="http://emscripten.org"
+url="https://emscripten.org"
 license=('custom')
 depends=('nodejs' 'python' 'which' 'acorn')
-makedepends=('cmake' 'libxml2' 'git' 'ninja')
+makedepends=('cmake' 'libxml2' 'git' 'ninja' 'npm')
 optdepends=('java-environment: for using clojure'
             'ruby: for using websockify addon'
             'cmake: for emcc --show-ports')
@@ -94,7 +94,12 @@ package() {
 
   # Install emscripten
   cd "$srcdir"/emscripten
-  make DESTDIR="$pkgdir"/usr/lib/emscripten install
+  DESTDIR="$pkgdir"/usr/lib/emscripten make install
+
+  # Fix permissions messed up by npm
+  find "${pkgdir}"/usr/lib/emscripten -type d -exec chmod 755 {} +
+  chown -R root:root "${pkgdir}"/usr/lib/emscripten/
+
   install -Dm644 "$srcdir"/emscripten-config "$pkgdir"/usr/lib/emscripten/.emscripten
 
   install -d "$pkgdir"/usr/share/doc

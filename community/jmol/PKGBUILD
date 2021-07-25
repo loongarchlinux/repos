@@ -3,17 +3,17 @@
 
 pkgbase=jmol
 pkgname=(jmol jsmol)
-pkgver=14.31.10
+pkgver=14.31.43
 pkgrel=1
 arch=(any)
-url="https://jmol.sourceforge.net"
+url='https://jmol.sourceforge.net'
 license=(LGPL)
 makedepends=(unzip)
-source=("https://sourceforge.net/projects/jmol/files/Jmol/Version%20${pkgver%.*}/Jmol%20$pkgver/Jmol-$pkgver-binary.tar.gz")
-sha256sums=('12ead379aec53ac14504b4b4d8ac91d929c2f628ed39df61010c32cf2b60c4d5')
+source=(https://sourceforge.net/projects/jmol/files/Jmol/Version%20${pkgver%.*}/Jmol%20$pkgver/Jmol-$pkgver-binary.tar.gz)
+sha256sums=('2f23017c0500ed02f86f2584cc1a9481dbc27724c5590ac66ec4fce31a71e5df')
 
 package_jmol() {
-  pkgdesc="a Java 3D viewer for chemical structures"
+  pkgdesc='A Java 3D viewer for chemical structures'
   depends=(java-runtime)
 
   cd $pkgbase-$pkgver
@@ -26,7 +26,7 @@ package_jmol() {
 }
 
 package_jsmol() {
-  pkgdesc="a JavaScript 3D viewer for chemical structures"
+  pkgdesc='A JavaScript 3D viewer for chemical structures'
   cd $pkgbase-$pkgver
 
   mkdir -p "$pkgdir"/usr/share

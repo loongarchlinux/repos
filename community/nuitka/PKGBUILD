@@ -1,25 +1,45 @@
-# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 # Contributor: Panagiotis Mavrogiorgos <pmav99@gmail.com>
 
+_name=Nuitka
 pkgname=nuitka
-pkgver=0.6.8
+pkgver=0.6.16
 pkgrel=1
-pkgdesc='Python compiler that produces faster executables and depends on libpython'
-arch=(any)
+pkgdesc='Python compiler with full language support and CPython compatibility'
+arch=('any')
 url='https://nuitka.net/'
-license=(APACHE)
-depends=(python)
-makedepends=(python-setuptools)
+license=('Apache')
+depends=('python-appdirs' 'scons')
+makedepends=('python-setuptools')
+checkdepends=('ccache' 'fuse2' 'python-boto3' 'python-brotli' 'strace')
+optdepends=('ccache: for build caching'
+            'chrpath: for building standalone executables')
 options=(!emptydirs)
-optdepends=('chrpath: for building standalone executables')
-source=("$pkgname-$pkgver.tgz::https://github.com/Nuitka/Nuitka/archive/$pkgver.tar.gz")
-sha512sums=('656df31fc41d07e2e0a288834e73cd63066ebeef3e4aa65c118d9a25baaead2eb4045d9b34e52eaf3ac006adbf1c1848d55c12292a59a18be86ccf1e64e819d3')
-validpgpkeys=('D96ADCA1377F1CEB6B5103F11BFC33752912B99C') # Kay Hayen
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
+sha512sums=('fd2dcf9a7a9a5269113b07cc5796c7b64ddc22c7f1ee9d88932008cf749647146a9ad6e373368fa8ffbd896349335c869a678657d61929fc4f754d741fb7eaac')
+b2sums=('b2962cd353ffa76908f7d791647754a67b4e3718bdbf5178b8f8fb19cb5da4ab12b1c8467131bb0e88804f3b6f0977e4bbe0021c3606fa5bd874c6dcca41e8ae')
 
-package() {
-  cd "Nuitka-$pkgver"
-  python setup.py install --root="$pkgdir" --optimize=1
+prepare() {
+  mv -v "${_name}-${pkgver}" "${pkgname}-${pkgver}"
 }
 
-# getver: pypistats.org/packages/nuitka
-# vim: sw=2 ts=2 et:
+build() {
+  cd "${pkgname}-${pkgver}"
+  python setup.py build
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  # skip tests for other interpreters and those that require network access
+  ./tests/run-tests --no-other-python --skip-reflection-test --skip-other-cpython-tests --skip-onefile-tests
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  python setup.py install --skip-build \
+                          --optimize=1 \
+                          --root="${pkgdir}"
+  install -vDm 644 {Changelog,Developer_Manual,README}.rst \
+    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+}

@@ -2,19 +2,19 @@
 # Contributor: Daichi Shinozaki <dsdseg@gmail.com>
 
 pkgname=gdnsd
-pkgver=3.0.0
-pkgrel=2
+pkgver=3.7.0
+pkgrel=1
 pkgdesc="an Authoritative-only DNS server which does geographic balancing, redirection, weighting, and service-state-conscious failover at the DNS layer"
 arch=('loongarch64' 'x86_64')
-url="http://gdnsd.org/"
+url="https://gdnsd.org/"
 license=('GPL3')
 depends=('libev' 'libmaxminddb' 'libsodium' 'libunwind' 'liburcu')
 makedepends=('ragel')
 checkdepends=('perl-socket6' 'perl-io-socket-inet6' 'perl-http-daemon' 'perl-libwww' 'perl-net-dns')
 source=("https://github.com/$pkgname/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz"
         gdnsd.sysusers)
-md5sums=('d733929703b963b77964669c5ce6d2d6'
-         '046488b1a1b36294a2a559aacbe71782')
+sha512sums=('1f6f2fad2fdbdb0b86e90c0e4facffa5a8da80fe463969df5c0cad615c54fc3969984ab2b5e13c028a9a415161b1d69645570203ded9d07611d23b5c2e7d6307'
+            '8f39c0bed725d298314675b97610d37fc4dee31600c7f096deb38c63dba96e1b0c12239855154ea2c34f0ac3e8f5b7f1a86d9652210859982ab2339949b66e05')
 
 prepare() {
     cd "$pkgname-$pkgver"

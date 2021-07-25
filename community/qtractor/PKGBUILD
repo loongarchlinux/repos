@@ -4,28 +4,31 @@
 # Contributor: Philipp Überbacher <hollunder at gmx dot at>
 
 pkgname=qtractor
-pkgver=0.9.17
+pkgver=0.9.22
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('loongarch64' 'x86_64')
 url="https://qtractor.sourceforge.io/"
 license=('GPL2')
 groups=('pro-audio')
-depends=('glibc' 'gcc-libs' 'hicolor-icon-theme' 'libmad' 'qt5-base'
-'qt5-x11extras' 'zlib')
+depends=('glibc' 'gcc-libs' 'hicolor-icon-theme' 'libmad' 'libxcb' 'qt6-base' 'zlib')
 makedepends=('alsa-lib' 'aubio' 'cmake' 'dssi' 'jack' 'ladspa' 'liblo' 'libogg'
-'libsamplerate' 'libsndfile' 'libvorbis' 'lilv' 'lv2' 'qt5-tools' 'rubberband'
-'suil')
-optdepends=('new-session-manager: for session management')
-provides=('dssi-host' 'ladspa-host' 'lv2-host' 'vst-host')
+'libsamplerate' 'libsndfile' 'libvorbis' 'lilv' 'lv2' 'qt6-tools' 'rubberband'
+'suil' 'vst3sdk')
+optdepends=(
+  'new-session-manager: for session management'
+  'qt6-wayland: for native wayland support'
+)
+provides=('dssi-host' 'ladspa-host' 'lv2-host' 'vst-host' 'vst3-host')
 source=("https://sourceforge.net/projects/${pkgname}/files/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('9392eb594920be5c826613bfd75be93ac006a718c14256b20bf8d6af23f9316f56c801e5422548b9387ccfd4fe3ba926f1a01cacc2324eab1ca66255f02c9c93')
-b2sums=('2cb387484203fcd6511a87364db9ed00d4d21452948abc0bad7d2775f022ab9a224537a8300a46ec220ddc497d071072456ed4e46a3e73c52954b5992bb1ba52')
+sha512sums=('80e5dae7c38b95719ca16997022529dfbd5c51af209b54f819098299d2798677b6238dc9eaaf664cdf2437facda3757e39472ca74636eeddbb5e1f0f28a78b2c')
+b2sums=('7d53d9a31f6d9df6bdeb19d4d5687ec3037842ecfcd4e1ae167a541ade301c4cee1f1bda68c9186ec8d5f0e879c80f636536b5acd51137f4be783f5892d377be')
 
 build() {
   cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX='/usr' \
         -DCMAKE_BUILD_TYPE='None' \
+        -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
         -S .

@@ -1,23 +1,24 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@gmail.com>
+# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 # Contributor: xRemaLx <anton.komolov@gmail.com>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgbase=buildbot
-pkgname=(buildbot buildbot-worker buildbot-docs
+pkgname=(buildbot buildbot-worker buildbot-docs buildbot-common
          python-buildbot-www python-buildbot-waterfall-view
          python-buildbot-console-view python-buildbot-grid-view
          python-buildbot-wsgi-dashboards python-buildbot-badges)
-pkgver=2.8.4
-_bb_contrib_commit=ada3c8f30ca7e1b6bb260e2e5971053fbd254333
+pkgver=3.2.0
+_bb_contrib_commit=4c8615db51253f0be4bfd08210a3aaf903a74b4f
 pkgrel=1
 arch=(any)
 url='https://buildbot.net'
 license=(GPL2)
-checkdepends=(python-boto3 python-lz4 python-treq python-txrequests
-              python-moto python-parameterized python-mock
+checkdepends=(python-boto3 python-ldap3 python-lz4 python-treq python-txrequests
+              python-moto python-docker python-parameterized python-mock python-subunit
+              python-graphql-core python-unidiff
               openssh chromium)
-makedepends=(python-twisted python-jinja python-zope-interface
+makedepends=(python-twisted python-jinja python-zope-interface python-sqlalchemy
              python-sqlalchemy-migrate python-dateutil python-txaio
              python-autobahn python-pyjwt python-yaml
              python-setuptools python-future
@@ -26,15 +27,13 @@ makedepends=(python-twisted python-jinja python-zope-interface
              git yarn)
 source=("https://github.com/buildbot/buildbot/releases/download/v$pkgver/buildbot-v$pkgver.gitarchive.tar.gz"{,.asc}
         "git+https://github.com/buildbot/buildbot-contrib.git#commit=$_bb_contrib_commit"
-        "reproducible-html.diff"
-        "sqlalchemy-1.13.18.diff"
-        "ignore-setuptools-warning.diff")
-sha256sums=('b8c1d807d89dc220422843d7043831ee35ca03dfd7fd4da5a4f73899dffa1849'
+        "subunit-tests.diff"
+        "buildbot-contrib-systemd-common.patch::https://github.com/buildbot/buildbot-contrib/pull/22.patch")
+sha256sums=('b94c62cb92398d1e32d5796f493711ecc568b2430efc856d48912f05ea8afb09'
             'SKIP'
             'SKIP'
-            'b921d29994eff3af134ca1b37acf291a6a95f5da35a2a4f885557adcca22f864'
-            'cd6119e8f8346ad2bcfedb3bfdbfcdcbb9908ea1db9f3ec09d323f6c9d13d9df'
-            'd09f851fb1a50f99d407ea79fa25a90ec0f70b593983108468c87fee8b3cc476')
+            'cd66bf65e45fa0a5916a6e0201dcebc4db001e4f47da856afbffc58a04356d55'
+            '896eede4c33a8574d7c29ac4a28cebbe3d7e850931a86e945328f8ea358195a9')
 validpgpkeys=(
   '390EB159056ED56F66AB1092AECD456B4D2531FC'  # Pierre Tardy <tardyp@gmail.com> (@tardyp on GitHub)
   'FD0004A26EADFE43A4C3F249C6F7AE200374452D'  # Povilas Kanapickas <povilas@radix.lt> (@p12tic on GitHub)
@@ -42,12 +41,9 @@ validpgpkeys=(
 
 prepare() {
   cd buildbot-$pkgver
-  patch -Np1 -i ../reproducible-html.diff
-  patch -Np1 -i ../sqlalchemy-1.13.18.diff
-  # Setuptools 49.2.0 complains if distutils is imported earlier than setuptools
-  # The warning is still under discussion, so just ignore it for now
-  # https://github.com/pypa/setuptools/issues/2259
-  patch -Np1 -i ../ignore-setuptools-warning.diff
+
+  # Some master tests use scripts from contrib
+  ln -s ../../buildbot-contrib/master/contrib master/contrib
 
   # HACK: do not use virtualenv
   sed -i -e 's#frontend_deps:.*#frontend_deps:#' Makefile
@@ -60,6 +56,14 @@ prepare() {
   rm -v master/buildbot/scripts/windows_service.py
   sed -i '/buildbot_worker_windows_service/d' worker/setup.py
   rm -v worker/buildbot_worker/scripts/windows_service.py
+
+  # Subunit logs are from testtools. Arch Linux's testtools is patched to use
+  # traceback instead of traceback2, and causing a difference. See
+  # https://github.com/testing-cabal/testtools/pull/299 for more defailts.
+  patch -Np1 -i ../subunit-tests.diff
+
+  cd "$srcdir"/buildbot-contrib
+  patch -Np1 -i ../buildbot-contrib-systemd-common.patch
 }
 
 build() {
@@ -90,8 +94,8 @@ build() {
   done
 
   ################### buildbot-docs ####################
-  cd "$srcdir/buildbot-$pkgver"
-  make docs
+  cd "$srcdir"/buildbot-$pkgver/master/docs
+  make clean html singlehtml
 }
 
 check() {
@@ -112,10 +116,10 @@ check() {
   export PATH="$PATH:$srcdir/tmp_install"
 
   cd "$srcdir"/buildbot-$pkgver/master
-  TZ=UTC trial3 --rterrors buildbot
+  TZ=UTC trial --rterrors buildbot
 
   cd "$srcdir"/buildbot-$pkgver/worker
-  PYTHONPATH=. trial3 buildbot_worker
+  PYTHONPATH=. trial buildbot_worker
 
   for module in base waterfall_view console_view grid_view wsgi_dashboards
   do
@@ -124,11 +128,15 @@ check() {
   done
 }
 
+# use PYTHONHASHSEED=0 to work around https://bugs.python.org/issue34033 and https://bugs.python.org/issue34722
+export PYTHONHASHSEED=0
+
 package_buildbot() {
   pkgdesc='The Continuous Integration Framework'
-  depends=(python-twisted python-jinja python-zope-interface
+  # include setuptools as plugins are enumerated via pkg_resources
+  depends=(buildbot-common python-twisted python-jinja python-zope-interface python-sqlalchemy
            python-sqlalchemy-migrate python-dateutil python-txaio
-           python-autobahn python-pyjwt python-yaml)
+           python-autobahn python-pyjwt python-yaml python-setuptools)
   optdepends=(
     # reporters
     'python-pyopenssl: to use SSL/TLS in mail or IRC notifiers'
@@ -140,7 +148,9 @@ package_buildbot() {
     # steps
     'python-subunit: for SubunitShellCommand'
     'python-treq: for using HTTP requests as steps'
+    'python-requests: for using HTTP requests as steps'
     'python-txrequests: for using HTTP requests as steps'
+    'python-unidiff: for GitDiffInfo'
     # workers
     'buildbot-worker: for local worker'
     'libvirt-python: for libvirt worker'
@@ -149,6 +159,7 @@ package_buildbot() {
     'python-novaclient: for OpenStack latent worker'
     # www
     'python-ldap3: to authenticate users via LDAP'
+    'python-pypugjs: to use custom Pug.js templates'
 
     # misc
     'python-lz4: to compress logs using lz4'
@@ -162,7 +173,7 @@ package_buildbot() {
 
 package_buildbot-worker() {
   pkgdesc='Buildbot worker daemon'
-  depends=(python-setuptools python-twisted python-future)
+  depends=(buildbot-common python-twisted python-future)
 
   cd buildbot-$pkgver/worker
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
@@ -178,6 +189,14 @@ package_buildbot-docs() {
   for kind in html singlehtml ; do
     cp -dr --no-preserve=ownership _build/$kind "$pkgdir"/usr/share/doc/buildbot/$kind
   done
+}
+
+package_buildbot-common() {
+  pkgdesc='Contributed scripts for Buildbot'
+
+  cd buildbot-contrib
+  install -Dm644 common/contrib/systemd/sysusers.d/buildbot.conf -t "$pkgdir"/usr/lib/sysusers.d/
+  install -Dm644 common/contrib/systemd/tmpfiles.d/buildbot.conf -t "$pkgdir"/usr/lib/tmpfiles.d/
 }
 
 package_python-buildbot-www() {

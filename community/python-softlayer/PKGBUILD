@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-softlayer
-pkgver=5.9.1
+pkgver=5.9.3
 pkgrel=1
 pkgdesc="A library for SoftLayer's API"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-six' 'python-ptable' 'python-click' 'python-requests' 'python-p
 makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner' 'python-mock' 'python-testtools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/softlayer/softlayer-python/archive/v$pkgver.tar.gz")
-sha512sums=('d0a17e8c8a7a01792dcf7e2c0e0096cfeb2c8f9addb454117f5f6db30cc40e5b97bdfe4e866f6445f5d7311a82c25bf39d00c02889c94f8471af5b39948dcf01')
+sha512sums=('cfba38de3e10d92d91a41cc108e0fcb5be2d815077c72b80ed382eeb8c0822412aaef5436bd276d8c4b351358e14da7303a1d37a5ea46c31cf591150137dd8da')
 
 prepare() {
   cd softlayer-python-$pkgver
@@ -33,6 +33,9 @@ package() {
   cd softlayer-python-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
   install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  # It's only present when tests are enabled, so adding -f
+  rm -rf "$pkgdir"/usr/lib/python3.9/site-packages/tests
 }
 
 # vim:set ts=2 sw=2 et:

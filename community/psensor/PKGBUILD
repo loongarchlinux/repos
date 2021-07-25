@@ -1,38 +1,36 @@
-# Maintainer: Robin Broda <robin@broda.me>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Robin Broda <robin@broda.me>
 # Contributor: X0rg
 # Contributor: marlock <marlock87@hotmail.com>
 # Contributor: Diogo Leal <estranho@diogoleal.com>
 
 pkgname=psensor
-pkgver=1.2.0
-pkgrel=7
-pkgdesc='A graphical hardware temperature monitor for Linux'
+pkgver=1.2.1
+pkgrel=2
+pkgdesc='Graphical hardware temperature monitoring application'
 arch=('loongarch64' 'x86_64')
 url='https://wpitchoune.net/psensor'
 license=('GPL2')
-depends=('lm_sensors' 'dconf' 'gtk3' 'udisks2' 'curl' 'libgtop' 'libnotify'
-         'libxnvctrl' 'json-c' 'libmicrohttpd')
-makedepends=('help2man')
-source=("https://wpitchoune.net/${pkgname}/files/${pkgname}-${pkgver}.tar.gz"
-        'is_error.patch')
-sha512sums=('274928190a53f3603f7db4ea81057497bfa01b9d0f8b4eb2f5f5094fd944ee384aff8f9c21b9c85ea001cbe877e7dc020963c0570f000ef42b302cb54b038e4d'
-            'fa1f0a8cdbd75fba2ad980a5beb1807e533ef12154db1f0cc97c9130080584cb0251e29a56068b0400f152e540f326a7b16749bf11b1e844d1d519d7bb0e71ed')
+depends=('curl' 'gtk3' 'json-c' 'libgtop' 'libmicrohttpd' 'libnotify' 'libxnvctrl' 'lm_sensors'
+         'udisks2')
+source=("https://wpitchoune.net/$pkgname/files/$pkgname-$pkgver.tar.gz"
+        'psensor.appdata.xml')
+sha256sums=('084f785d169f533d3010e50c5933436ed427afc70d41740b762f1db5034833ab'
+            'f8079f06959447af0baf3b00ab74cbf6d9ed55a2995114071189cf501bc55009')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
-
-  patch -Np1 -i "${srcdir}/is_error.patch"
+  cd $pkgname-$pkgver
+  sed -i 's/ -Werror//' {src/lib,src/server,tests}/Makefile.{am,in}
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
-
+  cd $pkgname-$pkgver
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-
-  make DESTDIR="${pkgdir}/" install
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+  install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
 }

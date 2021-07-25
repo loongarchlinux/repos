@@ -1,19 +1,20 @@
-# Maintainer: David Runge <dave@sleepmap.de>
+# Maintainer: David Runge <dvzrv@archlinux.org>
 # Contributor: Husam Bilal <husam212 AT gmail DOT com>
 
 _name=furl
 pkgname=python-furl
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.1.2
+pkgrel=1
 pkgdesc="A small Python library that makes parsing and manipulating URLs easy"
 url="https://github.com/gruns/furl"
 depends=('python-orderedmultidict' 'python-six')
 makedepends=('python-setuptools')
-checkdepends=('flake8' 'python-pycodestyle' 'python-pyflakes')
-license=('custom:Unlicense')
+checkdepends=('python-pytest')
+license=('Unlicense')
 arch=('any')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('c7de9c87e5368a3ccb7c0639b9c679b3c71ac75144f275b2491e88d361bfca8612b3b23e76e538a98b02c1666e2dac000cb9f5add2e97d240cead7f40a1411ca')
+sha512sums=('d788344d129b511d00debe2cd4ee7c555453a0bf5e81444cededf48fe3b51fa2b45cdead6ddffb42837cb8684d085a3b5773b65a82cef87f6b16f60f1fcbc778')
+b2sums=('d29008c98b22c33f986588cd9058d233ac42dd8da2a531b0350e7c304ac29d2e2cdd8773702e54be415269e9b9de528033f840049dedb810d1b299c5f416b7b4')
 
 build() {
   cd "${_name}-${pkgver}"
@@ -22,15 +23,15 @@ build() {
 
 check() {
   cd "${_name}-${pkgver}"
-  python setup.py test
+  export PYTHONPATH="build:${PYTHONPATH}"
+  pytest -v
 }
 
 package() {
   cd "${_name}-${pkgver}"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
+                          --optimize=1 \
+                          --root="${pkgdir}"
   install -vDm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -vDm 644 {API,README}.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

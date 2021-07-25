@@ -2,15 +2,15 @@
 # Contributor: Mattias Andrée <`base64 -d`(bWFhbmRyZWUK)@kth.se>
 
 pkgname=sha3sum
-pkgver=1.1.5
-pkgrel=3
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="Keccak-family checksum calculator, including SHA-3"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/maandree/sha3sum'
 license=('custom:ISC')
 depends=('libkeccak>=1.2')
 source=("https://github.com/maandree/sha3sum/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('e7820ee2a4c6f6cde4417e21dac7ae128a5041a8d76b70a99eaf02c86d2d115af52b2b65f1222c9be431a90c3d7044e5911c228ec80789f493749920b51427fe')
+b2sums=('c630083d636fe1dfbbb3c92ea80332c134663e95f42d7788502afa6c94750af8341be27775b442a778284ae1ec2861b76c64dd41f21797d02b98eb239820743c')
 
 prepare() {
   cd ${pkgname}-${pkgver}

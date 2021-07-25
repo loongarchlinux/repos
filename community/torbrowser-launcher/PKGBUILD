@@ -1,41 +1,32 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=torbrowser-launcher
-pkgver=0.3.2
-pkgrel=6
+pkgver=0.3.4
+pkgrel=2
 pkgdesc="Securely and easily download, verify, install, and launch Tor Browser in Linux"
 url="https://github.com/micahflee/torbrowser-launcher"
-depends=('python' 'python-pyqt5' 'python-requests' 'python-pysocks' 'python-gpgme' 'gnupg' 'tor')
+depends=('python' 'python-pyqt5' 'python-requests' 'python-pysocks' 'python-gpgme' 'python-packaging'
+         'gnupg' 'tor' 'hicolor-icon-theme' 'dbus-glib')
 makedepends=('python-setuptools' 'python-distro')
 optdepends=('apparmor: support for apparmor profiles')
 arch=('any')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/micahflee/torbrowser-launcher/archive/v${pkgver}.tar.gz"
-        # fix for python >= 3.8
-        "https://github.com/micahflee/torbrowser-launcher/pull/444/commits/66781d299d9dfd812c7aca9a04de7ea37f4d57e2.patch"
-        # fix for tor browser version 10
-        "https://github.com/micahflee/torbrowser-launcher/pull/499/commits/070a5f40af7c93d39bddfc5aa382469ce97dfd5b.patch"
         # fix for "force english version" on non-english system
-        "https://github.com/micahflee/torbrowser-launcher/pull/416/commits/3a40129e865f2a7d8aece360f525579b314a7a7c.patch"
-        # replace expired signing key: https://github.com/micahflee/torbrowser-launcher/pull/482
-        "tor-browser-developers.pub::https://sources.archlinux.org/other/community/torbrowser-launcher/tor-browser-developers-2020-12-19.asc")
-sha512sums=('26c5517723c730591ea5c4b81e30728e9db7323afcafc99d17a178d4300bad3df8731ffb063cc53fe189a3b5e2872395c913b9eea6595acac7f31ff4a1c5f105'
-            'af8110da76a2d5763a158c436e712e1929b7524de129b4b3d09d7175df3ba45731a3924480415902cb5b27d1885bbc64c09fb4416367e2aa461e7c0ba3443b3e'
-            '46d5e2f7daa21957939628682c605c0951845934d3a0cdaa561e27cfd6e458866a6e820ff0f84316607c570d0708d373ab93ab0983c30754226ba1609fbdd166'
-            'bfdd23f4b7d60d6dd8ce6f8ab6738a3ad10230e96ba8a6a112435aeec5cbc2058a2b773e6713bc4371d8f0ec87e3e9ba1a0a69078c1805e68e763b1007fdb7dd'
-            '5ca6c3f2ecc7e48f3b79f7c2ad329b086f2e9b7b3835620123fe48cb6323dac76ad7b1ece673e87de952102c183f024deec19fcfb0325b1a89d9ea2a875ebc68')
-b2sums=('b3e35f546ef84aec02a3b75068b08a6d60f9f41f6194d1bf25862c48780f77d72e4443e594add04c5a0d44cf01bcfc8c04d6d7d67c767c2cc75cc8b4a9c42f9c'
-        '198da65696d6586f8fe279c8161f18e335ee8677c3a1026fda47933046313955648567d24fdfb01cbf533bab31a6526da0adb8861782079e151705011d9afd94'
-        '27077bee9802966e6dace5b41d063e1edcc82fc60348b19bd3ebbd00b64f146038b421d44146340fce530d04856ed47e75d69c5c497414bfa1a504014de7fec4'
-        '7508cc8d8579dc7854e7f88e5cedb8b6c4e4d282dad96a0ff5dbb44c019f82e947890c97376442459984cb8b2593d92ab9404f4a4631e9aee74fb589c121ff3b'
-        '2e0d6a1afbaed0b6860415a7f75f89392caa2c5bcf276b3f66f7f30ca669dd5cb7e78e9632a401c838b39e401a65df40e4c39bf9790cb0ca39dcc21460b2441d')
+        "https://github.com/micahflee/torbrowser-launcher/pull/585/commits/0faefb65f20dd999d892de2382115ea6dd2e17cb.patch"
+        # Fix pt_BR po file 
+        "https://github.com/micahflee/torbrowser-launcher/pull/579/commits/4baa4362ac15b5ef4dc71722f842739afc1c450c.patch")
+sha512sums=('1dfde9f10200ff3b8a5d74eb3aa1faad118016b47501389a1879934b742d89287b591a98e1a515953a78b8cbdfe3e867fc052a0f5aea4e4c1ac4ccbe60c3c487'
+            '1c71d8da335205d465660fecf1c79c6f1a468fd7337f8345c84c29e66bff4708f9921268f7cf3585fcccfe6e1e6e8e2c13e9ae267816ef7f125d79465e6bc204'
+            'd78b5604f773edc094185c48da5d2a1b1086b542e4b2c899e8a0d787a703b838d7a57d48d58959d5f683b64220a316c91a82d674628a3ee9ff445600431e0c3e')
+b2sums=('64aaeef134075edbaaca9163e22bc6b3f595b44f873a0db686a309434017b581900762523055ce7210b0504e7f5a4be141f4544acfb2eaeb17d95ac1b2d06fc1'
+        '793fa9144fbb292928ce81dca568d1542002344fe88d22afea5554e86df472ec709bd035247143b124276b078359dc7e04da80d63354fe43ab78658a8bb5dc46'
+        'f5d473979fb750d438ea6945403439af86c1d18bc97b55fa486ac8de1a3cc96cedd881cb76a3e80c0d5963410c4cd2776ddd91786cf77852378cfa0efc7b8e5a')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  patch --forward --strip=1 --input="${srcdir}/66781d299d9dfd812c7aca9a04de7ea37f4d57e2.patch"
-  patch --forward --strip=1 --input="${srcdir}/070a5f40af7c93d39bddfc5aa382469ce97dfd5b.patch"
-  patch --forward --strip=1 --input="${srcdir}/3a40129e865f2a7d8aece360f525579b314a7a7c.patch"
-  cp "${srcdir}/tor-browser-developers.pub" share/torbrowser-launcher/tor-browser-developers.asc
+  patch --forward --strip=1 --input="${srcdir}/4baa4362ac15b5ef4dc71722f842739afc1c450c.patch"
+  patch --forward --strip=1 --input="${srcdir}/0faefb65f20dd999d892de2382115ea6dd2e17cb.patch"
 }
 
 build() {

@@ -3,38 +3,40 @@
 # Contributor: Felipe Machado aka arch_audio <machado.felipe@gmail.com>
 
 pkgname=rubberband
-pkgver=1.9
+pkgver=1.9.2
 pkgrel=1
 pkgdesc="Time-stretching and pitch-shifting audio library and utility"
 arch=('loongarch64' 'x86_64')
 url="https://www.breakfastquay.com/rubberband/"
 license=('GPL2')
 depends=('gcc-libs' 'glibc')
-makedepends=('fftw' 'ladspa' 'java-environment' 'libsamplerate' 'libsndfile'
-'vamp-plugin-sdk')
+makedepends=('fftw' 'ladspa' 'meson' 'java-environment' 'libsamplerate'
+'libsndfile' 'vamp-plugin-sdk')
+optdepends=(
+  'ladspa-host: for LADSPA plugin'
+  'vamp-host: for VAMP plugin'
+  'vamp-plugin-sdk: for VAMP plugin'
+)
 provides=('librubberband.so' 'librubberband-jni.so')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/breakfastquay/rubberband/archive/v$pkgver.tar.gz")
-sha512sums=('4899f1def498e8e8dabf5d690d9716cbec9f6b7836776496fef2089dab75f52470128325b3b653a3136e5b226a31120869f028c8c9af9afac381700c7c57ccb5')
-b2sums=('88fc7c8b91e9ef7e78c6a00b08f165f3c8a14feefc82f972fdfe438272b64bd458840bc1a384b0f5da431085251e6e423404d26ce701900f83faeaa47b986b16')
-
-prepare() {
-  cd "$pkgname-$pkgver"
-  autoreconf -vfi
-}
+sha512sums=('1c43f20d23776dfc7ba936b8477a285c55c0cea350c120f71b7f231d6a9574dcb25c3078f278a38c8d5beb0f6b322e2f8d4cd5f6c72d57cecdb49a63cd5b06b9')
+b2sums=('1b20314f9b363f9a81c6008e05ee91d4e442f3f22db8676f5d624371ad26ba049dccefd7c26a1f2f353802841e067137bc3c72cf3b15d37fc0f807b1e95b8d08')
 
 build() {
   local java_major=$(java --version 2>/dev/null |grep 'openjdk'| cut -d ' ' -f2| cut -d '.' -f1)
   export JAVA_HOME="/usr/lib/jvm/java-${java_major}-openjdk"
   cd "$pkgname-$pkgver"
-  ./configure --prefix=/usr
-  make
-  make jni
+  arch-meson -Dfft=fftw \
+            -Dresampler=libsamplerate \
+            -Dextra_include_dirs="/usr/lib/jvm/java-${java_major}-openjdk/include,/usr/lib/jvm/java-${java_major}-openjdk/include/linux" \
+            build
+  ninja -C build
 }
 
 package() {
-  depends+=('libfftw3.so' 'libsamplerate.so' 'libsndfile.so' 'libvamp-sdk.so')
+  depends+=('libfftw3.so' 'libsamplerate.so' 'libsndfile.so')
   cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install
+  DESTDIR="${pkgdir}" meson install -C build
   # docs
   install -vDm 644 {CHANGELOG,README.md} \
     -t "${pkgdir}/usr/share/doc/${pkgname}/"

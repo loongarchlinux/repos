@@ -6,7 +6,7 @@ _name=progressbar2
 pkgname=python-progressbar
 pkgdesc="A progress bar for Python"
 pkgver=3.53.1
-pkgrel=1
+pkgrel=5
 url="https://github.com/WoLpH/python-progressbar"
 license=('BSD')
 arch=('any')
@@ -35,7 +35,8 @@ build() {
 check() {
   cd "${pkgname}-${pkgver}"
   export PYTHONPATH="${PWD}/build:${PYTHONPATH}"
-  pytest -v
+  # Don't write pyc files of tests so the package is reproducible.
+  PYTHONDONTWRITEBYTECODE=1 pytest -v
 }
 
 package() {

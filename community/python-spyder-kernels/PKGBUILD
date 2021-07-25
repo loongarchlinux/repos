@@ -3,7 +3,7 @@
 
 _pkg=spyder-kernels
 pkgname=python-${_pkg}
-pkgver=1.9.4
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="Jupyter Kernels for the Spyder console"
 arch=(any)
@@ -26,6 +26,7 @@ checkdepends=(
     python-mock
     python-numpy
     python-pandas
+    python-pillow
     python-pytest
     python-scipy
     python-xarray
@@ -33,7 +34,7 @@ checkdepends=(
 # No tests in pypi tarballs
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e2b9dd053a6532329db56267b245bb1b739fdc9b9cfd3555b2faf1948c761951')
+sha256sums=('dd97f3a43d6d1a2ff2d58a3b46c57d6edd88fa6c93aad3f4e48dd9054bfd5778')
 
 build() {
   cd ${_pkg}-${pkgver}

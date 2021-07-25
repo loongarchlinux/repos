@@ -3,24 +3,24 @@
 
 _hkgname=hedgehog
 pkgname=haskell-hedgehog
-pkgver=1.0.3
-pkgrel=31
+pkgver=1.0.5
+pkgrel=30
 pkgdesc="A modern property-based testing system"
 url="https://hedgehog.qa"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-concurrent-output'
-         'haskell-erf' 'haskell-lifted-async' 'haskell-mmorph'
-         'haskell-monad-control' 'haskell-pretty-show' 'haskell-primitive' 'haskell-random'
-         'haskell-resourcet' 'haskell-transformers-base' 'haskell-wl-pprint-annotated')
-makedepends=('ghc')
+         'haskell-erf' 'haskell-lifted-async' 'haskell-mmorph' 'haskell-monad-control'
+         'haskell-pretty-show' 'haskell-primitive' 'haskell-random' 'haskell-resourcet'
+         'haskell-transformers-base' 'haskell-wl-pprint-annotated')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c04955a1189c85ec8c66ecdd97ea4bdd8a4587a7f999c38bd5e5ab4d51469a075f4f33c73f5a75fd74572c9c87ec32fea21e67fc66f61b7d3f5d30286f5b5536')
+sha512sums=('03a1bd64451ce90ce7bac67e9f558a97b33cb2f7eeec7885c76558f34018eb794f82344563c6b511094e9cf610a6c0f4c0a229455e57df8729fc093ec212dd98')
 
 prepare() {
     cd $_hkgname-$pkgver
-    sed -i -e '/semigroups/d;/fail/d;s/< *1.2/<2/;s/< *0.11/<1/' $_hkgname.cabal
-}
+    gen-setup
+} 
 
 build() {
     cd $_hkgname-$pkgver
@@ -37,7 +37,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

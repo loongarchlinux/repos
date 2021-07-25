@@ -2,7 +2,7 @@
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 
 pkgname=prettier
-pkgver=2.1.2
+pkgver=2.3.2
 pkgrel=1
 pkgdesc="An opinionated code formatter for JS, JSON, CSS, YAML and much more"
 arch=("any")
@@ -11,7 +11,7 @@ license=("MIT")
 depends=("nodejs")
 makedepends=("yarn")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=("340ac7f7dce7aec94269ec0ba3024feb7f7b2939ee7842d0f2996ffd7e5d5c16")
+sha256sums=('c240c50312a330e9df3f1240136538a6841e47379959e771b99d55d393f350e5')
 
 build() {
     cd "$pkgname-$pkgver"

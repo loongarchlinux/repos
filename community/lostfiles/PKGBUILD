@@ -2,21 +2,23 @@
 # Contributor: graysky <graysky AT archlinux dot us>
 
 pkgname=lostfiles
-pkgver=4.05
+pkgver=4.11
 pkgrel=1
-pkgdesc='Find orphaned files not owned by any Arch packages'
-arch=('any')
-license=('GPL2')
+pkgdesc="Find orphaned files not owned by any Arch packages"
+arch=(any)
 url="https://github.com/graysky2/lostfiles"
-source=("$pkgname-$pkgver.tar.xz::https://github.com/graysky2/$pkgname/archive/v$pkgver.tar.gz")
-sha256sums=('7dc70a08570ac32abe02c0640beb167465304052945c063d463b268cd06a5951')
+license=(MIT)
+backup=(etc/lostfiles.conf)
+source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('e9df2efa5861883ad00c8257f26601e3bc8714746511f0d3f508026435281792')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd ${pkgname}-${pkgver}
   make 
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm0644 MIT "${pkgdir}/usr/share/licenses/${pkgname}/MIT"
 }

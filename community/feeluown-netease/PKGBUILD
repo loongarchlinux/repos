@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown-netease
-pkgver=0.4.3
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="feeluown netease plugin"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('feeluown' 'python-pycryptodome' 'python-requests' 'python-marshmallow'
 makedepends=('python-setuptools' 'python-pip')
 groups=('feeluown-full')
 source=("https://pypi.io/packages/source/f/fuo_netease/fuo_netease-$pkgver.tar.gz")
-sha256sums=('20aaa240f034a53a948e2f9d2ff9ec953cb6a98052245a6b6c1912ef6cecf38e')
+sha512sums=('907a35ad2ae5073a00804a3cbdb794622680ef3ac86cdbab69a75dd0670b271bb08bea8c0462776fccedc72cc133123e1cdd9566c89b3e32a171714d90c18071')
 
 build() {
   cd fuo_netease-$pkgver

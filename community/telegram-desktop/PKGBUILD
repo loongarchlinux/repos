@@ -1,29 +1,31 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 # Contributor: hexchain <i@hexchain.org>
 pkgname=telegram-desktop
-pkgver=2.4.3
+pkgver=2.8.3
 pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('loongarch64' 'x86_64')
 url="https://desktop.telegram.org/"
 license=('GPL3')
-depends=('hunspell' 'ffmpeg' 'hicolor-icon-theme' 'lz4' 'minizip' 'openal'
-         'qt5-imageformats' 'xxhash' 'libdbusmenu-qt5' 'qt5-wayland' 'gtk3')
-makedepends=('cmake' 'git' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-gsl' 'libwebrtc')
-optdepends=('ttf-opensans: default Open Sans font family')
+depends=('hunspell' 'ffmpeg' 'hicolor-icon-theme' 'lz4' 'minizip' 'openal' 'ttf-opensans'
+         'qt5-imageformats' 'xxhash' 'libdbusmenu-qt5' 'kwayland' 'gtk3' 'glibmm'
+         'webkit2gtk' 'rnnoise' 'pipewire' 'libxtst' 'libxrandr' )
+makedepends=('cmake' 'git' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-gsl'
+             'libtg_owt' 'extra-cmake-modules')
 source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
-"Use-tg_owt-webrtc-fork.patch"
-"Update-webrtc-packaged-build-for-tg_owt.patch::https://github.com/desktop-app/cmake_helpers/commit/d955882cb4d4c94f61a9b1df62b7f93d3c5bff7d.patch"
-)
-sha512sums=('066a04ee4ba0c28ea8c6f7b4badcbc814cfc131508ca08a34b6365a8c79106a579efffb4e9dd1a7856cad39505dc864cc8e8e417b8a4e06e8fd0d15752d44ac2'
-            '071591c6bb71435f8186dcaf570703718051f00366dbbe3f13c4df3706d3de1f168bff4bfa707ad1d6f09f5505c925f0b01d76fd65efe904f3ba7db693d63f43'
-            'b3c44e76a3907f7acc197746b471564577e912bf0561e9576dc8459211c88f400716437bcaa10967376461c69c8a98a56477d26d3feb9ca34747d9208bf5f6c6')
+        "fix-gcc11-assert.patch")
+sha512sums=('75ef88440aa3337594d16b8517c5604ee627ade91cdde5de357132a8a827c909c392e30f4f2ac5b9facc3968bdfeb32d7f5370fea9cec2b341325aa979962356'
+            'd94c21f45a14eea009f4dc099a0be7774aa9c64d6bdb2745eb866a505ad4d95e4e75e53e110bcdc2db553809d8aea485e3fa321feccc7660120c0f418f4d5e3f')
 
 prepare() {
     cd tdesktop-$pkgver-full/cmake
-    patch -R -Np1 -i ${srcdir}/Update-webrtc-packaged-build-for-tg_owt.patch
-    patch -R -Np1 -i ${srcdir}/Use-tg_owt-webrtc-fork.patch
-    sed 's|set(webrtc_build_loc ${webrtc_loc}/out/$<CONFIG>/obj)|set(webrtc_build_loc /usr/lib)|' -i external/webrtc/CMakeLists.txt
+    # force webrtc link to libjpeg and X11 libs
+    echo "target_link_libraries(external_webrtc INTERFACE jpeg)" | tee -a external/webrtc/CMakeLists.txt
+    echo "find_package(X11 REQUIRED COMPONENTS Xcomposite Xdamage Xext Xfixes Xrender Xrandr Xtst)" | tee -a external/webrtc/CMakeLists.txt
+    echo "target_link_libraries(external_webrtc INTERFACE Xcomposite Xdamage Xext Xfixes Xrandr Xrender Xtst)" | tee -a external/webrtc/CMakeLists.txt
+
+    cd ..
+    patch -b -d Telegram/lib_webview/ -Np1 -i ${srcdir}/fix-gcc11-assert.patch
 }
 
 build() {
@@ -39,10 +41,8 @@ build() {
         -DCMAKE_BUILD_TYPE=Release \
         -DTDESKTOP_API_ID=611335 \
         -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c \
-        -DTDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME=ON \
         -DTDESKTOP_LAUNCHER_BASENAME="telegramdesktop" \
-        -DDESKTOP_APP_SPECIAL_TARGET="" \
-        -DDESKTOP_APP_WEBRTC_LOCATION=/usr/include/libwebrtc
+        -DDESKTOP_APP_SPECIAL_TARGET=""
     ninja -C build
 }
 

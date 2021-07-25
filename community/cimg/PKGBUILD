@@ -3,7 +3,7 @@
 # Contributor: zoulnix <http://goo.gl/HQaP>
 
 pkgname=cimg
-pkgver=2.9.2
+pkgver=2.9.7
 pkgrel=1
 pkgdesc="Open-source C++ toolkit for image processing"
 arch=('any')
@@ -11,7 +11,7 @@ url="http://cimg.eu/"
 license=('custom')
 depends=('fftw' 'graphicsmagick')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/dtschump/CImg/archive/v.${pkgver}.tar.gz")
-sha512sums=('d713915ca4940da9396ad4bcb151688b8ec13f380710a3bfc672675ca05e0f0fe21837fa5881eb310205cbce034ef186aff2bd352d6df1690379f128b7922b4d')
+sha512sums=('e40ffebf8bfb24d5401f0791c501101f5cf9bfcb8cedabc7cb19406bdfc5fb9569911828563447179f3cbac57427f6fc32df03620a79424c004e29e45f259f3c')
 
 package() {
   cd "${srcdir}"/CImg-v.${pkgver}

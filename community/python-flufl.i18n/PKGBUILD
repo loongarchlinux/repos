@@ -2,11 +2,11 @@
 
 _name=flufl.i18n
 pkgname=python-flufl.i18n
-pkgver=3.0.1
+pkgver=3.2
 pkgrel=1
 pkgdesc="A high level API for internationalization"
 arch=('any')
-url="https://flufli18n.readthedocs.io/en/latest/"
+url="https://gitlab.com/warsaw/flufl.i18n"
 license=('Apache')
 depends=('python-atpublic')
 makedepends=('python-setuptools')
@@ -14,8 +14,8 @@ checkdepends=('python-sybil' 'python-pytest')
 provides=('python-flufl-i18n')
 replaces=('python-flufl-i18n')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('72e926446826a0fa0e447ece6cbe79a9141cfc48550bda7eebc9ad851b654e3a1c39c80436a3a84d53f70869c8451426708e4eaecc9086e50819ef83fe266cb8')
-b2sums=('db7007ffed95393ab02e14152eee1730b180b567351b2c6c83004a3a33916b4b9b27e6050e4c24034974bcdd5087f1250c0e77eff21f3b150292a3308b6b83e7')
+sha512sums=('07f329d026f24db623045f3c9857bcaacc1f0982066d4409fc060c4f712716044f96321a4e4909cbc85932f36fc76f71b9d118662ba837fd85b22754ce2d25c7')
+b2sums=('dc827eb4099670c6e5c39ebc8702fcda146b20a3978fa56108ab98a05d2c8911e705b71dacd6b9fc7fae9923d009487f6f047baa0dcd06a5de2e4f4d5fafc465')
 
 prepare() {
   mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
@@ -38,8 +38,7 @@ check() {
 package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
+                          --optimize=1 \
+                          --root="${pkgdir}"
   install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

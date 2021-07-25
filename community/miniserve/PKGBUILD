@@ -1,0 +1,40 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+
+pkgname=miniserve
+pkgver=0.14.0
+pkgrel=1
+pkgdesc="Tool to serve files via HTTP"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/svenstaro/miniserve"
+license=('MIT')
+depends=('gcc-libs' 'bzip2')
+makedepends=('cargo')
+source=(miniserve-$pkgver.tar.gz::https://github.com/svenstaro/miniserve/archive/v${pkgver}.tar.gz)
+sha512sums=('b5f7e62541acabba62f3edd2f241c4064d5160399acb25e5aa85007c8a6ed2878d2b64ad2183577b7cdd2825ece5d7f8ac0fee632728c19041bc03c8b8166322')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  cargo build --release --locked
+}
+
+check() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  cargo test --release --locked -- --test-threads=1
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  install -Dm755 target/release/miniserve "$pkgdir"/usr/bin/miniserve
+
+  mkdir -p "$pkgdir"/usr/share/{bash-completion/completions,zsh/site-functions,fish/vendor_completions.d}
+  target/release/miniserve --print-completions bash > "$pkgdir"/usr/share/bash-completion/completions/miniserve
+  target/release/miniserve --print-completions zsh > "$pkgdir"/usr/share/zsh/site-functions/_miniserve
+  target/release/miniserve --print-completions fish > "$pkgdir"/usr/share/fish/vendor_completions.d/miniserve.fish
+
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

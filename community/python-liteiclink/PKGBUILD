@@ -2,7 +2,7 @@
 
 _pkgname=liteiclink
 pkgname=python-$_pkgname
-pkgver=2020.04
+pkgver=2020.12
 pkgrel=1
 pkgdesc='Small footprint and configurable Inter-Chip communication cores'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-migen' 'python-litex')
 makedepends=('python-setuptools')
 #checkdepends=('python-pytest-runner') # no litescope release
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('a6bb10b1449a5d3f0b3cd3103fc2195f90ee24c1821336b00d475bceda9186b89e5a727231fcee683d8ad35b3ab63469a3e57a644bc618daa7b8bd064f1337ea')
+sha512sums=('dd1ce37f1b9b24c3bd30ef6869c33062b002b7994a8a2c839ed370a9ba7564d9836b4ebb4743cb314fc531d2e5edd624904143a4352e098fc048b9b9d4b20cbd')
 
 build() {
   cd $_pkgname-$pkgver
@@ -33,4 +33,3 @@ package() {
 
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-

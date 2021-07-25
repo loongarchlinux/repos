@@ -3,7 +3,7 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=python-jsonpatch
-pkgver=1.26
+pkgver=1.32
 pkgrel=1
 pkgdesc="An implementation of the JSON Patch format"
 arch=("any")
@@ -13,21 +13,21 @@ depends=("python-jsonpointer")
 makedepends=("python-setuptools" "python-pypandoc")
 checkdepends=('python-coverage')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/stefankoegl/python-json-patch/archive/v$pkgver.tar.gz")
-sha512sums=('1ab25c8e091cd0b772062a8c448fee4772081d8bd715489b2f7a76e4c0bdff8b26dd38b26c3037cf9bdf8780b97e62a20b6a5bdc43f43af16fdae51d1291bf52')
+sha512sums=('4e2978555dd506e09553014d426c4e3a6c6d5c865428f11450952704007c8a0b2060b945cf1fa33a128151427e1c66919891466e095e96fff4316304f0b3ad1d')
 
 build() {
-  cd "$srcdir"/python-json-patch-$pkgver
+  cd python-json-patch-$pkgver
   python setup.py build
 }
 
 check() {
-  cd "$srcdir"/python-json-patch-$pkgver
+  cd python-json-patch-$pkgver
   coverage run --source=jsonpatch tests.py
 }
 
 package_python-jsonpatch() {
-  cd "$srcdir"/python-json-patch-$pkgver
+  cd python-json-patch-$pkgver
 
-  install -Dm644 COPYING $pkgdir/usr/share/licenses/$pkgname/COPYING
+  install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
   python setup.py install --prefix=/usr --root="$pkgdir"
 }

@@ -3,25 +3,28 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=5.8.0.17
+pkgver=5.9.6
 pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/deepin-screen-recorder"
 license=('GPL3')
-depends=('byzanz' 'deepin-qt5integration' 'deepin-turbo' 'ffmpeg' 'kconfig' 'ki18n' 'kwindowsystem')
-makedepends=('qt5-tools')
+depends=('deepin-qt5integration' 'deepin-turbo' 'ffmpeg' 'libxtst')
+makedepends=('deepin-dock')
+optdepends=('deepin-shortcut-viewer: for shortcut display')
+provides=('deepin-screenshot')
+conflicts=('deepin-screenshot')
 groups=('deepin-extra')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-screen-recorder/archive/$pkgver.tar.gz"
-         deepin-screen-recorder-qt5.15.patch)
-sha512sums=('568ef6e71279ccb4526ef80b4b76f04940ed3572905a63078ca270b0747f647cbcea6043059d3693ee2ecd34ec890215cb7dc2954a991013a9646d321e588c34'
-            'aaef789b5b1e74c9b2972bf94134b639393247ea4c6459e90d0b875d692b6adca71cafc27f1cc402fc81126eb47c52ae816867d7a3d2dfa775594dd839840247')
+source=("https://github.com/linuxdeepin/deepin-screen-recorder/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('bab09514fd92a185d08334e1f2a4966c180ea947295014393b3db6ce68df85bc7af8e3c75627a580a7a14aeccbb08f84dfedf67b90d41a8fcb2b97b0ae1222cb')
 
 prepare() {
   cd deepin-screen-recorder-$pkgver
-  sed -i '/include <X11.extensions.XTest.h>/a #undef min' src/event_monitor.cpp
 
-  patch -p1 -i ../deepin-screen-recorder-qt5.15.patch # Fix build with Qt 5.15
+  # X11 header's weirdness with GCC 10
+  sed -i '/include <X11.extensions.XTest.h>/a #undef min' src/event_monitor.cpp
+  sed -i '/#include <iostream>/d;1i #include <iostream>' src/screen_shot_event.cpp
+  sed -i '/include <X11.extensions.shape.h>/a #undef None' src/utils.cpp
 }
 
 build(){

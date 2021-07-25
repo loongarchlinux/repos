@@ -2,8 +2,9 @@
 Type=Application
 Name=Min
 GenericName=Web Browser
-Comment=A smarter, faster web browser
+Comment=A fast, minimal browser that protects your privacy
 Icon=min
-Exec=min
+Exec=min %U
 Categories=GTK;Network;WebBrowser;
 StartupNotify=true
+MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;application/xml;image/gif;image/jpeg;image/png;image/webp;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;

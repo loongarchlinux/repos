@@ -2,27 +2,29 @@
 # Contributor: speps <speps at aur dot archlinux dot org>
 
 pkgname=synthv1
-pkgver=0.9.17
+pkgver=0.9.22
 pkgrel=1
 pkgdesc="Old-school all-digital 4-oscillator subtractive polyphonic synthesizer with stereo fx"
 arch=('loongarch64' 'x86_64')
 url="https://synthv1.sourceforge.io/synthv1-index.html"
 license=('GPL2')
 groups=('lv2-plugins' 'pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
-makedepends=('alsa-lib' 'cmake' 'jack' 'liblo' 'lv2' 'qt5-tools')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'lv2-host' 'qt6-base')
+makedepends=('alsa-lib' 'cmake' 'jack' 'liblo' 'lv2' 'qt6-tools')
 optdepends=('alsa-lib: for standalone application'
             'jack: for standalone application'
             'liblo: for standalone application'
-            'non-session-manager: for session management using the standalone application')
+            'new-session-manager: for session management using the standalone application'
+            'qt6-wayland: for native wayland support')
 source=("https://download.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('761f2166d932d02bf6ea4918db4ec87141a71abd757be7a4879e8a39965185e0169e76550c82e748e0c5c5c8a46dda8dd67331a0a2c4837bbc732964193c6d68')
-b2sums=('1139fe01a3667c54c19fbe8543d1e47c2647045d4f43b500ace6ae4769cf19140b5b17fa4805ac1c71eb9993a6f932dc19d91910b817221dfea547fad8026711')
+sha512sums=('b2467b33bc502967dba9630de9bb613f4a0b00fadb92ca19c72f57e01bb5d7d89b9c77e93209189bafdc5587767aaa0e563ddfa55abe0ab43c83c55024271167')
+b2sums=('b155b043da8a34debd80a0073f894435d09b9fac4bcc21d22b593c440290b28966afb0f8b73399f2dd762268bdd57abf89d205218795846453e4fdd144984f0c')
 
 build() {
   cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX='/usr' \
         -DCMAKE_BUILD_TYPE='None' \
+        -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
         -S .

@@ -3,20 +3,26 @@
 # Contributor: Ner0
 
 pkgname=nemo
-pkgver=4.6.5
+pkgver=5.0.2
 pkgrel=1
 pkgdesc="Cinnamon file manager (Nautilus fork)"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxmint/${pkgname}"
 license=('GPL')
 depends=('cinnamon-desktop' 'dconf' 'gvfs' 'exempi' 'libexif' 'libnotify' 'libxml2'
-         'python' 'xapps')
+         'python' 'xapp')
 optdepends=('cinnamon-translations: i18n'
-            'ffmpegthumbnailer: support for video thumbnails')
-makedepends=('meson' 'samurai' 'gobject-introspection' 'intltool')
+            'ffmpegthumbnailer: support for video thumbnails'
+            'catdoc: search helpers support for legacy MS Office files'
+            'ghostscript: search helpers support for PostScript files'
+            'libgsf: search helpers support for MS Office files'
+            'libreoffice: search helpers support for legacy MS Office powerpoint files'
+            'odt2txt: search helpers support for LibreOffice files'
+            'poppler: search helpers support for PDF')
+makedepends=('meson' 'samurai' 'gobject-introspection' 'intltool' 'libgsf')
 source=("$pkgname-$pkgver.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha512sums=('3c8c95e75e8bc499b56d1fd133f5ccc86ad18dae2219772b732586fd684a4a7a36e51fa61e6b734ad182ffd96636bdf276b8645d049e5ca68795fac274236eb6')
-b2sums=('42b47300782745e4ae98db164ca547b0794caf8f0883db4241f2f0ed2e375e5c8564cff6d878142b55744ce41f49c60aad3f24930398ff68444e32c572d7e9bd')
+sha512sums=('12b2bc982b3c73af35a21c37f10fbffaed77c5a8a03e08e2ae2cc5283c90c7759fa788d88cad58d44f23ef9022d479c71a8bff6d9ba02e2d38e1ddfc61aee64d')
+b2sums=('964ba4be3dee28afe2f6a680be3df9eda06a832b5d7de83c7e587e3a15eac82e5c0a19dd1bced52da93576ea1092c0ac50b0f00c967697658e156c896ca7f748')
 
 prepare() {
     cd "${srcdir}"/${pkgname}-${pkgver}

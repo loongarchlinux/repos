@@ -2,7 +2,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xreader
-pkgver=2.6.4
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="Document viewer for files like PDF and Postscript. X-Apps Project."
 arch=('loongarch64' 'x86_64')
@@ -18,8 +18,8 @@ optdepends=('djvulibre: support for djvu files'
 makedepends=('meson' 'samurai' 'intltool' 'itstool' 'gobject-introspection' 'djvulibre'
              'libgxps' 'libspectre' 'texlive-bin')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('7e2f833669345a396448f475213637f31dff6c45a57b25badb1c13e28a289b10')
-b2sums=('5e0a542e5c2de9a073eb03e7a0be80ad746afa62e7417fe6e682f6249507c038109dcab9ce217024d981a94122a1640deda870c3ee158b532c4f46a213119cb9')
+sha256sums=('a2e32274787723e81afeb62390c92b64f0ad222e3ca6295704535e5c499fdd28')
+b2sums=('3534f16b16ef73dfe58c62a5dc82bf13f7f68bea4a7646e65e612af6a6ff6250f3989c999f039d6d7044eeb30791554d660ee159e7f064e810f81d0e8f6a3f87')
 
 build() {
     mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build

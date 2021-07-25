@@ -3,27 +3,24 @@
 
 _hkgname=lens
 pkgname=haskell-lens
-pkgver=4.19.2
-pkgrel=32
+pkgver=5.0.1
+pkgrel=19
 pkgdesc="Lenses, Folds and Traversals"
 url="https://github.com/ekmett/lens/"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-call-stack' 'haskell-comonad'
-         'haskell-contravariant' 'haskell-distributive' 'haskell-free'
-         'haskell-hashable' 'haskell-kan-extensions' 'haskell-parallel' 'haskell-profunctors'
-         'haskell-reflection' 'haskell-semigroupoids' 'haskell-tagged' 'haskell-th-abstraction'
+depends=('ghc-libs' 'haskell-assoc' 'haskell-base-orphans' 'haskell-bifunctors'
+         'haskell-call-stack' 'haskell-comonad' 'haskell-contravariant' 'haskell-distributive'
+         'haskell-free' 'haskell-hashable' 'haskell-indexed-traversable'
+         'haskell-indexed-traversable-instances' 'haskell-kan-extensions' 'haskell-parallel'
+         'haskell-profunctors' 'haskell-reflection' 'haskell-semigroupoids' 'haskell-strict'
+         'haskell-tagged' 'haskell-th-abstraction' 'haskell-these'
          'haskell-transformers-compat' 'haskell-unordered-containers' 'haskell-vector')
-makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-generic-deriving' 'haskell-hunit'
-             'haskell-quickcheck' 'haskell-simple-reflect' 'haskell-test-framework'
-             'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
+makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-simple-reflect'
+             'haskell-test-framework' 'haskell-test-framework-hunit'
+             'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f1627c950457c38b0363a71717b76c0c84eafdcebaf14904da632ea295195dee1fd11db07ca524988729254b0e018da4417e40c0cb4f8ff086fbe412ce89f4c6')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    sed -i '/nats/d;/semigroups *>= 0.9/d;s/< *0.17/<1/' $_hkgname.cabal
-}
+sha512sums=('03b5407003e19ead5778938a37ad25c50d2a7e5acae2e9b644bf07267357a994df11328a4d0ee0f4d3b9b8671071773e9a520ac14125f6b0a22a28d9efd988fa')
 
 build() {
     cd $_hkgname-$pkgver
@@ -43,7 +40,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

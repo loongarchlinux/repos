@@ -3,8 +3,8 @@
 
 _hkgname=esqueleto
 pkgname=haskell-esqueleto
-pkgver=3.3.4.0
-pkgrel=8
+pkgver=3.5.0.0
+pkgrel=5
 pkgdesc="Type-safe EDSL for SQL queries on persistent backends."
 url="https://github.com/bitemyapp/esqueleto"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-blaze-html' 'h
          'haskell-unliftio' 'haskell-unordered-containers')
 makedepends=('ghc')  # 'haskell-vector')  # Not enabled yet
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e120c656bf7b6029cf4833cfbeadab516dcd66bb4c27cf834a95a53f333193095c6e9921b2b230608aa052fd6b181a0ae2bd371575509b0bb269d8bd239dbfd2')
+sha512sums=('9a5702a7bc80cc8d76d521faf66096e75603d9d4faa86e134e7e972e253fb88b5f1908a07456c8eb6b0b9247d34633b03a3a4e1f6ef3f090582c76b7f07ad310')
 
 build() {
     cd $_hkgname-$pkgver

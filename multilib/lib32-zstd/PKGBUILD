@@ -5,18 +5,23 @@
 
 _pkgname=zstd
 pkgname=lib32-zstd
-pkgver=1.4.5
-pkgrel=1
+pkgver=1.5.0
+pkgrel=2
 pkgdesc='Zstandard - Fast real-time compression algorithm (32-bit)'
-url='https://www.zstd.net/'
+url='https://facebook.github.io/zstd/'
 arch=('loongarch64' 'x86_64')
 license=('BSD' 'GPL2')
-depends=('zstd' 'lib32-zlib' 'lib32-xz' 'lib32-lz4')
+depends=('zstd' 'lib32-glibc')
 makedepends=('gtest')
-source=(https://github.com/facebook/zstd/releases/download/v${pkgver}/zstd-${pkgver}.tar.gz)
-sha256sums=('98e91c7c6bf162bf90e4e70fdbc41a8188b9fa8de5ad840c401198014406ce9e')
-sha512sums=('417b813ade6c8436690bd9d6da34a9f87f50e7378752b72e63066befbee496392a4b72896fa56688d814f461871ab31d3c6637497ff2ed7a282d58513631a38b')
-b2sums=('6bba3b099e10a215048663364fe3edc8ac3a144b273fb4c692dd4c48204a7418e15ca96d3c1ae3bd044b7d620e27682a081baded3d3ce469dfc00de90df34b4c')
+provides=('libzstd.so')
+source=(https://github.com/facebook/zstd/releases/download/v${pkgver}/zstd-${pkgver}.tar.zst{,.sig})
+sha256sums=('9aa8dfc1ca17f358b28988ca1f6e00ffe1c6f3198853f8d2022799e6f0669180'
+            'SKIP')
+sha512sums=('071b4596afbb290fdfab0021b1ddda3e24f508680c643259ced683ec4685fca186f6c9c111097594d2d2911976df1a2f92a321ae71a0d5b9734c9f8e2c1bff76'
+            'SKIP')
+b2sums=('cfea18b2347bf893d9bd461e57113d0a141040a1f7a42db6221ed9662f84023f45b058df3382cc06d82596f8eb98e0806f3abe1e79155fafd46da2a8b746bfbe'
+        'SKIP')
+validpgpkeys=(4EF4AC63455FC9F4545D9B7DEF8FE99528B52FFD)
 
 build() {
   cd ${_pkgname}-${pkgver}

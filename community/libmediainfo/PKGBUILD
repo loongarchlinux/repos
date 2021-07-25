@@ -1,9 +1,10 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor:  hydro <hydro@freenet.de>
+# Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=libmediainfo
-pkgver=20.08
+pkgver=21.03
 pkgrel=1
 
 pkgdesc="shared library for mediainfo"
@@ -11,11 +12,13 @@ url="https://mediaarea.net"
 arch=('loongarch64' 'x86_64')
 license=('BSD')
 
-depends=('curl' 'glib2' 'libmms' 'libzen')
+depends=('curl' 'glib2' 'libmms' 'libzen' 'tinyxml2')
 
-source=(https://mediaarea.net/download/source/libmediainfo/$pkgver/libmediainfo_$pkgver.tar.xz)
+source=(
+  https://mediaarea.net/download/source/libmediainfo/$pkgver/libmediainfo_$pkgver.tar.xz
+)
 
-sha256sums=('12d346b10d6cbb83b81926de5fbfe6dee9e9f877e73cb5dac86609826582c8a6')
+sha256sums=('56b7e9abf80cba48032165cd7a46fd8d43dd63e3af35765f66c3f134caaca4ca')
 
 build() {
   cd MediaInfoLib/Project/GNU/Library
@@ -25,7 +28,8 @@ build() {
               --enable-shared \
               --disable-static \
               --with-libcurl \
-              --with-libmms
+              --with-libmms \
+              --with-libtinyxml2
 
   make
 }

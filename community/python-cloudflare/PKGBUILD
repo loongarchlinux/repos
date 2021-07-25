@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cloudflare
-pkgver=2.8.13
-pkgrel=1
+pkgver=2.8.15
+pkgrel=2
 pkgdesc='Python wrapper for the Cloudflare v4 API'
 arch=('any')
 license=('MIT')
@@ -10,8 +10,8 @@ url='https://github.com/cloudflare/python-cloudflare'
 depends=('python-requests' 'python-future' 'python-yaml' 'python-jsonlines' 'python-beautifulsoup4')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/cloudflare/python-cloudflare/archive/$pkgver.tar.gz")
-sha512sums=('a10bab55565c9815ff55bc9b5eafea3ee8b9ac195f793d3f773d918d3140ad0243896a8035e5557976f2fe8fc9904099b3d90121f0a3f1b59489fbd0060f9874')
+source=("https://github.com/cloudflare/python-cloudflare/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('6553ce6b4f2c31b4cfc603b821853f486ec682b8bea0c3a3ada8ad7ac0d64a7ab74a4c95ddee09ea977eb9c94169dc41def2cdd335e8d47be40ff5dae55301f3')
 
 build() {
   cd python-cloudflare-$pkgver
@@ -28,7 +28,11 @@ package() {
   python setup.py install --root="$pkgdir" --optimize=1
   install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
-  rm -r "$pkgdir"/usr/lib/python3.8/site-packages/examples
+  install -dm755 "$pkgdir"/usr/share
+  mv "$pkgdir"/usr/man "$pkgdir"/usr/share/
+  mv "$pkgdir"/usr/share/man/man1/cli4.{man,1}
+
+  rm -r "$pkgdir"/usr/lib/python3.9/site-packages/examples
 }
 
 # vim:set ts=2 sw=2 et:

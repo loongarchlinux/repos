@@ -1,44 +1,26 @@
 # Maintainer: Kyle Keen <keenerd at gmail dot com>
-pkgbase=python-pyzmq
-pkgname=(python-pyzmq python2-pyzmq)
-pkgver=19.0.1
-pkgrel=2
-pkgdesc="Python bindings for zeromq, written in Cython"
+pkgname=python-pyzmq
+pkgver=22.0.3
+pkgrel=1
+pkgdesc="Python3 bindings for zeromq, written in Cython"
 arch=('loongarch64' 'x86_64')
 url="http://www.zeromq.org/bindings:python"
 license=('LGPL')
 depends=('zeromq' 'python')
-makedepends=('python' 'python2')
-checkdepends=('python-nose' 'python2-nose' 'python-tornado' 'python2-tornado'
-    'python-pytest' 'python2-pytest' 'cython' 'cython2')
+checkdepends=('python-nose' 'python-tornado' 'python-pytest' 'cython')
 #source=("https://github.com/zeromq/pyzmq/downloads/pyzmq-$pkgver.tar.gz")
 #source=("https://pypi.python.org/packages/source/p/pyzmq/pyzmq-$pkgver.tar.gz")
 source=("https://files.pythonhosted.org/packages/source/p/pyzmq/pyzmq-$pkgver.tar.gz")
-md5sums=('2833bd5397e4069f63ad1f9f291f1f70')
-
-prepare() {
-  cd "$srcdir"
-  cp -a pyzmq-${pkgver} py2zmq-${pkgver}
-}
+md5sums=('09250d80764548936b87ab6a05c8dc5d')
 
 check() {
-  cd "$srcdir/py2zmq-$pkgver"
-  python2 setup.py build_ext --inplace
-  python2 setup.py test
   cd "$srcdir/pyzmq-$pkgver"
   python3 setup.py build_ext --inplace
   python3 setup.py test
 }
 
-package_python-pyzmq() {
-  pkgdesc="Python3 bindings for zeromq, written in Cython"
+package() {
   cd "$srcdir/pyzmq-$pkgver"
   python3 setup.py install --root="$pkgdir" --optimize=0
 }
 
-package_python2-pyzmq() {
-  pkgdesc="Python2 bindings for zeromq, written in Cython"
-  depends=('zeromq' 'python2')
-  cd "$srcdir/py2zmq-$pkgver"
-  python2 setup.py install --root="$pkgdir" --optimize=0
-}

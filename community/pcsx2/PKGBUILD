@@ -3,7 +3,7 @@
 # Contributor: vEX <vex@niechift.com>
 
 pkgname=pcsx2
-pkgver=1.7.0.r441.92171ddba
+pkgver=1.7.0.r1299.e3d6e50ba
 pkgrel=1
 pkgdesc='A Sony PlayStation 2 emulator'
 arch=(loongarch64 x86_64)
@@ -19,6 +19,7 @@ depends=(
   glibc
   libaio
   libasound.so
+  libfmt.so
   libfreetype.so
   libgdk-3.so
   libgio-2.0.so
@@ -30,6 +31,7 @@ depends=(
   libpcap
   libpng
   libportaudio.so
+  libpulse.so
   libudev.so
   libx11
   libxcb
@@ -47,9 +49,26 @@ makedepends=(
   ninja
   png++
 )
-_commit=92171ddbaa8a90bed7e0228337bd0dbecd0ed03e
-source=(git+https://github.com/PCSX2/pcsx2.git#commit=${_commit})
-sha256sums=(SKIP)
+_commit=e3d6e50ba0e596ccce4cd6f18c31424c74ad2ff3
+source=(
+  git+https://github.com/PCSX2/pcsx2.git#commit=${_commit}
+  git+https://github.com/rtissera/libchdr.git
+  git+https://github.com/jbeder/yaml-cpp.git
+)
+b2sums=(
+  SKIP
+  SKIP
+  SKIP
+)
+
+prepare() {
+  cd pcsx2/3rdparty
+  for submodule in libchdr/libchdr yaml-cpp/yaml-cpp; do
+    git submodule init ${submodule}
+    git config submodule.${submodule}.url ../../${submodule#*/}
+    git submodule update ${submodule}
+  done
+}
 
 pkgver() {
   cd pcsx2
@@ -61,19 +80,15 @@ build() {
   cmake -S pcsx2 -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DDOC_DIR=/usr/share/doc/pcsx2 \
-    -DGAMEINDEX_DIR=/usr/share/pcsx2 \
-    -DPLUGIN_DIR=/usr/lib/pcsx2 \
     -DDISABLE_ADVANCE_SIMD=ON \
     -DDISABLE_BUILD_DATE=ON \
     -DDISABLE_PCSX2_WRAPPER=ON \
     -DENABLE_TESTS=OFF \
-    -DEXTRA_PLUGINS=ON \
-    -DGTK3_API=ON \
     -DSDL2_API=ON \
     -DPACKAGE_MODE=ON \
     -DREBUILD_SHADER=ON \
     -DUSE_LTO=OFF \
+    -DUSE_SYSTEM_YAML=OFF \
     -DUSE_VTUNE=OFF \
     -DXDG_STD=ON \
     -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-gtk3 \

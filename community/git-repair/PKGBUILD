@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=git-repair
-pkgver=1.20200504
-pkgrel=84
+pkgver=1.20210111
+pkgrel=54
 pkgdesc="Repairs a damaged git repository"
 url="https://git-repair.branchable.com/"
 license=("AGPL3")

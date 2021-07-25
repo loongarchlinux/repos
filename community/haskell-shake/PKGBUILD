@@ -3,18 +3,18 @@
 
 _hkgname=shake
 pkgname=haskell-shake
-pkgver=0.19.1
-pkgrel=75
+pkgver=0.19.4
+pkgrel=93
 pkgdesc="Build system library, like Make, but more accurate dependencies."
 url="https://shakebuild.com"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-extra' 'haskell-file-embed' 'haskell-filepattern' 'haskell-hashable'
+depends=('ghc-libs' 'haskell-extra' 'haskell-filepattern' 'haskell-hashable'
          'haskell-heaps' 'haskell-js-dgtable' 'haskell-js-flot' 'haskell-js-jquery'
          'haskell-primitive' 'haskell-random' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('dbc0e4e60b5c1e622538f4bdee011a4e2d67ea7dd7cead2cf56c1cb3490562858c0af58e920a0267ba1f3569af386a8a3c2aa0429bfb24ad3bca460975e714d9')
+sha512sums=('11e1598bbdc8d747615ea00bc8b2dd6b1a6c8402e488b437027b4b5cb8f60b0847327a41f3c220b04b1849267b1bb2ed24cc5ccbb3aeecca3213f1e29de2e575')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -46,7 +46,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

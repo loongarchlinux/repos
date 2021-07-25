@@ -4,8 +4,8 @@
 # Contributor: Alim Gokkaya <alimgokkaya at gmail dot com>
 
 pkgname=librdkafka
-pkgver=1.5.0
-pkgrel=1
+pkgver=1.7.0
+pkgrel=2
 pkgdesc='The Apache Kafka C/C++ library'
 arch=(loongarch64 x86_64)
 url='https://github.com/edenhill/librdkafka'
@@ -13,11 +13,11 @@ license=(BSD)
 depends=(libsasl zstd)
 makedepends=(python openssl lz4 rapidjson cmake)
 source=(librdkafka-$pkgver.tar.gz::https://github.com/edenhill/librdkafka/archive/v$pkgver.tar.gz)
-sha256sums=('f7fee59fdbf1286ec23ef0b35b2dfb41031c8727c90ced6435b8cf576f23a656')
+sha256sums=('c71b8c5ff419da80c31bb8d3036a408c87ad523e0c7588e7660ee5f3c8973057')
 
 build() {
-  cmake -S librdkafka-$pkgver -B build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr --build build
+  cmake -S librdkafka-$pkgver -B build -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 check() {

@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-path
-pkgver=15.0.0
+pkgver=15.1.2
 pkgrel=1
 pkgdesc='A module wrapper for os.path'
 arch=('any')
@@ -13,8 +13,8 @@ checkdepends=('python-pytest-black' 'python-pytest-cov' 'python-pytest-flake8' '
 replaces=('python-path.py')
 conflicts=('python-path.py')
 provides=('python-path.py')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/jaraco/path/archive/v$pkgver.tar.gz")
-sha512sums=('3d499cf9a02381bd4f1aa4c515b91163881b928a2cdd19c6644239061c104bed22244f39a3a19d8376c296488bd6155d61308d33ddbc8a5a98e1d0d66d2515b5')
+source=("https://github.com/jaraco/path/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('a555fae28c3edfeb0f1114a205373ae3e7278373b98820877acafee6e88f4fcdf7eb2da576eafb2123fc77305e90a58b4c1b11193e092d0a5a6d2a779099faf6')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 

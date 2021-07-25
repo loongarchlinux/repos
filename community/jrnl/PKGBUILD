@@ -1,19 +1,19 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=jrnl
-pkgver=2.4.5
+pkgver=2.8.1
 pkgrel=1
 pkgdesc="Collect your thoughts and notes without leaving the command line"
 arch=('any')
-url="https://github.com/jrnl-org/jrnl"
+url="https://jrnl.sh/"
 license=('GPL3')
-depends=('python-pyxdg' 'python-cryptography' 'python-passlib' 'python-parsedatetime'
-         'python-keyring' 'python-pytz' 'python-tzlocal' 'python-asteval' 'python-colorama'
-         'python-dateutil' 'python-yaml' 'python-ansiwrap' 'python-packaging' 'python-setuptools')
+depends=('python-ansiwrap' 'python-asteval' 'python-colorama' 'python-cryptography' 'python-keyring'
+         'python-parsedatetime' 'python-dateutil' 'python-pyxdg' 'python-yaml' 'python-pytz'
+         'python-tzlocal')
 makedepends=('python-dephell')
-checkdepends=('python-pytest')
+checkdepends=('python-behave' 'python-pytest')
 source=("https://github.com/jrnl-org/jrnl/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('bc55c8b385dec0633b1e02108050e8775c0de73dd45fbbd683f145963720eb3f1940164309304df42c694db4564d1d7aefe27435fbdec4f701ed00db7f3805e8')
+sha512sums=('a41221bea7174a8fbcfa49d41ab19feb187ceb0a8a866d3cb308b6ce11c071b5429e7ac9384fe0b5a704a3ac4633be953f8b022dd527cf5e0b67f1ad2f7f4761')
 
 prepare() {
   cd jrnl-$pkgver
@@ -32,6 +32,7 @@ build() {
 check() {
   cd jrnl-$pkgver
   python -m pytest
+  behave
 }
 
 package() {

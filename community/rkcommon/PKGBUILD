@@ -1,0 +1,30 @@
+# Maintainer: Daniel Bermond <dbermond@archlinux.org>
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+
+pkgname=rkcommon
+pkgver=1.6.1
+pkgrel=1
+pkgdesc="Intel RenderKit common C++/CMake infrastructure"
+arch=(loongarch64 x86_64)
+url="https://github.com/ospray/rkcommon/"
+license=(Apache)
+depends=(tbb)
+makedepends=(cmake)
+source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('b61c10f26fba3e6f00305d5828b3bac523d559c5c0e6f79893b19e8c0e30074e')
+
+build() {
+  cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
+  make -C build
+}
+
+check() {
+  make -C build test
+}
+
+package() {
+  make -C build DESTDIR="${pkgdir}" install
+}

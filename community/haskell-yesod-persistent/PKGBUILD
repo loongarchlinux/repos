@@ -3,18 +3,22 @@
 
 _hkgname=yesod-persistent
 pkgname=haskell-yesod-persistent
-pkgver=1.6.0.4
-pkgrel=214
+pkgver=1.6.0.7
+pkgrel=23
 pkgdesc="Some helpers for using Persistent from Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-blaze-builder" "haskell-conduit" "haskell-persistent"
-         "haskell-persistent-template" "haskell-resource-pool" "haskell-resourcet"
-         "haskell-yesod-core")
-makedepends=('ghc' 'haskell-hspec' 'haskell-wai-extra' 'haskell-persistent-sqlite')
+         "haskell-resource-pool" "haskell-resourcet" "haskell-yesod-core")
+makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-wai-extra' 'haskell-persistent-sqlite')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a52d85b025397ae04641346107124a5570765356bc7209f0391646b93b3c8954219c73d717c98d108d552800eeb2122531f98abd2b0e2109aee59c7d9825f70d')
+sha512sums=('9312189947a6ba97bec12c057535a54bb024847ee0f08ba50473a78327f7ca25083738f0742c0847d0b329ef0e764412c85ac32aab4ebde2851a29e60e82d337')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -d persistent-template $_hkgname.cabal
+}
 
 build() {
     cd $_hkgname-$pkgver
@@ -31,7 +35,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

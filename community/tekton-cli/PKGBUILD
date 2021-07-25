@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=tekton-cli
-pkgver=0.13.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc="CLI for interacting with the Tekton CI/CD pipeline"
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,11 @@ makedepends=('go' 'git')
 depends=('glibc')
 source=("${pkgname}::git+https://github.com/tektoncd/cli#tag=v${pkgver}?signed")
 sha512sums=('SKIP')
-validpgpkeys=('66065D8F9D35B506AE99401CFEF7D4F0202F2B22')
+validpgpkeys=(
+  '2B68199819C7A977A9C7F5928E00E7B02807E02D'
+  '426DA722C9ED3DDF28557E3D1F23F99E99873FBA'
+  'D3409ED2C4FF2FFD842F26674C3B1CE0A1809F57'
+  '1CA4F4F5B3F48519EDF0AF0B44B5C531CBDF0149')
 
 build() {
   cd "${pkgname}/cmd/tkn"
@@ -20,9 +24,10 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  export GOLDFLAGS="-linkmode=external"
-  go build .
+  go build -ldflags="-linkmode=external" .
   chmod +x ./tkn
+  ./tkn completion bash > "${pkgname}-completion.bash"
+  ./tkn completion zsh > "${pkgname}-completion.zsh"
 }
 
 check() {
@@ -33,4 +38,6 @@ check() {
 package() {
   cd "${pkgname}/cmd/tkn"
   install -Dsm755 ./tkn "${pkgdir}/usr/bin/tkn"
+  install -Dm644 "${pkgname}-completion.bash" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  install -Dm644 "${pkgname}-completion.zsh" "${pkgdir}/usr/share/zsh/site-functions/_tkn"
 }

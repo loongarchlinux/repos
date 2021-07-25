@@ -4,14 +4,17 @@
 # Contributor: EnteEnteEnte <ducksource@duckpond.ch>
 
 pkgname=teamspeak3-server
-pkgver=3.12.1
+pkgver=3.13.6
 pkgrel=1
 pkgdesc='TeamSpeak is software for quality voice communication via the Internet (server)'
 url='https://www.teamspeak.com/en/'
 arch=('loongarch64' 'x86_64')
 license=('custom')
 depends=('glibc' 'gcc-libs')
-optdepends=('mariadb-connector-c: for MariaDB backend')
+optdepends=(
+  'mariadb-connector-c: MariaDB backend'
+  'postgresql-libs: PostgreSQL backend'
+)
 backup=(etc/teamspeak3-server.ini
         etc/tsdns_settings.ini)
 install=teamspeak3-server.install
@@ -20,10 +23,10 @@ source=(teamspeak3-server.ini
         PERMISSION.eml)
 source_i686=(https://files.teamspeak-services.com/releases/server/${pkgver}/teamspeak3-server_linux_x86-${pkgver}.tar.bz2)
 source_x86_64=(https://files.teamspeak-services.com/releases/server/${pkgver}/teamspeak3-server_linux_amd64-${pkgver}.tar.bz2)
-sha256sums=('3739925771a878ded7b4e30c70fa47ea9aa20c2e10a222612e33128637534537'
+sha256sums=('a5ec72d7b8b199e37fc2277d68ef470a6a441e1f964c77f46f0c82d4b586ce6d'
             '73c38a5e70caf042a5997ae831e33be7ba83e5c31ccca01c257c929569149acd'
             '98e3331a803ce0ff85500a3908a61fe105d47ea3c31affc2f605d8385315ca5b')
-sha256sums_x86_64=('cfbffba30a570f0ba33a74ce5e5dbda54ce564d917a27183cdcaf82cc2b4abb7')
+sha256sums_x86_64=('53704d27826385ddfd803ee232c1d3f021ad9bf18540313691841ad9bb722bec')
 
 if [ "${CARCH}" == "x86_64" ]; then
   _TSARCH='amd64'

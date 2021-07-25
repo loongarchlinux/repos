@@ -5,26 +5,21 @@
 
 pkgname=gpxsee
 _pkgname=GPXSee
-pkgver=7.31
+pkgver=9.0
 pkgrel=1
 pkgdesc='GPS log file viewer and analyzer'
 arch=(loongarch64 x86_64)
 url='https://www.gpxsee.org/'
 license=(GPL3)
-depends=(qt5-imageformats)
-makedepends=(qt5-tools)
+depends=(qt6-imageformats)
+makedepends=(qt6-tools)
 source=(https://downloads.sourceforge.net/$pkgname/$_pkgname-$pkgver.tar.gz)
-sha256sums=('13a98a895fd39fe9935482de761b097fb7b17d0f996d6ef59bbb71bba4bd6a83')
-
-prepare() {
-  cd $_pkgname-$pkgver
-  sed -i 's|/share/pixmaps|/share/icons/hicolor/64x64/apps|' gpxsee.pro
-}
+sha256sums=('021ef80418783352216e5733a2e2cd56cfc46ceff88c24a477735d7e2c8d5cb9')
 
 build() {
   cd $_pkgname-$pkgver
-  lrelease gpxsee.pro
-  qmake gpxsee.pro PREFIX=/usr
+  /usr/lib/qt6/bin/lrelease gpxsee.pro
+  qmake6 gpxsee.pro PREFIX=/usr
   make
 }
 

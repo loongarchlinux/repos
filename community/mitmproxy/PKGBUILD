@@ -5,34 +5,34 @@
 # Contributor: Dobroslaw Kijowski
 
 pkgname=mitmproxy
-pkgver=5.2
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='SSL-capable man-in-the-middle HTTP proxy'
 arch=('any')
 url='https://mitmproxy.org'
 license=('MIT')
-depends=('python-blinker' 'python-brotli' 'python-click' 'python-cryptography' 'python-flask'
-         'python-h2' 'python-hyperframe' 'python-kaitaistruct' 'python-ldap3' 'python-passlib'
-         'python-protobuf' 'python-pyasn1' 'python-pyopenssl' 'python-pyparsing' 'python-pyperclip'
-         'python-ruamel-yaml' 'python-setuptools' 'python-sortedcontainers' 'python-tornado'
-         'python-urwid' 'python-wsproto' 'python-publicsuffix2' 'python-zstandard')
-checkdepends=('python-asynctest' 'python-beautifulsoup4' 'python-parver' 'python-pytest-runner'
-              'python-pytest-asyncio' 'python-requests' 'python-hypothesis')
+depends=('python-asgiref' 'python-blinker' 'python-brotli' 'python-click' 'python-cryptography'
+         'python-flask' 'python-h2' 'python-hyperframe' 'python-kaitaistruct' 'python-ldap3'
+         'python-msgpack' 'python-passlib' 'python-protobuf' 'python-pyasn1' 'python-pyopenssl'
+         'python-pyparsing' 'python-pyperclip' 'python-ruamel-yaml' 'python-setuptools'
+         'python-sortedcontainers' 'python-tornado' 'python-urwid' 'python-wsproto'
+         'python-publicsuffix2' 'python-zstandard')
+checkdepends=('python-asynctest' 'python-parver' 'python-pytest-runner' 'python-pytest-asyncio'
+              'python-requests' 'python-hypothesis')
 provides=('pathod')
 conflicts=('pathod')
 replaces=('pathod')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/mitmproxy/mitmproxy/archive/v$pkgver.tar.gz")
-sha512sums=('6073c73b24618d6f64c4e99f199ebb6bc4157a3f83bfa7aff10a113f8dde823715e95bdf4202a1526dc0856d120858d32842b814327c3b98452b629fccb1790d')
+source=("https://github.com/mitmproxy/mitmproxy/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('27eb5e9736891148b5ebec963a2d18de6a69b44428538d2ed1cf9a1dcdd7cbcdeeed662edb2d25521098374e2f9a29b5bb8fba8da4f77ac0d32bf7881ac70d61')
 
 prepare() {
   cd $pkgname-$pkgver
 
   # Let's remove all the upper bounds and use system ca-certificatescate store
-  # urwid is pinned because the issue seems to affect Mac only
+  # We have an old protobuf, but this should not be an issue
   sed -e '/certifi/d' \
       -e 's/, *<[0-9=.]*//' \
-      -e 's/,!=2.1.0//' \
-      -e 's/==/>=/' \
+      -e 's/protobuf>=3.14/protobuf>=3/' \
       -i setup.py
   sed -e '/import certifi/d' \
       -e 's|certifi.where()|"/etc/ssl/certs/ca-certificates.crt"|' \

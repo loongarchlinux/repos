@@ -2,7 +2,7 @@
 
 _name=orjson
 pkgname=python-orjson
-pkgver=3.4.0
+pkgver=3.5.4
 pkgrel=1
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
 arch=('loongarch64' 'x86_64')
@@ -13,13 +13,13 @@ makedepends=('maturin' 'python-pip' 'rustup')
 checkdepends=('python-arrow' 'python-pendulum' 'python-psutil' 'python-pytest'
 'python-pytz' 'python-xxhash')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ijl/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('610de437022250bb32e244c5de0ac5accfd9039d54e530d7ff86b89b58a3f7119adb535b79c7d73ae3fadf28fa993a3ea678544aabb9faf5b1703725a38f1294')
-b2sums=('e59a6b9023d0df2ce17b61545485cd967cb5a89022c4a83f84234f72bb3e75452f7d2b73cc44f4fed71fa87a815593f13689088783b07ade513ed1f3676369af')
+sha512sums=('5ac77937b81d0f9f3ff3e943e6fa99535078282966b588cd95a58c4cb916591d332710e473c9c7ab1d25599ce922413f9946a96e71aebcbbc16f23111c343019')
+b2sums=('33d0f65fc2af3dccb827699ec46f68bbe836b6e24d054b6917f947dea1bde8bfafc9255dc4d41776d8c3f538ba5288b8448d6e403ad0e090304e8ecf6fe652fa')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-  rustup override set nightly-2020-09-14
+  rustup override set nightly-2021-06-24
 }
 
 build() {

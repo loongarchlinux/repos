@@ -1,21 +1,28 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-_hkgname=haskell-lsp-types
+_hkgname=lsp-types
 pkgname=haskell-lsp-types
-pkgver=0.23.0.0
-pkgrel=5
+pkgver=1.2.0.0
+pkgrel=14
 pkgdesc="Haskell library for the Microsoft Language Server Protocol, data types"
-url="https://github.com/alanz/haskell-lsp"
+url="https://github.com/haskell/lsp"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-hashable' 'haskell-lens'
-         'haskell-network-uri' 'haskell-scientific' 'haskell-unordered-containers')
-makedepends=('ghc')
+depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-dependent-sum'
+         'haskell-dependent-sum-template' 'haskell-hashable' 'haskell-hslogger' 'haskell-lens'
+         'haskell-network-uri' 'haskell-rope-utf16-splay' 'haskell-scientific' 'haskell-some'
+         'haskell-temporary' 'haskell-unordered-containers')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('057b7014d297054cfce3aa44385184f71911594b7a5199d38a9362fc9a481006a93bcb7628f5cd2959ca3fec475c370f7359dc6e9fa6bb96ffa31544c9ed9764')
+sha512sums=('c413f16dac35e7096e439cf7e1b8ec8f1c80b0a7dfea681512ff1dccf9e1d8a436bab38ce2c6ab15a584a5ebceebd96a85a5694ef30889df6275163843cef18a')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  gen-setup
+}
 
 build() {
-  cd $_hkgname-$pkgver    
+  cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
@@ -36,6 +43,6 @@ package() {
   install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
   install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
   runhaskell Setup copy --destdir="$pkgdir"
-  install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -D -m644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
   rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
 }

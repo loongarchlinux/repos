@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=marked
-pkgver=1.2.0
+pkgver=2.1.3
 pkgrel=1
 pkgdesc="A markdown parser built for speed"
 arch=('any')
@@ -11,10 +11,10 @@ depends=('nodejs')
 makedepends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('b624716a481b34f06bdf4d6285effbf39367b6f63287196a70bdd8682f026b125087b922684b6b37d07f78ad88dbde37623921e60c36e5c85814342138c0b030')
+sha512sums=('fd0fbb306cda113aa27ce31660403b1d531a65be176dc45f68ecdc4ac1d9122b61f3728696f6921b7deed122aef3d323e61f93f15da133ef0ee3941ce574e0c0')
 
 package() {
-  npm install -g --user root --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+  npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.
@@ -25,5 +25,5 @@ package() {
   chown -R root:root "$pkgdir"
 
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s ../../../lib/node_modules/marked/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s ../../../lib/node_modules/marked/LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.md
 }

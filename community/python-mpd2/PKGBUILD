@@ -6,7 +6,7 @@
 # Contributor: stonecrest <stonecrest[at]gmail[dot]com>
 
 pkgname=python-mpd2
-pkgver=1.1.0
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='Python library which provides a client interface for the Music Player Daemon'
 url=https://github.com/Mic92/python-mpd2
@@ -17,7 +17,8 @@ makedepends=(
   python-setuptools
 )
 arch=(any)
-source=(git+https://github.com/Mic92/python-mpd2.git#tag=24f11f1e3693a8d66410bc9665539938bbad5487)
+_tag=954473205ec8bcae4a9d8b5e8c26187450e968fe
+source=(git+https://github.com/Mic92/python-mpd2.git#tag=${_tag})
 sha256sums=(SKIP)
 
 pkgver() {

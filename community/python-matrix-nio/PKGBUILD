@@ -1,16 +1,16 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=python-matrix-nio
-pkgver=0.15.1
-_tag=be510c4c98765aca8450fe078438cdd5e86b2ea8 # git rev-parse "$pkgver"
+pkgver=0.18.3
+_tag=ccf1edefdc43b7f1ef5ca99b0a9a2ed696da35e3 # git rev-parse "$pkgver"
 pkgrel=1
 pkgdesc='Python Matrix client library, designed according to sans I/O principles'
 arch=('any')
 url='https://github.com/poljar/matrix-nio'
 license=('ISC')
-depends=('python' 'python-aiofiles' 'python-aiohttp' 'python-atomicwrites' 'python-cachetools'
-         'python-future' 'python-h11' 'python-h2' 'python-jsonschema' 'python-logbook' 'python-olm'
-         'python-peewee' 'python-pycryptodome' 'python-unpaddedbase64')
-makedepends=('git')
+depends=('python' 'python-aiofiles' 'python-aiohttp' 'python-aiohttp-socks' 'python-atomicwrites' 
+         'python-cachetools' 'python-future' 'python-h11' 'python-h2' 'python-jsonschema' 'python-logbook' 
+         'python-olm' 'python-peewee' 'python-pycryptodome' 'python-unpaddedbase64')
+makedepends=('git' 'python-dephell' 'python-setuptools')
 checkdepends=('python-aioresponses' 'python-faker' 'python-hpack' 'python-hyperframe' 'python-hypothesis'
               'python-pytest' 'python-pytest-aiohttp' 'python-pytest-benchmark')
 source=("git+$url.git?signed#tag=$_tag")
@@ -20,6 +20,11 @@ validpgpkeys=('689A3B5BC6560AB4C99A2A0581314DA807EF4E22') # Damir Jelić (poljar
 pkgver() {
 	cd "${pkgname#python-}"
 	git describe | sed 's/\([^-]*-\)g/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd "${pkgname#python-}"
+	dephell deps convert --from pyproject.toml --to setup.py
 }
 
 build() {

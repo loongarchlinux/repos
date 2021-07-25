@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=golang-github-linuxdeepin-go-x11-client
-pkgver=0.6.1
-pkgrel=1
+pkgver=0.6.7
+pkgrel=2
 pkgdesc='X11 protocol go language binding'
 arch=('any')
 url="https://github.com/linuxdeepin/go-x11-client"
@@ -10,7 +10,9 @@ license=('GPL')
 depends=('go' 'golang-deepin-lib' 'golang-golang-x-text')
 checkdepends=('xorg-server-xvfb' 'golang-github-stretchr-testify' 'golang-gopkg-check.v1' 'golang-gopkg-yaml.v2' 'git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/go-x11-client/archive/$pkgver.tar.gz")
-sha512sums=('fc422845eaad5713e09916e9eb718cd8ed78050aea46687c009cd90d6891aba2528994ac0662459eb2c74156780c6c86a1e06a39dee9915db80e5231081fdb12')
+sha512sums=('d8b886f543f7473df9a8728ccd1a38b4a11deea42994cb9bce8f2b1688eef864eddb36fb8a52473cf8ec1b0feee5e9905a98773a0bb0e59907840727cdd75c7b')
+
+export GO111MODULE=off
 
 check() {
   export GOPATH="$srcdir/build:/usr/share/gocode"

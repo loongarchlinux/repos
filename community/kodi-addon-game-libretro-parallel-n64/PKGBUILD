@@ -1,18 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-game-libretro-parallel-n64
-pkgver=2.0.0.9
-_codename=Leia
-pkgrel=2
+pkgver=2.0.0.15
+_codename=Matrix
+pkgrel=1
 pkgdesc="Libretro wrapper for Kodi's Game API"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/kodi-game/game.libretro.parallel_n64'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-game')
-depends=('kodi-addon-game-libretro' 'libretro-parallel-n64')
-makedepends=('cmake' 'kodi-dev')
+makedepends=('cmake' 'kodi-dev' 'kodi-addon-game-libretro' 'libretro-parallel-n64')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kodi-game/game.libretro.parallel_n64/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('79f39c49eaaa28de5e8d2b99d54963638dff8af727798c1c92bfd2cefe7d07fb55c6091d7e92e8c277920e521697c24b13f210cf1d1d28b6d8895eba784bce71')
+sha512sums=('0864f30bf028310ae25246d9952cf5ac2637bc9a461591c51020cd5b192c241e23df5222b13ec932a72cbab74eef7cfce7d7f312a529391d707c7a5351e979d7')
 
 build() {
     cd "game.libretro.parallel_n64-$pkgver-$_codename"
@@ -26,6 +25,7 @@ build() {
 }
 
 package() {
+    depends=('kodi-addon-game-libretro' 'libretro-parallel-n64')
     cd "game.libretro.parallel_n64-$pkgver-$_codename"
 	make DESTDIR="$pkgdir/" install
 }

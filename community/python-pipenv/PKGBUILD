@@ -3,8 +3,8 @@
 # Contributor: Maikel Wever <maikelwever@gmail.com>
 
 pkgname=python-pipenv
-pkgver=2020.8.13
-pkgrel=2
+pkgver=2021.5.29
+pkgrel=1
 pkgdesc="Sacred Marriage of Pipfile, Pip, & Virtualenv."
 url="https://pipenv.pypa.io"
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python' 'python-pip' 'python-certifi'
          'python-virtualenv-clone' 'python-virtualenv')
 makedepends=('python-setuptools')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pypa/pipenv/archive/v${pkgver}.tar.gz")
-sha512sums=('90ccaf386bc68d856ee9c645084cb65c4213902a8c87e2059cc2274b88d922c3b02c58c15d05945e1f61e8b816ef92a11672cadaf125143bd5019ab25ff0b19e')
+sha512sums=('4fa018c13d4babe856bf5671cf5d18a95f4af4b6d4fc64c4919825fe04004ed3d8979ca335b851c6e24dad081475f6fb5b925eeff58c6fb5cffc450b967ed1cd')
 
 build() {
   cd "pipenv-$pkgver"

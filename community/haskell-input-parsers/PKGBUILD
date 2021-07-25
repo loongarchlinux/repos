@@ -2,8 +2,8 @@
 
 _hkgname=input-parsers
 pkgname=haskell-input-parsers
-pkgver=0.1.0.1
-pkgrel=24
+pkgver=0.2.2
+pkgrel=1
 pkgdesc="Extension of the parsers library with more capability and efficiency"
 url="https://github.com/blamario/input-parsers"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-monoid-subclasses' 'haskell-parsers')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('f8ede5b34b34a3b16e9fcda7f8eb22bce274a8c14b69be8836484d28729197be43a96cfe55bd852369662be68157afff6648538b1c4b05e919282b0ae3dc989d')
+sha512sums=('31912d51f1bc6415433deee18b8bf66083515f68168f5f726c17708dd3da58a5e61f7e9e7b9275d8d49399b6254fa75a7e87da8e65b046cc927d9bd149f115c2')
 
 build() {
     cd $_hkgname-$pkgver    
@@ -28,7 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

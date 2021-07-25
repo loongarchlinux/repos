@@ -1,33 +1,48 @@
 # Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 # Contributor: PepeSmith
 # Contributor: Aron Asor <aronasorman at gmail.com>
 # Contributor: Chris Brannon <chris@the-brannons.com>
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=ipython
-pkgver=7.18.1
+pkgver=7.25.0
 pkgrel=1
 pkgdesc="An enhanced Interactive Python shell."
 arch=('any')
 url="https://ipython.org"
 license=('BSD')
 depends=('python' 'python-traitlets' 'python-pexpect' 'sqlite'
-         'python-setuptools' 'python-pickleshare' 'python-prompt_toolkit'
-         'python-jedi' 'python-pygments' 'python-backcall')
-optdepends=("python-nose: for IPython's test suite")
-
-# new optional thing: ipyparallel
-
-source=("ipython-$pkgver.tgz::https://github.com/ipython/ipython/archive/$pkgver.tar.gz"
+         'python-pickleshare' 'python-prompt_toolkit'
+         'python-jedi' 'python-pygments' 'python-backcall'
+         'python-matplotlib-inline')
+makedepends=('python-setuptools')
+checkdepends=('python-nose' 'python-requests' 'python-testpath'
+              'jupyter-nbformat' 'python-ipykernel' 'python-numpy'
+              'python-pytest-trio' 'python-matplotlib')
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz"
         "https://www.packal.org/sites/default/files/public/styles/icon_large/public/workflow-files/nkeimipynbworkflow/icon/icon.png")
-md5sums=('5d3b619d5716388c70657b6e847e2344'
-         '2901d65f1b1fe354e72850085cd1c072')
+sha256sums=('54bbd1fe3882457aaf28ae060a5ccdef97f212a741754e420028d4ec5c2291dc'
+            '3c44a6fa1e3a8afc24754c90469404770b639cb960361988999a4cdd677699d8')
+b2sums=('0a2ae7cd315ba1abde18cdfcb7ed5227e5fc43b9a053f82e7db0146cbec66b0c2a1585158e60c37559523b457ab339ad42ab8fb3fccfc9e5ea7b880593de2e73'
+        'd445e2bc7a037db8715ea103611720e965987e155c32e445b0ef783e519fca8a0301b16c5763fd9a5d8d169c3b0d7b4db6c0bd0f9772842258b135dcb1d6d5a2')
 
 # confirm that an update does not break sage?
 
+build() {
+  cd $pkgname-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd $pkgname-$pkgver
+  pytest
+}
+
 package() {
-  cd "ipython-$pkgver"
-  python3 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
+  cd $pkgname-$pkgver
+  export PYTHONHASHSEED=0
+  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
   install -Dm644 docs/source/about/license_and_copyright.rst "$pkgdir/usr/share/licenses/ipython/LICENSE"
 
   cd "examples/IPython Kernel"

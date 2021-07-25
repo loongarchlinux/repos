@@ -7,7 +7,7 @@
 # the binding from the language specific managers python2-thrift, perl-thrift, ruby-thrift, ...
 
 pkgname=thrift
-pkgver=0.13.0
+pkgver=0.14.2
 pkgrel=1
 pkgdesc='Scalable cross-language services framework for IPC/RPC'
 arch=(loongarch64 x86_64)
@@ -18,8 +18,8 @@ makedepends=(qt5-base boost libevent emacs-nox)
 optdepends=(
   'qt5-base: TQTcpServer (Qt5) support'
 )
-source=(thrift-$pkgver.zip::https://github.com/apache/thrift/archive/$pkgver.zip)
-sha1sums=('0b13e6ae2c1f0f7c1f18dfc2afce8368603b5d2f')
+source=(thrift-$pkgver.zip::https://github.com/apache/thrift/archive/v$pkgver.zip)
+sha1sums=('5fb10831354752907d321bac848d9ae11449753b')
 
 build() {
   cd thrift-$pkgver

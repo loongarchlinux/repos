@@ -3,7 +3,7 @@
 
 _pkg=py-lmdb
 pkgname=python-lmdb
-pkgver=1.0.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Universal Python binding for the LMDB Lightning Database"
 arch=(loongarch64 x86_64)
@@ -13,7 +13,7 @@ depends=(python python-cffi lmdb)
 makedepends=(python-setuptools)
 checkdepends=(python-pytest)
 source=(${url}/archive/${_pkg}_${pkgver}.tar.gz)
-sha256sums=('e01bc4d62679b6e8c8962f1110f910cdfbdb2d750b145f02fae8b8a9d787f2f9')
+sha256sums=('9456cb1430a2eff85c08e6d0abc5afb3da09d9d52ddea04eedc61d9e74721c13')
 
 build() {
   cd ${_pkg}-${_pkg}_${pkgver}

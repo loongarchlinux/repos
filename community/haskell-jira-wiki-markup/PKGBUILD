@@ -2,20 +2,20 @@
 
 _hkgname=jira-wiki-markup
 pkgname=haskell-jira-wiki-markup
-pkgver=1.3.2
-pkgrel=17
+pkgver=1.4.0
+pkgrel=5
 pkgdesc="Handle Jira wiki markup"
 url="https://github.com/tarleb/jira-wiki-markup"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
+makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('14d68dcbdcfa9e0a7959df3a38cfe475047ad42aab9c6c3e1caee4d2491e7efb9a58e99e3b9c601726a235c592d2763016f709d5a23c6d80e1e6d2115fdce269')
+sha512sums=('f20bf4b5242657a34cae1aeeb88ba6de61748ccc212243ae6a6d5a4defc3e2ad25445705a87a55d5cb3b6378f5f500887bf509459a66741a75a49025e1549750')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
 }
 
 build() {
@@ -33,7 +33,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

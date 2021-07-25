@@ -5,7 +5,7 @@
 
 pkgname=python-pwntools
 _pyname=pwntools
-pkgver=4.2.1
+pkgver=4.5.1
 pkgrel=1
 pkgdesc='CTF framework and exploit development library'
 url='https://github.com/Gallopsled/pwntools'
@@ -28,14 +28,15 @@ depends=('python'
          'python-sortedcontainers'
          'python-unicorn'
          'python-paramiko'
-         'ropgadget'
-         'python-setuptools')
-makedepends=('pandoc')
+         'python-colored-traceback'
+         'python-rpyc'
+         'ropgadget')
+makedepends=('pandoc' 'python-setuptools')
 source=(https://github.com/Gallopsled/pwntools/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         pwn.conf)
-sha256sums=('8f1a4bf7b668de6b222df887fdd820b7ff05547e7ff9a13ebbd10eecf43c7a78'
+sha256sums=('fcf4e7373f522201e661c6baf6bf4305c61091ba73f60e95fb0a4c0c29c7043b'
             '50916e4e45d026422cd6bfe8de50e7246c61b0b1e0007571e7c04a994282fe89')
-b2sums=('03859b6cf470698160c14b812cffc47ae4b5256c2c2f8082ffd60d4b91de6c83473063d6daa0ff512a4165faec15e28d2252ec64a459e9e164ad7c4a875189e2'
+b2sums=('70b431bdecbdcd4b65dbb215451f4d59c5e24bc66fa0ef44ba3d78e6e49674b298e693f1726221cd198e580e3c78f8e0a3ff36b4ccdba6dcdbb54973502ade25'
         'cac0a12eea8abd3d2ee21632e7f2281e7e35c2d7839cfbcba83ae5d0e8f427e9cc2462a6d17d187252b99d9dbbb14393b9d5a63996c42043f553e9b66bfe9e07')
 
 prepare() {

@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=owl-lisp
-pkgver=0.1.22
+pkgver=0.2
 pkgrel=1
 pkgdesc='Simple purely functional lisp'
 url='https://gitlab.com/owl-lisp/owl.git'
@@ -10,10 +10,8 @@ license=('MIT')
 depends=('glibc')
 makedepends=('pandoc')
 source=(https://gitlab.com/owl-lisp/owl/-/archive/v${pkgver}/owl-v${pkgver}.tar.gz)
-sha256sums=('12733a649bc2c7db10edcba25bcbec56fb0c1cbafce1ccf89c7a1947bedd0abd')
-sha512sums=('51a0ee634f423269834921ec9bef2286405f6dec758028420d43ac4f93bc8b66010f055f51ba51610d944e74bd2263dcef86011ce9dd39bb45c50b16568d9b59')
-sha256sums=('12733a649bc2c7db10edcba25bcbec56fb0c1cbafce1ccf89c7a1947bedd0abd')
-sha512sums=('51a0ee634f423269834921ec9bef2286405f6dec758028420d43ac4f93bc8b66010f055f51ba51610d944e74bd2263dcef86011ce9dd39bb45c50b16568d9b59')
+sha256sums=('9fed7b4907883910f5a7b8d713e1e7334b20d432c5d52611b34e23b19b7edfb1')
+b2sums=('054a06d33554cc31f5e1c756bf3ff5ea4fb5cec220048fb939aa9dcd19c586cef54ae8ddc80e1ee8befedfa2e42fc1bf9ea4bcfe37e6743154ff678346444e87')
 
 prepare() {
   cd owl-v${pkgver}

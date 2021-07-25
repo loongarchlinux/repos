@@ -2,8 +2,8 @@
 
 _hkgname=ghc-typelits-extra
 pkgname=haskell-ghc-typelits-extra
-pkgver=0.4
-pkgrel=26
+pkgver=0.4.2
+pkgrel=44
 pkgdesc="Additional type-level operations on GHC.TypeLits.Nat"
 url="https://github.com/clash-lang/ghc-typelits-extra"
 license=('custom:BSD2')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-tcplugins-extra' 'haskell-ghc-typ
          'haskell-ghc-typelits-natnormalise')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('215cf547468856f5f7309928dce8fbecc23bcb1e5e86b3614483b2e08144801c063d8c61827b13aa92d8540a0f06f5fc10ba487d5283f5cb15b2f6ce5c5eb5c6')
+sha512sums=('1885b697b534466a86bda0b38e12e6334111670da85c33b88d6bf1aba87f9b3d0366999a42a9b37aef4681f43a947f25f19ee7839891fcd0239c9f857344a612')
 
 build() {
     cd $_hkgname-$pkgver
@@ -29,7 +29,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

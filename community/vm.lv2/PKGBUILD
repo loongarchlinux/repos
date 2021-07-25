@@ -1,47 +1,36 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=vm.lv2
-pkgver=0.10.0
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="A virtual machine LV2 plugin bundle"
 arch=('loongarch64' 'x86_64')
 url="https://open-music-kontrollers.ch/lv2/vm/#"
 license=('Artistic2.0')
 groups=('lv2-plugins' 'pro-audio')
-depends=('glibc' 'libglvnd')
-makedepends=('glu' 'lv2' 'meson')
+depends=('glibc' 'libglvnd' 'libx11' 'lv2-host')
+makedepends=('glew' 'glu' 'lv2' 'meson')
 checkdepends=('lv2lint')
 source=("https://git.open-music-kontrollers.ch/lv2//$pkgname/snapshot/$pkgname-$pkgver.tar.xz"{,.asc})
-sha512sums=('86e2bda3449904e731d491324f7bc3bd18bda75835c3f05cc29acb246b7c62581e0700f6397fc8c8427861ed50a3d490387a8524b679b620f117535fd9c76329'
+sha512sums=('d5494c1b38652b3d3324864507047c2da83922f8d6f57e8b3606b869b30d9c1af1b082d0b4b4cac374fc6b6d4f0e0968058149709cb92842628fa0175ed2f023'
             'SKIP')
-b2sums=('8864e3f2dcff756cbb7efe21df09fe2e0424c35cb62faf050675b36fe53631b1abe727fd353c9f9d956518bd2e85bf5ba8662e31aa6964de2cc2d1db8051846b'
+b2sums=('1f10180521f9ccde1f6f0a415115a712528b3dc089b42647f2ce37bf27ffdf36481a154797c72e197dc497e9fbfab2d1ef7477ac5b44a41f073822ef488506ef'
         'SKIP')
 validpgpkeys=('5AE26CEBBF49705C19FB273A30258F99258CB76A') # Hanspeter Portner <dev@open-music-kontrollers.ch>
 
 build() {
   cd "$pkgname-$pkgver"
-  meson --prefix=/usr \
-        --libdir=lib \
-        --libexecdir lib \
-        --sbindir bin \
-        --buildtype plain \
-        --auto-features enabled \
-        --wrap-mode nodownload \
-        -D b_lto=true \
-        -D b_pie=true \
-        build
+  arch-meson build
   ninja -C build
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  _plugin_names=('atom' 'audio' 'control' 'cv' 'midi')
-  for _plugin in ${_plugin_names[@]}; do
-    lv2lint -Mpack -I "build/" "http://open-music-kontrollers.ch/lv2/vm#${_plugin}"
-  done
+  ninja -C build test
 }
 
 package() {
+  depends+=('libGLEW.so')
   cd "$pkgname-$pkgver"
   DESTDIR="${pkgdir}" meson install -C build
   # docs

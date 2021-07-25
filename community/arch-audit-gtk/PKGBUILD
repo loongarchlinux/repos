@@ -1,0 +1,46 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=arch-audit-gtk
+pkgver=0.3.0
+pkgrel=1
+pkgdesc='Arch Linux Security Update Notifications'
+url='https://github.com/kpcyrd/arch-audit-gtk'
+arch=('loongarch64' 'x86_64')
+license=('GPL3')
+depends=('arch-audit' 'libappindicator-gtk3')
+optdepends=(
+  'gnome-shell-extension-appindicator: support for gnome3'
+)
+makedepends=('cargo' 'clang' 'llvm')
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
+sha512sums=('e66ae1ff1ab5f5e10ef2a7e126302a1a37f15f10711b82b123be0146b705cd1b72800e81c138cf396288c5a7b193d078a4023bd90c9d30b359a3ac6b4419a442'
+            'SKIP')
+b2sums=('67b595febd920258a2f456864a31397710e5806c931c2225d2f0ebc65455256561ef9beee438ea68661e3a6cd12bfb7db23e5f50d8dd42ffd68a8ba3f9473817'
+        'SKIP')
+
+validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --release --locked
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --release --locked
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 target/release/${pkgname} -t "${pkgdir}/usr/bin"
+
+  install -d "${pkgdir}/usr/share/arch-audit-gtk/"
+  cp -R icons/ "${pkgdir}/usr/share/arch-audit-gtk/icons"
+
+  install -Dm 644 contrib/arch-audit-gtk.tmpfiles "${pkgdir}/usr/lib/tmpfiles.d/arch-audit-gtk.conf"
+  install -Dm 644 contrib/arch-audit-gtk.hook "${pkgdir}/usr/share/libalpm/hooks/arch-audit-gtk.hook"
+  install -Dm 644 contrib/arch-audit-gtk.desktop -t "${pkgdir}/etc/xdg/autostart"
+}
+
+# vim: ts=2 sw=2 et:

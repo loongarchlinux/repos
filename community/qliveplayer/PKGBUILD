@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Megumi_fox <i@megumifox.com>
+
+pkgname=qliveplayer
+pkgver=3.22.3
+pkgrel=1
+pkgdesc='Cute and useful Live Stream Player with danmaku support.'
+arch=('loongarch64' 'x86_64')
+url="https://github.com/IsoaSFlus/QLivePlayer"
+license=('GPL2')
+depends=('ffmpeg' 'mpv' 'python-aiohttp' 'qt5-base' 'qt5-quickcontrols2' 'qt5-graphicaleffects'
+         'qt5-quickcontrols' 'python' 'qt5-svg')
+makedepends=('extra-cmake-modules' 'ninja')
+optdepends=('python-protobuf: for YouTube LiveChat support'
+            'streamlink: for foreign streaming service support')
+source=("https://github.com/IsoaSFlus/QLivePlayer/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('c3ed5c8ffb4fa639132fdb0f42c20120a8e49c3e9135fe1234ec5eb6012e89a2e620ae4a3b669ecf995935c70f03fc154ca15833ff09ef6f83bba885e19e91a9')
+
+prepare() {
+    mkdir -p build
+}
+
+build() {
+    cd build
+    cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib ../QLivePlayer-$pkgver
+    ninja
+}
+
+package() {
+    cd build
+    DESTDIR="$pkgdir" ninja install
+}

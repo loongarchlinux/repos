@@ -2,8 +2,8 @@
 
 _name=Tidal
 pkgname=haskell-tidal
-pkgver=1.6.1
-pkgrel=20
+pkgver=1.7.7
+pkgrel=2
 pkgdesc="A domain specific language for live coding pattern."
 arch=('loongarch64' 'x86_64')
 url="https://tidalcycles.org/"
@@ -12,15 +12,18 @@ groups=('pro-audio')
 depends=('ghc' 'ghc-libs' 'glibc' 'haskell-bifunctors' 'haskell-clock'
 'haskell-colour' 'haskell-hosc' 'haskell-mwc-random' 'haskell-network'
 'haskell-primitive' 'haskell-random' 'haskell-vector' 'supercollider')
+makedepends=('uusi')
 checkdepends=('haskell-microspec')
 optdepends=('sc3-plugins: Examples using special UGens')
 conflicts=('tidalcycles')
 replaces=('tidalcycles')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/tidalcycles/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('3c94418b317e21219e91cb58081e0598c75fb8ab71203f2b3a71cf0762067634705a26d62443077ba7ec266141ad3f18ab4958091ebe357e1597e00b7e3ad938')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/tidalcycles/${_name}/archive/refs/tags/${pkgver}.tar.gz")
+sha512sums=('a3a2b49a4e58ab825cab9c78b74955284e2bb662630e8589f2b472ef704db4c32b63aaa774933e9e230f79af43ecfcf8965ba2e4f203cc583b24d49ecca8da13')
+b2sums=('803a17219c321096e68ffe855f456bfd490e8314f588ba7972fa26c3d557e827e09bb50441b26db518365883a71085cd7645e5a7b24268c68e869c15e217ac34')
 
 prepare() {
   mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
+  uusi -u hosc $pkgname-$pkgver/tidal.cabal
 }
 
 build() {
@@ -43,7 +46,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {

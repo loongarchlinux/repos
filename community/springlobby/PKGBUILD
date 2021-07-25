@@ -2,8 +2,8 @@
 # Contributor: DuGi <dugi@irc.pl>
 
 pkgname=springlobby
-pkgver=0.270
-pkgrel=1
+pkgver=0.271
+pkgrel=2
 pkgdesc="A free cross-platform lobby client for the Spring RTS project"
 arch=('loongarch64' 'x86_64')
 url="http://springlobby.info/"
@@ -11,7 +11,7 @@ license=('GPL2')
 depends=('hicolor-icon-theme' 'wxgtk3' 'curl' 'libtorrent-rasterbar' 'boost-libs'
          'alure' 'libsm')
 optdepends=('sdl' 'sdl_sound' 'sdl_mixer')
-makedepends=('boost' 'cmake' 'git')
+makedepends=('boost' 'cmake' 'git' 'ninja')
 source=("git+https://github.com/springlobby/springlobby.git#tag=$pkgver"
         "git+https://github.com/spring/pr-downloader.git")
 sha512sums=('SKIP'
@@ -23,23 +23,23 @@ prepare() {
   git submodule init
   git config submodule."src/downloader/lib".url "$srcdir"/pr-downloader
   git submodule update
-
-  mkdir build
 }
 
 build() {
-  cd $pkgname/build
+  cd $pkgname
 
-  cmake .. \
+  cmake \
+    -GNinja \
+    -Bbuild \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-gtk3
-  make
+  ninja -C build
 }
 
 package() {
-  cd $pkgname/build
+  cd $pkgname
 
-  DESTDIR="$pkgdir" make install
+  DESTDIR="$pkgdir" ninja -C build install
 }
 
 # vim: sw=2:ts=2 et:

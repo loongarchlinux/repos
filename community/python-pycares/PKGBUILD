@@ -1,31 +1,34 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-pycares
-pkgver=3.1.1
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Python interface for c-ares'
 arch=('loongarch64' 'x86_64')
 url=https://github.com/saghul/pycares
 license=('MIT')
-depends=('python-cffi') # c-ares is bundled
+depends=('c-ares' 'python-cffi')
 makedepends=('python-setuptools')
 #checkdepends=('python-idna')
 optdepends=('python-idna')
 source=("https://files.pythonhosted.org/packages/source/p/pycares/pycares-$pkgver.tar.gz")
-sha256sums=('18dfd4fd300f570d6c4536c1d987b7b7673b2a9d14346592c5d6ed716df0d104')
+sha256sums=('d0154fc5753b088758fbec9bc137e1b24bb84fc0c6a09725c8bac25a342311cd')
+b2sums=('cf83efcd3b7f0c32dfd013c4211ae0bce2cbc8cfa49f295239f315b3217d17c2cf1f6e491c41b4b3ca4de8762405f560a62d1ef6252b961bc94fed2253b6a632')
 
 build() {
   cd pycares-$pkgver
-  python setup.py build
+  PYCARES_USE_SYSTEM_LIB=1 python setup.py build
 }
 
-# test_query_any fails https://github.com/saghul/pycares/issues/108
+# Test failures: test_custom_resolvconf, test_getaddrinfo{,2..4},
+#                gethostbyaddr{,6}, gethostbyname{,_small_timeout},
+#                test_getnameinfo
 #check() {
 #  cd pycares-$pkgver
 #  mkdir -p temp
-#  local sitepackages=$(python -c "import site; print(site.getsitepackages()[0])")
+#  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 #  python setup.py install --skip-build --root=temp
-#  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$sitepackages" python tests/tests.py
+#  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$site_packages" python tests/tests.py
 #}
 
 package() {

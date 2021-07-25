@@ -1,21 +1,27 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=cryptol
-pkgver=2.9.1
-pkgrel=24
+pkgver=2.11.0
+pkgrel=35
 pkgdesc="The Language of Cryptography"
 url="https://www.cryptol.net"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'z3' 'haskell-async' 'haskell-base-compat' 'haskell-bv-sized'
-         'haskell-cryptohash-sha1' 'haskell-exceptions' 'haskell-gitrev' 'haskell-graphscc'
-         'haskell-heredoc' 'haskell-libbf' 'haskell-monad-control' 'haskell-monadlib'
-         'haskell-parameterized-utils' 'haskell-panic' 'haskell-random' 'haskell-sbv8.7'
-         'haskell-simple-smt' 'haskell-strict' 'haskell-tf-random' 'haskell-transformers-base'
-         'haskell-what4' 'haskell-ansi-terminal' 'haskell-blaze-html')
-makedepends=('ghc' 'alex' 'happy')
+         'haskell-cryptohash-sha1' 'haskell-exceptions' 'haskell-extra' 'haskell-gitrev'
+         'haskell-graphscc' 'haskell-heredoc' 'haskell-libbf' 'haskell-memotrie'
+         'haskell-monad-control' 'haskell-monadlib' 'haskell-optparse-applicative'
+         'haskell-parameterized-utils' 'haskell-panic' 'haskell-random' 'haskell-sbv'
+         'haskell-simple-smt' 'haskell-strict' 'haskell-temporary' 'haskell-tf-random'
+         'haskell-transformers-base' 'haskell-what4' 'haskell-ansi-terminal' 'haskell-blaze-html')
+makedepends=('ghc' 'alex' 'happy' 'uusi')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/GaloisInc/cryptol/archive/$pkgver.tar.gz")
-sha512sums=('42c9058035f30e27dc30a17e901df87072939a84867cd2723ecf9e67e51cc53a308c38369dd7353bd2df043baa5f9f94c34a94ac52bcd6b45bfad8a67810f975')
+sha512sums=('4e8e9dec727c02e76043ee390b91d0a740df747a8f49b2551686ac7db3cc0c94c36e20316b59e7e50e28b838f3f9bf7202095cf6ce683d83fd47826702381649')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -u sbv -u what4 $pkgname.cabal
+}
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"

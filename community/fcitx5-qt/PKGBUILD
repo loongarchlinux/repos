@@ -1,10 +1,8 @@
-  # $Id: PKGBUILD 226039 2017-04-27 13:52:30Z felixonmars $
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-qt
-pkgver=0.0.0.20201015
-_commit=932e25f361f588a1e87f57e8a994bba80bf8798d
+pkgver=5.0.6
 pkgrel=1
 pkgdesc="Fcitx5 Qt Library"
 arch=('loongarch64' 'x86_64')
@@ -12,18 +10,20 @@ url="https://github.com/fcitx/fcitx5-qt"
 license=('GPL')
 groups=('fcitx5-im')
 depends=('fcitx5' 'qt5-base')
-makedepends=('extra-cmake-modules' 'ninja')
-source=("https://github.com/fcitx/fcitx5-qt/archive/$_commit/fcitx5-qt-$_commit.tar.gz")
-sha512sums=('25199b17e95b371594dc347e8e7b1e22e0b07e7a08295e4ffa70a574eaa11d0f4553df62b627a0122e58b55dda2cf93defdacb2d92ade759d9c903e5bee3a7f6')
+makedepends=('extra-cmake-modules' 'ninja' 'qt6-base')
+source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
+sha512sums=('8a9230c894438abed46ba8c749f0df5724630e94f9af19be8da65cbe75068c4ff92e345431716ed3ed48133f3f59a80f9eccedc84bc3680dbc88c1d77b61a9c5'
+            'SKIP')
+validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build(){
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
 
-  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DENABLE_QT4=0 .
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib -DENABLE_QT4=0 -DENABLE_QT6=1 .
   ninja
 }
 
 package() {
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" ninja install
 }

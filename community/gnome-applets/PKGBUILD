@@ -2,15 +2,16 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-applets
-pkgver=3.36.4
-pkgrel=2
+pkgver=3.40.0
+pkgrel=1
 pkgdesc="Small applications for the GNOME Panel"
 arch=('loongarch64' 'x86_64')
 url="https://wiki.gnome.org/Projects/GnomeApplets"
 license=('GPL')
-depends=('gnome-panel' 'libgtop' 'tracker' 'cpupower' 'upower')
+depends=('gnome-panel' 'libgtop' 'tracker3' 'cpupower' 'upower')
 makedepends=('autoconf-archive' 'git' 'gnome-settings-daemon' 'intltool' 'python' 'yelp-tools')
-_commit=ea8ec983c8d5e285c341b7a9448e0bf20d43d363  # tags/3.36.4^0
+optdepends=('tracker3-miners: Search bar')
+_commit=7eb9a52f09ec1ab4772cb056044dfc2f0209daac  # tags/3.40.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-applets.git#commit=$_commit")
 sha256sums=('SKIP')
 
@@ -23,7 +24,7 @@ prepare() {
   cd $pkgname
 
   # Use correct D-Bus config location
-  sed -i '/^dbus_confdir =/ s/sysconfdir/datadir/' cpufreq/src/cpufreq-selector/Makefile.am
+  sed -i '/^dbus_confdir =/ s/sysconfdir/datadir/' gnome-applets/cpufreq/cpufreq-selector/Makefile.am
 
   NOCONFIGURE=1 ./autogen.sh
 }

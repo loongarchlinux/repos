@@ -3,18 +3,19 @@
 _name=BShapr
 _plugin_uri="https://www.jahnichen.de/plugins/lv2/BShapr"
 pkgname=bshapr
-pkgver=0.9
+pkgver=0.13
 pkgrel=1
 pkgdesc="Beat/ envelope shaper LV2 plugin"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/sjaehn/BShapr"
 license=('GPL3')
 groups=('lv2-plugins' 'pro-audio')
-depends=('cairo' 'gcc-libs' 'glibc' 'libx11')
+depends=('cairo' 'gcc-libs' 'glibc' 'libx11' 'lv2-host')
 makedepends=('lv2')
 checkdepends=('lv2lint')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sjaehn/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('e39020230f64082df7e04d7e69637650924928ee6e43a3e9834f8570225038d5bfb91a0887eb1a779d6962fe6cadc7e46a114c927b950b8a0471d70f36940bd8')
+sha512sums=('bf45571d7612e1ecce36d58b79202fc8316cbe01f7e070abe38ef613b0f826ad12ff4944101c6363636f5253178c311788d1027f41aacc01ee4233383f9e8908')
+b2sums=('a6953f65c2b31bf064fdcd24458ee27dbb020691b460111e3e5b65b79eeae1af1f64f30cb4e1f595ceaf5a52c905c9de4a41d378fe300cc623a5a424a249538c')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "${pkgname}-${pkgver}"

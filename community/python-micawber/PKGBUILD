@@ -1,8 +1,9 @@
-# Maintainer: David Runge <dave@sleepmap.de>
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
 _name=micawber
 pkgname=python-micawber
-pkgver=0.5.1
-pkgrel=3
+pkgver=0.5.3
+pkgrel=1
 pkgdesc="A small library for extracting rich content from urls."
 arch=('any')
 url="https://github.com/coleifer/micawber"
@@ -14,11 +15,11 @@ optdepends=('python-django: django support'
             'python-flask: flask support'
             'python-redis: redis caching support')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('309546cc90e7ec4d4a5839f79bff43684ceed4cc7a682ac40d7f09841c89b64631d9667893edd70fd16f0cdb718d05cc5567482bf368da9164615248e5d4e379')
+sha512sums=('da399e7ebaac5060f937a94ece3bc7abc9d9df05b63653c02a529648d3dfa02a1397e14f939b2653de15f10f7c2e1d0c0e66c1e16bce6f81f8c43ee09c51a2f6')
+b2sums=('05aa5715fce51e88ee884e0b7a7140712d5620cfd83fc2943f80fb092773c5af8684926c96da8733b2a64b867148a136efead75949b44a16c3679ffaa3452479')
 
 prepare() {
   mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
-  cd "$pkgname-$pkgver"
 }
 
 build() {
@@ -29,15 +30,14 @@ build() {
 check() {
   cd "$pkgname-$pkgver"
   export PYTHONPATH="build/lib:${PYTHONPATH}"
-  python setup.py test
+  python runtests.py
 }
 
 package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
+                          --optimize=1 \
+                          --root="${pkgdir}"
   install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

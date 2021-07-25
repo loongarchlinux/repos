@@ -1,34 +1,34 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qxgedit
-pkgver=0.6.3
+pkgver=0.9.3
 pkgrel=1
 pkgdesc="GUI for editing MIDI System Exclusive files for XG devices (eg. Yamaha DB50XG)"
 arch=('loongarch64' 'x86_64')
 url="https://qxgedit.sourceforge.io/"
 license=('GPL2')
 groups=('pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
-makedepends=('alsa-lib' 'qt5-tools')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt6-base')
+makedepends=('alsa-lib' 'cmake' 'qt6-tools')
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('128657c92b207b13cd93eebdddb976322005d84d79068aefe43a26fcd48c59427888f9f2c1ef763fa562941375565defb3aa89ac8c872171d72e3d63bd51f061')
-b2sums=('ffd889378515edc1aa7fc3149d0a63698994e2a32c13ea7ea571ed450370134bc51e0bc9556e2c18178fc01a757d0e416c79432f2585b4eec417a3a25bc8e93b')
-
-prepare() {
-  cd "$pkgname-$pkgver"
-  autoreconf -vfi
-}
+sha512sums=('c9b11a78208d1ddc541976a267ae744f905faee2e0ae6e575fb6609e9baf4dcf24e1d8814b73e20848f2eb37d013437cab698313650c1e8299b2d7403bb9c7d8')
+b2sums=('f4e76d6c4ba8961e71707b374477b20bdb6d1bd9981418d1fa197623cc51d0760306a2a692245d219da39408f0bfaf7524061c0571decb091e3a0480ff957a18')
 
 build() {
   cd "$pkgname-$pkgver"
-  ./configure --prefix=/usr
-  make
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE='None' \
+        -DCONFIG_QT6=ON \
+        -Wno-dev \
+        -B build \
+        -S .
+  make VERBOSE=1 -C build
 }
 
 package() {
   depends+=('libasound.so')
   cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir/" install
+  make VERBOSE=1 DESTDIR="$pkgdir" install -C build
   install -vDm 644 {AUTHORS,ChangeLog,README,TODO} \
     -t "${pkgdir}/usr/share/doc/${pkgname}/"
 }

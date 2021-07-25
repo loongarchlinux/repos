@@ -7,10 +7,10 @@
 # Contributor: GARETTE Emmanuel <gnunux at laposte dot net>
 # Contributor: Phillip Schichtel <phillip@schich.tel>
 
-# --->>> remember to rebuild/bump pigeonhole in one step <<<---
+# --->>> remember to rebuild/bump pigeonhole AND dovecot-fts-elastic in one step <<<---
 
 pkgname=dovecot
-pkgver=2.3.11.3
+pkgver=2.3.15
 pkgrel=2
 
 pkgdesc="An IMAP and POP3 server written with security primarily in mind"
@@ -19,12 +19,11 @@ arch=('loongarch64' 'x86_64')
 license=("LGPL")
 
 depends=('krb5' 'openssl' 'sqlite' 'mariadb-libs' 'libsodium'
-         'postgresql-libs' 'bzip2' 'lz4' 'expat' 'curl' 'pam')
-makedepends=('libcap' 'libldap' 'clucene' 'libsodium' 'lua')
+         'postgresql-libs' 'bzip2' 'lz4' 'expat' 'curl' 'pam' 'systemd-libs')
+makedepends=('libcap' 'libldap' 'lua53' 'xz' 'clucene' 'systemd')
 optdepends=('libldap: ldap plugin'
-            'xz: imap zlib  plugin'
-            'clucene: alternative FTS indexer'
-            'lua: LUA auth and push support')
+            'lua53: LUA auth and push support'
+            'clucene: alternative FTS indexer')
 
 provides=('imap-server' 'pop3-server')
 
@@ -33,15 +32,13 @@ backup=('etc/pam.d/dovecot')
 options=('!emptydirs')
 
 source=("https://dovecot.org/releases/2.3/${pkgname}-${pkgver}.tar.gz"{,.sig}
-        "fix-auth-gssapi.patch::https://github.com/dovecot/core/commit/fea1bacab954d2f112da8a95756f198530e274af.patch"
         'dovecot.sysusersd'
         'dovecot.tmpfilesd'
         'dovecot.ld.so.conf'
         'dovecot.pam')
 
-sha256sums=('d3d9ea9010277f57eb5b9f4166a5d2ba539b172bd6d5a2b2529a6db524baafdc'
+sha256sums=('21bbdd5d45957a99133de8b7e71813ecb73d9476c89dfc63479e9102b3553590'
             'SKIP'
-            '7f694efa19b2dc3f5aaf5430c8101970bf4c89dcf2d326b82befbe7c051804b4'
             'c5e3a8ffe23e5deb4f7893d9877d972347c2ee45c4ebf713de85c537e47cfcaf'
             '0b0625b1e66ca6a95d506fd00d6a68e70620c8ea28606e2528953ffb1806b08e'
             'a457a1691cfa82495fc0503bfa4b61e54b149e63400fe0f568dff2c24a3f7858'
@@ -55,9 +52,6 @@ validpgpkeys=(
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  # backport from git master, fixes FS#67757
-  patch -p1 -N -l -i "${srcdir}/fix-auth-gssapi.patch"
-
   # fix path in helper script
   sed -i 's:OPENSSLCONFIG=${OPENSSLCONFIG-dovecot-openssl.cnf}:OPENSSLCONFIG=${OPENSSLCONFIG- /etc/ssl/dovecot-openssl.cnf}:' doc/mkcert.sh
 }
@@ -65,19 +59,20 @@ prepare() {
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  ./configure --prefix=/usr --sysconfdir=/etc \
+  ./configure \
+    --prefix=/usr \
     --sbindir=/usr/bin \
+    --sysconfdir=/etc \
     --localstatedir=/var \
     --libexecdir=/usr/lib \
     --with-rundir=/run/dovecot \
     --with-moduledir=/usr/lib/dovecot/modules \
-    --with-systemdsystemunitdir=/usr/lib/systemd/system \
     --disable-static \
     --with-nss \
     --with-pam \
-    --with-mysql \
-    --with-pgsql \
     --with-sqlite \
+    --with-pgsql \
+    --with-mysql \
     --with-ssl=openssl \
     --with-ssldir=/etc/ssl \
     --with-gssapi \
@@ -87,11 +82,14 @@ build() {
     --with-bzlib \
     --with-lzma \
     --with-lz4 \
-    --with-libcap \
-    --with-solr \
+    --with-zstd \
     --with-lucene \
+    --with-solr \
     --with-sodium \
+    --with-libcap \
     --with-docs
+
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 
   make
 }

@@ -4,16 +4,16 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=ortp
-pkgver=4.4.0
+pkgver=4.5.22
 pkgrel=1
-pkgdesc="A Real-time Transport Protocol (RTP) library"
+pkgdesc='A Real-time Transport Protocol (RTP) library'
 arch=(loongarch64 x86_64)
-url="https://github.com/BelledonneCommunications/ortp"
+url='https://github.com/BelledonneCommunications/ortp'
 license=(GPL3)
 depends=(bctoolbox)
 makedepends=(cmake doxygen)
-source=($pkgname-$pkgver.tar.gz::"https://github.com/BelledonneCommunications/ortp/archive/$pkgver.tar.gz")
-sha256sums=('684c6b5cfb7770b9764dbb360d355f15e583bf4e064e237095c7dbc29d4e49ee')
+source=(https://github.com/BelledonneCommunications/ortp/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('d47795431e7faa4002e6dcdaa128e2c7b5a270f7a8e059daf749ca30a0f709bd')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \

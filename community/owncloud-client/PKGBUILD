@@ -1,9 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Kuba Serafinowski <zizzfizzix(at)gmail(dot)com>
 
-_name=owncloudclient
 pkgname=owncloud-client
-pkgver=2.6.3.14058
+pkgver=2.8.2.4246
 pkgrel=1
 pkgdesc='ownCloud client based on mirall'
 arch=(loongarch64 x86_64)
@@ -13,22 +12,22 @@ depends=(qtkeychain libcloudproviders hicolor-icon-theme)
 makedepends=(extra-cmake-modules python-sphinx qt5-tools doxygen kio)
 optdepends=('python-nautilus: integration with Nautilus' 'nemo-python: integration with Nemo' 'python-caja: integration with Caja')
 backup=('etc/ownCloud/sync-exclude.lst')
-source=(https://download.owncloud.com/desktop/stable/owncloudclient-$pkgver.tar.xz{,.asc}
-        owncloud-client-qt-5.15.patch)
-sha256sums=('e3d38de31e041f0e1836b2b74acfc1fc76eea4955968952a65643cbf36a493f5'
+source=(https://download.owncloud.com/desktop/ownCloud/stable/$pkgver/source/ownCloud-$pkgver.tar.xz{,.asc}
+        fix-build-qt.patch fix-build-glib2.patch)
+sha256sums=('0cc2e5154a1349bd21941ac3c32e8621778a9ff150730a19de2710e22d32fc43'
             'SKIP'
-            '33f2c09bd174f2fe4db74766db3a8028e96502f912b7d41be05ce211bfe1eaca')
+            '1dd13fd494dae3f5639a42df2c55f76897457de82be0e7601d09efabbddd3be0'
+            '091b40721869e0bb38fae7d4e0bb0baf2a4aaaa1c6cdceec52e6a44aa6065e98')
 validpgpkeys=(F05F7DD7953A07DF36579DAA498C45EBE94E7B37) # ownCloud Client Team (Signing Key) <info@owncloud.com>
 
 prepare() {
-  patch -d $_name-$pkgver -p1 -i ../owncloud-client-qt-5.15.patch # Fix build with Qt 5.15
+  patch -d ownCloud-$pkgver -p1 < fix-build-qt.patch # Fix build with recent Qt
+  patch -d ownCloud-$pkgver -p1 < fix-build-glib2.patch # Fix build with glib 2.68
 }
 
 build() {
-  cmake -B build -S $_name-$pkgver \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        -DCMAKE_INSTALL_SYSCONFDIR=/etc/$pkgname
+  cmake -B build -S ownCloud-$pkgver \
+        -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 

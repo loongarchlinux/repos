@@ -1,8 +1,9 @@
-# Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Maintainer: Justin Kromlinger <hashworks@archlinux.org>
+# Contributor: Gaetan Bisson <bisson@archlinux.org>
 
 pkgname=xournalpp
-pkgver=1.0.18
-_commit=535d261d364f5925dec1ae3966a067883e53281e
+pkgver=1.0.20
+_commit=adaa97ff646ac7b5427df6736aa54ad19bbbfa65
 pkgrel=2
 pkgdesc='Handwriting notetaking software with PDF annotation support'
 url='https://github.com/xournalpp/xournalpp'

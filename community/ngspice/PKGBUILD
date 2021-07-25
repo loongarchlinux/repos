@@ -4,17 +4,28 @@
 # Contributor: Luis Henrique <lmello.009@gmail.com>
 
 pkgname=ngspice
-pkgver=32
-pkgrel=1
+pkgver=34
+pkgrel=2
 pkgdesc='Mixed-level/Mixed-signal circuit simulator based on Spice3f5, Ciber1b1, and Xspice.'
 url='http://ngspice.sourceforge.net'
 license=('BSD')
 arch=('loongarch64' 'x86_64')
-depends=('libxaw' 'libedit' 'gcc-libs' 'readline')
+depends=('libxaw' 'libedit' 'gcc-libs')
 source=("https://downloads.sourceforge.net/project/$pkgname/ng-spice-rework/$pkgver/$pkgname-$pkgver.tar.gz"
-        "http://ngspice.sourceforge.net/docs/ngspice-$pkgver-manual.pdf")
-sha1sums=('a828e64ccfbf7229f9b6b97b4b909477b39f09d8'
-          '2c6c66b0a99e2522f42086e9ce6b7f3028f2bfb8')
+        "http://ngspice.sourceforge.net/docs/ngspice-$pkgver-manual.pdf"
+        "https://github.com/imr/ngspice/commit/8abd8069a8.diff")  # sf's git doesn't let you pull patches
+sha1sums=('b0aa799133921acea130119271e7495bf0882440'
+          'c03b965f8b1ccbbc4707bda64cc6f9446fceaca0'
+          '786c3e45a041940d5c29262823147ad3b3dce455')
+
+# figure out why libedit is okay, but readline isn't
+
+prepare() {
+  cd "$srcdir/$pkgname-$pkgver"
+  # remove on v35 (https://sourceforge.net/p/ngspice/bugs/539/)
+  sed -i 's|int  cp_maxhistlength|//&|' ../8abd8069a8.diff
+  patch -Np1 -i ../8abd8069a8.diff
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -24,7 +35,7 @@ build() {
   ./configure --prefix=/usr \
               --mandir=/usr/share/man \
               --infodir=/usr/share/info \
-              --with-readline=yes \
+              --with-readline=no \
               --enable-xspice \
               --enable-cider \
               --enable-openmp \
@@ -36,7 +47,7 @@ build() {
   ./configure --prefix=/usr \
               --mandir=/usr/share/man \
               --infodir=/usr/share/info \
-              --with-readline=yes \
+              --with-readline=no \
               --enable-xspice \
               --enable-cider \
               --enable-oldapps \
@@ -53,4 +64,8 @@ package() {
   install -Dm755 src/.libs/libngspice.so.0.0.0 "$pkgdir/usr/lib/libngspice.so.0.0.0"
   ln -s "libngspice.so.0.0.0" "$pkgdir/usr/lib/libngspice.so.0"
   ln -s "libngspice.so.0.0.0" "$pkgdir/usr/lib/libngspice.so"
+  # FS#70563, probably remove on v35
+  install -Dm644 ngspice.pc "$pkgdir/usr/lib/pkgconfig/ngspice.pc"
+  install -Dm644 src/include/ngspice/sharedspice.h "$pkgdir/usr/include/ngspice/sharedspice.h"
+  rm "$pkgdir/usr/include/config.h"
 }

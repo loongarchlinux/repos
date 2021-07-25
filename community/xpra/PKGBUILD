@@ -2,8 +2,8 @@
 # Contributor: Bug <bug2000@gmail.com>
 
 pkgname=xpra
-pkgver=3.0.9
-pkgrel=4
+pkgver=4.2
+pkgrel=1
 pkgdesc="multi-platform screen and application forwarding system screen for X11"
 arch=('loongarch64' 'x86_64')
 url='https://www.xpra.org'
@@ -18,7 +18,7 @@ optdepends=('x264: Codec' 'python-dbus: dbus features'
             'python-numpy: GPU accelerated capture and compression for NVIDIA cards'
             'gst-python: Sound Forwarding'
             'opencv: Webcam Forwarding')
-makedepends=('pkgconf' 'pygobject-devel' 'python-setuptools' 'cython' 'uglify-js')
+makedepends=('pkgconf' 'pygobject-devel' 'python-setuptools' 'cython' 'uglify-js' 'pandoc')
 backup=('etc/xpra/xpra.conf' 'etc/xpra/xorg.conf'
         'etc/xpra/conf.d/05_features.conf'
         'etc/xpra/conf.d/10_network.conf'
@@ -35,14 +35,14 @@ backup=('etc/xpra/xpra.conf' 'etc/xpra/xorg.conf'
         'etc/xpra/conf.d/60_server.conf'
         'etc/xpra/conf.d/65_proxy.conf'
         'etc/pam.d/xpra')
-source=($pkgname-$pkgver.tar.xz::$url/src/$pkgname-$pkgver.tar.xz
-        $pkgname-$pkgver.tar.xz.asc::$url/src/$pkgname-$pkgver.tar.xz.gpg)
+source=($pkgname-$pkgver.tar.xz::$url/src/$pkgname-$pkgver.tar.gz
+        $pkgname-$pkgver.tar.xz.asc::$url/src/$pkgname-$pkgver.tar.gz.gpg)
 
-md5sums=('b93382665a1d20837e78bba6021e0d45'
+md5sums=('9d4d4608a0ba6cccb5d794c5fc164020'
          'SKIP')
-sha1sums=('4714cead0e9e2123d737672f4e5fe51d73f591b7'
+sha1sums=('7f186c28da5b8a17ebc14c37ee8b56cc23071ff4'
           'SKIP')
-sha256sums=('277e6a03fd5b81a966cb0227c39ab1c159d7464365f69ba36b6bdfd0c39f1a13'
+sha256sums=('2a4430e0525e1f81b98d9e0674fdda5d9df3c6ee0600b6e2388e8f38a256e9f9'
             'SKIP')
 validpgpkeys=('C11C0A4DF702EDF6C04F458C18ADB31CF18AD6BB') # Antoine Martin <antoine@nagafix.co.uk>
 
@@ -60,4 +60,6 @@ package() {
   mkdir -p "${pkgdir}"/usr/share/dbus-1
   #Move D-BUS Policy
   mv "${pkgdir}"/{etc,usr/share}/dbus-1/system.d
+  #Fix for FS#69804
+  chmod +x "${pkgdir}"/usr/bin/*
 }

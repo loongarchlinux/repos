@@ -1,6 +1,6 @@
 --- a/src/main-process/atom-application.js
 +++ b/src/main-process/atom-application.js
-@@ -711,7 +711,7 @@
+@@ -691,7 +691,7 @@
      );
      this.openPathOnEvent(
        'application:open-license',
@@ -11,7 +11,7 @@
      this.configFile.onDidChange(settings => {
 --- a/src/workspace.js
 +++ b/src/workspace.js
-@@ -1300,7 +1300,7 @@
+@@ -1301,7 +1301,7 @@
  
    // Open Atom's license in the active pane.
    openLicense() {

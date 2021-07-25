@@ -2,22 +2,21 @@
 
 _hkgname=time-compat
 pkgname=haskell-time-compat
-pkgver=1.9.3
-pkgrel=26
+pkgver=1.9.6
+pkgrel=6
 pkgdesc="Compatibility package for time"
 url="https://github.com/phadej/time-compat"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-base-orphans')
-makedepends=('ghc' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged'
+depends=('ghc-libs' 'haskell-base-orphans' 'haskell-hashable')
+makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('937020b42b739a9ee2da3d8105181adc45d80f7e8b5af81c7f43dfbf567f33c81caf0e34de8896bc139f1eb4e40efd0715e9f6e5a4d542a1a86c4ea53151cf2a')
+sha512sums=('810b9f73b3e667df48e300613716bfed59dd46fe0278fd46c17b17c1d57fc4516cb3e36e07dc7bb7b3b71991a4fc88fe54982e8ea683c838c69efd3c4b757b8a')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
-    sed -i 's/< *2.14/<3/;s/< *1.3/<2/' $_hkgname.cabal
+    gen-setup
 }
 
 build() {
@@ -35,7 +34,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

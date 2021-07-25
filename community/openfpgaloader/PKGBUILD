@@ -2,16 +2,16 @@
 
 _pkgname=openFPGALoader
 pkgname=openfpgaloader
-pkgver=0.1
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc='Universal utility for programming FPGA'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/trabucayre/openFPGALoader'
 license=('AGPL')
-depends=('libftdi' 'libusb-1.0.so' 'libudev.so')
+depends=('libftdi' 'libftdi-compat' 'libusb-1.0.so' 'libudev.so')
 makedepends=('cmake' 'libusb' 'systemd-libs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('0a2f8e831bf7f2c623d6c7253c4bb7a77257d45add987a2dbd1a74c2422d823d1ce46574973a59921bd9ea4beb33b0cff02610d41abd28af2c5a0ebcb7db8e4f')
+sha512sums=('66a3fd771faab5b9f7efc0fa0bad7481b7e64268b0678c44d4bca48072678fab95d8764d96e19e704121d502798428d23c0d94d7f32bf7d3ad244b2db2d46b35')
 
 prepare() {
   sed -i 's|MODE="664", GROUP="plugdev"|MODE="666"|g' $_pkgname-$pkgver/99-openfpgaloader.rules

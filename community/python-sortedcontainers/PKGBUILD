@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-sortedcontainers
-pkgver=2.2.2
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Python Sorted Container Types: SortedList, SortedDict, and SortedSet"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/grantjenks/python-sortedcontainers/archive/v$pkgver.tar.gz")
-sha512sums=('413212aa35a80d24ec208caf19314dcc42dae207ec4ea8fdd7dc240c6fbf17372cb4c3e2209f6e40094419fa3eeb2fc9b23ad8bd7fb4e6fdaca46fd2fb248281')
+sha512sums=('f80185c6f95a85cc78f88f6f6cf389eb48be22cf94d5fcd84f3592873f17de37ec7f44c1627b7f02956ac4b4f74ca4febefc47d3c6232f70ee05dbb2449ad770')
 
 prepare() {
   # Don't use tox

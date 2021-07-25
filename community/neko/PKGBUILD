@@ -9,20 +9,24 @@
 
 pkgname=neko
 pkgver=2.3.0
-pkgrel=1
+pkgrel=4
 pkgdesc='High-level and dynamically typed programming language'
 url='https://nekovm.org/'
 license=(LGPL)
 arch=(loongarch64 x86_64)
-depends=(gc gtk2 mariadb-libs mbedtls sqlite)
+depends=(gc gtk3 mariadb-libs mbedtls sqlite)
 makedepends=(apache apr cmake git mbedtls ninja)
 optdepends=('apache: for extending Apache with mod_neko')
 options=(!strip)
-source=("git+https://github.com/HaxeFoundation/neko#tag=v${pkgver//./-}")
-sha256sums=('SKIP')
+source=("git+https://github.com/HaxeFoundation/neko#tag=v${pkgver//./-}"
+        gtk3.patch)
+sha256sums=('SKIP'
+            'c2e5428fffd5eec737c5ce6f165e2cb38f3943340dd24a06b8f39db7b6b7c544')
 
 prepare() {
-  sed -i '/xlocale.h/d' $pkgname/libs/std/sys.c
+  cd $pkgname
+  sed -i '/xlocale.h/d' libs/std/sys.c
+  patch -p1 -i ../gtk3.patch
 }
 
 build() {
@@ -40,4 +44,3 @@ package() {
 }
 
 # getver: nekovm.org/download
-# vim: ts=2 sw=2 et:

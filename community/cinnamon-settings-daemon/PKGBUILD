@@ -3,7 +3,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-settings-daemon
-pkgver=4.6.4
+pkgver=5.0.3
 pkgrel=1
 pkgdesc="The Cinnamon Settings daemon"
 arch=('loongarch64' 'x86_64')
@@ -13,37 +13,27 @@ depends=('cinnamon-desktop' 'colord' 'dbus-glib' 'libcanberra-pulse' 'libcups'
          'libgnomekbd' 'libgudev' 'libnotify' 'librsvg' 'libwacom' 'nss' 'polkit'
          'pulseaudio-alsa' 'upower')
 optdepends=('cinnamon-translations: i18n')
-makedepends=('autoconf-archive' 'intltool' 'python' 'xf86-input-wacom')
+makedepends=('meson' 'samurai' 'xf86-input-wacom')
 options=('!emptydirs')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha512sums=('77ddb637fd93fdfd59fb27c5a10082259fd99b4753ff36b3473db12f2fe0d19ee89d44c9e72f1ce9eab3f228c5fef418ce774dd78746d77b959ad9d8f93c1208')
-b2sums=('80e14d29a74004c1778e90d39c6ca892d3eee778134e43b8ea77cfec8cbad4f5ac21609cfbb9cdaab0b4d35b42e897223a5b9cdfd43de49d8112b8bc6fc45914')
-
-prepare() {
-    cd "${srcdir}"/${pkgname}-${pkgver}
-
-    autoreconf -fi
-}
+sha512sums=('ab44c5c157d5a37b35a88f89ba76254ade3f7dfdfaaa7ea7a09aabb49dce3c8f7d789d5d136b2a629c37483d2098ec957bfd07f930d786475ac1bf3973f4d56f')
+b2sums=('78067cc11b0a8e77f8bc0a0a942430dbee31e9b8f1a857b9f10b7c16982c0d5e64267e91d35bbd1d66391d328e35efc536d953eee00b2b4b3c6d8c6c28052601')
 
 build() {
-    cd "${srcdir}"/${pkgname}-${pkgver}
+    mkdir -p "${srcdir}"/${pkgname}-${pkgver}/builddir
+    cd "${srcdir}"/${pkgname}-${pkgver}/builddir
 
-    ./configure --prefix=/usr \
-                --sysconfdir=/etc \
-                --localstatedir=/var \
-                --libexecdir="/usr/lib/${pkgname}" \
-                --with-dbus-sys="/usr/share/dbus-1/system.d" \
-                --enable-systemd \
-                --enable-polkit
+    meson --prefix=/usr \
+          --libexecdir="/usr/lib/${pkgname}" \
+          --buildtype=plain \
+          -Dinstall_binfiles=false \
+          ..
 
-    #https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-    make
+    samu
 }
 
 package() {
-    cd "${srcdir}"/${pkgname}-${pkgver}
+    cd "${srcdir}"/${pkgname}-${pkgver}/builddir
 
-    make DESTDIR="$pkgdir" install
+     DESTDIR="${pkgdir}" samu install
 }

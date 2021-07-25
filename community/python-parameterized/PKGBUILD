@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-parameterized
-pkgver=0.7.4
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="Parameterized testing with any Python test framework"
 url="https://github.com/wolever/parameterized"
@@ -10,8 +10,8 @@ arch=('any')
 depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-nose' 'python-mock')
-source=("https://pypi.io/packages/source/p/parameterized/parameterized-$pkgver.tar.gz")
-sha512sums=('71c51ad57900f5b1b6f4866c60ba4d23649df7740e7f7e735a2e0faf4810bc8dc552a1647da8c174f8a0b80db7de5727ce24dabc9fee6b4cfe12ee98c18945d7')
+source=("https://github.com/wolever/parameterized/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('fb80d75c3d20bb9fe043072e14c89827ad94907d822edac90bee154088fe17d1ecd5df01e98e6a4764c8cdf85deb5eca9bbcdf9dc3756bf2c849453832b3c46e')
 
 build() {
   cd parameterized-$pkgver

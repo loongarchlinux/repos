@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-test2-suite
-pkgver=0.000136
-pkgrel=1
+pkgver=0.000140
+pkgrel=2
 pkgdesc="Distribution with a rich set of tools built upon the Test2 framework."
 arch=('any')
 license=('PerlArtistic')
@@ -11,7 +11,7 @@ depends=('perl-module-pluggable' 'perl-importer' 'perl-scope-guard' 'perl-sub-in
          'perl-term-table' 'perl-test-simple>=1.302176')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Suite-$pkgver.tar.gz")
-sha512sums=('e0957e899c40b0108b77367db931d215a7bc6d83928d755a85716a3882217b5d6855d354133c79abcc2845f38bd6d27606bf2182f1a59fe0a6d788227985bbc9')
+sha512sums=('26abec9f0aad7d29f6499d27a107bee915c57632b53147f602f5e3732536aabf6c6f903da989a7ebb7113e5c5c0d22a393ed9dc0438d284c09035b76dee91a91')
 
 build() {
   cd Test2-Suite-$pkgver

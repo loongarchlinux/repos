@@ -1,17 +1,20 @@
 # Maintainer: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Contributor: David Runge <dvzrv@archlinux.org>
 
 pkgname=cni-plugins
-pkgver=0.8.7
-pkgrel=1
+pkgver=0.9.1
+pkgrel=4
 pkgdesc='Some standard networking plugins, maintained by the CNI team'
 arch=(loongarch64 x86_64)
 url="https://github.com/containernetworking/plugins"
 license=(Apache)
 depends=(glibc)
 makedepends=(go)
+options=('emptydirs')
 source=($pkgname-$pkgver.tar.gz::$url/archive/v${pkgver}.tar.gz)
-sha512sums=('1b11b080b1f54a8a792b1048573d7d882603b76929f0c9343eeb2e010f97700c0deea4489faeb493a1aeac12557b6847b26784c378d0430c47de6bdaca6aa70f')
+sha512sums=('24e8fcedbff2ae7a83aa96085b546b164de6a0884d593e3b5386e9d2de3c4d9a215db9e9405332020cc45c371709a32b600e263e4f8dee62c51adafdc0180f24')
+b2sums=('878f476e62f12020b39d33a79723fe246b34d80705d3a336573401743392adca9a57b196d6d191b4a6f281110f47ecbb1525aacd91cd488bea61c7aaed12a6ef')
 
 build() {
   cd plugins-$pkgver
@@ -24,9 +27,16 @@ build() {
 }
 
 package() {
-  cd plugins-$pkgver/bin
-  for bin in *; do
-    install -Dm755 $bin "$pkgdir/usr/lib/cni/$bin"
-  done
-  install -Dm644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd plugins-$pkgver
+  install -vDm755 bin/* -t "$pkgdir/usr/lib/cni/"
+  install -vdm755 "${pkgdir}/etc/cni/net.d/"
+  install -vDm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -dm755 "$pkgdir/opt/cni/bin"
+
+  install -vDm644 plugins/ipam/dhcp/systemd/* -t "$pkgdir/usr/lib/systemd/system/"
+
+  # Some CNI stuff would build their binaries into /usr/lib/cni with the
+  # old approach. This is unfortunate so we'll just symlink each binary
+  # instead.
+  install -vDm755 bin/* -t "$pkgdir/opt/cni/bin/"
 }

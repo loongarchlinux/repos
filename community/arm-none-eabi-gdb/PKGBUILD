@@ -3,17 +3,17 @@
 
 _target=arm-none-eabi
 pkgname=$_target-gdb
-pkgver=9.2
-pkgrel=1
+pkgver=10.2
+pkgrel=2
 pkgdesc='The GNU Debugger for the ARM EABI (bare-metal) target'
 arch=(loongarch64 x86_64)
 url='https://www.gnu.org/software/gdb/'
 license=(GPL3)
-depends=(xz ncurses expat python guile2.0 gdb-common mpfr)
+depends=(xz ncurses expat python guile gdb-common mpfr libelf source-highlight)
 optdepends=('stlink: for debugging over STLINK')
 options=(!emptydirs)
 source=(https://ftp.gnu.org/gnu/gdb/gdb-$pkgver.tar.xz{,.sig})
-sha256sums=('360cd7ae79b776988e89d8f9a01c985d0b1fa21c767a4295e5f88cb49175c555'
+sha256sums=('aaa1223d534c9b700a8bec952d9748ee1977513f178727e1bee520ee000b4f29'
             'SKIP')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker <brobecker@adacore.com>
 
@@ -34,8 +34,9 @@ build() {
     --enable-interwork \
     --with-system-readline \
     --disable-nls \
+    --enable-source-highlight \
     --with-python=/usr/bin/python \
-    --with-guile=guile-2.0 \
+    --with-guile=guile-2.2 \
     --with-system-gdbinit=/etc/gdb/gdbinit
 
   make

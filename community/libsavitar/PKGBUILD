@@ -2,16 +2,16 @@
 # Contributor: neodarz <neodarz@neodarz.net>
 
 pkgname=libsavitar
-pkgver=4.7.1
+pkgver=4.9.1
 pkgrel=1
 pkgdesc="C++ implementation of 3mf loading with SIP python bindings"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/Ultimaker/libsavitar"
 license=('AGPL')
 depends=('python' 'pugixml')
-makedepends=('cmake' 'python-sip' 'sip')
+makedepends=('cmake' 'python-sip4' 'sip4')
 source=($pkgname-$pkgver.tar.gz::https://github.com/Ultimaker/libSavitar//archive/${pkgver}.tar.gz use_system_pugixml.patch)
-sha512sums=('87fa67c90ab94ef9d2804f59b85f36ca9a9a443f6fc37ddd0f143f721269f7b5c9a0fd0d53c476f47bdee9a16fd8e604ac0fd157966762aab9ecbdfa79b349fb'
+sha512sums=('2b291a17603922a4a06292282392015cf381a813b5f9a374e8cb35da6c0701ead72cbf76f17e763793225885a4209b49e73114f462b40d6999f95db6de887a44'
             'b312dcf43bf334001da98da93388da99731eacf417fe3a9dff51831bdd1f0ab5487377925bebce05e227533be2680b1a45f3203b0a7b9de9a77280a206ec7b26')
 
 prepare() {

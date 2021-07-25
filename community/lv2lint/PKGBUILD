@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=lv2lint
-pkgver=0.8.0
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="Check whether a given LV2 plugin is up to the specification"
 arch=('loongarch64' 'x86_64')
@@ -10,24 +10,17 @@ license=('Artistic2.0')
 depends=('glibc' 'libelf')
 makedepends=('curl' 'lilv' 'lv2' 'meson')
 source=("https://git.open-music-kontrollers.ch/lv2/${pkgname}/snapshot/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('3531f5cb6534b6fe79584a52c5fec0520a7bec5af95b48401c6bfe75409b9317ad9cc0ff873a849de9897bd35e1a076f664cd885443126e2c21d9a58b95d6891'
+sha512sums=('253d0af321e3f31347c13a877b7924c05c483788fb0b5105a13c4402e9029ca551ddd1d0fca338add119ebdd6972dc1e16a192b739c480ed4763fb14990d3e2a'
             'SKIP')
-b2sums=('d56b3de13b6eae1f54403add02f30e2fa82edb2ccaef2f967268c78f3614dc9901a75ac444d38df53722f2ae2ea95db46b9635a3e6cc4d4226df245abbb41655'
+b2sums=('a3e365b2a7068a0c6734a554d466896f09fb125f842f189ea42cf3d61ed209cf9123e9c6f9616dc095b82663ccca98d507d49fcda63cb151bd835d6650a4fa49'
         'SKIP')
 validpgpkeys=('5AE26CEBBF49705C19FB273A30258F99258CB76A') # Hanspeter Portner <dev@open-music-kontrollers.ch>
 
 build() {
   cd "$pkgname-$pkgver"
-  meson --prefix=/usr \
-        --libexecdir lib \
-        --sbindir bin \
-        --buildtype plain \
-        --auto-features enabled \
-        --wrap-mode nodownload \
-        -D b_lto=true \
-        -D b_pie=true \
-        -Donline-tests=true \
-        -Delf-tests=true \
+  arch-meson \
+        -Donline-tests='enabled' \
+        -Delf-tests='enabled' \
         build
   ninja -C build
 }

@@ -2,7 +2,7 @@
 
 _pkgname=litesata
 pkgname=python-$_pkgname
-pkgver=2020.04
+pkgver=2020.12
 pkgrel=1
 pkgdesc='Small footprint and configurable SATA core'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-migen' 'python-litex')
 makedepends=('python-setuptools')
 # checkdepends=('python-pytest-runner') # missing litescope release
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('a7c1f8a39589e30b77bb82280f61c0c6fabf6f5bb3b7468db30ce13cc1de8bcb16da1e8cbec1829bc14ee604ca80704a51d973a253bac4a42b4b50a514dfb735')
+sha512sums=('c09ddf8a0beeb9865dcdeaadcb0e6f49a0a5fa74f320021685e0da49707754cff8ea40a33f46e0c678d988f395f87606054d63de7f3da17196684fb15eb75976')
 
 build() {
   cd $_pkgname-$pkgver
@@ -33,4 +33,3 @@ package() {
 
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-

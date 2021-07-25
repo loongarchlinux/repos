@@ -3,8 +3,8 @@
 
 _hkgname=pipes
 pkgname=haskell-pipes
-pkgver=4.3.14
-pkgrel=17
+pkgver=4.3.16
+pkgrel=10
 pkgdesc="Compositional pipelines"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-mmorph' 'haskell-void')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4dac195772876c62d187a123c99ec2c624ce9f5b4c8ea8de9621d01c4eaaaf99a2f856a2c9faf94ec35c531df29f0e82aa9015ad8dd4eb2b2d7478a0da4bacf5')
+sha512sums=('6776a2d64ad164bd2d7dcbac7e935342b1507a87d8651ec2b22349192fc49cdd12ea18811d74093c88474a3b631322bc1010183476e5cb5c35dd35366b996b1e')
 
 build() {
     cd $_hkgname-$pkgver
@@ -30,7 +30,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

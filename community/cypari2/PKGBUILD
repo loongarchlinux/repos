@@ -2,7 +2,7 @@
 
 pkgbase=cypari2
 pkgname=python-cypari2
-pkgver=2.1.1
+pkgver=2.1.2
 pkgrel=3
 pkgdesc="Cython bindings for PARI"
 arch=(loongarch64 x86_64)
@@ -10,8 +10,8 @@ url="https://www.sagemath.org"
 license=(LGPL)
 depends=(python-cysignals)
 makedepends=(cython)
-source=($pkgname-$pkgver.tar.gz::"https://github.com/defeo/cypari2/archive/$pkgver.tar.gz")
-sha256sums=('8b707cba6f5ed249105348d3e29ce55c12c7ed5556ff6e0ae03f7aa792321e10')
+source=("https://pypi.python.org/packages/source/c/$pkgbase/$pkgbase-$pkgver.tar.gz")
+sha256sums=('03cd45edab8716ebbfdb754e65fea72e873c73dc91aec098fe4a01e35324ac7a')
 
 build() {
   cd $pkgbase-$pkgver

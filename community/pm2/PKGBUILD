@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pm2
-pkgver=4.5.0
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Production process manager for Node.JS applications with a built-in load balancer'
 arch=('any')
@@ -13,11 +13,11 @@ install=pm2.install
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz
         pm2.service)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('b172a7d10b2baa3fbeaa0b1d19301212c59f51184ceaf48f22a14fc12c24ddb2b9fd03cbc6e4665435b5cbcd8cf70127960123888af268b859529e6c68bba13c'
+sha512sums=('ade277e4d3b1338fa0ec7d1e9d6e3b1c9b29df60accca92c782a2302e50c5247dfc97b060ca04c9c3aa1c4064c64ab475148e5d1c58512a29e86a0743831fc2b'
             '0d80c16d4694511cc19970a3eb4a2e10f706a58c5cdc554809e12a12093a5b29ff6d30027cbe8646f837a42e40f7d9b7fe2853f96a76a38f47ddc14833f141ef')
 
 package() {
-  npm install -g --user root --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+  npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
   install -Dm644 pm2.service "$pkgdir"/usr/lib/systemd/system/pm2.service
 
   # Non-deterministic race in npm gives 777 permissions to random directories.

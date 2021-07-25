@@ -2,14 +2,13 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname='virtualbox-host-modules-arch'
-pkgver=6.1.14
-pkgrel=9
+pkgver=6.1.22
+pkgrel=20
 pkgdesc='Virtualbox host kernel modules for Arch Kernel'
 arch=('loongarch64' 'x86_64')
 url='https://virtualbox.org/'
 license=('GPL')
-makedepends=('linux-headers'
-             "virtualbox-host-dkms=$pkgver")
+makedepends=('linux-headers' "virtualbox-host-dkms=$pkgver")
 replaces=('virtualbox-modules' 'virtualbox-host-modules')
 conflicts=('virtualbox-modules' 'virtualbox-host-modules'
            'virtualbox-host-dkms')
@@ -36,21 +35,5 @@ package(){
   printf '%s\n' vboxdrv vboxnetadp vboxnetflt |
     install -D -m0644 /dev/stdin "$pkgdir/usr/lib/modules-load.d/$pkgname.conf"
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

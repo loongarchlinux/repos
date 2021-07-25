@@ -1,25 +1,32 @@
 # Maintainer: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-jaraco
-pkgver=2020.08.23
+pkgver=2021.03.28
 pkgrel=1
 pkgdesc='A gaggle of idiosyncratic and questionable wrappers for the stdlib.'
 arch=('any')
 url='https://github.com/jaraco?page=1&tab=repositories&utf8=%E2%9C%93&q=jaraco'
 license=('MIT')
-depends=('python-six' 'python-pytz' 'python-more-itertools')
+depends=('python-six' 'python-pytz' 'python-more-itertools' 'python-toml')
 makedepends=('python-setuptools-scm')
+provides=('python-jaraco-text'
+          'python-jaraco-functools'
+          'python-jaraco-collections'
+          'python-jaraco-classes'
+          'python-jaraco-stream'
+          'python-jaraco-logging'
+          'python-jaraco-itertools')
 
 # These should not exist and do not deserve so many packages.
 # Furthermore, try to make a replacement for python-irc so we can nuke it all.
 # And now cherrypy depends on this too :-(
-_text=3.2.0
-_functools=3.0.1
-_collections=3.0.0
-_classes=3.1.0
-_stream=3.0.0
-_logging=3.0.0
-_itertools=5.0.0
+_text=3.5.0
+_functools=3.3.0
+_collections=3.3.0
+_classes=3.2.1
+_stream=3.0.2
+_logging=3.1.0
+_itertools=6.0.1
 _pyhost="https://files.pythonhosted.org/packages/source"
 
 source=("$_pyhost/j/jaraco.text/jaraco.text-$_text.tar.gz"
@@ -29,13 +36,13 @@ source=("$_pyhost/j/jaraco.text/jaraco.text-$_text.tar.gz"
         "$_pyhost/j/jaraco.stream/jaraco.stream-$_stream.tar.gz"
         "$_pyhost/j/jaraco.logging/jaraco.logging-$_logging.tar.gz"
         "$_pyhost/j/jaraco.itertools/jaraco.itertools-$_itertools.tar.gz")
-sha512sums=('4107ef1078b44714b6ee5fb6ebd2bb7c35415debc6eaedd8bc18a70a2936cc7c7757acd7b3fac9587201ef52a25d9b29e49f2385a0a08afffb1d0c3de6ecc377'
-            '96696839d3405e571bd0120443c5494f13d737b7e0fd9324a7a003c88ff45bdaa89a717c81b9c5ecb4eded9781ba2c05f4735e5cf24c1d1c162fc3d55d38eedb'
-            'c6c5d28fe4b3940c81c68bf877249805db3f508d83a0071947c7a5596d3636631df91cc6e87802b0fa6cd5c8bdd1ef2f39b924471666b44d2147cb64ad1533ad'
-            '697d892a01c4e8ad83f57e69dcd744f976cea67fa3efcd55b10eda02f6bf1916162c0fa952d0d711e62f62fdff62740ee55a93be9fc46ebd4ab22416092f0ff6'
-            'f2ce7e65d9a3bcd81985f45d03f7cd56b2f2939f13a423b8b65714f19eb249493d89cad774460dd08c1345124d3d10f85ce6875b5f7049705f993c0a3146e5d9'
-            'bc0edeef6223d0eb78110d51159a70afd16542e830e3cd37dec7628e582bce44218cd7669c03c41125db9824b6fc774f608dd7f6540224659f4dc2f1927d681c'
-            '38ae2cbdd436b277e3d3c252fadeb5239e2d32b2291686b2a3dbaca69328392eb1db4318b2144954b17302e5b15b94ad89f1ea8a1b2e354deec7d4516bd7ec85')
+sha512sums=('da566f1a6d8343d05c51ca3f4635212094ddbc84fe9b460dd7630030a9b5bb28c97ccb0de5928da50230a182985c7e5bce8903d4019ce5afb89067ad938dd152'
+            'fc7c5a11a3411692066f4437d76ace7e8a00af2152256ea9f730254b577e74163342298d5b33d472c744cbad5dd316b56345d05aa93ef6f82bc92d6aadb2f2ec'
+            '23fea645226bcfbd5f034877aff7846960ad99d65d451bdbf5b8abb166356074d07780ea8e2e25d31fd03343929596dcd64a9ec949c1ff056c11862e043a8b7e'
+            '4c85cfdd1da88de01596867365147be6cadd7e1d230798683236fdfde579747e3309aac95ae4f3ef86c91bb4493f3096c4ecc14e3db764ef308aab41ead88e23'
+            'fce486caa9f27f3cfe7775858892d2865fe1c1656a8d369ef9321057716f25d7a737abf2a28fe7827efbeba2daa3b7992ec4fd18807751bf1fee6f48b238ab01'
+            'ce9a9cbad6d6bb448615eac986d361f9c6ff477b1209e85433f12a49055a9e30125cd49bebcf915a08b8efe0732439a8e1d336e63f6454369b3e846a9a1383ba'
+            '60a4bf4335bd159b1b2ed532f4b72c47984a8e2afc03bafb7ccb53095da787cecbcb6207bb2c521266285bd5bf0550f1a78dd5323266bde6e00937481599a506')
 
 prepare() {
   # remove inflect dep

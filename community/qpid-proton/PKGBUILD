@@ -1,7 +1,7 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=qpid-proton
-pkgver=0.32.0
+pkgver=0.33.0
 pkgrel=1
 pkgdesc='High-performance, lightweight messaging library'
 arch=('loongarch64' 'x86_64')
@@ -9,9 +9,8 @@ url='https://qpid.apache.org/proton'
 license=('Apache')
 depends=('libjsoncpp.so' 'python')
 makedepends=('cmake' 'doxygen' 'go' 'python-setuptools' 'python-sphinx' 'python-wheel' 'swig')
-checkdepends=('python-tox')
 source=("https://www.apache.org/dist/qpid/proton/${pkgver}/qpid-proton-${pkgver}.tar.gz")
-sha512sums=('4d1265308b685d5cdd28fd8746f13704c6e36a8dc35a2c121e07b9db21cabaf440da8dd1cf76892fc366845e7f472af2c29ae94dedee19d53756bba2bd4470b6')
+sha512sums=('d82cade354fd01f2cf7a3e0c17d48cdfa3bde263c8571762cdeb0b4da6ef2d6fd6f97cdba4fa4e8fc1b5368c54ccd2ca860fb56f46f58091c91deab843a17cf2')
 
 build() {
     cd ${pkgname}-${pkgver}
@@ -22,6 +21,7 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DLIB_SUFFIX='' \
         -DSYSINSTALL_BINDINGS=ON \
+        -DENABLE_TOX_TEST=OFF \
         ..
     make
 }

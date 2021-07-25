@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.5.6
+pkgver=1.9.2
 pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=('any')
@@ -10,15 +10,8 @@ license=('MIT')
 depends=('python-click' 'python-colorama' 'python-kaptan' 'python-setuptools' 'python-libtmux')
 checkdepends=('python-pytest' 'python-pytest-rerunfailures')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a1e52a44c33fd3b0fdb79299ea97033514300b98d9f739f6cad7a843825b45a3e4b44bcd3fb1d4464e075e6045013a017026b90314aa07660ef97c8d0774fcd1')
-b2sums=('08e063fc39890e87dcc582a21de4217738367f7ffe7850befcd5494e2093232f1b8de9445bd5f51f90a4142900aed808bccbfe6b76e2a2d7f4f77faec8e8e0ed')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  # remove all hard version pinning:
-  # https://github.com/tmux-python/tmuxp/issues/432
-  sed -e 's/==/>=/g' -i requirements/*.txt
-}
+sha512sums=('6a0111fb49fc761ab3ee4fd2a4dce8f85e959ac9dc8bebe3d5ee5c2734d46fb2c76b74e8ed8c65a277b597d9af18dc281042698175f6f77935c665dfbea5e280')
+b2sums=('e8379862b8df85a482f41985ca1dda2b7dfab559ae00830b91881cdbf6b868ed51ccb06fddd1271631d07a6cc2e2f836b838e9d00dd3b25fd0c545c9ca397dde')
 
 build() {
   cd "${pkgname}-${pkgver}"
@@ -35,13 +28,15 @@ check() {
 package() {
   cd "${pkgname}-${pkgver}"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --root="${pkgdir}/"
+                          --optimize=1 \
+                          --root="${pkgdir}/"
   # license
   install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
   # docs
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 {CHANGES,README.rst}
+  install -vDm 644 {CHANGES,README.md} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 examples/*.{json,yaml} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}/examples/"
 }
 
 # vim:set ts=2 sw=2 et:}

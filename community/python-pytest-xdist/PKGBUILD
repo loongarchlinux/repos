@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-xdist
-pkgver=2.1.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='py.test xdist plugin for distributed testing and loop-on-failing modes'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-execnet' 'python-psutil' 'python-pytest-forked')
 makedepends=('python-setuptools_scm')
 checkdepends=('python-filelock')
 source=("https://github.com/pytest-dev/pytest-xdist/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('1bbe43f51bb5641cb7006875f5dc4c889afcede68a02b842880aefca93c2fcf258741707d2add9daa17876a20ebc1da4907ed66e45a8c4eaaf1ca68ddaea00bb')
+sha512sums=('799b80256f0acca409c326e8fd9b505dbf486ade7e44d3710db913d508f4e2cec54539399af3de93bf213632708ff80cc8fb40b987227505391299171c00cb17')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
@@ -25,7 +25,8 @@ check() {
 
   cd pytest-xdist-$pkgver
   python setup.py install --root="$PWD/tmp_install" --optimize=1
-  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.8/site-packages:$PYTHONPATH" pytest
+  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.9/site-packages:$PYTHONPATH" pytest \
+    --deselect testing/acceptance_test.py::TestWarnings::test_warning_captured_deprecated_in_pytest_6
 }
 
 package() {

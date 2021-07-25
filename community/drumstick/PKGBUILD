@@ -1,41 +1,46 @@
-# Maintainer: David Runge <dave@sleepmap.de>
+# Maintainer: David Runge <dvzrv@archlinux.org>
 # Contributor: speps <speps at aur dot archlinux dot org>
 # Contributor: Dany Martineau <dany.luc.martineau@gmail.com>
 
 pkgname=drumstick
-pkgver=1.1.3
-pkgrel=3
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="MIDI libraries for Qt5/C++"
 arch=('loongarch64' 'x86_64')
-url="http://drumstick.sourceforge.net/"
+url="https://drumstick.sourceforge.io/"
 license=('GPL2')
-depends=('desktop-file-utils' 'hicolor-icon-theme' 'alsa-lib' 'qt5-base'
-'qt5-svg')
-makedepends=('cmake' 'doxygen' 'docbook-xsl' 'libpulse' 'fluidsynth')
-optdepends=('fluidsynth: for fluidsynth integration'
-            'libpulse: for PulseAudio integration')
-provides=('libdrumstick-alsa.so' 'libdrumstick-file.so' 'libdrumstick-rt.so')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
+makedepends=('alsa-lib' 'cmake' 'doxygen' 'docbook-xsl' 'fluidsynth' 'graphviz'
+'libpulse' 'qt5-tools')
+provides=('libdrumstick-alsa.so' 'libdrumstick-file.so' 'libdrumstick-rt.so'
+'libdrumstick-widgets.so')
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-sha512sums=('8831578a6422cbf6570fd0ff36836f808d452cd7cc338de82cc852d804c5ef404d97dfd73760b13f16fe33007b35a5fc4591f2c4d719a4cf2b6a34fa6ca81a8b')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  # removing specific check for fluidsynth == 1.1.11, as fluidsynth > 2.0.0
-  # compiles just fine
-  sed -E 's|(pkg_check_modules\(FLUIDSYNTH ).+|\1fluidsynth\)|g' \
-      -i library/rt-backends/CMakeLists.txt
-}
+sha512sums=('151b2dbcf348f5308d44cfaea1c2cf170133eccc5df7eb380255cbc4f6130ab1fa83fb96d218221c1f528fe1ae4a36815f2f8a29c57499aa82a264a8bfa138d5')
+b2sums=('8ce5cc252646ff221024dd9a2fda58b7a629b05ed78a2d9172f83cd24646d9395141bc1079fec4259b86b996a122bccf2a8bef899e0eb81870f93d490f62c41d')
 
 build() {
   cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release
-  make
+        -DCMAKE_BUILD_TYPE='None' \
+        -Wno-dev \
+        -B build \
+        -S .
+  make VERBOSE=1 -C build
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  # some tests fail due to insufficient system privileges, hence only run those
+  # that make sense in the build environment
+  # https://sourceforge.net/p/drumstick/bugs/24/
+  make test -C build/tests/fileTest1
+  make test -C build/tests/fileTest2
 }
 
 package() {
+  depends+=('libasound.so' 'libfluidsynth.so' 'libpulse.so' 'libpulse-simple.so')
   cd "${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}/" install
+  make DESTDIR="${pkgdir}/" install -C build
   install -t "${pkgdir}/usr/share/doc/${pkgname}/" \
-    -vDm 644 {AUTHORS,ChangeLog,NEWS,README,TODO}
+    -vDm 644 {AUTHORS,ChangeLog,NEWS,readme.md,TODO}
 }

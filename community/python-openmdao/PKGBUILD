@@ -1,25 +1,32 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-openmdao
-pkgver=3.4.0
+pkgver=3.9.2
 pkgrel=1
 pkgdesc="An open-source high-performance computing platform"
 url="https://github.com/OpenMDAO/OpenMDAO"
 license=('Apache')
 arch=('any')
-depends=('python-six' 'python-numpydoc' 'python-scipy' 'python-sqlitedict' 'python-pycodestyle'
-         'python-pydocstyle' 'python-testflo' 'python-parameterized' 'python-pyparsing'
-         'python-networkx' 'python-sphinx' 'python-redbaron' 'python-mock' 'python-requests-mock'
-         'python-tornado' 'python-pydoe2')
-checkdepends=('python-mpi4py')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/OpenMDAO/OpenMDAO/archive/$pkgver.tar.gz")
-sha512sums=('33e51f9d8545a745157134ec70e310a29021a6dd210dbda6fec2eb8de957440bb24adf2b2c4f97f7a26172a35eb356709df25bb49f57514dbb2945bdd84bca10')
+depends=('python-networkx' 'python-numpy' 'python-pydoe2' 'python-pyparsing' 'python-scipy'
+         'python-requests')
+optdepends=('python-matplotlib: for docs'
+            'python-numpydoc: for docs'
+            'python-redbaron: for docs'
+            'python-sphinx: for docs'
+            'python-tabulate: for docs and notebooks'
+            'ipython: for docs and notebooks'
+            'python-notebook: for notebooks'
+            'python-bokeh: for visualization'
+            'python-colorama: for visualization')
+checkdepends=('python-mpi4py' 'python-parameterized' 'python-numpydoc' 'python-pycodestyle'
+              'python-pydocstyle' 'python-testflo' 'python-websockets' 'python-pyppeteer'
+              'python-aiounittest')
+source=("https://github.com/OpenMDAO/OpenMDAO/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('704c0e2ad7964ce28d076bc14fef70744adcbf180ca47d9cb505fd355fdb227f52acd4bf4c073a3016d615e59a05f9f644b77ba570aab70ffafe79c2691ae566')
 
 prepare() {
   cd OpenMDAO-$pkgver
-  sed -e 's/from distutils.core/from setuptools/' \
-      -e 's/==/>=/' \
-      -i setup.py
+  sed -e 's/==/>=/' -i setup.py
 }
 
 build() {
@@ -29,7 +36,7 @@ build() {
 
 check() {
   cd OpenMDAO-$pkgver
-  PYTHONPATH="$PWD/build/lib" testflo -n 16 --timeout=120 openmdao || warning "Tests failed"
+  PYTHONPATH="$PWD/build/lib" testflo -n 16 --timeout=120 openmdao || echo "Tests failed"
 }
 
 package() {

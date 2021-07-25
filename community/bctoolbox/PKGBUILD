@@ -2,16 +2,16 @@
 # Contributor: Sergej Pupykin <arch+pub@sergej.pp.ru>
 
 pkgname=bctoolbox
-pkgver=4.4.0
+pkgver=4.5.22
 pkgrel=1
-pkgdesc="A library written in C that allows you to create and run audio and video streams"
+pkgdesc='A library written in C that allows you to create and run audio and video streams'
 arch=(loongarch64 x86_64)
-url="https://github.com/BelledonneCommunications/bctoolbox"
+url='https://github.com/BelledonneCommunications/bctoolbox'
 license=(GPL)
 depends=(mbedtls bcunit)
 makedepends=(cmake)
-source=($pkgname-$pkgver.tar.gz::"https://github.com/BelledonneCommunications/bctoolbox/archive/$pkgver.tar.gz")
-sha256sums=('fe64efb05de1bbd207e4abe5560ea44f5242eaf0911163b3b8fc0bec07488bb5')
+source=(https://github.com/BelledonneCommunications/bctoolbox/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('dca15197f37a538e33a2a08c837e6ec42b8511996452c28cec017ec638336bdf')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \

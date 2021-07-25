@@ -1,0 +1,35 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Stefan Tatschner <stefan@rumpelsepp.org>
+# Contributor: kpcyrd <git@rxv.cc>
+
+pkgname=websocat
+pkgver=1.8.1
+pkgrel=1
+pkgdesc='Command-line client for web sockets, like netcat/curl/socat for ws://'
+url='https://github.com/vi/websocat/'
+arch=('loongarch64' 'x86_64')
+license=('MIT')
+depends=('glibc' 'openssl' 'gcc-libs')
+makedepends=('cargo')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('e8154fc1e6fd9e0ca8f5aa472195995d50a628b9c39bf5af158c02c24a74fbb455fc91f46164f61325980dfd9935fd5fceb091f359bb4e3ddd20b67b47a7bbc4')
+b2sums=('86b45ed1e7702ded0ea89741a785aefff84f84c88b43cc6d5c0856d65c3f5ae9ce7099f940ec02abfbd3039091a7174eedf1378690a6d5f4b75f6db95edceae0')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  cargo build --release --locked --features=ssl
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  cargo test --release --locked --features=ssl
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm 755 target/release/websocat -t "${pkgdir}/usr/bin"
+  install -Dm 644 README.md doc.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

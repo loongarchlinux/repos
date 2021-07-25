@@ -1,0 +1,38 @@
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Contributor: Tharre <tharre3@gmail.com>
+# Contributor: Caleb Maclennan <caleb@alerque.com>
+
+pkgname=age
+_pkgver=1.0.0-rc.3
+pkgver=${_pkgver//-/}
+pkgrel=1
+pkgdesc='A simple, modern and secure file encryption tool'
+arch=('loongarch64' 'x86_64')
+url="https://github.com/FiloSottile/$pkgname"
+license=('BSD')
+depends=('glibc')
+makedepends=('go')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$_pkgver.tar.gz")
+sha512sums=('d5fe881255d07a174b3e325bf58631a4a45c50cc8bbdf0d0711fa6de23c6b3eeb31fc21c549b2921f8f4b1031d0984a2d30f1664a4a483ee604f86dd419c9518')
+
+build() {
+    cd "$pkgname-$_pkgver"
+    go build \
+      -trimpath \
+      -buildmode=pie \
+      -mod=readonly \
+      -modcacherw \
+      -ldflags "-linkmode external -extldflags \"$LDFLAGS\"" \
+      -o . ./...
+}
+
+check() {
+    cd "$pkgname-$_pkgver"
+    go test ./...
+}
+
+package() {
+    cd "$pkgname-$_pkgver"
+    install -Dm755 -t "$pkgdir/usr/bin/" age age-keygen
+    install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}

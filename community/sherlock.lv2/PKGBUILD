@@ -1,48 +1,36 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sherlock.lv2
-pkgver=0.24.0
+pkgver=0.28.0
 pkgrel=1
 pkgdesc="An investigative plugin bundle"
 arch=('loongarch64' 'x86_64')
 url="https://open-music-kontrollers.ch/lv2/sherlock/"
 license=('Artistic2.0')
 groups=('lv2-plugins' 'pro-audio')
-depends=('glibc' 'libglvnd' 'libx11')
-makedepends=('flex' 'glu' 'lv2' 'meson' 'serd' 'sord' 'sratom')
+depends=('glibc' 'libglvnd' 'libx11' 'lv2-host')
+makedepends=('flex' 'glew' 'glu' 'lv2' 'meson' 'serd' 'sord' 'sratom')
 checkdepends=('lv2lint')
 source=("https://git.open-music-kontrollers.ch/lv2/$pkgname/snapshot/$pkgname-$pkgver.tar.xz"{,.asc})
-sha512sums=('40603ca53978e0fad7b593a3ed8ff429ad15930e6da6119da21058d5eb10c6183a4ea8ed93c9561bd187a2b8966f822d9434f4d0098e807c258fa2ab15234fd1'
+sha512sums=('e30ec9084b67e0b7065ad548473d3a33be5300dd37a1353be0ae7c88742989a06a1b6c02bd90f065d02f55157f47bdc694e3c415422466c718c6fc2116e3bcd7'
             'SKIP')
-b2sums=('a95dd9a4677179a2aa345c64b490111c931b32a63df36279581beb0da365b43c0492e8708773d8c5d7459afce64b7750ebf289236b7b9ead47ea8de1594f7ac2'
+b2sums=('90984c0c39d69439791c1d84d8aa29668f391923957c9bb50cd1cefc85b7997f8c7ef363fcf7e9d5b9390fc22da468af70c9142c0a4380646f7ca2c066fab06a'
         'SKIP')
 validpgpkeys=('5AE26CEBBF49705C19FB273A30258F99258CB76A') # Hanspeter Portner <dev@open-music-kontrollers.ch>
 
 build() {
   cd "$pkgname-$pkgver"
-  meson --prefix=/usr \
-        --libdir=lib \
-        --libexecdir lib \
-        --sbindir bin \
-        --buildtype plain \
-        --auto-features enabled \
-        --wrap-mode nodownload \
-        -D b_lto=true \
-        -D b_pie=true \
-        build
+  arch-meson build
   ninja -C build
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  _plugin_names=('atom_inspector' 'midi_inspector' 'osc_inspector')
-  for _plugin in ${_plugin_names[@]}; do
-    lv2lint -Mpack -I "build/" "http://open-music-kontrollers.ch/lv2/sherlock#${_plugin}"
-  done
+  ninja -C build test
 }
 
 package() {
-  depends+=('libserd-0.so' 'libsratom-0.so')
+  depends+=('libGLEW.so' 'libserd-0.so' 'libsratom-0.so')
   cd "$pkgname-$pkgver"
   DESTDIR="${pkgdir}" meson install -C build
   # docs

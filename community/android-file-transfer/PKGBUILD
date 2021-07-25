@@ -2,16 +2,16 @@
 # Contributor: Askhat Bakarov <sirocco{at}ngs{dot}ru>
 
 pkgname=android-file-transfer
-pkgver=3.9
-pkgrel=2
+pkgver=4.2
+pkgrel=1
 pkgdesc='Android MTP client with minimalistic UI'
 arch=(loongarch64 x86_64)
 url='https://github.com/whoozle/android-file-transfer-linux'
 license=(GPL3)
 depends=(qt5-base fuse2 libxkbcommon-x11 hicolor-icon-theme file)
-makedepends=(cmake)
+makedepends=(cmake qt5-tools)
 source=(android-file-transfer-$pkgver.tar.gz::https://github.com/whoozle/android-file-transfer-linux/archive/v$pkgver.tar.gz)
-sha256sums=('26aa21683ae34aceaf83747fec693a15b996017a857014931ef3c5b50115971a')
+sha256sums=('cc607d68e8a18273c9b56975a70a0e68fbdf9d5b903b2727a345a605ff48a19f')
 
 build() {
   cd android-file-transfer-linux-$pkgver

@@ -2,8 +2,8 @@
 
 _hkgname=tasty-silver
 pkgname=haskell-tasty-silver
-pkgver=3.1.15
-pkgrel=24
+pkgver=3.2.1
+pkgrel=21
 pkgdesc="A fancy test runner, including support for golden tests"
 url="https://github.com/phile314/tasty-silver"
 license=("MIT")
@@ -13,12 +13,7 @@ depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-optparse-ap
          'haskell-temporary')
 makedepends=('ghc' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b097710f4a1ee690cb7fc449b8154ca13833338db14380f78a396b0a9376382aacfcb3a73106e1bb2c799643d0c26b353bf606d1cde0adaa26ac83236de3f364')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    sed -i '/semigroups/d' $_hkgname.cabal
-}
+sha512sums=('235edbc01ecd662df66e8816f9510d37eea5e631e2ae77d54611f85ba57ae4fe9c588264c74061a77f29f82c4e99d27e702569f0a57949622f794a61f50abfb4')
 
 build() {
     cd $_hkgname-$pkgver
@@ -35,7 +30,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

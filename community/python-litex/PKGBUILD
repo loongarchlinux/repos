@@ -2,7 +2,7 @@
 
 _pkgname=litex
 pkgname=python-$_pkgname
-pkgver=2020.04
+pkgver=2020.12
 pkgrel=1
 pkgdesc='Migen/MiSoC based Core/SoC builder that provides the infrastructure to easily create Cores/SoCs'
 arch=('any')
@@ -10,9 +10,15 @@ url='https://github.com/enjoy-digital/litex'
 license=('BSD')
 depends=('python-migen' 'python-pyserial' 'python-requests' 'python-pythondata-software-compiler_rt')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest-runner')
+checkdepends=('python-pytest' 'python-litedram' 'python-liteeth' 'python-liteiclink' 'python-litesdcard' 'yosys'
+              'python-pythondata-cpu-vexriscv' 'python-pythondata-cpu-picorv32' 'python-pythondata-cpu-lm32' 'python-pythondata-cpu-mor1kx')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('5ac44a14e0c1a122528692312a9a7927b3f2b7a506f02131ac672f35e064bf3d523c731c0e023a023bf2dc37f9396eb96b757b455632e2b2611d2e8fe2c899b3')
+sha512sums=('144a1ef81afcb0e762853a48d1b8d248ad414d159ae6ea659f7b6a6538c75d3cfb38238aea40572ce2a787fb183af10fe63ca4842e7e5b4761817916b8404344')
+
+prepare() {
+  # seems like running the tests breaks setup.py install
+  cp -r $_pkgname-$pkgver{,-tests}
+}
 
 build() {
   cd $_pkgname-$pkgver
@@ -21,9 +27,9 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname-$pkgver-tests
 
-#  python setup.py pytest
+  pytest -k-test_variants_minerva
 }
 
 package() {
@@ -33,4 +39,3 @@ package() {
 
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-

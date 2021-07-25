@@ -6,7 +6,7 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 
 pkgname=dart
-pkgver=2.10.2
+pkgver=2.13.4
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('loongarch64' 'x86_64')
@@ -16,7 +16,7 @@ license=('BSD')
 makedepends=('setconf')
 options=('!strip')
 source=("$pkgname-$pkgver-64.zip::https://storage.googleapis.com/dart-archive/channels/stable/release/$pkgver/sdk/dartsdk-linux-x64-release.zip")
-sha512sums=('91e97068ab3f2d59ae8e7d6ad592ad15e88ca65cac9b57686b71d968db0ad844624741914bacae5e443bcc83a1a180620bdfe9b0534136ed80e16de57db39d10')
+sha512sums=('f9c8f3b3528548fda5e575d1e384d90321a14782fadc7e8c98b551afcb5ef3a0d7a371cadd495efe281b8b3cd0dc466db54beb250f111ef8b6092e9494d288cd')
 
 prepare() {
   # Fix permissions

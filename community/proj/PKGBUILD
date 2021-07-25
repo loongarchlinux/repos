@@ -4,32 +4,28 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=proj
-pkgver=6.3.2
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='Cartographic Projections library'
 arch=('loongarch64' 'x86_64')
 url="https://trac.osgeo.org/proj/"
 license=('MIT')
-makedepends=('autoconf' 'sqlite')
+depends=('curl' 'libtiff' 'sqlite')
+makedepends=('cmake' 'gmock' 'gtest')
 changelog=$pkgname.changelog
-source=(https://github.com/OSGeo/PROJ/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
-        https://download.osgeo.org/proj/proj-datumgrid-1.8.zip)
-sha256sums=('cb776a70f40c35579ae4ba04fb4a388c1d1ce025a1df6171350dc19f25b80311'
-            'b9838ae7e5f27ee732fb0bfed618f85b36e8bb56d7afb287d506338e9f33861e')
+source=(https://github.com/OSGeo/PROJ/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('e0463a8068898785ca75dd49a261d3d28b07d0a88f3b657e8e0089e16a0375fa')
 
-build(){
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  autoreconf -if
-  ./configure --prefix=/usr
-  make
+build() {
+  cmake -S $pkgname-$pkgver -B build -DCMAKE_INSTALL_PREFIX='/usr' -DUSE_EXTERNAL_GTEST=ON
+  cmake --build build
 }
 
+check(){
+  ctest --test-dir build
+}
+            
 package() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install
-
-  install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE
-  bsdtar --no-same-owner -xzvf "${srcdir}"/proj-datumgrid-1.8.zip -C "${pkgdir}"/usr/share/$pkgname
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $pkgname-$pkgver/COPYING "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE
 }

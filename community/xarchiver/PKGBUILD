@@ -4,7 +4,7 @@
 
 pkgbase=xarchiver
 pkgname=(xarchiver xarchiver-gtk2)
-pkgver=0.5.4.15
+pkgver=0.5.4.17
 pkgrel=1
 pkgdesc="GTK+ frontend to various command line archivers"
 arch=(loongarch64 x86_64)
@@ -27,12 +27,13 @@ optdepends=('arj: ARJ support'
             'unarj: ARJ support'
             'unrar: RAR support'
             'unzip: ZIP support'
+            'xdg-utils: recognize more file types to open'
             'xz: xz support'
             'zip: ZIP support'
             'zstd: zstd support')
 source=(https://github.com/ib/xarchiver/archive/$pkgver/$pkgbase-$pkgver.tar.gz
         xarchiver.appdata.xml)
-sha256sums=('2a18f5a8932516ecc5c50152ff6ce77bc3f58a0b221d6db9c70d089cf90d7182'
+sha256sums=('fec755ffbd50e3575bd2497c755e9fe93265c5735f20de03328485f57d1123e2'
             '55f41aa0e5569b446933a34ac0585443fa5bd92f03f47e1fd53daf19905cc97e')
 
 build() {

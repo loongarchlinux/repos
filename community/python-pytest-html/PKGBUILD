@@ -2,7 +2,7 @@
 
 _name=pytest-html
 pkgname=python-pytest-html
-pkgver=2.1.1
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="Plugin for generating HTML reports for pytest results"
 arch=('any')
@@ -13,7 +13,8 @@ makedepends=('python-setuptools-scm')
 checkdepends=('python-ansi2html' 'python-pytest-mock'
 'python-pytest-rerunfailures' 'python-pytest-xdist')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('a35eb141d90b82e713e11b022a788adb9f097910dd267f207afdf3b6fc06f40fc6ca308e70098d7aa48d866aad8495aad25bbf566c301f789749f1791a7fa802')
+sha512sums=('78091b485d153b54cd76abb8cfeb6494830b1b51a10dc0c00c73eccf67962d2805e3f83972c7ccfd1f877a939b582f80d5ddd5273fd1ddcac2a1a9c2eb121300')
+b2sums=('d2491280ceb4524a10a46891448bb63fe997a4be82062e727fb1d79ef6154a0b4229bbec27c6601372776f7c8dd124aab5d4968482fc24ad24330db5d2520187')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
@@ -26,15 +27,24 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  export PYTHONPATH="build:${PYTHONPATH}"
-  pytest -v -k 'not test_environment_xdist and not test_css'
+  local _python_version="$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')"
+  local _test_dir='test_dir'
+
+  # install into test location
+  mkdir -vp "${_test_dir}"
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --root="${_test_dir}"
+
+  export PYTHONPATH="${PWD}/${_test_dir}/usr/lib/python${_python_version}/site-packages/:${PYTHONPATH}"
+  export PATH="${PWD}/test_dir/usr/bin:${PATH}"
+  pytest -v
 }
 
 package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
+                          --optimize=1 \
+                          --root="${pkgdir}"
   install -vDm 644 {CHANGES,README}.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

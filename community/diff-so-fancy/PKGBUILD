@@ -2,7 +2,7 @@
 # Contributor: icasdri <icasdri at gmail dot com>
 
 pkgname=diff-so-fancy
-pkgver=1.3.0
+pkgver=1.4.2
 pkgrel=1
 pkgdesc="Good-looking diffs with diff-highlight and more"
 arch=('any')
@@ -11,12 +11,11 @@ license=('MIT')
 depends=('perl')
 makedepends=('git')
 checkdepends=('bash-bats-assert' 'bash-bats-support')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/so-fancy/diff-so-fancy/archive/v$pkgver.tar.gz")
-sha384sums=('3b8990c406674962bc47fb190966a75e73ef5e6e851b1daa6807e68dbfd7b522eeea37691fcc7ddc5f0e3d2f784369e5')
+source=("https://github.com/so-fancy/diff-so-fancy/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha384sums=('acd3b1fe1a9c545ae027ae17c1d0265a906178153e1e261fb56174db6944f81856bd5c36cb69054a8f4291870fdf90a5')
 
 prepare() {
-  cd "$srcdir"/$pkgname-$pkgver
-
+  cd $pkgname-$pkgver
   rm -r third_party # lib
 
   sed -e 's|test_helper/bats-support|/usr/lib/bats-support|' \
@@ -26,13 +25,13 @@ prepare() {
 }
 
 check() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd $pkgname-$pkgver
   git init
   bats test/*.bats
 }
 
 package() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd $pkgname-$pkgver
 
   sed -i 's|^use lib .*$|use lib "/usr/share/diff-so-fancy";|' diff-so-fancy
 

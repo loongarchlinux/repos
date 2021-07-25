@@ -2,18 +2,18 @@
 
 _hkgname=persistent-qq
 pkgname=haskell-persistent-qq
-pkgver=2.9.2
-pkgrel=11
+pkgver=2.12.0.1
+pkgrel=9
 pkgdesc="Provides a quasi-quoter for raw SQL for persistent"
 url="https://github.com/yesod-web/persistent"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-src-meta' 'haskell-persistent')
 makedepends=('ghc' 'haskell-aeson' 'haskell-fast-logger' 'haskell-hspec' 'haskell-hunit'
-             'haskell-monad-logger' 'haskell-persistent-sqlite' 'haskell-persistent-template'
-             'haskell-resourcet' 'haskell-unliftio')
+             'haskell-monad-logger' 'haskell-persistent-sqlite' 'haskell-resourcet'
+             'haskell-unliftio')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('48d6783abf366b327e68e5a1619585c056836885e552b6596eda056cf7758a8b426c3cf27ac7c67cb772bd482de9afbe7365b7647bbf31c529089810b5d5dd97')
+sha512sums=('14a06fd7b2b773a80f0963658bdc74f17755579ddee45f7875208ad4046d7cdee096cbf2fdba41b34baa43bc6fecb901cfdbd65c12845a9381844bf14afd6df6')
 
 build() {
     cd $_hkgname-$pkgver
@@ -36,7 +36,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

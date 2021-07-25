@@ -1,0 +1,42 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Otreblan <otreblain@gmail.com>
+
+_name=pygls
+pkgname=python-pygls
+pkgver=0.11.1
+pkgrel=1
+pkgdesc='Pythonic generic implementation of the Language Server Protocol'
+arch=('any')
+url=https://github.com/openlawlibrary/pygls
+license=('APACHE')
+depends=('python-pydantic' 'python-typeguard')
+makedepends=('python-build' 'python-install' 'python-setuptools-scm'
+             'python-toml' 'python-wheel')
+checkdepends=('python-mock' 'python-pytest' 'python-pytest-asyncio')
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
+sha256sums=('cb30ccf1eee14760ce1b7167a9d39df9e72368ec7a61accdd6bf0b9c73ea0319')
+b2sums=('eba67cbcb7ac46784dc1c70f01e0b35d5ff2ce20fe51a0feb9d4be635576000f97c8b3bfd2bb2b38cf1c88cc9e77a3e998b805b5824ce7c2478c11f4c04af885')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --skip-dependency-check --no-isolation
+}
+
+check() {
+  cd $_name-$pkgver
+  pytest
+}
+
+package() {
+  cd $_name-$pkgver
+  export PYTHONHASHSEED=0
+  python -m install --optimize=1 --destdir="$pkgdir" dist/*.whl
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s $site_packages/$_name-$pkgver.dist-info/LICENSE.txt \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}
+
+# vim:set ts=2 sw=2 et:

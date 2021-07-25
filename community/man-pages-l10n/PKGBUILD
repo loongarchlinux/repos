@@ -4,13 +4,18 @@
 # Contributor: Rafael Fontenelle <rafaelff@gnome.org>
 
 pkgbase=man-pages-l10n
-pkgname=('man-pages-de'
+pkgname=('man-pages-cs'
+         'man-pages-da'
+         'man-pages-de'
+         'man-pages-es'
          'man-pages-fr'
+         'man-pages-it'
+         'man-pages-mk'
          'man-pages-nl'
          'man-pages-pl'
          'man-pages-pt_br'
          'man-pages-ro')
-pkgver=4.2.0
+pkgver=4.10.0
 pkgrel=1
 pkgdesc="Translation of man pages"
 arch=('any')
@@ -21,13 +26,13 @@ makedepends=('po4a')
 changelog=$pkgbase.changelog
 options=('!emptydirs')
 source=(https://salsa.debian.org/manpages-l10n-team/manpages-l10n/-/archive/v$pkgver/manpages-l10n-v$pkgver.tar.bz2)
-sha256sums=('0dbf2b879793e0e84d0cf61562019c11260b7e37d8151048dc068bfa719bcebd')
+sha256sums=('42f0cb70cadc92e3a5975eed1022fd504788d4a944c9500e160d52d46ce24cb3')
 
 build() {
   cd "${srcdir}"/manpages-l10n-v$pkgver
   ./configure --prefix=/usr --enable-distribution=archlinux
 
-  for _lang in de fr nl pl pt_BR ro; do
+  for _lang in cs da de fr nl pl pt_BR ro; do
     make -C po/"${_lang}"
   done
 }
@@ -35,9 +40,25 @@ build() {
 check() {
   cd "${srcdir}"/manpages-l10n-v$pkgver
 
-  for _lang in de fr nl pl pt_BR ro; do
+  for _lang in cs da de fr nl pl pt_BR ro; do
     make check -k -C po/"${_lang}"
   done
+}
+
+package_man-pages-cs() {
+  pkgdesc="Czech man pages"
+  depends=('man-db')
+
+  cd "${srcdir}"/manpages-l10n-v$pkgver/po/cs
+  make DESTDIR="${pkgdir}" install
+}
+
+package_man-pages-da() {
+  pkgdesc="Danish man pages"
+  depends=('man-db')
+
+  cd "${srcdir}"/manpages-l10n-v$pkgver/po/da
+  make DESTDIR="${pkgdir}" install
 }
 
 package_man-pages-de() {
@@ -48,11 +69,35 @@ package_man-pages-de() {
   make DESTDIR="${pkgdir}" install
 }
 
+package_man-pages-es() {
+  pkgdesc="Spanish man pages"
+  depends=('man-db')
+
+  cd "${srcdir}"/manpages-l10n-v$pkgver/po/es
+  make DESTDIR="${pkgdir}" install
+}
+
 package_man-pages-fr() {
   pkgdesc="French man pages"
   depends=('man-db')
 
   cd "${srcdir}"/manpages-l10n-v$pkgver/po/fr
+  make DESTDIR="${pkgdir}" install
+}
+
+package_man-pages-it() {
+  pkgdesc="Italian man pages"
+  depends=('man-db')
+
+  cd "${srcdir}"/manpages-l10n-v$pkgver/po/it
+  make DESTDIR="${pkgdir}" install
+}
+
+package_man-pages-mk() {
+  pkgdesc="Macedonian man pages"
+  depends=('man-db')
+
+  cd "${srcdir}"/manpages-l10n-v$pkgver/po/mk
   make DESTDIR="${pkgdir}" install
 }
 

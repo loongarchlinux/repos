@@ -2,7 +2,7 @@
 
 _pkgname=databases
 pkgname=python-$_pkgname
-pkgver=0.3.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc='Async database support for Python'
 arch=('any')
@@ -20,7 +20,7 @@ optdepends=('python-asyncpg: postgresql support'
 #              'python-aiomysql' 'python-pymysql' 'python-aiosqlite' 'python-sqlalchemy'
 #              'python-starlette' 'python-requests')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('dc5894e240709ac2f71eca816c1fed745478811bf2c5c2faca5aec7f115af5a15d9acd684816d09d94ff7cd2d4450eca14ff5874cf5ec5d62261f19a6439ba0c')
+sha512sums=('aa49f1a33edd3bf9ae7aa203dcef4941d1a1766c930cbe34405caf3dca0801bbca494ec39357591b6339977b86294d32a031bf2020f206436e7d19edc6a8e158')
 
 # TODO: fix tests (need databases)
 

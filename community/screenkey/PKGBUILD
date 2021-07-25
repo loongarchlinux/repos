@@ -4,18 +4,18 @@
 # Contributor: Gordin <9ordin @t gmail d@t com>
 
 pkgname=screenkey
-pkgver=1.2
-pkgrel=1
+pkgver=1.4
+pkgrel=2
 pkgdesc="A screencast tool to display your keys inspired by Screenflick"
 arch=('any')
 url="https://www.thregr.org/~wavexx/software/screenkey/"
 license=('GPL3')
 depends=('python-gobject' 'gtk3' 'python-cairo' 'libx11')
-makedepends=('python-setuptools' 'python-distutils-extra')
+makedepends=('python-setuptools' 'python-wheel' 'python-babel' 'python-distutils-extra')
 optdepends=('slop' 'ttf-font-awesome' 'libappindicator-gtk3')
 source=("https://www.thregr.org/~wavexx/software/screenkey/releases/$pkgname-$pkgver.tar.gz"{,.asc})
 validpgpkeys=('41958F4116FDD1B43DEE754A2BB7D6F2153410EC')
-sha256sums=('6ef4dd759724bd498c9b193099e5650375810e209638e5f0d778dfb746ac5b73'
+sha256sums=('d7347e31fab4a5b18da431e3fc26f39700e99a505eb0c0168295adc12c8dd4f7'
             'SKIP')
 
 build() {
@@ -25,5 +25,6 @@ build() {
 
 package() {
   cd "$pkgname-$pkgver"
+  export PYTHONHASHSEED=0
   python setup.py install --skip-build --optimize=1 --root="$pkgdir/"
 }

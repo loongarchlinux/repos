@@ -2,7 +2,7 @@
 # Contributor: Alexandre Filgueira <alexfilgueira@antergos.com>
 
 pkgname=cinnamon-menus
-pkgver=4.6.1
+pkgver=4.8.3
 pkgrel=1
 pkgdesc="Cinnamon menu specifications"
 arch=('loongarch64' 'x86_64')
@@ -11,8 +11,8 @@ license=('GPL' 'LGPL')
 depends=('glib2')
 makedepends=('gobject-introspection' 'meson' 'samurai')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('534cf3e15fed812e1affb544811e10823edbc56360b52a80ffbabc006c467dc6')
-b2sums=('bdfacd5f4c5344833c9804b79846c5ac9908e74381c2e84b29b8cb765b10578ac69155d93e1c0bd8b6b8100d5e5f34ca1bc8bd77edb681eb705d759c5d9275bc')
+sha256sums=('b0a02ab0e37d67e761c24545123ec354e7fab0a504267e524892a953bcfd98d7')
+b2sums=('18a6c3d8ed8a3d63621d10db5920e18e7bba42d6f7967f4a98d9cb8cf446716cfb54c0321a669aeaf3c9f9c901bc3d2ff07b77b5d4b73ef06d2af4e541b2d728')
 
 build() {
     mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build

@@ -1,30 +1,29 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: loqs
 # Contributor: Arkham <arkham@archlinux.us>
 # Contributor: dirty_d <andrew2085@gmail.com>
 
 pkgname=joyutils
-pkgver=1.6.1
+pkgver=1.7.1
 pkgrel=2
 pkgdesc='jscal, jstest, and jsattach utilities for the Linux joystick driver'
 arch=(loongarch64 x86_64)
 license=(GPL)
 url='https://packages.debian.org/sid/joystick'
 conflicts=(linuxconsole)
-depends=(sdl)
+depends=(sdl2)
 source=("https://deb.debian.org/debian/pool/main/j/joystick/joystick_$pkgver.orig.tar.bz2")
-sha256sums=('e9d6b05a6c57c7eb3ec7f9f017f46b20e4b55d5a02f930eff1823a13921c5934')
+b2sums=('e05d04454fefdd4009d0c75f1caf2e6675a8e5f494f6f2f491f4de3c57101a6323b4de5795fccb9fd6a557a1e7bf4befa312661b022ed0503da83ac4dd3ab7c5')
 
 prepare() {
-  sed -i 's,DESTDIR)/lib,DESTDIR)$(PREFIX)/lib,g' \
-    linuxconsoletools-$pkgver/utils/Makefile
+  ln -sf "linuxconsoletools-$pkgver" $pkgname
+  sed -i 's,IR)/lib,IR)$(PREFIX)/lib,g' $pkgname/utils/Makefile
 }
 
 build() {
-  make -C linuxconsoletools-$pkgver
+  PREFIX=/usr make -C $pkgname
 }
 
 package() {
-  DESTDIR="$pkgdir" PREFIX=/usr make -C linuxconsoletools-$pkgver install
+  DESTDIR="$pkgdir" PREFIX=/usr make -C $pkgname install
 }
-
-# vim: ts=2 sw=2 et:

@@ -2,8 +2,8 @@
 # Contributor: fenuks
 
 pkgname=skim
-pkgver=0.8.2
-pkgrel=2
+pkgver=0.9.4
+pkgrel=1
 pkgdesc='Fuzzy Finder in rust!'
 arch=('loongarch64' 'x86_64')
 url=https://github.com/lotabout/skim
@@ -13,10 +13,10 @@ makedepends=('rust')
 optdepends=('bash: for resp. completions and key bindings, and for sk-tmux script'
             'fish: for resp. key bindings'
             'tmux: for sk-tmux script'
-            'vim: for N/Vim plugin'
+            'vim-plugin-runtime: for N/Vim plugin'
             'zsh: for resp. completions and key bindings')
 source=("skim-$pkgver.tar.gz::https://static.crates.io/crates/skim/skim-$pkgver.crate")
-sha512sums=('2911687d426cd2e377623e9c94747198be4357c5a02706f424b2371f256a43380f41a34a594f36bb99100774a5d2ce19bd88ea719c762e3aff187b55aeba6f19')
+b2sums=('b41f0f0f22f0bef615ec6b013c2d95149ad4a13fde438b7b25064d706388531d25fafaa8c5b576f7fbb231c2c11007e7e38446033ab23af59ffea82412b50c83')
 
 build() {
   cd skim-$pkgver

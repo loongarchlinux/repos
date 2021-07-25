@@ -1,0 +1,26 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+_pipname=jupyter_packaging
+pkgname=python-jupyter_packaging
+pkgver=0.10.3
+pkgrel=1
+pkgdesc='Jupyter Packaging Utilities'
+arch=(any)
+url='https://jupyter.org/'
+license=(custom)
+depends=(python-packaging python-deprecation python-wheel python-tomlkit)
+makedepends=(python-setuptools)
+source=(https://pypi.io/packages/source/j/$_pipname/$_pipname-$pkgver.tar.gz)
+sha256sums=('80799306fa42752a3592e9fda3bac7ecc8c56a2a13f26932c922b8c064378437')
+
+build() {
+  cd $_pipname-$pkgver
+  python setup.py build 
+}
+
+package() {
+  cd $_pipname-$pkgver
+  python setup.py install --skip-build --root="$pkgdir" --optimize=1
+
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

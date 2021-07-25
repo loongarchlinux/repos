@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=5.2.0.46
+pkgver=5.2.18
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -25,16 +25,14 @@ groups=('deepin')
 provides=('deepin-desktop')
 conflicts=('deepin-desktop')
 replaces=('deepin-desktop')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-file-manager/archive/$pkgver.tar.gz"
-         deepin-file-manager-qt5.15.patch)
-sha512sums=('59caacc84ee1901a5ea68e6b726b90ac7f421f204415d7fdf4e0330ff08c5426fb7b9a2063e2a7ba511ae06c6d351011275ca7a914d5568cb2c166d85197faa5'
-            '0c38761b7a44dc581d7d4fedc2c51cf702769ec43a325384f13ce427cf2dccc8af4b59e82f4bd567449073926f4a7ad433147ea01db0ad8ab75eb46f7150a3eb')
+source=("https://github.com/linuxdeepin/dde-file-manager/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('63e5dbd6a16bbc1d833be498c18cadafb9c48b57e102868f3dd1cf90a43e27cfbb9e5f9a2efa6243fa76b17a0664e6c850c392c1a0e3de88f3f89a68ae1403f9')
 
 prepare() {
   cd dde-file-manager-$pkgver
-  sed -i 's|systembusconf.path = /etc/dbus-1/system.d|systembusconf.path = /usr/share/dbus-1/system.d|' dde-file-manager-daemon/dde-file-manager-daemon.pro
-
-  patch -p1 -i ../deepin-file-manager-qt5.15.patch # Fix build with Qt 5.15
+  sed -e 's|systembusconf.path = /etc/dbus-1/system.d|systembusconf.path = /usr/share/dbus-1/system.d|' \
+      -e 's|systemd_service.path = /lib/systemd/system|systemd_service.path = /usr/lib/systemd/system|' \
+      -i src/dde-file-manager-daemon/dde-file-manager-daemon.pro
 }
 
 build() {

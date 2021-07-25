@@ -8,17 +8,17 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=14.14.0
+pkgver=16.4.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript'
 arch=('loongarch64' 'x86_64')
 url='https://nodejs.org/'
 license=('MIT')
-depends=('openssl' 'zlib' 'icu' 'libuv' 'c-ares' 'libnghttp2') # 'http-parser' 'v8')
+depends=('openssl' 'zlib' 'icu' 'libuv' 'libnghttp2' 'c-ares') # 'http-parser' 'v8')
 makedepends=('python' 'procps-ng')
 optdepends=('npm: nodejs package manager')
-source=("nodejs-$pkgver.tar.gz::https://github.com/nodejs/node/archive/v$pkgver.tar.gz")
-sha512sums=('56c9bf3d789b6000f5e0d2ec7ef5ce1b68cc52960b82d2acf4396541f714b0f2adf6b166877f298b09db2a547e0cf0a3e004ec8d11c25fa3abe03b2d7ab418b5')
+source=("https://github.com/nodejs/node/archive/v$pkgver/nodejs-$pkgver.tar.gz")
+sha512sums=('ec184862202ce6b26f2a35a58dc4cb8e8824b950e97a02de239d77886626a78d2efb663746a19c22521f225b81b23f9004955f8786fec570a6ac3d4254971851')
 
 build() {
   cd node-$pkgver
@@ -31,8 +31,8 @@ build() {
     --shared-zlib \
     --shared-libuv \
     --experimental-http-parser \
-    --shared-cares \
-    --shared-nghttp2
+    --shared-nghttp2 \
+    --shared-cares
     # --shared-v8
     # --shared-http-parser
 
@@ -41,8 +41,7 @@ build() {
 
 check() {
   cd node-$pkgver
-  # Expected failure: https://github.com/nodejs/node/issues/11627
-  make test || warning "Tests failed"
+  make test || :
 }
 
 package() {

@@ -1,0 +1,33 @@
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Contributor: Arturo Penen <apenen@gmail.com>
+
+pkgname=istio
+pkgver=1.10.2
+pkgrel=1
+pkgdesc='Istio configuration command line utility for service operators to debug and diagnose their Istio mesh.'
+arch=('loongarch64' 'x86_64')
+url='https://github.com/istio/istio'
+license=('Apache')
+makedepends=('go')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/istio/istio/archive/$pkgver.tar.gz")
+sha512sums=('6167e09c58553f6143359a638476e8110f938ad2f9862e2cd9f2de7dabc3ad91e716c381fa40c89147c7a702764638cafa95a1529799d4086c2a312b6adaf7c9')
+
+build() {
+  cd $pkgname-$pkgver
+  export VERSION=$pkgver
+  export TAG=$pkgver
+  export BUILD_WITH_CONTAINER=0
+  make build
+}
+
+package() {
+  install -Dm 755 "${srcdir}/$pkgname-$pkgver/out/linux_amd64/istioctl" "${pkgdir}/usr/bin/istioctl"
+
+  # Populate bash and zsh completions
+  install -dm 755 "${pkgdir}/usr/share/bash-completion/completions"
+  install -dm 755 "${pkgdir}/usr/share/zsh/site-functions"
+  "${pkgdir}/usr/bin/istioctl" collateral --bash
+  mv istioctl.bash "${pkgdir}/usr/share/bash-completion/completions/istioctl"
+  "${pkgdir}/usr/bin/istioctl" collateral --zsh
+  mv _istioctl  "${pkgdir}/usr/share/zsh/site-functions/_istioctl"
+}

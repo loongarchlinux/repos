@@ -1,13 +1,13 @@
 # Maintainer: Kyle Keen <keenerd@gmail.com>
 
 pkgname=jupyter-notebook
-pkgver=6.1.4
+pkgver=6.3.0
 pkgrel=1
 pkgdesc="The language-agnostic HTML notebook application for Project Jupyter"
 arch=('any')
 url="https://github.com/jupyter/notebook"
 license=('BSD')
-depends=('python-setuptools' 'python-jinja' 'python-tornado' 'python-terminado'
+depends=('python-jinja' 'python-tornado' 'python-terminado'
          'python-traitlets' 'jupyter-nbformat' 'python-jupyter_core'
          'python-jupyter_client' 'mathjax2' 'python-send2trash'
          'jupyter-nbconvert' 'python-prometheus_client' 'python-argon2_cffi')
@@ -15,7 +15,7 @@ depends=('python-setuptools' 'python-jinja' 'python-tornado' 'python-terminado'
 makedepends=('python-setuptools' 'npm' 'git')
 optdepends=('pandoc: notebook export')
 source=("$pkgname-$pkgver.tgz::https://github.com/jupyter/notebook/archive/$pkgver.tar.gz")
-md5sums=('eb81355187dad5e8f579be098d32db08')
+md5sums=('03e24007cb39207d7b0c99d51a8aab50')
 
 # todo: report bug that mathjax and nbconvert is no longer optional
 
@@ -38,8 +38,8 @@ package() {
   python3 setup.py install --prefix=/usr --root="$pkgdir" --optimize=0
   # FS45999 use system mathjax
   ln -s /usr/share/mathjax2 \
-  "$pkgdir/usr/lib/python3.8/site-packages/notebook/static/components/MathJax"
+  "$pkgdir/usr/lib/python3.9/site-packages/notebook/static/components/MathJax"
 
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 jupyter-notebook.desktop "$pkgdir/usr/share/applications/jupyter-notebook.desktop"
 }
-

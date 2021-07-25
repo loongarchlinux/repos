@@ -2,16 +2,16 @@
 
 _hkgname=hi-file-parser
 pkgname=haskell-hi-file-parser
-pkgver=0.1.0.0
-pkgrel=67
+pkgver=0.1.2.0
+pkgrel=13
 pkgdesc="Parser for GHC's hi files"
-url="https://github.com/commercialhaskell/stack"
+url="https://github.com/commercialhaskell/hi-file-parser"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-rio' 'haskell-vector')
 makedepends=('ghc' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('e101c99486839d8c28a3a1fa7fddb0cc8287298f587affaf90cccfa517adaf84b570af8d28faae16201271e0d27059fdbac5740f429e9f4f341f760d5d9d0b5f')
+sha512sums=('a0e04ec071083c23e850264d9beb5d0346f3c2ed8ae99c86d1d4f0980cc5fe431ff8101beb94b03bf3bae6b5d6595070edd692596869252852ee2a45180fdb6a')
 
 build() {
     cd $_hkgname-$pkgver    
@@ -28,7 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

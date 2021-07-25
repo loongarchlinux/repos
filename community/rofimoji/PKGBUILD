@@ -1,26 +1,52 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rofimoji
-pkgver=4.3.0
-pkgrel=1
+pkgver=5.2.0
+pkgrel=2
 pkgdesc='Character picker for rofi'
 arch=('any')
 url=https://github.com/fdw/rofimoji
 license=('MIT')
-depends=('emoji-font' 'python-configargparse' 'python-setuptools' 'python-xdg'
-         'rofi' 'xclip' 'xdotool')
-makedepends=('python-pip' 'python-wheel')
-source=("$url/archive/$pkgver/rofimoji-$pkgver.tar.gz")
-sha512sums=('d43d2e8c609baa1e9b875ccf9446d0c4f4262e1932de4a2f8a0f80719b6d7e73317725d86e934f044a2d0ba8369b6ae938b5525a925b0dde658c76dfd94a512b')
+depends=('python-configargparse')
+makedepends=('python-build' 'python-install' 'python-setuptools' 'python-wheel')
+optdepends=('emoji-font: for the emojis character file'
+            'nerd-fonts: for the nerd_font character file'
+            'rofi: for the X.Org selector'
+            'xclip: for one of the X.Org clipboarders'
+            'xsel: for one of the X.Org clipboarders'
+            'xdotool: for the X.Org typer'
+            'wofi: for the Wayland selector'
+            'wl-clipboard: for the Wayland clipboarder'
+            'wtype: for the Wayland typer')
+install=$pkgname.install
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('9df9024215ba6998d2a2d396ed7b5da905d43eb5506bd2de3ffd163d727f30c2ac4b7e5fd27d44ea1af0ce54c8ac0a4a06b19bafab1e62d1bd5e4a3cfcf41a9c')
+
+prepare() {
+  cd $pkgname-$pkgver
+  # Remove data_files section https://github.com/pypa/wheel/issues/92
+  sed -i '/\[options.data_files\]/,/^$/d' setup.cfg
+}
 
 build() {
-  cd rofimoji-$pkgver
-  python setup.py bdist_wheel
+  cd $pkgname-$pkgver
+  python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 package() {
-  cd rofimoji-$pkgver
-  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="$pkgdir" --ignore-installed --no-deps dist/*.whl
+  cd $pkgname-$pkgver
+  export PYTHONHASHSEED=0
+  python -m install --optimize=1 --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir"/usr/share/man/man1 src/picker/docs/$pkgname.1
+
+  # https://github.com/FFY00/python-install/pull/6
+  chmod +x "$pkgdir"/usr/bin/$pkgname
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s $site_packages/$pkgname-$pkgver.dist-info/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

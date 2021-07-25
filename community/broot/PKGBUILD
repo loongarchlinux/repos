@@ -3,7 +3,7 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=broot
-pkgver=1.0.2
+pkgver=1.6.1
 pkgrel=1
 pkgdesc='Fuzzy Search + tree + cd'
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('gcc-libs' 'zlib')
 makedepends=('rust')
 source=("https://github.com/Canop/broot/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha256sums=('3aa821ec47837a668b34d60bdaf4a166bc7ae836a8550f38440a5b944660fcee')
+sha256sums=('5f97d876aa554be4c67bfd161ef762425f6083da583775c13cc75bf9882f1085')
 
 build() {
   cd $pkgname-$pkgver
@@ -32,8 +32,7 @@ package() {
   # CHANGELOG.md entry for the current version isn't actually in the current release.
   # changelog_date=$(sed -n "s/.*v$pkgver - \(.*\)$/\1/p" CHANGELOG.md)
   sed -i "s/#date//" man/page
-  gzip --best man/page
-  install -Dm644 man/page.gz "$pkgdir/usr/share/man/man1/$pkgname.1.gz"
+  install -Dm644 man/page "$pkgdir/usr/share/man/man1/$pkgname.1"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 

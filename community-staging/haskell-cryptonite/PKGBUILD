@@ -3,22 +3,23 @@
 
 _hkgname=cryptonite
 pkgname=haskell-cryptonite
-pkgver=0.27
-pkgrel=21
+pkgver=0.29
+pkgrel=11
 pkgdesc="Cryptography Primitives sink"
 url="https://github.com/vincenthz/cryptonite"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-basement' 'haskell-memory')
-makedepends=('ghc')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-kat'
+             'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ce7391bb5e8686c1362e6c23b6073b6aefd10fe02a5f42f9f2fe871ca0a4aa8d71072a1a609566fa6184527c61d1be48d67b794da562e4909806548095acf8ac')
+sha512sums=('7f80268e429a9f700709ebdb00da1e2831f2edca064feaa06a9050060fea572abc2fdfee976f60b18a4085cf3a3533e70129104c82e7b050358a97e8575928f2')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fsupport_deepseq -finteger-gmp -f-support_pclmuldq -fsupport_rdrand \
             -fsupport_aesni -f-old_toolchain_inliner -f-check_alignment -fsupport_sse
@@ -27,6 +28,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

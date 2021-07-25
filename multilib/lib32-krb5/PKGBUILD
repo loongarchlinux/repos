@@ -4,19 +4,32 @@
 
 _pkgbasename=krb5
 pkgname=lib32-${_pkgbasename}
-_pkgvermajor=1.18
-pkgver=1.18.2
+_pkgvermajor=1.19
+pkgver=1.19.1
 pkgrel=1
 pkgdesc='The Kerberos network authentication system (32-bit)'
 url='https://web.mit.edu/kerberos/'
 arch=('loongarch64' 'x86_64')
 license=('custom')
-depends=('lib32-e2fsprogs' 'lib32-libldap' 'lib32-keyutils' "${_pkgbasename}")
+depends=('lib32-glibc' 'lib32-e2fsprogs' 'lib32-libldap' 'lib32-keyutils' "${_pkgbasename}")
 makedepends=('perl')
+provides=(
+  libgssapi_krb5.so
+  libgssrpc.so
+  libk5crypto.so
+  libkadm5clnt_mit.so
+  libkadm5srv_mit.so
+  libkdb5.so
+  libkdb_ldap.so
+  libkrad.so
+  libkrb5.so
+  libkrb5support.so
+  libverto.so
+)
 options=('!emptydirs')
 source=(https://web.mit.edu/kerberos/dist/krb5/${_pkgvermajor}/${_pkgbasename}-${pkgver}.tar.gz{,.asc}
         krb5-config_LDFLAGS.patch)
-sha512sums=('7cbb1b28e677fea3e0794e93951f3caaa2c49bb1175dd187951e72a466cc69d96c3b833d838000fe911c1a437d96a558e550f27c53a8b332fb9dfc7cbb7ec44c'
+sha512sums=('36bf33802119ada4650a8f69f1daca95aaf882dc96bfa7061f0340a5decd588c31fc10108ddadf1042934e0e2c3bbd975deec565b0a7f0fc2baf8b8cc6d97491'
             'SKIP'
             '5a3782ff17b383f8cd0415fd13538ab56afd788130d6ad640e9f2682b7deaae7f25713ce358058ed771091040dccf62a3bc87e6fd473d505ec189a95debcc801')
 validpgpkeys=('2C732B1C0DBEF678AB3AF606A32F17FD0055C305'  # Tom Yu <tlyu@mit.edu>

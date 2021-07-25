@@ -3,7 +3,7 @@
 
 pkgdesc='Library to create Wayland desktop components using the Layer Shell protocol'
 pkgname=gtk-layer-shell
-pkgver=0.3.0
+pkgver=0.6.0
 pkgrel=1
 arch=(loongarch64 x86_64)
 license=(LGPL3)
@@ -19,16 +19,21 @@ makedepends=(
     "ninja"
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wmww/gtk-layer-shell/archive/v$pkgver.tar.gz")
-sha512sums=('55464cf1c41b5e5ab12b6c7e0bccade8fbf77c09da08e5d160c5dfdfbb3160830d456ed0325bedc8e8a0e6af683f62b51c23e3cfc6e3094c31f5a5c1fbaed350')
+sha512sums=('ca5367b5f1637a07c28c772e79e5ac84219ff069091077f83c5edbc88be084538a925b3c76e6cc9dcd8d2826ae340b79605875e87209ee4f4d5e27dc4e93a523')
 
 build() {
     meson --prefix=/usr \
           --wrap-mode=nofallback \
           --buildtype=plain \
+          -Dtests=true \
           -Ddocs=true \
           "$pkgname-$pkgver" \
           build
     ninja -C build
+}
+
+check() {
+    ninja -C build test
 }
 
 package() {

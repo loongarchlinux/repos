@@ -3,7 +3,7 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=snd
-pkgver=20.8
+pkgver=21.5
 pkgrel=1
 pkgdesc="An advanced sound editor"
 arch=('loongarch64' 'x86_64')
@@ -23,8 +23,8 @@ optdepends=('wavpack: For wav support'
             'timidity++: For MIDI to WAVE support'
             'vorbis-tools: For OGG support')
 source=("https://sourceforge.net/projects/${pkgname}/files/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3c52cea9f3a829d8d7a8172babdc99f500e42581c3aee503d18e48217d4efb5753475db600b6af55f4bf81227a1fef95866af6c04636e2cb94bf6a8ad6b71e92')
-b2sums=('d02085d99b22285bee5fdcba988be6c25e3e6c669123d7b6d2549096d4703a200beae06c21cece2a4a25da72065f0c6edfd75c9683f7f9311592ed12943254bd')
+sha512sums=('ba7d8b8257af9c26b9ec044853da4632cc4d058fda1c3952513c973429972c011cca98821d8e8e1aa00198d94d02296f18776274b57a9512eec242190b91c950')
+b2sums=('9a45a0511af51ac8b4a7ba2f7dfb2432e1537d991009b546edf79d2c74750092d4a6f5cc8a3c9cf2ac1353071fd0b98ff2622ae9bd291590cd8e4b33d86c95aa')
 
 prepare() {
   cd "${pkgname}-${pkgver}"

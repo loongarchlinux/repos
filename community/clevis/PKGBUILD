@@ -1,7 +1,7 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=clevis
-pkgver=14
-_commit=44b7b6ef3b1bdce67fff737daa72b25671f4ce2c # signed commit corresponding to tag "v$pkgver"
+pkgver=18
+_commit=a6131b4a3f9f2ec02eddc1007b1fde94008ed1ce # git rev-parse "v$pkgver^{}"
 pkgrel=1
 pkgdesc='Automated Encryption Framework'
 arch=('loongarch64' 'x86_64')
@@ -29,21 +29,21 @@ validpgpkeys=('7CE2CB3D2AF59FE1EA22F551D0D219ED1F7E762C') # Sergio Correia <scor
 
 pkgver() {
 	cd "$pkgname"
-	git describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+	git describe --tags | sed 's/^v//;s/\([^-]*-\)g/r\1/;s/-/./g'
 }
 
 build() {
 	cd "$pkgname"
 	meson --prefix=/usr --libexecdir=/usr/lib --buildtype=plain build
-	ninja -C build
+	meson compile -C build
 }
 
 check() {
 	cd "$pkgname"
-	ninja -C build test
+	meson test -C build
 }
 
 package() {
 	cd "$pkgname"
-	DESTDIR="$pkgdir" ninja -C build install
+	DESTDIR="$pkgdir" meson install -C build
 }

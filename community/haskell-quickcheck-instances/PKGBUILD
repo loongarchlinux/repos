@@ -3,10 +3,10 @@
 
 _hkgname=quickcheck-instances
 pkgname=haskell-quickcheck-instances
-pkgver=0.3.24
-pkgrel=17
+pkgver=0.3.25.2
+pkgrel=53
 pkgdesc="Common quickcheck instances"
-url="https://github.com/phadej/qc-instances"
+url="https://github.com/haskellari/qc-instances"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-case-insensitive' 'haskell-data-fix'
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-quickcheck' 'haskell-case-insensitive' 'haskell-dat
          'haskell-uuid-types' 'haskell-vector')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f72d5aadc283a7da19298566d0208dcbfb790faae5a26bdd2ffb0dc1cb8afd76892c994c5f193be9ad9233973d04c3386e83e3fb483674ff6f0cabcdf6a3d52f')
+sha512sums=('1e4df0c814cfdd12370d25ba66e0d9698e25cd480d9609ab5a45d4492df7a4600b79f5412f8224d90976c3accd59b16f8941b351bf8980e70e846ec08e6efced')
 
 build() {
     cd $_hkgname-$pkgver

@@ -2,8 +2,8 @@
 
 _hkgname=snap-server
 pkgname=haskell-snap-server
-pkgver=1.1.1.2
-pkgrel=131
+pkgver=1.1.2.0
+pkgrel=172
 pkgdesc="A web server for the Snap Framework"
 url="https://github.com/snapframework/snap-server"
 license=('BSD')
@@ -12,18 +12,18 @@ depends=('ghc-libs' 'haskell-attoparsec' 'haskell-blaze-builder' 'haskell-case-i
          'haskell-clock' 'haskell-io-streams' 'haskell-io-streams-haproxy' 'haskell-lifted-base'
          'haskell-network' 'haskell-old-locale' 'haskell-snap-core' 'haskell-unix-compat'
          'haskell-vector')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 checkdepends=('haskell-base16-bytestring' 'haskell-monad-control' 'haskell-random'
               'haskell-threads' 'haskell-hunit' 'haskell-quickcheck' 'haskell-http-streams'
               'haskell-http-common' 'haskell-parallel' 'haskell-test-framework'
               'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('a11bb92ce8774269704ce8c045bddf4aad15816cfb447453e8010bfce7aff2a08b38d3c99a400ab3882cb9e0b2f0b1f9af69adc56c1b28df53dc3fdd44042e30')
+sha512sums=('da17f988a364e6c04b29020a9e27fa5d8b98fe890577cb6ca4ee4cc3df016ac6a9ea6d8ffcae564f25efa0362f3bd454f72ad3344f7571ccaa620c6c1bf57665')
 
 prepare() {
     cd $_hkgname-$pkgver
-    sed -i -e '/bytestring-builder/d;s/< *1.2/<2/' $_hkgname.cabal
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    uusi -d bytestring-builder -u attoparsec $_hkgname.cabal
+    gen-setup
 }
 
 build() {
@@ -47,7 +47,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

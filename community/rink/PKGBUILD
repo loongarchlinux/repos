@@ -1,16 +1,16 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rink
-pkgver=0.5.1
+pkgver=0.6.1
 pkgrel=1
 pkgdesc='Unit conversion tool and library written in rust'
 arch=('loongarch64' 'x86_64')
-url=https://github.com/tiffany352/rink-rs
+url=https://rinkcalc.app
 license=('GPL3' 'MPL2')
-depends=('gcc-libs' 'gmp' 'openssl')
+depends=('gcc-libs' 'openssl')
 makedepends=('rust')
 source=("rink-$pkgver.tar.gz::https://static.crates.io/crates/rink/rink-$pkgver.crate")
-sha512sums=('d40c150867029f817b222a75e982f98ad83c4edaca701916c81971efba6d83b11aeeeb2b415f18c038ec3f9dbc7e39c0a5f411a8d78fe09aafe8f93d8f74d13c')
+b2sums=('50ac59c66237b0f418e76124da248c133919b8e8b8b9cc94ee53f2140f82a5ff15a6c275e579bcf1e26ddc7847e4fed7e6c5a515aa24556d3fadaab988a530c5')
 
 build() {
   cd rink-$pkgver

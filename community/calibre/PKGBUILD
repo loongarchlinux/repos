@@ -8,29 +8,30 @@
 
 pkgbase=calibre
 pkgname=calibre
-pkgver=5.3.0
+pkgver=5.22.1
 pkgrel=1
 pkgdesc="Ebook management application"
 arch=('loongarch64' 'x86_64')
 url="https://calibre-ebook.com/"
 license=('GPL3')
-_py_deps=('apsw' 'beautifulsoup4' 'cssselect' 'css-parser' 'dateutil' 'dbus' 'dnspython'
+_py_deps=('apsw' 'beautifulsoup4' 'cchardet' 'cssselect' 'css-parser' 'dateutil' 'dbus' 'dnspython'
           'feedparser' 'html2text' 'html5-parser' 'lxml' 'markdown' 'mechanize' 'msgpack'
-          'netifaces' 'unrardll' 'pillow' 'psutil' 'pychm' 'pygments' 'pyqt5'
+          'netifaces' 'unrardll' 'pillow' 'psutil' 'py7zr' 'pychm' 'pygments' 'pyqt5'
           'pyqtwebengine' 'regex' 'zeroconf')
-depends=('hunspell' 'hyphen' 'icu' 'jxrlib' 'libmtp' 'libusbx'
+depends=('hunspell' 'hyphen' 'icu' 'jxrlib' 'libmtp' 'libstemmer' 'libusb'
          'libwmf' 'mathjax' 'mtdev' 'optipng' 'podofo'
-         "${_py_deps[@]/#/python-}" 'qt5-svg' 'udisks2')
-makedepends=('qt5-x11extras' 'sip5' 'pyqt-builder' 'xdg-utils' 'rapydscript-ng')
+         "${_py_deps[@]/#/python-}" 'qt5-imageformats' 'qt5-svg' 'ttf-liberation' 'udisks2')
+makedepends=('qt5-x11extras' 'sip' 'pyqt-builder' 'xdg-utils' 'rapydscript-ng')
 checkdepends=('xorg-server-xvfb')
-optdepends=('poppler: required for converting pdf to html')
+optdepends=('poppler: required for converting pdf to html'
+            'speech-dispatcher: TTS support in the viewer')
 conflicts=('calibre-common' 'calibre-python3')
 replaces=('calibre-common' 'calibre-python3')
 source=("https://download.calibre-ebook.com/${pkgver}/calibre-${pkgver}.tar.xz"
         "https://calibre-ebook.com/signatures/${pkgbase}-${pkgver}.tar.xz.sig")
-sha256sums=('2ffc3b6cb5041ab890b684477e9e7a1b07a6f03d107f3eac3836c41fbe00b2e8'
+sha256sums=('93c5e30ff08159694283d08a6b43c37e01a8454c6e7eb66a071e677c2681b516'
             'SKIP')
-b2sums=('fd33b89cf250d742d13328b6f7276c1fe20e6a94de386121648544168cd71d22acdc0e984f6dfe22388f512150bb77822f72cbfbe5e1245eecfb30a989ce8c9c'
+b2sums=('8ce1329c7195625579f6b6bdc4e0083cf1a29caa4565e5c88ab943347623d2f0e5def8fdfbf59f31c97af37085d79820fa1ca2ca516bfeb5d582b714ea3ed09c'
         'SKIP')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
@@ -58,6 +59,7 @@ build() {
 
     LANG='en_US.UTF-8' python setup.py build
     LANG='en_US.UTF-8' python setup.py gui
+    python setup.py liberation_fonts --path-to-liberation_fonts /usr/share/fonts/liberation --system-liberation_fonts
     LANG='en_US.UTF-8' python setup.py mathjax --path-to-mathjax /usr/share/mathjax --system-mathjax
     LANG='en_US.UTF-8' python setup.py rapydscript
 }
@@ -65,13 +67,17 @@ build() {
 check() {
     cd "${pkgbase}-${pkgver}"
 
+    _test_excludes=(
+        # merely testing if a runtime-optional feature optdepend is importable
+        'speech_dispatcher'
+        # tests if a completely unused module is bundled
+        'pycryptodome'
+    )
+
     # without xvfb-run this fails with much "Control socket failed to recv(), resetting"
     # ERROR: test_websocket_perf (calibre.srv.tests.web_sockets.WebSocketTest)
     # one or two tests are a bit flaky, but the python3 build seems to succeed more often
-    #
-    # test_ajax_book segfaults on qt >=5.15.1 inside of qt itself, but only in nspawn containers
-    # see https://github.com/kovidgoyal/calibre/commit/28ef780d9911d598314d98bdfc3b1c88a94681df
-    LANG='en_US.UTF-8' xvfb-run python setup.py test --exclude-test-name=test_ajax_book
+    LANG='en_US.UTF-8' xvfb-run python setup.py test "${_test_excludes[@]/#/--exclude-test-name=}"
 }
 
 package() {
@@ -82,7 +88,8 @@ package() {
 
     LANG='en_US.UTF-8' python setup.py install \
         --staging-root="${pkgdir}/usr" \
-        --prefix=/usr
+        --prefix=/usr \
+        --system-plugins-location=/usr/share/calibre/system-plugins
 
     cp -a man-pages/ "${pkgdir}/usr/share/man"
 

@@ -7,16 +7,16 @@
 # Contributor: Simon Rutishauser <simon.rutishauser@gmx.ch>
 
 pkgname=htmldoc
-pkgver=1.9.10
+pkgver=1.9.12
 pkgrel=1
 pkgdesc='HTML Conversion Software'
 arch=('loongarch64' 'x86_64')
 url='https://www.msweet.org/htmldoc/'
 license=('GPL2')
-depends=('libxpm' 'gnutls' 'fltk' 'libjpeg-turbo' 'libpng' 'zlib'
-         'shared-mime-info')
+depends=('fltk' 'gnutls' 'libjpeg-turbo' 'libpng' 'libxpm' 'zlib'
+         'hicolor-icon-theme')
 source=("https://github.com/michaelrsweet/htmldoc/releases/download/v${pkgver}/htmldoc-${pkgver}-source.tar.gz"{,.sig})
-sha256sums=('8235b1979ea5a71ef014e3d354031b102bf3249a3a4c8241bda0a87d04521ac5'
+sha256sums=('0906ec61cdac8d7349b13922f6566aebfe737b1695422a59d6c11ee7e6eaf99f'
             'SKIP')
 validpgpkeys=('845464660B686AAB36540B6F999559A027815955') # Michael R Sweet
 
@@ -26,10 +26,6 @@ build() {
         --prefix='/usr' \
         --enable-ssl \
         --enable-gnutls \
-        --enable-cdsassl \
-        --disable-localjpeg \
-        --disable-localzlib \
-        --disable-localpng \
         --with-gui
     make
 }

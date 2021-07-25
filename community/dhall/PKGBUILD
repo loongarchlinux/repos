@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dhall
-pkgver=1.35.0
-pkgrel=15
+pkgver=1.39.0
+pkgrel=4
 pkgdesc='A configuration language guaranteed to terminate'
 url='https://dhall-lang.org'
 license=('BSD')
@@ -18,22 +18,18 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-termina
          'haskell-text-manipulate' 'haskell-th-lift-instances' 'haskell-transformers-compat'
          'haskell-unordered-containers' 'haskell-uri-encode' 'haskell-vector' 'haskell-cryptonite'
          'haskell-http-types' 'haskell-http-client' 'haskell-http-client-tls')
-makedepends=('ghc' 'uusi' 'haskell-foldl' 'haskell-generic-random' 'haskell-mockery' 'haskell-quickcheck'
+makedepends=('ghc' 'haskell-foldl' 'haskell-generic-random' 'haskell-mockery' 'haskell-quickcheck'
              'haskell-quickcheck-instances' 'haskell-special-values' 'haskell-spoon'
              'haskell-tasty' 'haskell-tasty-expected-failure' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-silver' 'haskell-turtle' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6b2071ae4d00779971ecb31fa18239e999f4a9a6e58273268ee97eb16563ac211b88921fe86eabc818d9424dc74590381354ff2cfe97441d5dc4739356ab01a1')
-
-prepare() {
-    uusi $pkgname-$pkgver/$pkgname.cabal
-}
+sha512sums=('d6a2198e7569623c372ac8cfec00db714cefde683bcb8d8c30acc89c6f536d3dfa7f79f3e61e0080eb0312ca67580d86c079396046e5eb39aea592a93211b52b')
 
 build() {
     cd $pkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir="/usr/share/doc/${pkgbase}" --datasubdir="$pkgname" --disable-tests \
+        --prefix=/usr --docdir="/usr/share/doc/${pkgbase}" --datasubdir="$pkgname" --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
@@ -44,8 +40,7 @@ build() {
 
 check() {
     cd $pkgname-$pkgver
-    # https://github.com/dhall-lang/dhall-haskell/issues/1985
-    #runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

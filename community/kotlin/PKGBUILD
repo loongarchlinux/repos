@@ -2,7 +2,7 @@
 # Contributor: Romain Gautier <romain.gautier@nimamoh.com>
 
 pkgname=kotlin
-pkgver=1.4.10
+pkgver=1.5.10
 pkgrel=1
 pkgdesc='Statically typed programming language that can interoperate with Java'
 arch=(any)
@@ -11,10 +11,10 @@ license=(APACHE custom)
 depends=('java-environment>=8')
 makedepends=(setconf)
 source=("https://github.com/JetBrains/kotlin/releases/download/v${pkgver/_/-}/kotlin-compiler-${pkgver/_/-}.zip")
-sha256sums=('bb1a21d70e521a01ae104e99a082a6e7bb58699b86347049da521d175d0dace7')
+b2sums=('32159fb75fc98ba1f02166489923f826dacec0e9c8f9aded09519f730fc0892be38c2f2a1ee842dd631937cc7dfd7537b65329af8e973fdbf2aa0d47eff2df7d')
 
 prepare() {
-  cd "${pkgname}c/bin"
+  cd ${pkgname}c/bin
 
   setconf kotlin      DIR         /usr/bin
   setconf kotlinc-js  DIR         /usr/bin
@@ -23,7 +23,7 @@ prepare() {
 }
 
 package() {
-  cd "${pkgname}c"
+  cd ${pkgname}c
 
   # executables
   install -Dm755 -t "$pkgdir/usr/bin" bin/kotlin
@@ -48,9 +48,8 @@ package() {
   done
 
   # build.txt must be installed for for "-version" to work
-  cd "$srcdir/${pkgname}c"
+  cd $srcdir/${pkgname}c
   install -Dm644 build.txt "$pkgdir/usr/share/$pkgname"
 }
 
 # getver: github.com/JetBrains/kotlin/releases/latest
-# vim: ts=2 sw=2 et:

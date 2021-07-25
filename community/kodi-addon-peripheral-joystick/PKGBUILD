@@ -1,18 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-peripheral-joystick
-pkgver=1.4.9
-_codename=Leia
-pkgrel=3
+pkgver=1.7.2
+_codename=Matrix
+pkgrel=1
 pkgdesc="Joystick support for Kodi"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/xbmc/peripheral.joystick'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-peripheral')
-depends=('kodi-platform')
 makedepends=('cmake' 'kodi-dev')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/peripheral.joystick/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('6d5d8e5922c7b9c38a55372da585366331f550864ee7d95369bb8b32897250b38d4cbb0e2f5fc7eb91aea34f09f6f33a62b148f731f422ac1b6ead9b2eac4ae5')
+sha512sums=('d838f44281704e2bc7f3280f05b93347dd2e7a10b8e2b31efdc34b8994723f6aa6ca643fce01f515003caf7d85abbd3eed6a3833e6adf88b9fb22184d2c2e1ae')
 
 build() {
     cd "peripheral.joystick-$pkgver-$_codename"
@@ -26,6 +25,7 @@ build() {
 }
 
 package() {
+    depends=('kodi' 'kodi-platform')
     cd "peripheral.joystick-$pkgver-$_codename"
     make DESTDIR="$pkgdir/" install
 }

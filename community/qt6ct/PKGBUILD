@@ -1,0 +1,26 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Martchus <martchus@gmx.net>
+
+pkgname=qt6ct
+pkgver=0.3
+pkgrel=1
+pkgdesc='Qt 6 Configuration Utility'
+arch=(loongarch64 x86_64)
+url='https://github.com/trialuser02/qt6ct'
+license=(BSD)
+depends=(qt6-svg)
+makedepends=(qt6-tools)
+source=("https://github.com/trialuser02/qt6ct/releases/download/$pkgver/qt6ct-$pkgver.tar.xz")
+sha256sums=('62d46622bf0d152c2640b2c0f6e52a744b2e2b2204e940dd014fac59a8cc0c3d')
+
+build() {
+  cd $pkgname-$pkgver
+  qmake6 PREFIX=/usr
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make INSTALL_ROOT="$pkgdir" install
+  install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

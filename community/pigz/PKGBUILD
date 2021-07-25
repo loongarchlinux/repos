@@ -4,15 +4,15 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=pigz
-pkgver=2.4
-pkgrel=2
+pkgver=2.6
+pkgrel=1
 pkgdesc='Parallel implementation of the gzip file compressor'
 arch=('loongarch64' 'x86_64')
 url='https://www.zlib.net/pigz'
 license=('custom')
 depends=('zlib')
 source=(https://www.zlib.net/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('def2f6e19d9d8231445adc1349d346df')
+md5sums=('a8a23d7dfb58d8c20438f382fb1d97c8')
 
 build() {
   cd $pkgname-$pkgver

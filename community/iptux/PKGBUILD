@@ -1,0 +1,28 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Kevin Guan <KevinGuan.gm@gmail.com>
+
+pkgname=iptux
+pkgver=0.8.1
+pkgrel=1
+pkgdesc='LAN messenger and file sender, an IP Messenger client'
+arch=('loongarch64' 'x86_64')
+url='https://github.com/iptux-src/iptux/'
+license=('GPL2')
+depends=('google-glog' 'gtk3' 'jsoncpp' 'libsigc++')
+makedepends=('appstream' 'gflags' 'meson')
+checkdepends=('xorg-server-xvfb')
+source=("https://github.com/iptux-src/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('4d433065fee53d6135cdda67541b50ca33b68195b3d0c070f1fc5d4ed9c8c435')
+
+build() {
+  arch-meson $pkgname-$pkgver build
+  meson compile -C build
+}
+
+check() {
+  xvfb-run meson test -C build --print-errorlogs
+}
+
+package() {
+  DESTDIR="$pkgdir" meson install -C build
+}

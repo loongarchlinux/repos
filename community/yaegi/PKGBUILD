@@ -1,16 +1,16 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: navigaid <navigaid@gmail.com>
 pkgname=yaegi
-pkgver=0.8.10
+pkgver=0.9.18
 pkgrel=1
 pkgdesc='Yet another Elegant Go Interpreter'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/containous/yaegi'
 license=('Apache')
-makedepends=('go-pie')
+makedepends=('go')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/containous/yaegi/archive/v${pkgver}.tar.gz")
-sha512sums=('f80354b377e934582e5300c6fe97cd5c7ae285c57d47e34084948004b7c16d92fc9a600754e31ff53eb617b09d0953a84b0fcd33ea6692640780e52d02a0ea5a')
+sha512sums=('fdc9f69fa21ec35e86c01efdd5d583ac859916febe470f000407010abf944fd41501648ee87bad58927b9e3eceb401613245105da28854208661419326fc7d9f')
 
 build() {
   cd "${pkgname}-${pkgver}"
@@ -18,14 +18,15 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  go build ./cmd/yaegi
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
+  go build -v ./cmd/yaegi
 }
 
-# These checks fail right now :(
+# disabling tests...
 #check() {
 #  cd "${pkgname}-${pkgver}"
-#  go test ./...
+#  sed -i 's|"-race", ||' ./cmd/yaegi/yaegi_test.go
+#  GOROOT="/usr/lib/go" go test -v ./...
 #}
 
 package() {

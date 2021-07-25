@@ -7,8 +7,8 @@
 
 pkgname=utox
 _pkgname=uTox
-pkgver=0.17.2
-pkgrel=2
+pkgver=0.18.1
+pkgrel=1
 pkgdesc='Lightweight Tox client'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/uTox/uTox"
@@ -31,7 +31,7 @@ makedepends=('toxcore>=0.1.0' 'cmake' 'gtk3' 'libdbus' 'check' git)
 #        "git+https://github.com/nayuki/QR-Code-generator")
 source=("$_pkgname-$pkgver-full.tar.gz::https://github.com/$_pkgname/$_pkgname/releases/download/v$pkgver/$_pkgname-$pkgver-full.tar.gz"
 	"$_pkgname-$pkgver-full.tar.gz.asc::https://github.com/$_pkgname/$_pkgname/releases/download/v$pkgver/$_pkgname-$pkgver-full.tar.gz.asc")
-sha512sums=('7a358ac0aad0b85b952c2a2dc4c37486e83b16a6beab2a50b4543b09916dcea6efdedb8ef3d32ca8799bbf762b26e36af6a42692113d612c7ef3f09505a0b705'
+sha512sums=('8c3c7016b73dd59d154e781eee2e9d7a05b889460900703e1850cace7796c4f89cd5b1be0421b6becd8d908e46839c87786c782d07be38efb5bbdbdecb8afe2a'
             'SKIP')
 
 #pgp keys taken from https://github.com/uTox/uTox/blob/develop/README.md#team

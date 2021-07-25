@@ -3,26 +3,18 @@
 
 pkgname=shotcut
 pkgdesc='Cross-platform Qt based Video Editor'
-pkgver=20.09.27
-pkgrel=1
+pkgver=21.05.18
+pkgrel=2
 arch=('loongarch64' 'x86_64')
 url='https://www.shotcut.org'
 license=('GPL3')
 depends=('qt5-base' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-multimedia'
-         'qt5-quickcontrols' 'qt5-webkit' 'qt5-websockets' 'qt5-x11extras'
+         'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-websockets' 'qt5-x11extras'
          'mlt' 'movit' 'ffmpeg' 'libx264' 'libvpx' 'lame' 'frei0r-plugins' 'ladspa')
 optdepends=('swh-plugins: Several audio filters')
 makedepends=('qt5-tools')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/mltframework/shotcut/archive/v$pkgver.tar.gz"
-        'melt.patch')
-sha512sums=('751a8a040566cf4969d68bcc3521f79e981238c558f6a8a03794491ef87bce962cf6a6e6cb912e941e6ec482bc190fd118aaacb41bd5c9efa80fb14f9a3a86d4'
-            '57063ccb11cb9bd061b807934afe5656d9e1e4a31850de2e60b6a0cdf4741c7975a2a548fdb5e7d2bb0a1e44635adb832d139ac55632a4e7f592952b67d17cfe')
-
-prepare() {
-  cd $pkgname-$pkgver
-
-  patch -p1 < ../melt.patch
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/mltframework/shotcut/archive/v$pkgver.tar.gz")
+sha512sums=('5f8ea42b8970e82e9222643a0da9ae7d3399b61e003b0d69158e5a7ec258ad53d937bf8264123f95cbfcb40e31f52c8c0f0e81bf32f159b0c501e3d1660a7bfb')
 
 build() {
   mkdir $pkgname-$pkgver/build

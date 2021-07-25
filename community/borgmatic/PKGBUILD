@@ -6,7 +6,7 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=1.5.10
+pkgver=1.5.15
 pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
@@ -16,7 +16,8 @@ depends=('borg' 'python-colorama' 'python-pykwalify' 'python-requests'
          'python-ruamel-yaml' 'python-setuptools')
 optdepends=('python-llfuse: for mount action')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('31459e5573c34b7b9e53ad54012be6d367e2f23c0612fd5a315593ebf23074c5')
+sha256sums=('a9c9857bc9c1b3aa4a5b6c2d55e511acfdad9457a958a6de695402d5bb3ca74e')
+b2sums=('c01c469a4e0b96f4a364e0e44cd26d60cf34bc1c969cbf9931ee5ec6688cf012a1c22acb20e3a434b765ef5ec68657a2507e292e5ed3b9e0587f8784e85ecfe9')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -30,6 +31,7 @@ build() {
 
 package() {
   cd $pkgname-$pkgver
+  export PYTHONHASHSEED=0
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
   install -Dm644 -t "$pkgdir"/usr/lib/systemd/system sample/systemd/*
 }

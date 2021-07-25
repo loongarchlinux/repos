@@ -7,27 +7,29 @@
 
 pkgname=poedit
 epoch=1
-pkgver=2.4.1
-pkgrel=1
+pkgver=3.0
+pkgrel=3
 pkgdesc="Cross-platform gettext catalogs (.po files) editor"
 arch=('loongarch64' 'x86_64')
 url="https://www.poedit.net/"
 license=('MIT')
-depends=('gtkspell3' 'lucene++' 'wxgtk3')
+depends=('gtkspell3' 'lucene++' 'wxgtk3' 'webkit2gtk')
 makedepends=('boost')
 source=(https://github.com/vslavik/poedit/releases/download/v$pkgver-oss/poedit-${pkgver}.tar.gz)
-sha256sums=('70143e55c16a88b9b29f48e12b0b9e55714177b60ba367fc29d5fa6dc28429c3')
+sha256sums=('dfbe5e8c5ea6e36fd472fc294f2cedf804656f52db372ea3fbbe4103136b2dc2')
 
 build() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr --libexecdir=/usr/lib/poedit --with-wx-config=/usr/bin/wx-config-gtk3
   make CPPFLAGS+=' -DUCHAR_TYPE=uint16_t'
 }
 
 package() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 
   make DESTDIR="${pkgdir}" install
+  rm "${pkgdir}"/usr/share/icons/hicolor/icon-theme.cache
+
   install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }

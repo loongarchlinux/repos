@@ -2,18 +2,18 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xed
-pkgver=2.6.2
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="A small and lightweight text editor. X-Apps Project."
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxmint/${pkgname}"
 license=('GPL')
 groups=('x-apps')
-depends=('gspell' 'gtksourceview3' 'libpeas' 'xapps')
+depends=('gspell' 'gtksourceview4' 'libpeas' 'xapps')
 makedepends=('meson' 'samurai' 'gobject-introspection' 'intltool' 'itstool')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('357ef0e07b942878344c141b3494a960e6fbd6d9b12c9dab1e4e49d523d763f6')
-b2sums=('58292b35e696c7d3ad522e4a10a67f04e82a20abe3212c6eebd72fb44c890d37387b12bbb0f19ed5a6f59e089c59225155a3a1fbb30be1761fe5d191833c389f')
+sha256sums=('6e71347f64210369bd5ca2eefee36ee72ca9a701e40edfe4456115a95234e5c5')
+b2sums=('c7e01840840ab65a8b678bd61949399a318c186236bd05d88a06798406d8cbc3c75db858ae750791a5013c5328ba4aeb2a114c6274cfb97d8290cc8cc7521385')
 
 build() {
     mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build

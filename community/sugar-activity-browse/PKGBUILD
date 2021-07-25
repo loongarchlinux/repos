@@ -2,7 +2,7 @@
 
 pkgname=sugar-activity-browse
 _pkgname=Browse
-pkgver=205
+pkgver=207
 pkgrel=1
 pkgdesc="Sugar activity to browse the internet"
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL')
 groups=('sugar-fructose')
 depends=('evince' 'sugar-toolkit-gtk3' 'webkit2gtk')
 source=(https://download.sugarlabs.org/sources/sucrose/fructose/$_pkgname/$_pkgname-$pkgver.tar.bz2)
-sha256sums=('ea25788e9a6cd76d7020c320f498635b5a9261683107ae88765aed457ac480da')
+sha256sums=('f9962ca31f0b2a7fd3598d966edad62d05406ffac7e37ebf9bbf22fb0a772574')
 
 package() {
   cd $_pkgname-$pkgver

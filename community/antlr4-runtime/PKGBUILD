@@ -1,21 +1,29 @@
 # Maintainer: Christian Hesse <mail@eworm.de>
 
 pkgname=antlr4-runtime
-pkgver=4.8
-pkgrel=1
+pkgver=4.9.2
+pkgrel=2
 pkgdesc='Antlr C++ runtime'
 url='https://www.antlr.org/'
 arch=('loongarch64' 'x86_64')
 depends=('gcc-libs')
+makedepends=('git' 'cmake')
 license=('BSD')
-makedepends=('cmake')
 source=("https://www.antlr.org/download/antlr4-cpp-runtime-${pkgver}-source.zip")
-sha256sums=('58c9c8f83ed2b2224a047a2ca8af8c7ca2f45bc13ff30bd8777ce65ba81d6d11')
+sha256sums=('838a2c804573f927c044e5f45a8feb297683a7047ab62dfac8ddc995498db11c')
+
+prepare() {
+  # mysql-workbench is built with C++17, so we need it here as well
+  sed -i '/CMAKE_CXX_STANDARD/s/11/17/' CMakeLists.txt
+}
 
 build() {
   mkdir build
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DANTLR4_INSTALL=ON
   make
 }
 

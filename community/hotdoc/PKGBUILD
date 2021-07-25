@@ -1,0 +1,37 @@
+# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+
+_pkgname=hotdoc
+pkgname=hotdoc
+pkgver=0.13.3
+pkgrel=1
+pkgdesc="the tastiest API documentation system"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/${_pkgname}/${_pkgname}"
+license=('LGPL')
+_py_deps=('appdirs' 'cchardet' 'dbus-deviation' 'lxml' 'networkx' 'pkgconfig'
+          'schema' 'toposort' 'wheezy-template' 'yaml')
+depends=("${_py_deps[@]/#/python-}" 'json-glib')
+makedepends=('python-setuptools' 'cmake')
+optdepends=('clang: for the C extension'
+            'llvm: for the C extension')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+sha256sums=('226042da44a7a710316112fba1083c3165fe26bdfd701835569934c077a95cb1')
+b2sums=('bb01759ca7029f4fed448643316301c058fc81cc315d37b9bbddb9df117955c33ca5800c1e81eee8174e9e31f882dd0166d38fa23c59f8f6a3ee2d0528885a41')
+
+build() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    python setup.py build
+}
+
+check() {
+    cd "${srcdir}"/${pkgname}-${pkgver}/build/lib.linux-$CARCH-3*
+
+    python -m unittest
+}
+
+package() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+}

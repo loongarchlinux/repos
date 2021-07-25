@@ -2,7 +2,7 @@
 
 pkgbase=python-psutil
 pkgname=('python-psutil' 'python2-psutil')
-pkgver=5.7.2
+pkgver=5.8.0
 pkgrel=1
 arch=('loongarch64' 'x86_64')
 url='https://github.com/giampaolo/psutil'
@@ -10,7 +10,7 @@ license=('custom: BSD')
 makedepends=('python' 'python-setuptools' 'python2' 'python2-setuptools')
 checkdepends=('net-tools' 'procps-ng' 'python2-ipaddress' 'python2-mock' 'python-mock' 'python-pytest')
 source=("https://github.com/giampaolo/psutil/archive/release-$pkgver.tar.gz")
-sha512sums=('dc22b95aa5a816ffb3a30ff261cc8ce10eeca005e8602438ba6269816114d97cad7dbc55a0826838baba24d1b539b895d0a0c3fa86a10474df9a0266f03a26ea')
+sha512sums=('156dffb660fcfb23b420d0455296c6b1ab366844390706af40788d89335eb946bb2e66f792755071c09ca282ad0d5503bb62175344753c88ba35613756e22fa3')
 
 build() {
   cd psutil-release-$pkgver

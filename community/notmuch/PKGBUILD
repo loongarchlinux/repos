@@ -7,7 +7,7 @@
 
 pkgbase=notmuch
 pkgname=('notmuch' 'notmuch-vim' 'notmuch-mutt' 'notmuch-runtime')
-pkgver=0.31
+pkgver=0.32.2
 pkgrel=1
 arch=('loongarch64' 'x86_64')
 url="https://notmuchmail.org/"
@@ -15,7 +15,7 @@ license=('GPL3')
 makedepends=('python' 'python-sphinx' 'python-cffi' 'emacs' 'gnupg' 'ruby' 'pkgconfig' 'xapian-core' 'gmime3' 'talloc')
 options=(!distcc !makeflags)
 source=("https://notmuchmail.org/releases/${pkgname}-${pkgver}.tar.xz")
-sha512sums=('928acc07b9dbed4275e7d39d94202bea7685e9d433a7bf4c07e40e191ed4fe8cf15ac04c18792e46f4605ffac548b942998005d8176a58ad76c82d4085a408e5')
+sha512sums=('e4151cb3ba0e5d26e67572a37c3132d0e35af5d9ca4339d88d8ba25385b6022c376a75abcffb57fda3242c836f6e40dec39c4038674682616b6e5785223295bf')
 
 build() {
     cd "$srcdir/$pkgbase-$pkgver"

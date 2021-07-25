@@ -4,7 +4,7 @@
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 
 pkgname=python-logilab-common
-pkgver=1.7.3
+pkgver=1.8.1
 pkgrel=1
 pkgdesc="Useful miscellaneous modules used by Logilab projects"
 arch=('any')
@@ -13,7 +13,7 @@ license=('LGPL')
 depends=('python-setuptools' 'python-mypy_extensions' 'python-typing_extensions')
 checkdepends=('python-pytz')
 source=("https://pypi.io/packages/source/l/logilab-common/logilab-common-$pkgver.tar.gz")
-sha512sums=('c3276c1fb45e1a4b533d8ac427c2031010222332a8dfc9329e11b345482610f3089aaac0b5c3473bf0189b2ec271ca7296281f8b64e42e64fce05c0d1be5c113')
+sha512sums=('417bf503a3baf34753e78a0d69eb0fd59eaa04e4c7237e54b856da6bb4f46efc3bb0e241789b3d4bfb41cda2b1dc94d6cabf1bd2a4cbb66b98eb66f9a9a3322a')
 
 build() {
   cd logilab-common-$pkgver

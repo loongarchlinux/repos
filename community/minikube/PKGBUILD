@@ -2,8 +2,8 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=minikube
-pkgver=1.13.0
-_minikube_commit=0c5e9de4ca6f9c55147ae7f90af97eff5befef5f
+pkgver=1.21.0
+_minikube_commit=76d74191d82c47883dc7e1319ef7cebd3e00ee11
 pkgrel=1
 pkgdesc="A tool that makes it easy to run Kubernetes locally"
 url="https://github.com/kubernetes/minikube"
@@ -17,7 +17,6 @@ makedepends=('git' 'go' 'go-bindata')
 depends=('glibc')
 source=("git+https://github.com/kubernetes/minikube.git#commit=${_minikube_commit}")
 sha512sums=('SKIP')
-changelog=CHANGELOG.md
 
 prepare() {
   rm -rf "$srcdir/src"
@@ -35,7 +34,7 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
   make
 }
 

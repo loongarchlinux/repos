@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-flask-dance
-pkgver=3.0.0
-pkgrel=2
+pkgver=3.3.1
+pkgrel=1
 pkgdesc="Doing the OAuth dance with style using Flask, requests, and oauthlib"
 url="https://github.com/singingwolfboy/flask-dance"
 license=('MIT')
@@ -13,9 +13,9 @@ makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner' 'python-sphinx' 'python-pytest-cov' 'python-mock'
               'python-responses' 'python-freezegun' 'python-sqlalchemy' 'python-sqlalchemy-utils'
               'python-flask-sqlalchemy' 'python-flask-login' 'python-flask-caching'
-              'python-flask-sphinx-themes' 'python-sphinxcontrib-seqdiag')
+              'python-flask-sphinx-themes' 'python-sphinxcontrib-seqdiag' 'python-betamax')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/singingwolfboy/flask-dance/archive/v$pkgver.tar.gz")
-sha512sums=('ba3f25ed6631f7880a52ad7a43413134d6a924b8ef5205b8a7ecb21f3ddc10ee49face89ede2d76b3ef73b3f938f263aa386f06e9e1c71d87ee92d08b00c804b')
+sha512sums=('9bff427d6bc93a261ee2b1cf9efde8a9d3cd86e3abb2a59adbf7522b6518e608702445c4da35bf51228317f0cd6babc6fc1f42f1a3dbbf9f7fe6f9f80c4cafc9')
 
 build() {
   cd flask-dance-$pkgver

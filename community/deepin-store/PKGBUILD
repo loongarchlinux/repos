@@ -1,0 +1,24 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-store
+pkgver=1.2.2
+pkgrel=1
+pkgdesc='Third party app store for DDE built with DTK'
+arch=('loongarch64' 'x86_64')
+url="https://github.com/dekzi/dde-store"
+license=('GPL3')
+depends=('appstream-qt' 'archlinux-appstream-data' 'dtkwidget' 'packagekit-qt5')
+makedepends=('cmake' 'ninja' 'qt5-tools')
+source=("https://github.com/dekzi/dde-store/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('f29394d17d8f98d2e0eb698fd72f2ea6ba1896d8e43f60a403c6cbdec8a5b338e7171869700c4eb3fda528b8826c46f602cec0613554cbe526f9a52c73594a5a')
+
+build() {
+  cd dde-store-$pkgver
+  cmake -GNinja .
+  ninja
+}
+
+package() {
+  cd dde-store-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}

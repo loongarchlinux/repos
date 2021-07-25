@@ -1,19 +1,20 @@
 # Maintainer: Jerome Leclanche <jerome@leclan.ch>
+# Co-Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=libsysstat
-pkgver=0.4.3
+pkgver=0.4.5
 pkgrel=1
 pkgdesc="Library to query system statistics (net, resource usage, ...)"
 arch=("loongarch64" "x86_64")
-url="https://lxqt.org"
+url="https://github.com/lxqt/$pkgname"
 license=("LGPL2.1")
 depends=("qt5-base")
 makedepends=("lxqt-build-tools")
 source=(
-	"https://github.com/lxde/libsysstat/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
-	"https://github.com/lxde/libsysstat/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
+	"https://github.com/lxqt/libsysstat/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
+	"https://github.com/lxqt/libsysstat/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha512sums=('a34511e4f9fe1ed977ffc65b11948459922760f9a22b225d48d1c7cae9fc6c94b315c1394768f4c7b94ffc28c1267410c21ba55ff89e54976526ea1e5e4d7a56'
+sha512sums=('1b9091b783e32aeb258bef0e7ea070456f577a42fc5052ebf215dccb195f51c34ae7c2e6178e4eaf12200c5155c53699c2dbfe2a1f7c0c35d06c04275455ed09'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>

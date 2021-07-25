@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=dino
-pkgver=0.1.0
-pkgrel=4
+pkgver=0.2.0
+pkgrel=3
 pkgdesc="Modern XMPP (Jabber) chat client written in Vala"
 arch=(loongarch64 x86_64)
 url="https://github.com/dino/dino"
@@ -11,15 +11,17 @@ depends=(glib2 glib-networking gtk3 gpgme libgee libgcrypt libsignal-protocol-c
          libsoup sqlite qrencode)
 makedepends=(git cmake vala ninja)
 source=(${url}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc}
-	signal-2.3.3.patch)
-sha256sums=('100542fcf05781f37f5a871489affe0a82f205cd15e3d0d3cdfd717fa1149835'
+        ${pkgname}-vala.patch::https://github.com/dino/dino/commit/9acb54df9254.patch)
+sha256sums=('565b95d9fc697412edc898225890f95d26d42a3594e12680cbd7d038d7812f46'
             'SKIP'
-            '0f46b133b0e11a71d167b66f94e8dfd6f5677344c83f8fda903dd382e83bc673')
+            '56a9c90f3df4dc960dca2d404a436eaeedfc619f9ed0e93a9ad7bc75f6f2d686')
 validpgpkeys=(A32134DD19952FB12EC43E4501FABCC83FEA225E)
 
 prepare() {
     cd ${pkgname}-${pkgver}
-    patch -Np1 -i ../signal-2.3.3.patch
+
+    # https://github.com/dino/dino/issues/1010
+    patch -Np1 -i ../${pkgname}-vala.patch
 }
 
 build() {

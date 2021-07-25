@@ -2,7 +2,7 @@
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 
 pkgname=slurp
-pkgver=1.3.0
+pkgver=1.3.2
 pkgrel=1
 pkgdesc='Select a region in a Wayland compositor'
 arch=('loongarch64' 'x86_64')
@@ -15,7 +15,7 @@ source=(
     "$pkgname-$pkgver.tar.gz.sig::https://github.com/emersion/slurp/releases/download/v$pkgver/slurp-$pkgver.tar.gz.sig"
 )
 validpgpkeys=("34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48") # emersion
-sha256sums=('07715ca3021e983c0630e1d901b18495c154e630bf5151fdbaf0aaba658573c3'
+sha256sums=('005dd8601d4bada9728f434728c7a57c955f90f9b9f53d1ffb051abdbabb9876'
             'SKIP')
 
 build() {

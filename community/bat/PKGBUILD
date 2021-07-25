@@ -2,15 +2,15 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=bat
-pkgver=0.16.0
+pkgver=0.18.1
 pkgrel=1
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=(loongarch64 x86_64)
 url='https://github.com/sharkdp/bat'
 license=(APACHE MIT)
 makedepends=(clang cmake git rust)
-source=("git+$url#commit=6258dda0f851256c2e1d65cf87e997023a4f997b") # tag: v0.16.0
-sha256sums=('SKIP')
+source=("git+$url#commit=3aea51455b8acf553f4481996f93d7e219130c2b") # tag: v0.18.1
+b2sums=('SKIP')
 
 build() {
   cargo build \
@@ -27,13 +27,17 @@ package() {
   install -Dm644 $pkgname/LICENSE-MIT \
     "$pkgdir/usr/share/licenses/$pkgname/LICENSE-MIT"
 
+  cd $pkgname/target/release/build
+
   # Package the man page
-  find $pkgname/target/release -name bat.1 -type f \
-    -exec install -Dm644 {} "$pkgdir/usr/share/man/man1/bat.1" \;
+  find . -name bat.1 -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/man/man1/bat.1" \;
 
   # Package the zsh completion file (not in zsh-completions yet)
-  find $pkgname/target/release -name bat.zsh -type f \
-    -exec install -Dm644 {} "$pkgdir/usr/share/zsh/site-functions/_bat" \;
+  find . -name bat.zsh -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/zsh/site-functions/_bat" \;
 
-  # The fish completion file is already included in fish
+  # Package the fish completion
+  find . -name bat.fish -type f -exec install -Dm644 {} \
+    "$pkgdir/usr/share/fish/vendor_completions.d/bat.fish" \;
 }

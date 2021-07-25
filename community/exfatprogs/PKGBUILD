@@ -2,8 +2,8 @@
 # Contributor: Marco Cilloni <krnlpk@gmail.com>
 
 pkgname=exfatprogs
-pkgver=1.0.4
-pkgrel=2
+pkgver=1.1.2
+pkgrel=1
 pkgdesc='exFAT filesystem userspace utilities for the Linux Kernel exfat driver'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/exfatprogs/exfatprogs'
@@ -12,7 +12,7 @@ depends=('glibc')
 provides=('exfat-utils')
 conflicts=('exfat-utils')
 source=("https://github.com/exfatprogs/exfatprogs/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('a4a0a538234e721f439a27fae014fcf9f0c742bec351fa0b4ffbef90a75cf9157cc645923eda17c27366cdb2302e0d401bf5f708ed4bcf6663da5eb20e9ff050')
+b2sums=('fecdeea230c18029b86f9d53bf96ea5fc80dacc770161009b98ee0877068624c2f8976825d412797172a7eeb143a1c6b54b41e84bb6732353b64b4c8a16ea2d1')
 
 prepare() {
   cd exfatprogs-${pkgver}

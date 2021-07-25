@@ -1,0 +1,28 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=cutefish-kwin-plugins
+pkgver=0.3
+pkgrel=1
+pkgdesc="CutefishOS KWin Plugins"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/cutefishos/kwin-plugins"
+license=('GPL')
+groups=('cutefish')
+conflicts=('deepin-kwin')
+depends=('kconfig' 'kdecoration' 'kguiaddons' 'kcoreaddons' 'kconfigwidgets' 'kwindowsystem'
+         'kwayland' 'kwin')
+makedepends=('extra-cmake-modules' 'ninja' 'qt5-tools')
+source=("https://github.com/cutefishos/kwin-plugins/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('5c93d0900a3f67722a75573f903312508f76b08500df3c9bc75f2f2c7cacf702accff72966cf0616da358ac48d7eccd49cec119022847ee58b08b8942866645b')
+
+build() {
+  cd kwin-plugins-$pkgver
+
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr .
+  ninja
+}
+
+package() {
+  cd kwin-plugins-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}

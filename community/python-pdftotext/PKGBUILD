@@ -1,0 +1,37 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Shane Stone <shanewstone at gmail>
+
+_name=pdftotext
+pkgname=python-pdftotext
+pkgver=2.1.6
+pkgrel=1
+pkgdesc='Simple PDF text extraction'
+arch=('loongarch64' 'x86_64')
+url=https://github.com/jalan/pdftotext
+license=('MIT')
+depends=('poppler' 'python')
+makedepends=('python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
+sha256sums=('caf8ddbaeaf0a5897f07655a71747242addab2e695e84c5d47f2ea92dfe2a594')
+b2sums=('02135a03cb604421ab32ee1317265b3404e343b1ceabfbbeaa4973bc85dfd7fb3b92dd23611b0d9077ff8641bda256932d9457112fb27f974aac3be80747c695')
+
+build() {
+  cd $_name-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd $_name-$pkgver
+  mkdir -p temp
+  local sitepackages=$(python -c "import site; print(site.getsitepackages()[0])")
+  python setup.py install --skip-build --root=temp
+  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$sitepackages" python -m unittest discover tests
+}
+
+package() {
+  cd $_name-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

@@ -4,7 +4,7 @@
 _hkgname=servant-swagger
 pkgname=haskell-servant-swagger
 pkgver=1.1.10
-pkgrel=20
+pkgrel=158
 pkgdesc="Generate Swagger specification for your servant API."
 url="https://github.com/haskell-servant/servant-swagger"
 license=("BSD")
@@ -13,10 +13,17 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-http-media'
          'haskell-insert-ordered-containers' 'haskell-lens' 'haskell-servant'
          'haskell-singleton-bool' 'haskell-swagger2' 'haskell-unordered-containers'
          'haskell-hspec' 'haskell-quickcheck')
-makedepends=('ghc' 'haskell-base-compat' 'haskell-cabal-doctest' 'haskell-doctest'
+makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-cabal-doctest' 'haskell-doctest'
              'haskell-hspec-discover' 'haskell-lens-aeson' 'haskell-utf8-string' 'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('df3b397ce03dbb4c852598d4d188bcddde40fd9bd762eac53c837267420876ba3aa4d07fb638ffe0d0fa60c9cf080ad483508bf0359b45120f807ed65331f3bc')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    # https://github.com/haskell-servant/servant-swagger/issues/129
+    sed -i '/toSwagger comprehensiveAPI/d' test/Servant/SwaggerSpec.hs
+    uusi -u doctest -u lens -u hspec $_hkgname.cabal
+}
 
 build() {
     cd $_hkgname-$pkgver
@@ -33,7 +40,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test || warning "Tests failed"
+    runhaskell Setup test || echo "Tests failed"
 }
 
 package() {

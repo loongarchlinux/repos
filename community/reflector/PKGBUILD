@@ -1,6 +1,6 @@
 #Maintainer: Xyne <ac xunilhcra enyx, backwards>
 pkgname=reflector
-pkgver=2020.9
+pkgver=2021.4
 pkgrel=1
 pkgdesc='A Python 3 module and script to retrieve and filter the latest Pacman mirror list.'
 arch=(any)
@@ -10,16 +10,16 @@ depends=(python3)
 optdepends=('rsync: rate rsync mirrors')
 backup=(etc/xdg/reflector/reflector.conf)
 source=(
-  https://xyne.archlinux.ca/projects/reflector/src/reflector-2020.9.tar.xz
-  https://xyne.archlinux.ca/projects/reflector/src/reflector-2020.9.tar.xz.sig
+  https://xyne.archlinux.ca/projects/reflector/src/reflector-2021.4.tar.xz
+  https://xyne.archlinux.ca/projects/reflector/src/reflector-2021.4.tar.xz.sig
 )
 sha512sums=(
-  2cfad4919cd7cd0c3e4be2d99f2ef7d2df3b39254fc5494b2f858fb8f07f22278688a4b3708aecd109f0602d4b93a335ef15e08c3b48f61c2f2090bbaa58fc4e
-  1758ba6cc35f90b30848b67a4c1fc437fef18338ba23e25188a12b767ef83f6d544269291a7774300acf95d7bccdb3feb1eb62b86fdf9cb2fdb715101fe1c524
+  4bae2191710a6321128a817cf98f8e2fa4a01e8437ef707488e07dec3f22efa84734766252b53fb0b2ab4fcf72600bd866e9c7a9caae68adaa3f485e5cc066ef
+  fd7940e8cf7cf29c1694c4ba17da59f8437ea2323f3948c4c23ca0c98c4cb48c1115c97e94941192d3901980dab6bfc54399db309b98346eabd1b9f98e6fa88c
 )
 md5sums=(
-  3dd0a13b05d0fc7b2cc568b8b1762624
-  466785e6214609d3dad5faaf44b39be5
+  3e13e177b4644f2052bf09d991afa7c2
+  faf78cbeccad91b687592c1fc93cf502
 )
 validpgpkeys=('EC3CBE7F607D11E663149E811D1F0DC78F173680')
 
@@ -27,7 +27,6 @@ package ()
 {
   cd "$srcdir/$pkgname-$pkgver"
   python3 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
-  install -Dm755 "$srcdir/$pkgname-$pkgver/$pkgname" "$pkgdir/usr/bin/$pkgname"
   install -Dm644 "man/${pkgname}.1.gz" "${pkgdir}/usr/share/man/man1/${pkgname}.1.gz"
   install -Dm644 'reflector.service' "$pkgdir/usr/lib/systemd/system/reflector.service"
   install -Dm644 'reflector.timer' "$pkgdir/usr/lib/systemd/system/reflector.timer"

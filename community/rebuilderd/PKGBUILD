@@ -1,22 +1,22 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=rebuilderd
-pkgver=0.4.0
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='Independent verification system of binary packages'
 url='https://github.com/kpcyrd/rebuilderd'
 arch=('loongarch64' 'x86_64')
 license=('GPL3')
-depends=('libsodium' 'sqlite' 'archlinux-repro' 'wget')
+depends=('libsodium' 'sqlite' 'archlinux-repro')
 makedepends=('cargo' 'scdoc')
 backup=('etc/rebuilderd.conf'
         'etc/rebuilderd-sync.conf'
         'etc/rebuilderd-worker.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('b46e97ac9fb11d4ea4aed7a7c133aaad9241fa0f203b73d573c2d85a2bb0ae87dba6da457164559506dbb66bfd36ab517b4f193669bd68a2ccadb094ea608e6a'
+sha512sums=('7b6781f3297cec22825aaecde655004aef60079d5e2d238f2546fc881c4ecb2d9a29a149971d975c2a46075f30d74d0cd5ddba4a4a209141b6140cf04dbba4c6'
             'SKIP')
-b2sums=('790b38a4dac6041baf963e22c178d4fe7333078ae23f1abf8338604c60075cee49ff68fa6d6c580a62f6a9393c4a468bab6c052b2360ab4b3ef2653619daaa42'
+b2sums=('87ab1559de9796b8d1d41e39ac6a7a6fcfc799b6d0126df536cd9cde1ae1e34b17273b7b1668062a9ad0133f198cf941473518a3fdedea03f67d25ff9a3de163'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")

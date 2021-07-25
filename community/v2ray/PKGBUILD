@@ -2,7 +2,7 @@
 # Contributor: pandada8 <pandada8@gmail.com>
 
 pkgname=v2ray
-pkgver=4.31.1
+pkgver=4.40.1
 pkgrel=1
 pkgdesc="A platform for building proxies to bypass network restrictions"
 arch=('loongarch64' 'x86_64')
@@ -11,8 +11,8 @@ license=('MIT')
 depends=('glibc' 'v2ray-domain-list-community' 'v2ray-geoip')
 makedepends=('go' 'git')
 backup=(etc/v2ray/config.json)
-source=("$pkgname-$pkgver.tar.gz::https://github.com/v2fly/v2ray-core/archive/v$pkgver.tar.gz")
-sha512sums=('c807bf3404b40452cb0944504166aeee18a0783eecb521d5af979efcd23c632810a6146d90ae405056b263098d8945d951919ef0bc3ac87049495a43cbf228fa')
+source=("https://github.com/v2fly/v2ray-core/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('ef9a4f46fc0118793ae789151eb6e5792e96c97de5f19345c47b334ff1557b92306b731b2229b4dfd284263a205e6fb8bf29206ec32a94d875e6d3c20b6e6233')
 
 prepare() {
   cd v2ray-core-$pkgver
@@ -31,7 +31,7 @@ build() {
 
 check() {
   cd v2ray-core-$pkgver
-  go test -p 1 -tags json -v -timeout 30m v2ray.com/core/...
+  go test -p 1 -tags json -v -timeout 30m ./...
 }
 
 package() {

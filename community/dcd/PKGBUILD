@@ -4,10 +4,10 @@
 # Contributor: Mihails Strasuns <public@dicebot.lv>
 
 pkgname=dcd
-pkgver=0.13.1
+pkgver=0.13.4
 pkgrel=1
 epoch=1
-_pkgcommit=92db0486968f8ee59c16099c21b133dc4e9d91cb
+_pkgcommit=8dce131a8ec715382a104feed52d08a1aacdc960
 pkgdesc="D Completion Daemon: auto-complete for the D programming language"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/dlang-community/DCD"

@@ -3,7 +3,7 @@
 
 pkgname=openblas
 _pkgname=OpenBLAS
-pkgver=0.3.10
+pkgver=0.3.15
 pkgrel=1
 pkgdesc="An optimized BLAS library based on GotoBLAS2 1.13 BSD"
 arch=('loongarch64' 'x86_64')
@@ -11,21 +11,28 @@ url="https://www.openblas.net/"
 license=('BSD')
 depends=('gcc-libs')
 makedepends=('perl' 'gcc-fortran')
-provides=('blas=3.8.0')
+checkdepends=('cblas')
+provides=('blas=3.9.0')
 conflicts=('blas')
 source=(${_pkgname}-v${pkgver}.tar.gz::https://github.com/xianyi/OpenBLAS/archive/v${pkgver}.tar.gz)
-sha512sums=('64a5f983b2f6e02cdb6e0f14433498cc5daa1ccfb49246f7a2dcd38f9982fa608f2abea069fe0e35012af8c1441c43d1f6418eaccd40795f5002fed1c36ce05d')
+sha512sums=('c07964ead5ffe9cf088364697bfe5cb409170663e420bdcd08a6366a028625d2a3c23ee4ddbaf0e625860a9fd08cbbb39f97eb985c366c052696d6f8598a844f')
 
 build() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd $_pkgname-$pkgver
 
   make NO_STATIC=1 NO_LAPACK=1 NO_LAPACKE=1 NO_CBLAS=1 NO_AFFINITY=1 USE_OPENMP=1 \
-       CFLAGS="$CPPFLAGS $CFLAGS" DYNAMIC_ARCH=1 \
+       CFLAGS="$CPPFLAGS $CFLAGS" TARGET=CORE2 DYNAMIC_ARCH=1 \
        NUM_THREADS=64 MAJOR_VERSION=3 libs shared
 }
 
+check() {
+  cd $_pkgname-$pkgver
+  # TODO
+  #make CFLAGS="$CPPFLAGS $CFLAGS -lcblas" TARGET=CORE2 tests
+}
+
 package() {
-  cd "$srcdir/$_pkgname-$pkgver"
+  cd $_pkgname-$pkgver
 
   make PREFIX="$pkgdir"/usr NUM_THREADS=64 MAJOR_VERSION=3 install
   rm -f "$pkgdir"/usr/include/cblas.h "$pkgdir"/usr/include/lapack*

@@ -5,18 +5,18 @@
 
 _pkgbase=regex
 pkgname=python-regex
-pkgver=2020.10.11
+pkgver=2021.4.4
 pkgrel=1
 pkgdesc="Alternative python regular expression module."
 arch=('loongarch64' 'x86_64')
 url="https://bitbucket.org/mrabarnett/mrab-regex"
-license=('Python')
+license=('Python' 'Apache')
 depends=('python')
 makedepends=('python-setuptools')
 options=(!emptydirs)
 source=("https://files.pythonhosted.org/packages/source/r/${_pkgbase}/${_pkgbase}-${pkgver}.tar.gz")
-sha256sums=('463e770c48da76a8da82b8d4a48a541f314e0df91cbb6d873a341dbe578efafd')
-b2sums=('63d620ba264d27147d8f112f9c4621c2194c8ff8c35d54c6691008190f6c7fa73143f496d2fdcd063dcdc66d4f8bd713eeb3fc0c29317540896601c088eae7e3')
+sha256sums=('52ba3d3f9b942c49d7e4bc105bb28551c44065f139a65062ab7912bef10c9afb')
+b2sums=('a13a51a883599f726c20cdbf28d5b0f1a53d8f2eec5f4047da0ede2951694507c5065de5a84152510874db087c342d52f19d920a7b72c034325ddc91f5fb75ac')
 
 build() {
   cd "regex-${pkgver}"
@@ -35,5 +35,5 @@ package() {
   cd "regex-${pkgver}"
 
   python setup.py install --root="${pkgdir}/" --optimize=1 --skip-build
-  sed -n '1,/^$/p' regex_3/regex.py | install -Dm644 /dev/stdin "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE.txt
 }

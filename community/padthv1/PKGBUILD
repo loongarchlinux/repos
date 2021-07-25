@@ -1,27 +1,29 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=padthv1
-pkgver=0.9.17
+pkgver=0.9.22
 pkgrel=1
 pkgdesc="An old-school polyphonic additive synthesizer"
 arch=('loongarch64' 'x86_64')
 url="https://padthv1.sourceforge.io/"
 license=('GPL2')
 groups=('lv2-plugins' 'pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'lv2-host' 'qt5-base')
 makedepends=('alsa-lib' 'cmake' 'fftw' 'jack' 'liblo' 'lv2' 'qt5-tools')
 optdepends=('alsa-lib: for standalone application'
             'jack: for standalone application'
             'liblo: for standalone application'
-            'non-session-manager: for session management using the standalone application')
+            'new-session-manager: for session management using the standalone application'
+            'qt6-wayland: for native wayland support')
 source=("https://download.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e621f8ea16e90d2626243a553807958c364bcb01ab7c9f5a8bfe726a1a61fe0e3c2a0bcbbfc479d6c7fd4ec3ef18ef81447caeb4dc1afccdb9c33b1c02b550a6')
-b2sums=('8fb84854027435dba7ba6dc969795933d40a5b019c61bbf546ef1db649e6c43d34552632db11c18a67dcf8df1b8e9529fb0a602d8888b8d4b596aaa05146c35b')
+sha512sums=('3f7115e2fe223f5114161d2f6759259c5c86d7a9c2caceb7cda7fbf19ab2943cb315ce76a059b555641f94d288cb5b3559a967c07a30a12187be52ed5115f6c1')
+b2sums=('85c2ef5b407052df830f62ea6ef54c746e257ad9eb886626e82f28429a6f4193d13826c515831a7333d2a978f0a4fb8cde120ef5d1f1749c26f639401ed6d9e1')
 
 build() {
   cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX='/usr' \
         -DCMAKE_BUILD_TYPE='None' \
+        -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
         -S .

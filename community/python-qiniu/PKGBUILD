@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-qiniu
-pkgver=7.3.0
+pkgver=7.4.1
 pkgrel=1
 pkgdesc="Qiniu Resource Storage SDK for Python"
 arch=('any')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('python-requests' 'python-setuptools')
 checkdepends=('python-pytest-runner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/qiniu/python-sdk/archive/v$pkgver.tar.gz")
-sha512sums=('c6579c97529d8edce0ef83840f108cf3c6dd7211a4e9106fcdb37f875a36e0aff82dde35543821427bd3a8ba9c0138748260439be1b30e9545a227f470968dd7')
+sha512sums=('cfd7c0cb53a7e2815252e2f5dfb68fbbbe858d185894dd2c7844360be681bb1dd220c2679e03df5a4ab9f952d1e409819528df41bb3bc17286830d1bc4744796')
 
 build() {
   cd python-sdk-$pkgver
@@ -24,7 +24,7 @@ check() {
   export QINIU_TEST_ENV="travis"
 
   cd python-sdk-$pkgver
-  python setup.py pytest || warning "Tests failed"
+  python setup.py pytest || echo "Tests failed"
 }
 
 package() {

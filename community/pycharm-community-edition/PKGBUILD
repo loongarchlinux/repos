@@ -1,11 +1,12 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: David Keogh <davekeogh@archlinux.us>
 
 pkgname=pycharm-community-edition
-pkgver=2020.2.3
-_build=202.7319.64
-_gitcommit=4682003011bb42ffdb872d081e79d300bb393d17
+pkgver=2021.1.2
+_build=211.7442.45
+_gitcommit=c315cd29d549d5f8c03638e657a7d55f214bb0ef
 pkgrel=1
 pkgdesc='Python IDE for Professional Developers'
 arch=(loongarch64 x86_64)
@@ -14,15 +15,15 @@ license=(APACHE)
 depends=(
   giflib
   glib2
-  java-runtime=11
+  java-environment=11
   java11-openjfx
   python
   sh
   ttf-font
+  fontconfig
   libdbusmenu-glib
 )
 optdepends=(
-  'ipython2: IPython integration for Python 2'
   'ipython: IPython integration for Python 3'
   'python2: Python 2 support'
 )
@@ -30,7 +31,6 @@ makedepends=(
   ant
   git
   java-environment=8
-  java8-openjfx
   python2-setuptools
   python-setuptools
 )
@@ -47,13 +47,19 @@ prepare() {
   cd intellij-community
 
   echo ${_build} > build.txt
+
+  # https://youtrack.jetbrains.com/issue/IDEA-266631
+  sed '/intellij.cwm.plugin/d' -i python/build/plugin-list.txt
+  sed '/intellij.marketplace/d' -i python/build/plugin-list.txt
+
   sed '/def targetOs =/c def targetOs = "linux"' -i build/dependencies/setupJbre.gradle
   sed '/String targetOS/c   String targetOS = OS_LINUX' -i platform/build-scripts/groovy/org/jetbrains/intellij/build/BuildOptions.groovy
   sed -E 's|(<sysproperty key="jna.nosys")|<sysproperty key="intellij.build.target.os" value="linux" />\1|' -i build.xml
   sed -E 's|(<sysproperty key="java.awt.headless")|<sysproperty key="intellij.build.target.os" value="linux" />\1|' -i python/build.xml
   sed "s/-Xmx612m -XX:MaxPermSize=152m/-Xmx2048m -XX:MaxPermSize=512m/" -i python/build.xml
-  sed 's|../build/plugins-autoupload-whitelist.txt|plugins-autoupload-whitelist.txt|' -i platform/build-scripts/groovy/org/jetbrains/intellij/build/impl/DistributionJARsBuilder.groovy
-  touch plugins-autoupload-whitelist.txt
+  sed 's|../build/plugins-autoupload.txt|plugins-autoupload.txt|' -i platform/build-scripts/groovy/org/jetbrains/intellij/build/impl/DistributionJARsBuilder.groovy
+  touch plugins-autoupload.txt
+  ./getPlugins.sh
 }
 
 build() {

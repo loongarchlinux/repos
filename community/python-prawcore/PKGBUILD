@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-prawcore
-pkgver=1.5.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Low-level communication layer for PRAW 4+."
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('python-setuptools')
 checkdepends=('python-mock' 'python-betamax-matchers' 'python-betamax-serializers'
               'python-testfixtures')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/praw-dev/prawcore/archive/v$pkgver.tar.gz")
-sha512sums=('6ee3191702cb6b1daf30763bd8fc1a919dc6820792c1a64399dc98f5986e33ee3e2a59286277e4232b5d58077d54e0cf444f9a0144dd7bad91286a57f2fe6a89')
+sha512sums=('01ef2d9787d3896ebe1091b124a3c255c8e5e01815a462257b3418931e4ca3010d24fe60bbced1ab214202e9e16ec705f69967a8637d056d716fe77e2f1eff34')
 
 check() {
   cd prawcore-$pkgver

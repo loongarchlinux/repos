@@ -3,17 +3,17 @@
 # Contributor: Franco Iacomella <yaco@gnu.org>
 
 pkgname=synfigstudio
-pkgver=1.2.2
-pkgrel=2
-pkgdesc="Professional vector animation program (GUI)"
-arch=(loongarch64 x86_64)
-url="https://www.synfig.org/"
-license=(GPL2)
-depends=(gtkmm3 synfig)
-makedepends=(etl intltool)
+pkgver=1.4.1
+pkgrel=1
+pkgdesc='Professional vector animation program (GUI)'
+arch=('loongarch64' 'x86_64')
+url='https://www.synfig.org/'
+license=('GPL3')
+depends=('gtkmm3' 'synfig')
+makedepends=('etl' 'intltool')
 optdepends=('python: for the plugins')
-source=(https://downloads.sourceforge.net/synfig/$pkgname-$pkgver.tar.gz)
-sha256sums=('76fa37998af634cf694f9b5bdfcb90220bc88f8527df117d9282a39fe01489e2')
+source=("https://downloads.sourceforge.net/synfig/$pkgname-$pkgver.tar.gz")
+sha256sums=('af9a9b0064064907ae24a693b607dcba633a8a2cd45fa1357f61c035efd6020e')
 
 prepare() {
   cd $pkgname-$pkgver

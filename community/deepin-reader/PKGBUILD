@@ -1,31 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-reader
-pkgver=5.7.0.23
+pkgver=5.9.0.24
 pkgrel=1
 pkgdesc='A simple PDF reader, supporting bookmarks, highlights and annotations'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/deepin-reader"
 license=('GPL3')
-depends=('deepin-qt5integration' 'djvulibre' 'karchive' 'libspectre' 'poppler-qt5')
-makedepends=('cmake' 'qt5-tools')
+depends=('deepin-qt5integration' 'djvulibre' 'karchive' 'libchardet' 'libspectre' 'poppler-qt5')
+makedepends=('cmake' 'gtest' 'qt5-tools')
 groups=('deepin-extra')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-reader/archive/$pkgver.tar.gz")
-sha512sums=('87499b79903ca8f2c3f438b7b015de0ddaf94a94c3327543408c5fe5574f699c20f3768f7266b344eaa614bc17ce44c9aed6a44d49db6a1f1cf558df661116d6')
-
-prepare() {
-  cd deepin-reader-$pkgver/src
-  sed -i '/#include <QDebug>/a #include <QPainterPath>' document/Model.h
-  sed -i '/include <QPainter>/a #include <QPainterPath>' app/Utils.cpp widgets/RoundColorWidget.cpp browser/BrowserMagniFier.cpp sidebar/bookmark/BookMarkDelegate.cpp \
-                                                         sidebar/thumbnail/ThumbnailDelegate.cpp document/DjVuModel.cpp sidebar/note/NoteViewWidget.cpp sidebar/note/NotesDelegate.cpp \
-                                                         sidebar/search/SearchResDelegate.cpp
-  sed -i '/include <QMap>/a #include <QSet>' uiframe/DocSheet.h
-  sed -i '/include <QLabel>/a #include <QMouseEvent>' browser/SheetBrowser.h
-  sed -i '/include <QDesktopWidget>/a #include <QMouseEvent>' widgets/SlideWidget.cpp
-
-  # https://github.com/linuxdeepin/deepin-reader/commit/3e0fde41a30705af2a91c97f49b6d03863483909#r42153891
-  sed -i 's/\$ \$/$$/' src.pro
-}
+source=("https://github.com/linuxdeepin/deepin-reader/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('8f13596d1e2aff72612e5cf2569684146f3786bb46a4c83b32e4b124c5cfb0fce50bd536fed9a73723224c846d295edb301ea5d82c14fbdff87032d10625a5ca')
 
 build() {
   cd deepin-reader-$pkgver

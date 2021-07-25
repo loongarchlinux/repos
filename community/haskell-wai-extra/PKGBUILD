@@ -3,8 +3,8 @@
 
 _hkgname=wai-extra
 pkgname=haskell-wai-extra
-pkgver=3.1.1
-pkgrel=4
+pkgver=3.1.6
+pkgrel=156
 pkgdesc="Provides some basic WAI handlers and middleware."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -12,12 +12,12 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-base64-bytestring'
          'haskell-case-insensitive' 'haskell-cookie' 'haskell-data-default-class'
          'haskell-fast-logger' 'haskell-http-types' 'haskell-http2' 'haskell-iproute'
-         'haskell-network' 'haskell-old-locale' 'haskell-resourcet' 'haskell-streaming-commons'
-         'haskell-unix-compat' 'haskell-vault' 'haskell-void' 'haskell-wai'
-         'haskell-wai-logger' 'haskell-word8' 'haskell-zlib' 'haskell-hunit' 'haskell-call-stack')
-makedepends=('ghc' 'haskell-hspec')
+         'haskell-network' 'haskell-resourcet' 'haskell-streaming-commons'
+         'haskell-vault' 'haskell-wai' 'haskell-wai-logger' 'haskell-word8' 'haskell-hunit'
+         'haskell-call-stack')
+makedepends=('ghc' 'haskell-hspec' 'haskell-zlib')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e67d146e6711426c20b5a5e0ebab2ae19521f33342a958708b22f5db6047045b0805e7e4c60f2148bdf42c82aa06871cac8467d1a2b8f1ebeca20e63314397ac')
+sha512sums=('9de9b919b7c62a4e73eabfed952770ce0735b8445cb3e5a4155195fb564ae3da7994b2cdcf297ccbc5b5cd4378200fb1f1fe69b736d8e95c2a7159813e0a4fd0')
 
 build() {
     cd $_hkgname-$pkgver
@@ -35,7 +35,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

@@ -1,20 +1,18 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-game-libretro-mupen64plus-nx
-pkgver=2.5.0.7
-_codename=Leia
-pkgrel=2
+epoch=1
+pkgver=2.1.0.15
+_codename=Matrix
+pkgrel=1
 pkgdesc="Nintendo 64 mupen64plus-next for kodi"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/kodi-game/game.libretro.mupen64plus'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-game')
-depends=('kodi-addon-game-libretro' 'libretro-mupen64plus-next')
-makedepends=('cmake' 'kodi-dev')
-conflicts=('kodi-addon-game-libretro-mupen64plus')
-replaces=('kodi-addon-game-libretro-mupen64plus')
+makedepends=('cmake' 'kodi-dev' 'kodi-addon-game-libretro' 'libretro-mupen64plus-next')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kodi-game/game.libretro.mupen64plus/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('3142a0a46867a96c5415178bb4f629e36d84e8b5c418a10a45d36f8f6769f0da51520c30f1c016e12bdd0d44b7e3c70671d111b9be08cd6acecc1dbc26b09ba5')
+sha512sums=('0335216bc732350d880df1cc442d3be22c619b9f205dbb919d4ecc28581f5ce01d57f161a3e5ee686e2b222f649e4fa5c8ac25b8c2bdec20f1198f139e803408')
 
 build() {
     cd "game.libretro.mupen64plus-nx-$pkgver-$_codename"
@@ -30,6 +28,7 @@ build() {
 }
 
 package() {
+    depends=('kodi-addon-game-libretro' 'libretro-mupen64plus-next')
     cd "game.libretro.mupen64plus-nx-$pkgver-$_codename"
 	make DESTDIR="$pkgdir/" install
 }

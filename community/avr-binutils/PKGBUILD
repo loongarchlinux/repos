@@ -6,17 +6,17 @@
 # Build order: avr-binutils -> avr-gcc -> avr-libc
 
 pkgname=avr-binutils
-pkgver=2.35.1
-pkgrel=1
+pkgver=2.36.1
+pkgrel=2
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the AVR architecture"
 arch=('loongarch64' 'x86_64')
 url="https://www.gnu.org/software/binutils/"
 license=('GPL')
-depends=('glibc>=2.17' 'zlib' 'binutils')
+depends=('glibc' 'zlib')
 options=('!distcc' '!ccache')
 source=(https://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.bz2{,.sig}
         avr-size.patch)
-sha1sums=('df4eb943bf65df4bbbd0a001efcc98113423c5dd'
+sha1sums=('968cddc17354142ab7d60b93d7f169ec8373a9f4'
           'SKIP'
           'bb820f761fbbe7379ddf8e75235866c44591c899')
 validpgpkeys=('EAF1C276A747E9ED86210CBAC3126D3B4AE55E93'  # Tristan Gingold <gingold@adacore.com>
@@ -54,7 +54,6 @@ build() {
         --enable-plugins \
         --enable-threads \
         --with-pic \
-        --enable-shared \
         --disable-werror \
         --disable-multilib \
         --build=${config_guess} \
@@ -73,15 +72,14 @@ package() {
     make prefix="${pkgdir}"/usr tooldir="${pkgdir}"/usr install
 
     for bin in ar as nm objcopy objdump ranlib strip readelf; do
-        rm -f "${pkgdir}"/usr/bin/${bin}
+        rm "${pkgdir}"/usr/bin/${bin}
     done
+
+    rm "$pkgdir"/usr/lib/bfd-plugins/libdep.so
 
     for info in as bfd binutils gprof ld; do
         mv "${pkgdir}"/usr/share/info/${info}.info "${pkgdir}"/usr/share/info/avr-${info}.info
     done
 
     rm -r "${pkgdir}"/usr/share/locale
-
-    rm -r "${pkgdir}"/usr/lib/libctf*
-    rm -r "${pkgdir}"/usr/include/{ctf.h,ctf-api.h}
 }

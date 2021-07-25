@@ -2,7 +2,7 @@
 
 _name=diff_cover
 pkgname=python-diff-cover
-pkgver=4.0.1
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="Automatically find diff lines that need test coverage"
 arch=('any')
@@ -13,9 +13,9 @@ depends=('python-jinja' 'python-jinja_pluralize' 'python-pluggy'
 checkdepends=('flake8' 'python-pytest' 'python-mock' 'python-pytest-cov'
 'python-pycodestyle' 'python-pyflakes' 'python-pylint' 'python-pydocstyle')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('a5f124cf602937f089094d38c9eba9a1babdadcff9b65d4b8cb909c6bcaaf61c7832f8c30d4453f50d0965687e9fe9a25060fb824cd997f641d7fec769f0232b'
+sha512sums=('f69aa84b670dbbd548e355e95a7f5d0d0ed067036e810da993074702121e453395b7d376634d0d7cf0ae3d76cc16c45480daf72364aad3ed1d2185e818c3df69'
             'SKIP')
-b2sums=('e4ff84f9eaf8acb3ff659a15670d957c8601c45f2528086b0e76f949e06682af91f8b873f23432fc79b0471b6ab1f5f6c03c65bc10cc5d795e2ff273f2d2153d'
+b2sums=('e884d9e64d6112784a98945a4108cf52588e270c15072a0329e6324dbefe39e81bc57d50554ebb9b183acbe73161a1b64d67d65e9151fa3dc90a741c14589a63'
         'SKIP')
 validpgpkeys=('54CAEABCAC2956D407348256972401BDE60128CB') # Matt Bachmann <matt.bachmann@lola.com>
 
@@ -38,7 +38,6 @@ package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
     --optimize=1 \
-    --prefix=/usr \
     --root="${pkgdir}"
   install -vDm 644 {CHANGELOG,NOTICE,README.rst} -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

@@ -1,8 +1,8 @@
 # Maintainer: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=hatari
-pkgver=2.2.1
-pkgrel=2
+pkgver=2.3.1
+pkgrel=1
 pkgdesc='An Atari ST and STE emulator'
 arch=('loongarch64' 'x86_64')
 url='http://hatari.sourceforge.net/'
@@ -10,7 +10,7 @@ license=('GPL')
 depends=('sdl2' 'libpng' 'portaudio' 'systemd-libs' 'hicolor-icon-theme')
 makedepends=('cmake' 'systemd')
 source=("https://download.tuxfamily.org/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('11afef30a274be84696588583d5a1d65c8046934670f718c311c956ef7106f60')
+sha256sums=('44a2f62ca995e38d9e0874806956f0b9c3cc84ea89e0169a63849b63cd3b64bd')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -23,5 +23,5 @@ build() {
 package() {
   cd ${pkgname}-${pkgver}
 
-  make DESTDIR=${pkgdir} install
+  make DESTDIR="${pkgdir}" install
 }

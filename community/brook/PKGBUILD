@@ -2,30 +2,16 @@
 # Contributor: Kasei Wang <cnsdwpc at gmail.com>
 
 pkgname=brook
-pkgver=20200502
+pkgver=20210401
 pkgrel=1
 pkgdesc="A cross-platform proxy/vpn software"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/txthinking/brook"
 license=('GPL')
 depends=('glibc')
-makedepends=('go' 'golang-golang-x-net' 'golang-golang-x-text' 'git')
+makedepends=('go' 'git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/txthinking/brook/archive/v$pkgver.tar.gz")
-sha512sums=('a2b13c4f380ade3f67d46bc773cbc7e2dd6a9c23c68ca5090bb2ff3db1fa3623831f189874f34030a7944ea2ad5fd95ad0a54fcc6d242e5c862f61b600d21dd8')
-
-prepare() {
-  cd brook-$pkgver
-
-  mkdir build
-  mkdir -p .gopath/src/github.com/txthinking
-  ln -sf "$PWD" .gopath/src/github.com/txthinking/brook
-  export GOPATH="$PWD/.gopath:/usr/share/gocode"
-
-  go get github.com/mdp/qrterminal github.com/patrickmn/go-cache github.com/txthinking/x \
-         github.com/txthinking/socks5 github.com/txthinking/encrypt github.com/gorilla/mux \
-         github.com/urfave/cli github.com/txthinking/gotun2socks github.com/gorilla/websocket \
-         github.com/urfave/negroni github.com/tdewolff/minify
-}
+sha512sums=('25e63ddbcb47b419838d51dcc117a91a56cb2a6f5cff112e295851e3779fa599502c2d35b71e2446e87d56a10cf88b0206b8c3b52967908428761cb39eb3a754')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"

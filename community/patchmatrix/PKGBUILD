@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=patchmatrix
-pkgver=0.20.0
+pkgver=0.24.0
 pkgrel=1
 pkgdesc="A JACK patchbay in flow matrix style"
 arch=('loongarch64' 'x86_64')
@@ -9,25 +9,17 @@ url="https://git.open-music-kontrollers.ch/lad/patchmatrix/about/"
 license=('Artistic2.0')
 groups=('lv2-plugins' 'pro-audio')
 depends=('glibc' 'hicolor-icon-theme' 'libglvnd' 'libx11')
-makedepends=('glu' 'jack' 'lv2' 'meson')
+makedepends=('glew' 'glu' 'jack' 'lv2' 'meson')
 source=("https://git.open-music-kontrollers.ch/lad/${pkgname}/snapshot/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('5be32eaad63bd338d7bbce127a95e44ed4450818904e1de757d4dc2c03cb60032e9fb5999e335b2e17530e1cd36ca9398b2b965fddc42f8c5f76faa323521bf3'
+sha512sums=('35ac20aa74fddef9fab63193bc4501fae5aa09d0f99c6dde3cf5502fe663362119586a32f82eb43118a1a511717c608770575a343a50fc359c3b3a2ca4f4c11a'
             'SKIP')
-b2sums=('73779744c27d87365cadd0bb76d18d1a5c4e307ebeb1dd21099d020b2969e82adeeeb5e92ed34692f74f49848f540510b2afca431ec4148845c0fa98f505840d'
+b2sums=('0c9b304f9d72ee7cc7e9e6c21300a4e0d5f571eef8b726ec192005c5d5909300cf3d0fc8361a2250c98b9e662303afcc8185c9c0af6815cc91cf3acd4f39a312'
         'SKIP')
 validpgpkeys=('5AE26CEBBF49705C19FB273A30258F99258CB76A') # Hanspeter Portner <dev@open-music-kontrollers.ch>
 
 build() {
   cd "$pkgname-$pkgver"
-  meson --prefix=/usr \
-        --libexecdir lib \
-        --sbindir bin \
-        --buildtype plain \
-        --auto-features enabled \
-        --wrap-mode nodownload \
-        -D b_lto=true \
-        -D b_pie=true \
-        build
+  arch-meson build
   ninja -C build
 }
 
@@ -37,7 +29,7 @@ check() {
 }
 
 package() {
-  depends+=('libjack.so')
+  depends+=('libGLEW.so' 'libjack.so')
   cd "$pkgname-$pkgver"
   DESTDIR="${pkgdir}" meson install -C build
   # docs

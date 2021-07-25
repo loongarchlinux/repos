@@ -2,7 +2,8 @@
 # Contributor: Lubomir 'Kuci' Kucera <kuci24-at-gmail-dot-com>
 
 pkgname=gitlab-runner
-pkgver=13.4.0
+pkgver=14.0.1
+_commit=c1edb478
 pkgrel=1
 pkgdesc="The official GitLab CI runner written in Go"
 arch=('loongarch64' 'x86_64')
@@ -13,59 +14,81 @@ makedepends=('git' 'go' 'git' 'mercurial' 'gox')
 install=gitlab-runner.install
 replaces=('gitlab-ci-multi-runner')
 backup=('etc/gitlab-runner/config.toml')
-noextract=("prebuilt-${pkgver}-x86_64.tar.xz"
-           "prebuilt-${pkgver}-arm.tar.xz")
-source=("$pkgname-$pkgver.tar.gz::https://gitlab.com/api/v4/projects/gitlab-org%2Fgitlab-runner/repository/archive?sha=v${pkgver}"
-        "prebuilt-${pkgver}-x86_64.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-x86_64.tar.xz"
-        "prebuilt-${pkgver}-arm.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-arm.tar.xz"
+noextract=("prebuilt-alpine-arm.tar.xz"
+           "prebuilt-alpine-arm64.tar.xz"
+           "prebuilt-alpine-s390x.tar.xz"
+           "prebuilt-alpine-x86_64-pwsh.tar.xz"
+           "prebuilt-alpine-x86_64.tar.xz"
+           "prebuilt-ubuntu-arm.tar.xz"
+           "prebuilt-ubuntu-arm64.tar.xz"
+           "prebuilt-ubuntu-s390x.tar.xz"
+           "prebuilt-ubuntu-x86_64-pwsh.tar.xz"
+           "prebuilt-ubuntu-x86_64.tar.xz")
+source=("git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=${_commit}"
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-arm.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-arm64.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-s390x.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-x86_64-pwsh.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-x86_64.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-ubuntu-arm.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-ubuntu-arm64.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-ubuntu-s390x.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-ubuntu-x86_64-pwsh.tar.xz
+        https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-ubuntu-x86_64.tar.xz
         "gitlab-runner.service"
         "gitlab-runner.sysusers"
         "gitlab-runner.tmpfiles"
         "config.toml")
-sha512sums=('a80710061da4b57cd10bb047bce4b39894b554412110447225ca62104f629d767d284f19ca61478a6362a072d7c0d1de46caa78296fd0541e8f6b66b6645786c'
-            'c2db40dacf26deb5b86288a634b870612a1f2e059e2982856a06d1dedf5247e32824726495198458f5bf5d407990b13b28144cb61d0db071ae03b1e5f711e75a'
-            'aa39089f0c0ba2853747deeae4164972e943b83fbee74bc2b328fa3405775cf64b80dbf9aa8f38450a35fa2c58d460afce291e5052987e2e5b33e87a44daaeac'
-            '8a5a8b7654d3864722e784b2814c6278c17876f1c0c4fc0676fbcf6817ad2ba4be55501e67ce88c62b5b63ca886b01afc6feac98ba49842acd244abdd1a8296f'
+sha512sums=('SKIP'
+            '039818b80f7a5bb0239370bd54aef6e5638182fdb34fd307a5d8f48e818e8e078b925ef8759cd002b2ac4c4f6326077cecd0908efe928eb89dc1bc989746bd23'
+            'f87183f46147ff09031672477c1f4f2c6833d5dcebf3b7501dc6817677decbac516f49a2642b87f4e542a8423dfc71d3069c0db50140f894f37d993854b7f825'
+            '1048404e569902ef4d39c43e1d23e74b3414ddc1091a55eda0ba08682d9f5dc7cc5395d725eeab04af381d6667f9dffb3ff29407684b56e27425cac91206d77e'
+            'b1572a06d7797a22f76b3b2537f6f967ab0a4dce36bd24dc4f9832f86436c711b87b622b9bd1ac662fcfb53fcfae998de413094887ef9c27b0bf6532ab92f1ad'
+            '96ec9b0e9786b7d73178dc1ca74dea1718efb9b6374ae66d33af577537acba66f7926cae472e9eedf1d7e5710729cec3e04a1913987aa02d71cc292ed125fff1'
+            'f83500a1ae0c7d9e4bcc35902a7d63230c9cf7fdb6bbdce243dc48e123518f8f4d9baeb0e1948eb0fbec80da03c46d222cb4369f91c61b5df68f1a3110b38e33'
+            'f5110a169eddddd8223f6317c100f19e5ba6eb949a2697dacc7424f863d31e672bd1d78481b7731d47512379451ce29fa2536ff934b1f5c1cf82920029b228bd'
+            'aa716a69d4e8121015c99b097e78db316ed6323d29ab4a48851fa3be6b30c0e8ea9a1419e70f6e56fea33cf4f513aadf78d3038f136a7edf251ef481a65b80c5'
+            'e246dffc167f32f3d962498f1c6dcd3d7f8e3684af75ad0381cd6f296f3aa573b23519acded8c50b459c3c3aa5a4a5cf00e80c127691e7deae7aa05562a7b342'
+            '5efb238e6451605c478aabd1e563148540df7af6a25176d8a29384d29ca46674712e6498859de184ef0da6f2aa0546a6d36b8cf9d3ccd1576f3152fe9f33033e'
+            'c0af374b9986895aedcfaee6c67cfad68f0f7289f87e4611358adaff59a2f349f55764fe28b2b1f61f8bfeb61126d4f90d433c626fdf9b826a2de6217f86574f'
             '8aa7f08702e99053c696fcc2aaba83beb9e9cd6f31973d82862db9350ac46df3a095377625d31fe909677525290d2de922d7a97930ed235774cb8f0da8944d40'
             '6751d9fa0b27172d1b419c4138f5ac15cbc7c9147653a7258cf1470216142c637210bb60608c7ed0974e0e4057e5ddeae32225df1bb36e7dd1f20fec71e33cc3'
             '9718b94bd0ddb09095ffb8c1e60ca1e9649dabb1747e7fc95e58e404b2f9effdeb4cfd759f5b904443dc53a4e18c02003c38f85584713deb49f6a6d1007503de')
 
-_srcdir="gitlab-runner-v${pkgver}-"
-
 prepare() {
-  local revision=$(ls -d ${_srcdir}* | rev | cut -c 33-40 | rev)
+  cd gitlab-runner
 
-  cd "${_srcdir}"*
+  local version=$(make version | grep "Current version:" | sed -n "s/.*: \(.*\)/\1/p")
+  local revision=$(make version | grep "Current revision:" | sed -n "s/.*: \(.*\)/\1/p")
+  local branch=$(make version | grep "Current branch:" | sed -n "s/.*: \(.*\)/\1/p")
 
-  local version=$(cat VERSION)
-
-  sed -i "s/export VERSION.*/export VERSION := $version/" Makefile
-  sed -i "s/REVISION := .*/REVISION := $revision/" Makefile
   sed -i "s/var VERSION.*/var VERSION = \"$version\"/" common/version.go
-
-  make version
-
-  ln -sf "${srcdir}/prebuilt-${pkgver}-x86_64.tar.xz" prebuilt-x86_64.tar.xz
-  ln -sf "${srcdir}/prebuilt-${pkgver}-arm.tar.xz" prebuilt-arm.tar.xz
+  sed -i "s/var REVISION.*/var REVISION = \"$revision\"/" common/version.go
+  sed -i "s/var BRANCH.*/var BRANCH = \"$branch\"/" common/version.go
 }
 
 build() {
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
 
-  cd "${_srcdir}"*
+  cd gitlab-runner
   go build -o gitlab-runner .
 }
 
 package() {
-  cd "${_srcdir}"*
+  cd gitlab-runner
 
   install -Dm644 "${srcdir}/config.toml" "${pkgdir}/etc/gitlab-runner/config.toml"
   install -Dm644 "${srcdir}/gitlab-runner.service" "${pkgdir}/usr/lib/systemd/system/gitlab-runner.service"
   install -Dm644 "${srcdir}/gitlab-runner.sysusers" "${pkgdir}/usr/lib/sysusers.d/gitlab-runner.conf"
   install -Dm644 "${srcdir}/gitlab-runner.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/gitlab-runner.conf"
   install -Dm755 gitlab-runner "${pkgdir}/usr/bin/gitlab-runner"
+
+  # Move prebuilt Docker images to hard-coded canonical location
+  for image in prebuilt-{alpine,ubuntu}-{arm,arm64,s390x,x86_64-pwsh,x86_64}.tar.xz; do
+    install -Dm644 "${srcdir}/${image}" "${pkgdir}/usr/lib/gitlab-runner/helper-images/${image}"
+  done
 }

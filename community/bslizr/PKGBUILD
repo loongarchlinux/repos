@@ -2,18 +2,19 @@
 
 _name=BSlizr
 pkgname=bslizr
-pkgver=1.2.8
+pkgver=1.2.16
 pkgrel=1
 pkgdesc="LV2 audio effect plugin for sequenced slicing of stereo audio input signals"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/sjaehn/bslizr"
 license=('GPL3')
 groups=('lv2-plugins' 'pro-audio')
-depends=('cairo' 'gcc-libs' 'glibc' 'libx11')
+depends=('cairo' 'gcc-libs' 'glibc' 'libx11' 'lv2-host')
 makedepends=('lv2')
 checkdepends=('lv2lint')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sjaehn/${pkgname}/archive/${pkgver}.tar.gz")
-sha512sums=('86c29c91a30f3146676aa5ab602b5c13147cf36e7f83ea2341bf77046edbba60c0c6baf483a915916f5182303d5dcafe8081d3077393f7cb75084a2dfcf9c613')
+sha512sums=('886618221d848bcb8a26598022465161913d578e32c5430d5e8a3aba41fb0ee374de7bb1867854d1a4ea45f2de0717867732f4ee39ff4164ba28de74280d1d46')
+b2sums=('c3efa7550ff95935faa014932afc8f50761d3860788bd7696781cdb99f06e6e6bae584dc59706150818f11407439ca1558ffb647bb53ad17eb845d7ab95acfb2')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"

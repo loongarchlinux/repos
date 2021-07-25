@@ -1,9 +1,10 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Carlo Cabanilla <carlo.cabanilla@gmail.com>
 # Contributor: Christoph Gysin <christoph.gysin@gmail.com>
 
 pkgname=aws-vault
-pkgver=6.2.0
+pkgver=6.3.1
 pkgrel=1
 pkgdesc='Vault for securely storing and accessing AWS credentials in development environments'
 url='https://github.com/99designs/aws-vault'
@@ -16,8 +17,8 @@ optdepends=(
   'kdialog: graphical prompt'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('39886f4bc3985d4aefbae6fc88532499ac2c39cbabc33d860bba6d355158e17d')
-b2sums=('e47669efbc0466a36e325d7abdfd78529e76601faedc1ee51c333b97404741c826b96b1f642c4d14d23a4d5287bdb6d05de15d8d396ae4c412de41fbae6f874f')
+sha256sums=('433df90b7ed1cf1ec08aa75a4f1f993edfe5fa3fecfff5519574613ab0ab4630')
+b2sums=('1dfeed1c473f9490c891b2be8d84f3fe1fcc59a45c62333c752280126ac01ff7f5465d3924b694482072fa6fff6876256379d6d9c286b1ede12aeb1fce5a615a')
 
 build() {
   cd "${pkgname}-${pkgver}"

@@ -4,7 +4,7 @@
 # Contributor: Jelle van der Waa <jelle@vdwaa.nl>
 
 pkgname=python-pymongo
-pkgver=3.11.0
+pkgver=3.11.4
 pkgrel=1
 pkgdesc='Python module for using MongoDB'
 arch=('loongarch64' 'x86_64')
@@ -13,7 +13,7 @@ url='https://pypi.python.org/pypi/pymongo/'
 depends=('python')
 makedepends=('python-setuptools')
 source=("https://pypi.io/packages/source/p/pymongo/pymongo-$pkgver.tar.gz")
-sha512sums=('4f8a185013cbb3c07774d3c6aecc9e97dabb4ba55176fa8a51e17bcdb7cbbebaacd16304e580b4c6aeb26aad964401249313b59dde3c5c248c4496d64d18b22c')
+sha512sums=('85a98e166f5e6aa387e4c7c9b6f284541321a570a7828c1cf7e140230e1aabb29561211bab04b8be9fbcefd1488e8b63b9fe034960e2bdccfd8ed18b083fe7e1')
 
 build() {
   cd "$srcdir"/pymongo-$pkgver

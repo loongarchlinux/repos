@@ -2,12 +2,12 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lximage-qt
-pkgver=0.15.0
+pkgver=0.17.0
 pkgrel=1
 pkgdesc="The LXQt image viewer and screenshot tool"
 arch=("loongarch64" "x86_64")
 groups=("lxqt")
-url="https://lxqt.org"
+url="https://github.com/lxqt/$pkgname"
 license=("GPL2")
 depends=("lxqt-themes" "libfm-qt" "qt5-svg" "libexif" "libxfixes" "libfm-qt.so")
 optdepends=(
@@ -18,7 +18,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('33cb2ce4cde14acb66c11f1bfed1d904ceb30c52453d9accde9f728f56f53e0a'
+sha256sums=('2e284f3f42506d5b6df6091982d24e1dc41c99c838037939844f70d703d1d03c'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>

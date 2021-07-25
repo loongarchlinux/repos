@@ -2,17 +2,22 @@
 
 pkgname=jupyterlab
 _pipname=jupyterlab
-pkgver=2.2.8
+pkgver=3.0.16
 pkgrel=1
 pkgdesc="JupyterLab computational environment"
 arch=(any)
 url="https://github.com/jupyterlab/jupyterlab"
 license=(custom)
 makedepends=(python-setuptools)
-depends=(jupyterlab_server nodejs)
-optdepends=('npm: to install extensions')
+depends=(python-jupyterlab_server python-jupyter_packaging jupyter-nbclassic nodejs)
+optdepends=('npm: to install extensions' 'jupyterlab-widgets: ipywidgets support')
 source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
-sha256sums=('c8377bee30504919c1e79949f9fe35443ab7f5c4be622c95307e8108410c8b8c')
+sha256sums=('7ad4fbe1f6d38255869410fd151a8b15692a663ca97c0a8146b3f5c40e275c23')
+
+prepare() {
+  cd $pkgname-$pkgver
+  sed -e 's|jupyter_packaging~=0.7.3|jupyter_packaging|' -i setup.py
+}
 
 build() {
   cd $pkgname-$pkgver

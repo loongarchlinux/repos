@@ -2,7 +2,7 @@
 
 _pkgname=fastapi
 pkgname=python-$_pkgname
-pkgver=0.61.1
+pkgver=0.65.2
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=('python-requests' 'python-aiofiles' 'python-jinja' 'python-itsdanger
             'python-yaml' 'python-graphene' 'python-ujson' 'python-orjson'
             'python-email-validator' 'python-python-multipart')
 makedepends=('python-setuptools' 'python-dephell')
-checkdepends=('python-pytest-runner' 'python-pytest-cov' 'mypy'
+checkdepends=('python-pytest-runner' 'python-pytest-cov'
               'python-requests' 'python-aiofiles' 'python-jinja' 'python-itsdangerous'
               'python-yaml' 'python-graphene' 'python-ujson' 'python-orjson'
               'python-email-validator'  'python-pyjwt' 'python-sqlalchemy'
@@ -21,7 +21,7 @@ checkdepends=('python-pytest-runner' 'python-pytest-cov' 'mypy'
               'python-bcrypt' 'python-httpx' 'python-python-multipart'
               'python-databases' 'python-aiosqlite' 'python-jose')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('f2f0490c58705e4828b7be289845a144bb89f4cd4b4bc477a457caf85de921622a7fbd6468b7a0edb67229de4099bd3dc828eaef21f6be6291d5cf966ef2f731')
+sha512sums=('44c315be97929495830b43bb96edb8648491b8802b7905a5508fae51fc12453bf0774a7a3f9c1bb5274b89681830445f6fb63f2cc980eaff38d81344cae2d825')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -42,8 +42,6 @@ check() {
   cd $_pkgname-$pkgver
 
   python setup.py pytest
-
-  mypy -p fastapi
 }
 
 package() {
@@ -53,4 +51,3 @@ package() {
 
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-

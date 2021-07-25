@@ -1,16 +1,16 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
 
 pkgname=python-thrift
-pkgver=0.13.0
-pkgrel=2
+pkgver=0.14.0
+pkgrel=1
 pkgdesc='Python bindings for the Apache Thrift RPC system'
 arch=(loongarch64 x86_64)
 license=(Apache)
 url='https://thrift.apache.org/'
 depends=(python)
 makedepends=(python-setuptools)
-source=(thrift-$pkgver.zip::https://github.com/apache/$_pkgname/archive/$pkgver.zip)
-sha256sums=('4ed6254847b9c632fb64e5ba700a4cefa441af2b53bfc6ff91206fe5771be74f')
+source=(thrift-$pkgver.zip::https://github.com/apache/thrift/archive/$pkgver.zip)
+sha256sums=('c873cd626b1e8bd01ceb803fd5c60c2757f177a497fd3e0ef8cefafa7063239a')
 
 check() {
   cd thrift-$pkgver/lib/py

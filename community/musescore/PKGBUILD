@@ -4,8 +4,8 @@
 # Contributor: Dr.Egg <rwhite@archlinux.us>
 
 pkgname=musescore
-pkgver=3.5.1
-pkgrel=1
+pkgver=3.6.2
+pkgrel=2
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(loongarch64 x86_64)
 url=https://musescore.org/
@@ -22,6 +22,7 @@ depends=(
   qt5-base
   qt5-declarative
   qt5-graphicaleffects
+  qt5-quickcontrols
   qt5-quickcontrols2
   qt5-svg
   qt5-tools
@@ -38,26 +39,39 @@ makedepends=(
   texlive-core
 )
 optdepends=('lame: MP3 export')
-_tag=daa5fb7ea0ce2f26a83f8c1894090885a76baeb9
+_tag=3224f342d12f4af8ea782e929c49f5ce85f97da6
 source=(git+https://github.com/musescore/MuseScore.git#tag=${_tag})
-sha256sums=('SKIP')
+sha256sums=(SKIP)
+
+prepare() {
+  cd MuseScore
+  git cherry-pick -n 63d8b7ee90e9ec6604e334a3ebb12fced7fab36d
+}
 
 pkgver() {
   cd MuseScore
-
   git describe --tags | sed 's/^v//'
 }
 
-prepare() {
-  sed 's/option(BUILD_CRASH_REPORTER "Build with crash reporter" ON)/option(BUILD_CRASH_REPORTER "Build with crash reporter" OFF)/' -i MuseScore/CMakeLists.txt
-}
-
 build() {
-  make PREFIX=/usr NO_RPATH=TRUE USE_SYSTEM_FREETYPE=ON -C MuseScore revision release
+  cmake -S MuseScore -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DBUILD_CRASH_REPORTER=OFF \
+    -DBUILD_TELEMETRY_MODULE=OFF \
+    -DBUILD_WEBENGINE=OFF \
+    -DDOWNLOAD_SOUNDFONT=OFF \
+    -DMUSESCORE_BUILD_CONFIG=release \
+    -DMUSESCORE_REVISION=$(git rev-parse --short=7 HEAD) \
+    -DPACKAGE_FILE_ASSOCIATION=ON \
+    -DUSE_SYSTEM_FREETYPE=ON \
+    -Wno-dev
+  make -j1 lrelease manpages -C build;
+  make -C build;
 }
 
 package() {
-  make DESTDIR="${pkgdir}" UPDATE_CACHE=FALSE -C MuseScore/build.release install
+  make DESTDIR="${pkgdir}" install -C build
 }
 
 # vim: ts=2 sw=2 et:

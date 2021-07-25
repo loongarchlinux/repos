@@ -1,29 +1,49 @@
 # Maintainer: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=openfortivpn
-pkgver=1.14.1
-pkgrel=1
+pkgver=1.16.0
+pkgrel=2
 pkgdesc="An open implementation of Fortinet's proprietary PPP+SSL VPN solution"
 arch=(loongarch64 x86_64)
-url="https://github.com/adrienverge/openfortivpn"
+url=https://github.com/adrienverge/openfortivpn
 license=(GPL3)
-depends=(openssl ppp)
+depends=(
+  glibc
+  openssl
+  ppp
+  resolvconf
+  systemd-libs
+)
+makedepends=(
+  git
+  systemd
+)
 backup=(etc/openfortivpn/config)
-source=($pkgname-$pkgver.tar.gz::https://github.com/adrienverge/openfortivpn/archive/v$pkgver.tar.gz)
-sha256sums=('bc62fc6ecaaa6c6f8f2510e14a067a0cb9762158d9460c04555990bba44b50ca')
+_tag=cde9d69dd44f83f00de38fe5bdb163fb3ee07913
+source=(git+https://github.com/adrienverge/openfortivpn.git#tag=${_tag})
+sha256sums=(SKIP)
 
 prepare() {
-  cd $pkgname-$pkgver
-  autoreconf -fi
+  cd openfortivpn
+  autoreconf -fiv
+}
+
+pkgver() {
+  cd openfortivpn
+  git describe --tags | sed 's/^v//'
 }
 
 build() {
-  cd $pkgname-$pkgver
-	./configure --prefix=/usr --sysconfdir=/etc
-	make
+  cd openfortivpn
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-resolvconf
+  make
 }
 
 package() {
-  cd $pkgname-$pkgver
-	make DESTDIR="$pkgdir" install
+  make DESTDIR="${pkgdir}" -C openfortivpn install
 }
+
+# vim: ts=2 sw=2 et:

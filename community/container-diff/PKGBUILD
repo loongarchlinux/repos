@@ -2,14 +2,14 @@
 # Maintainer: Daniel Milde <daniel at milde dot cz>
 
 pkgname=container-diff
-pkgver=0.15.0
-pkgrel=4
+pkgver=0.16.0
+pkgrel=2
 pkgdesc="Diff your Docker containers"
 arch=(loongarch64 x86_64)
 url="https://github.com/GoogleContainerTools/container-diff"
 license=('Apache')
 depends=('glibc')
-makedepends=("go" "dep" "git")
+makedepends=("go" "git")
 checkdepends=("docker")
 source=("git+https://github.com/GoogleContainerTools/container-diff#tag=v${pkgver}")
 sha512sums=('SKIP')
@@ -22,6 +22,7 @@ prepare() {
 build() {
   cd "${srcdir}/src/github.com/GoogleContainerTools/${pkgname}"
   export GOPATH="${srcdir}"
+  export GOFLAGS="-buildmode=pie -trimpath"
   make clean && make
 }
 
@@ -35,6 +36,6 @@ check() {
 }
 
 package() {
-  install -D -m0755 "${srcdir}/src/github.com/GoogleContainerTools/${pkgname}/out/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm0644 "${srcdir}/src/github.com/GoogleContainerTools/${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -D -m0755 "src/github.com/GoogleContainerTools/${pkgname}/out/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm0644 "src/github.com/GoogleContainerTools/${pkgname}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}"
 }

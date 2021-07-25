@@ -2,28 +2,25 @@
 
 _pkgname=httpx
 pkgname=python-httpx
-pkgver=0.14.0
+pkgver=0.18.2
 pkgrel=1
 pkgdesc="A next generation HTTP client for Python"
 arch=('any')
 url="https://github.com/encode/${_pkgname}"
 license=('BSD')
 depends=('python-chardet' 'python-httpcore' 'python-idna' 'python-rfc3986' 'python-sniffio')
-optdepends=('python-brotli: for brotli response decompression')
+optdepends=('python-brotlicffi: for brotli response decompression')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest-asyncio' 'python-pytest-trio' 'python-brotli' 'python-h2' 'python-trustme' 'uvicorn')
+checkdepends=('python-pytest-asyncio' 'python-pytest-trio' 'python-typing_extensions' 'python-brotlicffi' 'python-h2' 'python-trustme' 'uvicorn')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         "0001-Do-not-override-the-system-SSL-certificates-with-the.patch")
-sha512sums=('1a49a2f112a324e6a4b4cd76a6c13bf53ab96332356c8fafa71bd37a4e6bc5f888df0c85937ac0287d7cd21f3eadb18b18155e8911550cfe48946b283309c22c'
-            'e4b1e33a77cdb5555a4ac3d09b59bc4a0a176a7f5d97099d66a4876abcfd3889058e21beb8bfc375e8e7e61b3808d2a76119033e1a44602d8e6cd461ea3f88de')
-b2sums=('93cc96ba3862f4119bcd67dde7539aee6ecffe504f533b38ad698fe9159b18b5333719b25df739d5b3073d7e423e9798016f08b677869d4816357c986657f126'
-        'e03d340cef44bfb322219030bbcbe53c1323c8b9d9d7aace07045e80faa185a7594839c9ff0fee9604a7fddf916db462f95a341d51f17072bce8e55d53055c7b')
+sha512sums=('727974e5d5924fdd653987dd4f528d27bb2653085b01ef5efcdac39dc92ef2ed586f872c202349aa31105ad970cff914de4315c2d79338a6aa18bebb8126f392'
+            '6c8f9e929f0b5bf24bd288c0ca75f2a97bda294df4ea48bb393d6e9116b515e0388c3a1131de87cfcf41a46af43d15529c0b0e6e0f1c4b05431b985c5f973d79')
+b2sums=('3d1e25d503ae5306150c157bc83afdac9a475110d042e041b58de448a0dcfd75de3f4c15836b838dc799cd5f8b7e0d646e43bbe107ffad87d51ff016afe585cd'
+        '7c226209cbea28e3a5360d61a70d9afc465f4f11ae48cb5bc9cc230bff25b320902070e0e0cb1fd55fc2f708b53665e7e247803c87a2ece6c5efa13ada3d8b76')
 
 prepare() {
     cd "${srcdir}"/${_pkgname}-${pkgver}
-
-    # do not run coverage in unittests!
-    sed -i '/^addopts/d' setup.cfg
 
     # bad certifi
     patch -p1 -i ../0001-Do-not-override-the-system-SSL-certificates-with-the.patch

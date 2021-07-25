@@ -3,7 +3,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-session
-pkgver=4.6.2
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="The Cinnamon Session Handler"
 arch=('loongarch64' 'x86_64')
@@ -13,8 +13,8 @@ depends=('cinnamon-desktop' 'libsm' 'libcanberra' 'xapps')
 optdepends=('cinnamon-translations: i18n')
 makedepends=('meson' 'samurai' 'xtrans')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('0d4793d8fb828ce8ec6dbedc67a5d244e56d4182b83030d10029eadc0c6723e6')
-b2sums=('f4a2a7dc438846c6013b539a027cbc13359a3cb47ed01c6acb97daf4a28fc26da3754d4264aaa90e8f10504bb7415a82dcc509430825cfd3e50e3beac7c78616')
+sha256sums=('8e2cc49455e29949ee536e2e341af52d53afeaeef6d229730368d822a80a5c19')
+b2sums=('c009a690c479944f8b3879a3ebff24ea3d44676b9235fcd36049e1680e5a1358266b75ca9f6e193fc51f11d8d94cf0c592dc22cbae2fededf41281748f9410cc')
 
 build() {
     mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build

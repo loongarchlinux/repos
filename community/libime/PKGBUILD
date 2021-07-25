@@ -2,56 +2,32 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=libime
-pkgver=0.0.0.20201013
-_commit=4e2f0e853b9118d8d6d233d139e3b7c9112959b7
-_kenlmcommit=01c49fe86714276f77be9278d00906fc994256c1
-_lm_sc_ver=20140820
-_dict_ver=20200715
-pkgrel=1
+pkgver=1.0.7
+pkgrel=2
 pkgdesc="A library to support generic input method implementation"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/fcitx/libime"
 license=('GPL')
 depends=('boost-libs' 'fcitx5')
 makedepends=('boost' 'extra-cmake-modules' 'ninja' 'python')
-source=($pkgname-$_commit.tar.gz::https://github.com/fcitx/libime/archive/$_commit.tar.gz
-        kenlm-$_kenlmcommit.tar.gz::https://github.com/kpu/kenlm/archive/$_kenlmcommit.tar.gz
-        https://download.fcitx-im.org/data/lm_sc.3gm.arpa-$_lm_sc_ver.tar.bz2
-        https://download.fcitx-im.org/data/dict.utf8-$_dict_ver.tar.xz
-        https://download.fcitx-im.org/data/table.tar.gz)
-noextract=(lm_sc.3gm.arpa-$_lm_sc_ver.tar.bz2
-           dict.utf8-$_dict_ver.tar.xz
-           table.tar.gz)
-sha512sums=('e56c65e10278b00c5dba65681f2233586fcb7840f3e014615365b65b9a9d3301f4f86486d5241d42d0ff0cf3e6065f3650aac9a3f1220287824ce927fa3eccf1'
-            '461c2f45a7aa5685f418b7b456bff9c00b44b0bfdd347c36a5f9f1fb9a39539d27d0d66b078ed2847d8765e07157c241e24d61314cc08b90bdfbab99a800369e'
-            'ea3ede62eb993c4d21ca7cf339635f4686493a0cefd57df4a31f00a001e67502a13ff9612ff667b941b82b47de00be9f3c9689677d04195a7ef8716bac087519'
-            '75ad207842937369e79c3c3616165424c4e71fbce7ba2b15c7c2f1dcb898950e6d9babf39ed5bde01c21dd025906c988a80989863175daa8d1315a9be4402130'
-            '99e1d69c679355fcf3e117a1ef39b131cbd3af841387d2335757247d840b90ff6b7323e16fca98cf7a043033faf250d2e9c6d47b96845d18c278a0cf6f30fec9')
-
-prepare() {
-  cd $pkgname-$_commit/src/libime/core
-  rmdir kenlm
-  ln -s "$srcdir"/kenlm-$_kenlmcommit ./kenlm
-
-  cd "$srcdir"/$pkgname-$_commit/data
-  ln -s "$srcdir"/lm_sc.3gm.arpa-$_lm_sc_ver.tar.bz2
-  ln -s "$srcdir"/dict.utf8-$_dict_ver.tar.xz
-  ln -s "$srcdir"/table.tar.gz
-}
+source=("https://download.fcitx-im.org/fcitx5/libime/libime-${pkgver}_dict.tar.xz"{,.sig})
+sha512sums=('6d08e5361866bcf1e0fa89f18c13a5fe9702c188b28f2f3e47ea0733a387636931ce2378d56d98782f1d24bde785b1239149d3bdca7d08babb148b58d8b04a4a'
+            'SKIP')
+validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build(){
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
 
   cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
   ninja
 }
 
 check() {
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
   ninja test
 }
 
 package() {
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" ninja install
 }

@@ -3,7 +3,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xapp
-pkgver=1.8.10
+pkgver=2.2.2
 pkgrel=1
 pkgdesc="Common library for X-Apps project"
 arch=('loongarch64' 'x86_64')
@@ -16,8 +16,8 @@ provides=('xapps')
 conflicts=('xapps')
 replaces=('xapps')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('a0d542de6dc4d6a318bdf1fad88447db270ab2dd0582f0c6f28008cc77337672')
-b2sums=('cda37ade7d8cd3f9ffb5fd1e6ac7ed5841f9ccc8c8735cfc5a7d88a0a3530614b70dd56395b4f36a6c39b980df83c5668b44f45223240ed1009918178ee0e88f')
+sha256sums=('1384eb5c3ef395aa7736346521639c7b7904f471f4a55ccd415a66c1031e8f75')
+b2sums=('a45b2707c505c9ed69b9748c846f69ef7668600619bc3d0f86c693c99e536afb9994ff4ed10cbf0efc194a1e861cf0911af50170e97a7b858b1363c370551799')
 
 build() {
     mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build
@@ -34,6 +34,7 @@ package(){
     cd "${srcdir}"/${pkgname}-${pkgver}/build
 
     DESTDIR="${pkgdir}" samu install
+
     # rm useless scripts
     rm -r "${pkgdir}"/usr/bin
 

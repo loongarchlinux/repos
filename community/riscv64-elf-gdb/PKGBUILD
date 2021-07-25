@@ -4,16 +4,16 @@
 
 _target=riscv64-elf
 pkgname=$_target-gdb
-pkgver=9.2
+pkgver=10.2
 pkgrel=1
 pkgdesc='The GNU Debugger for the RISCV64 (bare-metal) target'
 arch=(loongarch64 x86_64)
 url='https://www.gnu.org/software/gdb/'
 license=(GPL3)
-depends=(xz ncurses expat python guile2.0 gdb-common mpfr)
+depends=(xz ncurses expat python guile gdb-common mpfr)
 options=(!emptydirs)
 source=(https://ftp.gnu.org/gnu/gdb/gdb-$pkgver.tar.xz{,.sig})
-sha512sums=('73635f00f343117aa5e2436f1e1597099e2bfb31ef7bb162b273fa1ea282c3fa9b0f52762e70bfc7ad0334addb8d159e9ac7cbe5998ca4f755ea8cf90714d274'
+sha512sums=('3653762ac008e065c37cd641653184c9ff7ce51ee2222ade1122bec9d6cc64dffd4fb74888ef11ac1942064a08910e96b7865112ad37f4602eb0a16bed074caa'
             'SKIP')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker <brobecker@adacore.com>
 
@@ -35,7 +35,7 @@ build() {
     --with-system-readline \
     --disable-nls \
     --with-python=/usr/bin/python \
-    --with-guile=guile-2.0 \
+    --with-guile=guile-2.2 \
     --with-system-gdbinit=/etc/gdb/gdbinit
 
   make
@@ -52,4 +52,3 @@ package() {
   rm -r "$pkgdir"/usr/share/info/
   rm -r "$pkgdir"/usr/share/man/man5/
 }
-

@@ -3,7 +3,7 @@
 # Contributor: Filip <fila pruda.com>
 
 pkgname=postfixadmin
-pkgver=3.2.4
+pkgver=3.3.9
 pkgrel=1
 pkgdesc="Web based interface to manage Postfix mailboxes, virtual domains and aliases"
 arch=('any')
@@ -25,23 +25,27 @@ optdepends=('apache: run in webserver'
             'postfix: interface local mail server'
             'postgresql: use local PostgreSQL server'
             'python: for example scripts'
-            'uwsgi: run as application container')
+            'uwsgi-plugin-php: run as application container')
 source=("https://github.com/postfixadmin/${pkgname}/archive/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sysusers"
         "${pkgname}.tmpfiles"
         "${pkgname}.uwsgi")
 install="${pkgname}.install"
-sha512sums=('2bd7ae05addbaf3c6c7eebea16ec1e21b2c67c8e6161446ed82a9553c26c04e19c1ec9ce248a9b9df504df56d309590259e6f04907b04b593548028b40e40d47'
+sha512sums=('791b05df34a4f2eec01fe6f6b9038a6630cd60c42e1f2e725fe3d033a692b77d2d688858b947c53d1ce48258c7c87a2e3fb31356e553632b88149d5a29bfa70e'
             'dc61527dbec79a3b19c8fcbc424fbfbe483cccf99a606e566ea6cd624d46c70a6d87dd8d4da398fedf12b60cfd0cf364c351d6b826e6eee6b2ca8eac0d9efcbe'
             '7e55c844be7b186d9eb568fe097632651c683582da83e0ee24cd6dd7c5a581fe05e5462174237f542ff8dc5d17a8ab651a77f0087a0c8df01d7b36c7722b1440'
-            '50640e431f9b167d618e5e5f6acd36453270aeb7ef8b714afe8207eba9916c86d4b42a1edb9b73a46a1c732a886efcab01389e007baa5b85295c091b451d5673')
+            '2e3854d97bd74dc2501260c557549b0162f4a7749261538672de052b252e56fa62ef052bafe6d8681f2f87a94b71039fc9a68ff622a04dd2d6232213143d1840')
+b2sums=('28546631dce340d3c1128b525de1c33e9e3aa23cd557e6c8f7e9b26f97aedba67f2e5f3ea351e0db2d79e068e16cfa1672cbe3e6abbffd19e5009e2a9df84523'
+        'a73314d9befe48869ca121bddfb3af61e916f8458f388e13eed1a7ffd64e7ae75604dc3af92d3d4d5b97c30d3cb089e28cbf64c7e81e324f3ff85d75b15b5f0d'
+        '0e0170b08284dcfc5a68afd46a2e726d696905f3ddcd8158fed68c84fec039fabe60379005055e5fa1cc1fbb098c107b739d0e107f027bd7054d0e31b6e9cea6'
+        'b59885eec24483d0f65614918f7c8cd70402600ac645f14560d5d28dfddce84a41a3ce1e2f9ea4bc0364ce299f468a2a243b0cbe920c0526f3c92e3d0269fa0c')
 
 prepare(){
   mv -v "${pkgname}-${pkgname}-${pkgver}" "${pkgname}-${pkgver}"
   cd "${pkgname}-${pkgver}"
-  # creating empty local config (for overrides)
+  # create empty local config (for overrides)
   echo "<?php" > "config.local.php"
-  # creating htaccess file
+  # create .htaccess file
   echo "#Require all denied" > .htaccess
   # remove unneeded executable bits
   find . -executable -type f \
@@ -64,57 +68,41 @@ package() {
   # docs
   install -vDm 644 {README.md,CHANGELOG.TXT} \
     -t "${pkgdir}/usr/share/doc/${pkgname}/"
-  install -vDm 644 DOCUMENTS/*.txt \
+  install -vDm 644 DOCUMENTS/{README*,*.{txt,md}} \
     -t "${pkgdir}/usr/share/doc/${pkgname}/documents"
   cp -av ADDITIONS VIRTUAL_VACATION \
     "${pkgdir}/usr/share/doc/${pkgname}"
+
   # webapp
+  find configs languages lib model public scripts templates tests \
+    -type f \( \
+    -iname "*.conf" -or \
+    -iname "*.css" -or \
+    -iname "*.eot" -or \
+    -iname "*.gif" -or \
+    -iname "*.ico" -or \
+    -iname "*.js" -or \
+    -iname "*.lang" -or \
+    -iname "*.lib" -or \
+    -iname "*.map" -or \
+    -iname "*.php" -or \
+    -iname "*.png" -or \
+    -iname "*.sql" -or \
+    -iname "*.svg" -or \
+    -iname "*.tpl" -or \
+    -iname "*.ttf" -or \
+    -iname "*.woff" -or \
+    -iname "*.woff2" \
+    \) -exec install -vDm 644 {} "${pkgdir}/usr/share/webapps/${pkgname}/"{} \;
   install -vDm 644 {common,functions.inc,index}.php phpunit.xml \
     -t "${pkgdir}/usr/share/webapps/${pkgname}"
-  install -vDm 644 configs/menu.conf \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/configs"
-  install -vDm 644 languages/*.{lang,php} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/languages/"
-  install -vDm 644 lib/*.{phar,pubkey,php,txt} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/lib/"
-  install -vDm 644 lib/smarty/{COPYING.lib,smarty_version} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/lib/smarty"
-  install -vDm 644 lib/smarty/libs/*.{php,tpl} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/lib/smarty/libs"
-  install -vDm 644 lib/smarty/libs/plugins/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/lib/smarty/libs/plugins"
-  install -vDm 644 lib/smarty/libs/sysplugins/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/lib/smarty/libs/sysplugins"
-  install -vDm 644 model/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/model"
-  install -vDm 644 public/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/public"
   (
     # adding weird symlinks
     cd "${pkgdir}/usr/share/webapps/${pkgname}/public"
     ln -sv users/password-change.php .
     ln -sv users/password-recover.php .
   )
-  install -vDm 644 public/css/*.css \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/public/css"
-  install -vDm 644 public/images/*.{gif,ico,php,png} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/public/images"
-  install -vDm 644 public/users/*.{js,php} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/public/users"
-  install -vDm 644 public/users/css/*.css \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/public/users/css"
-  install -vDm 644 public/users/images/calendar/*.{gif,png} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/public/users/images/calendar"
-  install -vDm 755 scripts/${pkgname}-cli \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/scripts"
-  install -vDm 644 scripts/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/scripts"
-  install -vDm 644 scripts/snippets/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/scripts/snippets"
-  install -vDm 644 templates/*.{php,tpl} \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/templates"
-  install -vDm 644 tests/*.php \
-    -t "${pkgdir}/usr/share/webapps/${pkgname}/tests"
+
   # config
   install -vDm 640 config.{inc,local}.php -t "${pkgdir}/etc/webapps/${pkgname}/"
   ln -sv "/etc/webapps/${pkgname}/config.inc.php" \

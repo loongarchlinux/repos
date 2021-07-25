@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-rapidjson
-pkgver=0.9.1
+pkgver=1.0
 pkgrel=1
 pkgdesc="Python wrapper around rapidjson"
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('python-setuptools' 'rapidjson')
 checkdepends=('python-pytest-runner' 'python-pytest-benchmark' 'python-pytz')
 source=("https://pypi.io/packages/source/p/python-rapidjson/python-rapidjson-$pkgver.tar.gz")
-sha512sums=('0feb085c7cd4a8c0476b67f5ce671ccbe4605c3b08ca364eba64b84b9e8d4a2bbd9f481295023286cba63af0ecbfe69e33581df65a38577ec214672644028aa2')
+sha512sums=('574970afb9292bdc3a12129225d238549e49b29d17c1cf1d199389251986ad90d2c4f5a7db32b563e1aae8327bce4a720cfa47be7c3e330cd9cae08d1494fd0e')
 
 prepare() {
   #rm -r python-rapidjson-$pkgver/rapidjson

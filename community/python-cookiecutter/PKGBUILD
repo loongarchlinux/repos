@@ -2,23 +2,25 @@
 
 _name=cookiecutter
 pkgname=python-cookiecutter
-pkgver=1.7.2
+pkgver=1.7.3
 pkgrel=1
 pkgdesc="A command-line utility that creates projects from project templates"
 arch=('any')
 url="https://github.com/cookiecutter/cookiecutter"
 license=('BSD')
-depends=('python-binaryornot' 'python-click' 'python-future' 'python-jinja'
-'python-jinja-time' 'python-poyo' 'python-requests' 'python-slugify'
-'python-whichcraft')
+depends=('python-binaryornot' 'python-click' 'python-jinja' 'python-jinja-time'
+'python-poyo' 'python-requests' 'python-six' 'python-slugify')
 makedepends=('python-setuptools')
-checkdepends=('git' 'python-freezegun' 'python-pytest' 'python-pytest-cov'
-'python-pytest-mock')
+checkdepends=('git' 'python-freezegun' 'python-pytest' 'python-pytest-mock')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('8fb6db75703a2c6276d275817b81c0e5d5f15226236e8c5442fbda6198aaec19c3fd68c030f79f6bca55258c0c248660b32d1344f7d6b06ecf5563b43474d877')
+sha512sums=('231cff1fc51c8159918728a3ca3f21607c9fb236ebf55e2fe2d620345e14451b175e56c3714a7b4c5736cc5e93f47d732691e789184e4140a7889a9e2f9a89a8')
+b2sums=('3f0630d99e784250cf39c3f9c2e28907abc2c208aefffcc52ef78f987591ee76712d858288736bd4553393385a31ceaa509ac566630fb509fa11a088da01693e')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
+  # we do not care about code coverage in pytest runs
+  sed -e '/addopts/d' -i setup.cfg
 }
 
 build() {

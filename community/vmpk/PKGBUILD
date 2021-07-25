@@ -1,34 +1,34 @@
-# Maintainer: David Runge <dave@sleepmap.de>
+# Maintainer: David Runge <dvzrv@archlinux.org>
 # Contributor: speps <speps at aur dot archlinux dot org>
 
 pkgname=vmpk
-pkgver=0.7.2
-pkgrel=2
+pkgver=0.8.4
+pkgrel=1
 pkgdesc="Virtual MIDI Piano Keyboard"
 arch=('loongarch64' 'x86_64')
 url="http://vmpk.sourceforge.net/"
 license=('GPL3')
 groups=('pro-audio')
-depends=('drumstick' 'qt5-x11extras')
-makedepends=('cmake' 'docbook-xsl' 'qt5-tools' 'libxkbcommon-x11')
+depends=('gcc-libs' 'glibc' 'libxcb' 'qt5-base' 'qt5-x11extras')
+makedepends=('cmake' 'docbook-xsl' 'drumstick' 'qt5-tools')
 source=("https://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver/a/}/${pkgname}-${pkgver}.tar.bz2")
-sha512sums=('69e31d6fd91a6604b7482b18840ed0b274723f380d7fe59827391e9031c3c670cb4e331c8bff01aacf6271973689f0bdb8c1dad4b749524095b398063634a477')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  mkdir build
-}
+sha512sums=('1704d8d39a2750549b524202e46e51507e25aeed00fe5c36202148661af2fc98613d937b2ea36f958706f371608d50ce82a6633b56e344e9cdcfed223892cb9d')
+b2sums=('12deda1ce752db4a0723e0b54e96a734cfcc11cbd2974a5957d315f1080d7d8b8ab3adf9203c8a25514f708ff6cadec69ab560239cb0f7d1b6859032ff6b976d')
 
 build() {
-  cd "${pkgname}-${pkgver}/build"
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr \
-           -DCMAKE_BUILD_TYPE=Release
-  make
+  cd "${pkgname}-${pkgver}"
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE='None' \
+        -Wno-dev \
+        -B build \
+        -S .
+  make VERBOSE=1 -C build
 }
 
 package() {
-  cd "${pkgname}-${pkgver}/build"
-  make DESTDIR="$pkgdir/" install
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 ../{AUTHORS,ChangeLog,NEWS,README,TODO}
+  depends+=('libdrumstick-rt.so' 'libdrumstick-widgets.so')
+  cd "${pkgname}-${pkgver}"
+  make DESTDIR="$pkgdir/" install -C build
+  install -vDm 644 {AUTHORS,ChangeLog,NEWS,README.md,TODO} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

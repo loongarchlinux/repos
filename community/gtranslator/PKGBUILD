@@ -4,16 +4,17 @@
 # Contributor: Christer Solskogen (solskogen@carebears.mine.nu)
 
 pkgname=gtranslator
-pkgver=3.36.0
+pkgver=40.0
 pkgrel=1
 pkgdesc='An enhanced gettext po file editor for the GNOME desktop environment'
 arch=('loongarch64' 'x86_64')
 url='https://projects.gnome.org/gtranslator/'
 license=('GPL3')
-depends=('gtksourceview4' 'gspell' 'gettext' 'libgda' 'iso-codes' 'hicolor-icon-theme' 'libdazzle')
+depends=('gtksourceview4' 'gspell' 'gettext' 'libgda' 'iso-codes'
+         'hicolor-icon-theme' 'libdazzle' 'libhandy')
 makedepends=('meson' 'gobject-introspection' 'gtk-doc' 'yelp-tools')
-source=(https://ftp.acc.umu.se/pub/GNOME/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
-sha256sums=('2daa1d3b59b4a35ef54df087345b03e1703e725081f9dac543539228a715add3')
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+sha256sums=('ec3eba36dee1c549377d1475aef71748dbaebd295005e1990ea9821f02b38834')
 
 build() {
   arch-meson $pkgname-$pkgver build -Dgtk_doc=true

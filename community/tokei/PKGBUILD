@@ -1,6 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
 pkgname=tokei
-pkgver=12.0.4
+pkgver=12.1.2
 pkgrel=1
 pkgdesc='A blazingly fast CLOC (Count Lines Of Code) program'
 arch=('loongarch64' 'x86_64')
@@ -9,7 +11,7 @@ license=('MIT' 'Apache')
 depends=('gcc-libs')
 makedepends=('rust' 'cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/XAMPPRocky/tokei/archive/v${pkgver}.tar.gz")
-sha512sums=('f5810ca93746f4e269a60eaad0cd07950a54a0c5b73c7256f79ae882373ebe733af25adaf7ed133a9e591ab2bfafd170a20669b80a1e09acc283e1ecbd98626e')
+sha512sums=('b8474cb3cad8cab8cb9c24b44a9b7bdaa436fde4e56ca25a8c6d9cbe342b27acf8041cda15da5e74b4fed5291b3eacd5b298f569e0c8041e9146f89847fe47ce')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"

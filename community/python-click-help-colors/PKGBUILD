@@ -2,7 +2,7 @@
 
 _name=click-help-colors
 pkgname=python-click-help-colors
-pkgver=0.8
+pkgver=0.9
 pkgrel=1
 pkgdesc="Colorization of help messages in Click"
 arch=('any')
@@ -12,7 +12,8 @@ depends=('python-click')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('1fcbdcbffa77268066e2b4a9460660b8636058f36e433b9e11567e7b2859596891c27aa059afb269cf285f7317c74c17f19de2591f13c4a38f5a5e15db9482d9')
+sha512sums=('be8896d6c6f7d3a66d9ac424b9169fc9cc42c5e5ba88f310ce15e7c400731a677b4adf2968f110ab63d00af2374005812429d53f595362ca29150082602064c6')
+b2sums=('7ad26e2a8ac478abf2ef46e325e1759ce243e4930d5931ed3bfbdeda520c93d80096ef1cb97345f6fbd97be7d36ea2035c7120072ba20cd1f7f605d1a6ab8114')
 
 prepare() {
   mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
@@ -32,9 +33,8 @@ check() {
 package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
+                          --optimize=1 \
+                          --root="${pkgdir}"
   install -vDm 644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -vDm 644 examples/*.py \

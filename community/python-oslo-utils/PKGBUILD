@@ -2,18 +2,18 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-utils
-pkgver=4.6.0
+pkgver=4.9.1
 pkgrel=1
 pkgdesc="Oslo Utility library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.utils/$pkgver"
 license=('Apache')
-depends=('python-six' 'python-pbr' 'python-iso8601' 'python-oslo-i18n' 'python-pytz'
-         'python-netaddr' 'python-netifaces' 'python-debtcollector')
+depends=('python-pbr' 'python-iso8601' 'python-oslo-i18n' 'python-pytz' 'python-netaddr'
+         'python-netifaces' 'python-debtcollector' 'python-pyparsing' 'python-packaging')
 makedepends=('python-setuptools')
 checkdepends=('python-oslotest' 'python-ddt' 'python-eventlet')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/openstack/oslo.utils/archive/$pkgver.tar.gz")
-sha512sums=('e1243f62e8f2fa36f6899d87f908ce57ed3a31e58bf176b0980eec861fc00cc095440d7dbd1e4d1cbe6d19544913aa4e1d008b0c21b37b0017f5de1181d9b348')
+source=("https://github.com/openstack/oslo.utils/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('2c5eafa344f1619d4ca37a332c4307309cf87f04ed012ead532e775286eda92e5968e92a54e78046ca3238707ef4673a791d434910965f093bc3b32c862eec3f')
 
 export PBR_VERSION=$pkgver
 

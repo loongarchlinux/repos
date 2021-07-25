@@ -1,4 +1,5 @@
 # Maintainer: Christian Rebischke <chris.rebischke at archlinux.org>
+# Contributor: David Runge <dvzrv@archlinux.org>
 # Contributor:  kpcyrd <git@rxv.cc>
 # Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
@@ -6,41 +7,64 @@
 # Contributor: Sparadox <etienne.lafarge at gmail.com>
 
 pkgname=cloud-init
-pkgver=20.2
+pkgver=21.2
 pkgrel=1
 pkgdesc="The standard for customising cloud instances"
 arch=('any')
 url="https://cloud-init.io"
 license=('GPL3')
-depends=('systemd' 'sudo' 'python-yaml' 'python-prettytable'
-  'python-oauthlib' 'python-configobj'
-  'python-jsonschema' 'python-jsonpatch' 'net-tools'
-  'python-requests' 'python-oauthlib' 'python-jinja' 'python-six'
-  'netplan' 'dhclient')
+depends=('dhclient' 'netplan' 'python-configobj' 'python-jinja'
+'python-jsonpatch' 'python-jsonschema' 'python-oauthlib' 'python-requests'
+'python-yaml' 'sudo' 'systemd')
 makedepends=('python' 'python-setuptools')
+checkdepends=('python-httpretty' 'python-prettytable' 'python-pytest')
+optdepends=('cloud-guest-utils')
 backup=('etc/cloud/cloud.cfg' 'etc/cloud/cloud.cfg.d/05_logging.cfg')
 source=("https://launchpad.net/${pkgname}/trunk/${pkgver}/+download/${pkgname}-${pkgver}.tar.gz"
-  'fix-lib.patch'
-  'archlinux.cloud.cfg')
-sha512sums=('2b63d435b162b6db232121959dc2e5fa59c7cc8916fca3bccb637dd5e583931930f6b4e0a22b961ee71058f518a090c0a636da8147b999acdaa06cd2fc3ee51c'
-            '6c435fbe1e0a7093b79f8bb3789b05a39afd1e43b7ff96f13e68c9ad16311cc58270b947bae574cfdc3d2e27c7258789880a101c9bdf2c3c141bcbedc47a8a4b'
-            '915cbe0da65e754d23661f9b6d5680ed6395fab3df3a9946e51920edcf4191a4fa5475260f5a744a1962801b69f04a583bf9db8ca11c4b385aea8d92d7f09f41')
+        'fix-lib.patch'
+)
+sha512sums=('8cc24945efc6f16b3c64411c5e7e5b83582d337f1c3f546163d52c14a6177ff752e91ba1fec04b7ade800f921c2b79c04d032df62c2b4171930ca1fb74c49a7d'
+            '6c435fbe1e0a7093b79f8bb3789b05a39afd1e43b7ff96f13e68c9ad16311cc58270b947bae574cfdc3d2e27c7258789880a101c9bdf2c3c141bcbedc47a8a4b')
+b2sums=('74e07649a24fc85df54aafcd72797a05f0bdbcceb90fe90c6af7024da09e876780b67bb1d7963cd164d03e3151715944b1f3fd5709d3557ac341a09061409fcc'
+        '7c4b07a285e8f3e1e810622ba6cf4b007e89625018015d8fa471ed9f4453543dc1ada30824137e91326db016b55e746517f3c34913156e2e9f095645e7ace317')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
   patch -Np1 -i "${srcdir}/fix-lib.patch"
-  sed -e 's:/etc/systemd:/usr/lib/systemd:g' -e 's:\"/lib\":\"/usr/lib\":g' -i setup.py
 }
 
-# This checks need: python-mock, python-httpretty
-# Due to a bug unittest2 is used even when python3 is used for building
-# So let's wait until cloud-init implemented a try/except for python3 builds
-# check() {
-#   cd "${pkgname}"-"${pkgver}"
-#   nosetests tests/unittests/
-# }
+build() {
+  cd "${pkgname}-${pkgver}"
+  python setup.py build
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  export PYTHONPATH="build:${PYTHONPATH}"
+  # disable tests that try to use /etc/ca-certificates.conf
+  # additionally we are disabling a few tests that seem
+  # to fail on Arch Linux
+  pytest -v tests/unittests cloudinit \
+         -k "not test_multiple_certs \
+             and not test_single_cert_no_trailing_cr \
+             and not test_single_cert_trailing_c \
+             and not test_parse_add_new \
+             and not test_parse_adjust \
+             and not test_parse_no_adjust_shell \
+             and not test_parse_no_change \
+             and not test_parse_shell_vars \
+             and not test_rhel_write_hostname_prefer_hostname \
+             and not test_set_locale_sles \
+             and not test_set_locale_sles \
+             and not test_set_locale_sles_default \
+             and not test_write_hostname_rhel \
+             and not test_set_timezone_sles"
+}
 
 package() {
   cd "${pkgname}-${pkgver}"
-  python ./setup.py install --root="${pkgdir}" -O1 --init-system systemd
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --init-system=systemd \
+    --root="${pkgdir}"
 }

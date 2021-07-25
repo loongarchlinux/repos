@@ -5,7 +5,7 @@
 # Contributor: carstene1ns <arch carsten-teibes de> - http://git.io/ctPKG
 
 pkgname=py3status
-pkgver=3.30
+pkgver=3.38
 pkgrel=1
 pkgdesc="An extensible i3status replacement/wrapper written in python"
 url="https://www.ultrabug.fr/tag/py3status/"
@@ -20,7 +20,7 @@ optdepends=('i3status: for i3status modules'
             'python-tzlocal: for modules that need time zone info'
             'pacman-contrib: for the arch_updates module')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ultrabug/py3status/archive/$pkgver.tar.gz")
-sha256sums=('908585b3994f84890007873d8d9d12a45a3b66b0120b11766d6ee973b63008bb')
+sha256sums=('16799f643362259447d01bdbdfc48e3022227180ccbb88585aaa08191b7d1fee')
 
 build() {
     cd "$pkgname-$pkgver"
@@ -34,7 +34,7 @@ check() {
 
 package() {
     cd "$pkgname-$pkgver"
-    python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+    PYTHONHASHSEED=0 python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
     install -d "$pkgdir/usr/share/doc/$pkgname"
     install -m644 doc/* README.rst CHANGELOG "$pkgdir/usr/share/doc/$pkgname"
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

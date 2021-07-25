@@ -3,13 +3,14 @@
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=geary
-pkgver=3.38.1
-pkgrel=1
+pkgver=40.0
+pkgrel=3
 epoch=1
 pkgdesc='A lightweight email client for the GNOME desktop'
 arch=(loongarch64 x86_64)
 url=https://wiki.gnome.org/Apps/Geary
 license=(GPL3)
+groups=(gnome-extra)
 depends=(
   cairo
   enchant
@@ -30,6 +31,7 @@ depends=(
   libpeas
   libsecret
   libsoup
+  libstemmer
   libxml2
   libytnef
   org.freedesktop.secrets
@@ -46,7 +48,7 @@ makedepends=(
   vala
   yelp-tools
 )
-_tag=c8ca5eb1b4c9d69ceb02ce6f4b7da9abf2a91c24
+_tag=375f741026c8aa9f1ff41ce912f5c08d7d3cad15
 source=(git+https://gitlab.gnome.org/GNOME/geary.git?signed#tag=${_tag})
 validpgpkeys=(3A2EF7F138557A145F2866E99FAB18747A8FC649) # Michael James Gratton <mike@vee.net>
 sha256sums=(SKIP)
@@ -57,7 +59,8 @@ pkgver() {
 }
 
 build() {
-  arch-meson geary build
+  arch-meson geary build \
+    -Dprofile=release
   meson compile -C build
 }
 

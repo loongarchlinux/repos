@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-mongomock
-pkgver=3.20.0
+pkgver=3.23.0
 pkgrel=1
 pkgdesc="Fake pymongo stub for testing simple MongoDB-dependent code"
 url="https://github.com/mongomock/mongomock"
@@ -10,18 +10,18 @@ arch=('any')
 depends=('python-sentinels' 'python-six')
 makedepends=('python-pbr')
 checkdepends=('python-nose')
-source=("$pkgbase-$pkgver.tar.gz::https://github.com/mongomock/mongomock/archive/$pkgver.tar.gz")
-sha512sums=('dfc4a3f6dc2004aed7a4496e64fe0b448f731888765cfd39008b8186504ba5faac945ea896938e99d70cd2859fd616a17cd84c416fed2c73de68af6bc8434103')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/mongomock/mongomock/archive/$pkgver.tar.gz")
+sha512sums=('8b08dce56b23225c2cc93434c0c9720706fa268dafce9d3f12739e7dc6bd9880f01fa8e0d04a5717290bbfdc3caf6b5b1ce1fa1a6b36d8040830b5d1a9c1bac7')
 
 export PBR_VERSION=$pkgver
 
 build() {
-  cd "$srcdir"/mongomock-$pkgver
+  cd mongomock-$pkgver
   python setup.py build
 }
 
 check() {
-  cd "$srcdir"/mongomock-$pkgver
+  cd mongomock-$pkgver
   python setup.py nosetests
 }
 

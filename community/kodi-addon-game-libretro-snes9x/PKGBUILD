@@ -1,18 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-game-libretro-snes9x
-pkgver=1.60.0.14
-_codename=Leia
-pkgrel=2
+pkgver=1.60.0.20
+_codename=Matrix
+pkgrel=1
 pkgdesc="Libretro wrapper for Kodi's Game API"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/kodi-game/game.libretro.snes9x'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-game')
-depends=('kodi-addon-game-libretro' 'libretro-snes9x')
-makedepends=('cmake' 'kodi-dev')
+makedepends=('cmake' 'kodi-dev' 'kodi-addon-game-libretro' 'libretro-snes9x')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kodi-game/game.libretro.snes9x/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('8131816ca3103f0c9b588bb6378f743e42ef8d985fa56549985f0475e5ecfa969464e2bbd20a1328b28bd2f7c4b094241f4bfd0c41663e8f1bbf353dddaa8360')
+sha512sums=('8306989b775e26772b83362d3f9c9a3d581e661422280b57aa718035ce0222da35e1ad7c15ddcf8016cd0851e85c8d48c7487dcc7e04b1d760aed87817894513')
 
 build() {
     cd "game.libretro.snes9x-$pkgver-$_codename"
@@ -26,6 +25,7 @@ build() {
 }
 
 package() {
+    depends=('kodi-addon-game-libretro' 'libretro-snes9x')
     cd "game.libretro.snes9x-$pkgver-$_codename"
 	make DESTDIR="$pkgdir/" install
 }

@@ -3,8 +3,8 @@
 
 _hkgname=profunctors
 pkgname=haskell-profunctors
-pkgver=5.5.2
-pkgrel=31
+pkgver=5.6.2
+pkgrel=27
 pkgdesc="Profunctors"
 url="https://github.com/ekmett/profunctors/"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-comonad
          'haskell-contravariant' 'haskell-distributive' 'haskell-tagged')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('c5e1862845ebc3d3f2c6cf39929a559d459d8ab2b703647f31871d455b5190f741b3bc5420419e24cff69ce2917e3ec8fbfc40558d525a9e33bb34232ee3cbc2')
+sha512sums=('ddf33426fdf52dbe0ffea5c9124e1d35b79696564b8e88bcd7a015b8361634566e5d35135cee69c6dc2fa2bbb870d9f624710f98e122078f7f3a82bbdacad690')
 
 build() {
     cd $_hkgname-$pkgver

@@ -2,20 +2,22 @@
 # Contributor: Alex Dewar <alex.dewar@gmx.co.uk>
 
 pkgname=lifeograph
-pkgver=1.6.1
-pkgrel=2
-pkgdesc="Private journal, diary and note taking application"
-arch=(loongarch64 x86_64)
-license=(GPL3)
-url="http://lifeograph.sourceforge.net/"
-depends=(enchant gtkmm3)
-makedepends=(meson)
-source=(https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.xz)
-sha256sums=('7e40678600587156635da3bffae72694711c25290acf924025cfd14b970ed7cd')
+pkgver=2.0.1
+pkgrel=1
+pkgdesc='Private journal, diary and note taking application'
+arch=('loongarch64' 'x86_64')
+url='http://lifeograph.sourceforge.net/'
+license=('GPL3')
+depends=('enchant' 'gtkmm3' 'libchamplain')
+makedepends=('meson')
+source=("https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.1.tar.xz"{,.asc})
+sha256sums=('8ede8246aa2751907bef88f52b3a1a0c77e1b57ceb648dc18dae7699f06adae6'
+            'SKIP')
+validpgpkeys=(A1DD7BBF56F328A5B0679657BC797409ACE27593) # Ahmet Öztürk <aoz_2@yahoo.com>
 
 build() {
   arch-meson $pkgname-$pkgver build
-  ninja -C build
+  meson compile -C build
 }
 
 package() {

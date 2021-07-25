@@ -1,0 +1,33 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Sanpi <sanpi+aur@homecomputing.fr>
+
+pkgname=cargo-spellcheck
+pkgver=0.8.6
+pkgrel=1
+pkgdesc="Checks all your documentation for spelling and grammar mistakes"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/drahnr/cargo-spellcheck"
+license=('MIT' 'Apache')
+depends=('hunspell')
+makedepends=('rust' 'clang' 'hunspell-en_US')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('eace7c944e0327f49daa557f96cf01a86a230643a077832807d72a7716e4aef2')
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --locked
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --release --locked
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:

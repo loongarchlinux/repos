@@ -4,21 +4,23 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=4.1.5
-pkgrel=2
+pkgver=5.0.1
+pkgrel=1
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
 license=(MIT)
-makedepends=(python-setuptools python-sphinx)
+makedepends=(python-sphinx)
 depends=(
     python-atomicwrites
     python-chardet
     python-cloudpickle
+   	python-cookiecutter
     python-diff-match-patch
     python-intervaltree
     ipython
     python-jedi
+    python-jsonschema
     python-keyring
     jupyter-nbconvert
     python-numpydoc
@@ -32,16 +34,30 @@ depends=(
     python-pyqtwebengine
     qt5-webkit
     python-language-server
+    python-pyls-black
+    python-pyls-spyder
     python-xdg
     python-pyzmq
     python-qdarkstyle
+    python-qstylizer
     python-qtawesome
     python-qtconsole
     python-qtpy
+    python-setuptools
     python-sphinx
     python-spyder-kernels
+    python-textdistance
+    python-three-merge
     python-watchdog
+    autopep8
+    flake8
+    python-pycodestyle
+    python-pydocstyle
+    python-pyflakes
+    python-rope
+    yapf
 )
+# Starting from autopep8, required optdeps of python-language-server
 optdepends=(
     'cython: run Cython files in the IPython Console'
     'python-matplotlib: 2D/3D plotting in the IPython Console'
@@ -58,7 +74,6 @@ checkdepends=(
     python-pytest-xvfb
     python-pytest-ordering
     python-pytest-lazy-fixture
-    python-mock
     python-flaky
     python-pandas
     python-scipy
@@ -69,21 +84,23 @@ checkdepends=(
     git
     tk
 )
-source=(https://github.com/spyder-ide/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
-        spyder3_to_spyder.patch)
-sha256sums=('98f24bd782e2c5d2fcd1033b433692e85dada9f095f86547ba66728e5a26a65f'
-            '42b51d2696f06e4ad69be7379e913fd90e5c09c3e8244b6f38ef127ae86cfe89')
+source=(https://github.com/spyder-ide/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('af0c622ef295d91af079daec70bd8299afe248f43d602b2bb6bf345dac09284a6a74092b40fcca3905f3373e2dae9f43b0ed3f0ef1f9ad99bd78989e7bed579e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # Replace spyder3 with spyder
-  patch -p1 -i ../spyder3_to_spyder.patch
-  mv scripts/spyder{3,}.desktop
-  mv scripts/spyder{3,}.appdata.xml
   # Allow our jedi/parso/pyls versions
-  sed -i "s|JEDI_REQVER = '=0.17.1'|JEDI_REQVER = '>=0.17.1'|" -i spyder/dependencies.py
-  sed -i "s|PARSO_REQVER = '=0.7.0'|PARSO_REQVER = '>=0.7.0'|" -i spyder/dependencies.py
-  sed -i "s|PYLS_REQVER = '>=0.34.0;<1.0.0'|PYLS_REQVER = '>=0.34.0'|" -i spyder/dependencies.py
+  sed "s|JEDI_REQVER = '=|JEDI_REQVER = '>=|" -i spyder/dependencies.py
+  sed "s|PARSO_REQVER = '=|PARSO_REQVER = '>=|" -i spyder/dependencies.py
+  sed "s|QDARKSTYLE_REQVER = '=|QDARKSTYLE_REQVER = '>=|" -i spyder/dependencies.py
+  sed "s|jedi==|jedi>=|" -i setup.py
+  sed "s|parso==|parso>=|" -i setup.py
+  sed "s|qdarkstyle==|qdarkstyle>=|" -i setup.py
+  # Allow our Qt version
+  sed "s|'pyqt5<5.13'|'pyqt5'|" -i setup.py
+  sed "s|'pyqtwebengine<5.13'|'pyqtwebengine'|" -i setup.py
+  # https://github.com/spyder-ide/spyder/pull/15100
+  sed "s|SPYDER_KERNELS_REQVER = '>=2.0.1,<2.1.0'|SPYDER_KERNELS_REQVER = '>=2.0.1;<2.1.0'|" -i spyder/dependencies.py
 }
 
 build() {
@@ -94,20 +111,21 @@ build() {
 check() {
   cd ${pkgname}-${pkgver}
   # Required per above patching
-  sed -i "s|jedi==0.17.1|jedi>=0.17.0|" -i setup.py
-  sed -i "s|parso==0.7.0|parso>=0.7.0|" -i setup.py
-  sed -i "s|python-language-server[all]>=0.34.0,<1.0.0|python-language-server[all]>=0.34.0|" -i setup.py
-  sed -i "s|jedi =0.17.1|jedi >=0.17.0|" -i requirements/conda.txt
-  sed -i "s|parso =0.7.0|parso >=0.7.0|" -i requirements/conda.txt
-  sed -i "s|jedi =0.17.1|jedi >=0.17.0|" -i binder/environment.yml
-  sed -i "s|parso =0.7.0|parso >=0.7.0|" -i binder/environment.yml
-  sed -i "s|python-language-server >=0.34.0,<1.0.0|python-language-server >=0.34.0|" -i binder/environment.yml
+  sed "s|jedi =|jedi >=|" -i binder/environment.yml
+  sed "s|parso =|parso >=|" -i binder/environment.yml
+  sed "s|qdarkstyle =|qdarkstyle >=|" -i binder/environment.yml
+  sed "s|pyqt <5.13|pyqt|" -i binder/environment.yml
+  sed "s|jedi =|jedi >=|" -i requirements/conda.txt
+  sed "s|parso =|parso >=|" -i requirements/conda.txt
+  sed "s|qdarkstyle =|qdarkstyle >=|" -i requirements/conda.txt
+  sed "s|pyqt <5.13|pyqt|" -i requirements/conda.txt
   # Some tests failures but upstream does not support us
-  python runtests.py || warning "Tests failed"
+  python runtests.py || echo "Tests failed"
 }
 
 package() {
   cd ${pkgname}-${pkgver}
+  export PYTHONHASHSEED=0
   python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
   # Install license file
   install -Dm644 LICENSE.txt -t ${pkgdir}/usr/share/licenses/${pkgname}/

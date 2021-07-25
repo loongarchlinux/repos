@@ -2,7 +2,7 @@
 
 _pkg=filesystem_spec
 pkgname=python-fsspec
-pkgver=0.8.3
+pkgver=0.8.7
 pkgrel=1
 pkgdesc="Specification that python filesystems should adhere to."
 arch=(any)
@@ -10,12 +10,32 @@ url="https://github.com/intake/filesystem_spec"
 license=(BSD)
 makedepends=(python-setuptools)
 depends=(python)
-checkdepends=(
+checkdepends=(git
     python-pytest
+    python-pytest-vcr
+    python-aiohttp
+    python-cloudpickle
+    python-dask
+    python-distributed
+    python-lz4
+    python-libarchive-c
+    python-msgpack
     python-numpy
+    python-paramiko
+    python-pyftpdlib
+    python-pygit2
+    python-requests
+    python-snappy
+    python-zstandard
+    python-aiobotocore
+    python-httpretty
+    python-moto
+    python-flask
+    python-arrow
+    python-smbprotocol
 )
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('6b2e71ee73fda7c19950a8d63e57f5998f76139c063fbd1b096a3cc3fad4f38e')
+sha256sums=('e1ce75f0750d3a2383b25656b262bc661a58d7e863bbf151a3b13ffad395e8f7')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -24,7 +44,8 @@ build() {
 
 check() {
   cd ${_pkg}-${pkgver}
-  pytest
+  # These tests do not work on CI, neither on our build server
+  pytest --deselect fsspec/implementations/tests/test_http.py::test_processes
 }
 
 package() {

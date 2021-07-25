@@ -4,8 +4,8 @@
 # Contributor: lolilolicon
 
 pkgname=privoxy
-pkgver=3.0.28
-pkgrel=2
+pkgver=3.0.32
+pkgrel=1
 pkgdesc='A web proxy with advanced filtering capabilities.'
 arch=('loongarch64' 'x86_64')
 url='https://www.privoxy.org'
@@ -18,10 +18,10 @@ source=("https://downloads.sourceforge.net/ijbswa/${pkgname}-${pkgver}-stable-sr
         'privoxy.logrotate.d'
         'privoxy.sysusers'
         'privoxy.service')
-md5sums=('c7e8900d5aff33d9a5fc37ac28154f21'
-         'e8196e745c765b398b3bfac68f370279'
-         'b16776164ab677282c44a8729743eca1'
-         '99ecefbdab8d2260d9b217895b3adc73')
+sha256sums=('c61de4008c62445ec18f1f270407cbf2372eaba93beaccdc9e3238bb2defeed7'
+            '769740ea3c15228f24b559192e7b3f45b95dcf9040e2b25f15bfdfae8af86ce3'
+            '6681231552f431962dda2ac49187df833b2b57544eac97ca94d1f4207b27b04c'
+            '30237681b6b117ce0d21efb3eeb896202744a32f9740fede1011b5dc84ff9f23')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}-stable"
@@ -45,7 +45,7 @@ package() {
   install -Dm644 "$srcdir/privoxy.logrotate.d" "$pkgdir/etc/logrotate.d/privoxy"
 
   install -Dm755 {,"$pkgdir"/usr/bin/}privoxy
-  install -Dm644 {,"$pkgdir"/usr/share/man/man1/}privoxy.1
+  install -Dm644 {,"$pkgdir"/usr/share/man/man8/}privoxy.8
   install -d -o42 -g42 "$pkgdir"/var/log/privoxy
 
   install -d "$pkgdir"/etc/privoxy/

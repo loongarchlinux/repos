@@ -3,14 +3,14 @@
 # Contributor: Nick Østergaard
 
 pkgname=kicad
-pkgver=5.1.7
+pkgver=5.1.10
 pkgrel=1
 pkgdesc="Electronic schematic and printed circuit board (PCB) design tools"
 arch=('loongarch64' 'x86_64')
 #url="http://iut-tice.ujf-grenoble.fr/kicad/"
 url="http://kicad-pcb.org/"
 license=('GPL')
-depends=('wxgtk3' 'python' 'boost-libs' 'glew' 'curl' 'glm' 'ngspice' 'opencascade' 'python-wxpython')
+depends=('wxgtk3' 'python' 'boost-libs' 'glew' 'curl' 'glm' 'ngspice' 'opencascade' 'python-wxpython' 'libcloudproviders')
 # can ngspice/opencascade be an optdep?
 # opencascade vs community edition?
 makedepends=('cmake' 'zlib' 'mesa' 'boost' 'swig')
@@ -18,8 +18,8 @@ optdepends=('kicad-library: for footprints and symbols'
             'kicad-library-3d: for 3d models of components')
 source=("https://gitlab.com/kicad/code/kicad/-/archive/$pkgver/kicad-$pkgver.tar.gz"
         "https://gitlab.com/kicad/code/kicad-i18n/-/archive/$pkgver/kicad-i18n-$pkgver.tar.gz")
-sha512sums=('4ae7da9e0c4c5d3b1ad196d33b7847c3c192fe5499e56be55ac706112883a14b2eb4aace65a120aac9ef3992017a6a5a0bea3b1f6c03cbd2f29ee9d6ada2b2ac'
-            '17bd8e1093809beaaa06e14db1b3517a8fef936c57b1e00edb52a5a412028ef9dfe779559c0de81679af665d8d816a4e4ee049da2e3e389a868c892108dca1ed')
+sha512sums=('41db79cd314528e6d23e7eaaa8f816e16230f02f5892b4729bd200cda01d009cb1c68d3f3e9fc98d04c4d9bc22a165252573666888468d93009b342f4d8b8e97'
+            '6cdef52d03f6937001f1bb18519975f367915587e4d091574702cd576f099c8014f696cdb7c7b3349e5fc99ca049fae073a4eddbd26ada203fdd80118f1a2a24')
 
 prepare() {
   cd "$srcdir/kicad-$pkgver"

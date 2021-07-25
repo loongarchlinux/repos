@@ -1,4 +1,5 @@
-# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Tim Meusel <tim@bastelfreak.de>
+# Contributor: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Greg Sutcliffe <puppet-aur (at) emeraldreverie (dot) org>
 # Contributor: Hyacinthe Cartiaux <hyacinthe (dot) cartiaux (at) free (dot) fr>
@@ -7,33 +8,32 @@
 # Contributor: Miah Johnson <miah (at) chia-pet dot org>
 # Contributor: Dave Simons <miouhpi (at) Gmail (dot) com>
 # Contributor: Niels Abspoel <aboe76 (at) Gmail (dot) com>
-# Contributor: Tim Meusel <tim (at) bastelfreak (dot) de>
 
 pkgname=puppet
-pkgver=6.18.0
+pkgver=6.23.0
 pkgrel=1
-pkgdesc="Server automation framework and application"
+pkgdesc='Server automation framework and application'
 arch=('any')
-url="https://puppet.com/products/open-source-projects"
+url='https://puppet.com/products/open-source-projects'
 license=('Apache')
-depends=('ruby' 'facter' 'hiera' 'ruby-semantic_puppet' 'ruby-augeas'
-'ruby-shadow' 'ruby-concurrent' 'ruby-multi_json' 'ruby-puppet-resource_api'
-'ruby-httpclient' 'ruby-deep_merge' 'ruby-sync')
-makedepends=('git' 'ruby-rspec')
-checkdepends=('ruby-rake' 'ruby-rspec' 'ruby-yard')
+depends=('ruby2.7' 'facter' 'hiera' 'ruby27-semantic_puppet' 'ruby27-augeas'
+'ruby27-shadow' 'ruby27-concurrent' 'ruby27-multi_json' 'ruby27-puppet-resource_api'
+'ruby27-httpclient' 'ruby27-deep_merge' 'ruby27-sync')
+makedepends=('git' 'ruby27-rake')
+#checkdepends=('ruby-rspec' 'ruby-yard')
 backup=('etc/puppetlabs/puppet/auth.conf'
         'etc/puppetlabs/puppet/puppet.conf'
         'etc/puppetlabs/puppet/hiera.yaml')
 install="$pkgname.install"
 
-_augeas_commit=416e8fe9df9d467289e2923c083367b04e7d8bd1
-_cron_commit=cebfbf3365b08e967366c8e1b26e0297d17268d3
+_augeas_commit=8e2d9aa99f43941a37cdd08e191efb6d5bba154a
+_cron_commit=b4e1054fdc2f819b6f45821afe954e7b24620958
 _host_commit=34dca65fe54ba08bd764691e2619371c213df70b
 _mount_commit=1e56e2588058551360269472823bf3426c5e1900
-_selinux_commit=cfa0d78156c507f1e95a4fbd91bd5a7b0c2a2ddc
-_sshkeys_commit=8eacd67a7235fc36370084ef2b094ea2e032b536
+_selinux_commit=d07dfb309c575a0528396f16673780ec9d4a39d4
+_sshkeys_commit=313a6cfa7580141a8e9a1c07c187b9ad7643435e
 _yumrepo_commit=4bf78c89309e2539342aaed5b9c92ea6a0a96281
-_zfs_commit=98192e8adecd7fa60bcb8c49c6af62faeda22730
+_zfs_commit=04da7f3099541216600167587d4b1dd82144b038
 _zone_commit=7880999cdcf15b9a3594b78a06e47399c78baba1
 
 source=("https://github.com/puppetlabs/puppet/archive/${pkgver}/puppet-${pkgver}.tar.gz"
@@ -47,7 +47,7 @@ source=("https://github.com/puppetlabs/puppet/archive/${pkgver}/puppet-${pkgver}
         "zfs_core::git+https://github.com/puppetlabs/puppetlabs-zfs_core#commit=${_zfs_commit}"
         "zone_core::git+https://github.com/puppetlabs/puppetlabs-zone_core#commit=${_zone_commit}"
         )
-sha512sums=('35bd0d987a0b2fe716ae623a3b39a5d97f56e6db04f02b779527f32bd085f2fbc1530f8d3e9bcf87065aeedd2d877b1b7fe66219940489a9fca1be8506519e6f'
+sha512sums=('229dbf63df563aa2aefd31524e9cf02c5107cae68abd0b0dafdf2272aa847cfd22391bc8927008f868e7fb4805608ef2a17a512f86b9f143a66c7ce459e27a2a'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -80,22 +80,24 @@ check() {
 package() {
   cd $pkgname-$pkgver
 
+  local _gemdir="$(gem-2.7 env gemdir)"
+
+  # install the gemspec file
+  # this allows other gems to load puppet as a library (for example puppet-strings)
+  install -Dm644 .gemspec "${pkgdir}/${_gemdir}/specifications/puppet-${pkgver}.gemspec"
+
   # generate manpages | this breaks right now..
   #rake gen_manpages
 
-  ruby install.rb --destdir="$pkgdir" --sitelibdir="$( ruby -e \
-    'puts RbConfig::CONFIG["vendorlibdir"]' )"
+  ruby-2.7 install.rb --destdir="$pkgdir" --sitelibdir="$( ruby-2.7 -e 'puts RbConfig::CONFIG["vendorlibdir"]' )"
 
   install -d "$pkgdir"/usr/lib/{sysusers.d,tmpfiles.d}
 
-  echo 'u puppet 52 "Puppet" /var/lib/puppet' > \
-    "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
-  echo "d /run/puppetlabs 0755 $pkgname $pkgname -" > \
-    "$pkgdir"/usr/lib/tmpfiles.d/$pkgname.conf
+  echo 'u puppet 52 "Puppet" /var/lib/puppet' > "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
+  echo "d /run/puppetlabs 0755 $pkgname $pkgname -" > "$pkgdir"/usr/lib/tmpfiles.d/$pkgname.conf
 
   # systemd
-  install -Dm644 "$srcdir"/$pkgname-$pkgver/ext/systemd/$pkgname.service \
-    "$pkgdir"/usr/lib/systemd/system/$pkgname.service
+  install -Dm644 "$srcdir"/$pkgname-$pkgver/ext/systemd/$pkgname.service "$pkgdir"/usr/lib/systemd/system/$pkgname.service
 
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 

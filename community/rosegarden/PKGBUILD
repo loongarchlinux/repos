@@ -5,7 +5,7 @@
 # Contributor: Robert Emil Berge <robert@rebi.no>
 
 pkgname=rosegarden
-pkgver=20.06
+pkgver=21.06
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=('loongarch64' 'x86_64')
@@ -25,17 +25,9 @@ optdepends=('cups: Printing support'
             'flac: FLAC support'
             'wavpack: Lossless audio codec support')
 provides=('dssi-host' 'ladspa-host')
-source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2"
-        "0001-Audit-includes.patch")
-sha512sums=('7f3892697b99344d47e2bf398f6fe82de9867a093f3396d571730a30f3442a923f16a5472a74bda865205696ff3834c0a188ceefae17e56b137d8df1a56e03f7'
-            'b754dc23e3333317f16c891c30297087868b75cfb6ec440abc54994db7d9b07d02f6b68154994f09c640c6b7e1c998a841f543f76bc3c507e73215e8e64756e4')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  # fix build for qt5 >= 5.15.0
-  # https://sourceforge.net/p/rosegarden/bugs/1585/
-  patch -Np1 -i "../0001-Audit-includes.patch"
-}
+source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
+sha512sums=('9cadfed3caba203ea6db78c3600600b9c5ed0e2963228dd6e8129291618e3b7c617b0d6dfaccce0dd753ce229dfaa8c65d1354f591e2923185fb76dcbe48d840')
+b2sums=('f5bb9a471122857666edf033d4e760cbf81b0bbcf255e1248a1f865825677c41fb1a55a64835a168174b420793367214e8dfcedea25dc857e1ec847fae87770d')
 
 build() {
   cd "${pkgname}-${pkgver}"
@@ -60,7 +52,7 @@ package() {
   'libsamplerate.so' 'libsndfile.so')
   cd "${pkgname}-${pkgver}"
   make DESTDIR="$pkgdir" install -C build
-  install -vDm 644 {AUTHORS,README} \
+  install -vDm 644 {AUTHORS,CHANGELOG,README} \
     -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 # vim:set ts=2 sw=2 et:

@@ -2,8 +2,8 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=todoman
-pkgver=3.8.0
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="A simple, standards-based, cli todo (aka: task) manager"
 arch=('any')
 url="https://github.com/pimutils/todoman"
@@ -12,19 +12,22 @@ depends=('python-atomicwrites' 'python-click' 'python-click-log'
 'python-configobj' 'python-dateutil' 'python-humanize' 'python-icalendar'
 'python-parsedatetime' 'python-pyxdg' 'python-setuptools' 'python-tabulate'
 'python-urwid')
-makedepends=('python-sphinx' 'python-sphinx-autorun')
+makedepends=('python-sphinx-autorun' 'python-sphinx-click' 'python-setuptools-scm')
 checkdepends=('python-freezegun' 'python-hypothesis' 'python-pytest'
 'python-pytest-runner')
 optdepends=('bash-completion: auto-complete in bash'
             'python-click-repl: REPL command'
             'zsh-completions: auto-complete in zsh')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('67cb498265fdb802ca0993618ae8e06918d0440d6f1092d155571d85a507f098e9e172e852b82f3854a965d72c57aba749ad964922f274be03181def4a527198')
+sha512sums=('53838682ef4145c4fea57bd7b63ff3322002df032719ab5f397408ac2a4ea72ab172148505fc86393177a3ac4801d0ae986736e98ccb9047313c7e32698529fd')
+b2sums=('752bbca2774c7ad6c089a68916a34ca718a644344365748b6ade6c031c4938873793270b6ed633d1477b14030c6ea739083ddaa60207127e3b7118d69ef9a16b')
 
 prepare() {
   cd "$pkgname-$pkgver"
   # remove interfering options to pytest
   sed -e '/addopts/d' -i setup.cfg
+  sed -i 's/from validate/from configobj.validate/g' todoman/configuration.py
+  sed -i 's/import validate/import configobj.validate as validate/' docs/source/conf.py
 }
 
 build() {
@@ -44,9 +47,8 @@ check() {
 package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
+                          --optimize=1 \
+                          --root="${pkgdir}"
   # docs
   install -vDm 644 {AUTHORS,CHANGELOG,CODE_OF_CONDUCT,README}.rst \
     -t "${pkgdir}/usr/share/doc/${pkgname}/"
@@ -57,7 +59,7 @@ package() {
   # wrong name: https://github.com/pimutils/todoman/issues/319
   install -vDm 644 LICENCE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   # sample config
-  install -vDm 644 "${pkgname}.conf.sample" \
+  install -vDm 644 "config.py.sample" \
     -t "${pkgdir}/usr/share/doc/${pkgname}/examples/"
   # completions
   install -vDm 644 contrib/completion/bash/_todo \

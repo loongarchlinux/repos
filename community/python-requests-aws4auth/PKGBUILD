@@ -2,51 +2,41 @@
 # Contributor: Bruno Galeotti <bgaleotti at gmail dot com>
 
 _pkgname=requests-aws4auth
-pkgbase=python-requests-aws4auth
-pkgname=(python-requests-aws4auth python2-requests-aws4auth)
-pkgver=0.9
-pkgrel=4
+pkgname=python-requests-aws4auth
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Amazon Web Services version 4 authentication for the Python Requests module'
 url='https://github.com/sam-washington/requests-aws4auth'
-arch=('loongarch64' 'x86_64')
+arch=('any')
 license=('MIT')
-makedepends=('python-setuptools' 'python2-requests'
-             'python2-setuptools' 'python-requests')
-checkdepends=('python-pytest' 'python2-pytest')
-source=(${pkgname}-${pkgver}.tar.gz::https://github.com/sam-washington/requests-aws4auth/archive/${pkgver}.tar.gz)
-sha512sums=('cf378f3ac97fe44000c17c15a5d75774e95dd9ddab7f4d550f676505de1641df79b0209750c376d51e9e49c7114b2b6891e292ab3e55313ee127c924217fe8a2')
+depends=('python' 'python-requests' 'python-six')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest')
+source=(${url}/archive/v.${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('447f69a6645360c1c2bbe57fe535a1518b1121c9b4cd7f96ccfe22053c1126cd79e60ce6faae28a1e207356dd7c414cab00f313d5139dfe97b24424e0d12c0aa')
+b2sums=('6e1e9def84a5d4d89c9f460e68271e2f7275f4c1eb809380d8953d734d959a15ddba78c21b2dc8ad00e2e9972d76ecb75dbc5c9bf457f70b1c2474e6189b9927')
 
 prepare() {
-  cd ${_pkgname}-${pkgver}
-  sed "s|'test/requests_aws4auth_test.py',||" -i setup.py
+  cd ${_pkgname}-v.${pkgver}
+  sed '/./{H;$!d} ; x ; s/package_data=.*\n.*]},\n//' -i setup.py
 }
 
 build() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-v.${pkgver}
+  export PYTHONHASHSEED=0
   python setup.py build
-  python2 setup.py build
 }
 
 check() {
-  cd ${_pkgname}-${pkgver}
+  cd ${_pkgname}-v.${pkgver}
   python -m pytest -k 'not test_headers_amz_example'
-  python2 -m pytest -k 'not test_headers_amz_example'
 }
 
-package_python-requests-aws4auth() {
-  depends=('python' 'python-requests')
-  cd ${_pkgname}-${pkgver}
+package() {
+  cd ${_pkgname}-v.${pkgver}
   python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE NOTICE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-}
-
-package_python2-requests-aws4auth() {
-  depends=('python2' 'python2-requests')
-  cd ${_pkgname}-${pkgver}
-  python2 setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE NOTICE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:

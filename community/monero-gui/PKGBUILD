@@ -1,14 +1,14 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero-gui
-pkgver=0.17.1.0
-_commit=cb1f3ad0ce228b9c272df76838754e303b074a32
-pkgrel=1
+pkgver=0.17.2.2
+_commit=937cb9825672d07a1917d2d9daf823802ec31d1b
+pkgrel=3
 pkgdesc="QT GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
 url="https://getmonero.org/"
-depends=('monero' 'boost-libs' 'libunwind' 'openssl' 'readline' 'zeromq' 'pcsclite' 'hidapi' 'unbound' 'hicolor-icon-theme'
+depends=('monero' 'boost-libs' 'libunwind' 'openssl' 'readline' 'zeromq' 'pcsclite' 'hidapi' 'unbound' 'hicolor-icon-theme' 'libusb' 'libudev.so'
     'qt5-base' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'qt5-xmlpatterns')
 makedepends=('git' 'cmake' 'boost' 'qt5-tools')
 source=(
@@ -21,6 +21,7 @@ source=(
     "git+https://github.com/tevador/randomx.git"
     "git+https://github.com/monero-project/supercop.git"
     "monero-gui.desktop"
+    monero-boost1.76.patch::https://github.com/selsta/monero/commit/c28d2f7c.patch
 )
 sha512sums=('SKIP'
             'SKIP'
@@ -30,8 +31,12 @@ sha512sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
-            '8aa10a47c3217e5bf12bb40a02828bb75cb38e4b5b124a8b05e487e7d3212c132911d5025193d4a7d984aebef94177dee42acf958c11a18b99fd13e872a771e8')
-validpgpkeys=('8777AB8F778EE89487A2F8E7F4ACA0183641E010') # luigi1111 <luigi1111w@gmail.com>
+            '98b67aec60e492f0a220a156a110baf96862343d3802ec34347c70c7af671a1ae49ccaec218f2e8f81e153c433e9145ad2f55b8613ce6999fc2c87fbd81fd8e1'
+            'c67ab4d4e7449d3690663647aa14411cce90ded9c9aa8bcd600ddbd3cd7633b3f5ec346c3c3c587951e9b1c380c99490764d70421ee0a9abb0fcc470e1f76c48')
+validpgpkeys=(
+  '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
+  '487277A8BD0A209C16B700F3C64552D877C32479' # Alexander Blair (Snipa / Snipa22) <snipa@jagtech.io>
+)
 
 prepare() {
   cd "${pkgname}"
@@ -46,6 +51,8 @@ prepare() {
   git config submodule.external/randomx.url "$srcdir/randomx"
   git config submodule.external/supercop.url "$srcdir/supercop"
   git submodule update
+
+  patch -Np1 -i ../../monero-boost1.76.patch # Fix build with boost 1.76
 }
 
 build() {

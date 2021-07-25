@@ -1,16 +1,23 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-validation-layers
-pkgver=1.2.153
+pkgver=1.2.182
 pkgrel=1
 arch=(loongarch64 x86_64)
 pkgdesc="Vulkan Validation Layers (32-bit)"
 url="https://www.khronos.org/vulkan/"
 license=('custom')
-depends=(lib32-gcc-libs lib32-vulkan-icd-loader vulkan-headers)
-makedepends=(cmake python lib32-libx11 lib32-libxrandr lib32-wayland git)
-source=(https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v${pkgver}.tar.gz)
-sha256sums=('8f4db853eac41a852720a3347322b65240c3a698635d5675dc56f7a1a8b4f6cb')
+depends=('lib32-gcc-libs' 'lib32-vulkan-icd-loader' 'vulkan-headers')
+makedepends=('cmake' 'python' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland' 'git')
+provides=('libVkLayer_khronos_validation.so')
+source=("https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v${pkgver}.tar.gz")
+sha256sums=('5a1f7027c06a8e5ae777d9053b5ce46f10ca623806a43332eb2da06fe46476d4')
+
+prepare() {
+  cd "${srcdir}"/Vulkan-ValidationLayers*
+
+  rm -rf build && mkdir build
+}
 
 build() {
   export ASFLAGS=--32
@@ -18,9 +25,8 @@ build() {
   export CXXFLAGS=-m32                                                                                                                                                                                                            
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig" 
 
-  cd "${srcdir}"/Vulkan-ValidationLayers*
+  cd "${srcdir}"/Vulkan-ValidationLayers*/build
 
-  rm -rf build ; mkdir build ; cd build
   ../scripts/update_deps.py
   cmake -C helper.cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -42,9 +48,8 @@ package() {
   
   make DESTDIR="${pkgdir}" install
 
-  rm -r ${pkgdir}/usr/share/vulkan
+  rm -r "${pkgdir}"/usr/share/vulkan
 
-  install -dm755 ${pkgdir}/usr/share/licenses/${pkgname}
+  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
   install -m644 ../LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
-

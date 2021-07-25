@@ -3,20 +3,20 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=sn0int
-pkgver=0.19.1
+pkgver=0.21.2
 pkgrel=1
 pkgdesc='Semi-automatic OSINT framework and package manager'
 url='https://github.com/kpcyrd/sn0int'
 arch=('loongarch64' 'x86_64')
 license=('GPL3')
-depends=('libcap' 'sqlite' 'libseccomp' 'libsodium' 'geoip2-database' 'publicsuffix-list')
+depends=('libcap' 'lua52' 'sqlite' 'libseccomp.so' 'libsodium' 'geoip2-database' 'publicsuffix-list')
 makedepends=('cargo' 'python-sphinx')
 install=sn0int.install
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('85734ce0634286c482f52fcf9eb1effabcb36d73d8c5c0d542a7b9dc71330c635f5a3aab4e55665b40844c78d8c02f6269b4a1d9d5b5917a930d2f34a8dc731d'
+sha512sums=('b8fcd1d21624e2eb311d8bbcfb48f60fd751c82f0329cc62cb6b54bd079e7dfccf2608e39378ffec07a82a7363fafa0863cda6bbd66505e0772560fd06a0a4d6'
             'SKIP')
-b2sums=('d25965374e0b9855c587e58dec65eef0e907b8861e367ed2714eae10e46e67186cd29ded315b44b5bd5880a326b9eadcc53a71ee1bd7d64031e3bb4ba41bed2b'
+b2sums=('5b87a9703c9703f6517955f6c523d3e0a8f127c98ffff5863661fcf3e7551c2d0d469fe8ed880b74f29985d87a7ed8b30bb16784e6b06cf1a624da71926ac205'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")

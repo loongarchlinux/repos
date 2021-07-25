@@ -2,19 +2,19 @@
 
 _name=BChoppr
 pkgname=bchoppr
-pkgver=1.8.0
+pkgver=1.10.8
 pkgrel=1
 pkgdesc="An audio stream chopping LV2 plugin"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/sjaehn/BChoppr"
 license=('GPL3')
 groups=('lv2-plugins' 'pro-audio')
-depends=('cairo' 'gcc-libs' 'glibc' 'libx11')
+depends=('cairo' 'gcc-libs' 'glibc' 'libx11' 'lv2-host')
 makedepends=('lv2')
 checkdepends=('lv2lint')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sjaehn/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('3d4929682137b4302c481094c55785051392c0e2dd65f15294c938c7132a7ace71321702cb803b9cd8a1b605a166bbc8f9818fbdbec2b05754f1a8d8bb9fd5c7')
-b2sums=('beed3ede25aab0ffd7114a1c3971f7e8334bdaae3e3adb7ffd6f35707376b4024d86a0161025d8608af3e7951b553a3ea60b9e4531c9c0fdbde611f2ca3310c3')
+sha512sums=('dc84c157def046b4ac8d979ee91ac6904837d597809d28dc3fa366d29081331fcabf5cf44f28ae7cafef7467685fbbdb05fc3372e31073476d5c0056ffb60846')
+b2sums=('323c5ad743b0222e7190079f01cb6aca8652bfc19c0f379eb0c10e32d2bf0a4c79313950ff79d975dff69fa4e6a0213c5471e82ee5d3d16aee8e13cfcbc74347')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"

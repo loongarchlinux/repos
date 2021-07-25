@@ -1,21 +1,22 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 
 pkgname=qmmp
-pkgver=1.4.2
-pkgrel=1
+pkgver=1.5.0
+pkgrel=2
 pkgdesc="Qt5 based audio-player"
 arch=('loongarch64' 'x86_64')
 url="http://qmmp.ylsoftware.com/"
 license=('GPL')
-depends=('alsa-lib' 'curl' 'desktop-file-utils' 'hicolor-icon-theme' 'libmad'
-         'libvorbis' 'libogg' 'libxkbcommon-x11' 'taglib' 'xdg-utils' 'qt5-x11extras')
-makedepends=('cmake' 'flac' 'jack' 'libmpcdec' 'pulseaudio' 'ffmpeg' 'libcdio-paranoia'
+depends=('alsa-lib' 'curl' 'desktop-file-utils' 'hicolor-icon-theme' 'libmad' 'libvorbis'
+         'libogg' 'libxkbcommon-x11' 'taglib' 'xdg-utils' 'qt5-x11extras' 'qt5-multimedia')
+makedepends=('cmake' 'flac' 'jack' 'libmpcdec' 'pipewire' 'pulseaudio' 'ffmpeg' 'libcdio-paranoia'
              'libcddb' 'libmms' 'libsamplerate' 'libmodplug' 'libsndfile' 'wavpack' 'mpg123'
              'projectm' 'mesa' 'faad2' 'libgme' 'libsidplayfp' 'opusfile>=0.12' 'wildmidi' 'qt5-tools')
 optdepends=('flac: native FLAC support'
             'jack: JACK sound output'
             'libmpcdec: Musepack support'
             'pulseaudio: PulseAudio output'
+            'pipewire: pipewire support'
             'libcdio-paranoia: Compact Disc input and control support'
             'libcddb: CDDB server support'
             'libmms: MMS stream protocol support'
@@ -30,7 +31,7 @@ optdepends=('flac: native FLAC support'
             'ffmpeg' 'libsamplerate' 'wavpack' 'mpg123')
 changelog=$pkgname.changelog
 source=(http://qmmp.ylsoftware.com/files/$pkgname-$pkgver.tar.bz2)
-sha512sums=('00ed0c4bd74dc50294c9d8e717f249a577fb26f5d4eb93dbc42c6c79964188fd885ab577904dea5aec31db0d2b828d7038febca1ffdfd2f4bfe81f931bbed7ff')
+sha512sums=('b8a29bf6b2f6da08e1ff2801c973821663570de436562ba79b40212b8b8522f0e25ea79c941bfacf252904851ed477cbfa66d7f145b172f93a105127894d5e04')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver

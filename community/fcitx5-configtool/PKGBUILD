@@ -1,10 +1,8 @@
-# $Id: PKGBUILD 226039 2017-04-27 13:52:30Z felixonmars $
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-configtool
-pkgver=0.0.0.20201015
-_commit=8b2aec745af6da7a82b76a32a4b9196bb03db067
+pkgver=5.0.5
 pkgrel=1
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('loongarch64' 'x86_64')
@@ -18,17 +16,23 @@ depends=('fcitx5-qt' 'kwidgetsaddons' 'kitemviews' 'qt5-x11extras')
 optdepends=('kdeclarative: for KCM support'
             'kirigami2: for KCM support')
 makedepends=('extra-cmake-modules' 'kdeclarative' 'kirigami2' 'ninja' 'python')
-source=("https://github.com/fcitx/fcitx5-configtool/archive/$_commit/fcitx5-configtool-$_commit.tar.gz")
-sha512sums=('a8071f9968096b711d2336e9e811cac18155d65950720a806c47890494937fb76e3b481840143144ffd5f5aa54ffabda8fe2706d2b649942dc95ed346e0e59f1')
+source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
+sha512sums=('0a0e3ece682e5ff0a828295a874e43fd45613c08333361b289c7755569ef47b4ccbe5272d5075e3781ea86ab3533f531a9dc7ded921d6f0f1fec7e6d9702a504'
+            'SKIP')
+validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
+
+prepare() {
+  mkdir -p build
+}
 
 build(){
-  cd $pkgname-$_commit
+  cd build
 
-  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DKDE_INSTALL_USE_QT_SYS_PATHS=ON .
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DKDE_INSTALL_USE_QT_SYS_PATHS=ON ../$pkgname-$pkgver
   ninja
 }
 
 package() {
-  cd $pkgname-$_commit
+  cd build
   DESTDIR="$pkgdir" ninja install
 }

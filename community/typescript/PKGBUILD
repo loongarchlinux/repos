@@ -2,7 +2,7 @@
 # Contributor: Bruno Galeotti <bgaleotti at gmail dot com>
 
 pkgname=typescript
-pkgver=4.0.3
+pkgver=4.3.4
 pkgrel=1
 pkgdesc="TypeScript is a language for application scale JavaScript development"
 arch=('any')
@@ -12,10 +12,10 @@ depends=('nodejs')
 makedepends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('b44bba0c6c4681124f6ff9953c8678f1eebdc429f6c91982818983ba0015c2627aa3ed2ed51235f1e3bb13b5814cb60b6845553a1c1099c761407c1ebb1fd63e')
+sha512sums=('b9ab8f1bb5d99fd17f9a8fbb32bb118f2bdbc45a737a64632846574b800af37a0fd8a28e24fbdbfbd70efe09a7bfc6ab599be19e354e5f3ec1e3d9b59747bd13')
 
 package() {
-  npm install -g --user root --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+  npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.

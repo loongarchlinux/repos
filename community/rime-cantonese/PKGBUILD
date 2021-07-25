@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-cantonese
-pkgver=0.0.0.20201005
-_commit=3f835d6decf4f028f723b1cece643be97c3e324e
+pkgver=0.0.0.20210627
+_commit=b6f800c74eb639816d56d0d5601aaa96c8963178
 pkgrel=1
 pkgdesc="Cantonese input for rime"
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ license=('CCPL:cc-by')
 depends=('rime-cangjie' 'rime-emoji' 'rime-loengfan' 'rime-luna-pinyin' 'rime-stroke')
 makedepends=('librime' 'rime-prelude' 'rime-essay')
 source=("https://github.com/rime/rime-cantonese/archive/$_commit/rime-cantonese-$_commit.tar.gz")
-sha512sums=('f20c5df79919a42f9d2f0caa314ad6cae3b157cb519431b4bf222415f9e9cbb16a61b58f93f65469ba152bc50d596fb1fcc7be1a09177e690f74feb0799fe23d')
+sha512sums=('a07b3ac3e6f0c2f96f0552699074c308d73042327057c26960929efda66a5195a1a804c973a556f5b7b04806c3af3c32d712234a37d97c3bc5d8f0487b0330de')
 
 prepare() {
   cd $pkgname-$_commit

@@ -3,25 +3,20 @@
 
 pkgname=opendht
 epoch=1
-pkgver=2.1.6
+pkgver=2.1.10
 pkgrel=1
 pkgdesc="C++14 Distributed Hash Table (DHT) implementation"
 arch=(loongarch64 x86_64)
 url="https://github.com/savoirfairelinux/opendht"
 license=(GPL3)
 depends=(openssl gnutls nettle argon2 readline fmt http-parser jsoncpp libjsoncpp.so)
-makedepends=(msgpack-c cmake cython cppunit restinio)
+makedepends=(msgpack-c cmake cython python-setuptools cppunit restinio)
 optdepends=('python: to use the Python bindings')
-source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('53f362f75a5dda2e88eb145671d01b2998cc5f55d9e1e37fa28b18a324f1159c')
-
-prepare() {
-  mkdir -p build
-}
+source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('917e5f691199349d6884a68c26645840914c18e72b2e21d97817618ddc55fb81')
 
 build() {
-  cd build
-  cmake ../${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -38,15 +33,13 @@ build() {
     -DOPENDHT_PROXY_SERVER=ON \
     -DOPENDHT_PROXY_CLIENT=ON \
     -DOPENDHT_PUSH_NOTIFICATIONS=ON
-  make
+  make -C build
 }
 
 #check() {
-#  cd build
-#  make test
+#  make -C build test
 #}
 
 package() {
-  cd build
-  make DESTDIR="${pkgdir}" install
+  make -C build DESTDIR="${pkgdir}" install
 }

@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=copr-cli
-pkgver=1.89
+pkgver=1.94
 pkgrel=1
 pkgdesc="CLI tool to run copr"
 url="https://pagure.io/copr/copr"
@@ -9,9 +9,9 @@ license=('GPL')
 arch=('any')
 depends=('python-copr' 'python-humanize' 'python-simplejson' 'python-jinja')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-mock')
+checkdepends=('python-pytest' 'python-mock' 'python-responses')
 source=("https://pagure.io/copr/copr/archive/copr-cli-$pkgver-1/copr-copr-cli-$pkgver-1.tar.gz")
-sha512sums=('06f3a673ad9314af668782a56eb70f5b0e35dec0f6f2ed4437ad69a43d456b78120cbeb6d2d2855ab74c55a631623799bdddaecdf90a07c3161f38247b160a8f')
+sha512sums=('6518e4f588e81c076ddec7027429181a18ce03b8c706f630e79eaf5ae5fcc56013de8c62f72f733b1c579d1dfa623968c7cfe0d308e436645676729817de6ea8')
 
 build() {
   cd copr-copr-cli-$pkgver-1/cli

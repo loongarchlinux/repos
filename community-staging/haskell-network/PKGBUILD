@@ -3,8 +3,8 @@
 
 _hkgname=network
 pkgname=haskell-network
-pkgver=3.1.2.0
-pkgrel=36
+pkgver=3.1.2.2
+pkgrel=2
 pkgdesc="Low-level networking interface"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -13,12 +13,7 @@ depends=('ghc-libs')
 makedepends=('ghc' 'haskell-doctest' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck'
              'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ccab6a31a5bfe5a30ad6d0e757d523d03eb7560c47bee0abd79205f2aaedab985bc6381df50fcdb8ffb48a081198891daa46e0ec6602a99bf5878c762b89c6b7')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    sed -i 's/8080/8003/' tests/Network/SocketSpec.hs
-}
+sha512sums=('bb649af2b1080ec0fe710d9968ec882a9f30cebf3c846e778bcc91b025e8c64788d143a37b2bdd60a666484382e337d135fef3f86b1e07e17fe6fd2879256989')
 
 build() {
     cd $_hkgname-$pkgver
@@ -35,7 +30,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

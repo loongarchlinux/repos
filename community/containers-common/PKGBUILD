@@ -1,0 +1,130 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=containers-common
+pkgver=0.40.1
+_image_pkgver=5.13.2
+_podman_pkgver=3.2.1
+_skopeo_pkgver=1.3.0
+_storage_pkgver=1.32.3
+pkgrel=1
+pkgdesc="Configuration files and manpages for containers"
+arch=('any')
+url="https://github.com/containers"
+license=('Apache')
+makedepends=('go-md2man')
+backup=(
+  'etc/containers/containers.conf'
+  'etc/containers/mounts.conf'
+  'etc/containers/policy.json'
+  'etc/containers/registries.conf'
+  'etc/containers/seccomp.json'
+  'etc/containers/storage.conf'
+)
+# configuration override directories need to exist
+options=('emptydirs')
+source=("common-${pkgver}.tar.gz::https://github.com/containers/common/archive/v${pkgver}.tar.gz"
+        "image-${_image_pkgver}.tar.gz::https://github.com/containers/image/archive/v${_image_pkgver}.tar.gz"
+        "podman-${_podman_pkgver}.tar.gz::https://github.com/containers/podman/archive/v${_podman_pkgver}.tar.gz"
+        "skopeo-${_skopeo_pkgver}.tar.gz::https://github.com/containers/skopeo/archive/v${_skopeo_pkgver}.tar.gz"
+        "storage-${_storage_pkgver}.tar.gz::https://github.com/containers/storage/archive/v${_storage_pkgver}.tar.gz"
+        'mounts.conf'
+)
+sha512sums=('4ad3d5a1450c16f13c40a0d9b5f3bd6a8f44667f9f0a34145291ee156cd72bc5e27749cb65fdd0aaf5f06274be4c4d231b171e8ae7968c0215de73234c9711d8'
+            '8d7413ca676099378d51831b2d0bdf8d412352a582333bfed6a701b041d59d05ed3a596271ba57635daa1779cc1cbee670c8f00d83d6caf8c333fa9175a7c4fa'
+            '8fa4e2a72d1e655c600fa4dc7ad2366975314a154ff9fa7496622da6042e54c6fe93aca0344e6615e2ce3d400c1bc5de7d8462df45f950a119c3303b3ae520e4'
+            '5b6e96fff4670d8dcbc787cd5a568112337a111e7c44111226fa5684edffa880a1d632660238c55b6193ba26496697dd7e38d7d015cdfd61ce5efb119f0e12eb'
+            '935e2675872e17bf2ae0e50aca5ffbaa58f472c9deebd3f62fe0fc0219f18ecb3922a409eb086d8cf1134f4ba61243ef1c09a666a8685949975b527e6970c52f'
+            '11fa515bbb0686d2b49c4fd2ab35348cb19f9c6780d6eb951a33b07ed7b7c72a676627f36e8c74e1a2d15e306d4537178f0e127fd3490f6131d078e56b46d5e1')
+b2sums=('1a2a86c1b108d7962494b1ad0929a09d901780887a6a48e95ebb8567429ccac0840b2aa1ee693b14b138fcdbb698a5103259fe9bd78c3fd2f6145ba6dce30d14'
+        '9b11624aa1f9be5845cdb114156025f563d62145a87f3be854f9e9834c86d8dfb2f39e27c4aff822495e198b79f08bd43a1b8ebcf4491b459b02af2bc17a380b'
+        '6c4e7292ba30969ef8632ad514a87650131a05baafab65d49fe182bddaa1b106de5766ec6677b73d0a2e5166c56f1439de6c800ca7de8ac59e026de1286bf2d4'
+        'b26e39d821e63b31a1cbd23bf7b836fbe3185f45ad086c8d0f427309590dbaf196fe09af9aca4aae10c30423c3828375ffe6c95c9c9fb1dea739404e98d8554e'
+        'b4f4475aa68ab8d5509007882761130f4a870746a5bb86c56e6b1388ef4cd7877e2f0c8a76dbbfac0c1026e4389160abc76b71b28389b86a255711dba924dcdb'
+        '2f4b0af3271103362a898e7fcc3ec05f06755902ad664ac3107bb8debb8b2ac0d50de311d5fc651279a817a56e3ff05864a7e77c0d8fc628ff7411bfb98c9b69')
+
+prepare() {
+  (
+    cd "storage-${_storage_pkgver}"
+    sed -r 's/(GOMD2MAN = ).*/\1 go-md2man/' -i docs/Makefile
+  )
+}
+
+build() {
+  (
+    cd "common-${pkgver}/docs"
+    for _man_page in *.md; do
+      go-md2man -in "$_man_page" -out "${_man_page//.md}"
+    done
+  )
+  (
+    cd "image-${_image_pkgver}/docs"
+    mkdir -vp man5
+    mv -v *.5.md man5/
+    for _man_page in *.md; do
+      go-md2man -in "$_man_page" -out "${_man_page//.md}.1"
+    done
+    for _man_page in man5/*.md; do
+      go-md2man -in "$_man_page" -out "${_man_page//.md}"
+    done
+  )
+  (
+    cd "podman-${_podman_pkgver}"
+    go-md2man -in docs/source/markdown/containers-mounts.conf.5.md \
+      -out containers-mounts.conf.5
+    go-md2man -in pkg/hooks/docs/oci-hooks.5.md \
+      -out oci-hooks.5
+  )
+  (
+    cd "storage-${_storage_pkgver}"
+    make -C docs
+  )
+}
+
+package() {
+  # directories
+  install -vdm 755 "${pkgdir}/etc/containers/oci/hooks.d/"
+  install -vdm 755 "${pkgdir}/etc/containers/registries.conf.d/"
+  install -vdm 755 "${pkgdir}/usr/share/containers/oci/hooks.d/"
+  install -vdm 755 "${pkgdir}/var/lib/containers/"
+
+  # configs
+  install -vDm 644 mounts.conf -t "${pkgdir}/etc/containers/"
+
+  (
+    cd "common-${pkgver}"
+    # configs
+    install -vDm 644 pkg/config/containers.conf -t "${pkgdir}/etc/containers/"
+    install -vDm 644 pkg/config/containers.conf -t "${pkgdir}/usr/share/containers/"
+    install -vDm 644 pkg/seccomp/seccomp.json -t "${pkgdir}/etc/containers/"
+    install -vDm 644 pkg/seccomp/seccomp.json -t "${pkgdir}/usr/share/containers/"
+    # man pages
+    install -vDm 644 docs/*.5 -t "${pkgdir}/usr/share/man/man5/"
+  )
+  (
+    cd "image-${_image_pkgver}"
+    # configs
+    install -vDm 644 registries.conf -t "${pkgdir}/etc/containers/"
+    # man pages
+    install -vDm 644 docs/*.1 -t "${pkgdir}/usr/share/man/man1/"
+    install -vDm 644 docs/man5/*.5 -t "${pkgdir}/usr/share/man/man5/"
+  )
+  (
+    cd "podman-${_podman_pkgver}"
+    install -vDm 644 *.5 -t "${pkgdir}/usr/share/man/man5/"
+  )
+  (
+    cd "skopeo-${_skopeo_pkgver}"
+    # configs
+    install -vDm 644 default-policy.json "${pkgdir}/etc/containers/policy.json"
+    install -vDm 644 default.yaml -t "${pkgdir}/etc/containers/registries.d/"
+  )
+  (
+    cd "storage-${_storage_pkgver}"
+    # configs
+    install -vDm 644 storage.conf -t "${pkgdir}/etc/containers/"
+    install -vDm 644 storage.conf -t "${pkgdir}/usr/share/containers/"
+    # man pages
+    install -vDm 644 docs/*.1 -t "${pkgdir}/usr/share/man/man1/"
+    install -vDm 644 docs/*.5 -t "${pkgdir}/usr/share/man/man5/"
+  )
+}

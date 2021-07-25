@@ -2,11 +2,11 @@
 
 pkgname=python-crc16
 pkgver=0.1.1
-pkgrel=3
+pkgrel=7
 arch=(loongarch64 x86_64)
 pkgdesc='Python library for calculating CRC16'
 url="https://pypi.org/project/crc16/"
-depends=(python-setuptools python)
+depends=(python)
 license=('LGPL')
 options=(!emptydirs)
 source=(https://pypi.python.org/packages/source/c/${pkgname#python-}/${pkgname#python-}-$pkgver.tar.gz)
@@ -19,10 +19,11 @@ build() {
 
 check() {
   cd "${pkgname#python-}-$pkgver"
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-3.8"  python -m crc16.test
+  PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$PWD/build/lib.linux-$CARCH-3.9"  python -m crc16.test
 }
 
 package() {
   cd "${pkgname#python-}-$pkgver"
-  python setup.py install --root="$pkgdir" --optimize=1
+  export PYTHONHASHSEED=0
+  python setup.py install --root="$pkgdir" --skip-build --optimize=1
 }

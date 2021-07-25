@@ -1,0 +1,30 @@
+# Maintainer: Frederik Schwan <freswa at archlinux dot org>
+
+pkgname=ctop
+pkgver=0.7.6
+pkgrel=1
+pkgdesc='Top-like interface for container metrics'
+arch=('loongarch64' 'x86_64')
+url='https://ctop.sh/'
+license=('MIT')
+depends=('glibc')
+makedepends=('go')
+source=("https://github.com/bcicen/ctop/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+b2sums=('02fde42eed9c5f8d2ae1dee0e00dcfb937c1dd10f40ad135bdfe05b6350ad8eb5993142be4e5e2e96c6142795a0c44cb8cb68ba263cd539587f104c4a2b0ed10')
+
+
+build() {
+  cd ${pkgname}-${pkgver}
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+  go build .
+}
+
+package() {
+  install -Dm755 ${pkgname}-${pkgver}/${pkgname} "${pkgdir}"/usr/bin/${pkgname}
+  install -Dm644 ${pkgname}-${pkgver}/LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}
+

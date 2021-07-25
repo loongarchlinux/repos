@@ -1,0 +1,46 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=libredefender
+pkgver=0.3.0
+pkgrel=1
+pkgdesc='Light-weight antivirus scanner for Linux'
+url='https://github.com/kpcyrd/libredefender'
+arch=('loongarch64' 'x86_64')
+license=('GPL2')
+depends=('clamav')
+makedepends=('cargo' 'clang')
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
+b2sums=('012f9d68731fbd65b42c998f4b00bdd018883f742c17e1ded5843f5e388c93ba108861f77fbef165ad83043a8d97cbf948dc1257bc073147648078c60015e482'
+        'SKIP')
+
+validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --release --locked
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --release --locked
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/libredefender
+
+  # install completions
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/libredefender" completions bash > "${pkgdir}/usr/share/bash-completion/completions/libredefender"
+  "${pkgdir}/usr/bin/libredefender" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_libredefender"
+  "${pkgdir}/usr/bin/libredefender" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/libredefender.fish"
+
+  install -Dm 644 contrib/libredefender.desktop -t "${pkgdir}/etc/xdg/autostart"
+  install -Dm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

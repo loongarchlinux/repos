@@ -2,7 +2,7 @@
 
 pkgname=python-aiobotocore
 _pkgname=aiobotocore
-pkgver=1.1.2
+pkgver=1.3.1
 pkgrel=1
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
@@ -10,17 +10,14 @@ url='https://github.com/aio-libs/aiobotocore'
 license=(Apache)
 depends=(python python-aiohttp python-botocore python-wrapt python-aioitertools)
 makedepends=(python-setuptools)
-checkdepends=(python-flask python-moto python-pytest python-pytest-asyncio)
-source=("https://github.com/aio-libs/aiobotocore/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        unittest-mock.diff)
-sha256sums=('3a57646e4692076f3637e1191129377ebb7661f36c29f68ec8318fab82d66e7d'
-            'ffb6b7e922632f4c2de5c93f61ab53e1730cfe151b0a2dde5dfce6260405866e')
+checkdepends=(python-moto python-pytest python-pytest-asyncio
+              # moto optdepends
+              python-docker python-yaml python-flask python-flask-cors)
+source=("https://github.com/aio-libs/aiobotocore/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('e63de6c9de96df5e35567ea56f94f28d098e5fc3edd6d83be5e650e1ce809e76')
 
 prepare() {
   cd $_pkgname-$pkgver
-  # community/python-mock is outdated and does not include needed AsyncMock.
-  # Use mock from stdlib instead. It has AsyncMock since 3.8
-  patch -Np1 -i ../unittest-mock.diff
 
   # Disable dependency pinning
   # Upstream tracking issue: https://github.com/aio-libs/aiobotocore/issues/670
@@ -38,7 +35,8 @@ check() {
 
   export PYTHONPATH="$PWD"
   # test_lambda uses moto.awslambda, which requires a running Docker service
-  pytest -v -m moto tests \
+  # See: https://github.com/spulec/moto/issues/3276
+  pytest -m moto tests \
       --ignore=tests/test_patches.py \
       --ignore=tests/test_lambda.py
 }

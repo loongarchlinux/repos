@@ -2,16 +2,16 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=photoflare
-pkgver=1.6.5
+pkgver=1.6.8
 pkgrel=1
 pkgdesc='Quick, simple but powerful Qt-based image editor inspired by PhotoFiltre'
-arch=(loongarch64 x86_64)
+arch=('loongarch64' 'x86_64')
 url='https://photoflare.io/'
-license=(GPL3)
-depends=(graphicsmagick hicolor-icon-theme qt5-base qt5-imageformats)
-makedepends=(qt5-tools)
-source=(https://github.com/PhotoFlare/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('aa04f3af72d95674946c2fe163a62efa157b4b504b39996aa05eb39a1143b32b')
+license=('GPL3')
+depends=('graphicsmagick' 'hicolor-icon-theme' 'qt5-base' 'qt5-imageformats')
+makedepends=('qt5-tools')
+source=("https://github.com/PhotoFlare/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('180e361e1b07237599b5c8f49c84535390257a57b9e546ac54c7e29371d3646d')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -20,7 +20,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  qmake Photoflare.pro PREFIX=/usr
+  qmake-qt5 Photoflare.pro PREFIX=/usr
   make
 }
 

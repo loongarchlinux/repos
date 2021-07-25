@@ -2,20 +2,20 @@
 # Contributor: SpepS <dreamspepser at yahoo dot it>
 
 pkgname=openimageio
-pkgver=2.2.7.0
-pkgrel=1
+pkgver=2.2.15.1
+pkgrel=3
 pkgdesc="A library for reading and writing images, including classes, utilities, and applications"
 arch=(loongarch64 x86_64)
 url="http://www.openimageio.org/"
 license=('custom')
-depends=('openexr' 'boost-libs' 'openjpeg2' 'glew' 'libtiff' 'opencolorio' 'intel-tbb' 'libpng' 'libraw' 'libwebp'
-         'fmt' 'pugixml' 'pybind11')
-# TODO: Consider adding these deps: 'openvdb' 'ffmpeg' 'ptex' 'libheif' 'hdf5' 'opencv'
-makedepends=('cmake' 'qt5-base' 'python' 'boost' 'mesa' 'freetype2' 'fontconfig' 'libxrender' 'ninja' 'robin-map')
+depends=('openexr' 'boost-libs' 'openjpeg2' 'glew' 'libtiff' 'opencolorio' 'libpng' 'libraw' 'libwebp'
+         'fmt' 'pugixml' 'pybind11' 'libheif' 'hdf5' 'freetype2')
+# TODO: Consider adding these deps: 'openvdb' 'ffmpeg' 'ptex' 'opencv'
+makedepends=('cmake' 'qt5-base' 'python' 'boost' 'mesa' 'fontconfig' 'libxrender' 'ninja' 'robin-map')
 optdepends=('qt5-base: iv image viewer'
             'python: bindings support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/OpenImageIO/oiio/archive/Release-$pkgver.tar.gz")
-sha512sums=('a36ffcf150cb1134aea33ec3e7ee2113c9df48c6860812a9e5ca519400211ba0fa5732153226f7e80cc20c2553834bd425adb93cdebbd5354612752f46ebc8e0')
+sha512sums=('c06df310f91938b25f1f66cd98d995dcaba51c6a0041b47882c52f5ad4a098a9016fc99f41de250dd1b1b7af3ad22f6ed63d5e76f95f1f1cf0f45c80eee9c8e0')
 
 build() {
   cd oiio-Release-$pkgver
@@ -24,7 +24,7 @@ build() {
       -Bbuild \
       -GNinja \
       -DUSE_PYTHON=ON \
-      -DPYTHON_VERSION=3.8 \
+      -DPYTHON_VERSION=3.9 \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DOIIO_BUILD_TESTS=ON \

@@ -2,8 +2,8 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-qtplugin
-pkgver=0.15.1
-pkgrel=2
+pkgver=0.17.0
+pkgrel=1
 pkgdesc="LXQt platform integration for Qt"
 arch=("loongarch64" "x86_64")
 groups=("lxqt")
@@ -15,7 +15,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('daef8d0ad3c310e0ff008769e8f196409b88e1f006b9207ef7fd006b47bd759e'
+sha256sums=('65ef1156eb3257bd875e944963968585b042262d6b673ec6506d8fe7fa528691'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>

@@ -4,16 +4,16 @@
 # Contributor: Yannick LM <LMyannicklm1337@gmail.com>
 
 pkgname=tint2
-pkgver=16.7
-pkgrel=2
+pkgver=17.0
+pkgrel=1
 pkgdesc='Basic, good-looking task manager for WMs'
 arch=(loongarch64 x86_64)
 url='https://gitlab.com/o9000/tint2'
 license=(GPL2)
-depends=(gtk2 imlib2 startup-notification)
-makedepends=(cmake git ninja setconf startup-notification)
-source=("git+https://gitlab.com/o9000/tint2.git#tag=$pkgver")
-sha256sums=('SKIP')
+depends=(gtk3 imlib2 startup-notification)
+makedepends=(cmake git ninja setconf)
+source=("git+https://gitlab.com/o9000/tint2#commit=7737edff47a952604d543e36bf9190b211cf92fe") # tag: v17.0
+b2sums=(SKIP)
 
 prepare() {
   setconf $pkgname/get_version.sh VERSION="$pkgver"
@@ -34,4 +34,3 @@ package() {
 }
 
 # getver: gitlab.com/o9000/tint2/raw/master/README.md
-# vim: ts=2 sw=2 et:

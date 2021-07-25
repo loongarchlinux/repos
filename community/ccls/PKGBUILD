@@ -2,24 +2,17 @@
 # Contributor: Fangrui Song <i at maskray.me>
 
 pkgname=ccls
-pkgver=0.20190823.6
+pkgver=0.20210330
 pkgrel=2
 pkgdesc='C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/MaskRay/ccls'
 license=('Apache')
-depends=('clang=10.0.1' 'llvm-libs' 'rapidjson')
+depends=('clang=12.0.0' 'llvm-libs' 'rapidjson')
 makedepends=("cmake" "llvm")
 conflicts=('ccls-git')
-source=("https://github.com/MaskRay/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        $pkgname-CLANG_LINK_CLANG_DYLIB.patch::https://github.com/MaskRay/ccls/commit/a7a982ab9232b2730280439781f83f8055363c59.patch)
-sha512sums=('c6df96e304f5b7381c67eda4c1bd05873a85fb0d0983b3abcc507987a402860aa6660079a0e7b125f5cda22047da936239480aa0b604cd2598f84a4b9e9c3bdd'
-            '54eb68c64562b9cfbdaeacfc7c8292f9f85dc6bfd7d0e5ea7047ee0d72aacbe7b9f276d3d7beae94b5803018cd57e941a816c2614634c16b7c9b46a4929f0a25')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -p1 -i ../$pkgname-CLANG_LINK_CLANG_DYLIB.patch
-}
+source=("https://github.com/MaskRay/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('dd78c040c2a51d6b47f8dd2d8bdc0661111f26b9233ffeb41216254b1b0ad0f634190784e6b8c2d7b36475c13020356342d83a9f80047d7da75ce21ca8885b16')
 
 build() {
   cd $pkgname-$pkgver

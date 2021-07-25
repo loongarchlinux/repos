@@ -2,7 +2,7 @@
 # Contributor: Francois Boulogne <devel at sciunto dot org>
 
 pkgname=mat2
-pkgver=0.11.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc='Metadata removal tool, supporting a wide range of commonly used file formats'
 url='https://0xacab.org/jvoisin/mat2'
@@ -16,16 +16,17 @@ optdepends=(
 )
 checkdepends=('ffmpeg')
 source=(https://0xacab.org/jvoisin/mat2/-/archive/${pkgver}/mat2-${pkgver}.tar.gz
-        https://0xacab.org/jvoisin/mat2/uploads/0f66d648ede0b98804b50f487e9d694c/mat2-${pkgver}.tar.gz.asc)
-sha512sums=('8396a32b409b83cc4158546f92d458bc8a62e5aabd2c452402ac6185c2efdeff8794a7e1e45a8e39e9eaba31e256a303ca0be38b65fd43f11e7b07d1ea8b2f06'
+        https://0xacab.org/jvoisin/mat2/uploads/0f5c82d07da3f01ce78f8a3bf8c2a1b6/mat2-0.12.1.tar.gz.asc)
+sha512sums=('fb45c27ef91c6c29071ead53a202fbd11f6972930f60bc5c550966d8dbfc727c3aabffdd39778b78961e91c929f78165119ff1005bf272f7173a123d1f629b18'
             'SKIP')
-b2sums=('c55d04fe7d49e8515bc5bc3ebfad4c71ddec670e5efed9855545bc32374661bb92501fb5910a599f27d97a3089a44f983c983cb82572ab153602d38e39682164'
+b2sums=('cb838c72aa2a9fae5ba6096c46b078d7186477a63a1bf452f6cd5337df7cbafbd10bc124d6eb52dcf610eb326bffa68f5115662d85fc6ade69985a7f0035af9b'
         'SKIP')
 
 validpgpkeys=('9FCDEE9E1A381F311EA62A7404D041E8171901CC') # Julien (jvoisin) Voisin
 
 build() {
   cd ${pkgname}-${pkgver}
+  export PYTHONHASHSEED=0
   python setup.py build
 }
 

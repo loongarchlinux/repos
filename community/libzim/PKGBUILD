@@ -1,15 +1,15 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 pkgname=libzim
-pkgver=6.2.2
+pkgver=6.3.2
 pkgrel=1
 pkgdesc="Reference implementation of the ZIM specification by the openZIM project"
 license=('GPL2')
-arch=('armv7h' 'i686' 'loongarch64' 'x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('xapian-core' 'zlib' 'xz' 'icu' 'zstd')
 makedepends=('meson' 'gtest' 'cython' 'python-pytest')
 url='https://github.com/openzim/libzim'
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('6619035d35c9ba057c80be5758fa86922802c74aca40e5fffd40b77f0f263af2')
+sha256sums=('648fb5af65dd28a6b221b9294217939bf5abf929d706e7323ebb4196849a923c')
 
 build() {
 	cd "${pkgname}-${pkgver}"

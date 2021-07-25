@@ -4,7 +4,7 @@
 # Contributor: Omar Pakker <omar.pakker@oracle.com>
 
 pkgname=retro-gtk
-pkgver=1.0.0
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='Toolkit to write GTK+ 3 based Libretro frontends'
 arch=('loongarch64' 'x86_64')
@@ -13,7 +13,7 @@ url='https://wiki.gnome.org/Apps/Games'
 depends=('libepoxy' 'glib2' 'gtk3' 'libpulse' 'libsamplerate')
 makedepends=('gobject-introspection' 'meson' 'vala' 'git' 'gtk-doc')
 provides=('libretro-gtk-1.so')
-_commit=ba822685c572819253bc919fb21aea09ad2cbfee  # tags/1.0.0^0
+_commit=422b70aa9465ea65ea70edcc9a093368cac22b2a  # tags/1.0.2^0
 source=("git+https://gitlab.gnome.org/GNOME/retro-gtk.git#commit=$_commit")
 sha256sums=('SKIP')
 

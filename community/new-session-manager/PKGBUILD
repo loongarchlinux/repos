@@ -1,11 +1,11 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=new-session-manager
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.5.1
+pkgrel=1
 pkgdesc="Audio session manager"
 arch=('loongarch64' 'x86_64')
-url="https://github.com/linuxaudio/new-session-manager"
+url="https://github.com/jackaudio/new-session-manager"
 license=('GPL3')
 depends=('gcc-libs' 'glibc')
 makedepends=('fltk' 'jack' 'liblo' 'meson')
@@ -13,18 +13,13 @@ optdepends=('fltk: for nsm-legacy-gui')
 provides=('non-session-manager')
 conflicts=('non-session-manager')
 replaces=('non-session-manager')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/linuxaudio/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('0cbcd0e03f774da30b35a60556a8c18621274e9f57a6fd2155e112003fe1ba46b48e831e1b42da2c6b0e4a48716386aa05a150b24c949797438be95dab897af5')
-b2sums=('aa5abfb53317cb08c2a34e4d6fa6d254c076fc8e5d4ab378726b02e375771f928fb1191fbc29afe059244ebc81205696fedc65018b39a7c637bd8a2204178382')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/jackaudio/${pkgname}/archive/v${pkgver}.tar.gz")
+sha512sums=('b7bcc9f150caf7915d62904bca53b87ebac5802e50b204af3c3ae1f5d6f0b20d1bc5f50d54dae79c5263de29b849ff443f4d2d61caa01e75def4dc08d3a3ce63')
+b2sums=('ec7fb7c7b729753aba5a1102f92131fe5564b0df3b35a79a86b64b370f3f4ea9c054a51b671b764356357ff85a8fcbaa05ef5f847ea3963cdfa31e1ebce6487b')
 
 build() {
   cd "$pkgname-$pkgver"
-  meson --prefix='/usr' \
-        --buildtype plain \
-        --wrap-mode nodownload \
-        -D b_lto=true \
-        -D b_pie=true \
-        build
+  arch-meson build
   ninja -C build
 }
 

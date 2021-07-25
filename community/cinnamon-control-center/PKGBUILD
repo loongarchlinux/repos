@@ -5,7 +5,7 @@
 # Jan de Groot <jgc@archlinux.org>
 
 pkgname=cinnamon-control-center
-pkgver=4.6.2
+pkgver=5.0.2
 pkgrel=1
 pkgdesc="The Control Center for Cinnamon"
 arch=('loongarch64' 'x86_64')
@@ -16,39 +16,31 @@ depends=('cinnamon-settings-daemon' 'cinnamon-menus' 'colord'
 optdepends=('cinnamon-translations: i18n'
             'gnome-color-manager: for color management tasks'
             'gnome-online-accounts: for the online accounts module')
-makedepends=('gnome-online-accounts' 'intltool' 'python')
+makedepends=('meson' 'samurai' 'gnome-online-accounts')
 options=('!emptydirs')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('f887d7e185f8ff1ee6f9789219231cba8be820c706b316d35ee5118d2fd898eb')
-b2sums=('f64ebfedc73eb92b96f81fb2743d818ec1602a550130d362eadba4c66a24a0e1f2bdffbe0bf80b23426ab57cead910c78b061b52e4eb82d0e6173d1da2d62749')
-
-prepare() {
-    cd "${srcdir}"/${pkgname}-${pkgver}
-
-    NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('30f697ebbf3d3d267b8ea09cdbfd358c994bf4b60a458f124dcfd415d2cb58a7')
+b2sums=('d292d610516647e149198cbfce652bfd094338612ef6b4765fcb80bd1fe15f2d643bbaa5343f1d79d57f3327c87a3256cfc3900493daf6f80569b1a0bacd821a')
 
 build() {
-    cd "${srcdir}"/${pkgname}-${pkgver}
+    mkdir -p "${srcdir}"/${pkgname}-${pkgver}/builddir
+    cd "${srcdir}"/${pkgname}-${pkgver}/builddir
 
-    ./configure --prefix=/usr \
-                --sysconfdir=/etc \
-                --localstatedir=/var \
-                --enable-systemd
+    meson --prefix=/usr \
+          --buildtype=plain \
+        ..
 
-    #https://bugzilla.gnome.org/show_bug.cgi?id=656229
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' -e 's/    if test "$export_dynamic" = yes && test -n "$export_dynamic_flag_spec"; then/      func_append compile_command " -Wl,-O1,--as-needed"\n      func_append finalize_command " -Wl,-O1,--as-needed"\n\0/' libtool
-    make
+    samu
 }
 
 package() {
-    cd "${srcdir}"/${pkgname}-${pkgver}
+    cd "${srcdir}"/${pkgname}-${pkgver}/builddir
+
+    DESTDIR="${pkgdir}" samu install
 
     # https://github.com/linuxmint/Cinnamon/pull/7382#issuecomment-374894901
     # /usr/bin/cinnamon-control-center is not meant for users, it is a development troubleshooting tool.
     # Just install the shell libs/headers.
-    make -C shell  DESTDIR="${pkgdir}" install-{libcinnamon_control_center_includeHEADERS,libLTLIBRARIES,pkgconfigDATA}
-    make -C panels DESTDIR="${pkgdir}" install
-
-    install -d -o root -g 102 -m 750 "${pkgdir}"/usr/share/polkit-1/rules.d
+    rm "${pkgdir}"/usr/bin/cinnamon-control-center
+    rm "${pkgdir}"/usr/share/cinnamon-control-center/ui/shell.ui
 }

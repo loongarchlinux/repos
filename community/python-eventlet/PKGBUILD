@@ -2,8 +2,8 @@
 
 pkgname=python-eventlet
 _pyname=eventlet
-pkgver=0.26.1
-pkgrel=1
+pkgver=0.31.0
+pkgrel=2
 pkgdesc='Highly concurrent networking library'
 url='https://eventlet.net'
 arch=('any')
@@ -20,15 +20,17 @@ optdepends=(
 )
 options=('!makeflags')
 source=(https://github.com/eventlet/eventlet/archive/v${pkgver}/${_pyname}-${pkgver}.tar.gz)
-sha512sums=('78dddbbc51827bebc331afa5eaade27a65e1f95b0a68ec57c4ad4f83ab7c90bffea4bd866718f3d0bef45794ccae1883fc046b4c92f05cb320e3ffb172e0d9a1')
-b2sums=('2175d25643b1fa6d4cf317a90ed1a529499672ff25be60c79d0d78af6a58bd093487ad92ccde51e5438a71d5b1ae7f74133a0a744b5e32fe71a264d7225ec814')
+sha512sums=('50113061982f6d463058f838a13a2dfaca85ffa0a228241fe7560337d068de7b08c16d5e3c4f9b83b986d074da904669f295393b8cfd2d293c4cafdf7d401fd1')
+b2sums=('86d6ff0743ce51e3de4910c10456b172edcfe9e6cffac0b1753c24ed2fa5c84be12be92210b35fff6839cae15387cbb60701774511ec43770cb7996ecbb775ba')
 
 prepare() {
-  sed -r 's|(check_idle_cpu_usage\(.*,) .*\)|\1 0.8\)|g' -i ${_pyname}-${pkgver}/tests/*_test.py
+  cd ${_pyname}-${pkgver}
+  sed -r 's|(check_idle_cpu_usage\(.*,) .*\)|\1 0.8\)|g' -i tests/*_test.py
 }
 
 build() {
   cd ${_pyname}-${pkgver}
+  export PYTHONHASHSEED=0
   python setup.py build
   make -C doc text
 }

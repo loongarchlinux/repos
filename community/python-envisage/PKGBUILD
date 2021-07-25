@@ -1,7 +1,7 @@
 # Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
 
 pkgname=python-envisage
-pkgver=4.9.0
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="Extensible Application Framework"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-apptools')
 makedepends=('python-setuptools')
 optdepends=('ipython: for IPython shell plugin')
 source=("envisage-$pkgver.tar.gz::https://github.com/enthought/envisage/archive/${pkgver}.tar.gz")
-sha256sums=('c38bdea72c9c942d5a846e592687d5629520ae7fab1057ea1c530ab2f4896c78')
+sha256sums=('1069e4be9efaf1e8e5375d61e01baeb889be428c78410d8879cc10ae26edbef9')
 
 build() {
   cd "$srcdir"/envisage-$pkgver

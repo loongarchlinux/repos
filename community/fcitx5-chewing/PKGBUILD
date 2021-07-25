@@ -3,26 +3,27 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-chewing
-pkgver=0.0.0.20200728
-_commit=7f7ea5e8229de495be2168ef571615f012730ff0
-pkgrel=3
+pkgver=5.0.5
+pkgrel=1
 pkgdesc="Chewing Wrapper for Fcitx5"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/fcitx/fcitx5-chewing"
 license=('GPL')
 depends=('fcitx5' 'libchewing')
 makedepends=('extra-cmake-modules' 'ninja')
-source=("https://github.com/fcitx/fcitx5-chewing/archive/$_commit/fcitx5-chewing-$_commit.tar.gz")
-sha512sums=('02cb81df8107d1ba4a986669eda35ee367b42a468ee9499952e5fce988cb3318ea49a0b37a741e67faf9c1257855e11ac7f94333a69a69fe2412df6096de945d')
+source=("https://download.fcitx-im.org/fcitx5/fcitx5-chewing/fcitx5-chewing-$pkgver.tar.xz"{,.sig})
+sha512sums=('d3f70f6479cd9dce05b0c44a2372130c00af041bd082638f9a43ae2bd6ca6892646306821a547444ccdd358df3343f6bc63ad4dcd2ff9e663fc25a13a7b42767'
+            'SKIP')
+validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 build(){
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
 
   cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
   ninja
 }
 
 package() {
-  cd $pkgname-$_commit
+  cd $pkgname-$pkgver
   DESTDIR="$pkgdir" ninja install
 }

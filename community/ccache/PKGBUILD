@@ -3,39 +3,44 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=ccache
-pkgver=3.7.11
+pkgver=4.3
 pkgrel=1
 pkgdesc='Compiler cache that speeds up recompilation by caching previous compilations'
-url='https://ccache.samba.org/'
+url='https://ccache.dev/'
 arch=('loongarch64' 'x86_64')
 license=('GPL3')
-depends=('glibc' 'zlib')
+depends=('glibc' 'gcc-libs' 'zstd' 'libzstd.so')
+makedepends=('cmake' 'asciidoc' 'perl')
 source=(https://github.com/ccache/ccache/releases/download/v${pkgver}/ccache-${pkgver}.tar.xz{,.asc})
 validpgpkeys=('5A939A71A46792CF57866A51996DDA075594ADB8') # Joel Rosdahl <joel@rosdahl.net>
-sha512sums=('47b71b3ab4b89bf9b6f6d15941c22d2207b369922f51f9a8fbf4e86554325053dccce669e1c1ed3c0019a7e0a3d610f399e52d3fee68b56111aa7c1b24132c11'
+sha512sums=('ec082de95ea8b22154ce1e67e0a0fc28266cfb71f382205f7eab14e6ac1c7841027d063041131832b3227d833d99ec874e90df238f35f433de4c381566931c7f'
             'SKIP')
-b2sums=('46fc5d65d6224bb796db7632b35ccca1089e5fed36eeb2ba231cf4c1aaa94be10bf0504f6ef565ce11673e527e09dee64583a764062ca7fea38364d790dd8cc1'
+b2sums=('6ab48aa587b4dc86020e3b0f722003dc5c03709626e143a1d38506b6072f9963fc76e89b6d18128dfc28035bf8d24e46ea44f219db69a1b3a294416f0b023090'
         'SKIP')
 
 build() {
   cd ${pkgname}-${pkgver}
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc
-  make
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=None \
+    -Wno-dev \
+    -B build \
+    -S .
+  make VERBOSE=1 -C build
 }
 
 check() {
   cd ${pkgname}-${pkgver}
-  make check
+  make VERBOSE=1 check -C build
 }
 
 package() {
   cd ${pkgname}-${pkgver}
 
-  install -Dm 755 ccache -t "${pkgdir}/usr/bin"
-  install -Dm 644 doc/ccache.1 -t "${pkgdir}/usr/share/man/man1"
-  install -Dm 644 doc/{AUTHORS,MANUAL,NEWS}.adoc README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  make DESTDIR="${pkgdir}" install -C build
+  make DESTDIR="${pkgdir}" install -C build/doc
+
+  install -Dm 644 doc/*.md doc/*.adoc -t "${pkgdir}/usr/share/doc/${pkgname}"
 
   install -d "${pkgdir}/usr/lib/ccache/bin"
   local _prog

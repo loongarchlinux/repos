@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=darcs
-pkgver=2.16.2
-pkgrel=28
+pkgver=2.16.4
+pkgrel=19
 pkgdesc="A distributed, interactive, smart revision control system"
 url="http://darcs.net"
 license=("GPL")
@@ -12,29 +12,25 @@ depends=('curl' 'ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-base16-
          'haskell-conduit' 'haskell-constraints' 'haskell-cryptonite' 'haskell-data-ordlist'
          'haskell-fgl' 'haskell-hashable' 'haskell-html' 'haskell-http-conduit' 'haskell-http-types'
          'haskell-knob' 'haskell-memory' 'haskell-mmap' 'haskell-network' 'haskell-network-uri'
-         'haskell-old-time' 'haskell-sandi' 'haskell-regex-applicative' 'haskell-regex-compat-tdfa'
+         'haskell-old-time' 'haskell-regex-applicative' 'haskell-regex-compat-tdfa'
          'haskell-tar' 'haskell-temporary' 'haskell-unix-compat' 'haskell-utf8-string'
          'haskell-vector' 'haskell-zip-archive' 'haskell-zlib')
-makedepends=('ghc' 'haskell-cmdargs' 'haskell-findbin' 'haskell-hunit' 'haskell-leancheck'
-             'haskell-quickcheck' 'haskell-split' 'haskell-test-framework'
-             'haskell-test-framework-hunit' 'haskell-test-framework-leancheck'
-             'haskell-test-framework-quickcheck2'
+makedepends=('ghc' 'uusi' 'haskell-cmdargs' 'haskell-findbin' 'haskell-hunit' 'haskell-leancheck'
+             'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-hunit'
+             'haskell-test-framework-leancheck' 'haskell-test-framework-quickcheck2'
              # Added for their bundled shelly
              'haskell-exceptions' 'haskell-monad-control' 'haskell-system-filepath'
              'haskell-system-fileio' 'haskell-transformers-base')
 checkdepends=('bc' 'time')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('ee43e570227a5f462e064b71323755d1179809c24ff83a904aefa32494c4655b41b4b3291411b5abc1e1e75be894cde6070aa072b51905ddf8fc2934973b25cb')
+sha512sums=('0f9a924d68416b660b86fd076d4f47915aba0e4a58bd92609e0f05f45913d6251109f3c477e20e0a517ca5fd35735b638690a8a0f7010a52e324c5a21a540a2a')
 
 prepare() {
     cd $pkgname-$pkgver
     sed -e 's/^ghc /ghc -dynamic /' \
         -e 's/ ghc / ghc -dynamic /' \
         -i tests/*.sh tests/lib
-    sed -i -e 's/< *2.14/<3/' $pkgname.cabal
-
-    # Odd issue...
-    sed -i "s|PACKAGE_VERSION|\"$pkgver\"|" src/hscurl.c
+    uusi $pkgname.cabal
 }
 
 build() {
@@ -54,7 +50,7 @@ build() {
 
 check() {
     cd $pkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

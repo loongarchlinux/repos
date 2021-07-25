@@ -1,32 +1,43 @@
-Version 3.22.1 - 13 Aug 2020
-- Fix for Reject list not working for new users/libraries.
+Version 4.3.0 - 2021-05-30
+- quotev.com: use_cloudscraper:true by default.
+- Update translations
+- adapter_bdsmlibrarycom: Set author Anonymous when author not found instead
+  of sys.exit(). Closes #696
+- Fix XF authorUrl and author_avatar_cover feature. Closes #695
+- Catch exceptions in word count.
+- Add CLI --color option for warns and fails. Closes #692
+- Report browser cache load fail as such.
 
-Version 3.22.0 - 09 Aug 2020
-- Accept storyUrl with title in it for adapter_webnovelcom. Addresses #520
-- Fix adapter_mcstoriescom getSiteExampleURLs()
-- Remove outdated rejecturls from plugin prefs--replaced by rejecturls_date
-  last 18+ month back.
-- Fix for adapter_quotevcom site changes.
-- Fix adapter_harrypotterfanfictioncom desc parse for site change.
-- Changes for Python3 deprecation warnings (mostly) from eschwartz
-- Normalize literotica.com URLs to www.literotica.com
-- New Site: scribblehub.com - Thanks, mavi0!
-- Fixes for site changes: adapter_ficbooknet
-- Change INI error link blue color in dark mode.
-- Add 'Series [0]' option for new anthologies.
-- For anthologies, look for common val in numbered series00 if not all share
-  'series'.
-
-Version 3.21.0 - 07 Jul 2020
-- New site: chireads.com -- Thanks, Kolbo!
-- Fix for recursion in add_genre_when_multi_category caching bad value.
-- Change INI edit highlight colors when dark theme.
-- Add cover_min_size setting.
-- Fix add_genre_when_multi_category so it can include_in_ without breaking and
-  move above doreplacements.
-- Add .SHOW_EMPTY feature for titlepage_entries.
-- Check for epub before polishing cover into it.
-- Change site efiction.esteliel.de to faerie-archive.com, also changed
-  siteabbrev eesd->fae
-- Allow for no genre stories in adapter_fanficauthorsnet.
-- Fix adapter_webnovelcom sitetags for site changes.
+Version 4.2.0 - 30 Apr 2021
+- Add New Site: novelfull.com (#688 & #689) - Thanks, AlexRiina!
+- Need to set logger.setLevel() again with import changes to see debugs in
+  plugin.
+- import changes for arch linux system plugins - As submitted by eli-schwartz
+- Remove site: fictionpad.com, completely different site, looks like generic
+  parked?
+- Remove site: www.thundercatsfans.org, no longer efiction, now static pages
+  and PDFs
+- Remove site: www.thepetulantpoetess.com, no longer efiction, URLs like OTW
+  but different
+- Remove site: www.potterfics.com, "Potterfics.com has closed its doors
+  forever"
+- Remove site: fanfic.castletv.net, DNS there, no server, last successful
+  2018-10-21
+- Remove site: deandamage.com, site there, efiction broken, last successful
+  2018-12-04
+- Remove site: www.deepinmysoul.net, moved to deepinmysoul.nl and changed
+  software--not eFiction anymore, <100 stories, all old
+- Include code for nsapa_proxy for dealing with Captchas (by nsapa -- coming
+  soon!)
+- Some other import cleanup.
+- Updates from cloudscraper 1.2.58
+- Use newer Calibre image processing, add JPG quality setting - thanks, Malloc
+  Voidstar
+- Add use_cloudscraper:true under [www.ficbook.net] to defaults.ini
+- Fix for adapter_literotica story URL oddities. Again.
+- Fix for site change: adapter_fictionmaniatv
+- Get storyId for sugarquillnet and siyecouk from the parsed query string.
+  From mcepl
+- Fix for adapter_literotica changing URLs on author page yet again.
+- Add [harrypotterfanfiction.com] slow_down_sleep_time:1 -- Site blocking fast
+  downloads.

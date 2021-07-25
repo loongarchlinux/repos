@@ -3,20 +3,22 @@
 
 _hkgname=persistent
 pkgname=haskell-persistent
-pkgver=2.10.5.2
-pkgrel=101
+pkgver=2.13.0.2
+pkgrel=7
 pkgdesc="Type-safe, multi-backend data serialization"
 url="http://www.yesodweb.com/book/persistent"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base64-bytestring'
          'haskell-blaze-html' 'haskell-conduit' 'haskell-fast-logger' 'haskell-http-api-data'
-         'haskell-monad-logger' 'haskell-path-pieces' 'haskell-resource-pool' 'haskell-resourcet'
-         'haskell-scientific' 'haskell-silently' 'haskell-unordered-containers'
-         'haskell-unliftio' 'haskell-unliftio-core' 'haskell-vector')
-makedepends=('ghc' 'haskell-hspec')
+         'haskell-lift-type' 'haskell-monad-logger' 'haskell-path-pieces' 'haskell-resource-pool'
+         'haskell-resourcet' 'haskell-scientific' 'haskell-silently' 'haskell-th-lift-instances'
+         'haskell-unordered-containers' 'haskell-unliftio' 'haskell-unliftio-core'
+         'haskell-vector')
+makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck' 'haskell-quickcheck-instances'
+             'haskell-shakespeare')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('5d7fe9259d89ab210bd136d9f9b0f3e52d48825a003cc02dfb01f50457324daf2c8659b9123cc0e958b636613fa61004f649f97980c6a5427d425656ceb166f1')
+sha512sums=('10290d73377cad62ae74452c2557b2a487edaddeb61498b43358323065b01325502afdf07dc94f85233b25ddb5616001866518accbbb8cb9b92d9f905c7967c1')
 
 build() {
     cd $_hkgname-$pkgver
@@ -34,7 +36,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

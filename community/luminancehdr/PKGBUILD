@@ -3,20 +3,26 @@
 # Contributor: Dmitry N. Shilov <stormblast@land.ru>
 
 pkgname=luminancehdr
-pkgver=2.6.0
-pkgrel=9
+pkgver=2.6.1
+pkgrel=3
 pkgdesc='Open source graphical user interface application that aims to provide a workflow for HDR imaging'
 arch=('loongarch64' 'x86_64')
 url='http://qtpfsgui.sourceforge.net/'
 license=('GPL')
 depends=('exiv2' 'fftw' 'gsl' 'lcms2' 'libraw' 'openexr' 'qt5-webengine' 'qt5-svg'
-         'qt5-webkit' 'ccfits' 'desktop-file-utils' 'hicolor-icon-theme' 'boost-libs')
+         'ccfits' 'desktop-file-utils' 'hicolor-icon-theme' 'boost-libs')
 makedepends=('cmake' 'boost' 'gtest' 'qt5-tools' 'eigen')
 optdepends=('hugin: align image stack functionality')
 changelog=$pkgname.changelog
 options=('!emptydirs')
-source=(https://sourceforge.net/projects/qtpfsgui/files/luminance/$pkgver/luminance-hdr-$pkgver.tar.bz2)
-sha256sums=('d7d2003e0ef4ead6f4b4c526bc44749a1fb845e795e0c5b7c35a393b0c0518a1')
+source=(https://sourceforge.net/projects/qtpfsgui/files/luminance/$pkgver/luminance-hdr-$pkgver.tar.bz2
+        luminancehdr-openexr3.patch)
+sha512sums=('d909194ff13df1d3a9ad5c08a0fad5b28831c1ff5317ec9240af16b21cc87dff162c9e2433c5ec1103e4a3a5001de14a9a1dd3d75b3cb24433c93694810c24f7'
+            '78da713154042f125511ddc7ad184f961c92fa679ff0aa5d33700b619a0eed973722ea9f51c44c58595043ea308f4f3c44f6613b88fbb41e5159849bc0f8741e')
+
+prepare() {
+  patch -d luminance-hdr-$pkgver -p1 < luminancehdr-openexr3.patch
+}
 
 build() {
   cd "${srcdir}"/luminance-hdr-$pkgver

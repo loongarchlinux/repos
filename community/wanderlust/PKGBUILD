@@ -2,9 +2,9 @@
 # Contributor: Norberto Lopes <shelika@mail.telepac.pt>
 
 pkgname=wanderlust
-pkgver=20191018
-_commit=7a919e422a48f5021576e68282703de430558879
-pkgrel=2
+pkgver=20210407
+_commit=6e189fc944a9bbde76c5a6d9b6a38d57e85e6390
+pkgrel=1
 pkgdesc="Mail/News reader supporting IMAP4rev1 for emacs."
 arch=(any)
 url="https://github.com/wanderlust/wanderlust/"

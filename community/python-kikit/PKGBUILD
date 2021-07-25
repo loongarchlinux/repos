@@ -2,8 +2,8 @@
 
 _pkgname=KiKit
 pkgname=python-kikit
-pkgver=0.6.1
-pkgrel=2
+pkgver=0.7
+pkgrel=1
 pkgdesc='Automation tools for KiCAD'
 arch=('any')
 url='https://github.com/yaqwsx/KiKit'
@@ -11,8 +11,8 @@ license=('MIT')
 depends=('python' 'kicad' 'python-numpy' 'python-shapely' 'python-click' 'python-markdown2'
          'python-pybars3' 'python-solidpython')
 makedepends=('python-setuptools')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('c9a460e42d3add7edfbd9ba545bb219d0039f92f982b1d623fa251489aaef4ae3087494af0d2fdb2a70bd9c7b606dd68f008c2f2d8562c4067127e4ef357411d')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('38c243f2c8e65a8d961f292558c0eaab9724c8cd0a8af5f5cf569d91b3e9d41d1f94406f0855cc21325676b95a7a967db9d5deac2492ca9d119a166d4fa08f9d')
 
 prepare() {
   sed -i '/versioneer/d' $_pkgname-$pkgver/setup.py

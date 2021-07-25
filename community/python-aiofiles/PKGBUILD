@@ -2,7 +2,7 @@
 # Contributor: cclin <cclinet@outlook.com>
 
 pkgname=python-aiofiles
-pkgver=0.5.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='File support for asyncio'
 arch=(any)
@@ -10,7 +10,8 @@ license=(APACHE)
 url=https://github.com/Tinche/aiofiles
 makedepends=(
   git
-  python-setuptools
+  python-pip
+  python-poetry
 )
 checkdepends=(
   python-coverage
@@ -19,32 +20,28 @@ checkdepends=(
   python-pytest-cov
   python-tox
 )
-source=(git+https://github.com/Tinche/aiofiles.git#tag=9a2141e6c51013995ed8b72b121e4e0a27af77b5)
+_tag=469c1a8b94ccccf25516706c88dde2e69ea45f3c
+source=(git+https://github.com/Tinche/aiofiles.git#tag=${_tag})
 sha256sums=(SKIP)
 
 pkgver() {
   cd aiofiles
-
   git describe --tags | sed 's/^v//'
 }
 
 build() {
   cd aiofiles
-
-  python setup.py build
+  poetry build --format wheel
 }
 
 check() {
   cd aiofiles
-
-  tox -e py38
+  tox -e py39
 }
 
 package() {
-  cd aiofiles
-
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm 644 LICENSE "${pkgdir}"/usr/share/licenses/python-aiofiles
+  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="${pkgdir}" --ignore-installed --no-deps aiofiles/dist/*.whl
+  install -Dm 644 aiofiles/LICENSE -t "${pkgdir}"/usr/share/licenses/python-aiofiles/
 }
 
 # vim: ts=2 sw=2 et:

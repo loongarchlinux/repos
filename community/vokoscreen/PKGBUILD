@@ -6,20 +6,20 @@
 
 pkgname=vokoscreen
 _pkgname=vokoscreenNG
-pkgver=3.0.7
+pkgver=3.0.9
 pkgrel=1
 pkgdesc='Easy to use screencast creator'
-arch=(loongarch64 x86_64)
+arch=('loongarch64' 'x86_64')
 url='https://linuxecke.volkoh.de/vokoscreen/vokoscreen.html'
-license=(GPL2)
-depends=(gst-plugins-good qt5-multimedia qt5-x11extras)
+license=('GPL2')
+depends=('gst-plugins-good' 'qt5-multimedia' 'qt5-x11extras')
 optdepends=('gst-plugins-bad: record audio into AAC format'
             'gst-plugins-ugly: record screen into H.264 format')
-makedepends=(qt5-tools)
-source=(https://github.com/vkohaupt/$_pkgname/archive/$pkgver/$_pkgname-$pkgver.tar.gz
-        0001-Add-better-integration-for-Linux.patch)
-sha256sums=('557b830f11ecabbacb3f8309be9464e47a56aa35b48a163410ce71bb7f75b278'
-            '049e89a39653896c439565056705d744a22093834eea4d5fff8e60c3505a24c2')
+makedepends=('qt5-tools')
+source=("https://github.com/vkohaupt/$_pkgname/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
+        '0001-Add-better-integration-for-Linux.patch')
+sha256sums=('e03ebce15d624eb64a37a7448d5e583eb56d38f7b569be24cedaa6632d5c65a6'
+            '1d9c78a9c43f64a6c47ac916da5bdea7e686f1aae2264db9e7a7b2504b76efb0')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -28,7 +28,7 @@ prepare() {
 
 build() {
   cd $_pkgname-$pkgver
-  qmake PREFIX=/usr src/vokoscreenNG.pro
+  qmake-qt5 PREFIX=/usr src/vokoscreenNG.pro
   make
 }
 

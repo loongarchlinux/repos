@@ -1,18 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-game-libretro-scummvm
-pkgver=2.1.1.9
-_codename=Leia
-pkgrel=2
+pkgver=2.1.1.14
+_codename=Matrix
+pkgrel=1
 pkgdesc="Libretro wrapper for Kodi's Game API"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/kodi-game/game.libretro.scummvm'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-game')
-depends=('kodi-addon-game-libretro' 'libretro-scummvm')
-makedepends=('cmake' 'kodi-dev')
+makedepends=('cmake' 'kodi-dev' 'kodi-addon-game-libretro' 'libretro-scummvm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kodi-game/game.libretro.scummvm/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('1365217aa732ef66c04f5d81a3c949279889aa01bcf3d212925a31e742cb54d0a81d78073556843464f1fa73d3a823e2b2f582849a2abf7211e3958510def139')
+sha512sums=('8a1c04b9f90ff79a07633361b310379cf982709132ee3614ff4ab1c0c52f60ea650339384b7ae3d73df4bdcfb29e8f29dfe774d1b4026c817d2b33c0ddb17652')
 
 build() {
     cd "game.libretro.scummvm-$pkgver-$_codename"
@@ -26,6 +25,7 @@ build() {
 }
 
 package() {
+    depends=('kodi-addon-game-libretro' 'libretro-scummvm')
     cd "game.libretro.scummvm-$pkgver-$_codename"
 	make DESTDIR="$pkgdir/" install
 }

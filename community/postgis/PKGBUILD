@@ -3,18 +3,24 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=postgis
-pkgver=3.0.2
-pkgrel=2
+pkgver=3.1.2
+pkgrel=1
 pkgdesc="Adds support for geographic objects to PostgreSQL"
 arch=('loongarch64' 'x86_64')
 url="https://postgis.net/"
 license=('GPL')
-depends=('postgresql' 'gdal' 'json-c' 'proj' 'protobuf-c')
+depends=('postgresql' 'gdal' 'json-c' 'proj' 'protobuf-c' 'libtiff4')
 optdepends=('perl: for contrib script postgis_restore.pl')
 makedepends=('clang' 'llvm')
 changelog=$pkgname.changelog
 source=(https://download.osgeo.org/postgis/source/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('763d7818d195eca0b07d94a864b13da68e5734ae57b7c93c285dc2d0fa4a155715745e5da67e1a3bca49d8d4f89dc495ed3912c079722290ce9f220afca33f4d')
+sha256sums=('2cdd3760176926704b4eb25ff3357543c9637dee74425a49082906857c7e0732')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+
+#   sed -i 's/pj_get_release/proj_info/' configure # fix for proj8
+}
 
 build() {
   cd ${pkgname}-${pkgver}

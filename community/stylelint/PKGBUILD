@@ -1,26 +1,41 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=stylelint
-pkgver=13.7.2
+pkgver=13.13.1
 pkgrel=1
 pkgdesc='Mighty, modern CSS linter'
 arch=('any')
 url=https://stylelint.io
 license=('MIT')
 depends=('nodejs')
-makedepends=('npm')
+makedepends=('git' 'npm' 'rsync')
 optdepends=('stylelint-config-standard: for the standard shareable config')
-source=("https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz")
-noextract=("$pkgname-$pkgver.tgz")
-sha512sums=('9a689ea2b91f98ef9903a08d0eed6273daa9b78b45bc7d90501eefa9782b3151dee44354ebdabb603ab461483f5072ee0ac64e5a1500bdc31c2f32c32044734a')
+source=("git+https://github.com/stylelint/stylelint.git#tag=$pkgver")
+b2sums=('SKIP')
+
+build() {
+  cd $pkgname
+  npm ci
+}
+
+check() {
+  cd $pkgname
+  npm test
+}
 
 package() {
-  npm install -g --user root --prefix "$pkgdir"/usr --ignore-scripts --production $pkgname-$pkgver.tgz
+  cd $pkgname
 
-  cd "$pkgdir"
-  mkdir -p usr/share/licenses/$pkgname
-  mv usr/lib/node_modules/$pkgname/LICENSE usr/share/licenses/$pkgname
-  chown -R root:root .
+  npm prune --production
+
+  install -d "$pkgdir"/usr/{bin,share/doc/$pkgname}
+  ln -s ../lib/node_modules/$pkgname/bin/$pkgname.js "$pkgdir"/usr/bin/$pkgname
+  install -Dt "$pkgdir"/usr/lib/node_modules/$pkgname/bin bin/$pkgname.js
+  rsync -r --exclude __tests__ --exclude lib/testUtils lib \
+    "$pkgdir"/usr/lib/node_modules/$pkgname
+  cp -r node_modules package.json "$pkgdir"/usr/lib/node_modules/$pkgname
+  cp -r {CHANGELOG,CONTRIBUTING,README}.md docs "$pkgdir"/usr/share/doc/$pkgname
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

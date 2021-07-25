@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=acme-redirect
-pkgver=0.4.0
+pkgver=0.5.1
 pkgrel=1
 pkgdesc='Minimal http daemon that answers acme challenges and redirects everything else to https'
 url='https://github.com/kpcyrd/acme-redirect'
@@ -12,9 +12,9 @@ makedepends=('cargo' 'scdoc')
 backup=('etc/acme-redirect.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('726cb8a28e93743ff6bb28b3f134b11980ba7731ed18900602401e595c21ff7c51f935e0cca1a98f4e69cc08bdd8ca3f5437c4450c296313d631fa9df81f8fa1'
+sha512sums=('d9cecf59c3971c5adf3fcede769c95b8f6306b8711192f9340ffeffc5205a70d7fc4ca6b71c5ce16b87e12fecde019457d6a786355de53a3006e1a3e077c491b'
             'SKIP')
-b2sums=('8446bc7b291c8f96797328f21c152616ae57162aa31c6205cfb1b91b30a5cb5212bdc83c8af0b23abe92436360c9c05ca79a4972587966dd579a8777a782128e'
+b2sums=('ccef09fdb08f97c0e8991caf71f9d95e756b6abf49a490a90aa1ed618c3322d507970059e8862db4699954bcb4c78f5b63cbd6f5e9a0baf948aaa3eb7f47c820'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")

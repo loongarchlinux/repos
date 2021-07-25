@@ -1,3 +1,4 @@
+# Maintainer: Daurnimator  <daurnimator@archlinux.org>
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Old Maintainer: Dwayne Bent <dbb@dbb.io>
 # Old Maintainer: Tilman Vatteroth <tilman.vatteroth@uni-dortmund.de>
@@ -7,13 +8,17 @@
 
 pkgname=prosody
 epoch=1
-pkgrel=1
-pkgver=0.11.7
+pkgver=0.11.9
+pkgrel=2
 pkgdesc="Lightweight and extensible Jabber/XMPP server written in Lua"
 arch=('loongarch64' 'x86_64')
 url="https://prosody.im/"
 license=('MIT')
-depends=('lua52' 'lua52-socket' 'lua52-expat' 'lua52-filesystem' 'libidn'
+depends=('lua52'
+         'lua52-socket'
+         'lua52-expat'
+         'lua52-filesystem'
+         'libidn'
          'openssl')
 conflicts=('prosody')
 provides=('prosody')
@@ -30,12 +35,12 @@ source=("https://prosody.im/downloads/source/prosody-$pkgver.tar.gz"{,.asc}
         'prosody.logrotated'
         'sysuser.conf'
         'prosody.service')
-sha256sums=('28ffc07653485cb63e22b387d3ea4825ee2baaee0c5827de4d6053a35b1c8747'
+sha256sums=('ccc032aea49d858635fb93644db276de6812be83073a8d80e9b4508095deff09'
             'SKIP'
             '0753bd9260f1cfdce6e18e01a61e320b396acfe9fca8ccf3250653bfa6af997e'
             '5a2466b73bd069fb73be97a4e23b24e4c8dd1adb7db871cb8f5ab4094c1f967f'
             'e5c30ffbb066f0ed3444475b3313490c535d8c9df018726f6cecf9e3ddfd2e48'
-            'ea34a3802e9a6b181cc1039eda48538fc9335c432223b225a8801d9d636f268c')
+            'e9d6abc4c53bd9e7b1d2acc56c7513416751f9436bf382ed52d703d29b13bfaa')
 
 prepare() {
   cd prosody-$pkgver
@@ -43,7 +48,7 @@ prepare() {
   # disable logging to output and activate syslog
   sed -i s/"info = "/"-- info = "/g prosody.cfg.lua.dist
   sed -i s/"error = "/"-- error = "/g prosody.cfg.lua.dist
-  sed -i s/"--\ \"\*syslog\"\;"/"\"*syslog\"\;"/g prosody.cfg.lua.dist
+  sed -i s/"--\ \"\*syslog\"\;"/"info = \"*syslog\"\;"/g prosody.cfg.lua.dist
 
   # add pidfile and daemonize
   # daemonize is important for systemd!
@@ -62,10 +67,15 @@ prepare() {
 
 build() {
   cd prosody-$pkgver
-  ./configure --ostype=linux --prefix=/usr --sysconfdir=/etc/prosody \
-    --datadir=/var/lib/prosody --with-lua-include=/usr/include/lua5.2 \
-    --cflags="${CFLAGS} -fPIC -Wall -Wextra -D_GNU_SOURCE" \
-    --ldflags="${LDFLAGS} -shared" --no-example-certs \
+  ./configure \
+    --ostype=linux \
+    --prefix=/usr \
+    --sysconfdir=/etc/prosody \
+    --datadir=/var/lib/prosody \
+    --with-lua-include=/usr/include/lua5.2 \
+    --cflags="${CPPFLAGS} ${CFLAGS} -fPIC -D_GNU_SOURCE" \
+    --ldflags="${LDFLAGS} -shared" \
+    --no-example-certs \
     --runwith=lua5.2
   make
 }

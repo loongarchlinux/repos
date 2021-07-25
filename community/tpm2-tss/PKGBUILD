@@ -1,7 +1,7 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 # Contributor: Bruno Pagani <archange@archlinux.org>
 pkgname=tpm2-tss
-pkgver=3.0.1
+pkgver=3.1.0
 pkgrel=1
 pkgdesc='Implementation of the TCG Trusted Platform Module 2.0 Software Stack (TSS2)'
 arch=('loongarch64' 'x86_64')
@@ -16,10 +16,9 @@ backup=('etc/tpm2-tss/fapi-config.json'
         'etc/tpm2-tss/fapi-profiles/P_RSA2048SHA256.json')
 options=('!emptydirs')
 source=("$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
-sha512sums=('206830fecea22c4974a16b5e76599b3c22e077a448f15e2707b260eba6832b2089f9d7c12d3e42daf314cdfbd83309b2b623a7abeb1409234f1930a835365529'
+sha512sums=('8967f172c92f1e3e5ba324dbe8afe07bf1bc7179dd755cef9812105f32634f312ee7cc7dfe8e13af69dc219432463f5dc9b93477743de47aba6af1d70b252405'
             'SKIP')
-validpgpkeys=('D760B790CCF0A41CBE7B047C316CC1FB24ABDC72'  # Tadeusz Struk <tadeusz.struk@intel.com>
-              'D6B4D8BAC7E0CC97DCD4AC7272E88B53F7A95D84'  # Andreas Fuchs <andreas.fuchs@sit.fraunhofer.de>
+validpgpkeys=('D6B4D8BAC7E0CC97DCD4AC7272E88B53F7A95D84'  # Andreas Fuchs <andreas.fuchs@sit.fraunhofer.de>
               '5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1') # William Roberts (Bill Roberts) <william.c.roberts@intel.com>
 
 build() {

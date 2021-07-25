@@ -2,8 +2,8 @@
 
 _hkgname=tasty-lua
 pkgname=haskell-tasty-lua
-pkgver=0.2.3
-pkgrel=18
+pkgver=0.2.3.2
+pkgrel=62
 pkgdesc="Write tests in Lua, integrate into tasty."
 url="https://github.com/hslua/tasty-lua"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-file-embed' 'haskell-hslua' 'haskell-tasty')
 makedepends=('ghc' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('d769564ab62d8456820659caf279378d8970d92040674cecbfc74feacb958d195a24055a8176178222fbc6c2559c1d5a6ddfbc1f4fa7c7350ee67111dbe6a35e')
+sha512sums=('14c13448f0755001f10175205f6e2eb7a70d2f428c05c2c734e95b8a136cd2b1b1363fd55297038f0db224b993e0db9d3c1203ed9d8c825dca5aeadfdce3a45e')
 
 build() {
     cd $_hkgname-$pkgver    
@@ -28,7 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

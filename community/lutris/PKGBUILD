@@ -3,14 +3,14 @@
 # Contributor: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=lutris
-pkgver=0.5.7.1
-pkgrel=1
+pkgver=0.5.8.3
+pkgrel=2
 pkgdesc='Open Gaming Platform'
 arch=('any')
 url='https://lutris.net'
 license=('GPL3')
 depends=('python-gobject' 'python-yaml' 'python-evdev' 'gtk3' 'glib2' 'psmisc' 'cabextract' 'unzip' 'p7zip' 'curl' 'xorg-xrandr'
-         'python-pillow' 'python-requests' 'gnome-desktop' 'webkit2gtk' 'mesa-demos' 'python-dbus' 'python-distro')
+         'python-pillow' 'python-requests' 'gnome-desktop' 'webkit2gtk' 'mesa-demos' 'python-dbus' 'python-distro' 'python-lxml')
 makedepends=('python-setuptools')
 checkdepends=('xorg-server-xvfb' 'python-nose-cover3' 'wine' 'xterm')
 optdepends=('wine: Windows support'
@@ -21,7 +21,7 @@ optdepends=('wine: Windows support'
             'gvfs: GVFS backend')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/lutris/lutris/archive/v$pkgver.tar.gz")
-sha512sums=('44ceeb22b3529eb423201d002e5816f9226135a2c457a9517c4855d7d0462dd512d37c6cc0ed507151fb834f179a1536b9ef08fa8645dfc2a89a314e57eeade6')
+sha512sums=('d551374bfb2a22a65ac6a0b059513f4985820d402a8ea771df2c5d0b2e454efc93d1042446b79cd84c1a52f1c197abb649e37ed243d761b8db62aec0209b60da')
 
 build() {
   cd $pkgname-$pkgver
@@ -29,15 +29,14 @@ build() {
   python setup.py build
 }
 
-check() {
-  cd $pkgname-$pkgver
-
-  xvfb-run nosetests --cover-erase --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-package=lutris --cover-xml-file=coverage.xml
-}
+#check() {
+#  cd $pkgname-$pkgver
+#
+#  xvfb-run nosetests --cover-erase --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-package=lutris --cover-xml-file=coverage.xml
+#}
 
 package() {
   cd $pkgname-$pkgver
 
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 }
-

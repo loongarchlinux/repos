@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=startdde
-pkgver=5.6.0.1
+pkgver=5.8.9
 pkgrel=1
 pkgdesc="starter of deepin desktop environment"
 arch=('loongarch64' 'x86_64')
@@ -19,10 +19,16 @@ optdepends=('deepin-wm: Legacy 3D window manager'
             'deepin-kwin: Preferred window manager')
 replaces=('deepin-wm-switcher')
 groups=('deepin')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/startdde/archive/$pkgver.tar.gz")
-sha512sums=('7afbc553a1bc2b0dc797403d1419e858a16981197238fbe695d048c1efe8ad27924818d6971bcbcb0730f24f720ad3b4fff410c498a7271825a9cd3410101cd8')
+source=("https://github.com/linuxdeepin/startdde/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+        schema.patch)
+sha512sums=('afa1c26fb09c64d729273c1ee6d8901f127b83562d4f1902d2ef06c7b0beb3266b9adc7db1fe1dac737788409236b55eca758a92b0922125183b124411dac877'
+            '8f0a34a273de5ad784684a8bea349363d768a64ce574621b07537af3055baa60c6d645f75e20575ed8978a03e31992b9dc6f66939b29c8d4331964ac9a1f72eb')
+
+export GO111MODULE=off
 
 prepare() {
+  patch -d startdde-$pkgver -p2 < schema.patch
+
   export GOPATH="$srcdir/build:/usr/share/gocode"
   go get github.com/cryptix/wav golang.org/x/xerrors github.com/godbus/dbus github.com/fsnotify/fsnotify
 

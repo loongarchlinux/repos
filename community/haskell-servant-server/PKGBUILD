@@ -3,8 +3,8 @@
 
 _hkgname=servant-server
 pkgname=haskell-servant-server
-pkgver=0.18
-pkgrel=20
+pkgver=0.18.2
+pkgrel=100
 pkgdesc="A family of combinators for defining webservices APIs and serving them"
 url="https://haskell-servant.readthedocs.org/"
 license=("BSD")
@@ -12,18 +12,17 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-aeson' 'haskell-base64-bytestring'
          'haskell-http-api-data' 'haskell-http-media' 'haskell-http-types'
          'haskell-network-uri' 'haskell-monad-control' 'haskell-network' 'haskell-servant'
-         'haskell-string-conversions' 'haskell-resourcet' 'haskell-tagged'
+         'haskell-sop-core' 'haskell-string-conversions' 'haskell-resourcet' 'haskell-tagged'
          'haskell-transformers-base' 'haskell-wai' 'haskell-wai-app-static' 'haskell-warp'
          'haskell-word8')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-wai' 'haskell-should-not-typecheck'
              'haskell-quickcheck' 'haskell-safe' 'haskell-wai-extra' 'haskell-temporary'
              'haskell-transformers-compat')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9a10338c4a9411649c03fc3407130a2b04ef8302bb4980770a7fef69ccf4983628c47c3e485f02826bca6fc83d6af945b9d1f44eea2ab8de9021e3542fa5a9f9')
+sha512sums=('a8203535a2d4a62b16f717e262fda28685bba466c5e271b2bba991a668a7df4d494de8c10b0843faf3d56e71dba0f88065066ba7acce0e66e16d4a6ba2d96229')
 
 prepare() {
-    cd $_hkgname-$pkgver
-    uusi $_hkgname.cabal
+    uusi -u hspec -u http-api-data -u base64-bytestring $_hkgname-$pkgver/$_hkgname.cabal
 }
 
 build() {
@@ -41,7 +40,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

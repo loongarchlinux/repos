@@ -1,22 +1,22 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 pkgname=openshadinglanguage
-pkgver=1.11.8.0
-pkgrel=1
+pkgver=1.11.14.0
+pkgrel=3
 pkgdesc="Advanced shading language for production GI renderers"
 arch=(loongarch64 x86_64)
 url="https://github.com/imageworks/OpenShadingLanguage"
 license=('custom')
-depends=('boost-libs' 'openimageio' 'openexr' 'intel-tbb' 'freetype2' 'libpng'
+depends=('boost-libs' 'openimageio' 'imath' 'freetype2' 'libpng'
          'libtiff' 'zlib' 'ncurses' 'clang')
 makedepends=('boost' 'cmake' 'python' 'llvm' 'ninja')
 optdepends=('python: the Python module')
 source=($pkgname-$pkgver.tar.gz::https://github.com/imageworks/OpenShadingLanguage/archive/Release-${pkgver}.tar.gz)
-sha512sums=('b0e0caf0eb4f660538c48ee1a87ce1fe031123327bca3d98df9256ecb5f032caf08da78436c2ac7b23d73e10a35e43be6ab323a1b2212d4b8a614f9ab3c9f8e6')
+sha512sums=('652279db2c0e7435c8e8bef466bf5e92647de3a477c6e652872bc97fc4b4432c9650b302f090beb69d44c9afd0140087a42084c99130f36b5dd750f2beed285d')
 
 build() {
   cd OpenShadingLanguage-Release-$pkgver
 
-  cmake . \
+  cmake \
     -B build \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=/usr \

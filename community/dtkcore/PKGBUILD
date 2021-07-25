@@ -3,17 +3,17 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkcore
-pkgver=5.2.2.5
+pkgver=5.4.15
 pkgrel=1
 epoch=1
 pkgdesc='DTK core modules'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/dtkcore"
 license=('LGPL3')
-depends=('dconf' 'deepin-desktop-base' 'python' 'gsettings-qt' 'lshw')
-makedepends=('qt5-tools')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dtkcore/archive/$pkgver.tar.gz")
-sha512sums=('ff15e8764316f375a850d33f1d5c77f3c87bfa5172e075960bc9582c36c428412f5adc4ad2c1b2114c0bea2d39894323853ef5bd5e7ffd237783368775a130e0')
+depends=('dtkcommon' 'deepin-desktop-base' 'python' 'gsettings-qt' 'lshw')
+makedepends=('qt5-tools' 'gtest')
+source=("https://github.com/linuxdeepin/dtkcore/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('c699a2df5b73d8f9805a938b38c634c353197fa2fc9a93251c323783bf8d6a0469df0e4a7288ec79ba03c3424a836618ef50cae0f235f7c9decaedc84f1186ab')
 
 build() {
   cd dtkcore-$pkgver

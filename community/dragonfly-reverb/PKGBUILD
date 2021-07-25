@@ -2,7 +2,7 @@
 
 pkgname=dragonfly-reverb
 _name=DragonflyReverb
-pkgver=3.2.1
+pkgver=3.2.5
 pkgrel=1
 pkgdesc="A concert hall reverb and a room reverb"
 arch=('loongarch64' 'x86_64')
@@ -12,10 +12,12 @@ groups=('lv2-plugins' 'pro-audio' 'vst-plugins')
 depends=('gcc-libs' 'glibc' 'libglvnd' 'libx11')
 makedepends=('freeverb3' 'gendesk' 'jack' 'lv2')
 checkdepends=('lv2lint')
-optdepends=('jack: for standalone applications')
+optdepends=('jack: for standalone applications'
+            'lv2-host: for LV2 plugins'
+            'vst-host: for VST plugins')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/michaelwillis/${pkgname}/releases/download/${pkgver}/${_name}-Source-v${pkgver}.tar.gz")
-sha512sums=('63e0f47e8a3197aa65603085e89e4e819580f551be4a2d1c9eedaa479ec9328d9ebd3193f0f4631f06416d7af4859cc9134f23e386209e8b92f60c182203897a')
-b2sums=('c198cea906f3346585139ad8cc0b6c89d617e12c8e796d32b4d93d24347a6d916f69f0460016217e35d5c1177939e0debefd5311d30846192f74a5a2694604e7')
+sha512sums=('fa1a46d6f1b01682094a1407ef26251c6fc0454b55702de6383882ebaade015c5fc44b0ec57d3d38daa447b92b0d4b37f5abd6b59d00efa49bf3e7165a31291e')
+b2sums=('3142fa18b9a8a79b663cb627c250a5d7f6271c8cf28d128eb5bdf1a2b60d5abf7cb19e0ac97f174b12084051d252eb8da0f69f279c0925e7093ecf4ccc7b1790')
 _names=('DragonflyEarlyReflections' 'DragonflyHallReverb' 'DragonflyPlateReverb' 'DragonflyRoomReverb')
 
 prepare() {
@@ -52,12 +54,18 @@ build() {
 }
 
 check() {
+  local _name=""
+  declare -A _urls=(
+    ["DragonflyHallReverb"]='https://github.com/michaelwillis/dragonfly-reverb'
+    ["DragonflyEarlyReflections"]='urn:dragonfly:early'
+    ["DragonflyPlateReverb"]='urn:dragonfly:plate'
+    ["DragonflyRoomReverb"]='urn:dragonfly:room'
+  )
+
   cd "$pkgname-$pkgver"
-  # TODO: add the other plugins via -I flag as soon as lv2lint supports providing
-  # it multiple times
-  lv2lint -I "${PWD}/bin/${_names[1]}.lv2/" \
-          "https://github.com/michaelwillis/dragonfly-reverb" \
-          || echo "Known to fail: https://github.com/michaelwillis/dragonfly-reverb/issues/65"
+  for _name in "${_names[@]}"; do
+    lv2lint -Mpack -s "lv2_generate_ttl" -I "${PWD}/bin/${_name}.lv2/" "${_urls[$_name]}"
+  done
 }
 
 package() {

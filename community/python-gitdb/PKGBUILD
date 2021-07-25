@@ -5,7 +5,7 @@
 _name=gitdb
 pkgdesc="A pure-Python git object database"
 pkgname=python-gitdb
-pkgver=4.0.5
+pkgver=4.0.7
 pkgrel=1
 epoch=1
 url="https://github.com/gitpython-developers/gitdb"
@@ -15,9 +15,9 @@ depends=('git' 'python-smmap')
 makedepends=('python-setuptools')
 checkdepends=('python-nose')
 source=("https://pypi.org/packages/source/g/${_name}/${_name}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('a3f562928a863121c4051663a0674aa94937527b2fc40a7f392d2913d4d1443bda278e2f7cf362d499389691d24a2d965ab89a6533d42a157db3ab629a377e83'
+sha512sums=('db63a613ee59249a3fccbd09fc0eca5747b166180bb5885737f849e339e81dfacd04f65e438fef241cf013cde33fe8c99a569c1599b2b5defd37b50e87dbdb0a'
             'SKIP')
-validpgpkeys=('2CF6E0B51AAF73F09B1C21174D1DA68C88710E60') # Sebastian Thiel (In Rust I trust!) <byronimo@gmail.com>
+validpgpkeys=('27C50E7F590947D7273A741E85194C08421980C9') # Sebastian Thiel (In Rust I trust!) <byronimo@gmail.com>
 
 prepare() {
   mv -v "${_name}-${pkgver}" "${pkgname}-${pkgver}"

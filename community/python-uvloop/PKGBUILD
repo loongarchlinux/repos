@@ -2,7 +2,7 @@
 
 _pkgname=uvloop
 pkgname=python-$_pkgname
-pkgver=0.14.0
+pkgver=0.15.2
 pkgrel=1
 pkgdesc='Ultra fast asyncio event loop'
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,7 @@ license=('Apache' 'MIT')
 depends=('python' 'libuv')
 makedepends=('python-setuptools' 'cython')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('709207480d724a59223eb60f71e893d70117fa463f40d44295ded23c953900e36d6f8277443838390f4e2d4f2da3fea18397c6576b01921aae590caedd522b1d')
+sha512sums=('c7e1a1c0fd52047dc3c353628e1c103e44f96c00ac52d17de27dd469f0936603f631a8f32bfe42b83c4f5becf4fb05cab54667874fdfa15d4c4c7e4c925c9797')
 
 build() {
   cd $_pkgname-$pkgver

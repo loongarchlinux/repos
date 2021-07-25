@@ -1,8 +1,8 @@
 # Maintainer: Kyle Keen <keenerd@gmail.com>
 
 pkgname=seamonkey
-pkgver=2.53.3
-pkgrel=2
+pkgver=2.53.7.1
+pkgrel=1
 pkgdesc="SeaMonkey internet suite"
 arch=('loongarch64' 'x86_64')
 license=('MPL')
@@ -10,15 +10,17 @@ depends=('dbus-glib' 'gtk3' 'hunspell' 'icu'
          'libevent' 'libpulse' 'libvpx' 'libxt' 'mime-types'
          'nss' 'sqlite' 'startup-notification')
 makedepends=('autoconf2.13' 'clang' 'gtk2' 'imake' 'llvm' 'mesa' 'python2-setuptools'
-             'python2-psutil' 'rust' 'yasm' 'unzip' 'zip')
+             'python2-psutil' 'rust' 'yasm' 'unzip' 'zip' 'nasm')
 optdepends=('networkmanager: Location detection via available WiFi networks'
 	    'libnotify: Notification integration'
 	    'pulseaudio: Audio support')
 url="https://www.seamonkey-project.org/"
 source=("https://archive.mozilla.org/pub/seamonkey/releases/$pkgver/source/seamonkey-$pkgver.source.tar.xz"
+        "seamonkey-rust-1.52.patch"
         "mozconfig")
-sha256sums=('2cc86fc22b8113eecd75ae68d4857664e2aadcca72eff4e602301ba0bd5fe48b'
-            '4f371c19959a0745b33a1ef76182c26ece9bcaa6d5b04050539c6c96f4e3a6f3')
+sha256sums=('432206fe787ffb560e811d32103658d676dccb012fc7092d2071bb59729603ea'
+            '6c4db819efacef515fa6459788e69f0def98f9766e37579ff08735caaab869cc'
+            '05bbf05f6a2f060ba3b69a420d57e95766880869a3e416cb05f60894bce1213b')
 install="$pkgname.install"
 
 # Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
@@ -36,6 +38,8 @@ _mozilla_api_key=e05d56db0a694edc8b5aaebda3f2db6a
 prepare() {
   cd "$pkgname-$pkgver"
   cp ../mozconfig .mozconfig
+
+  patch -p1 < ../seamonkey-rust-1.52.patch # Fix build with rust 1.52 (gentoo)
 
   echo -n "$_google_api_key" > google-api-key
   echo -n "$_mozilla_api_key" > mozilla-api-key
@@ -62,10 +66,10 @@ package() {
   ln -s /usr/share/hunspell "$pkgdir/usr/lib/seamonkey/dictionaries"
   ln -s /usr/share/hyphen "$pkgdir/usr/lib/seamonkey/hyphenation"
 
-  install -Dm644 suite/branding/seamonkey/default128.png \
+  install -Dm644 comm/suite/branding/seamonkey/default128.png \
           "$pkgdir/usr/share/pixmaps/seamonkey.png"
 
-  install -Dm644 mozilla/toolkit/mozapps/installer/linux/rpm/mozilla.desktop \
+  install -Dm644 toolkit/mozapps/installer/linux/rpm/mozilla.desktop \
                 "$pkgdir/usr/share/applications/seamonkey.desktop"
   sed -i 's/@MOZ_APP_DISPLAYNAME@/SeaMonkey internet suite/' \
                 "$pkgdir/usr/share/applications/seamonkey.desktop"

@@ -2,14 +2,16 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=netdata
-pkgver=1.26.0
-pkgrel=1
+pkgver=1.31.0
+pkgrel=2
 pkgdesc="Real-time performance monitoring, in the greatest possible detail, over the web"
 url="https://github.com/netdata/netdata"
 arch=('loongarch64' 'x86_64')
 license=('GPL')
 backup=('etc/netdata/netdata.conf')
-depends=('libmnl' 'libnetfilter_acct' 'zlib' 'judy' 'libuv' 'json-c' 'libcap' 'lz4' 'openssl' 'which' 'snappy' 'protobuf')
+depends=('libmnl' 'libnetfilter_acct' 'zlib' 'judy' 'libuv' 'json-c' 'libcap' 'lz4' 'openssl' 'which' 'snappy' 'protobuf'
+         'libwebsockets' 'mongo-c-driver')
+makedepends=('cups')
 optdepends=('nodejs: for monitoring named and SNMP devices'
             'lm_sensors: for monitoring hardware sensors'
             'iproute2: for monitoring Linux QoS'
@@ -19,29 +21,30 @@ optdepends=('nodejs: for monitoring named and SNMP devices'
             'python-requests: for monitoring elasticsearch'
             'hddtemp: for monitoring hhd temperature'
             'apcupsd: for monitoring APC UPS'
+            'cups: for CUPS plugin'
             'iw: for monitoring Linux as access point')
 install=$pkgname.install
-source=("$pkgname-$pkgver.tar.gz::https://github.com/netdata/netdata/archive/v${pkgver}.tar.gz"
+source=("$pkgname-$pkgver.tar.gz::https://github.com/netdata/netdata/releases/download/v${pkgver}/netdata-v${pkgver}.tar.gz"
         "$pkgname.sysusers")
-sha512sums=('0a4c538387a28da9999e3a69cbc5c80ba8d5542185ef91cd8440a9701875b7c1c5b62bbc3a471881cd6d494beea5618971e90228d65c8497d88e83ccf5164fef'
+sha512sums=('62deba75e41fca44015a4e36b6791f7f10ea0a2658bcbd640e231abbbdbf56c7317c9fa72218fbd22a3312b33e7ec7886ea254cba331da9b3a51923e45393576'
             'a910809a823ba58ca7bdaa72e8d68427b48f452c1fbb2343fa182ecb0a091a7640e73af24b8ba2fdd90e00aed8ef53b7fccd25cb8f04ca9b9fa6c8e52223ca66')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname-v$pkgver"
 
   autoreconf -i
   ./configure \
-  	--prefix="/usr" \
-  	--sbindir="/usr/bin" \
-  	--sysconfdir="/etc" \
-  	--libexecdir="/usr/lib" \
-  	--localstatedir="/var" \
-  	--with-zlib --with-math --with-user=netdata
+      --prefix="/usr" \
+      --sbindir="/usr/bin" \
+      --sysconfdir="/etc" \
+      --libexecdir="/usr/lib" \
+      --localstatedir="/var" \
+      --with-zlib --with-math --with-user=netdata
   make
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname-v$pkgver"
 
   make DESTDIR="$pkgdir" install
 

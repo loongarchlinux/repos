@@ -3,31 +3,35 @@
 
 _name=pytesseract
 pkgname=python-pytesseract
-pkgver=0.3.6
+pkgver=0.3.8
 pkgrel=1
 pkgdesc='Python wrapper for Google Tesseract'
 arch=('any')
 url=https://github.com/madmaze/pytesseract
 license=('Apache')
-depends=('python-pillow' 'python-setuptools' 'tesseract')
+depends=('python-pillow' 'tesseract')
+makedepends=('python-setuptools' )
 checkdepends=('python-pytest' 'tesseract-data-eng' 'tesseract-data-fra')
-source=("$url/archive/v.$pkgver/$_name-v.$pkgver.tar.gz")
-sha512sums=('002777ce3c9609455aca36e0e17f19ead32c5d48b8bc04081b63aa1520104572ecdf975a85fbf010e29bd6eb66db810f1b88ee8e852de274dc9fdea96acf80bf')
+source=("$url/archive/v$pkgver/$_name-v$pkgver.tar.gz")
+b2sums=('601610e14c259ab69ca0f4b17e3ea0478c8904c524c573b960859036684cdef5aaf16268e454e4d7f16e5b54d6d4522dd758642c70de3b23822f7e2bf4cfd861')
 
 build() {
-  cd $_name-v.$pkgver
+  cd $_name-$pkgver
   python setup.py build
 }
 
 check() {
-  cd $_name-v.$pkgver
+  cd $_name-$pkgver
   mkdir -p temp
   local sitepackages=$(python -c "import site; print(site.getsitepackages()[0])")
   python setup.py install --skip-build --root=temp
-  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$sitepackages" pytest -k 'not test_image_to_data_common_output[dict]' # https://github.com/madmaze/pytesseract/issues/298
+  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$sitepackages" pytest
 }
 
 package() {
-  cd $_name-v.$pkgver
+  cd $_name-$pkgver
+  export PYTHONHASHSEED=0
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 }
+
+# vim:set ts=2 sw=2 et:

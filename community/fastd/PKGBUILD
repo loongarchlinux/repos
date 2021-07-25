@@ -1,19 +1,19 @@
-# Maintainer: Baptiste Jonglez <archlinux at bitsofnetworks dot org>
+# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Contributor: Baptiste Jonglez <archlinux at bitsofnetworks dot org>
 # Contributor: NeoRaider
 
 pkgname=fastd
-arch=("loongarch64" "x86_64")
-pkgver=20
+pkgver=22
 pkgrel=1
+arch=('loongarch64' 'x86_64')
 pkgdesc="Fast and secure tunneling daemon"
 makedepends=('meson')
 checkdepends=('cmocka')
-depends=('libcap' 'gcc-libs' 'libuecc>=6' 'libsodium' 'json-c' 'openssl')
-url="https://projects.universe-factory.net/projects/fastd"
+depends=('gcc-libs' 'libcap' 'libmnl' 'libuecc>=6' 'libsodium' 'json-c' 'openssl')
+url="https://github.com/NeoRaider/fastd"
 license=('BSD')
-source=("https://projects.universe-factory.net/attachments/download/86/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('56cab8639218d63237d9a5508fb2bf6fa637374d53fb7fa55b7e92e4d4dfeb00')
-sha512sums=('8cb722a12fff9f6ee068f67c7a03c287c82b97d851e580070a9bc94fac3b33395203617309e8aaea1c91781a7245ec872442f8567d10dc6d1efac8de89c050b3')
+source=("https://github.com/NeoRaider/fastd/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha512sums=('66196fa13c93b87b78b9e31bc267cf616dcfb4a964387c4a3f0f3176fa1529be335a6fac91379038d6a8b1a1be4fea547659551a8a9fa8d6939589d5f8a9a7aa')
 
 build() {
   cd "$srcdir/fastd-${pkgver}"

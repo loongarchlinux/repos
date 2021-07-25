@@ -2,7 +2,7 @@
 
 _name=django-crispy-forms
 pkgname=python-django-crispy-forms
-pkgver=1.9.2
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="The best way to have DRY Django forms"
 arch=('any')
@@ -12,8 +12,8 @@ depends=('python-django')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-pytest-django')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('2f3696d3a4b1ff1a203ae4f73ec42e9862bfcb709267f3d5788c4bdbccbd8f56070a2e51948557344ac23fd0fb157457a80b898b4573676282ac7a6a061a32be')
-b2sums=('777f215d020c6ebb344a40de86e1770d1efefa92409bd65ed2db9735ad70f855395f6f3c3be9d139949dcee90d6bc16ea5e8e7ae09af8d45279e8c69b45351b1')
+sha512sums=('f092ff05f5d38e1b7908afcb59fb1c8c3861a8d3c198c0026ec2941aebba7f13b58fd31bea0e08a06c3dd5e38db6bacee64a2a707f0aec4a2a52c76aba53754f')
+b2sums=('5ae30956510f979286ea6655bd77a198e9b936978ddd5e89ab0a243f34cc8683810a99cc729a177cf4f74e2f7d66d2a55f6bfda41e8c77c0882bb13d303015f9')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
@@ -34,7 +34,6 @@ package() {
   cd "$pkgname-$pkgver"
   python setup.py install --skip-build \
     --optimize=1 \
-    --prefix=/usr \
     --root="${pkgdir}"
   install -vDm 644 {CONTRIBUTORS.txt,README.rst} \
     -t "${pkgdir}/usr/share/doc/${pkgname}"

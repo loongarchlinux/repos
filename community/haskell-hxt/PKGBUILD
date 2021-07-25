@@ -2,8 +2,8 @@
 
 _hkgname=hxt
 pkgname=haskell-hxt
-pkgver=9.3.1.18
-pkgrel=150
+pkgver=9.3.1.22
+pkgrel=17
 pkgdesc="A collection of tools for processing XML with Haskell."
 url="https://github.com/UweSchmidt/hxt"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-hxt-charproperties' 'haskell-hxt-regex-xmlschema' '
          'haskell-network-uri')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4b7c57486fe02357a45b5f835dd9f05333ce39578ec84c3c920fdcaa2df8ae1067da3650d3948559ddaf2e6f77f14291e1ddaa28a12ea9dfb62a797d296ec118')
+sha512sums=('ac7720a01a7769bfb528aa5de29fff9a993c430af75d1326bd50e845c3b7378be09bdda8c99bdd7e45fc5c09fac10c6fc318ff77cf65b2ad7ea2709aff2c1af8')
 
 build() {
     cd $_hkgname-$pkgver

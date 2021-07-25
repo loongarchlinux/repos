@@ -3,7 +3,7 @@
 # Contributor: Jean Lucas <jean@4ray.co>
 
 pkgname=sccache
-pkgver=0.2.13
+pkgver=0.2.15
 pkgrel=1
 pkgdesc='Shared compilation cache'
 arch=(loongarch64 x86_64)
@@ -23,14 +23,14 @@ optdepends=(
   'memcached: Memcached support'
   'redis: Redis support'
 )
-_tag=8916253e51cdd710dc70d0616235ace36e731f98
+_tag=6b6d2f7d2dceefeb4f583712aa4c221db62be0bd
 source=(git+https://github.com/mozilla/sccache.git#tag=${_tag})
 b2sums=(SKIP)
 
 pkgver() {
   cd sccache
 
-  git describe --tags
+  git describe --tags | sed 's/^v//'
 }
 
 prepare() {

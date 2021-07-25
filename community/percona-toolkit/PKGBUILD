@@ -4,21 +4,21 @@
 # Contributor: Sławomir Kowalski <suawekk@gmail.com>
 
 pkgname=percona-toolkit
-pkgver=3.2.0
-pkgrel=2
+pkgver=3.3.1
+pkgrel=1
 pkgdesc="Collection of advanced command-line tools to perform a variety of MySQL and system tasks."
 url="https://www.percona.com/software/database-tools/percona-toolkit"
 arch=('loongarch64' 'x86_64')
 license=('GPL')
 depends=('perl-term-readkey')
-makedepends=('perl-dbd-mysql' 'perl-dbi' 'go' 'dep' 'git')
+makedepends=('perl-dbd-mysql' 'perl-dbi' 'go' 'git')
 optdepends=(
     'perl-dbd-mysql: MySQL connections'
     'perl-dbi: MySQL connections'
 )
 options=('!emptydirs' 'purge')
 source=("https://github.com/percona/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('a9f0b070da0edc3cb56eac403ea5a6e2bd7af4842947624282e17fdda6bcb6ae')
+sha256sums=('274668d363f58ebede60d7094d87ba0e5368b848a0688e711a7bef6b55d93d64')
 
 prepare() {
     mkdir -p "$srcdir"/src/github.com/percona
@@ -33,6 +33,9 @@ prepare() {
         -e "s#\\$\\(shell basename \`git rev-parse --show-toplevel\`\\)#$pkgname#" \
         -e "s#\\bLDFLAGS\\b#PTLDFLAGS#" \
         -e 's#^PTLDFLAGS="#PTLDFLAGS="-extldflags \\"$(LDFLAGS)\\" #'
+
+    # disable go dep
+    sed '/dep ensure/d' -i src/go/Makefile
 }
 
 build() {

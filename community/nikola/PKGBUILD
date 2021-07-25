@@ -2,8 +2,8 @@
 
 _name=Nikola
 pkgname=nikola
-pkgver=8.1.1
-pkgrel=2
+pkgver=8.1.3
+pkgrel=1
 pkgdesc="A static site and blog generator"
 arch=('any')
 url="https://getnikola.com/"
@@ -16,11 +16,13 @@ depends=('python-babel' 'python-blinker' 'python-doit' 'python-dateutil'
 makedepends=('jupyter-notebook' 'python-aiohttp' 'python-ghp-import'
 'python-husl' 'python-ipykernel' 'python-jinja' 'python-micawber'
 'python-phpserialize' 'python-pygal' 'python-pyphen' 'python-ruamel-yaml'
-'python-toml' 'python-typogrify' 'python-watchdog')
+'python-toml' 'python-typogrify' 'python-watchdog' 'zeromq')
 checkdepends=('python-freezegun' 'python-pytest')
 optdepends=('jupyter-notebook: for .ipynb support'
             'python-aiohttp: for `nikola auto`'
             'python-ghp-import: for upload to Github pages'
+            'python-hsluv: for section color mixing'
+            'python-html5lib: for HTML5 minify and format support'
             'python-husl: for optional color support'
             'python-ipykernel: for .ipynb support'
             'python-jinja: for jinja2 based themes'
@@ -33,8 +35,10 @@ optdepends=('jupyter-notebook: for .ipynb support'
             'python-typogrify: for typographical enhancements'
             'python-watchdog: for `nikola auto`')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('a833cb7687077266a20f7043f99b03391f350b48ceea71250158e760b0e44b603de1d6e398a03ec848483775501ad248b6ac45a23ceb250d120a63f110d482b5'
+sha512sums=('7b6a8391d023a339125392082cc3d2ea2a2fe25b8938bd82b8c9efe0cbb3e8b83537f1bd00d97a648e3fc2b096e673702026fa3942ab9c97e76bf21b5afefe16'
             'SKIP')
+b2sums=('535870b7cd147169b511166186ac200ab9d31d976c58363e42235e07ea8ba68e01738d378190663864e6a8605986771500569004e7a73ea043ae8982be09afe1'
+        'SKIP')
 validpgpkeys=('DF32C99CFF84282CF9D4CF7171023DBD5EAAEA16') # Chris Warrick <kwpolska@gmail.com>
 
 prepare() {
@@ -58,13 +62,14 @@ build() {
     --shell zsh \
     --hardcode-tasks \
     > "${pkgname}_zsh"
+  # ensure that the shell completion is assigned to the correct executable
+  sed -e "s/__main__.py/${pkgname}/g" -i "${pkgname}_"{bash,zsh}
 }
 
 check() {
   cd "$pkgname-$pkgver"
   export PYTHONPATH="build:${PYTHONPATH}"
-  # disabling failing test: https://github.com/getnikola/nikola/issues/3432
-  pytest -vv -k 'not test_compiling_markdown[hilite]' tests/
+  pytest -v -k "not test_compiling_markdown"
 }
 
 package() {
@@ -81,8 +86,4 @@ package() {
     "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
   install -vDm 644 "${pkgname}_zsh" \
     "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
-  # removing tests as a top-level module
-  # https://github.com/getnikola/nikola/issues/3348
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  rm -rvf "${pkgdir}/${site_packages}/tests"
 }

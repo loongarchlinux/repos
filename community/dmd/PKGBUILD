@@ -11,7 +11,7 @@ pkgname=('dmd' 'dmd-docs' 'libphobos')
 pkgdesc='D programming language compiler and standard library'
 groups=('dlang' 'dlang-dmd')
 pkgbase=dmd
-pkgver=2.094.0
+pkgver=2.097.0
 pkgrel=1
 epoch=1
 arch=('loongarch64' 'x86_64')
@@ -27,7 +27,7 @@ source=("git+https://github.com/dlang/dmd.git#tag=v$pkgver"
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            'b77f8fdd7f0415d418eac3192186b7f4aa2f80e67bc415191cdd416548451576'
+            '751a6f3fcd1e361b7204345f4c23db48944145e488aea88ab46b6809d09b9cf1'
             'SKIP'
             '3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035'
             '4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1')
@@ -45,8 +45,14 @@ prepare() {
 
 build() {
     export DFLAGS="-link-defaultlib-shared=false $(echo -ne $LDFLAGS | cut -d\" -f2 | tail -c+4 | sed "s/,/ -L=/g") -flto=full"
+    export HOST_DMD=ldmd2
+
     cd "$srcdir"/dmd
-    make -f posix.mak BUILD=release ENABLE_RELEASE=1 PIC=1 ENABLE_LTO=1 HOST_DMD=ldmd2
+    # Make the build tool. Instructions from src/posix.mak
+    mkdir generated
+    $HOST_DMD -ofgenerated/build -g src/build.d -release -O
+    # Actually build dmd
+    generated/build BUILD=release HOST_DMD="$HOST_DMD" CXX="c++" ENABLE_RELEASE=1 DFLAGS="$DFLAGS" dmd -v $MAKEFLAGS
 
     cd "$srcdir"/druntime
     make -f posix.mak DMD="$srcdir"/dmd/generated/linux/release/*/dmd BUILD=release ENABLE_RELEASE=1 PIC=1
@@ -56,7 +62,7 @@ build() {
 
     # This requires object.d to compile, thus need to be after druntime is built
     cd "$srcdir"/dmd
-    make -C docs DMD=ldmd2
+    make -C docs DMD=$HOST_DMD
 }
 
 package_dmd() {

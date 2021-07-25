@@ -1,0 +1,41 @@
+# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+# Contributor: Giovanni Harting <539@idlegandalf.com>
+
+pkgname=python-awesomeversion
+_name=${pkgname#python-}
+pkgver=21.6.0
+pkgrel=1
+pkgdesc="One version package to rule them all."
+arch=('any')
+url="https://github.com/ludeeus/awesomeversion"
+license=('MIT')
+depends=(python)
+makedepends=('python-setuptools')
+checkdepends=('python-pytest')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/ludeeus/$_name/archive/refs/tags/$pkgver.tar.gz")
+sha512sums=('e620e1481f02f65c14c1e9080072dcf98d01e053723e8e99216984f753f34825822d84f5207cac5aef2400ba8a3846b42d7ce1a2c55295c6e48955e8aacad68f')
+
+prepare() {
+    cd $_name-$pkgver
+
+    # replace version "main" with correct version
+    sed -e "s|version=\"main\"|version=\"$pkgver\"|" -i setup.py
+}
+
+check() {
+    cd $_name-$pkgver
+    PYTHONPATH=. pytest tests
+}
+
+build() {
+    cd $_name-$pkgver
+
+    python setup.py build
+}
+
+package() {
+    cd $_name-$pkgver
+
+    python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+    install -Dm644 LICENCE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

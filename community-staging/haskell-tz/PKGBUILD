@@ -2,8 +2,8 @@
 
 _hkgname=tz
 pkgname=haskell-tz
-pkgver=0.1.3.3
-pkgrel=59
+pkgver=0.1.3.5
+pkgrel=12
 pkgdesc='Efficient time zone handling'
 arch=(loongarch64 x86_64)
 url='https://hackage.haskell.org/package/tz'
@@ -13,10 +13,10 @@ checkdepends=(haskell-test-framework-th haskell-hunit haskell-quickcheck
               haskell-test-framework-quickcheck2 haskell-test-framework-hunit)
 makedepends=(ghc)
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('54dacfde056e5f860062e1dcf9fe9a384e8725bb195d404b4b9a24ff50faaa777ff077330e06f336d369a61a855c0e09e3475477e1b34030dbab6d7c661a2452')
+sha512sums=('1821d84bcb2da33a4a1c22fd1c809d3bd49a91d05b5e9f7ef1b073bd91b970dee393a767f84e43c6f681add1cb77f39878089d380b39e8c7855b5429a7f5f97c')
 
 build() {
-  cd $_hkgname-$pkgver    
+  cd $_hkgname-$pkgver
     
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname \
@@ -34,7 +34,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {

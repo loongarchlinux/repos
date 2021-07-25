@@ -3,7 +3,7 @@
 # Contributor: Markus Weimar <mail@markusweimar.de>
 
 pkgname=ttf-sarasa-gothic
-pkgver=0.14.3
+pkgver=0.32.9
 pkgrel=1
 pkgdesc="A CJK programming font based on Iosevka and Source Han Sans. (TTC)"
 arch=('any')
@@ -12,8 +12,8 @@ license=('OFL')
 provides=('ttf-sarasa-slab')
 source=("https://github.com/be5invis/Sarasa-Gothic/releases/download/v$pkgver/sarasa-gothic-ttc-$pkgver.7z"
         "LICENSE-$pkgver::https://raw.githubusercontent.com/be5invis/Sarasa-Gothic/v${pkgver}/LICENSE")
-sha512sums=('9fb4f4636dec1ae9ee47cca17700ca0a6012541f5d99958d75abc1b2f15dcd705742ffb2f638b1bad21e7adeb043bcc2e78d8c610c464b72024dee5912fa0368'
-            '1b305be7113857d058a16fc5ba95c52bf0b812664de8c726ff9800514333bebb4ff8c3489334a814eb48b7455349b492adf9565b9b59cff3c0a9c5d451c8ccc6')
+sha512sums=('b2a98c7d368181b82b2404a61cf40905fb374b0798c29aedd12d8613e3bb46e068fb256362690ad49fcbf8493c7d70468f76ec1cc141cb30de66cb7b29797137'
+            '235a437c02a41bb7b7c2a7209f6333d439dd27ff83f0d8b53ae146e92b0159a5196ffcc5fdcc47dc4c995826e468d0af6d9648a2468f39b72a734d8cde6643f9')
 
 package() {
     install -d "$pkgdir/usr/share/fonts/${pkgname:4}"

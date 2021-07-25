@@ -2,20 +2,24 @@
 
 _pkgname=aiopg
 pkgname=python-$_pkgname
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.2.1
+pkgrel=1
 pkgdesc='library for accessing a PostgreSQL database from the asyncio'
 arch=('any')
 url='https://github.com/aio-libs/aiopg'
 license=('BSD')
-depends=('python' 'python-psycopg2')
+depends=('python' 'python-psycopg2' 'python-async-timeout')
 makedepends=('python-setuptools')
 optdepends=('python-sqlalchemy: SQLAlchemy support')
 #checkdepends=('python-pytest-runner' 'python-sqlalchemy' 'python-docker')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('1947be779ad5f2a0a38a8db5318f52cf1245a24f1c73ec67453e3dfc9ec507dd5aaf95a079aabb18228ba230c71c58a072a5de48a9165ddebd82ac0207bc059b')
+sha512sums=('19c00a77cbf8bc60c7704bcc17f9baab6ec1b0554dc62c1bf8fbd4f97f56636fc5edf9479da5a9c27dfc06108c9d650b3fe5d2cddca445f1ffa7b18cbc1d896c')
 
 # TODO: fix tests (need docker)
+
+prepare() {
+  sed -i 's|install_requires = \["psycopg2-binary|install_requires = \["psycopg2|' $_pkgname-$pkgver/setup.py
+}
 
 build() {
   cd $_pkgname-$pkgver
@@ -34,7 +38,7 @@ package() {
 
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 
-  install -Dm 644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

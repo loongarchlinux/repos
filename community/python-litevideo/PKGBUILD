@@ -2,7 +2,7 @@
 
 _pkgname=litevideo
 pkgname=python-$_pkgname
-pkgver=2020.04
+pkgver=2020.12
 pkgrel=1
 pkgdesc='Small footprint and configurable video cores'
 arch=('any')
@@ -11,7 +11,7 @@ license=('BSD')
 depends=('python-migen' 'python-litex')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('b50719b6a0e1d24db9b6a7802de012ea423735793dd1699493b1ae82831fe9310e2011c3e505e437340410ab2a3f5d04d165bf36f604c6f1931ee27cad369fcc')
+sha512sums=('fa8685e16c4a07d8629228464a0b7ae357b65d505634d75f0a4816305700b7fd6297cbdd59126b2aae23700c7373bf75b22872b5e333b95f88121e28b311e098')
 
 build() {
   cd $_pkgname-$pkgver
@@ -26,4 +26,3 @@ package() {
 
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-

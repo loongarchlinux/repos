@@ -1,0 +1,44 @@
+# Maintainer: NicoHood <archlinux {cat} nicohood {dog} de>
+# PGP ID: 97312D5EB9D7AE7D0BD4307351DAE9B7C1AE9161
+# Contributor: Morgenstern <charles [at] charlesbwise [dot] com>
+
+pkgname=cherrytree
+pkgver=0.99.37
+pkgrel=1
+pkgdesc="Hierarchical note-taking application"
+arch=('loongarch64' 'x86_64')
+url="https://www.giuspen.com/cherrytree/"
+license=('GPL3')
+depends=('fmt' 'gspell' 'gtksourceviewmm' 'libxml++2.6' 'uchardet')
+
+makedepends=('cmake' 'python' 'spdlog')
+source=("${pkgname}-${pkgver}.tar.xz::https://www.giuspen.com/software/${pkgname}_${pkgver}.tar.xz"
+        "${pkgname}-${pkgver}.tar.xz.asc::https://www.giuspen.com/software/${pkgname}_${pkgver}.tar.xz.asc")
+sha512sums=('b455729b72a67ee63351807cd83aa06605d90f2c9ba1c89c75c150e7d06f57d8f321dd5c19a48f2c02ad8d4db03eb00a551ab9c74b5983ed46fba9be13f2d7a1'
+            'SKIP')
+validpgpkeys=('C7BF38CE0BD442C2369AA984049128A20CE0648D') # Giuseppe Penone <giuspen [at] gmail [dot] com>
+
+build() {
+  cmake \
+	-B "${pkgname}_${pkgver}/build" \
+	-S "${pkgname}_${pkgver}" \
+  -DINSTALL_GTEST:BOOL='OFF' \
+	-DAUTO_RUN_TESTING:BOOL='OFF' \
+	-Wno-dev
+  make -C "${pkgname}_${pkgver}/build"
+}
+
+# NOTE: In order to run tests that depend on the X server in a clean chroot,
+# you must allow the chroot access your X server:
+# xhost +local:
+# https://wiki.archlinux.org/index.php/chroot#Run_graphical_applications_from_chroot
+check() {
+  export DISPLAY=:0
+  cd "${pkgname}_${pkgver}"
+  ./"${_pkgname}/build/run_tests_with_x_1"
+  ./"${_pkgname}/build/run_tests_with_x_2"
+}
+
+package() {
+  make -C "${pkgname}_${pkgver}/build" DESTDIR="${pkgdir}" install
+}

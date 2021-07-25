@@ -1,16 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=tldr
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="Command line client for tldr, a collection of simplified and community-driven man pages."
 arch=('any')
 url="https://github.com/tldr-pages/tldr-python-client"
 license=('MIT')
-depends=('python-colorama' 'python-setuptools' 'python-termcolor')
-checkdepends=('python-pytest-runner')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/tldr-pages/tldr-python-client/archive/$pkgver.tar.gz")
-sha512sums=('b428fdab4954909fe74b46cdaa01362148965d4c52658cb2a9c3ad970096bd4aaf545845468649e6b217d01110eb932d4bc6d6df588b863a9d1e0c4ae281962a')
+depends=('python-argcomplete' 'python-colorama' 'python-termcolor')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest')
+source=("https://github.com/tldr-pages/tldr-python-client/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('12a9cd1d69da1c50b5e4d6353dd1ca8d7b60dd570d73e8d6b1c83a0e2d59a621684033f2f2a13bf5db5f38e5f6f23935dbcf7836fbfbcb0718509285a7edd5bb')
 
 build() {
   cd tldr-python-client-$pkgver
@@ -19,7 +20,7 @@ build() {
 
 check() {
   cd tldr-python-client-$pkgver
-  python setup.py pytest
+  python -m pytest
 }
 
 package() {

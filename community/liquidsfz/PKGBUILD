@@ -1,35 +1,32 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=liquidsfz
-pkgver=0.2.0
+pkgver=0.2.3
 pkgrel=1
 pkgdesc="SFZ Sampler"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/swesterfeld/liquidsfz"
 license=('LGPL2.1')
 groups=('lv2-plugins' 'pro-audio')
-depends=('glibc' 'libsndfile.so')
-makedepends=('lv2' 'libjack.so')
+depends=('gcc-libs' 'glibc')
+makedepends=('jack' 'libsndfile' 'lv2')
 checkdepends=('lv2lint')
-optdepends=('libjack.so: for standalone application')
-provides=('soundfont-synthesizer')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/swesterfeld/${pkgname}/archive/${pkgver}.tar.gz"
-        "$pkgname-0.2.0-fix_relro.patch::https://github.com/swesterfeld/liquidsfz/pull/6.patch")
-sha512sums=('b5c9804c0de7467f00a6cdbbd54b5c8b34785a997184d2edd40979cbe0ad368a995c49ded727b1dc7bdea7dffa0ec48a4e09634d0e21ece7aa59a33590de6d2e'
-            '2e2c9e3b62ee1d5115d3b8d9711d6938d18540546c193f1d33860f5d3a39d6483af70ff758a05abf1dd2e6eed99bed20d6cb2ce39cacfa103c84f837fa82f13d')
+optdepends=(
+  'jack: for standalone application'
+  'lv2-host: for LV2 plugin'
+)
+provides=('libliquidsfz.so' 'soundfont-synthesizer')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/swesterfeld/${pkgname}/archive/${pkgver}.tar.gz")
+sha512sums=('20e39c69727a978b60c2de84b5d880004b3cff14180ddea83e5964433e65f5d5ef6ed11fc7934693d5eaed801cfeab866ec35d50ccbf835af3bc869e3af0fefd')
+b2sums=('a13bf833449be9fe5b45ff4db8dd4063ef5e7b93ef407a20d6f2eef64e43ff00ab3161d5f4b7d293831a448d55e7ff235e5dc8661a40ef403031dc3041b65f44')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  # fix lv2 Makefile to achieve full RELRO:
-  # https://github.com/swesterfeld/liquidsfz/issues/5
-  patch -Np1 -i "../$pkgname-0.2.0-fix_relro.patch"
   autoreconf -vfi
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  # currently only static library is possible:
-  # https://github.com/swesterfeld/liquidsfz/issues/7
   ./configure --prefix=/usr \
               --enable-shared \
               --disable-static \
@@ -40,10 +37,11 @@ build() {
 check() {
   cd "$pkgname-$pkgver"
   make -k check
-  LV2_PATH="${PWD}" lv2lint "http://spectmorph.org/plugins/liquidsfz"
+  LD_LIBRARY_PATH="lib/.libs/:$LD_LIBRARY_PATH" lv2lint -Mpack -I "${PWD}/lv2" "http://spectmorph.org/plugins/liquidsfz"
 }
 
 package() {
+  depends+=('libsndfile.so')
   cd "$pkgname-$pkgver"
   make DESTDIR="$pkgdir/" install
   install -vDm 644 {NEWS,TODO,{OPCODES,README}.md} \

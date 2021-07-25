@@ -1,18 +1,17 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-game-libretro-beetle-psx
-pkgver=0.9.44.16
-_codename=Leia
-pkgrel=2
+pkgver=0.9.44.25
+_codename=Matrix
+pkgrel=1
 pkgdesc="Libretro wrapper for Kodi's Game API"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/kodi-game/game.libretro.beetle-psx'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-game')
-depends=('kodi-addon-game-libretro' 'libretro-beetle-psx')
-makedepends=('cmake' 'kodi-dev')
+makedepends=('cmake' 'kodi-dev' 'kodi-addon-game-libretro' 'libretro-beetle-psx')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kodi-game/game.libretro.beetle-psx/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('2541a164ec64797a533afa48f9e133576bd3887ac6167dd08f45ee7a429d1e4be4f432efb1a1c9847019863b5bb7dba498534a15464d6e096afc9c3cf5ee00ee')
+sha512sums=('d0e66f2a3d9127c086004f1f5d3955f86262721bc34f6c82de88e678201390d5a4831858f329cecce50a985c531f559fc36d02e03ddad3f3309168a6ffa30912')
 
 build() {
     cd "game.libretro.beetle-psx-$pkgver-$_codename"
@@ -26,6 +25,7 @@ build() {
 }
 
 package() {
+    depends=('kodi-addon-game-libretro' 'libretro-beetle-psx')
     cd "game.libretro.beetle-psx-$pkgver-$_codename"
 	make DESTDIR="$pkgdir/" install
 }

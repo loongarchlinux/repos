@@ -3,35 +3,38 @@
 # Contributor: Tobias Kieslich <tobias@archlinux.org>
 
 pkgname=qjackctl
-pkgver=0.6.3
+pkgver=0.9.3
 pkgrel=1
 pkgdesc="A Qt front-end for the JACK low-latency audio server"
 url="https://qjackctl.sourceforge.io"
 arch=('loongarch64' 'x86_64')
 license=('GPL2')
 groups=('pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
-makedepends=('alsa-lib' 'jack' 'qt5-tools' 'portaudio')
-optdepends=('portaudio: Portaudio support')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt6-base')
+makedepends=('alsa-lib' 'cmake' 'jack2' 'jack2-dbus' 'qt6-tools' 'portaudio')
+optdepends=(
+  'jack2-dbus: for JACK dbus support'
+  'qt6-wayland: for native wayland support'
+)
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('72a9218b3b8a6b72470656e774f5cfbfe6670059e9f1a85a394345f4689c5d5c05af23b5e37d5f8dfc6159e591f64249006936069dde1632ef9d74b6f8355e0b')
-b2sums=('98d80d0fea3db359b732fad14711352ba688e605b7225daad64d7df1dabf1d19e24b4d643581f1936afa0df0c84350cf5727686246bd8a850e09da969a228e44')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  autoreconf -vfi
-}
+sha512sums=('bfe1cbd37ebd92409f5dd7e8a28115b9922bb43ad0f38112b140c8635a33cc49614202b9e4f92d57e58ed83a85767f53b538a7e6b69702b159157868081b3435')
+b2sums=('e3fdacd8fb287e56d53c1b4afabf69aae89a9c311c1f056ae0f2c0f2c7e994e320a904d9ddd40efd48ed7b15fd7d90ed6ce07adc0db496d133431b1519c83a86')
 
 build() {
   cd "${pkgname}-${pkgver}"
-  ./configure --prefix=/usr
-  make
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE='None' \
+        -DCONFIG_QT6=ON \
+        -Wno-dev \
+        -B build \
+        -S .
+  make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libasound.so' 'libjack.so')
+  depends+=('libasound.so' 'libjack.so' 'libportaudio.so')
   cd "${pkgname}-${pkgver}"
-  make DESTDIR="$pkgdir" install
+  make VERBOSE=1 DESTDIR="$pkgdir" install -C build
   install -t "${pkgdir}/usr/share/doc/${pkgname}" \
     -vDm 644 {AUTHORS,ChangeLog,README,TODO,TRANSLATORS}
 }

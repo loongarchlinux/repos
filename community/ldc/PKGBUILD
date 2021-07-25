@@ -4,17 +4,17 @@
 
 pkgname=('ldc' 'liblphobos')
 groups=('dlang' 'dlang-ldc')
-pkgver=1.23.0
-_pkgcommit=a83dc56ad5a6ba87023756c05b54b5824053da96
-_dversion=2.093.1
-_clangversion=10.0.1 # related to where ldc2 looks for compiler-rt sanitizers
+pkgver=1.26.0
+_pkgcommit=162ee0cd815ec0e3f8f646f78178833f19c4a657
+_dversion=2.096.1
+_clangversion=12.0.0 # related to where ldc2 looks for compiler-rt sanitizers
 epoch=2
-pkgrel=1
+pkgrel=3
 pkgdesc="A D Compiler based on the LLVM Compiler Infrastructure including D runtime and libphobos2"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/ldc-developers/ldc"
 license=('BSD')
-makedepends=('git' 'cmake' 'llvm' 'ldc')
+makedepends=('git' 'cmake' 'llvm' 'ldc' 'ninja')
 
 source=(
     "git+https://github.com/ldc-developers/ldc#commit=$_pkgcommit"
@@ -46,7 +46,7 @@ build() {
 
     mkdir -p build && cd build
 
-    cmake \
+    cmake -GNinja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_SKIP_RPATH=ON \
@@ -54,15 +54,15 @@ build() {
     -DBUILD_SHARED_LIBS=BOTH \
     -DBUILD_LTO_LIBS=ON \
     -DLDC_WITH_LLD=OFF \
-    -DD_COMPILER_FLAGS="-link-defaultlib-shared=false -linker=gold -flto=full" \
+    -DD_COMPILER_FLAGS="-link-defaultlib-shared=false -linker=gold" \
     -DADDITIONAL_DEFAULT_LDC_SWITCHES="\"-link-defaultlib-shared\"" \
     ..
-    make
+    ninja
 }
 
 check() {
     cd "$srcdir/ldc/build"
-    make all-test-runners
+    ninja all-test-runners
 }
 
 package_ldc() {
@@ -71,7 +71,7 @@ package_ldc() {
     provides=("d-compiler=$_dversion")
 
     cd "$srcdir/ldc/build"
-    make install DESTDIR="$pkgdir"
+    DESTDIR="$pkgdir" ninja install
 
     # move bash-completion
     mkdir -p "$pkgdir/usr/share/bash-completion/completions/"
@@ -94,10 +94,10 @@ package_ldc() {
 package_liblphobos() {
     provides=('d-runtime' 'd-stdlib')
     depends=('curl')
-    options=('staticlibs')
+    options=('staticlibs' '!strip')
 
     cd "$srcdir/ldc/build"
-    make install DESTDIR="$pkgdir"
+    DESTDIR="$pkgdir" ninja install
 
     # remove ldc files
     rm -rf "$pkgdir/usr/bin/"

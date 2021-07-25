@@ -2,17 +2,23 @@
 
 _hkgname=dyre
 pkgname=haskell-dyre
-pkgver=0.8.12
-pkgrel=7
+pkgver=0.9.1
+pkgrel=2
 pkgdesc="Dynamic reconfiguration in Haskell"
 url="https://github.com/willdonnelly/dyre"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-ghc-paths' 'haskell-executable-path' 'haskell-xdg-basedir'
-         'haskell-io-storage')
+depends=('ghc-libs' 'haskell-executable-path' 'haskell-xdg-basedir' 'haskell-io-storage')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('157f1d20dd7a0bbad46044722a4d0e291df09dede715417cf20b18391cb13b52fc25486f99d604d3c279a3f86fc3fc405466099e995190fcbe8aad3cbdb1220e')
+sha512sums=('33e26fe3f2fa7a41e766f1d070ecce975553aa374a06ee07dcb19c15fb1402b29fbbcd346f102fec3a69dfd14ee6e6681d2f012f47f145a45fdf0dd50b61dee2')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    # Not sure why the ln here is needed, but this makes the test suite find dyre itself...
+    sed -i 's/\$HC/$HC -dynamic/;/\$HC/i cp -r ../../../Config .' Tests/*/runTest.sh
+    sed -i 's/"-v0"/"-v0", "-dynamic"/' Config/Dyre/Compile.hs
+}
 
 build() {
     cd $_hkgname-$pkgver    
@@ -29,7 +35,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

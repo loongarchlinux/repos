@@ -2,22 +2,21 @@
 
 pkgname=discord
 _pkgname=Discord
-pkgver=0.0.12
+pkgver=0.0.15
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers that's free and secure."
 arch=('loongarch64' 'x86_64')
 url='https://discordapp.com'
 license=('custom')
-depends=('libnotify' 'libxss' 'nspr' 'nss' 'gtk3'
-         'opera-ffmpeg-codecs' 'libegl' 'libgles') # Replacements
+depends=('libnotify' 'libxss' 'nspr' 'nss' 'gtk3')
 optdepends=('libpulse: Pulseaudio support'
             'xdg-utils: Open files')
 source=("https://dl.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
         'LICENSE.html::https://discordapp.com/terms'
         'OSS-LICENSES.html::https://discordapp.com/licenses')
-sha512sums=('c5009e022cac0b76d39cc125a98b9dd3d7a5827dd7d733c5578237b99b746aeccc1cd253aafa99e2a237bd82ef71ee42011f864059aa5ee62812488dbd82f511'
-            'c83dfebe020d2529f64f3272b7ff8a8f49b2cb39df00b052fa82a279caf9a186440c3b4e6d894e01345ab6a6f6e7746deddc4f1caf2b9f96cf7fe99d253dcca4'
-            '9586ea3f7f10195eb0093057e20cbada252cd1cf2f913c5e425ffe3453fb02b08b528c7bbbf28f18754d23dfec0904cd0cafe9bc02822b50860495c968cfbfeb')
+sha512sums=('4f220ecd0e0c9fcd793ed065055479391506d9401b75ca541cde4136d0290f2720fccca87139091faf269fdb2c020adb5b7333710a31ca603ce8552f3dd4841b'
+            '5074c16991cfa46f24c2b7f192e45babea698965d5e806303c649e9ed446673d381f6142ab54202468756edb6d7742650d0203c11cdbadf8b7f03af8e2d1011f'
+            '83d36cf3adc761796e1b9e2ad469860acb2daaf9d91e743328c441d4d9971f92fcfe5001db554aacd4b2e94c07c7e321c7695933074816957e14474a5dfb0459')
 
 prepare() {
   cd $_pkgname
@@ -42,13 +41,6 @@ package() {
 
   # setuid on chrome-sandbox
   chmod u+s "$pkgdir"/opt/$pkgname/chrome-sandbox
-
-  # Replacement symlinks
-  ln -sf /usr/lib/opera/lib_extra/libffmpeg.so "$pkgdir"/opt/$pkgname/libffmpeg.so
-  ln -sf /usr/lib/libEGL.so "$pkgdir"/opt/$pkgname/libEGL.so
-  ln -sf /usr/lib/libGLESv2.so "$pkgdir"/opt/$pkgname/libGLESv2.so
-  ln -sf /usr/lib/libEGL.so "$pkgdir"/opt/$pkgname/swiftshader/libEGL.so
-  ln -sf /usr/lib/libGLESv2.so "$pkgdir"/opt/$pkgname/swiftshader/libGLESv2.so
 
   # Licenses
   install -Dm 644 LICENSE.html "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.html
