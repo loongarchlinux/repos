@@ -1,0 +1,63 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Stefan Husmann <stefan-husmann@t-online.de>
+# Contributor: Cristian Maureira <saint@archlinux.cl>
+# Contributor: Dr.Egg <rwhite@archlinux.us>
+
+pkgname=musescore
+pkgver=3.5.1
+pkgrel=1
+pkgdesc='Create, play and print beautiful sheet music'
+arch=(x86_64)
+url=https://musescore.org/
+license=(GPL)
+groups=(pro-audio)
+depends=(
+  alsa-lib
+  freetype2
+  libpulse
+  libsndfile
+  libvorbisfile.so
+  libportaudio.so
+  libportmidi.so
+  qt5-base
+  qt5-declarative
+  qt5-graphicaleffects
+  qt5-quickcontrols2
+  qt5-svg
+  qt5-tools
+  qt5-webengine
+  qt5-xmlpatterns
+  zlib
+)
+makedepends=(
+  cmake
+  doxygen
+  git
+  lame
+  qt5-script
+  texlive-core
+)
+optdepends=('lame: MP3 export')
+_tag=daa5fb7ea0ce2f26a83f8c1894090885a76baeb9
+source=(git+https://github.com/musescore/MuseScore.git#tag=${_tag})
+sha256sums=('SKIP')
+
+pkgver() {
+  cd MuseScore
+
+  git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  sed 's/option(BUILD_CRASH_REPORTER "Build with crash reporter" ON)/option(BUILD_CRASH_REPORTER "Build with crash reporter" OFF)/' -i MuseScore/CMakeLists.txt
+}
+
+build() {
+  make PREFIX=/usr NO_RPATH=TRUE USE_SYSTEM_FREETYPE=ON -C MuseScore revision release
+}
+
+package() {
+  make DESTDIR="${pkgdir}" UPDATE_CACHE=FALSE -C MuseScore/build.release install
+}
+
+# vim: ts=2 sw=2 et:

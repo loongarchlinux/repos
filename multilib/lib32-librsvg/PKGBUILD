@@ -1,0 +1,67 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: jtts <jussaar@mbnet.fi>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=lib32-librsvg
+pkgver=2.50.1
+pkgrel=1
+pkgdesc="SVG rendering library (32-bit)"
+url="https://wiki.gnome.org/Projects/LibRsvg"
+arch=(x86_64)
+license=(LGPL)
+depends=(lib32-gdk-pixbuf2 lib32-pango lib32-libxml2 librsvg)
+makedepends=(gobject-introspection gtk-doc git rust lib32-rust-libs)
+checkdepends=(ttf-dejavu)
+provides=(librsvg-${pkgver%%.*}.so)
+_commit=1c5e533a8fc5e7211ced07d28151de3956c5dd75  # tags/2.50.1^0
+source=("git+https://gitlab.gnome.org/GNOME/librsvg.git#commit=$_commit"
+        lto.diff multilib.diff)
+sha256sums=('SKIP'
+            '3cc8ad1af515b2cb4071f0647319c1cf3280dc054875634239061800af1616b6'
+            'c32283a724e8d1a87ad64330ee72781396b6f439dcae0f56da074e9a988ec544')
+
+pkgver() {
+  cd librsvg
+  git describe --tags | sed 's/-/+/g'
+}
+
+prepare() {
+  cd librsvg
+
+  # Turn LTO back on
+  git apply -3 ../lto.diff
+
+  # Hack to cross-compile rust only
+  git apply -3 ../multilib.diff
+
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  export CC='gcc -m32'
+  export CXX='g++ -m32'
+  export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
+  export RUST_TARGET=i686-unknown-linux-gnu
+
+  cd librsvg
+  ./configure --prefix=/usr --disable-static --disable-vala \
+    --disable-gtk-doc --disable-introspection --libdir=/usr/lib32
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool
+  make
+}
+
+check() {
+  cd librsvg
+  # Reftests are probably broken
+  # some reference images were created without the requested fonts
+  make check || :
+}
+
+package() {
+  cd librsvg
+  make DESTDIR="$pkgdir" install
+  rm -r "$pkgdir"/usr/{bin,include,share}
+}
+
+# vim: ts=2 sw=2 et:

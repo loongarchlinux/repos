@@ -1,0 +1,21 @@
+# Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
+# Maintainer: David Runge <dave@sleepmap.de>
+# Contributor: David Runge <dave@sleepmap.de>
+
+pkgname=nextcloud-app-notes
+pkgver=4.0.0
+pkgrel=1
+pkgdesc="Simple Notes app for Nextcloud"
+arch=('any')
+url="https://github.com/nextcloud/notes"
+license=('AGPL3')
+depends=('nextcloud')
+makedepends=()
+options=('!strip')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/nextcloud/notes/releases/download/v${pkgver}/notes.tar.gz")
+sha512sums=('17cc187ae809fe4f637ee148495face0d5f4644d3f911ea3ff0ba74152949b080acbd1e52dd2c9ce73e81a4c59adae40ce0c932f952518652a6814e603474467')
+
+package() {
+  install -d "${pkgdir}/usr/share/webapps/nextcloud/apps"
+  cp -R "${srcdir}/notes" "${pkgdir}/usr/share/webapps/nextcloud/apps/notes"
+}

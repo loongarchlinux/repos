@@ -1,0 +1,39 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=BChoppr
+pkgname=bchoppr
+pkgver=1.8.0
+pkgrel=1
+pkgdesc="An audio stream chopping LV2 plugin"
+arch=('x86_64')
+url="https://github.com/sjaehn/BChoppr"
+license=('GPL3')
+groups=('lv2-plugins' 'pro-audio')
+depends=('cairo' 'gcc-libs' 'glibc' 'libx11')
+makedepends=('lv2')
+checkdepends=('lv2lint')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/sjaehn/${_name}/archive/${pkgver}.tar.gz")
+sha512sums=('3d4929682137b4302c481094c55785051392c0e2dd65f15294c938c7132a7ace71321702cb803b9cd8a1b605a166bbc8f9818fbdbec2b05754f1a8d8bb9fd5c7')
+b2sums=('beed3ede25aab0ffd7114a1c3971f7e8334bdaae3e3adb7ffd6f35707376b4024d86a0161025d8608af3e7951b553a3ea60b9e4531c9c0fdbde611f2ca3310c3')
+
+prepare() {
+  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  make PREFIX='/usr'
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  lv2lint -Mpack -I "${PWD}/${_name}.lv2/" "https://www.jahnichen.de/plugins/lv2/${_name}"
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  make DESTDIR="${pkgdir}" PREFIX='/usr' install
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  # remove useless license file
+  find "${pkgdir}/usr/lib/" -type f -iname "*LICENSE*" -delete
+}

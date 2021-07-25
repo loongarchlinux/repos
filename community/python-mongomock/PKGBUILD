@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-mongomock
+pkgver=3.20.0
+pkgrel=1
+pkgdesc="Fake pymongo stub for testing simple MongoDB-dependent code"
+url="https://github.com/mongomock/mongomock"
+license=('BSD')
+arch=('any')
+depends=('python-sentinels' 'python-six')
+makedepends=('python-pbr')
+checkdepends=('python-nose')
+source=("$pkgbase-$pkgver.tar.gz::https://github.com/mongomock/mongomock/archive/$pkgver.tar.gz")
+sha512sums=('dfc4a3f6dc2004aed7a4496e64fe0b448f731888765cfd39008b8186504ba5faac945ea896938e99d70cd2859fd616a17cd84c416fed2c73de68af6bc8434103')
+
+export PBR_VERSION=$pkgver
+
+build() {
+  cd "$srcdir"/mongomock-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd "$srcdir"/mongomock-$pkgver
+  python setup.py nosetests
+}
+
+package_python-mongomock() {
+  cd mongomock-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

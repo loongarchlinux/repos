@@ -1,0 +1,33 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Can Celasun <can[at]dcc[dot]im>
+
+pkgname=netsniff-ng
+pkgver=0.6.7
+pkgrel=1
+pkgdesc='High performance Linux network sniffer for packet inspection'
+arch=('x86_64')
+url='http://netsniff-ng.org/'
+license=('GPL2')
+depends=('ncurses' 'geoip' 'zlib' 'libnetfilter_conntrack' 'libpcap' 'liburcu' 'libnl'
+         'libcli' 'libcli.so' 'libnet' 'libsodium')
+makedepends=('cmake' 'flex' 'bison')
+source=(http://pub.netsniff-ng.org/netsniff-ng/netsniff-ng-${pkgver}.tar.gz{,.sign})
+sha512sums=('1b9a655c4a09f176132cc0276d564d3e9287e113e7d7bf88852b37465a869c27a1be9f21798f36ef3da31fa0a926e34b64571f913d1372f7a9775004271ca2fc'
+            'SKIP')
+validpgpkeys=('C3DE742283C246F2D7887AB4236B0FE9B5510F47')  # Tobias Klauser <tklauser@distanz.ch>
+
+build() {
+  cd ${pkgname}-${pkgver}
+  NACL_INC_DIR=/usr/include/sodium
+  NACL_LIB=sodium
+  ./configure \
+    --prefix=/usr
+  make all Q= CFLAGS="${CFLAGS} ${CPPFLAGS} -fcommon"
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make PREFIX=/usr DESTDIR="${pkgdir}" SBINDIR=/usr/bin install_all
+}
+
+# vim: ts=2 sw=2 et:

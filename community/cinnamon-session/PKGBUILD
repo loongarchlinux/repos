@@ -1,0 +1,36 @@
+# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Alexandre Filgueira <alexfilgueira@antergos.com>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+
+pkgname=cinnamon-session
+pkgver=4.6.2
+pkgrel=1
+pkgdesc="The Cinnamon Session Handler"
+arch=('x86_64')
+url="https://github.com/linuxmint/${pkgname}"
+license=('GPL' 'LGPL')
+depends=('cinnamon-desktop' 'libsm' 'libcanberra' 'xapps')
+optdepends=('cinnamon-translations: i18n')
+makedepends=('meson' 'samurai' 'xtrans')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('0d4793d8fb828ce8ec6dbedc67a5d244e56d4182b83030d10029eadc0c6723e6')
+b2sums=('f4a2a7dc438846c6013b539a027cbc13359a3cb47ed01c6acb97daf4a28fc26da3754d4264aaa90e8f10504bb7415a82dcc509430825cfd3e50e3beac7c78616')
+
+build() {
+    mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build
+    cd "${srcdir}"/${pkgname}-${pkgver}/build
+
+    meson --prefix=/usr \
+          --libexecdir=lib/${pkgname} \
+          --buildtype=plain \
+          -Dgconf=false \
+          -Ddocbook=false \
+          ..
+    samu
+}
+
+package() {
+    cd "${srcdir}"/${pkgname}-${pkgver}/build
+
+    DESTDIR="${pkgdir}" samu install
+}

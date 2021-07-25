@@ -1,0 +1,35 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
+
+pkgname=python-oslo-utils
+pkgver=4.6.0
+pkgrel=1
+pkgdesc="Oslo Utility library"
+arch=('any')
+url="https://pypi.python.org/pypi/oslo.utils/$pkgver"
+license=('Apache')
+depends=('python-six' 'python-pbr' 'python-iso8601' 'python-oslo-i18n' 'python-pytz'
+         'python-netaddr' 'python-netifaces' 'python-debtcollector')
+makedepends=('python-setuptools')
+checkdepends=('python-oslotest' 'python-ddt' 'python-eventlet')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/openstack/oslo.utils/archive/$pkgver.tar.gz")
+sha512sums=('e1243f62e8f2fa36f6899d87f908ce57ed3a31e58bf176b0980eec861fc00cc095440d7dbd1e4d1cbe6d19544913aa4e1d008b0c21b37b0017f5de1181d9b348')
+
+export PBR_VERSION=$pkgver
+
+build() {
+  cd oslo.utils-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd oslo.utils-$pkgver
+  stestr run
+}
+
+package() {
+  cd oslo.utils-$pkgver
+  python setup.py install --root="$pkgdir/" --optimize=1
+}
+
+# vim:set ts=2 sw=2 et:

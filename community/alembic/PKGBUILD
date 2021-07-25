@@ -1,0 +1,35 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+
+pkgname=alembic
+pkgver=1.7.15
+pkgrel=1
+pkgdesc="A open framework for storing and sharing scene data"
+arch=('x86_64')
+url="http://www.alembic.io/"
+license=('BSD')
+depends=('openexr' 'boost-libs' 'hdf5')
+makedepends=('cmake' 'boost' 'ninja')
+source=($pkgname-$pkgver.tar.gz::https://github.com/alembic/alembic/archive/${pkgver}.tar.gz)
+sha512sums=('a16ce301607530e04021b60227781b1e82927a85545a5c273062d8afd5b13949462d0957e0bdf05a04813fab864631760b4d264f289198b7c825dafbe6324382')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+
+  cmake . \
+    -Bbuild \
+    -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_HDF5=ON
+
+  ninja -C build
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+
+  install -Dm644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+
+  DESTDIR="${pkgdir}/" ninja -C build install
+}
+
+# vim:set ts=2 sw=2 et:

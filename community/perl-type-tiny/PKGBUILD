@@ -1,0 +1,32 @@
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+
+_pkg=Type-Tiny
+pkgname=perl-${_pkg,,}
+pkgver=1.010006
+pkgrel=1
+pkgdesc="Tiny, yet Moo(se)-compatible type constraint"
+arch=(any)
+url="https://metacpan.org/release/${_pkg}"
+license=(PerlArtistic GPL)
+options=(!emptydirs)
+depends=(perl perl-exporter-tiny)
+checkdepends=(perl-test-simple)
+source=(https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/${_pkg}-${pkgver}.tar.gz)
+sha512sums=('fcc8d3b16ee91d4c30584049d8e4709f2a9571e0f1c9fe1d9f2c46c1fda2dd4f3d2f8ddce0fb9de52ed1bd9341cc62f4a6d514c1d40e68b641a8f56910ef2d3b')
+
+build() {
+    cd ${_pkg}-${pkgver}
+    export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL=--skipdeps
+    perl Makefile.PL
+    make
+}
+
+check() {
+    cd ${_pkg}-${pkgver}
+    make test
+}
+
+package() {
+    cd ${_pkg}-${pkgver}
+    make INSTALLDIRS=vendor DESTDIR="${pkgdir}" install
+}

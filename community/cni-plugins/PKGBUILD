@@ -1,0 +1,32 @@
+# Maintainer: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+
+pkgname=cni-plugins
+pkgver=0.8.7
+pkgrel=1
+pkgdesc='Some standard networking plugins, maintained by the CNI team'
+arch=(x86_64)
+url="https://github.com/containernetworking/plugins"
+license=(Apache)
+depends=(glibc)
+makedepends=(go)
+source=($pkgname-$pkgver.tar.gz::$url/archive/v${pkgver}.tar.gz)
+sha512sums=('1b11b080b1f54a8a792b1048573d7d882603b76929f0c9343eeb2e010f97700c0deea4489faeb493a1aeac12557b6847b26784c378d0430c47de6bdaca6aa70f')
+
+build() {
+  cd plugins-$pkgver
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  ./build_linux.sh
+}
+
+package() {
+  cd plugins-$pkgver/bin
+  for bin in *; do
+    install -Dm755 $bin "$pkgdir/usr/lib/cni/$bin"
+  done
+  install -Dm644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

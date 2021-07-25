@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=perl-pkgconfig
+pkgver=0.24026
+pkgrel=1
+pkgdesc="Pure-Perl Core-Only replacement for pkg-config"
+arch=('any')
+license=('PerlArtistic')
+url="https://metacpan.org/release/PkgConfig"
+depends=('perl')
+checkdepends=('perl-capture-tiny' 'perl-test-minimumversion')
+options=('!emptydirs')
+source=("https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/PkgConfig-$pkgver.tar.gz")
+sha512sums=('d87a2ad8c11032c9ad8db055437390fdebbeffe9131d1f24a27718996a2121b8e67feeabf25dea50d878b9fc15e99bc9dfac3a55fc4d5c2189f10b40c1e48246')
+
+build() {
+  cd PkgConfig-$pkgver
+  perl Makefile.PL INSTALLDIRS=vendor
+  make
+}
+
+check() {
+  cd PkgConfig-$pkgver
+  make test
+}
+
+package() {
+  cd PkgConfig-$pkgver
+  make DESTDIR="$pkgdir" install
+}

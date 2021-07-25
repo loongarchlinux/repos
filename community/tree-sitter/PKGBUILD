@@ -1,0 +1,36 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+pkgname=tree-sitter
+pkgver=0.17.1
+pkgrel=1
+pkgdesc='An incremental parsing system for programming tools'
+arch=('x86_64')
+url='https://github.com/tree-sitter/tree-sitter'
+license=('MIT')
+provides=('libtree-sitter.so')
+makedepends=('git' 'cargo' 'npm' 'emscripten')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('a072622fb6299cc7e5829d2ba3188ee4366ec2242fda80948b4a0cfa9f24c7b47c4fffe05af1200617a1ba881a180456ebf56064979e55793804c469c1aa169f')
+
+build() {
+  cd $pkgname-$pkgver
+
+  make
+
+  ./script/build-wasm
+
+  cd cli
+
+  cargo build --release --locked --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+
+  make DESTDIR="$pkgdir" PREFIX=/usr install
+
+  install -Dm 755 target/release/$pkgname -t "$pkgdir"/usr/bin
+
+  install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+

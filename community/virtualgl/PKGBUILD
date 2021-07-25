@@ -1,0 +1,47 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: FigoDaPaura <ffigoDaPaura>
+# Contributor: Andres Jimenez
+
+pkgname=virtualgl
+pkgver=2.6.4
+pkgrel=1
+pkgdesc="Redirects 3D commands from an OpenGL application onto a server-side 3D graphics card"
+arch=('x86_64')
+url="https://virtualgl.org"
+license=('LGPL')
+depends=('libxv' 'glu' 'libjpeg-turbo' 'xcb-util-keysyms' 'opencl-driver' 'ocl-icd')
+makedepends=('cmake' 'mesa' 'libxtst' 'opencl-headers')
+source=("https://downloads.sourceforge.net/project/virtualgl/${pkgver}/VirtualGL-${pkgver}.tar.gz"{,.sig})
+sha512sums=('a475e5b7373d0c86ec7d1274f7527cd7bb1d82acdb38d42366faae58175052f957e090a4c8fdb4e3ba4b2b9063957c14b46d55316b69420247d2f9cf3afb1280'
+            'SKIP')
+validpgpkeys=('ECF01671D05E2A105FF84DC46BBEFA1972FEB9CE') # The VirtualGL Project (Signing key for official binaries) <information@VirtualGL.org>
+
+prepare() {
+  cd VirtualGL-$pkgver
+
+  # FS#48403
+  export LDFLAGS="${LDFLAGS/--as-needed,}"
+
+  mkdir build
+}
+
+build() {
+  cd "VirtualGL-$pkgver"/build
+
+  cmake .. \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DTJPEG_INCLUDE_DIR=/usr/include \
+      -DTJPEG_LIBRARY=/usr/lib/libturbojpeg.so \
+      -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+      -DCMAKE_INSTALL_BINDIR=/usr/bin \
+      -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/${pkgname} \
+      -DVGL_FAKEXCB=1
+  make
+}
+
+package() {
+  cd "VirtualGL-$pkgver/build"
+  make install DESTDIR="$pkgdir"
+
+  mv "$pkgdir"/usr/bin/glxinfo "$pkgdir"/usr/bin/vglxinfo
+}

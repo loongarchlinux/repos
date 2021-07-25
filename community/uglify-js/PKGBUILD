@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Daniel Nagy <danielnagy at gmx de>
+
+pkgname=uglify-js
+pkgver=3.11.2
+pkgrel=1
+pkgdesc="JavaScript parser, mangler/compressor and beautifier toolkit"
+arch=('any')
+url='http://lisperator.net/uglifyjs'
+license=('BSD')
+depends=('nodejs')
+makedepends=('npm')
+install=${pkgname}.install
+source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
+noextract=($pkgname-$pkgver.tgz)
+sha512sums=('1b8e34354e9f7b0b6741fb5282a455d6bd80e4284a6d4d60a85089ec8f12ecc3e963f79965f2c679f698ea051962259e6cc68efadc60890d59c8b0ee35626e96')
+
+package() {
+  npm install -g --user root --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+  mkdir -p "$pkgdir/usr/share/licenses/$pkgname"
+  ln -s "../../../lib/node_modules/uglify-js/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/"
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+}
+
+# vim:set ts=2 sw=2 et:

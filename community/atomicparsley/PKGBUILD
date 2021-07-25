@@ -1,0 +1,25 @@
+# Maintainer: Johannes Löthberg <johannes@kyriasis.com>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+
+pkgname=atomicparsley
+pkgver=20200701.154658.b0d6223
+pkgrel=1
+pkgdesc='Command line program for reading, parsing and setting metadata in MPEG-4 files'
+arch=('x86_64')
+url=https://github.com/wez/atomicparsley
+license=('GPL')
+depends=('gcc-libs' 'zlib')
+makedepends=('cmake')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('a7591a4afb5e96c1aa1207fa307f92dac46ae1194de00b822f43680555bd0ebefb50baa1ace848beb5772e50c16b9cbc7d4cb5e19f0c07fab0c18fbbb0b9babf')
+
+build() {
+  cd $pkgname-$pkgver
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=None .
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dt "$pkgdir"/usr/bin AtomicParsley
+}

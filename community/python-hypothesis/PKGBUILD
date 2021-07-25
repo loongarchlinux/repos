@@ -1,0 +1,43 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-hypothesis
+pkgver=5.36.1
+pkgrel=1
+pkgdesc="Advanced Quickcheck style testing library for Python"
+arch=('any')
+license=('MPL')
+url="https://hypothesis.readthedocs.org"
+depends=('python-attrs' 'python-sortedcontainers')
+optdepends=('python-pytz: for datetime and django module'
+            'python-faker: for fakefactory and django module'
+            'python-django: for django module'
+            'python-numpy: for numpy module'
+            'python-pytest: for pytest module'
+            'python-lark-parser: for lark module')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'flake8' 'python-pytz' 'python-numpy' 'python-faker'
+              'python-flaky' 'python-django' 'python-mock' 'python-pandas' 'python-dpcontracts'
+              'python-pytest-xdist' 'python-lark-parser' 'python-pexpect' 'python-coverage'
+              'python-typing_extensions' 'python-black')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-$pkgver.tar.gz")
+sha512sums=('97d0446ba5660c189e60b47b8f782818525fcc1c5c1d64eec997b85d5ae47fc7d52771439b5c249002380ffe7d95696728f81efe513993ff90c8e192e2ceca8d')
+
+prepare() {
+  mv hypothesis-hypothesis-python-$pkgver hypothesis-$pkgver
+}
+
+build() {
+  cd hypothesis-$pkgver/hypothesis-python
+  python setup.py build
+}
+
+check() {
+  cd hypothesis-$pkgver/hypothesis-python
+  python setup.py install --root="$PWD/tmp_install" --optimize=1
+  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.8/site-packages:$PYTHONPATH" PATH="$PWD/tmp_install/usr/bin:$PATH" pytest
+}
+
+package() {
+  cd hypothesis-$pkgver/hypothesis-python
+  python setup.py install --root="$pkgdir" --optimize=1
+}

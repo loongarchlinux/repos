@@ -1,0 +1,30 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+pkgname=uvicorn
+pkgver=0.12.1
+pkgrel=1
+pkgdesc='The lightning-fast ASGI server'
+arch=('any')
+url='https://github.com/encode/uvicorn'
+license=('BSD')
+depends=('python' 'python-click' 'python-h11' 'python-websockets' 'python-httptools' 'python-uvloop')
+optdepends=('python-watchgod: watchgod reload')
+makedepends=('python-setuptools')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('4aeb153ad9a30645d64449a7068cde90fefe5c54a7f4fb947659978c454f194910a6a709e66d9f085e80bd2d5151a94eb8d953d86f3b825588b0eedc1dda1996')
+
+build() {
+  cd $pkgname-$pkgver
+
+  python setup.py build
+}
+
+package() {
+  cd $pkgname-$pkgver
+
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+
+  install -Dm 644 LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

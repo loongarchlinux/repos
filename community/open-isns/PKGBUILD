@@ -1,0 +1,37 @@
+# Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
+# Maintainer: Christian Hesse <mail@eworm.de>
+
+pkgname=open-isns
+pkgver=0.100
+pkgrel=1
+pkgdesc='iSNS server and client for Linux'
+arch=('x86_64')
+depends=('openssl')
+url='https://github.com/gonzoleeman/open-isns'
+license=('GPL')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gonzoleeman/${pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('b011edbb0f31690aaca902a8ecf4e1f17b01d6c9e9afc51909d26b0993b4328f')
+
+prepare() {
+	cd "$srcdir"/${pkgname}-${pkgver}
+
+	sed -i 's/-Werror//' configure.ac
+	autoreconf -fi
+}
+
+build() {
+	cd "$srcdir"/${pkgname}-${pkgver}
+
+	./configure \
+		--prefix=/usr \
+		--bindir=/usr/bin \
+		--sbindir=/usr/bin \
+		--enable-shared
+	make
+}
+
+package() {
+	cd "$srcdir"/${pkgname}-${pkgver}
+
+	make DESTDIR="${pkgdir}" install install_lib install_hdrs
+}

@@ -1,0 +1,33 @@
+# $Id$
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: csslayer <wengxt AT gmail com>
+
+pkgname=xcb-imdkit
+pkgver=0.0.0.20200904
+_commit=33f5c35daf543c0faac1041c2896306b82baff64
+pkgrel=1
+pkgdesc="Input method development support for xcb"
+arch=('x86_64')
+url="https://github.com/fcitx/xcb-imdkit"
+license=('GPL')
+depends=('xcb-util' 'xcb-util-keysyms')
+makedepends=('extra-cmake-modules' 'ninja' 'uthash' 'xorgproto')
+source=("https://github.com/fcitx/xcb-imdkit/archive/$_commit/xcb-imdkit-$_commit.tar.gz")
+sha512sums=('192a8a09b72c3268797abfdfae3ade3016ba63ac8d979dcbc7a857f52d60748c24a847c2eda1c2d6e613ac572155345eb81d36e27e707e73b6d471689a8663a2')
+
+build() {
+  cd $pkgname-$_commit
+
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
+  ninja
+}
+
+check() {
+  cd $pkgname-$_commit
+  ninja test
+}
+
+package() {
+  cd $pkgname-$_commit
+  DESTDIR="$pkgdir" ninja install
+}

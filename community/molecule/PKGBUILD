@@ -1,0 +1,76 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=molecule
+pkgver=3.0.8
+pkgrel=1
+pkgdesc="Aids in the development and testing of Ansible roles"
+arch=('any')
+url="https://github.com/ansible-community/molecule"
+license=('MIT')
+depends=('ansible' 'python-cerberus' 'python-click' 'python-click-completion'
+'python-click-help-colors' 'python-colorama' 'python-cookiecutter'
+'python-gilt' 'python-jinja' 'python-paramiko' 'python-pexpect' 'python-pluggy'
+'python-selinux' 'python-sh' 'python-tabulate' 'python-tree-format'
+'python-yaml' 'yamllint')
+makedepends=('python-setuptools-scm' 'python-simplejson')
+# TODO: potentially add 'python-shade'
+checkdepends=('docker' 'python-ansi2html' 'python-docker' 'python-mock'
+'python-pytest' 'python-pytest-cov' 'python-pytest-helpers-namespace'
+'python-pytest-html' 'python-pytest-mock' 'python-pytest-sugar'
+'python-pytest-verbose-parametrize' 'python-pytest-xdist' 'python-testinfra')
+optdepends=('docker: for the docker driver'
+            'molecule-vagrant: for the vagrant driver'
+            'podman: for the podman driver'
+            'python-pywinrm: for Windows support'
+            'python-testinfra: for the testinfra verifier')
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('e097cb997722e00d2eff491be0b571dfab5682708052836ce56cda54fb9ad44912d6c8cdf24e8fffdeea53f051b2e836e0173589573ef522a31a3dc04e59b7a9')
+b2sums=('a9f60969d202fbac3fd19796613678492f4e554e1138bbccb84dbb2e95e9f6b88ed30a6fb357d828fe09a74b33b6ecf12b7df2569019693e065a4f42a024b2c5')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  # python-pre-commit is absolutely not a runtime dependency
+  # remove additional pytest options
+  # unpin python-sh
+  sed -e '/pre-commit/d' \
+      -e '/addopts/d' \
+      -e 's/, < 1.14//g' \
+      -i setup.cfg
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  python setup.py build
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  # installing into test location, so pytest can pick up the executable
+  mkdir -vp test_dir
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --prefix=/usr \
+    --root="test_dir"
+  local python_version="$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')"
+  export PYTHONPATH="${PWD}/test_dir/usr/lib/python${python_version}/site-packages/:${PYTHONPATH}"
+  export PATH="${PWD}/test_dir/usr/bin:${PATH}"
+  # do not run tests that require interaction with the docker daemon
+  pytest -v \
+         --ignore='molecule/test/functional/docker/' \
+         --ignore='molecule/test/functional/test_command.py' \
+         -k "not test_execute \
+             and not test_execute_bakes \
+             and not test_execute_bakes_with_ansible_args \
+             and not test_executes_cathces_and_exits_return_code_with_stdout"
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --prefix=/usr \
+    --root="${pkgdir}"
+  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm 644 {CHANGELOG,README}.rst \
+    -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

@@ -1,0 +1,48 @@
+# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Hyacinthe Cartiaux <hyacinthe.cartiaux@free.fr>
+
+_pkgname=https-everywhere
+pkgname=firefox-extension-${_pkgname}
+pkgver=2020.8.13
+pkgrel=1
+pkgdesc="Plugin for firefox which ensures you are using https whenever it's possible."
+arch=('any')
+url="https://www.eff.org/https-everywhere"
+license=('GPL2')
+groups=('firefox-addons')
+makedepends=("unzip")
+source=("${_pkgname}-${pkgver}.xpi::https://www.eff.org/files/https-everywhere-${pkgver}-eff.xpi"
+        "${_pkgname}-${pkgver}.xpi.sig::https://www.eff.org/files/https-everywhere-${pkgver}-eff.xpi.sig")
+noextract=("${_pkgname}-${pkgver}.xpi")
+sha256sums=('7b55d6aea3f91cd08ae47a795430d7d925f01e236c81fb0b372ab1bb536b4de5'
+            'SKIP')
+b2sums=('64049921cf1bc9eee342d31367c348481a89236ece1f27bcfc185c0640b82827e63f85180523e174c831e87cd6ce157d2cb324a9fe4c0b13854ca27b3dcae88a'
+        'SKIP')
+validpgpkeys=('1073E74EB38BD6D19476CBF8EA9DBF9FB761A677'  # William Budington <bill@eff.org>
+              'CE340E9D077F1DC0F4FA7B030D16CFA2BA1F7420') # Alexis <alexis@eff.org>
+
+prepare() {
+  cd "$srcdir"
+
+  unzip -qqo "${_pkgname}-${pkgver}.xpi" -d "${_pkgname}-${pkgver}"
+}
+
+package() {
+  depends=("firefox")
+  cd "${srcdir}"
+
+  if [[ -f ${_pkgname}-${pkgver}/install.rdf ]]; then
+    _extension_id="$(sed -n '/.*<em:id>\(.*\)<\/em:id>.*/{s//\1/p;q}' ${_pkgname}-${pkgver}/install.rdf)"
+  else
+    _extension_id="$(sed -n 's/.*"id": "\(.*\)".*/\1/p' ${_pkgname}-${pkgver}/manifest.json)"
+  fi
+  _extension_dest="${pkgdir}/usr/lib/firefox/browser/extensions/${_extension_id}"
+  # Should this extension be unpacked or not?
+  if grep -q '<em:unpack>true</em:unpack>' ${_pkgname}-${pkgver}/install.rdf 2>/dev/null; then
+    install -dm755 "${_extension_dest}"
+    cp -R ${_pkgname}-${pkgver}/* "${_extension_dest}"
+    chmod -R ugo+rX "${_extension_dest}"
+  else
+    install -Dm644 ${_pkgname}-${pkgver}.xpi "${_extension_dest}.xpi"
+  fi
+}

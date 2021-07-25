@@ -1,0 +1,30 @@
+# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+# Maintainer: Daurnimator<daurnimator@archlinux.org>
+
+pkgname=wishbone-utils
+pkgver=0.7.5
+pkgrel=1
+pkgdesc='Utilities for working with a Wishbone bridge'
+arch=(x86_64)
+url="https://github.com/litex-hub/wishbone-utils"
+license=(BSD)
+depends=(glibc gcc-libs)
+makedepends=(rust)
+source=($pkgname-$pkgver.tar.gz::https://github.com/litex-hub/wishbone-utils/archive/v$pkgver.tar.gz)
+sha512sums=('7652fefbd70714480cdc9ecc21f78c0d5ee248067c30ac48a4d548bbaceeecb5850a86ee27f953f0d8c3150e4a4c8ef607bcdddac837af206ee6de4792e8d9f2')
+
+build() {
+  cd $pkgname-$pkgver/wishbone-tool
+  cargo build --release --locked
+}
+
+check() {
+  cd $pkgname-$pkgver/wishbone-tool
+  cargo test --release --locked
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dm 755 wishbone-tool/target/release/wishbone-tool -t "${pkgdir}/usr/bin/"
+  install -D -m644 LICENSE "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
+}

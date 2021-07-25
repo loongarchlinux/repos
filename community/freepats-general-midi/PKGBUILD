@@ -1,0 +1,22 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name="FreePatsGM-SF2"
+pkgname=freepats-general-midi
+pkgver=20200814
+pkgrel=1
+pkgdesc="General MIDI sound sets"
+arch=('any')
+url="https://freepats.zenvoid.org/SoundSets/general-midi.html"
+license=('GPL3' 'CCPL')
+groups=('soundfonts')
+replaces=('timidity-freepats')
+depends=('soundfont-synthesizer')
+source=("https://freepats.zenvoid.org/SoundSets/FreePats-GeneralMIDI/${_name}-${pkgver}.tar.xz")
+sha512sums=('0502ca0b23d9b1131b4749512a1e5c2a2c6a1d9db51349c41862714ec1d3496063517ac4c03de2a5da89ea5af355faaaf47af9aec0d7da3f3b7ff690f7d00b0b')
+b2sums=('37fcbf8ac765ab3241e49cd15cd0826db48458749b52989b66bcdfeb08cef6d5c15e4c114b4af364d894de6935c0285ba9903ea1cddb40b03d4147b346be82c5')
+
+package() {
+  cd "${_name}-${pkgver}"
+  install -vDm 644 *".sf2" "${pkgdir}/usr/share/soundfonts/${pkgname}.sf2"
+  install -vDm 644 readme.txt -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

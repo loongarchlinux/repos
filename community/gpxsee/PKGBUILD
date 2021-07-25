@@ -1,0 +1,36 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Raffaele Zamorano
+# Contributor: Jose Riha <jose1711 gmail com>
+# Contributor: Nikolay Korotkiy <sikmir@gmail.com>
+
+pkgname=gpxsee
+_pkgname=GPXSee
+pkgver=7.31
+pkgrel=1
+pkgdesc='GPS log file viewer and analyzer'
+arch=(x86_64)
+url='https://www.gpxsee.org/'
+license=(GPL3)
+depends=(qt5-imageformats)
+makedepends=(qt5-tools)
+source=(https://downloads.sourceforge.net/$pkgname/$_pkgname-$pkgver.tar.gz)
+sha256sums=('13a98a895fd39fe9935482de761b097fb7b17d0f996d6ef59bbb71bba4bd6a83')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  sed -i 's|/share/pixmaps|/share/icons/hicolor/64x64/apps|' gpxsee.pro
+}
+
+build() {
+  cd $_pkgname-$pkgver
+  lrelease gpxsee.pro
+  qmake gpxsee.pro PREFIX=/usr
+  make
+}
+
+package() {
+  cd $_pkgname-$pkgver
+  make INSTALL_ROOT="$pkgdir" install
+  # Install appdata
+  install -Dm644 pkg/appdata.xml "$pkgdir"/usr/share/metainfo/$pkgname.appdata.xml
+}

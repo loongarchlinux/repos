@@ -1,0 +1,31 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=tldr
+pkgver=1.0.0
+pkgrel=2
+pkgdesc="Command line client for tldr, a collection of simplified and community-driven man pages."
+arch=('any')
+url="https://github.com/tldr-pages/tldr-python-client"
+license=('MIT')
+depends=('python-colorama' 'python-setuptools' 'python-termcolor')
+checkdepends=('python-pytest-runner')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/tldr-pages/tldr-python-client/archive/$pkgver.tar.gz")
+sha512sums=('b428fdab4954909fe74b46cdaa01362148965d4c52658cb2a9c3ad970096bd4aaf545845468649e6b217d01110eb932d4bc6d6df588b863a9d1e0c4ae281962a')
+
+build() {
+  cd tldr-python-client-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd tldr-python-client-$pkgver
+  python setup.py pytest
+}
+
+package() {
+  cd tldr-python-client-$pkgver
+  python setup.py install -O1 --prefix=/usr --root="$pkgdir"
+  install -Dm644 LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+# vim:set ts=2 sw=2 et:

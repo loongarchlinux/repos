@@ -1,0 +1,35 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=rime-cantonese
+pkgver=0.0.0.20201005
+_commit=3f835d6decf4f028f723b1cece643be97c3e324e
+pkgrel=1
+pkgdesc="Cantonese input for rime"
+arch=('x86_64')
+url="https://github.com/rime/rime-cantonese"
+license=('CCPL:cc-by')
+# dependency for reverse lookup
+depends=('rime-cangjie' 'rime-emoji' 'rime-loengfan' 'rime-luna-pinyin' 'rime-stroke')
+makedepends=('librime' 'rime-prelude' 'rime-essay')
+source=("https://github.com/rime/rime-cantonese/archive/$_commit/rime-cantonese-$_commit.tar.gz")
+sha512sums=('f20c5df79919a42f9d2f0caa314ad6cae3b157cb519431b4bf222415f9e9cbb16a61b58f93f65469ba152bc50d596fb1fcc7be1a09177e690f74feb0799fe23d')
+
+prepare() {
+  cd $pkgname-$_commit
+  # Link essentials
+  for _f in $(pacman -Qql rime-prelude rime-essay | grep -v "/$"); do ln -sf $_f; done
+}
+
+build(){
+  cd $pkgname-$_commit
+  for _s in $(ls *.schema.yaml); do rime_deployer --compile $_s; done
+}
+
+package() {
+  cd $pkgname-$_commit
+  find . -type l -delete
+  rm build/*.txt
+  install -Dm644 *.yaml -t "$pkgdir"/usr/share/rime-data/
+  install -Dm644 build/* -t "$pkgdir"/usr/share/rime-data/build/
+  install -Dm644 opencc/* -t "$pkgdir"/usr/share/rime-data/opencc/
+}

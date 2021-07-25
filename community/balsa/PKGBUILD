@@ -1,0 +1,51 @@
+# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Brad Fanella <bradfanella@archlinux.us>
+# Contributor: Roman Kyrylych <roman@archlinux.org>
+
+pkgname=balsa
+pkgver=2.6.1
+pkgrel=2
+pkgdesc="An e-mail client for GNOME"
+arch=('x86_64')
+url='https://pawsa.fedorapeople.org/balsa/'
+license=('GPL')
+depends=('gmime3' 'webkit2gtk' 'libical' 'libnotify'
+         'gpgme' 'gtksourceview4' 'gspell')
+makedepends=('yelp-tools' 'intltool')
+changelog=$pkgname.changelog
+source=(https://pawsa.fedorapeople.org/balsa/$pkgname-$pkgver.tar.bz2
+        appstream.patch)
+sha256sums=('6441772cb5e1870f10c358c21f7e709da8cc0bfa6cc005ec744b9f1b00ea7df6'
+            '20aa793bca542d0f2c727ee8696ead09cadc74d3d9b0b3b9206b82c8b4ae8c38')
+
+prepare() {
+  cd "${srcdir}"/$pkgname-$pkgver
+
+  # Update id in appdata file to match with the desktop file name 
+  # https://gitlab.gnome.org/GNOME/balsa/-/merge_requests/28
+  patch -Np1 -i ../appstream.patch
+}
+
+build() {
+  cd "${srcdir}"/$pkgname-$pkgver
+
+  ./configure --prefix=/usr \
+      --sysconfdir=/etc \
+      --localstatedir=/var \
+      --with-gss \
+      --with-ldap \
+      --with-gtksourceview \
+      --with-spell-checker=gspell \
+      --with-rubrica \
+      --with-sqlite \
+      --with-gnome \
+      --with-html-widget=webkit2
+  make
+}
+
+package() {
+  cd "${srcdir}"/$pkgname-$pkgver
+
+  make GTK_UPDATE_ICON_CACHE=/bin/true DESTDIR="${pkgdir}" install
+}

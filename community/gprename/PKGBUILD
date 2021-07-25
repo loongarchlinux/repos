@@ -1,0 +1,33 @@
+# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: Nick Bolten <Shirakawasuna at gmail _dot_ com>
+
+pkgname=gprename
+pkgver=20190221
+pkgrel=3
+pkgdesc="A GTK2 batch renamer for files and directories"
+arch=('any')
+url="http://gprename.sourceforge.net/"
+license=('GPL3')
+depends=('gtk2-perl' 'perl-libintl-perl' 'perl-locale-gettext')
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
+        $pkgname-build.patch)
+sha256sums=('7558c4e9738a549c661712d2a84a446e5a803725e66a62edc6ace42737413ac4'
+            '2b1bb4d9b285570a03f9c6cb364dedce2a51e5d934854ec5d60e31ca95a03008')
+
+prepare() {
+  cd "${srcdir}"/${pkgname}-${pkgver}
+
+  patch -Np1 -i "${srcdir}"/$pkgname-build.patch
+
+#29940 fix
+  sed 's#/usr/local#/usr#' -i bin/$pkgname
+#45250 fix
+  sed 's#/usr/share/icons/gprename.png#/usr/share/icons/hicolor/64x64/apps/gprename.png#' -i bin/$pkgname
+}
+
+package() {
+  cd "${srcdir}"/${pkgname}-${pkgver}
+
+  make PREFIX=/usr DESTDIR="${pkgdir}"/usr install
+}

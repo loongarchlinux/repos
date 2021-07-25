@@ -1,0 +1,45 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Contributor: Francois Boulogne <devel at sciunto dot org>
+
+pkgname=mat2
+pkgver=0.11.0
+pkgrel=1
+pkgdesc='Metadata removal tool, supporting a wide range of commonly used file formats'
+url='https://0xacab.org/jvoisin/mat2'
+arch=('any')
+license=('LGPL3')
+depends=('python' 'python-mutagen' 'python-cairo' 'python-gobject' 'gdk-pixbuf2' 'poppler-glib' 'librsvg' 'perl-image-exiftool' 'mailcap')
+makedepends=('python-setuptools')
+optdepends=(
+  'ffmpeg: video support'
+  'bubblewrap: sandboxing support'
+)
+checkdepends=('ffmpeg')
+source=(https://0xacab.org/jvoisin/mat2/-/archive/${pkgver}/mat2-${pkgver}.tar.gz
+        https://0xacab.org/jvoisin/mat2/uploads/0f66d648ede0b98804b50f487e9d694c/mat2-${pkgver}.tar.gz.asc)
+sha512sums=('8396a32b409b83cc4158546f92d458bc8a62e5aabd2c452402ac6185c2efdeff8794a7e1e45a8e39e9eaba31e256a303ca0be38b65fd43f11e7b07d1ea8b2f06'
+            'SKIP')
+b2sums=('c55d04fe7d49e8515bc5bc3ebfad4c71ddec670e5efed9855545bc32374661bb92501fb5910a599f27d97a3089a44f983c983cb82572ab153602d38e39682164'
+        'SKIP')
+
+validpgpkeys=('9FCDEE9E1A381F311EA62A7404D041E8171901CC') # Julien (jvoisin) Voisin
+
+build() {
+  cd ${pkgname}-${pkgver}
+  python setup.py build
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  python -m unittest discover -v
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  python setup.py install --skip-build -O1 --root="${pkgdir}"
+  install -Dm 644 dolphin/mat2.desktop -t "${pkgdir}/usr/share/kservices5/ServiceMenus"
+  install -Dm 644 doc/mat2.1 -t "${pkgdir}/usr/share/man/man1"
+  install -Dm 644 doc/*.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

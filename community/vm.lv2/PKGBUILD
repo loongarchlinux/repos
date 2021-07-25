@@ -1,0 +1,50 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=vm.lv2
+pkgver=0.10.0
+pkgrel=1
+pkgdesc="A virtual machine LV2 plugin bundle"
+arch=('x86_64')
+url="https://open-music-kontrollers.ch/lv2/vm/#"
+license=('Artistic2.0')
+groups=('lv2-plugins' 'pro-audio')
+depends=('glibc' 'libglvnd')
+makedepends=('glu' 'lv2' 'meson')
+checkdepends=('lv2lint')
+source=("https://git.open-music-kontrollers.ch/lv2//$pkgname/snapshot/$pkgname-$pkgver.tar.xz"{,.asc})
+sha512sums=('86e2bda3449904e731d491324f7bc3bd18bda75835c3f05cc29acb246b7c62581e0700f6397fc8c8427861ed50a3d490387a8524b679b620f117535fd9c76329'
+            'SKIP')
+b2sums=('8864e3f2dcff756cbb7efe21df09fe2e0424c35cb62faf050675b36fe53631b1abe727fd353c9f9d956518bd2e85bf5ba8662e31aa6964de2cc2d1db8051846b'
+        'SKIP')
+validpgpkeys=('5AE26CEBBF49705C19FB273A30258F99258CB76A') # Hanspeter Portner <dev@open-music-kontrollers.ch>
+
+build() {
+  cd "$pkgname-$pkgver"
+  meson --prefix=/usr \
+        --libdir=lib \
+        --libexecdir lib \
+        --sbindir bin \
+        --buildtype plain \
+        --auto-features enabled \
+        --wrap-mode nodownload \
+        -D b_lto=true \
+        -D b_pie=true \
+        build
+  ninja -C build
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  _plugin_names=('atom' 'audio' 'control' 'cv' 'midi')
+  for _plugin in ${_plugin_names[@]}; do
+    lv2lint -Mpack -I "build/" "http://open-music-kontrollers.ch/lv2/vm#${_plugin}"
+  done
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  DESTDIR="${pkgdir}" meson install -C build
+  # docs
+  install -vDm 644 {ChangeLog,README.md} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

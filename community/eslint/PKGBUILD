@@ -1,0 +1,35 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=eslint
+pkgver=7.11.0
+pkgrel=1
+pkgdesc='An AST-based pattern checker for JavaScript'
+arch=('any')
+url='https://eslint.org'
+license=('MIT')
+depends=('nodejs' 'acorn')
+makedepends=('npm')
+source=("https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz")
+noextract=("$pkgname-$pkgver.tgz")
+sha512sums=('1bdfaab585421da0e2d59b96cc1b0e5a8db04b077bd135e753a507037713607a7b8024d765ca6081616851500c45aae0ebcaad3e835f15bccf87e55d3a09b09b')
+
+package() {
+  npm install -g --user root --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+
+  # Non-deterministic race in npm gives 777 permissions to random directories.
+  # See https://github.com/npm/npm/issues/9359 for details.
+  chmod -R u=rwX,go=rX "$pkgdir"
+
+  # npm installs package.json owned by build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root "$pkgdir"
+
+  install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
+  ln -s ../../../lib/node_modules/eslint/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  # Experimental dedup
+  cd "$pkgdir"/usr/lib/node_modules/$pkgname/node_modules
+  for dep in acorn; do
+    rm -r $dep;
+  done
+}

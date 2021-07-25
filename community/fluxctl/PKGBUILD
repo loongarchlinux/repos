@@ -1,0 +1,36 @@
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+
+pkgname=fluxctl
+_pkgname=flux
+pkgver=1.20.2
+pkgrel=1
+pkgdesc="Controller for the GitOps Kubernetes operator flux"
+arch=('x86_64')
+url="https://github.com/fluxcd/flux"
+license=('Apache')
+makedepends=('go' 'git')
+depends=('glibc')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/fluxcd/flux/archive/${pkgver}.tar.gz")
+sha512sums=('2fd305db1c57b7f9b473ce4f3334b031045100e5b624735a1ed0ba2986e4223cb1e5cacf71da98981b54450760b3ee5684d8732e0b7020474acff6d5808db53b')
+changelog=CHANGELOG.md
+
+build() {
+  cd "${_pkgname}-${pkgver}/cmd/fluxctl"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  go build -ldflags "-w -X main.version="${pkgver}"" .
+  chmod +x ./fluxctl
+}
+
+check() {
+  cd "${_pkgname}-${pkgver}/cmd/fluxctl"
+  go test ./...
+}
+
+package() {
+  cd "${_pkgname}-${pkgver}/cmd/fluxctl"
+  install -Dsm755 ./fluxctl "${pkgdir}/usr/bin/fluxctl"
+}

@@ -1,0 +1,81 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Thomas Weißschuh <thomas@t-8ch.de>
+
+pkgname=smlnj
+pkgver=110.98.1
+pkgrel=1
+pkgdesc='Standard ML compiler from New Jersey'
+url='https://www.smlnj.org/'
+license=(BSD)
+arch=(x86_64)
+depends=(lib32-glibc)
+provides=(sml)
+install=smlnj.install
+_url="http://smlnj.cs.uchicago.edu/dist/working/$pkgver/"
+source=(
+  "$pkgname-$pkgver-boot.amd64-unix.tgz::${_url}boot.amd64-unix.tgz"
+  "$pkgname-$pkgver-boot.x64-unix.tgz::${_url}boot.x86-unix.tgz"
+  "$pkgname-$pkgver-config.tgz::${_url}config.tgz"
+  "$pkgname-$pkgver-cm.tgz::${_url}cm.tgz"
+  "$pkgname-$pkgver-compiler.tgz::${_url}compiler.tgz"
+  "$pkgname-$pkgver-runtime.tgz::${_url}runtime.tgz"
+  "$pkgname-$pkgver-system.tgz::${_url}system.tgz"
+  "$pkgname-$pkgver-MLRISC.tgz::${_url}MLRISC.tgz"
+  "$pkgname-$pkgver-smlnj-lib.tgz::${_url}smlnj-lib.tgz"
+  "$pkgname-$pkgver-ckit.tgz::${_url}ckit.tgz"
+  "$pkgname-$pkgver-nlffi.tgz::${_url}nlffi.tgz"
+  "$pkgname-$pkgver-cml.tgz::${_url}cml.tgz"
+  "$pkgname-$pkgver-ml-lpt.tgz::${_url}ml-lpt.tgz"
+  "$pkgname-$pkgver-ml-lex.tgz::${_url}ml-lex.tgz"
+  "$pkgname-$pkgver-ml-yacc.tgz::${_url}ml-yacc.tgz"
+  "$pkgname-$pkgver-ml-burg.tgz::${_url}ml-burg.tgz"
+  "$pkgname-$pkgver-trace-debug-profile.tgz::${_url}trace-debug-profile.tgz"
+  urlgetter.sh
+  profile.d-smlnj.sh
+  smlnj.sh
+)
+sha256sums=('d28a5c607e8160824b6c638223b9cad627c5387995813f88e5f1343b6e9c8030'
+            '2231023a9c234da67d5145d0f18f9e84109f96bac29c69a78b68bc86796f16d3'
+            '6a71b825d1a84cd2b0ebe05618763882e35c95ec5ee37a6ec960a83649b082c3'
+            'ae415fc4d506fc505f86b3cd91504e6c3f81db66c214eef81631d9523097a1a8'
+            'd5138fea2298d6161d281ce7b2db2970f9acb38f2dbb7bf36f5925e6fe75d97f'
+            '9d91ce533bf6ad62dd124de373f3a39ce7f3becb75381fe4ea8c9cc3ac557f18'
+            'ab84a0d2368a2a643af4dedac7949edef8a0c93887460c250bd04669505d6d8a'
+            'd4c0ce803eb4ff92ee53a4d803ce9cf32b7bd1bf05c9d5d058a3e5e4bc09c9e0'
+            'b71845bce1df5fc27f9313537ed8ad0b2b62ba12499b2ac9c5618750aa2815fe'
+            '8662416a5b77af9a7e342e6ea4a259cee246620748d9d0c8f1fbefe9851c03a8'
+            '916a2fef49607084c9bc46931d0e96998b4ff4d81750aa4fbc3e114a0e32c2b6'
+            '742aa253bb2907b90f44d8c86506859d66417da37caaeb5bd5462f6c141d895a'
+            '871115ad58e2212c128156289896c75b6112f48867a79de0f0af448ed83b6440'
+            '4e87db5d66d2550eff551e318b503c3fb43c62cb734d36aadb71025437f302b3'
+            '821ac606ef971b4aa28800b9b96dc0fce97a04aca67b23377a46ded07b08f71a'
+            '1a49a740193fff6f40169757b8238ec87eed8cb9b4be6620e040a2ac26b25627'
+            '18952f6d7c9c1f5ae35d2346f11a2b201fc85cf0157856da78dbcd8677cb7889'
+            '4da78effe7d3644c28c731c8e4003a9cecec9f8f61d2fa4553981a729f2d200b'
+            'dd20a81a5d2899f60183215ab6a412d522d2c6801d454c142225716899e089f3'
+            '3012a08e113b0cf6feff06689c1ae2ad48524e200d30ac46676f3c9e53665218')
+
+build() {
+  mkdir -p install
+  unset SMLNJ_HOME MAKEFLAGS
+  export srcdir
+  export pkgver
+  export INSTALLDIR="$srcdir/install"
+  export CFLAGS="$CFLAGS -Wl,-z,relro,-z-now"
+  export LDFLAGS="$LDFLAGS -Wl,-z,relro,-z-now"
+  URLGETTER="$srcdir/urlgetter.sh"
+  config/install.sh -default 64
+}
+
+package() {
+  install -d "$pkgdir/usr/"{lib/smlnj,share}
+  install -Dm755 "$srcdir/profile.d-smlnj.sh" "$pkgdir/etc/profile.d/smlnj.sh"
+  install -Dm644 compiler/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cp -R "$srcdir/install/"{bin,lib} "$pkgdir/usr/lib/smlnj"
+  cp -R "$srcdir/doc/man" "$pkgdir/usr/share/"
+  find "$pkgdir/usr/share/man" -name '._*' -delete
+  install -Dm755 smlnj.sh "$pkgdir/usr/bin/smlnj"
+}
+
+# getver: smlnj.org
+# vim: ts=2 sw=2 et:

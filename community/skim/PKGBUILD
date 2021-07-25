@@ -1,0 +1,41 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: fenuks
+
+pkgname=skim
+pkgver=0.8.2
+pkgrel=2
+pkgdesc='Fuzzy Finder in rust!'
+arch=('x86_64')
+url=https://github.com/lotabout/skim
+license=('MIT')
+depends=('ncurses')
+makedepends=('rust')
+optdepends=('bash: for resp. completions and key bindings, and for sk-tmux script'
+            'fish: for resp. key bindings'
+            'tmux: for sk-tmux script'
+            'vim: for N/Vim plugin'
+            'zsh: for resp. completions and key bindings')
+source=("skim-$pkgver.tar.gz::https://static.crates.io/crates/skim/skim-$pkgver.crate")
+sha512sums=('2911687d426cd2e377623e9c94747198be4357c5a02706f424b2371f256a43380f41a34a594f36bb99100774a5d2ce19bd88ea719c762e3aff187b55aeba6f19')
+
+build() {
+  cd skim-$pkgver
+  cargo build --release --locked
+}
+
+check() {
+  cd skim-$pkgver
+  cargo test --release --locked
+}
+
+package() {
+  cd skim-$pkgver
+  install -Dt "$pkgdir"/usr/bin target/release/sk bin/sk-tmux
+  install -Dm644 -t "$pkgdir"/usr/share/man/man1 man/man1/*
+  install -Dm644 -t "$pkgdir"/usr/share/skim shell/*.bash shell/*.zsh
+  install -Dm644 shell/key-bindings.fish "$pkgdir"/usr/share/fish/functions/skim_key_bindings.fish
+  install -Dm644 -t "$pkgdir"/usr/share/vim/vimfiles/plugin plugin/skim.vim
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/skim LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

@@ -1,0 +1,29 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=perl-test-simple
+pkgver=1.302182
+pkgrel=1
+pkgdesc="Basic utilities for writing tests"
+arch=('any')
+license=('PerlArtistic')
+url="https://metacpan.org/release/Test-Simple"
+depends=('perl')
+options=('!emptydirs')
+source=("https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-Simple-$pkgver.tar.gz")
+sha512sums=('38f7372c5c236032f59f7589d07da55fc99a1cbb5b6347f1eeb854932106ff8ac42c2c0a04bce5a4b7cf771968fd26fb6648d92546ed97a195667b356639498d')
+
+build() {
+  cd Test-Simple-$pkgver
+  perl Makefile.PL INSTALLDIRS=vendor
+  make
+}
+
+check() {
+  cd Test-Simple-$pkgver
+  make test
+}
+
+package() {
+  cd Test-Simple-$pkgver
+  make DESTDIR="$pkgdir" install
+}

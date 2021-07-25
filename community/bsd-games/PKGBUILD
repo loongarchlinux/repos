@@ -1,0 +1,47 @@
+# Maintainer: Laurent Carlier <lordheavym@gmail.com>
+# Contributor: Alexander F Rødseth <xyproto@archlinux.org>
+# Contributor: Chris Brannon <cmbrannon79@gmail.com>
+# Contributor: Abhishek Dasgupta <abhidg@gmail.com>
+# Contributor: SmackleFunky <smacklefunky@optusnet.com.au>
+
+pkgname=bsd-games
+pkgver=3.0
+pkgrel=2
+pkgdesc='Linux port of the collection of BSD command line games'
+url='https://github.com/msharov/bsd-games'
+arch=('x86_64')
+install="$pkgname.install"
+license=('custom')
+depends=()
+makedepends=()
+source=("https://github.com/msharov/$pkgname/archive/v$pkgver.tar.gz")
+sha256sums=('12401a025aaf2a035d55b5cd3401f677e0f5dab6b75673148c6e1a3f01bf92a9')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # Remove conflict with fish
+  sed -i "s/FISH/GO-FISH/g; s/\.Nm fish/\.Nm go-fish/g" fish/fish.6
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+
+  make DESTDIR="${pkgdir}" install
+  
+  chown -R root:games "${pkgdir}/var/lib/bsdgames"
+  chmod 664 "${pkgdir}"/var/lib/bsdgames/*
+  
+  # Remove conflict with fish
+  mv "${pkgdir}/usr/bin/fish" "${pkgdir}/usr/bin/go-fish"
+  mv "${pkgdir}/usr/share/man/man6/fish.6.gz" "${pkgdir}/usr/share/man/man6/go-fish.6.gz"
+  
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/$pkgname/LICENSE"
+}

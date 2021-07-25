@@ -1,0 +1,27 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=metacity
+pkgver=3.36.1
+pkgrel=1
+pkgdesc="Window manager of GNOME Flashback"
+arch=('x86_64')
+license=('GPL')
+depends=('dconf' 'libcanberra' 'libgtop' 'libsm' 'gsettings-desktop-schemas' 'gtk3' 'startup-notification' 'zenity')
+makedepends=('intltool')
+url="https://wiki.gnome.org/Projects/Metacity"
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz)
+sha512sums=('98e73036cca238b713a112194b2cd7a866bcf7d08ef29fb590054b69a1bd807699317a51f9b851f9c474ae2557e27dc9fc4a52d7c436d93ad4a02babef68feeb')
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib/$pkgname \
+              --disable-schemas-compile
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}

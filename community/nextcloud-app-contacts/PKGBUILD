@@ -1,0 +1,18 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+
+pkgname=nextcloud-app-contacts
+pkgver=3.4.0
+pkgrel=1
+pkgdesc="Contacts app for nextcloud"
+arch=('any')
+url="https://github.com/nextcloud/contacts/"
+license=('GPL')
+depends=('nextcloud')
+options=('!strip')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/nextcloud/contacts/releases/download/v$pkgver/contacts.tar.gz")
+sha256sums=('73ffd5c6599d9453bca61f5a8bd99afae412d7da2bba57a4d45931ce6d02b727')
+
+package() {
+  install -d "$pkgdir"/usr/share/webapps/nextcloud/apps
+  cp -a "$srcdir"/contacts "$pkgdir"/usr/share/webapps/nextcloud/apps/contacts
+}

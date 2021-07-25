@@ -1,0 +1,73 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=giada
+pkgver=0.16.4
+pkgrel=1
+pkgdesc="A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians"
+arch=('x86_64')
+url="https://www.giadamusic.com/"
+license=('GPL3')
+groups=('pro-audio')
+depends=('gcc-libs' 'glibc' 'libx11' 'libxpm')
+# upstream vendors a hacked rtaudio :(
+makedepends=('alsa-lib' 'fltk' 'gendesk' 'imagemagick' 'jack' 'libpulse'
+'libsamplerate' 'libsndfile' 'nlohmann-json' 'rtmidi')
+checkdepends=('catch2' 'xorg-server-xvfb')
+source=("https://www.giadamusic.com/data/${pkgname}-${pkgver}-src.tar.gz"
+        "$pkgname-0.16.2.2-devendor_nlohmann-json.patch")
+sha512sums=('f4e528ccdd4decef82db03ae11322f282949e3a3ef5184a9527d9678e009f955907010142c20da8f806ac702827238441401f3ee75544619f8d080554f53cd99'
+            '31cf5b2b1bba29e8c97109c04c6456a98b778017ef5d48a0f020d326d8a11a5e76c8613fc232a2492d16aa48bc2faaae4aae7316252d6b887bd2187032fb83f9')
+b2sums=('3faa310c4a7cb60067ba1ce56fcfb1c5f482612a3ec0812a3ab2c6ea2a2e696c22d1fa107e007c392d8824364c18a22b277b7702bcaedab00a8b748542760643'
+        'cdce9efc681fecd59338187a3e2f296acb095a04a148ed85f90acde9f6758cf107a3ba7ba12151fa081d40f3a87a1e283ce0804271c9438eb06a6ac56f48320a')
+
+prepare() {
+  mv -v "$pkgname-$pkgver-src" "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
+  # XDG desktop file
+  gendesk -n \
+          --pkgname ${pkgname} \
+          --pkgdesc "${pkgdesc}" \
+          --name Giada \
+          --categories "AudioVideo;Audio;Midi;Sequencer"
+  # devendor nlohmann-json
+  patch -Np1 -i ../"$pkgname-0.16.2.2-devendor_nlohmann-json.patch"
+  # fixing test includes to use system catch2
+  sed -e 's|catch\.hpp|catch2/catch\.hpp|g' -i tests/*.cpp
+  # remove unused linking against X libs:
+  # https://github.com/monocasual/giada/issues/352
+  sed -e 's/-lXinerama//g' \
+      -e 's/-lXcursor//g' \
+      -e 's/-lXft//g' \
+      -e 's/-lXrender//g' \
+      -i Makefile.am
+  autoreconf -vfi
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  # TODO: build vst once the included juce is fixed for gcc >= 9.1.0
+  # https://github.com/monocasual/giada/issues/328
+  ./configure --prefix=/usr \
+              --target=linux \
+              --enable-system-catch
+  make
+}
+
+check(){
+  cd "$pkgname-$pkgver"
+  xvfb-run -a make -k check
+}
+
+package() {
+  depends+=('libasound.so' 'libfltk.so' 'libjack.so' 'libpulse.so'
+  'libpulse-simple.so' 'librtmidi.so' 'libsamplerate.so' 'libsndfile.so')
+  cd "$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install
+  # XDG integration
+  install -vDm 644 "${pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+  install -vDm 644 "extras/${pkgname}-logo.png" \
+    "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+  # docs
+  install -vDm 644 {ChangeLog,README.md} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

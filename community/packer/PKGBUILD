@@ -1,0 +1,45 @@
+# Maintainer: Christian Rebischke <Chris.Rebischke[at]archlinux[dot]org>
+pkgname=packer
+replaces=('packer-io')
+pkgver=1.6.2
+pkgrel=1
+pkgdesc="tool for creating identical machine images for multiple platforms from a single source configuration"
+arch=('x86_64')
+url="https://github.com/hashicorp/packer"
+license=('MPL')
+makedepends=('git' 'go' 'go-tools')
+depends=('glibc')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/hashicorp/packer/archive/v${pkgver}.tar.gz")
+sha512sums=('c83aa564ec69e527aa929318bd632b8fd7a93a805cd67e85126342d96ee46230005dd1635ace53c399c38a54085b711dbde439a65cbfc57b4f0a278ff02ea00b')
+changelog=CHANGELOG.md
+
+prepare() {
+	export GOPATH="${srcdir}"
+	export PATH="$PATH:$GOPATH/bin"
+	mkdir -p "src/github.com/hashicorp"
+	mv "${pkgname}-${pkgver}" "src/github.com/hashicorp/${pkgname}"
+	sed -e '/VersionPrerelease = ""/ {N;N;N;d;}' -i "${srcdir}/src/github.com/hashicorp/${pkgname}/Makefile"
+}
+
+build() {
+  cd "src/github.com/hashicorp/${pkgname}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+	go build -o packer-binary
+}
+
+check() {
+  cd "src/github.com/hashicorp/${pkgname}"
+  go test ./...
+}
+
+package() {
+	cd "src/github.com/hashicorp/${pkgname}"
+	install -Dm755 packer-binary "${pkgdir}/usr/bin/packer"
+	install -Dm644 contrib/zsh-completion/_packer "${pkgdir}"/usr/share/zsh/site-functions/_packer
+}
+
+# vim:set et sw=2 ts=2 tw=79:

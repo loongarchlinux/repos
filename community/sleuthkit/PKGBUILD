@@ -1,0 +1,33 @@
+# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Contributor: Geoffroy Carrier <geoffroy.carrier@koon.fr>
+
+pkgname=sleuthkit
+pkgver=4.9.0
+pkgrel=1
+pkgdesc='File system and media management forensic analysis tools'
+arch=('x86_64')
+url="https://www.sleuthkit.org/sleuthkit"
+license=('GPL2' 'CPL' 'custom:"IBM Public Licence"')
+depends=('perl' 'libewf' 'sqlite')
+changelog=$pkgname.changelog
+source=(https://github.com/$pkgname/$pkgname/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz{,.asc})
+validpgpkeys=('0917A7EE58A9308B13D3963338AD602EC7454C8B') #Brian Carrier <carrier@sleuthkit.org>
+sha256sums=('7bc5ee9130b1ed8d645e446e0f63bd34ad018a93c1275688fa38cfda28bde9d0'
+            'SKIP')
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  make DESTDIR="${pkgdir}" install
+
+#licenses
+  install -d "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -Dm0644 licenses/* "${pkgdir}"/usr/share/licenses/${pkgname}
+}

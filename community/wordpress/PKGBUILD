@@ -1,0 +1,29 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Thomas Dziedzic <gostrc@gmail.com>
+# Contributor: Jose Valecillos <valecillosjg@gmail.com>
+# Contributor: Kaos <gianlucaatlas@gmail.com>
+# Contributor: Christopher Rogers <slaxemulator@gmail.com>
+
+pkgname=wordpress
+pkgver=5.5.1
+pkgrel=1
+pkgdesc='Blog tool and publishing platform'
+arch=(any)
+url='https://wordpress.org/'
+license=(GPL)
+depends=(php)
+optdepends=('apache: Web server for serving WordPress'
+            'mariadb: Database server'
+            'nginx: Web server for serving WordPress')
+options=(emptydirs)
+install=$pkgname.install
+source=("https://wordpress.org/$pkgname-$pkgver.tar.gz")
+sha512sums=('11285e6e776756185814cde905986ce01f586d159fb06de5d16463cec544c8b3b85a695af51e9de71cbcd79f039ed8f6da233a8e82f5ee797d5124983b6ff0d3')
+
+package() {
+  install -d "$pkgdir/usr/share/webapps"
+  cp -r $pkgname "$pkgdir/usr/share/webapps"
+}
+
+# getver: core.trac.wordpress.org/timeline?milestone=on
+# vim: ts=2 sw=2 et:

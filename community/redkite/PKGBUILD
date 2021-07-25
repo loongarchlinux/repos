@@ -1,0 +1,34 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=redkite
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="A small free software and cross-platform GUI toolkit"
+arch=('x86_64')
+url="https://gitlab.com/iurie-sw/redkite"
+license=('GPL3')
+depends=('glibc' 'cairo')
+makedepends=('cmake')
+source=("$pkgname-$pkgver.tar.gz::https://gitlab.com/iurie-sw/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
+sha512sums=('35d3be906daa41151ff6ae0d5bb95f4adce413a2650a749aa252c8e70564b86488f89f099ab94687015bf853735d4a261c5da01616d71c24d8ced11d6e12343c')
+b2sums=('5b3bf61bf5cb369ad5daedd3da3cb9779ee30fd876332d4190c38cae5940307fbb6f633a5eb6f7889c1adcdb66e7bb24fe53ed86e3f2bcbd53b7eaa29eace66a')
+
+prepare() {
+  mv -v "$pkgname-v$pkgver" "$pkgname-$pkgver"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cmake -DCMAKE_INSTALL_PREFIX='/usr' \
+        -DCMAKE_BUILD_TYPE='None' \
+        -Wno-dev \
+        -B build \
+        -S .
+  make VERBOSE=1 -C build
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install -C build
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

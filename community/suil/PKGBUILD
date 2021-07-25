@@ -1,0 +1,69 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Ray Rashif <schiv@archlinux.org>
+# Contributor: speps <speps at aur dot archlinux dot org>
+
+pkgname=suil
+pkgver=0.10.8
+pkgrel=1
+pkgdesc="A lightweight C library for loading and wrapping LV2 plugin UIs"
+arch=('x86_64')
+url="https://drobilla.net/software/suil/"
+license=('custom:ISC')
+depends=('glibc')
+makedepends=('gtk2' 'gtk3' 'lv2' 'python' 'qt5-base' 'qt5-x11extras' 'waf')
+optdepends=('atk: support for wrapping X11 and Qt5 in GTK2/3 and GTK2 in Qt5'
+            'cairo: support for wrapping X11 and Qt5 in GTK2/3'
+            'fontconfig: support for wrapping X11 and Qt5 in GTK2 and GTK2 in Qt5'
+            'gcc-libs: support for wrapping GTK2 and X11 in Qt5 and Qt5 in GTK2/3'
+            'gdk-pixbuf2: support for wrapping X11 and Qt5 in GTK2/3 and GTK2 in Qt5'
+            'glib2: support for wrapping X11 and Qt5 in GTK2/3 and GTK2 in Qt5'
+            'gtk2: support for wrapping X11 and Qt5 in GTK2 and GTK2 in Qt5'
+            'gtk3: support for wrapping X11 and Qt5 in GTK3'
+            'libfreetype.so: support for wrapping X11 and Qt5 in GTK2 and GTK2 in Qt5'
+            'libx11: support for wrapping X11 directly and in GTK2/3'
+            'qt5-base: support for wrapping X11 in Qt5, Qt5 in GTK2/3 and GTK2 in Qt5'
+            'qt5-x11extras: support for wrapping X11 in Qt5'
+            'pango: support for wrapping X11 in GTK2/3, Qt5 in GTK2/3 and GTK2 in Qt5'
+            'zlib: support for wrapping X11 in GTK3 and Qt5 in GTK3')
+provides=('libsuil-0.so')
+source=("https://download.drobilla.net/${pkgname}-${pkgver}.tar.bz2"{,.sig})
+sha512sums=('1d68996756ac593b2b2da6d9554e3257944cacbc8d70d90ded0f6ad5b5877778a08c779a12c7b4527d492f9c480613e030ab6933532f758e16221daa9d5c2dd4'
+            'SKIP')
+b2sums=('d5445a8a539d3aaca94141fe0a7bfce976db9602fcaa563d0e5661ce7d281ac48679110e5545d3a3aa4d3c488c5ce7a00f2f06bd67e56da26943885a71480648'
+        'SKIP')
+validpgpkeys=('907D226E7E13FA337F014A083672782A9BF368F3') # David Robillard
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  # remove local call to ldconfig
+  sed -i "/ldconfig/d" wscript
+  # let wscript(s) find the custom waf scripts
+  mkdir -pv tools
+  touch __init__.py
+  cp -v waflib/extras/{autoship,autowaf,lv2}.py tools/
+  mkdir -pv plugins/tools/
+  cp -v waflib/extras/{autoship,autowaf,lv2}.py plugins/tools/
+  rm -rv waflib
+  sed -e 's/waflib.extras/tools/g' \
+      -e "s/load('autowaf'/load('autowaf', tooldir='tools'/g" \
+      -e "s/load('lv2'/load('lv2', tooldir='tools'/g" \
+      -i wscript
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  waf configure --prefix=/usr
+  waf build
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  waf install --destdir="${pkgdir}"
+  # license
+  install -vDm 644 COPYING \
+    -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  # docs
+  install -vDm 644 {AUTHORS,NEWS,PACKAGING,README.md} \
+    -t "$pkgdir/usr/share/doc/${pkgname}"
+}
+# vim:set ts=2 sw=2 et:

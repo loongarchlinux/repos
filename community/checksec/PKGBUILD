@@ -1,0 +1,33 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Daniel Micay <danielmicay@gmail.com>
+# Contributor: Lubomir Krajcovic <lubomir.krajcovic(AT)gmail(DOT)com>
+
+pkgname=checksec
+_pkgname=checksec.sh
+pkgver=2.2.3
+pkgrel=1
+pkgdesc='Tool designed to test which standard Linux OS and PaX security features are being used'
+url='https://github.com/slimm609/checksec.sh'
+arch=('any')
+license=('BSD')
+depends=('bash' 'binutils' 'coreutils' 'findutils' 'procps-ng' 'awk' 'openssl'
+         'file' 'grep')
+source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('d1516dc4321f30a57f88d3279fa228b4dbb0f16345c3c7e9d89575ddc3ed9dffae42f392e76321a5a9aba876717aae959365fc829f0abb58c1c21f34dbbf59b7')
+b2sums=('850977dc14d1b57dc947f81af904aca71a7d664bf695619de2b6f7a1014a95176813c4fcd8c39a6c89b028291fa1a08a2beaf6f4dce27f53624202bb0e72ed2c')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+  sed -r 's|(pkg_release=)false|\1true|' -i checksec
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}
+  install -Dm 755 checksec -t "${pkgdir}/usr/bin"
+  install -Dm 644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 ChangeLog README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 extras/man/checksec.1 -t "${pkgdir}/usr/share/man/man1"
+  install -Dm 644 extras/zsh/_checksec -t "${pkgdir}/usr/share/zsh/site-functions"
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-semver
+pkgver=2.10.2
+pkgrel=1
+pkgdesc="Python helper for Semantic Versioning"
+url="https://github.com/k-bx/python-semver"
+license=('BSD')
+arch=('any')
+depends=('python')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest-runner' 'python-pytest-cov')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/k-bx/python-semver/archive/$pkgver.tar.gz")
+sha512sums=('64f115351d896fbab5145fe4b1438f69c713c8e864701e90a5c81f25154fd6828df14856499f17adf008b25becc474ad87e2c10db3937efbcb64bb62a58d6c75')
+
+prepare() {
+  sed -i '/tests_require/d' python-semver-$pkgver/setup.py
+}
+
+build() {
+  cd "$srcdir"/python-semver-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd "$srcdir"/python-semver-$pkgver
+  python setup.py pytest
+}
+
+package() {
+  cd python-semver-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+  install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
+}

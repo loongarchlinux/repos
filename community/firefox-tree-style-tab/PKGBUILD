@@ -1,0 +1,21 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Jérémie Detrey <Jeremie.Detrey@loria.fr>
+
+pkgname=firefox-tree-style-tab
+pkgver=3.5.32
+pkgrel=1
+pkgdesc='Firefox extension to show tabs like a tree'
+arch=('any')
+license=('MPL' 'MPL2')
+groups=('firefox-addons')
+url=https://piro.sakura.ne.jp/xul/_treestyletab.html.en
+source=("https://addons.cdn.mozilla.net/user-media/addons/5890/tree_style_tab_-$pkgver-fx.xpi")
+noextract=("${source##*/}")
+sha256sums=('ba28336c10e3fa0eca0214e8fca59afd3c669e53648a62e3f7da49512af3c3d7')
+b2sums=('9b96d988919a5faeeb3a545684e5932db99ce79d5dba62d9bebf7f15d67cfd8e3372a042dae02ff34b9dabbd6b55f8a3205b1e8e0d042fa2cfed6ee12724be6a')
+
+package() {
+  install -Dm644 "${source##*/}" "$pkgdir"/usr/lib/firefox/browser/extensions/treestyletab@piro.sakura.ne.jp.xpi
+}
+
+# vim:set ts=2 sw=2 et:

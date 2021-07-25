@@ -1,0 +1,63 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Sébastien Luttringer
+# Contributor: SpepS <dreamspepser at yahoo dot it>
+# Contributor: Laszlo Papp <djszapi at archlinux us>
+# Contributor: Donald Ephraim Curtis <dcurtis@gmail.com>
+
+pkgbase=penlight
+pkgname=('lua-penlight' 'lua53-penlight' 'lua52-penlight' 'lua51-penlight')
+pkgver=1.9.0
+pkgrel=1
+pkgdesc='Lua libraries focusing on input data handling'
+url='https://github.com/stevedonovan/penlight'
+arch=('any')
+license=('custom')
+makedepends=(
+  'lua' 'lua-filesystem'
+  'lua53' 'lua53-filesystem'
+  'lua52' 'lua52-filesystem'
+  'lua51' 'lua51-filesystem'
+)
+source=(https://github.com/stevedonovan/penlight/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('3d7aee1df25ce8014051d508c7cd8e5c1f9bd7e0f4a51150be6820d4d731d341')
+sha512sums=('0bdf107f0c10bb36262cb4a48652a229d9bbdfb3ad563ec5574cbd69a14e85b013cffafb6c1a61424a75e19f4c4e6bba2605fee59a1ae12fef7ccdd95895fd14')
+
+check() {
+  cd Penlight-${pkgver}
+  local _version
+  for _version in 5.4 5.3 5.2 5.1; do
+    export LUA_PATH="${PWD}/lua/?/init.lua;${PWD}/lua/?.lua;$(lua${_version} -e 'print(package.path)')"
+    lua5.3 run.lua
+  done
+}
+
+_package() {
+  lua_version="$1"
+  lib_version="$2"
+
+  depends=("${lua_version}" "${lua_version}-filesystem")
+  cd Penlight-${pkgver}
+  install -Dm 644 lua/pl/* -t "${pkgdir}/usr/share/lua/${lib_version}/pl"
+  install -Dm 644 CONTRIBUTING.md CHANGELOG.md README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 docs/manual/* -t "${pkgdir}/usr/share/doc/${pkgname}/manual"
+  install -Dm 644 examples/* -t "${pkgdir}/usr/share/doc/${pkgname}/examples"
+  install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+package_lua-penlight() {
+  _package lua 5.4
+}
+
+package_lua53-penlight() {
+  _package lua53 5.3
+}
+
+package_lua52-penlight() {
+  _package lua52 5.2
+}
+
+package_lua51-penlight() {
+  _package lua51 5.1
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,0 +1,53 @@
+# Maintainer: Allan McRae <allan@archlinux.org>
+# Contributor: Simone Sclavi 'Ito' <darkhado@gmail.com>
+
+_pkgbasename=libjpeg-turbo
+pkgname=lib32-$_pkgbasename
+pkgver=2.0.5
+pkgrel=1
+pkgdesc="libjpeg derivative with accelerated baseline JPEG compression and decompression (32-bit)"
+arch=('x86_64')
+url="https://libjpeg-turbo.org/"
+license=('custom')
+depends=('lib32-glibc' $_pkgbasename)
+makedepends=('nasm' 'cmake')
+provides=('lib32-libjpeg=8.2.2' 'lib32-turbojpeg')
+conflicts=('lib32-libjpeg' 'lib32-turbojpeg')
+replaces=('lib32-libjpeg' 'lib32-turbojpeg')
+validpgpkeys=('7D6293CC6378786E1B5C496885C7044E033FDE16')
+source=(https://sourceforge.net/projects/$_pkgbasename/files/$pkgver/$_pkgbasename-$pkgver.tar.gz{,.sig})
+sha512sums=('5bf9ecf069b43783ff24365febf36dda69ccb92d6397efec6069b2b4f359bfd7b87934a6ce4311873220fccc73acabdacef5ce0604b79209eb1912e8ba478555'
+            'SKIP')
+
+build() {
+  cd "$_pkgbasename-$pkgver"
+
+  export CC="gcc -m32"
+  export CXX="g++ -m32"
+  export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+
+  cmake -DWITH_JPEG8=1 \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib32 \
+        .
+
+  make
+}
+
+check() {
+  cd "$_pkgbasename-$pkgver"
+  make test
+}
+
+package() {
+  cd "$_pkgbasename-$pkgver"
+
+  make DESTDIR="$pkgdir/" docdir=/usr/share/doc/libjpeg-turbo \
+    exampledir=/usr/share/doc/libjpeg-turbo install
+
+  rm -rf "${pkgdir}"/usr/{include,share,bin,sbin}
+
+  mkdir -p "$pkgdir/usr/share/licenses"
+  ln -s $_pkgbasename "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm 644 ChangeLog.md -t"${pkgdir}/usr/share/doc/${pkgname}"
+}

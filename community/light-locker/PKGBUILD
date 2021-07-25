@@ -1,0 +1,54 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=light-locker
+pkgver=1.9.0
+pkgrel=2
+pkgdesc='A simple session locker for LightDM'
+arch=(x86_64)
+url=https://github.com/the-cavalry/light-locker
+license=(GPL2)
+depends=(
+  cairo
+  dbus-glib
+  glibc
+  libdbus-1.so
+  libgdk-3.so
+  libgio-2.0.so
+  libglib-2.0.so
+  libgobject-2.0.so
+  libgtk-3.so
+  libpango-1.0.so
+  libpangocairo-1.0.so
+  libsystemd.so
+  libx11
+  libxext
+  libxss
+)
+makedepends=(
+  git
+  gnome-common
+  intltool
+  meson
+  upower
+  xorgproto
+)
+optdepends=('upower: Power management support')
+source=(git+https://github.com/the-cavalry/light-locker.git#tag=7a96e9f87dc95c794cd45fd0378a62f45308ea87)
+sha256sums=(SKIP)
+
+pkgver() {
+  cd light-locker
+
+  git describe --tags | sed 's/^v//'
+}
+
+build () {
+  arch-meson light-locker build
+  ninja -C build
+}
+
+package() {
+  DESTDIR="${pkgdir}" ninja -C build install
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,0 +1,25 @@
+# Maintainer : Felix Yan <felixonmars@archlinux.org>
+
+pkgname=rust-bindgen
+pkgver=0.55.1
+pkgrel=1
+pkgdesc='Automatically generates Rust FFI bindings to C (and some C++) libraries'
+url='https://github.com/rust-lang/rust-bindgen'
+depends=('gcc-libs' 'clang')
+makedepends=('rust')
+arch=('x86_64')
+license=('BSD')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/rust-lang/rust-bindgen/archive/v$pkgver.tar.gz")
+sha512sums=('8bbac1f20a134915f825e3179e748d17d1c90d157807b5a1f7cca8c97283efcd055cb61feeef656d6f12cacf4133966d5a021bd39d1ae2c1310f877a5764e311')
+
+build() {
+  cd $pkgname-$pkgver
+  cargo build --release
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dm755 target/release/bindgen "$pkgdir"/usr/bin/bindgen
+
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

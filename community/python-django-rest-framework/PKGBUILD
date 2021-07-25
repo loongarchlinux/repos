@@ -1,0 +1,57 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+# weird name on pypi, because reasons
+# _name=djangorestframework
+_name=django-rest-framework
+pkgname=python-django-rest-framework
+pkgver=3.12.1
+pkgrel=1
+pkgdesc="A powerful and flexible toolkit for building Web APIs."
+arch=('any')
+url="https://www.django-rest-framework.org/"
+license=('BSD')
+depends=('python-django')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'python-pytest-django')
+# bootstrap without python-django-filter, as it has a checkdepends on
+# python-django-rest-framework
+optdepends=('python-django-filter: for dynamic queryset filters'
+            'python-django-guardian: for a per-object permission model'
+            'python-markdown: for markdown support'
+            'python-psycopg2: for PostgreSQL support'
+            'python-pygments: for syntax highlighting'
+            'python-yaml: for YAML support')
+# tests not in pypi sdist:
+# https://github.com/encode/django-rest-framework/issues/7141
+# source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/encode/${_name}/archive/${pkgver}.tar.gz")
+sha512sums=('862534df19dd1eb34162ee7be7df9cb05a521316e4647bb8da3a3e6d913e8b500b2362794fdb4a5e323fc0ec86357b2bcf969f086f7cae7f021b53749562f5de')
+b2sums=('58cdc09f2d0b4253eaf01cbbb1bc8526c0bff07689d67a8232e707b09d57f113822672a1ff233b5cc11f4e994bf44c3e509fc255ff8480b3538dc26d08fb5bf7')
+
+prepare() {
+  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
+  # we do not use coverage during testing
+  sed -e '/addopts/d' -i setup.cfg
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  python setup.py build
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  export PYTHONPATH="${PWD}/build:${PYTHONPATH}"
+  pytest -v
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  export PYTHONHASHSEED=0
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --root="${pkgdir}"
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

@@ -1,0 +1,37 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+_pkgname=pipx
+pkgname=python-$_pkgname
+pkgver=0.15.5.1
+pkgrel=1
+pkgdesc='Install and Run Python Applications in Isolated Environments'
+arch=('any')
+url='https://github.com/pipxproject/pipx'
+license=('MIT' 'BSD')
+depends=('python' 'python-userpath' 'python-argcomplete')
+makedepends=('python-setuptools')
+checkdepends=('python-tox' 'python-pytest')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('f084714a8005061b9b739b380b14814ad47e3569b83c4a28cdd5d7b6009d2f334c9d6a25399dfe95a7784860b451ce93c2b462360ccc9ecfc09ba12ac367d56d')
+
+build() {
+  cd $_pkgname-$pkgver
+
+  python setup.py build
+}
+
+#check() {
+#  cd $_pkgname-$pkgver
+#
+#  nox
+#}
+
+package() {
+  cd $_pkgname-$pkgver
+
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+
+  install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

@@ -1,0 +1,52 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Santiago Torres-Arias <santiago[at]archlinux[dot]org>
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=sn0int
+pkgver=0.19.1
+pkgrel=1
+pkgdesc='Semi-automatic OSINT framework and package manager'
+url='https://github.com/kpcyrd/sn0int'
+arch=('x86_64')
+license=('GPL3')
+depends=('libcap' 'sqlite' 'libseccomp' 'libsodium' 'geoip2-database' 'publicsuffix-list')
+makedepends=('cargo' 'python-sphinx')
+install=sn0int.install
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
+sha512sums=('85734ce0634286c482f52fcf9eb1effabcb36d73d8c5c0d542a7b9dc71330c635f5a3aab4e55665b40844c78d8c02f6269b4a1d9d5b5917a930d2f34a8dc731d'
+            'SKIP')
+b2sums=('d25965374e0b9855c587e58dec65eef0e907b8861e367ed2714eae10e46e67186cd29ded315b44b5bd5880a326b9eadcc53a71ee1bd7d64031e3bb4ba41bed2b'
+        'SKIP')
+
+validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
+
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --release --locked
+  make -C docs man
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --release --locked
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 target/release/${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/sn0int" completions bash > "${pkgdir}/usr/share/bash-completion/completions/sn0int"
+  "${pkgdir}/usr/bin/sn0int" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_sn0int"
+  "${pkgdir}/usr/bin/sn0int" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/sn0int.fish"
+
+  install -Dm 644 docs/_build/man/sn0int.1 -t "${pkgdir}/usr/share/man/man1"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

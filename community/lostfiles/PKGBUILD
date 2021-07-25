@@ -1,0 +1,22 @@
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Contributor: graysky <graysky AT archlinux dot us>
+
+pkgname=lostfiles
+pkgver=4.05
+pkgrel=1
+pkgdesc='Find orphaned files not owned by any Arch packages'
+arch=('any')
+license=('GPL2')
+url="https://github.com/graysky2/lostfiles"
+source=("$pkgname-$pkgver.tar.xz::https://github.com/graysky2/$pkgname/archive/v$pkgver.tar.gz")
+sha256sums=('7dc70a08570ac32abe02c0640beb167465304052945c063d463b268cd06a5951')
+
+build() {
+  cd "$pkgname-$pkgver"
+  make 
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+}

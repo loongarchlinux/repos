@@ -1,0 +1,39 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: Baris Demirdelen <barisdemirdelen at gmail dot com>
+# Contributor: Andrew Anderson <aanderso@tcd.ie>
+# Contributor: Jonathon Fernyhough <jonathon_at manjaro_dotorg>
+pkgname=onednn
+pkgver=1.6.4
+pkgrel=1
+pkgdesc="oneAPI Deep Neural Network Library (oneDNN)"
+arch=(x86_64)
+replaces=('intel-dnnl' 'mkl-dnn')
+provides=('intel-dnnl' 'mkl-dnn')
+url=https://github.com/oneapi-src/oneDNN
+license=('APACHE')
+depends=('gcc-libs')
+makedepends=('cmake' 'doxygen' 'ninja')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/oneapi-src/oneDNN/archive/v${pkgver}.tar.gz")
+sha256sums=('5369f7b2f0b52b40890da50c0632c3a5d1082d98325d0f2bff125d19d0dcaa1d')
+
+build() {
+  cd "oneDNN-$pkgver"
+  cmake . \
+      -Bbuild \
+      -GNinja \
+      -DCMAKE_INSTALL_PREFIX="/usr"
+  ninja -C build
+  ninja -C build doc
+}
+
+check() {
+  cd "oneDNN-$pkgver/build"
+  ctest
+}
+
+package() {
+  cd "oneDNN-$pkgver"
+  DESTDIR="$pkgdir" ninja -C build install
+
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

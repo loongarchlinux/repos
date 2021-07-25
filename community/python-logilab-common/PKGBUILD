@@ -1,0 +1,31 @@
+# Maintainer: Angel Velasquez <angvp@archlinux.org>
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Stéphane Gaudreault <stephane@archlinux.org>
+# Contributor: Alexander Fehr <pizzapunk gmail com>
+
+pkgname=python-logilab-common
+pkgver=1.7.3
+pkgrel=1
+pkgdesc="Useful miscellaneous modules used by Logilab projects"
+arch=('any')
+url="https://www.logilab.org/project/logilab-common"
+license=('LGPL')
+depends=('python-setuptools' 'python-mypy_extensions' 'python-typing_extensions')
+checkdepends=('python-pytz')
+source=("https://pypi.io/packages/source/l/logilab-common/logilab-common-$pkgver.tar.gz")
+sha512sums=('c3276c1fb45e1a4b533d8ac427c2031010222332a8dfc9329e11b345482610f3089aaac0b5c3473bf0189b2ec271ca7296281f8b64e42e64fce05c0d1be5c113')
+
+build() {
+  cd logilab-common-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd logilab-common-$pkgver
+  PYTHONPATH="$PWD/build/lib:$PYTHONPATH" python bin/logilab-pytest
+}
+
+package() {
+  cd logilab-common-$pkgver
+  python setup.py install --optimize=1 --skip-build --prefix=/usr --root="$pkgdir"
+}

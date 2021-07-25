@@ -1,0 +1,71 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+pkgname=limesuite
+pkgver=20.07.0
+pkgrel=1
+pkgdesc='Driver and GUI for LMS7002M-based SDR platforms (LimeSDR, etc.)'
+arch=('x86_64')
+url='https://github.com/myriadrf/LimeSuite'
+license=('Apache')
+depends=('sqlite3' 'wxgtk2' 'freeglut' 'libusb' 'soapysdr' 'wget' 'gnuplot' 'glew' 'fltk')
+makedepends=('cmake' 'doxygen' 'octave')
+optdepends=('octave: Octave plugin')
+provides=('soapylms7')
+conflicts=('soapylms7')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('c22fbfdb55d78499d4fb90b858fe84a1eabd8494e3d05c1971fa30263e6066a2eaafcf4d35405035ab474886f4d088eaa988da955e19778ece28ebc5492c521c')
+
+prepare() {
+  cd LimeSuite-$pkgver
+
+  sed -i 's|MODE="660", GROUP="plugdev"|MODE="666"|g' udev-rules/64-limesuite.rules
+}
+
+build() {
+  mkdir -p LimeSuite-$pkgver/build
+  cd LimeSuite-$pkgver/build
+
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_UTILITIES=True \
+    -DENABLE_LIME_UTIL=True \
+    -DCMAKE_SKIP_RPATH=True \
+    -DENABLE_DESKTOP=False \
+    -DENABLE_SOAPY_LMS7=True \
+    -DENABLE_PCIE_XILLYBUS=True \
+    -DENABLE_QUICKTEST=True \
+    -DENABLE_MCU_TESTBENCH=True \
+    -DENABLE_FTDI=True \
+    -DENABLE_FX3=True \
+    -DENABLE_STREAM_UNITE=True \
+    -DENABLE_EXAMPLES=True \
+    -DENABLE_HEADERS=True \
+    -DENABLE_GUI=True \
+    -DENABLE_OCTAVE=True \
+    -DENABLE_API_DOXYGEN=True \
+    -DLIME_SUITE_EXTVER=$pkgver
+
+#    -DENABLE_EVB7COM=True \
+#    -DENABLE_REMOTE=True \
+
+  make
+}
+
+package() {
+  cd LimeSuite-$pkgver/build
+
+  make DESTDIR="$pkgdir" install
+
+  # Install udev rules
+  install -Dm 644 ../udev-rules/64-limesuite.rules "$pkgdir"/etc/udev/rules.d/64-limesuite.rules
+
+  # Install icons and .desktop file
+  install -Dm 644 ../Desktop/lime-suite-128.png "$pkgdir"/usr/share/pixmaps/lime-suite.png
+  install -Dm 755 ../Desktop/lime-suite.desktop "$pkgdir"/usr/share/applications/lime-suite.desktop
+
+  # Install documentation
+  install -dm 755 "$pkgdir"/usr/share/doc/$pkgname
+  cp -r --no-preserve=ownership ../docs/LMS_API_Documentation/* "$pkgdir"/usr/share/doc/$pkgname
+}
+

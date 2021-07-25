@@ -1,0 +1,31 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-movie
+epoch=1
+pkgver=5.7.6.49
+pkgrel=1
+pkgdesc='Movie player based on QtAV'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/deepin-movie-reborn"
+license=('GPL3')
+depends=('deepin-qt5integration' 'mpv' 'ffmpegthumbnailer')
+makedepends=('cmake' 'ninja' 'qt5-tools')
+groups=('deepin-extra')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-movie-reborn/archive/$pkgver.tar.gz")
+sha512sums=('d776ebe5162fff1bf603d0b4acfb8a5bbaa75311fef4a3f74c4d3abe8f18ee257035ac3f0de5d6d23e404f2281b2487385989e3e23b4d9ce61fe285726116a06')
+
+prepare() {
+  cd deepin-movie-reborn-$pkgver
+  sed -i '/#include <DPalette>/a #include <QPainterPath>' src/widgets/{tip,toolbutton}.h
+}
+
+build() {
+  cd deepin-movie-reborn-$pkgver
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_BUILD_TYPE=Release .
+  ninja
+}
+
+package() {
+  cd deepin-movie-reborn-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}

@@ -1,0 +1,21 @@
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
+# Contributor: Willem Mulder <14mRh4X0r@gmail.com>
+
+pkgname=firefox-extension-passff
+pkgver=1.10.3
+pkgrel=1
+pkgdesc="zx2c4 pass manager addon for firefox"
+url="https://github.com/passff/passff"
+license=('GPL2')
+arch=('any')
+groups=('firefox-addons')
+replaces=('firefox-passff')
+depends=('firefox' 'passff-host')
+source=("$pkgname-$pkgver.xpi::https://github.com/passff/passff/releases/download/${pkgver}/passff.xpi")
+sha512sums=('23935f761954d4b4666b5fcfeda69d5967e38903d3b7ceb6f70b93778a7aed6f8257c1df0f0bc25bfd625bffe2e2a81507fdc433e040a129912004c0ce052967')
+noextract=("$pkgname-$pkgver.xpi")
+
+package() {
+    install -Dm644 "$pkgname-$pkgver.xpi" \
+        "${pkgdir}/usr/lib/firefox/browser/extensions/passff@invicem.pro.xpi"
+}

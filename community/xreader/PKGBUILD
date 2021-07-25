@@ -1,0 +1,48 @@
+# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Nate Simon <aurpkg (at natesimon.net)>
+
+pkgname=xreader
+pkgver=2.6.4
+pkgrel=1
+pkgdesc="Document viewer for files like PDF and Postscript. X-Apps Project."
+arch=('x86_64')
+url="https://github.com/linuxmint/${pkgname}"
+license=('GPL')
+groups=('x-apps')
+depends=('poppler-glib' 'webkit2gtk' 'xapps')
+optdepends=('djvulibre: support for djvu files'
+            'libgxps: support for xps files'
+            'libspectre: support for dvi and ps files'
+            'mathjax2: support for math in epub files'
+            'texlive-bin: support for dvi files')
+makedepends=('meson' 'samurai' 'intltool' 'itstool' 'gobject-introspection' 'djvulibre'
+             'libgxps' 'libspectre' 'texlive-bin')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha256sums=('7e2f833669345a396448f475213637f31dff6c45a57b25badb1c13e28a289b10')
+b2sums=('5e0a542e5c2de9a073eb03e7a0be80ad746afa62e7417fe6e682f6249507c038109dcab9ce217024d981a94122a1640deda870c3ee158b532c4f46a213119cb9')
+
+build() {
+    mkdir -p "${srcdir}"/${pkgname}-${pkgver}/build
+    cd "${srcdir}"/${pkgname}-${pkgver}/build
+
+    meson --prefix=/usr \
+          --libexecdir=lib/${pkgname} \
+          --buildtype=plain \
+          -Dmathjax-directory=/usr/share/mathjax2 \
+          -Dcomics=true \
+          -Ddjvu=true \
+          -Ddvi=true \
+          -Dt1lib=true \
+          -Dpixbuf=true \
+          -Dintrospection=true \
+          -Dhelp_files=true \
+          -Dtests=false \
+          ..
+    samu
+}
+
+package(){
+    cd "${srcdir}"/${pkgname}-${pkgver}/build
+
+    DESTDIR="${pkgdir}" samu install
+}

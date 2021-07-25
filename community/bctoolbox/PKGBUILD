@@ -1,0 +1,25 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Sergej Pupykin <arch+pub@sergej.pp.ru>
+
+pkgname=bctoolbox
+pkgver=4.4.0
+pkgrel=1
+pkgdesc="A library written in C that allows you to create and run audio and video streams"
+arch=(x86_64)
+url="https://github.com/BelledonneCommunications/bctoolbox"
+license=(GPL)
+depends=(mbedtls bcunit)
+makedepends=(cmake)
+source=($pkgname-$pkgver.tar.gz::"https://github.com/BelledonneCommunications/bctoolbox/archive/$pkgver.tar.gz")
+sha256sums=('fe64efb05de1bbd207e4abe5560ea44f5242eaf0911163b3b8fc0bec07488bb5')
+
+build() {
+  cmake -B build -S $pkgname-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_STATIC=OFF
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

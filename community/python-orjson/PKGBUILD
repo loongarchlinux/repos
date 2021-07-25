@@ -1,0 +1,55 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=orjson
+pkgname=python-orjson
+pkgver=3.4.0
+pkgrel=1
+pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
+arch=('x86_64')
+url="https://github.com/ijl/orjson"
+license=('Apache' 'MIT')
+depends=('python')
+makedepends=('maturin' 'python-pip' 'rustup')
+checkdepends=('python-arrow' 'python-pendulum' 'python-psutil' 'python-pytest'
+'python-pytz' 'python-xxhash')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ijl/${_name}/archive/${pkgver}.tar.gz")
+sha512sums=('610de437022250bb32e244c5de0ac5accfd9039d54e530d7ff86b89b58a3f7119adb535b79c7d73ae3fadf28fa993a3ea678544aabb9faf5b1703725a38f1294')
+b2sums=('e59a6b9023d0df2ce17b61545485cd967cb5a89022c4a83f84234f72bb3e75452f7d2b73cc44f4fed71fa87a815593f13689088783b07ade513ed1f3676369af')
+
+prepare() {
+  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
+  rustup override set nightly-2020-09-14
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  maturin build --release \
+                --strip \
+                --manylinux
+}
+
+check() {
+  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+  cd "$pkgname-$pkgver"
+  mkdir -vp testdir
+  export PIP_CONFIG_FILE=/dev/null
+  pip install --isolated \
+              --root="testdir" \
+              --ignore-installed \
+              --no-deps target/wheels/*.whl
+  export PYTHONPATH="testdir/usr/lib/python${python_version}/site-packages:${PYTHONPATH}"
+  pytest -v
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  export PIP_CONFIG_FILE='/dev/null'
+  pip install --isolated \
+              --root="$pkgdir" \
+              --ignore-installed \
+              --no-deps target/wheels/*.whl
+  install -vDm 644 {CHANGELOG,README}.md \
+    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

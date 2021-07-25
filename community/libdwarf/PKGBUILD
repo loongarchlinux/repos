@@ -1,0 +1,39 @@
+# Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
+# Contributor: Alain Kalker <a.c.kalker@gmail.com>
+# Contributor: Marti Raudsepp <marti@juffo.org>
+
+pkgname=libdwarf
+pkgver=20200825
+pkgrel=1
+pkgdesc="A library for handling DWARF Debugging Information Format"
+arch=(x86_64)
+license=('GPL' 'LGPL')
+url="https://www.prevanders.net/dwarf.html"
+depends=('elfutils')
+options+=('staticlibs')
+#_commit="245262d6ccaeed17f7564c31b78da2d4df1a3ee0"
+#source=(https://sourceforge.net/code-snapshots/git/l/li/libdwarf/code.git/libdwarf-code-$_commit.zip)
+source=(https://www.prevanders.net/libdwarf-$pkgver.tar.gz)
+sha512sums=('ef7578d5a07d45ded0e5e641ac69b917ace33bd94efcad7d87b5d1960d7e48839095b480b086c84326fc2f15a9e9cfb6ea7a51d8fffe2f63f50b4b8bd5fdbd39')
+
+build() {
+  cd "$srcdir"/libdwarf-$pkgver
+  # cd "$srcdir"/libdwarf-code-$_commit
+  ./configure --prefix=/usr --includedir=/usr/include/libdwarf --enable-shared
+  make
+}
+
+# check() {
+#   cd "$srcdir"/libdwarf-$pkgver
+#   # cd "$srcdir"/libdwarf-code-$_commit
+#   make check
+# }
+
+package() {
+  cd "$srcdir"/libdwarf-$pkgver
+  # cd "$srcdir"/libdwarf-code-$_commit
+  make DESTDIR="$pkgdir" install
+
+  install -dm755 "$pkgdir"/usr/share/doc/$pkgname
+  install -m644 README NEWS "$pkgdir"/usr/share/doc/$pkgname/
+}

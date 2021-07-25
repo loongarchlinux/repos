@@ -1,0 +1,41 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=JACK-Client
+pkgname=python-jack-client
+pkgver=0.5.2
+pkgrel=1
+pkgdesc="JACK Audio Connection Kit (JACK) Client for Python"
+arch=('any')
+url="https://github.com/spatialaudio/jackclient-python/"
+license=('MIT')
+depends=('jack' 'python-cffi')
+makedepends=('python-setuptools')
+optdepends=('python-numpy: Access input/output buffers as numpy arrays')
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
+sha512sums=('78f908a8e331d323806c3ef6232c646dbd34bc4c3c426eff9dea3c8148c031c6ab9d6d2943d1ad3266ac97c91c80a3b1ae13784fbaa8b4c52556e3de0a52024e')
+validpgpkeys=()
+
+prepare() {
+  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  python setup.py build
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --prefix=/usr \
+    --root="${pkgdir}"
+  # license
+  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+  # docs
+  install -vDm 644 {CONTRIBUTING,NEWS,README}.rst \
+    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+  # examples
+  install -vDm 755 examples/*.py \
+    -t "${pkgdir}/usr/share/doc/${pkgname}/examples/"
+}

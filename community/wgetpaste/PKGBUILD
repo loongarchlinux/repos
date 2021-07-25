@@ -1,0 +1,27 @@
+# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+
+pkgname=wgetpaste
+pkgver=2.29
+pkgrel=1
+pkgdesc="A script that automates pasting to a number of pastebin services"
+arch=('any')
+url="https://wgetpaste.zlin.dk/"
+license=('custom')
+depends=('wget')
+optdepends=('xclip: interface to Xclipboard')
+source=(https://wgetpaste.zlin.dk/$pkgname-$pkgver.tar.bz2
+        https://wgetpaste.zlin.dk/$pkgname.example)
+sha256sums=('42e42437f97376c9a2793839344205eff40c9f6b4a7d356e17fef83f72e7e0e6'
+            'cbc0437f7e04d95ffd224011ee2a056a84dfd7143e314e6962688295f68def4d')
+
+package() {
+  cd "${srcdir}"/${pkgname}-${pkgver}
+
+  install -Dm755 ${pkgname} "${pkgdir}"/usr/bin/${pkgname}
+  install -Dm644 _${pkgname} "${pkgdir}"/usr/share/zsh/site-functions/_${pkgname}
+  install -Dm644 "${srcdir}"/${pkgname}.example ${pkgdir}/usr/share/${pkgname}/${pkgname}.example
+
+# license
+  sed -n '2,5p' wgetpaste > LICENSE
+  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE
+}

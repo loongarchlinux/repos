@@ -1,0 +1,30 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: Peter Cai <peter at typeblog dot net>
+
+pkgname=gtop
+pkgver=1.0.2
+pkgrel=2
+pkgdesc='System monitoring dashboard for terminal'
+arch=('any')
+url='https://github.com/aksakalli/gtop'
+license=('MIT')
+depends=(nodejs)
+makedepends=(npm git)
+source=("git+https://github.com/aksakalli/gtop.git#tag=v1.0.2")
+sha512sums=('SKIP')
+
+build() {
+  cd gtop
+  npm install --production
+}
+
+package() {
+  local _npmdir="$pkgdir/usr/lib/node_modules"
+  mkdir -p "$_npmdir"/gtop
+  cp -R gtop/* "$_npmdir/gtop"
+  local _bindir="$pkgdir/usr/bin"
+  mkdir -p "$_bindir"
+  ln -s /usr/lib/node_modules/gtop/bin/gtop "$_bindir/gtop"
+
+  install -Dm644 gtop/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

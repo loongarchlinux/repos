@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-daiquiri
+pkgver=2.1.1
+pkgrel=1
+pkgdesc='Library to configure Python logging easily'
+arch=('any')
+license=('Apache')
+url='https://github.com/jd/daiquiri'
+depends=('python-json-logger')
+makedepends=('python-setuptools-scm')
+checkdepends=('python-pytest' 'python-mock')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/jd/daiquiri/archive/$pkgver.tar.gz")
+sha512sums=('550e7dae49b844252a94f76afa474a6d14a9dc51564b06d4c2549ffacaa685c3885c55ba2dc4e6e15a9db2f17e2ce87e02d2fbd1ba410be81b390a76ddfafc89')
+
+export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+
+build() {
+  cd daiquiri-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd daiquiri-$pkgver
+  python -m pytest
+}
+
+package() {
+  cd daiquiri-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+}
+
+# vim:set ts=2 sw=2 et:

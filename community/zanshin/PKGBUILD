@@ -1,0 +1,32 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=zanshin
+pkgver=0.5.71
+pkgrel=2
+pkgdesc="To-do management application based on Akonadi"
+arch=(x86_64)
+url="https://zanshin.kde.org"
+license=(GPL)
+depends=(kdepim-runtime kontactinterface)
+makedepends=(extra-cmake-modules kdoctools boost)
+source=("https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
+sha256sums=('b0933d2d9a63bba372966da0ba9e313b85ab2d6aa513a43657da90c65a33612c'
+            'SKIP')
+validpgpkeys=(17166A5275C5FA6F1A48FD78074BBBCB8DECC9E2  # Kevin Ottens <ervin+bluesystems@kde.org>
+              2D1D5B0588357787DE9EE225EC94D18F7F05997E) # Jonathan Riddell <jr@jriddell.org>
+
+prepare() {
+  mkdir -p build
+}
+
+build() {
+  cd build
+  cmake ../$pkgname-$pkgver \
+    -DBUILD_TESTING=OFF
+  make
+}
+
+package() {
+  cd build
+  make DESTDIR="$pkgdir" install
+}

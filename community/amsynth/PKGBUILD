@@ -1,0 +1,61 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: speps <speps at aur dot archlinux dot org>
+# Contributor: Alessio Biancalana <dottorblaster@gmail.com>
+
+pkgname=amsynth
+pkgver=1.11.0
+pkgrel=3
+pkgdesc="Analogue Modeling SYNTHesizer"
+arch=('x86_64')
+url="https://amsynth.github.io/"
+license=('GPL2')
+groups=('dssi-plugins' 'lv2-plugins' 'pro-audio' 'vst-plugins')
+depends=('cairo' 'fontconfig' 'gcc-libs' 'gdk-pixbuf2' 'glibc')
+makedepends=('atk' 'autoconf-archive' 'dssi' 'freetype2' 'glib2' 'gtk2'
+'harfbuzz' 'intltool' 'jack' 'ladspa' 'liblo' 'lv2' 'pandoc')
+checkdepends=('lv2lint')
+optdepends=('alsa-lib: for standalone application'
+            'jack: for standalone application'
+            'liblo: for standalone application and DSSI plugin'
+            'new-session-manager: for session management with the standalone application')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/amsynth/amsynth/archive/release-${pkgver}.tar.gz")
+sha512sums=('b5d08fa244362406afd9eed88c7fb334c80b792b3b5224f6e7bcdae0d78c620150b0d0bd028f31ce907272f1de46c26025ff172170e98a4be4df4cc1002eda7c')
+b2sums=('e2a97d0e8a73203ceae80dd3ee5104a1bf12dbf84f74b6ffe45d7046f4e25195ca4eb15c5db9ffeb89a1d8d09b3cf0a1f723f6ccc3429df72aff473a0060caa6')
+
+prepare() {
+  mv -v "${pkgname}-release-${pkgver}" "${pkgname}-${pkgver}"
+  cd "${pkgname}-${pkgver}"
+  autoreconf -vfi
+  intltoolize -f
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  ./configure --prefix=/usr \
+              --with-alsa \
+              --with-jack \
+              --with-dssi \
+              --with-lv2 \
+              --with-vst \
+              --with-pandoc
+  make
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  cp .libs/${pkgname}_lv2*.so data/${pkgname}.lv2/
+  lv2lint -Mpack \
+          -I "data/${pkgname}.lv2" \
+          "http://code.google.com/p/amsynth/amsynth"
+}
+
+package() {
+  depends+=('libatk-1.0.so' 'libfreetype.so' 'libgdk-x11-2.0.so'
+  'libgio-2.0.so' 'libglib-2.0.so' 'libgobject-2.0.so' 'libgtk-x11-2.0.so'
+  'libharfbuzz.so' 'libpangocairo-1.0.so' 'libpangoft2-1.0.so'
+  'libpango-1.0.so')
+  cd "${pkgname}-${pkgver}"
+  make DESTDIR="$pkgdir/" install
+  install -vDm 644 {AUTHORS,NEWS,README} \
+    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+}

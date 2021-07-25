@@ -1,0 +1,44 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Thomas Dziedzic < gostrc at gmail >
+# Contributor: Sergio A. Morales <sergiomorales@archlinux.cl>
+# Contributor: soeren <nonick@posteo.de>
+
+pkgname=gummi
+epoch=2
+pkgver=0.8.1
+pkgrel=1
+pkgdesc='Simple LaTex editor for GTK2 users'
+arch=(x86_64)
+url='https://github.com/alexandervdm/gummi'
+license=(MIT)
+depends=(gtksourceview3 gtkspell3 poppler-glib texlive-core)
+makedepends=(git intltool setconf)
+# tag: 0.8.1
+source=("git+$url#commit=fc61bc04787563290edc9f7e77446541288e6ef8")
+md5sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  ./autogen.sh
+  setconf Makefile.in PACKAGE_VERSION "'"$pkgver"'"
+  setconf data/misc/Makefile.in PACKAGE_VERSION "'"$pkgver"'"
+  echo $pkgver > dev/latest
+  autoreconf
+  setconf configure PACKAGE_VERSION "'"$pkgver"'"
+  setconf configure PACKAGE_STRING "'""Gummi $pkgver""'"
+  setconf po/Makefile.in.in DATADIRNAME 'share'
+}
+
+build() {
+  cd $pkgname
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd $pkgname
+  DESTDIR="$pkgdir" make install
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,0 +1,28 @@
+  # $Id: PKGBUILD 226039 2017-04-27 13:52:30Z felixonmars $
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: csslayer <wengxt AT gmail com>
+
+pkgname=fcitx5-rime
+pkgver=0.0.0.20200913
+_commit=e20996d752e3b2882d35c15630fa4b75da177485
+pkgrel=1
+pkgdesc="RIME support for Fcitx5"
+arch=('x86_64')
+url="https://github.com/fcitx/fcitx5-rime"
+license=('GPL')
+depends=('fcitx5' 'librime')
+makedepends=('extra-cmake-modules' 'ninja')
+source=("https://github.com/fcitx/fcitx5-rime/archive/$_commit/fcitx5-rime-$_commit.tar.gz")
+sha512sums=('7fb562e7ccd313a5447c0b82fc8de78c32c5bf68dff6ab499a48b00049ec3ba51f4776419d4b247cd673b1f26b303711936dce589ff392c9d4b74ba5b78bde72')
+
+build(){
+  cd $pkgname-$_commit
+
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
+  ninja
+}
+
+package() {
+  cd $pkgname-$_commit
+  DESTDIR="$pkgdir" ninja install
+}

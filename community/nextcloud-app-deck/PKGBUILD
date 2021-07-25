@@ -1,0 +1,22 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Jonas Heinrich <onny@project-insanity.org>
+
+pkgname=nextcloud-app-deck
+_name=deck
+pkgver=1.1.2
+pkgrel=1
+# upstream doesn't adhere to semver:
+# https://github.com/nextcloud/deck/issues/1197
+epoch=1
+pkgdesc="Kanban style organization tool aimed at personal planning and project organization"
+arch=('any')
+url="https://github.com/nextcloud/deck"
+license=('AGPL3')
+depends=('nextcloud')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/nextcloud/${_name}/releases/download/v${pkgver}/${_name}.tar.gz")
+sha512sums=('a2fb473c3b394f4075505eb2542faba66f11f7c442fddc252938fa00f45fd58407d3930d0f6f90c18e86af4b636e99a9d20bc3bac5f7d8746f20a8030cab3657')
+
+package() {
+  install -vdm 755 "${pkgdir}/usr/share/webapps/nextcloud/apps/"
+  cp -av "${_name}" "${pkgdir}/usr/share/webapps/nextcloud/apps/"
+}

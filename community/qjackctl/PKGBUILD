@@ -1,0 +1,37 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Ray Rashif <schiv@archlinux.org>
+# Contributor: Tobias Kieslich <tobias@archlinux.org>
+
+pkgname=qjackctl
+pkgver=0.6.3
+pkgrel=1
+pkgdesc="A Qt front-end for the JACK low-latency audio server"
+url="https://qjackctl.sourceforge.io"
+arch=('x86_64')
+license=('GPL2')
+groups=('pro-audio')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
+makedepends=('alsa-lib' 'jack' 'qt5-tools' 'portaudio')
+optdepends=('portaudio: Portaudio support')
+source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('72a9218b3b8a6b72470656e774f5cfbfe6670059e9f1a85a394345f4689c5d5c05af23b5e37d5f8dfc6159e591f64249006936069dde1632ef9d74b6f8355e0b')
+b2sums=('98d80d0fea3db359b732fad14711352ba688e605b7225daad64d7df1dabf1d19e24b4d643581f1936afa0df0c84350cf5727686246bd8a850e09da969a228e44')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  autoreconf -vfi
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  depends+=('libasound.so' 'libjack.so')
+  cd "${pkgname}-${pkgver}"
+  make DESTDIR="$pkgdir" install
+  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
+    -vDm 644 {AUTHORS,ChangeLog,README,TODO,TRANSLATORS}
+}

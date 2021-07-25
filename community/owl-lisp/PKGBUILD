@@ -1,0 +1,53 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+
+pkgname=owl-lisp
+pkgver=0.1.22
+pkgrel=1
+pkgdesc='Simple purely functional lisp'
+url='https://gitlab.com/owl-lisp/owl.git'
+arch=('x86_64')
+license=('MIT')
+depends=('glibc')
+makedepends=('pandoc')
+source=(https://gitlab.com/owl-lisp/owl/-/archive/v${pkgver}/owl-v${pkgver}.tar.gz)
+sha256sums=('12733a649bc2c7db10edcba25bcbec56fb0c1cbafce1ccf89c7a1947bedd0abd')
+sha512sums=('51a0ee634f423269834921ec9bef2286405f6dec758028420d43ac4f93bc8b66010f055f51ba51610d944e74bd2263dcef86011ce9dd39bb45c50b16568d9b59')
+sha256sums=('12733a649bc2c7db10edcba25bcbec56fb0c1cbafce1ccf89c7a1947bedd0abd')
+sha512sums=('51a0ee634f423269834921ec9bef2286405f6dec758028420d43ac4f93bc8b66010f055f51ba51610d944e74bd2263dcef86011ce9dd39bb45c50b16568d9b59')
+
+prepare() {
+  cd owl-v${pkgver}
+
+  # support distro CFLAGS and CPPFLAGS
+  sed -e '/export CFLAGS/d' -e '/CFLAGS =/d' \
+      -e 's|$(CFLAGS)|$(CFLAGS) $(CPPFLAGS)|g' -i Makefile
+
+  # make build reproducible, we compress ourselves
+  sed -e 's|gzip -9|@echo|g' -e 's|\.gz||g' -i Makefile
+
+  # fix missing Makefile entry
+  sed 's|manual.md:|manual.md: bin/ol|' -i Makefile
+
+  # remove failing tests (can't run inside makepkg)
+  rm tests/getpid.sh
+}
+
+build() {
+  cd owl-v${pkgver}
+  make owl documentation
+}
+
+check() {
+  cd owl-v${pkgver}
+  make -j1 test fasltest
+}
+
+package() {
+  cd owl-v${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm 644 fasl/* -t "${pkgdir}/var/lib/${pkgname}/fasl"
+  install -Dm 644 LICENCE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md doc/manual.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

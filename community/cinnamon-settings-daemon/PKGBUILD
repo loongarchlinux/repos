@@ -1,0 +1,49 @@
+# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Alexandre Filgueira (faidoc) <alexfilgueira@antergos.com>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+
+pkgname=cinnamon-settings-daemon
+pkgver=4.6.4
+pkgrel=1
+pkgdesc="The Cinnamon Settings daemon"
+arch=('x86_64')
+url="https://github.com/linuxmint/${pkgname}"
+license=('GPL')
+depends=('cinnamon-desktop' 'colord' 'dbus-glib' 'libcanberra-pulse' 'libcups'
+         'libgnomekbd' 'libgudev' 'libnotify' 'librsvg' 'libwacom' 'nss' 'polkit'
+         'pulseaudio-alsa' 'upower')
+optdepends=('cinnamon-translations: i18n')
+makedepends=('autoconf-archive' 'intltool' 'python' 'xf86-input-wacom')
+options=('!emptydirs')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
+sha512sums=('77ddb637fd93fdfd59fb27c5a10082259fd99b4753ff36b3473db12f2fe0d19ee89d44c9e72f1ce9eab3f228c5fef418ce774dd78746d77b959ad9d8f93c1208')
+b2sums=('80e14d29a74004c1778e90d39c6ca892d3eee778134e43b8ea77cfec8cbad4f5ac21609cfbb9cdaab0b4d35b42e897223a5b9cdfd43de49d8112b8bc6fc45914')
+
+prepare() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    autoreconf -fi
+}
+
+build() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    ./configure --prefix=/usr \
+                --sysconfdir=/etc \
+                --localstatedir=/var \
+                --libexecdir="/usr/lib/${pkgname}" \
+                --with-dbus-sys="/usr/share/dbus-1/system.d" \
+                --enable-systemd \
+                --enable-polkit
+
+    #https://bugzilla.gnome.org/show_bug.cgi?id=656231
+    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+    make
+}
+
+package() {
+    cd "${srcdir}"/${pkgname}-${pkgver}
+
+    make DESTDIR="$pkgdir" install
+}

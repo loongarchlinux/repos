@@ -1,0 +1,22 @@
+# Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Contributor: Diego Galizzi <dgalizzi at gmail dot com>
+# Contributor: zoulnix <http://goo.gl/HQaP>
+
+pkgname=cimg
+pkgver=2.9.2
+pkgrel=1
+pkgdesc="Open-source C++ toolkit for image processing"
+arch=('any')
+url="http://cimg.eu/"
+license=('custom')
+depends=('fftw' 'graphicsmagick')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/dtschump/CImg/archive/v.${pkgver}.tar.gz")
+sha512sums=('d713915ca4940da9396ad4bcb151688b8ec13f380710a3bfc672675ca05e0f0fe21837fa5881eb310205cbce034ef186aff2bd352d6df1690379f128b7922b4d')
+
+package() {
+  cd "${srcdir}"/CImg-v.${pkgver}
+  install -d "${pkgdir}"/usr/include/CImg/plugins ${pkgdir}/usr/share/licenses/${pkgname}
+  install -m644 CImg.h "${pkgdir}"/usr/include/
+  install -m644 plugins/*.h "${pkgdir}"/usr/include/CImg/plugins/
+  install -m644 Licence_CeCILL*_V*-en.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+}

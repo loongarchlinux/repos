@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-josepy
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="JOSE protocol implementation in Python"
+url="https://github.com/certbot/josepy"
+license=('PerlArtistic')
+arch=('any')
+depends=('python-cryptography' 'python-pyopenssl' 'python-setuptools')
+checkdepends=('python-pytest-runner' 'python-coverage' 'python-pytest-isort' 'python-pytest-cache'
+              'python-pytest-cov' 'flake8' 'python-pytest-flake8' 'python-mock')
+source=("https://pypi.io/packages/source/j/josepy/josepy-$pkgver.tar.gz")
+sha512sums=('a5038a4bb42c5a55d665a551743a976b209c24d8aa368d2b6acf0957e953bd4044d9dc41bf9d460283f44c14b7dd7ce2a860563fe107663d4a4deba0c7834e40')
+
+prepare() {
+  # https://github.com/certbot/josepy/issues/24
+  sed -i 's/flake8-ignore = E501/flake8-ignore = E501 W504/' josepy-$pkgver/pytest.ini
+}
+
+build() {
+  cd josepy-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd josepy-$pkgver
+  python setup.py pytest
+}
+
+package() {
+  cd josepy-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+}

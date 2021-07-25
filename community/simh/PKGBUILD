@@ -1,0 +1,39 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: waterbear <st92.at.freeshell.org>
+
+pkgname=simh
+pkgver=3.10
+#_pkgver=${pkgver//./-}
+#_pkgver=${pkgver/-/.}
+pkgrel=1
+pkgdesc="simulator for assorted historical computers, from Altair to VAX"
+arch=('x86_64')
+url="http://simh.trailing-edge.com"
+license=("BSD")
+depends=("libpcap")
+makedepends=("unzip" "linux-api-headers")
+install=simh.install
+source=("$pkgname-$pkgver.tar.gz::https://github.com/simh/simh/archive/v$pkgver.tar.gz"
+	"LICENSE")
+sha512sums=('287f68079df778910b9a1a1b9066342750fea35aa943037756d9cd929913b4c709fe50c91f402b1199f999d16ec669aa1af0539b2dba01462a4befeeeba88d27'
+            '084faf8a66c95cb337bca19a6116c916aa04fc23ec5d57d5d8c2fc168231272123a705e83f8da2bf38f404da51727a69db68ffd87b36028e0cde52b54b92b2dd')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  mkdir -p BIN
+#  find VAX -type f -exec sed -i 's/SIM_INLINE//' {} +
+  make USE_TAP_NETWORK=1 USE_NETWORK=1 NETWORK_OPT='-DUSE_NETWORK -DUSE_TAP_NETWORK -isystem /usr/include -lpcap'
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver/BIN"
+  for i in *; do
+    install -D $i "$pkgdir/usr/bin/simh-$i"
+  done
+
+  cd "$srcdir/$pkgname-$pkgver/VAX"
+  mkdir -p "$pkgdir/usr/lib/simh"
+  cp *.bin "$pkgdir/usr/lib/simh"
+
+  install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

@@ -1,0 +1,34 @@
+# Maintainer: Jerome Leclanche <jerome@leclan.ch>
+
+pkgname=foliate
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="A simple and modern GTK eBook reader"
+arch=("x86_64")
+url="https://johnfactotum.github.io/foliate/"
+license=("GPL3")
+depends=("gjs" "iso-codes" "webkit2gtk")
+makedepends=("meson" "ninja" "gettext")
+optdepends=(
+	"dictd: Offline dictionary support"
+	"espeak-ng: Text-to-speech support; also voice package needed"
+	"festival: Text-to-speech support; also voice package needed"
+	"gspell: Spell-checking support"
+	"hyphen: Auto-hyphenation support"
+	"tracker"
+)
+source=("$pkgname-$pkgver.tar.gz"::"https://github.com/johnfactotum/foliate/archive/$pkgver.tar.gz")
+sha256sums=("7c713c7a0793d931c1762f9825a7c27ccf94e39f982a77d7344643e2d25e35ee")
+
+
+build() {
+	cd "$srcdir/$pkgname-$pkgver"
+	meson build --prefix=/usr
+	ninja -C build
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+	DESTDIR="$pkgdir" ninja -C build install
+	ln -sv com.github.johnfactotum.Foliate "$pkgdir/usr/bin/foliate"
+}

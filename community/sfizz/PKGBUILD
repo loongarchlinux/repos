@@ -1,0 +1,55 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: RedTide <redtid3@gmail.com>
+
+pkgname=sfizz
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="SFZ library and LV2 plugin"
+arch=('x86_64')
+url="https://github.com/sfztools/sfizz"
+license=('BSD')
+groups=('lv2-plugins' 'pro-audio' 'vst3-plugins')
+# TODO: devendor abseil-cpp
+depends=('cairo' 'gcc-libs' 'glibc' 'libx11' 'xcb-util' 'xcb-util-cursor'
+'libxkbcommon' 'libxkbcommon-x11')
+makedepends=('cmake' 'jack' 'freetype2' 'libsndfile' 'lv2' 'xcb-util-keysyms')
+checkdepends=('lv2lint')
+optdepends=('jack: for sfizz_jack')
+provides=('libsfizz.so' 'soundfont-synthesizer')
+source=("https://github.com/sfztools/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}-src.tar.gz")
+sha512sums=('eec9dd89d4e2f0a916fe91ade662c4ebf5588252b7a865e5256a2bf1a1c025cb4d80c0d775055282e70d0016a6de2ea0bf470bb5e7bfebd42104b85d722a91b2')
+b2sums=('b750a81f3c4f4355853f4b8488c51744ec3844e9e6463172447c532e177f7db049540130ceed03e83c558097ff59355a7ed9736f084db293fa4c22a0ed1c84cd')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  # devendor lv2
+  rm -rfv lv2/lv2
+  sed -e 's|"lv2/core/lv2.h"|<lv2/core/lv2.h>|g' \
+      -i lv2/external/ardour/ardour/lv2_extensions.h
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" \
+        -DCMAKE_BUILD_TYPE='Release' \
+        -ENABLE_LTO=ON \
+        -DSFIZZ_TESTS=ON \
+        -DSFIZZ_VST=ON \
+        -B build \
+        -S .
+  make VERBOSE=1 -C build
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  ./build/tests/${pkgname}_tests
+  lv2lint -Mpack -I "build/${pkgname}.lv2" "http://sfztools.github.io/sfizz"
+}
+
+package() {
+  depends+=('libsndfile.so')
+  cd "$pkgname-$pkgver"
+  make VERBOSE=1 DESTDIR="$pkgdir/" install -C build
+  install -vDm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-image-viewer
+pkgver=5.6.3.7
+pkgrel=1
+pkgdesc='An image viewing tool with fashion interface and smooth performance'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/deepin-image-viewer"
+license=('GPL3')
+depends=('deepin-qt5integration' 'freeimage' 'gio-qt' 'libexif' 'libraw' 'qt5-svg' 'udisks2-qt5')
+makedepends=('qt5-tools')
+optdepends=('deepin-manual: for help menual'
+            'deepin-shortcut-viewer: for shortcut display')
+groups=('deepin')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-image-viewer/archive/$pkgver.tar.gz"
+        deepin-image-viewer-qt5.15.patch)
+sha512sums=('cf73eab16517062f5c529c1d0f5256a6979ab59827b5e8652ed846123d7d26a2bd13f8889cab7a130fbc9275485c177a6c1173397b41a601d7c8a0b4dc51ca36'
+            'e802fa93972bf3d32c3672603e41bc662866aaf7e458b0cd7eeef786e22348c57161d3292754df5357beae6bb3b475bd45dfc6912c969200e4bf079c00b77763')
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 -i ../deepin-image-viewer-qt5.15.patch # Fix build with Qt 5.15
+}
+
+build() {
+  cd deepin-image-viewer-$pkgver
+  qmake-qt5 PREFIX=/usr
+  make
+}
+
+package() {
+  cd deepin-image-viewer-$pkgver
+  make INSTALL_ROOT="$pkgdir" install
+}
