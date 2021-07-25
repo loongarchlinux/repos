@@ -1,7 +1,7 @@
 # Maintainer: Baptiste Jonglez <archlinux at bitsofnetworks dot org>
 
 pkgname=libuecc
-arch=("x86_64")
+arch=("loongarch64" "x86_64")
 pkgver=7
 pkgrel=3
 pkgdesc="Very small Elliptic Curve Cryptography library"

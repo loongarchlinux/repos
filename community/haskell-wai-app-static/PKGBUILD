@@ -8,7 +8,7 @@ pkgrel=38
 pkgdesc="WAI application for static serving"
 url="https://www.yesodweb.com/book/web-application-interface"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-cryptonite'
          'haskell-file-embed' 'haskell-http-date' 'haskell-http-types' 'haskell-memory'
          'haskell-mime-types' 'haskell-old-locale' 'haskell-optparse-applicative'

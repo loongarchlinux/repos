@@ -8,7 +8,7 @@ pkgrel=150
 pkgdesc="Data encoding library"
 url="https://hackage.haskell.org/package/sandi"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck'
              'haskell-tasty-th')

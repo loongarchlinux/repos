@@ -7,7 +7,7 @@ pkgrel=115
 pkgdesc="Deterministic random bit generator (aka RNG, PRNG) based HMACs, Hashes, and Ciphers."
 url="https://github.com/TomMD/DRBG"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-prettyclass' 'haskell-tagged' 'haskell-crypto-api'
          'haskell-cryptohash-cryptoapi' 'haskell-parallel' 'haskell-cipher-aes128' 'haskell-entropy')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-crypto-api-tests' 'haskell-hunit'

@@ -7,7 +7,7 @@ pkgrel=17
 pkgdesc="Auto-generate a command-line parser for your datatype"
 url="https://github.com/Gabriel439/Haskell-Optparse-Generic-Library"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-system-filepath' 'haskell-only' 'haskell-optparse-applicative'
          'haskell-void')
 makedepends=('ghc')

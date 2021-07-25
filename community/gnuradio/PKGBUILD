@@ -6,7 +6,7 @@ pkgname=(gnuradio gnuradio-companion)
 pkgver=3.8.1.0
 pkgrel=3
 pkgdesc="General purpose DSP and SDR toolkit.  With drivers for usrp and fcd."
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://gnuradio.org"
 license=('GPL')
 depends=('fftw' 'python-numpy' 'gsl' 'blas' 'boost-libs>=1.53'

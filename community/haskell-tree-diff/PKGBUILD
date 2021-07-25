@@ -7,7 +7,7 @@ pkgrel=133
 pkgdesc="Diffing of (expression) trees"
 url="https://github.com/phadej/tree-diff"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-wl-pprint' 'haskell-ansi-terminal'
          'haskell-base-compat' 'haskell-hashable' 'haskell-parsers' 'haskell-quickcheck'
          'haskell-scientific' 'haskell-tagged' 'haskell-unordered-containers' 'haskell-uuid-types'

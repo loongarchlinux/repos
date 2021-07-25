@@ -8,7 +8,7 @@ pkgrel=10
 pkgdesc="A reusable library providing the core functionality of hledger"
 url="http://hledger.org"
 license=("GPL")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-terminal'
          'haskell-base-compat-batteries' 'haskell-blaze-markup' 'haskell-call-stack'
          'haskell-cassava' 'haskell-cassava-megaparsec' 'haskell-cmdargs' 'haskell-data-default'

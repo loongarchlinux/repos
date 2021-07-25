@@ -8,7 +8,7 @@ pkgrel=70
 pkgdesc="Static file serving subsite for Yesod Web Framework."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestring'
          'haskell-blaze-builder' 'haskell-conduit' 'haskell-cryptonite'
          'haskell-cryptonite-conduit' 'haskell-css-text' 'haskell-data-default'

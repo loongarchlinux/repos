@@ -8,7 +8,7 @@ pkgrel=68
 pkgdesc="QuickCheck support for the Tasty test framework."
 url="http://documentup.com/feuerbach/tasty"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-quickcheck' 'haskell-random'
          'haskell-tagged' 'haskell-tasty')
 makedepends=('ghc' 'haskell-tasty-hunit' 'haskell-pcre-light')

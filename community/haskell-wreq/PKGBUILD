@@ -7,7 +7,7 @@ pkgrel=282
 pkgdesc="An easy-to-use HTTP client library."
 url="https://github.com/bos/wreq"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-authenticate-oauth'
          'haskell-base16-bytestring' 'haskell-case-insensitive' 'haskell-cryptonite'
          'haskell-hashable' 'haskell-http-client' 'haskell-http-client-tls'

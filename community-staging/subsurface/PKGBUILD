@@ -9,7 +9,7 @@ pkgrel=3
 pkgdesc='Divelog program'
 url='https://subsurface-divelog.org/'
 license=('GPL2')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 makedepends=('asciidoc' 'cmake' 'libgit2' 'libusb' 'qt5-tools')
 depends=('googlemaps' 'grantlee' 'hicolor-icon-theme' 'libzip' 'libxml2'
 'libxslt' 'subsurface-libdc' 'qt5-svg' 'qt5-location' 'qt5-connectivity'

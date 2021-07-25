@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="Unicode transforms (normalization NFC/NFD/NFKC/NFKD)"
 url="https://github.com/composewell/unicode-transforms/"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-getopt-generics' 'haskell-hspec' 'haskell-quickcheck' 'haskell-split'
              'haskell-text-icu')

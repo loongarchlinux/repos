@@ -4,7 +4,7 @@ pkgname=seamonkey
 pkgver=2.53.3
 pkgrel=2
 pkgdesc="SeaMonkey internet suite"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('MPL')
 depends=('dbus-glib' 'gtk3' 'hunspell' 'icu'
          'libevent' 'libpulse' 'libvpx' 'libxt' 'mime-types'

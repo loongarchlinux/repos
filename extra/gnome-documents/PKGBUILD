@@ -5,7 +5,7 @@ pkgver=3.34.0+6+g966b04ec
 pkgrel=1
 pkgdesc="A document manager application for GNOME"
 url="https://wiki.gnome.org/Apps/Documents"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(evince gjs gtk3 gnome-desktop gnome-online-accounts libgdata
          tracker-miners libzapojit webkit2gtk gnome-online-miners librsvg

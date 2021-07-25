@@ -7,7 +7,7 @@ pkgver=3.38.1
 pkgrel=1
 pkgdesc="Manage your email, contacts and schedule"
 url="https://wiki.gnome.org/Apps/Evolution"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(gnome-desktop evolution-data-server libcanberra libpst libytnef
          dconf gspell libcryptui gnome-autoar)

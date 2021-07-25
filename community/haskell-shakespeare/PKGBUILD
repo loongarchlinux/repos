@@ -8,7 +8,7 @@ pkgrel=15
 pkgdesc="A toolkit for making compile-time interpolated templates"
 url="https://www.yesodweb.com/book/shakespearean-templates"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-blaze-html' 'haskell-blaze-markup'
          'haskell-scientific' 'haskell-th-lift' 'haskell-unordered-containers'
          'haskell-vector')

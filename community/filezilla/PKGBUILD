@@ -7,7 +7,7 @@ pkgver=3.46.3
 pkgrel=1
 pkgdesc='Fast and reliable FTP, FTPS and SFTP client'
 url='https://filezilla-project.org/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL')
 depends=('dbus' 'xdg-utils' 'wxgtk3' 'libidn' 'hicolor-icon-theme' 'sqlite'
 	     'gnutls' 'libfilezilla' 'libfilezilla.so')

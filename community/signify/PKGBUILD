@@ -6,7 +6,7 @@ pkgver=30
 pkgrel=1
 pkgdesc='OpenBSD tool to signs and verify signatures on files'
 url='https://github.com/aperezdc/signify'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('BSD')
 depends=('glibc' 'libbsd>=0.8')
 source=(${url}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz{,.asc}

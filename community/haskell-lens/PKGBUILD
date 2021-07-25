@@ -8,7 +8,7 @@ pkgrel=32
 pkgdesc="Lenses, Folds and Traversals"
 url="https://github.com/ekmett/lens/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-call-stack' 'haskell-comonad'
          'haskell-contravariant' 'haskell-distributive' 'haskell-free'
          'haskell-hashable' 'haskell-kan-extensions' 'haskell-parallel' 'haskell-profunctors'

@@ -6,7 +6,7 @@ pkgname=aegisub
 pkgver=3.2.2
 pkgrel=41
 pkgdesc='A general-purpose subtitle editor with ASS/SSA support'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url=http://www.aegisub.org
 license=(
   GPL

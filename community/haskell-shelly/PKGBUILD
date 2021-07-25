@@ -8,7 +8,7 @@ pkgrel=138
 pkgdesc="Shell-like (systems) programming in Haskell"
 url="https://github.com/yesodweb/Shelly.hs"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-unix-compat' 'haskell-system-filepath'
          'haskell-system-fileio' 'haskell-monad-control' 'haskell-lifted-base'
          'haskell-lifted-async' 'haskell-enclosed-exceptions'

@@ -7,7 +7,7 @@ pkgrel=10
 pkgdesc='File-synchronization tool'
 #url='https://github.com/bcpierce00/unison/'
 url='https://www.cis.upenn.edu/~bcpierce/unison/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 optdepends=('gtk2: graphical interface')
 makedepends=('ocaml>=4.11.0' 'emacs' 'lablgtk2')

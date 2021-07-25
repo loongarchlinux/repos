@@ -5,7 +5,7 @@ pkgname=bbe
 pkgver=0.2.2
 pkgrel=3
 pkgdesc='A sed-like editor for binary files'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://sourceforge.net/projects/bbe-/?source=directory"
 license=('GPL')
 depends=('glibc')

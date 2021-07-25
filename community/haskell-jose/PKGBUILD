@@ -8,7 +8,7 @@ pkgrel=9
 pkgdesc="Javascript Object Signing and Encryption and JSON Web Token library"
 url="https://github.com/frasertweedale/hs-jose"
 license=("Apache")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-concise'
          'haskell-cryptonite' 'haskell-lens' 'haskell-memory' 'haskell-monad-time'
          'haskell-safe' 'haskell-aeson' 'haskell-unordered-containers' 'haskell-network-uri'

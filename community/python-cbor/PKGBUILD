@@ -6,7 +6,7 @@ pkgrel=4
 # The commit that bumps cbor/VERSION.py to 1.0.0
 _commit=b3af679e7cf3e12d50acb83c3c591fc5db9a658d
 pkgdesc='CBOR rfc7049 for Python'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='https://github.com/brianolson/cbor_py'
 license=(Apache)
 makedepends=(python-setuptools)

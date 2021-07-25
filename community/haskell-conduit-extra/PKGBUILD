@@ -8,7 +8,7 @@ pkgrel=52
 pkgdesc="Batteries included conduit: adapters for common libraries."
 url="https://github.com/snoyberg/conduit"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-conduit' 'haskell-network'
          'haskell-primitive' 'haskell-resourcet' 'haskell-streaming-commons' 'haskell-typed-process'
          'haskell-unliftio-core')

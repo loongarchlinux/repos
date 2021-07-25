@@ -6,7 +6,7 @@ _commit=cb1f3ad0ce228b9c272df76838754e303b074a32
 pkgrel=1
 pkgdesc="QT GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://getmonero.org/"
 depends=('monero' 'boost-libs' 'libunwind' 'openssl' 'readline' 'zeromq' 'pcsclite' 'hidapi' 'unbound' 'hicolor-icon-theme'
     'qt5-base' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-svg' 'qt5-xmlpatterns')

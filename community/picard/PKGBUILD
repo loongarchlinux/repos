@@ -9,7 +9,7 @@ pkgrel=1
 pkgdesc="Official MusicBrainz tagger"
 url="https://github.com/metabrainz/picard"
 license=('GPL2')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('glibc' 'python-dateutil' 'python-discid' 'python-markdown'
 'python-mutagen' 'python-pyqt5')
 makedepends=('python-setuptools')

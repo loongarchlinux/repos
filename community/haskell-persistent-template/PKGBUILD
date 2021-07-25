@@ -8,7 +8,7 @@ pkgrel=107
 pkgdesc="Type-safe, non-relational, multi-backend persistence"
 url="http://www.yesodweb.com/book/persistent"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-http-api-data" "haskell-monad-control"
          "haskell-monad-logger" "haskell-path-pieces" "haskell-persistent"
          'haskell-th-lift-instances' "haskell-unordered-containers")

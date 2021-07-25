@@ -6,7 +6,7 @@ pkgver=3.38.0
 pkgrel=1
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
 url="https://wiki.gnome.org/Apps/Videos"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL2 custom)
 depends=(totem-plparser iso-codes libpeas clutter-gtk clutter-gst grilo
          gsettings-desktop-schemas dconf python-gobject python-xdg gnome-desktop

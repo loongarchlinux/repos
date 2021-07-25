@@ -6,7 +6,7 @@ pkgver=3.38.0
 pkgrel=1
 pkgdesc="GNOME Text Editor"
 url="https://wiki.gnome.org/Apps/Gedit"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(gtksourceview4 gsettings-desktop-schemas libpeas gspell python-gobject
          dconf tepl)

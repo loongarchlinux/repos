@@ -6,7 +6,7 @@ pkgrel=4
 pkgdesc="fortune-mod clone"
 url="https://github.com/mokus0/misfortune"
 license=("custom:PublicDomain")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-knob' 'haskell-monad-loops' 'haskell-random-fu'
          'haskell-regex-base' 'haskell-regex-pcre' 'haskell-semigroups' 'haskell-utf8-string'
          'haskell-vector')

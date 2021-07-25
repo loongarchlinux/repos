@@ -7,7 +7,7 @@ pkgrel=154
 pkgdesc="A crude interface between Haskell and Unix-like operating systems"
 url="https://github.com/seereason/haskell-unixutils"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-process-extras' 'haskell-puremd5'
          'haskell-regex-tdfa' 'haskell-zlib')
 makedepends=('ghc')

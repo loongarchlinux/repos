@@ -8,7 +8,7 @@ pkgver=1.0.0.66
 pkgrel=1
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('custom')
 depends=('bash' 'desktop-file-utils' 'hicolor-icon-theme' 'curl' 'dbus'
          'freetype2' 'gdk-pixbuf2' 'ttf-font' 'zenity' 'lsb-release' 'nss' 'usbutils'

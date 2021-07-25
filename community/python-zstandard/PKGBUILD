@@ -11,7 +11,7 @@ makedepends=('python-setuptools')
 checkdepends=('python-hypothesis')
 optdepends=('python-cffi')
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/indygreg/python-zstandard/archive/$pkgver.tar.gz")
 sha256sums=('cd492899269fe2dd1d574dec436872d52bdfd63232a192f0837dea44be09bbdc')
 

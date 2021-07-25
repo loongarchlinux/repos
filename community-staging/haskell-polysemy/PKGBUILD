@@ -7,7 +7,7 @@ pkgrel=10
 pkgdesc="Higher-order, low-boilerplate, zero-cost free monads"
 url="https://github.com/isovector/polysemy"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-async' 'haskell-first-class-families' 'haskell-syb'
          'haskell-th-abstraction' 'haskell-type-errors' 'haskell-type-errors-pretty'
          'haskell-unagi-chan')

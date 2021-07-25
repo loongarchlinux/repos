@@ -8,7 +8,7 @@ pkgrel=4
 pkgdesc="A fast logging system"
 url="https://github.com/kazu-yamamoto/logger"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-auto-update' 'haskell-easy-file' 'haskell-unix-compat'
          'haskell-unix-time')
 makedepends=('ghc')

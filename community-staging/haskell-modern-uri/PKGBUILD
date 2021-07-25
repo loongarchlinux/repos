@@ -7,7 +7,7 @@ pkgrel=9
 pkgdesc="Modern library for working with URIs"
 url="https://github.com/mrkkrp/modern-uri"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-contravariant' 'haskell-megaparsec'
          'haskell-profunctors' 'haskell-reflection' 'haskell-tagged')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-megaparsec' 'haskell-hspec-discover')

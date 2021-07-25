@@ -7,7 +7,7 @@ pkgrel=1
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='Nginx module for transparent subrequest-based caching layout for arbitrary locations'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://github.com/openresty/srcache-nginx-module"

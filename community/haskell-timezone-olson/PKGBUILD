@@ -7,7 +7,7 @@ pkgrel=7
 pkgdesc='Pure Haskell parser and renderer for binary Olson timezone files'
 url='http://projects.haskell.org/time-ng/'
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base' 'haskell-binary' 'haskell-bytestring'
          'haskell-extensible-exceptions' 'haskell-time' 'haskell-timezone-series')
 makedepends=('ghc')

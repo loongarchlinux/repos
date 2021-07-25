@@ -7,7 +7,7 @@ pkgrel=36
 pkgdesc="Standard spec's for GenValidity instances"
 url="https://github.com/NorfairKing/validity"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-genvalidity' 'haskell-genvalidity-property' 'haskell-hspec'
          'haskell-hspec-core' 'haskell-quickcheck' 'haskell-validity')
 makedepends=('ghc')

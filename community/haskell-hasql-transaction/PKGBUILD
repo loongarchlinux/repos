@@ -7,7 +7,7 @@ pkgrel=90
 pkgdesc="A composable abstraction over the retryable transactions for Hasql"
 url="https://github.com/nikita-volkov/hasql-transaction"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-bytestring-tree-builder' 'haskell-contravariant'
          'haskell-contravariant-extras' 'haskell-hasql')
 makedepends=('ghc' 'haskell-async' 'haskell-rebase')

@@ -10,7 +10,7 @@ pkgver=4.3.1
 pkgrel=1
 pkgdesc='Authoritative DNS server'
 url='https://www.powerdns.com/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 depends=('boost-libs' 'libcurl.so' 'libsodium' 'lmdb' 'luajit' 'openssl' 'protobuf'
          'sqlite' 'systemd-libs')

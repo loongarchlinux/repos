@@ -7,7 +7,7 @@ pkgrel=16
 pkgdesc="Cabal package script generator for Travis-CI"
 url="https://haskell-ci.rtfd.org/"
 license=("GPL")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat' 'haskell-cabal-install-parsers'
          'haskell-generic-lens-lite' 'haskell-hsyaml' 'haskell-lattices' 'haskell-network-uri'
          'haskell-optparse-applicative' 'haskell-temporary' 'haskell-unordered-containers'

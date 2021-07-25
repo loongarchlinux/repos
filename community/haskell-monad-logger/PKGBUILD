@@ -8,7 +8,7 @@ pkgrel=25
 pkgdesc="A class of monads which can log messages."
 url="https://github.com/kazu-yamamoto/logger"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-fast-logger' 'haskell-lifted-base' 'haskell-monad-control' 'haskell-monad-loops'
          'haskell-resourcet' 'haskell-stm-chans'

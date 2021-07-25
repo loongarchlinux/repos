@@ -7,7 +7,7 @@ pkgrel=2
 _modname="ngx_http_geoip2_module"
 
 pkgdesc="Nginx GeoIP2 module"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('nginx' 'libmaxminddb')
 makedepends=('nginx-src')
 url="https://github.com/leev/ngx_http_geoip2_module"

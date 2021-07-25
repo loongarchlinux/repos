@@ -10,7 +10,7 @@ pkgrel=2
 pkgdesc='Free online multiplayer competitive FPS based on the Qfusion engine'
 url='https://www.warsow.net/'
 license=('GPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('sdl2' 'libjpeg' 'libpng' 'curl' 'libvorbis' 'freetype2'
          'libxinerama' 'libxxf86vm' 'libxrandr' 'libtheora' 'libxi')
 makedepends=('imagemagick' 'gendesk')

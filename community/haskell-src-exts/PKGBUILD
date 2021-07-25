@@ -8,7 +8,7 @@ pkgrel=25
 pkgdesc="Manipulating Haskell source: abstract syntax, lexer, parser, and pretty-printer"
 url="https://github.com/haskell-suite/haskell-src-exts"
 license=("custom:BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'happy' 'haskell-pretty-show' 'haskell-smallcheck' 'haskell-tasty'
              'haskell-tasty-golden' 'haskell-tasty-smallcheck')

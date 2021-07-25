@@ -7,7 +7,7 @@ pkgrel=5
 pkgdesc="Safely evaluate pure Haskell expressions"
 url="https://github.com/gwern/mueval"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-extensible-exceptions' 'haskell-hint'
          'haskell-show' 'haskell-simple-reflect')
 makedepends=('ghc')

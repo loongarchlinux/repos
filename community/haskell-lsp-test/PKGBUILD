@@ -7,7 +7,7 @@ pkgrel=2
 pkgdesc="Functional test framework for LSP servers"
 url="https://github.com/bubba/lsp-test#readme"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson-pretty'
          'haskell-ansi-terminal' 'haskell-async' 'haskell-conduit' 'haskell-conduit-parse'
          'haskell-data-default' 'haskell-lsp' 'haskell-lens' 'haskell-parser-combinators'

@@ -7,7 +7,7 @@ pkgrel=30
 pkgdesc="Hspec support for the Tasty test framework"
 url="https://github.com/mitchellwrosen/tasty-hspec"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hspec' 'haskell-hspec-core' 'haskell-quickcheck' 'haskell-tasty'
          'haskell-tasty-smallcheck' 'haskell-tasty-quickcheck')
 makedepends=('ghc')

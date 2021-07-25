@@ -9,7 +9,7 @@ pkgrel=74
 pkgdesc="A modern format for Haskell packages"
 url="https://github.com/sol/hpack#readme"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-bifunctors' 'haskell-cryptonite' 'haskell-glob'
          'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-types'
          'haskell-infer-license' 'haskell-scientific' 'haskell-unordered-containers'

@@ -5,7 +5,7 @@ pkgver=1.6.3
 pkgrel=4
 pkgdesc="Lowlevel tools to tweak register and dump state on radeon GPUs"
 url="https://airlied.livejournal.com/"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('ZLIB')
 source=(https://people.freedesktop.org/~airlied/radeontool/${pkgname}-${pkgver}.tar.gz
 	license.txt)

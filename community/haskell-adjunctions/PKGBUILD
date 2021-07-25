@@ -8,7 +8,7 @@ pkgrel=164
 pkgdesc="Adjunctions and representable functors"
 url="https://github.com/ekmett/adjunctions/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-comonad' 'haskell-contravariant' 'haskell-distributive' 'haskell-free'
          'haskell-profunctors' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-transformers-compat' 'haskell-void')

@@ -8,7 +8,7 @@ pkgrel=25
 pkgdesc="Fast combinator parsing for bytestrings and text"
 url="https://github.com/bos/attoparsec"
 license=("BSD3")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-scientific')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-unicode' 'haskell-tasty'
              'haskell-tasty-quickcheck' 'haskell-vector')

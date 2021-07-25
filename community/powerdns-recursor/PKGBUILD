@@ -9,7 +9,7 @@ pkgver=4.3.5
 pkgrel=1
 pkgdesc='Resolving DNS server'
 url='https://www.powerdns.com/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 depends=('gcc-libs' 'boost-libs' 'libsodium' 'systemd-libs' 'luajit' 'openssl' 'protobuf'
          'libboost_context.so' 'fstrm' 'net-snmp' 'libprotobuf.so')

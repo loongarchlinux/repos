@@ -8,7 +8,7 @@ pkgrel=270
 pkgdesc="Form handling support for Yesod Web Framework"
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-blaze-builder' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-byteable' 'haskell-data-default' 'haskell-email-validate'
          'haskell-network-uri' 'haskell-persistent' 'haskell-resourcet' 'haskell-shakespeare'

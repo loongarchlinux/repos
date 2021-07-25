@@ -9,7 +9,7 @@ pkgname=x2goserver
 pkgver=4.1.0.3
 pkgrel=9
 pkgdesc="Open source graphical Remote Desktop and terminal server based on NX technology"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://www.x2go.org/"
 license=('GPL2')
 # https://code.x2go.org/gitweb?p=x2goserver.git;a=blob;f=x2goserver.spec

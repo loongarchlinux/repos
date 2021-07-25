@@ -4,7 +4,7 @@ pkgname=apm
 pkgver=2.5.0
 pkgrel=3
 pkgdesc='Atom package manager'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://github.com/atom/apm'
 license=('MIT')
 depends=('libsecret' 'nodejs>=10' 'npm' 'python')

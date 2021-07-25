@@ -7,7 +7,7 @@ pkgrel=40
 pkgdesc="Binary serialization with version control."
 url="http://acid-state.seize.it/safecopy"
 license=('custom:PublicDomain')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-generic-data' 'haskell-old-time' 'haskell-vector')
 makedepends=('ghc' 'haskell-hunit' 'haskell-lens' 'haskell-lens-action' 'haskell-quickcheck'
              'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')

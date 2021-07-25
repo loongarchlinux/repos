@@ -10,7 +10,7 @@ pkgver=68.12.0
 pkgrel=1
 pkgdesc='Standalone mail and news reader from mozilla.org'
 url='https://www.mozilla.org/thunderbird/'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(MPL GPL LGPL)
 depends=(gtk3 libxt startup-notification mime-types dbus-glib alsa-lib
          nss hunspell sqlite ttf-font icu) # libvpx

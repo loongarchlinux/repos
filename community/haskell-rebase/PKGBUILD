@@ -8,7 +8,7 @@ pkgrel=1
 pkgdesc='A more progressive alternative to the "base" package'
 url="https://github.com/nikita-volkov/rebase"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-contravariant-extras'
          'haskell-comonad' 'haskell-dlist' 'haskell-either' 'haskell-hashable' 'haskell-hashable-time'
          'haskell-profunctors' 'haskell-scientific' 'haskell-selective' 'haskell-semigroupoids'

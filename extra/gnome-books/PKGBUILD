@@ -5,7 +5,7 @@ pkgver=3.34.0+21+g4d34d109
 pkgrel=1
 pkgdesc="Access and organize your e-books on GNOME"
 url="https://wiki.gnome.org/Apps/Books"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(evince gjs gtk3 gnome-desktop tracker-miners webkit2gtk libgepub
          gnome-epub-thumbnailer)

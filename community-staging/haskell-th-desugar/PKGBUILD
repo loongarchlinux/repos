@@ -7,7 +7,7 @@ pkgrel=29
 pkgdesc="Functions to desugar Template Haskell"
 url="https://github.com/goldfirere/th-desugar"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ordered-containers' 'haskell-syb' 'haskell-th-abstraction'
          'haskell-th-lift' 'haskell-th-orphans' 'haskell-transformers-compat')
 makedepends=('ghc' 'haskell-hunit' 'haskell-hspec')

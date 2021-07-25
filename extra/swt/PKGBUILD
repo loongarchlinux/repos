@@ -5,7 +5,7 @@ pkgver=4.6.3
 pkgrel=2
 _date=201703010400
 pkgdesc='An open source widget toolkit for Java'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://www.eclipse.org/swt/'
 license=('EPL')
 depends=('java-runtime>=7' 'libxtst')

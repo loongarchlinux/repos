@@ -8,7 +8,7 @@ pkgrel=214
 pkgdesc="Some helpers for using Persistent from Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-blaze-builder" "haskell-conduit" "haskell-persistent"
          "haskell-persistent-template" "haskell-resource-pool" "haskell-resourcet"
          "haskell-yesod-core")

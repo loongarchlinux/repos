@@ -7,7 +7,7 @@ pkgrel=75
 pkgdesc="A test framework and KATs for cryptographic operations."
 url="http://trac.haskell.org/crypto-api/wiki"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-test-framework-quickcheck2' 'haskell-crypto-api' 'haskell-cereal'
          'haskell-test-framework' 'haskell-test-framework-hunit' 'haskell-hunit'
          'haskell-quickcheck')

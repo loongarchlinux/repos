@@ -7,7 +7,7 @@ pkgver=2.7.2
 pkgrel=1
 pkgdesc="OpenType text shaping engine"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(MIT)
 makedepends=(glib2 freetype2 graphite cairo icu gobject-introspection gtk-doc
              ragel git python meson)

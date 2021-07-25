@@ -7,7 +7,7 @@
 pkgname=python-fuse
 pkgver=1.0.0
 pkgrel=2
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 pkgdesc="Python bindings for FUSE"
 url="https://github.com/libfuse/python-fuse"
 license=('LGPL')

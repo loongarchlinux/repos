@@ -7,7 +7,7 @@ pkgrel=130
 pkgdesc="Chunked HTTP transfer encoding for bytestring builders"
 url="https://github.com/sjakobi/bsb-http-chunked"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-attoparsec' 'haskell-blaze-builder' 'haskell-hedgehog' 'haskell-tasty'
              'haskell-tasty-hedgehog' 'haskell-tasty-hunit' 'haskell-doctest')

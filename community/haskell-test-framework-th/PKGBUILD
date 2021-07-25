@@ -7,7 +7,7 @@ pkgrel=54
 pkgdesc="Automagically generate the HUnit- and Quickcheck-bulk-code using Template Haskell"
 url="https://github.com/finnsson/test-generator"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-test-framework' 'haskell-language-haskell-extract' 'haskell-src-exts'
          'haskell-regex-posix')
 makedepends=('ghc')

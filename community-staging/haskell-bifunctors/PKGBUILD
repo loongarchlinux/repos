@@ -8,7 +8,7 @@ pkgrel=47
 pkgdesc="Bifunctors"
 url="https://github.com/ekmett/bifunctors/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-comonad' 'haskell-tagged'
          'haskell-th-abstraction')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-quickcheck')

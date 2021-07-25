@@ -8,7 +8,7 @@ pkgrel=206
 pkgdesc="Orphan Instances for 'Data.Vector'"
 url="https://github.com/ekmett/vector-instances"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-comonad" "haskell-hashable" "haskell-keys" "haskell-pointed"
          "haskell-semigroupoids" "haskell-vector")
 makedepends=('ghc')

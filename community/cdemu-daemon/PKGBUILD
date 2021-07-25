@@ -7,7 +7,7 @@ pkgname=cdemu-daemon
 pkgver=3.2.4
 pkgrel=1
 pkgdesc="CD/DVD-ROM device emulator daemon"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url="https://cdemu.sourceforge.io/"
 license=(GPL)
 depends=(dbus vhba-module libao 'libmirage>=3.2.0')

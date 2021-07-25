@@ -7,7 +7,7 @@ pkgrel=26
 pkgdesc="Pretty-printing for RIO"
 url="https://github.com/commercialhaskell/rio-prettyprint"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-terminal'
          'haskell-colour' 'haskell-path' 'haskell-rio')
 makedepends=('ghc')

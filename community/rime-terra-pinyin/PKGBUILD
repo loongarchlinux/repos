@@ -5,7 +5,7 @@ pkgver=0.0.0.20200914
 _commit=3fc0721e30f9b5dcae9116e393d565332fa10f1b
 pkgrel=1
 pkgdesc="Terra pinyin for rime"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/rime/rime-terra-pinyin"
 license=('LGPL')
 # dependency for reverse lookup

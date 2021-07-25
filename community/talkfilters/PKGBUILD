@@ -5,7 +5,7 @@ pkgname=talkfilters
 pkgver=2.3.8
 pkgrel=6
 pkgdesc='Filters to translate text into dialects that GNU finds funny'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='http://www.hyperrealm.com/main.php?s=talkfilters'
 depends=('glibc')
 license=('GPL2')

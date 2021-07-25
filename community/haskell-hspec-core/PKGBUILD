@@ -7,7 +7,7 @@ pkgrel=18
 pkgdesc="A Testing Framework for Haskell"
 url="http://hspec.github.io/"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-clock'
          'haskell-hspec-expectations' 'haskell-hunit' 'haskell-quickcheck' 'haskell-quickcheck-io'
          'haskell-random' 'haskell-setenv' 'haskell-tf-random')

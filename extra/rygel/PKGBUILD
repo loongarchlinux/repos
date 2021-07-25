@@ -6,7 +6,7 @@ pkgver=0.40.0
 pkgrel=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer that allows you to easily share audio, video and pictures, and control of media player on your home network"
 url="https://wiki.gnome.org/Projects/Rygel"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(LGPL)
 depends=(gupnp gupnp-av gupnp-dlna libgee gtk3 libunistring tracker3
          libmediaart gst-editing-services)

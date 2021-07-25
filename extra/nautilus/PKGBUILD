@@ -7,7 +7,7 @@ pkgver=3.38.1
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://wiki.gnome.org/Apps/Files"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(libgexiv2 gnome-desktop gvfs dconf tracker3 tracker3-miners
          gnome-autoar gst-plugins-base-libs)

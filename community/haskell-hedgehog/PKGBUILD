@@ -8,7 +8,7 @@ pkgrel=31
 pkgdesc="A modern property-based testing system"
 url="https://hedgehog.qa"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-concurrent-output'
          'haskell-erf' 'haskell-lifted-async' 'haskell-mmorph'
          'haskell-monad-control' 'haskell-pretty-show' 'haskell-primitive' 'haskell-random'

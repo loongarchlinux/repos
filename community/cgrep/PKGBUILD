@@ -7,7 +7,7 @@ pkgrel=84
 pkgdesc="A context-aware grep for source codes"
 url="https://awgn.github.io/cgrep/"
 license=("GPL2")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-cmdargs'
          'haskell-dlist' 'haskell-either' 'haskell-extra' 'haskell-regex-base'
          'haskell-regex-pcre' 'haskell-regex-posix' 'haskell-safe' 'haskell-split'

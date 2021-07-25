@@ -5,7 +5,7 @@ pkgname=dbeaver
 pkgver=7.2.2
 pkgrel=1
 pkgdesc="Free universal SQL Client for developers and database administrators (community edition)"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://dbeaver.io/"
 license=("Apache")
 depends=('java-runtime>=8' 'gtk3' 'gtk-update-icon-cache' 'libsecret')

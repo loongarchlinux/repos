@@ -22,7 +22,7 @@ pkgname=('php'
          'php-xsl')
 pkgver=7.4.11
 pkgrel=1
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('PHP')
 url='https://www.php.net/'
 makedepends=('apache' 'aspell' 'c-client' 'db' 'enchant' 'gd' 'gmp' 'icu' 'libsodium' 'libxslt' 'libzip' 'net-snmp'

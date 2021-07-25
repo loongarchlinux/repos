@@ -8,7 +8,7 @@ pkgrel=58
 pkgdesc="Monads for free"
 url="https://github.com/ekmett/free/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-comonad' 'haskell-distributive'
          'haskell-profunctors' 'haskell-semigroupoids' 'haskell-transformers-base')
 makedepends=('ghc')

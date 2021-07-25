@@ -8,7 +8,7 @@ pkgrel=5
 pkgdesc="Robust, reliable performance measurement and analysis"
 url="http://www.serpentine.com/criterion"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-wl-pprint' 'haskell-base-compat-batteries'
          'haskell-binary-orphans' 'haskell-cassava' 'haskell-code-page'
          'haskell-criterion-measurement' 'haskell-glob' 'haskell-js-flot'

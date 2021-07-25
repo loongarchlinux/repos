@@ -7,7 +7,7 @@ pkgrel=43
 pkgdesc="Output any Aeson value as YAML (pure Haskell library)"
 url="https://github.com/clovyr/aeson-yaml"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'haskell-string-qq' 'haskell-tasty' 'haskell-tasty-discover'
              'haskell-tasty-hunit' 'haskell-yaml')

@@ -8,7 +8,7 @@ pkgname=(
 )
 pkgver=1.2.3
 pkgrel=1
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url=https://commons.apache.org/proper/commons-daemon/
 license=(APACHE)
 _tag=f42d76aaa22df5f6bfa2f745ba2985bc47fe28d1

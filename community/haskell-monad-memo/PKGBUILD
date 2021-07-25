@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="Memoization monad transformer"
 url="https://github.com/EduardSergeev/monad-memo"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-random' 'haskell-test-framework'
              'haskell-test-framework-quickcheck2')

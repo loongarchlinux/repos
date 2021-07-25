@@ -7,7 +7,7 @@ pkgrel=61
 pkgdesc="Internet Protocol data structures"
 url="https://github.com/mvv/network-ip"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-data-default-class' 'haskell-data-dword' 'haskell-data-endian'
          'haskell-data-serializer' 'haskell-data-textual' 'haskell-hashable' 'haskell-parsers'
          'haskell-text-printer' 'haskell-type-hint')

@@ -8,7 +8,7 @@ pkgrel=23
 pkgdesc="Golden tests support for tasty"
 url="https://github.com/feuerbach/tasty-golden"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-tasty" "haskell-optparse-applicative" "haskell-temporary"
          "haskell-tagged" "haskell-async" 'haskell-unix-compat')
 makedepends=('ghc' 'haskell-tasty-hunit')

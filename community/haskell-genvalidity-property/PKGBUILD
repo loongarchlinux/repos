@@ -7,7 +7,7 @@ pkgrel=36
 pkgdesc="Standard properties for functions on Validity types"
 url="https://github.com/NorfairKing/validity"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-genvalidity' 'haskell-hspec' 'haskell-pretty-show' 'haskell-quickcheck'
          'haskell-validity')
 makedepends=('ghc' 'haskell-doctest')

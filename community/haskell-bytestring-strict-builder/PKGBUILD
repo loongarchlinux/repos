@@ -7,7 +7,7 @@ pkgrel=115
 pkgdesc="An efficient strict bytestring builder"
 url="https://github.com/nikita-volkov/bytestring-strict-builder"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-prelude')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck'
              'haskell-tasty-hunit' 'haskell-quickcheck-instances' 'haskell-rerebase')

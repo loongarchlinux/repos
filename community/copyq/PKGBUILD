@@ -10,7 +10,7 @@ url="https://github.com/hluk/${pkgname}"
 depends=('hicolor-icon-theme' 'libxtst' 'qt5-script' 'qt5-svg' 'qt5-x11extras')
 makedepends=('cmake' 'qt5-tools')
 license=('GPL3')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
 sha256sums=('7de74c4159514725f9de458a32d6109b3183b108c183d9a977e7b67ce5bbb1ee')
 

@@ -7,7 +7,7 @@ epoch=1
 pkgver=0.32.0
 pkgrel=4
 pkgdesc='a free, open source, and cross-platform media player'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 # We link against libraries that are licensed GPLv3 explicitly, libsmbclient
 # being one of these. So our package is GPLv3 only as well.
 license=('GPL3')

@@ -12,7 +12,7 @@ pkgver=${_johnver}.jumbo${_jumbover}
 pkgrel=5
 pkgdesc='John the Ripper password cracker'
 url='https://www.openwall.com/john'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2' 'custom')
 depends=('openssl' 'gmp' 'libpcap' 'openmpi' 'gcc-libs' 'opencl-icd-loader'
          'libxcrypt' 'libcrypt.so')

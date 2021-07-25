@@ -4,7 +4,7 @@ pkgname=ocaml-cairo
 pkgver=0.6.1
 pkgrel=5
 pkgdesc="OCaml binding to Cairo, a 2D Vector Graphics Library"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/Chris00/ocaml-cairo"
 license=('LGPL3')
 depends=('ocaml>=4.11.0' 'cairo' 'lablgtk2')

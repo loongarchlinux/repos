@@ -8,7 +8,7 @@ pkgrel=131
 pkgdesc="Launch a web app in the default browser."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-wai' 'haskell-warp' 'haskell-http-types' 'haskell-streaming-commons'
          'haskell-async')
 makedepends=('ghc')

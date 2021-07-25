@@ -9,7 +9,7 @@ url="https://www.kdab.com/"
 license=(GPL2)
 depends=(clang)
 makedepends=(cmake llvm)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 source=(https://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('754da5815f769dd6b72a040a2430525c93f294eb7769c78271603df9614f1b21'
             'SKIP')

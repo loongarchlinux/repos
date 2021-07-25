@@ -8,7 +8,7 @@ pkgrel=180
 pkgdesc="RFC 4918 WebDAV support"
 url="http://floss.scru.org/hDAV"
 license=("GPL3")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-case-insensitive" "haskell-data-default"
          "haskell-haskeline" "haskell-http-client" "haskell-http-client-tls" "haskell-http-types"
          "haskell-lens" "haskell-network" "haskell-network-uri"

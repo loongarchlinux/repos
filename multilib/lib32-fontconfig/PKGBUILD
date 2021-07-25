@@ -7,7 +7,7 @@ pkgrel=2
 epoch=2
 pkgdesc="Library for configuring and customizing font access (32-bit)"
 url="https://www.freedesktop.org/wiki/Software/fontconfig/"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(custom)
 makedepends=(git autoconf-archive gperf python-lxml python-six lib32-json-c
              lib32-expat lib32-freetype2 fontconfig)

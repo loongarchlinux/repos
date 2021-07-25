@@ -8,7 +8,7 @@ pkgrel=4
 pkgdesc="Provides some basic WAI handlers and middleware."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-base64-bytestring'
          'haskell-case-insensitive' 'haskell-cookie' 'haskell-data-default-class'
          'haskell-fast-logger' 'haskell-http-types' 'haskell-http2' 'haskell-iproute'

@@ -5,7 +5,7 @@ pkgname=perl-inline-java
 pkgver=0.58
 pkgrel=9
 pkgdesc="The Inline::Java module allows you to put Java source code directly inline in a Perl script or module."
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('perl' 'perl-inline' 'java-runtime')
 makedepends=('java-environment=7')
 license=("GPL" "PerlArtistic")

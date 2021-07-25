@@ -8,7 +8,7 @@ pkgdesc='An utility like pkg-audit based on Arch CVE Monitoring Team data'
 url='https://gitlab.com/ilpianista/arch-audit'
 depends=('curl' 'openssl')
 makedepends=('cargo' 'pkg-config')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.com/ilpianista/arch-audit/-/archive/${pkgver}/arch-audit-${pkgver}.tar.gz"
         "fix-term-crash.patch")

@@ -7,7 +7,7 @@ pkgrel=1
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='nginScript module for nginx'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://nginx.org/en/docs/njs_about.html"

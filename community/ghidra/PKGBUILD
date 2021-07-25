@@ -10,7 +10,7 @@ _hfsx=0.21
 pkgrel=1
 pkgdesc='Software reverse engineering framework'
 url='https://ghidra-sre.org/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('Apache')
 depends=('java-environment>=11' 'bash')
 makedepends=('git' 'gradle' 'unzip')

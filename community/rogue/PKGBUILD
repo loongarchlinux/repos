@@ -3,7 +3,7 @@ pkgname=rogue
 pkgver=5.4.4
 pkgrel=7
 pkgdesc="The original dungeon crawl game."
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 #url="http://rogue.rogueforge.net/rogue-5-4/"
 url="http://www.roguebasin.com/index.php?title=Rogue"
 license=('custom')

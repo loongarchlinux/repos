@@ -7,7 +7,7 @@ pkgrel=10
 pkgdesc="Parsing framework based on conduit"
 url="https://github.com/k0ral/conduit-parse"
 license=("custom:PublicDomain")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-dlist' 'haskell-parsers' 'haskell-safe'
          'haskell-safe-exceptions')
 makedepends=('ghc' 'hlint' 'haskell-resourcet' 'haskell-tasty' 'haskell-tasty-hunit')

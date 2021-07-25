@@ -7,7 +7,7 @@ pkgrel=3
 # TODO: place recoil (retro computer image library) in a separate package
 _recoil=5.0.0
 pkgdesc='Pixelart-oriented painting program'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='http://grafx2.chez.com/'
 license=(GPL2)
 depends=(fontconfig hicolor-icon-theme lua sdl2_image sdl2_ttf)

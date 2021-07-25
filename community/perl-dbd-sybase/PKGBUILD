@@ -4,7 +4,7 @@ pkgname=perl-dbd-sybase
 pkgver=1.16
 pkgrel=5
 pkgdesc="Sybase Driver for DBI"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://search.cpan.org/dist/DBD-Sybase/"
 license=('GPL' 'PerlArtistic')
 depends=('perl-dbi>=1.52' 'perl' 'freetds')

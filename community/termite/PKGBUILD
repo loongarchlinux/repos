@@ -11,7 +11,7 @@ _commit='409b8449ab51fccf51057621168c9c15c54d4807'
 pkgdesc='A simple VTE-based terminal'
 url='https://github.com/thestinger/termite/'
 license=('LGPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('gtk3' 'pcre2' 'gnutls' 'vte-common')
 makedepends=('git' 'ncurses' 'intltool' 'gperf' 'gtk-doc')
 source=("git+https://github.com/thestinger/termite.git#tag=v${pkgver}?signed"

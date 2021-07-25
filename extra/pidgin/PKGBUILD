@@ -7,7 +7,7 @@
 pkgname=('pidgin' 'libpurple' 'finch')
 pkgver=2.14.1
 pkgrel=3
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://pidgin.im/"
 license=('GPL')
 makedepends=('startup-notification' 'gtkspell' 'libxss' 'nss' 'libsasl' 'libsm'

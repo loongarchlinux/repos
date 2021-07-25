@@ -5,7 +5,7 @@
 pkgname=re2c
 pkgver=2.0.3
 pkgrel=1
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 depends=(gcc-libs)
 pkgdesc='A tool for generating C-based recognizers from regular expressions'
 url='https://re2c.org'

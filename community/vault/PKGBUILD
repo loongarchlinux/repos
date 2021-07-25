@@ -8,7 +8,7 @@ pkgver='1.5.3'
 pkgrel='1'
 url="https://vaultproject.io/"
 license=('MPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 makedepends=('go' 'git' 'yarn' 'bower' 'nodejs-lts-dubnium' 'npm' 'zip'
 'go-bindata-hashicorp' 'go-bindata-assetfs' 'gox' 'go-tools')
 depends=('glibc')

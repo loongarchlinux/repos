@@ -7,7 +7,7 @@ pkgrel=2
 pkgdesc="A powerful, easy-to-use codemodding tool for Haskell."
 url="https://github.com/facebookincubator/retrie"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-data-default'
          'haskell-ghc-exactprint' 'haskell-src-exts' 'haskell-optparse-applicative'
          'haskell-random-shuffle' 'haskell-syb' 'haskell-unordered-containers')

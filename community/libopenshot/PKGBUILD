@@ -7,7 +7,7 @@ pkgname=libopenshot
 pkgver=0.2.5
 pkgrel=4
 pkgdesc="A video editing, animation, and playback library for C++, Python, and Ruby"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/openshot/libopenshot"
 license=('LGPL3')
 # TODO: package cppzmq and resvg

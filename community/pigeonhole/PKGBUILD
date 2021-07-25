@@ -19,7 +19,7 @@ pkgrel=1
 
 pkgdesc='Sieve implementation for Dovecot'
 url='https://pigeonhole.dovecot.org/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('LGPL')
 
 depends=("dovecot=${_dcpkgver}")

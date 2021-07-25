@@ -8,7 +8,7 @@ pkgrel=2
 pkgdesc='Small utility to manipulate, convert and calculate (more than) IPv6 addresses'
 url='https://www.deepspace6.net/projects/ipv6calc.html'
 license=('GPL2')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 # See https://www.deepspace6.net/projects/ipv6calc.html#idm140634407144416
 makedepends=('geoip')
 optdepends=('geoip: for country GeoIP support'

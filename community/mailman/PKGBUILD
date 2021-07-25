@@ -5,7 +5,7 @@ pkgname=mailman
 pkgver=2.1.34
 pkgrel=1
 pkgdesc='The GNU Mailing List Manager'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=('GPL')
 url='https://www.list.org/'
 # we need to have the mailman user to build mailman

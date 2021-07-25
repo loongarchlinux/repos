@@ -8,7 +8,7 @@ pkgrel=85
 pkgdesc="Generic HTTP types for Haskell (for both client and server code)."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive')
 makedepends=('ghc' 'haskell-doctest' 'haskell-hspec' 'haskell-quickcheck'
              'haskell-quickcheck-instances')

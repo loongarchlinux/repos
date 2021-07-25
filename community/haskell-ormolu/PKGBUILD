@@ -7,7 +7,7 @@ pkgrel=2
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/tweag/ormolu"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-ghc' 'haskell-ghc-boot' 'haskell-ghc-boot-th'
          'haskell-gitrev' 'haskell-optparse-applicative' 'haskell-syb')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-path' 'haskell-path-io')

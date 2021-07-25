@@ -8,7 +8,7 @@ pkgrel=2
 
 pkgdesc="Adds ps support to zathura by using the libspectre library"
 url="https://pwmt.org/projects/zathura-ps"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('custom')
 
 depends=('libspectre' 'zathura' 'desktop-file-utils')

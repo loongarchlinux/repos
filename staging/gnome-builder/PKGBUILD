@@ -5,7 +5,7 @@ pkgver=3.38.1
 pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL3)
 depends=(gtksourceview4 devhelp libgit2-glib gjs python-gobject clang sysprof
          desktop-file-utils ctags libpeas vte3 vala python-jedi autoconf-archive

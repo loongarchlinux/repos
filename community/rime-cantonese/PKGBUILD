@@ -5,7 +5,7 @@ pkgver=0.0.0.20201005
 _commit=3f835d6decf4f028f723b1cece643be97c3e324e
 pkgrel=1
 pkgdesc="Cantonese input for rime"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/rime/rime-cantonese"
 license=('CCPL:cc-by')
 # dependency for reverse lookup

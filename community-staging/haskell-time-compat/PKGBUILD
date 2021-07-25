@@ -7,7 +7,7 @@ pkgrel=27
 pkgdesc="Compatibility package for time"
 url="https://github.com/phadej/time-compat"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans')
 makedepends=('ghc' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

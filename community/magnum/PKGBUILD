@@ -5,7 +5,7 @@ pkgname=magnum
 pkgver=2020.06
 pkgrel=1
 pkgdesc='C++11/C++14 graphics middleware for games and data visualization'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='https://magnum.graphics'
 license=(MIT)
 depends=('corrade>=2020.06' glfw openal sdl2 vulkan-icd-loader)

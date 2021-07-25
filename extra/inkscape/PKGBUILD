@@ -9,7 +9,7 @@ pkgrel=2
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 makedepends=('cmake' 'boost' 'git')
 
 depends=(

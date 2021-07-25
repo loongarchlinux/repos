@@ -10,7 +10,7 @@ depends=(python snappy)
 makedepends=(python-setuptools)
 checkdepends=(python-pytest)
 license=(BSD)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 source=(https://files.pythonhosted.org/packages/source/p/python-snappy/python-snappy-$pkgver.tar.gz)
 sha256sums=('d9c26532cfa510f45e8d135cde140e8a5603d3fb254cfec273ebc0ecf9f668e2')
 

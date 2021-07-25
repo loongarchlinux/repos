@@ -7,7 +7,7 @@ pkgrel=86
 pkgdesc="Functional Programming Language with Dependent Types"
 url="https://www.idris-lang.org/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-terminal'
          'haskell-ansi-wl-pprint' 'haskell-async' 'haskell-base64-bytestring' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-cheapskate' 'haskell-code-page' 'haskell-fingertree'

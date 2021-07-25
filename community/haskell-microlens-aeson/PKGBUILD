@@ -7,7 +7,7 @@ pkgrel=27
 pkgdesc="Law-abiding lenses for Aeson, using microlens"
 url="https://github.com/fosskers/microlens-aeson/"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-hashable' 'haskell-microlens'
          'haskell-scientific' 'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')

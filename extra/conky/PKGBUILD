@@ -9,7 +9,7 @@ pkgrel=4
 pkgdesc='Lightweight system monitor for X'
 url='https://github.com/brndnmtthws/conky'
 license=('BSD' 'GPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 makedepends=('cmake' 'docbook2x' 'docbook-xsl' 'man-db' 'git')
 depends=('glib2' 'lua' 'wireless_tools' 'libxdamage' 'libxinerama' 'libxft'
          'imlib2' 'libxml2' 'libpulse' 'libxnvctrl')

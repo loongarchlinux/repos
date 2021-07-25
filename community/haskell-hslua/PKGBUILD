@@ -8,7 +8,7 @@ pkgrel=28
 pkgdesc="A Lua language interpreter embedding in Haskell"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'lua53')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-expected-failure' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

@@ -8,7 +8,7 @@ pkgrel=1
 pkgdesc='Small but very powerful text-based mail client'
 url='http://www.mutt.org/'
 license=('GPL2')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('gdbm' 'glibc' 'libgpg-error' 'openssl' 'libsasl' 'mime-types' 'krb5'
 'sqlite' 'zlib')
 makedepends=('gpgme' 'libidn2' 'ncurses')

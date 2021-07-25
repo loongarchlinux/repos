@@ -8,7 +8,7 @@ pkgrel=144
 pkgdesc="Self-describing consumers/parsers; forms, cmd-line args, JSON, etc."
 url="https://github.com/chrisdone/descriptive"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-bifunctors" "haskell-scientific"
          "haskell-vector")
 makedepends=('ghc')

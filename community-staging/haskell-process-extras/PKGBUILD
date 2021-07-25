@@ -8,7 +8,7 @@ pkgrel=119
 pkgdesc="Process extras"
 url="https://github.com/seereason/process-extras"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-data-default' 'haskell-generic-deriving' 'haskell-listlike'
         )
 makedepends=('ghc')

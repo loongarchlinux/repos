@@ -7,7 +7,7 @@ pkgrel=52
 pkgdesc="Supports using pandoc with citeproc"
 url="https://hackage.haskell.org/package/$pkgname"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-attoparsec'
          'haskell-base-compat' 'haskell-data-default' 'haskell-hs-bibutils' 'haskell-libyaml'
          'haskell-network' 'haskell-old-locale' 'pandoc' 'haskell-pandoc-types' 'haskell-rfc5051'

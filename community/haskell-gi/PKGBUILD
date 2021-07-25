@@ -8,7 +8,7 @@ pkgrel=6
 pkgdesc="Generate Haskell bindings for GObject Introspection capable libraries"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'glib2' 'gobject-introspection-runtime' 'haskell-gi-base'
          'haskell-ansi-terminal' 'haskell-attoparsec' 'haskell-pretty-show' 'haskell-safe'
          'haskell-xdg-basedir' 'haskell-xml-conduit' 'haskell-regex-tdfa')

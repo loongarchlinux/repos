@@ -8,7 +8,7 @@ pkgrel=39
 pkgdesc="Retry combinators for monadic actions that may fail"
 url="https://github.com/Soostone/retry"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-random')
 makedepends=('ghc' 'haskell-hedgehog' 'haskell-hunit' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-hedgehog')

@@ -7,7 +7,7 @@ pkgrel=49
 pkgdesc="Fast conversion between double precision floating point and text"
 url="https://github.com/bos/double-conversion"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'double-conversion')
 makedepends=('ghc' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-quickcheck2')

@@ -8,7 +8,7 @@ pkgrel=1
 pkgdesc="A distributed control protocol designed to operate astronomical instrumentation"
 url="https://www.indilib.org/index.php?title=Main_Page"
 license=(GPL2)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 depends=(libnova cfitsio libusb libjpeg gsl libtheora fftw)
 makedepends=(cmake boost qt5-base)
 #source=("https://github.com/indilib/indi/releases/download/v$pkgver/libindi_$pkgver.tar.gz")

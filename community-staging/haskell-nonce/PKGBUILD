@@ -8,7 +8,7 @@ pkgrel=116
 pkgdesc="Generate cryptographic nonces."
 url="https://github.com/prowdsponsor/nonce"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-entropy' 'haskell-unliftio'
          'haskell-unliftio-core')
 makedepends=('ghc')

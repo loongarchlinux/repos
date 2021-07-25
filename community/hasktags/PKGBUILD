@@ -7,7 +7,7 @@ pkgrel=96
 pkgdesc="Produces ctags \"tags\" and etags \"TAGS\" files for Haskell programs"
 url="https://github.com/MarcWeber/hasktags"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-json' 'haskell-microlens-platform' 'haskell-optparse-applicative'
          'haskell-utf8-string')
 makedepends=('ghc' 'haskell-hunit')

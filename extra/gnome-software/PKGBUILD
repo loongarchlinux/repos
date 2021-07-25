@@ -8,7 +8,7 @@ pkgver=3.38.0
 pkgrel=2
 pkgdesc="GNOME Software Tools"
 url="https://wiki.gnome.org/Apps/Software/"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL2)
 makedepends=(appstream-glib gnome-desktop libpackagekit-glib flatpak fwupd ostree
              docbook-xsl git gobject-introspection gspell gtk-doc meson valgrind

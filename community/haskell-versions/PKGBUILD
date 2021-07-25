@@ -7,7 +7,7 @@ pkgrel=18
 pkgdesc="Types and parsers for software version numbers"
 url="https://github.com/fosskers/versions"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-megaparsec' 'haskell-hashable')
 makedepends=('ghc' 'haskell-microlens' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

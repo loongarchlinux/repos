@@ -8,7 +8,7 @@ pkgrel=5
 pkgdesc="An intelligent Chinese Encoding converter"
 url="https://code.google.com/archive/p/libhz/"
 license=('LGPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('glibc')
 source=(https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libhz/${pkgname}-${pkgver}.tar.gz
         autoconvert.patch)

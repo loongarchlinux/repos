@@ -10,7 +10,7 @@ pkgrel=4
 pkgdesc="Multi-threaded multi-pool GPU, FPGA and ASIC miner for bitcoin"
 url='http://ck.kolivas.org/apps/cgminer/'
 license=('GPL3')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('curl' 'libusb' 'jansson')
 makedepends=('git')
 source=("git+https://github.com/ckolivas/${pkgname}.git#tag=v$_pkgver"

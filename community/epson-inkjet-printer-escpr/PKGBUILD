@@ -10,7 +10,7 @@ pkgname=epson-inkjet-printer-escpr
 pkgver=1.6.38
 pkgrel=1
 pkgdesc='Epson Inkjet Printer Driver (ESC/P-R) for Linux'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX'
 license=('GPL2')
 depends=('cups' 'ghostscript')

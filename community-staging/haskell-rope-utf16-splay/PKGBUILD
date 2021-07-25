@@ -7,7 +7,7 @@ pkgrel=27
 pkgdesc="Ropes optimised for updating using UTF-16 code units and row/column pairs"
 url="https://github.com/ollef/rope-utf16-splay"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

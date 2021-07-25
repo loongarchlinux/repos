@@ -8,7 +8,7 @@ pkgrel=11
 pkgdesc="Conversion between formats used to represent mathematics."
 url="https://github.com/jgm/texmath"
 license=("GPL2")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-network-uri' 'haskell-pandoc-types'
          'haskell-syb' 'haskell-xml')
 makedepends=('ghc' 'haskell-temporary' 'haskell-utf8-string')

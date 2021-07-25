@@ -7,7 +7,7 @@ pkgver=1.47
 _pkgver="${pkgver/./_}"
 pkgrel=2
 pkgdesc='A grep-like utility that allows you to search for network packets on an interface.'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://github.com/jpr5/ngrep/'
 license=('custom')
 depends=('libpcap>=1.0.0' 'pcre')

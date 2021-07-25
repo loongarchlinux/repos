@@ -7,7 +7,7 @@ pkgver=3.38.1
 pkgrel=2
 pkgdesc="Display manager and login screen"
 url="https://wiki.gnome.org/Projects/GDM"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(gnome-shell gnome-session upower xorg-xrdb xorg-server xorg-xhost
          libxdmcp systemd)

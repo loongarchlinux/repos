@@ -5,7 +5,7 @@
 pkgname=meek
 pkgver=0.34
 pkgrel=1
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 pkgdesc='A pluggable transport proxy written in Go'
 optdepends=('tor')
 url='https://trac.torproject.org/projects/tor/wiki/doc/meek'

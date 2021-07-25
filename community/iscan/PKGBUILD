@@ -7,7 +7,7 @@ pkgname=iscan
 pkgver=2.30.3.1
 pkgrel=2
 pkgdesc="EPSON Image Scan! front-end for scanners and all-in-ones"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX"
 license=('GPL2' 'custom:AVASYSPL')
 depends=('gtk2' 'sane' 'libstdc++5')

@@ -9,7 +9,7 @@ url="https://sourceforge.net/projects/fvwm-crystal/"
 license=('GPL2')
 depends=('imlib2')
 source=("http://archive.debian.org/debian/pool/main/h/habak/habak_$pkgver.orig.tar.gz")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 options=('!makeflags')
 md5sums=('6c1410a16a57d3483c41fad6ed2f6f49')
 

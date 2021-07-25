@@ -10,7 +10,7 @@ url="http://www.teamspeak.com"
 license=('custom')
 depends=('libxslt' 'libxss')
 optdepends=('libpulse')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 source=('teamspeak3.desktop'
         'teamspeak3.png'
         'LICENSE'

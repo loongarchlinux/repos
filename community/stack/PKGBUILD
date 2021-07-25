@@ -7,7 +7,7 @@ pkgrel=159
 pkgdesc="The Haskell Tool Stack"
 url="https://github.com/commercialhaskell/stack"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-terminal'
          'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-casa-client'
          'haskell-casa-types' 'haskell-colour' 'haskell-conduit' 'haskell-conduit-extra'

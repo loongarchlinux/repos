@@ -7,7 +7,7 @@ pkgrel=165
 pkgdesc="Native Haskell implementation of OpenPGP (RFC4880)"
 url="http://floss.scru.org/hOpenPGP/"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-asn1-encoding' 'haskell-attoparsec'
          'haskell-base16-bytestring' 'haskell-bifunctors' 'haskell-bz2' 'haskell-binary-conduit'
          'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'

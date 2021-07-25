@@ -7,7 +7,7 @@ pkgrel=29
 pkgdesc="Extra utilities and instances for optics-core"
 url="https://github.com/well-typed/optics-extra"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-indexed-profunctors' 'haskell-optics-core'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc')

@@ -5,7 +5,7 @@
 pkgname=kactivities-stats
 pkgver=5.75.0
 pkgrel=1
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 pkgdesc="A library for accessing the usage data collected by the activities system"
 url='https://community.kde.org/Frameworks'
 license=(LGPL)

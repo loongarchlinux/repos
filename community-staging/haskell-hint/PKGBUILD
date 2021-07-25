@@ -7,7 +7,7 @@ pkgrel=24
 pkgdesc="Runtime Haskell interpreter (GHC API wrapper)"
 url="https://github.com/haskell-hint/hint"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-paths' 'haskell-random'
          'haskell-temporary')
 makedepends=('ghc' 'haskell-extensible-exceptions' 'haskell-hunit')

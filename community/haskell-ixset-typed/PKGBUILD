@@ -7,7 +7,7 @@ pkgrel=53
 pkgdesc="Efficient relational queries on Haskell sets"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-safecopy' 'haskell-syb')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

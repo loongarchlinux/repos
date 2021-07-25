@@ -8,7 +8,7 @@ pkgrel=34
 pkgdesc="HTTP/2 library"
 url="https://github.com/kazu-yamamoto/http2"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-http-types' 'haskell-network'
          'haskell-network-byte-order' 'haskell-psqueues' 'haskell-time-manager')
 makedepends=('ghc' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base16-bytestring'

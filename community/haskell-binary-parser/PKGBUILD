@@ -8,7 +8,7 @@ pkgrel=44
 pkgdesc="A highly-efficient but limited parser API specialised for bytestrings"
 url="https://github.com/nikita-volkov/binary-parser"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

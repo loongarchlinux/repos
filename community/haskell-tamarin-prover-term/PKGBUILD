@@ -8,7 +8,7 @@ pkgrel=6
 pkgdesc="Term manipulation library for the tamarin prover"
 url="http://www.infsec.ethz.ch/research/software/tamarin"
 license=("GPL")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hunit' 'haskell-attoparsec' 'haskell-dlist'
          'haskell-safe' 'haskell-tamarin-prover-utils')
 makedepends=('ghc')

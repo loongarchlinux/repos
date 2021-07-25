@@ -9,7 +9,7 @@ pkgname=avr-binutils
 pkgver=2.35.1
 pkgrel=1
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the AVR architecture"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://www.gnu.org/software/binutils/"
 license=('GPL')
 depends=('glibc>=2.17' 'zlib' 'binutils')

@@ -5,7 +5,7 @@ pkgname=sndio
 pkgver=1.7.0
 pkgrel=3
 pkgdesc='A small audio and MIDI framework part of the OpenBSD project'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='https://sndio.org'
 license=(ISC)
 

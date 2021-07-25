@@ -8,7 +8,7 @@ pkgrel=12
 pkgdesc="A family of combinators for defining webservices APIs"
 url="http://haskell-servant.readthedocs.org/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-aeson' 'haskell-attoparsec'
          'haskell-bifunctors' 'haskell-case-insensitive' 'haskell-http-api-data'
          'haskell-http-media' 'haskell-http-types' 'haskell-mmorph' 'haskell-network-uri'

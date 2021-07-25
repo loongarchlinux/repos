@@ -8,7 +8,7 @@ pkgrel=3
 pkgdesc="Kan extensions, Kan lifts, the Yoneda lemma, and (co)density (co)monads"
 url="https://github.com/ekmett/kan-extensions/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-adjunctions' 'haskell-comonad' 'haskell-contravariant'
          'haskell-distributive' 'haskell-free' 'haskell-invariant' 'haskell-profunctors'
          'haskell-semigroupoids' 'haskell-tagged' 'haskell-transformers-compat')

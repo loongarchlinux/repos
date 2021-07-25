@@ -8,7 +8,7 @@ pkgver=4.8.9
 pkgrel=2
 pkgdesc='High-performance theorem prover'
 url='https://github.com/Z3Prover/z3'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('MIT')
  # 'java-environment-common' 'mono' 'ocaml' 'ocaml-findlib'
 makedepends=('cmake' 'python' 'python-setuptools' 'gcc-libs')

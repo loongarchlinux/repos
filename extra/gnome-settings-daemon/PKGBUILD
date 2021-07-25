@@ -5,7 +5,7 @@ pkgver=3.38.1
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 url="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(dconf gnome-desktop gsettings-desktop-schemas libcanberra-pulse libnotify systemd-libs
          libwacom pulseaudio pulseaudio-alsa upower librsvg libgweather geocode-glib geoclue nss

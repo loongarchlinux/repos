@@ -7,7 +7,7 @@ pkgrel=4
 pkgdesc="Manage files with git, without checking their contents into git"
 url="https://git-annex.branchable.com/"
 license=("AGPL3")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('git' 'lsof' 'rsync' 'ghc-libs' 'haskell-aeson' 'haskell-async' 'haskell-aws'
          'haskell-blaze-builder' 'haskell-bloomfilter' 'haskell-byteable' 'haskell-case-insensitive'
          'haskell-clientsession' 'haskell-concurrent-output' 'haskell-connection' 'haskell-conduit'

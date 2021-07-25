@@ -10,7 +10,7 @@ _jdk_build=01
 pkgver=${_java_ver}.u${_jdk_update}
 _repo_ver=jdk${_java_ver}u${_jdk_update}-b${_jdk_build}
 pkgrel=1
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://openjdk.java.net/'
 license=('custom')
 makedepends=('java-environment=8' 'ccache' 'cpio' 'unzip' 'zip'

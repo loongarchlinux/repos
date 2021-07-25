@@ -5,7 +5,7 @@ pkgver=1.0.20200908
 pkgrel=9
 pkgdesc='Wireguard module for LTS Kernel'
 url='https://www.wireguard.com/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL')
 makedepends=('linux-lts-headers' "wireguard-dkms=$pkgver")
 conflicts=('wireguard-dkms')

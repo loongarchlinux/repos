@@ -10,7 +10,7 @@ pkgname=lib32-libnm-glib
 pkgver=1.18.5dev+12+ga8746f48ca
 pkgrel=1
 pkgdesc='NetworkManager client library (legacy)'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url=https://wiki.gnome.org/Projects/NetworkManager
 license=(
   GPL2

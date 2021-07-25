@@ -5,7 +5,7 @@
 pkgname=kmousetool
 pkgver=20.08.2
 pkgrel=1
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 pkgdesc='Clicks the mouse for you, reducing the effects of RSI'
 url='https://kde.org/applications/utilities/kmousetool/'
 license=(GPL FDL)

@@ -5,7 +5,7 @@ pkgver=3.38.0
 pkgrel=1
 pkgdesc="Write out notes, every detail matters"
 url="https://wiki.gnome.org/Apps/Notes"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(tracker3 webkit2gtk gnome-online-accounts evolution-data-server
          libhandy0)

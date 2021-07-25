@@ -8,7 +8,7 @@ pkgrel=1
 pkgdesc="A very efficient ByteString builder implementation based on the binary tree"
 url="https://github.com/nikita-volkov/bytestring-tree-builder"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-prelude')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck' 'haskell-tasty-hunit'
              'haskell-quickcheck-instances' 'haskell-quickcheck')

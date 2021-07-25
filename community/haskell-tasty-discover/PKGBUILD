@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="Test discovery for the tasty framework"
 url="http://git.coop/lwm/tasty-discover"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-glob')
 makedepends=('ghc' 'haskell-hedgehog' 'haskell-tasty' 'haskell-tasty-hedgehog' 'haskell-tasty-hspec'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')

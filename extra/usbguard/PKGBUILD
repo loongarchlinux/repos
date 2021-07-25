@@ -6,7 +6,7 @@ pkgver=0.7.5
 pkgrel=4
 pkgdesc='Software framework for implementing USB device authorization policies'
 url='https://github.com/dkopecek/usbguard'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 depends=('glibc' 'libqb' 'libqb.so' 'libsodium' 'libcap-ng' 'protobuf' 'polkit' 'dbus-glib'
          'audit' 'libaudit.so' 'libseccomp' 'libseccomp.so')

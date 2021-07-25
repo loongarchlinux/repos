@@ -7,7 +7,7 @@ pkgrel=95
 pkgdesc="Safe nettle binding"
 url="https://github.com/stbuehler/haskell-nettle"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'nettle' 'haskell-byteable' 'haskell-crypto-cipher-types' 'haskell-tagged'
          'haskell-securemem')
 makedepends=('ghc')

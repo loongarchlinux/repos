@@ -7,7 +7,7 @@ pkgrel=53
 pkgdesc="Clear to write, read and edit DSL for HTML"
 url="https://github.com/chrisdone/lucid"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-builder' 'haskell-hashable' 'haskell-mmorph'
          'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-bifunctors' 'haskell-hspec' 'haskell-hunit')

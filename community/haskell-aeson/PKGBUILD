@@ -9,7 +9,7 @@ pkgrel=3
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance."
 url="https://github.com/bos/aeson"
 license=("GPL")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base-compat-batteries' 'haskell-data-fix'
          'haskell-dlist' 'haskell-hashable' 'haskell-primitive' 'haskell-scientific'
          'haskell-strict' 'haskell-tagged' 'haskell-th-abstraction' 'haskell-these'

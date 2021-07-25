@@ -7,7 +7,7 @@ pkgrel=27
 pkgdesc="Access to platform dependent file locking APIs"
 url="https://github.com/phadej/lukko"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-async' 'haskell-singleton-bool' 'haskell-tasty'
              'haskell-tasty-expected-failure' 'haskell-tasty-hunit' 'haskell-temporary')

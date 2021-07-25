@@ -7,7 +7,7 @@ pkgname=('dhcp' 'dhclient')
 # separate patch levels with a period to maintain proper versioning.
 pkgver=4.4.2
 pkgrel=2
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('custom:isc-dhcp')
 url='https://www.isc.org/dhcp/'
 makedepends=('bash' 'iproute2' 'openldap')

@@ -8,7 +8,7 @@ pkgrel=63
 pkgdesc="WAI middleware that serves requests to static files"
 url="https://github.com/scotty-web/wai-middleware-static"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-cryptonite' 'haskell-memory' 'haskell-expiring-cache-map'
          'haskell-http-types' 'haskell-mime-types' 'haskell-old-locale' 'haskell-wai')
 makedepends=('ghc')

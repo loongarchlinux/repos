@@ -7,7 +7,7 @@ pkgrel=5
 pkgdesc="Random number generation"
 url="https://github.com/mokus0/random-fu"
 license=("custom:PublicDomain")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-erf' 'haskell-math-functions' 'haskell-monad-loops' 'haskell-random'
          'haskell-random-shuffle' 'haskell-random-source' 'haskell-rvar' 'haskell-syb'
          'haskell-vector')

@@ -7,7 +7,7 @@ pkgname=('keybase' 'kbfs' 'keybase-gui')
 pkgdesc='CLI tool for GPG with keybase.io'
 pkgver=5.5.2
 pkgrel=1
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://keybase.io/'
 license=('BSD')
 # git is needed for yarn...

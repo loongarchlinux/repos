@@ -8,7 +8,7 @@ pkgrel=2
 pkgdesc='Library for communication with dive computers'
 url='https://github.com/Subsurface-divelog/libdc'
 license=('LGPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 source=("https://subsurface-divelog.org/downloads/${_pkgname}-${pkgver}.tgz")
 sha256sums=('e9f1033e9963b5bfb77c45333773849abad5d915266081208c6565e085d65038')
 

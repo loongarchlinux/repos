@@ -7,7 +7,7 @@ pkgrel=44
 pkgdesc="Solver-agnostic symbolic values support for issuing queries"
 url="https://github.com/GaloisInc/what4"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-ansi-wl-pprint' 'haskell-bimap'
          'haskell-bifunctors' 'haskell-bv-sized' 'haskell-deriving-compat'
          'haskell-data-binary-ieee754' 'haskell-extra' 'haskell-fingertree' 'haskell-hashable'

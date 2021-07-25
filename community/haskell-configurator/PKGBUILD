@@ -7,7 +7,7 @@ pkgrel=140
 pkgdesc="Configuration management"
 url="https://github.com/bos/configurator"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-hashable' 'haskell-unix-compat'
          'haskell-unordered-containers')
 makedepends=('ghc')

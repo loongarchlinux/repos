@@ -7,7 +7,7 @@ pkgrel=50
 pkgdesc="An implementation of the git-lfs protocol"
 url="https://hackage.haskell.org/package/git-lfs"
 license=('AGPL3')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-case-insensitive' 'haskell-http-client'
          'haskell-http-types' 'haskell-network-uri')
 makedepends=('ghc')

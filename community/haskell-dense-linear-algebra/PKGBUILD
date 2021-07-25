@@ -7,7 +7,7 @@ pkgrel=67
 pkgdesc="Simple and incomplete pure haskell implementation of linear algebra"
 url="https://github.com/bos/statistics"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-math-functions' 'haskell-primitive' 'haskell-vector'
          'haskell-vector-algorithms' 'haskell-vector-th-unbox' 'haskell-vector-binary-instances')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')

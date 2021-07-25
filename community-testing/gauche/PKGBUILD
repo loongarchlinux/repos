@@ -11,7 +11,7 @@ pkgdesc='R7RS Scheme implementation (includes gosh)'
 depends=(libatomic_ops libxcrypt slib)
 makedepends=(autoconf gauche git)
 license=(BSD)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 # gauche tag: release0_9_9
 source=("git+https://github.com/shirok/Gauche#commit=b9a861bdbc354cf5a357fe0b2cfc05e7cbd99ab9")
 sha256sums=('SKIP')

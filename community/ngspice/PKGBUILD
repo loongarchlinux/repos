@@ -9,7 +9,7 @@ pkgrel=1
 pkgdesc='Mixed-level/Mixed-signal circuit simulator based on Spice3f5, Ciber1b1, and Xspice.'
 url='http://ngspice.sourceforge.net'
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('libxaw' 'libedit' 'gcc-libs' 'readline')
 source=("https://downloads.sourceforge.net/project/$pkgname/ng-spice-rework/$pkgver/$pkgname-$pkgver.tar.gz"
         "http://ngspice.sourceforge.net/docs/ngspice-$pkgver-manual.pdf")

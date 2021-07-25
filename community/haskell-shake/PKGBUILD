@@ -8,7 +8,7 @@ pkgrel=75
 pkgdesc="Build system library, like Make, but more accurate dependencies."
 url="https://shakebuild.com"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-file-embed' 'haskell-filepattern' 'haskell-hashable'
          'haskell-heaps' 'haskell-js-dgtable' 'haskell-js-flot' 'haskell-js-jquery'
          'haskell-primitive' 'haskell-random' 'haskell-unordered-containers' 'haskell-utf8-string')

@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-control-center"
 license=(GPL2)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 depends=(accountsservice cups-pk-helper gnome-bluetooth gnome-desktop
          gnome-online-accounts gnome-settings-daemon gsettings-desktop-schemas gtk3
          libgtop nm-connection-editor sound-theme-freedesktop upower libpwquality

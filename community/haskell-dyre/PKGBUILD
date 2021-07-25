@@ -7,7 +7,7 @@ pkgrel=7
 pkgdesc="Dynamic reconfiguration in Haskell"
 url="https://github.com/willdonnelly/dyre"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc-paths' 'haskell-executable-path' 'haskell-xdg-basedir'
          'haskell-io-storage')
 makedepends=('ghc')

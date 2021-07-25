@@ -10,7 +10,7 @@ _pagespeedver=$pkgver-stable
 _psolver=$pkgver
 
 pkgdesc="PageSpeed module for nginx"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('nginx' "libutil-linux")
 makedepends=('nginx-src')
 url="https://www.ngxpagespeed.com/"

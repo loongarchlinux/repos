@@ -7,7 +7,7 @@ pkgrel=53
 pkgdesc="Haskell package that distributes the standard time zone database"
 url="https://github.com/nilcons/haskell-tzdata"
 license=('Apache')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-vector')
 makedepends=('ghc' 'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-th')

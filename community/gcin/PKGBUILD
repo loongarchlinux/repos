@@ -10,7 +10,7 @@ pkgrel=2
 pkgdesc='Input method server supporting various input methods'
 url='https://hyperrate.com/dir.php?eid=67'
 license=('LGPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('gtk3' 'libxtst')
 makedepends=('qt5-base' 'gtk2' 'anthy')
 optdepends=('qt5-base: support for qt5 input method'

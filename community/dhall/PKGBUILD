@@ -6,7 +6,7 @@ pkgrel=15
 pkgdesc='A configuration language guaranteed to terminate'
 url='https://dhall-lang.org'
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-terminal'
          'haskell-atomic-write' 'haskell-case-insensitive' 'haskell-cborg' 'haskell-cborg-json'
          'haskell-contravariant' 'haskell-data-fix' 'haskell-diff' 'haskell-dotgen'

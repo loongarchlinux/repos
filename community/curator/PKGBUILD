@@ -7,7 +7,7 @@ pkgver=5.7.6
 pkgrel=3
 pkgdesc='Curator: Tending your Elasticsearch indices'
 url='https://github.com/elastic/curator'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('APACHE')
 makedepends=('python' 'python-setuptools' 'python-elasticsearch' 'python-boto3'
              'python-requests-aws4auth' 'python-click' 'python-urllib3' 'python-yaml'

@@ -23,7 +23,7 @@ makedepends=(
 		zlib
 )
 
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='https://gitlab.com/DavidGriffith/frotz'
 license=(GPL)
 # In the interest of reproducibility, use the Makefile at a specific commit

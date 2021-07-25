@@ -11,7 +11,7 @@ pkgver=4.3
 pkgrel=2
 pkgdesc='Highly configurable framework window manager'
 url='https://awesomewm.org/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 depends=('cairo' 'dbus' 'gdk-pixbuf2' 'imlib2' 'libxdg-basedir' 'lua53' 'lua53-lgi' 'pango'
          'startup-notification' 'xcb-util-cursor' 'xcb-util-keysyms' 'xcb-util-wm'

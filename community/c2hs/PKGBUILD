@@ -7,7 +7,7 @@ pkgrel=120
 pkgdesc="C->Haskell FFI tool that gives some cross-language type safety"
 url="https://github.com/haskell/c2hs"
 license=("GPL2")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-dlist" "haskell-language-c")
 makedepends=('ghc' 'haskell-test-framework' 'haskell-test-framework-hunit' 'haskell-hunit'
              'haskell-shelly')

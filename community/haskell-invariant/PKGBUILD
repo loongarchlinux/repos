@@ -7,7 +7,7 @@ pkgrel=79
 pkgdesc="Haskell98 invariant functors"
 url="https://github.com/nfrisby/invariant-functors"
 license=('custom:BSD2')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-comonad' 'haskell-contravariant'
          'haskell-profunctors' 'haskell-statevar' 'haskell-tagged' 'haskell-th-abstraction'
          'haskell-transformers-compat' 'haskell-unordered-containers')

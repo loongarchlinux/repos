@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=foomatic-db-engine
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 pkgver=20200206
 pkgrel=1
 epoch=4

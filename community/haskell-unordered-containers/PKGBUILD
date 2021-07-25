@@ -11,7 +11,7 @@ pkgrel=1
 pkgdesc="Efficient hashing-based container types"
 url="https://github.com/haskell-unordered-containers/unordered-containers"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'haskell-chasingbottoms' 'haskell-hunit' 'haskell-quickcheck'
              'haskell-random' 'haskell-test-framework' 'haskell-test-framework-hunit'

@@ -6,7 +6,7 @@ pkgname=libldm
 pkgver=0.2.4.r20.a856552
 pkgrel=1
 pkgdesc='A tool and library for managing Microsoft Windows Dynamic Disks'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url=https://github.com/mdbooth/libldm
 license=(
   GPL3

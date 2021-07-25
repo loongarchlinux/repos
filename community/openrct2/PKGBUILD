@@ -6,7 +6,7 @@ pkgver=0.3.1
 pkgrel=2
 pkgdesc='Open source re-implementation of Roller Coaster Tycoon 2 (requires full
          copy of the game)'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://openrct2.io'
 license=('GPL3')
 depends=('hicolor-icon-theme' 'sdl2' 'curl' 'jansson' 'speexdsp' 'fontconfig'

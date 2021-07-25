@@ -9,7 +9,7 @@ license=('GPL')
 url="http://cyberelk.net/tim/patchutils/"
 depends=('perl')
 makedepends=('xmlto')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 source=("https://github.com/twaugh/patchutils/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.sig})
 md5sums=('ee95b5993d07ccdf27ca9f2cc4e6ffee'
          'SKIP')

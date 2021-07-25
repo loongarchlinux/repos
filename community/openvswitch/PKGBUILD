@@ -8,7 +8,7 @@ pkgrel=1
 pkgdesc="Production Quality, Multilayer Open Virtual Switch"
 url="http://openvswitch.org"
 license=('APACHE')
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 install=openvswitch.install
 source=("http://openvswitch.org/releases/openvswitch-$pkgver.tar.gz"
 	openvswitch.tmpfiles

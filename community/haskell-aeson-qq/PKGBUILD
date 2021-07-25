@@ -8,7 +8,7 @@ pkgrel=99
 pkgdesc="JSON quasiquoter for Haskell"
 url="https://github.com/sol/aeson-qq"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base-compat' 'haskell-src-meta'
          'haskell-scientific' 'haskell-vector')
 makedepends=('ghc' 'haskell-hspec')

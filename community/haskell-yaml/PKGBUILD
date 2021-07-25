@@ -8,7 +8,7 @@ pkgrel=19
 pkgdesc="Support for parsing and rendering YAML documents."
 url="https://github.com/snoyberg/yaml/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-conduit' 'haskell-libyaml'
          'haskell-vector' 'haskell-resourcet' 'haskell-scientific' 'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-mockery' 'haskell-base-compat'

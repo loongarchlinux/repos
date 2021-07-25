@@ -8,7 +8,7 @@ pkgrel=1
 pkgdesc="Agda standard libraries"
 url="https://github.com/agda/agda-stdlib"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=("agda=$_agdaver")
 makedepends=('ghc' 'haskell-filemanip')
 options=('staticlibs')

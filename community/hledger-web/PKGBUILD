@@ -7,7 +7,7 @@ pkgrel=26
 pkgdesc="Web-based user interface for the hledger accounting system"
 url="http://hledger.org"
 license=("GPL")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-clientsession'
          'haskell-cmdargs' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-data-default'

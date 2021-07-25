@@ -5,7 +5,7 @@ pkgver=2.3.0
 pkgrel=3
 pkgdesc="TensorFlow's Visualization Toolkit"
 url='https://github.com/tensorflow/tensorboard'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('APACHE')
 depends=('python' 'python-werkzeug' 'python-numpy' 'python-bleach' 'python-wheel' 'python-markdown'
          'python-html5lib' 'python-protobuf' 'python-setuptools' 'python-grpcio' 'python-google-auth-oauthlib'

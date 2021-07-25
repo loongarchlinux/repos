@@ -8,7 +8,7 @@ pkgrel=15
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-auto-update' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-cereal'
          'haskell-clientsession' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cookie'

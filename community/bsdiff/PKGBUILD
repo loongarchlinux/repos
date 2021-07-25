@@ -6,7 +6,7 @@ pkgrel=10
 pkgdesc="bsdiff and bspatch are tools for building and applying patches to binary files."
 url="https://www.daemonology.net/bsdiff/"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('bzip2')
 source=("https://www.daemonology.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
 	Makefile.patch

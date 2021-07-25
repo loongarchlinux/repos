@@ -6,7 +6,7 @@ pkgname=pcsx2
 pkgver=1.7.0.r441.92171ddba
 pkgrel=1
 pkgdesc='A Sony PlayStation 2 emulator'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url=https://www.pcsx2.net
 license=(
   GPL2

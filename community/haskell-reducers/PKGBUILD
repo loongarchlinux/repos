@@ -8,7 +8,7 @@ pkgrel=120
 pkgdesc="Semigroups, specialized containers and a general map/reduce framework"
 url="https://github.com/ekmett/reducers/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-fingertree" "haskell-hashable" "haskell-semigroupoids"
          "haskell-unordered-containers")
 makedepends=('ghc')

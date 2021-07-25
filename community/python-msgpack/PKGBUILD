@@ -6,7 +6,7 @@ pkgver=1.0.0
 pkgrel=1
 
 url='https://github.com/msgpack/msgpack-python'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('Apache')
 
 makedepends=('cython' 'cython2' 'python-setuptools')

@@ -7,7 +7,7 @@ pkgrel=5
 pkgdesc="Strict linked list"
 url="https://github.com/nikita-volkov/strict-list"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-semigroupoids')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

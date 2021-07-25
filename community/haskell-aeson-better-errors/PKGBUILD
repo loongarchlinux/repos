@@ -8,7 +8,7 @@ pkgrel=213
 pkgdesc="Better error messages when decoding JSON values."
 url="https://github.com/hdgarrood/aeson-better-errors"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-dlist" "haskell-scientific"
          "haskell-transformers-compat" "haskell-unordered-containers" "haskell-vector" "haskell-void")
 makedepends=('ghc')

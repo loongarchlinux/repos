@@ -8,7 +8,7 @@ pkgrel=98
 pkgdesc="QuickCheck-2 support for the test-framework package"
 url="https://haskell.github.io/test-framework/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-test-framework' 'haskell-quickcheck' 'haskell-extensible-exceptions'
          'haskell-random')
 makedepends=('ghc')

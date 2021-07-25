@@ -8,7 +8,7 @@ pkgrel=2
 pkgdesc="Server and user space API to deal with multimedia pipelines"
 url="https://pipewire.org"
 license=(LGPL2.1)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 makedepends=(git meson doxygen graphviz xmltoman valgrind jack2 libpulse
              alsa-lib gstreamer gst-plugins-base sbc rtkit vulkan-icd-loader
              dbus libsndfile bluez-libs vulkan-headers)

@@ -17,7 +17,7 @@ pkgrel=1
 
 _bootstrap=0 # 0/1 for quick build or full bootstrap
 
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='http://icedtea.classpath.org'
 license=('custom')
 options=('!emptydirs')

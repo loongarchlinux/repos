@@ -7,7 +7,7 @@ pkgrel=20
 pkgdesc="Selective applicative functors"
 url="https://github.com/snowleopard/selective"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-expected-failure'
              'haskell-tasty-quickcheck')

@@ -5,7 +5,7 @@ pkgver=2.3.5
 pkgrel=2
 pkgdesc="Collection of data extractors for Tracker/Nepomuk"
 url="https://wiki.gnome.org/Projects/Tracker"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(tracker gst-plugins-base-libs exempi flac libexif libcue libgrss libgsf libgxps libiptcdata
          libosinfo libvorbis poppler-glib totem-plparser giflib libgexiv2 gupnp-dlna upower

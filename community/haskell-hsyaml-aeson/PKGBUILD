@@ -7,7 +7,7 @@ pkgrel=73
 pkgdesc="JSON to YAML Adapter"
 url="https://github.com/hvr/hsyaml-aeson"
 license=('GPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-hsyaml' 'haskell-scientific'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc')

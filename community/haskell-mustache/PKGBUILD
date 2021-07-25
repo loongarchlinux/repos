@@ -7,7 +7,7 @@ pkgrel=185
 pkgdesc="A mustache template parser library."
 url="https://github.com/JustusAdam/mustache"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-either' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-scientific' 'haskell-th-lift' 'haskell-cmdargs' 'haskell-yaml')
 makedepends=('ghc' 'haskell-hspec' 'haskell-base-unicode-symbols' 'haskell-wreq' 'haskell-zlib'

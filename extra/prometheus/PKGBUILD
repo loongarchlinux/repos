@@ -6,7 +6,7 @@ pkgrel=2
 
 pkgdesc='An open-source systems monitoring and alerting toolkit'
 url='https://prometheus.io'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('Apache')
 
 depends=('glibc')

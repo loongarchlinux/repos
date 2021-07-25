@@ -7,7 +7,7 @@ pkgname=geany-plugins
 pkgver=1.36
 pkgrel=5
 pkgdesc='Plugins for Geany'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='https://plugins.geany.org/'
 license=(GPL)
 depends=("geany>=$pkgver" ctpl gpgme gtkspell3 lua51 python vte3 webkit2gtk libgit2)

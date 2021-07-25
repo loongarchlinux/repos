@@ -6,7 +6,7 @@ pkgver=3.4.1
 pkgrel=1
 pkgdesc="3D realtime strategy game on a future Earth"
 url="https://wz2100.net/"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL')
 depends=('sdl2' 'glew' 'fribidi' 'openal' 'libvorbis' 'libtheora' 'physfs' 'ttf-dejavu' 'qt5-script' 
          'xorg-xrandr' 'libsodium')

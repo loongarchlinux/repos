@@ -8,7 +8,7 @@ pkgrel=19
 pkgdesc="Globbing library"
 url="https://iki.fi/matti.niemenmaa/glob/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-transformers-compat')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')

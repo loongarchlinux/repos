@@ -5,7 +5,7 @@ pkgver=20.08.2
 pkgrel=1
 pkgdesc='Small system to administer web accounts for the sites and services across the KDE desktop, including: Google, Facebook, Owncloud, IMAP, 
 Jabber and others'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='https://www.kde.org/applications/internet/'
 license=(GPL)
 depends=(kcmutils signon-kwallet-extension signon-plugin-oauth2 signon-ui)

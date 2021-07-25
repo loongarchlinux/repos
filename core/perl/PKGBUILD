@@ -9,7 +9,7 @@ pkgver=5.32.0
 _baseversion="${pkgver%.*}"
 pkgrel=3
 pkgdesc="A highly capable, feature-rich programming language"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=('GPL' 'PerlArtistic')
 url="https://www.perl.org"
 depends=('gdbm>=1.17' 'db' 'glibc' 'libxcrypt' 'libcrypt.so')

@@ -7,7 +7,7 @@ pkgname=bmake
 pkgver=20200902
 pkgrel=1
 pkgdesc='Portable version of the NetBSD make build tool'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url='http://www.crufty.net/help/sjg/bmake.html'
 license=(BSD)
 

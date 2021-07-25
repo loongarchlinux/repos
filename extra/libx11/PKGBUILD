@@ -5,7 +5,7 @@ pkgname=libx11
 pkgver=1.6.12
 pkgrel=1
 pkgdesc="X11 client-side library"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 url="https://xorg.freedesktop.org/"
 # keep xorgproto runtime dependency
 # https://lists.archlinux.org/pipermail/arch-dev-public/2019-December/029767.html

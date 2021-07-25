@@ -5,7 +5,7 @@ pkgname=wings3d
 pkgver=2.2.5
 pkgrel=1
 pkgdesc='3D modeler using the winged edge data structure'
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 # https is not available
 url='http://www.wings3d.com/'
 license=(GPL)

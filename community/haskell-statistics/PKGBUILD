@@ -8,7 +8,7 @@ pkgrel=61
 pkgdesc="A library of statistical types, data, and functions"
 url="https://github.com/bos/statistics"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-async' 'haskell-base-orphans' 'haskell-data-default-class'
          'haskell-dense-linear-algebra' 'haskell-math-functions' 'haskell-monad-par'
          'haskell-mwc-random' 'haskell-primitive' 'haskell-vector' 'haskell-vector-algorithms'

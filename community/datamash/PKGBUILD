@@ -6,7 +6,7 @@ pkgver=1.6
 pkgrel=1
 pkgdesc='Performs basic numeric,textual and statistical operations on input textual data files'
 url="https://www.gnu.org/software/datamash/"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL')
 source=("https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.gz"
         "https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.gz.sig")

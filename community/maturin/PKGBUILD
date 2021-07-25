@@ -4,7 +4,7 @@ pkgrel=1
 
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(Apache)
 
 depends=(gcc-libs libdbus-1.so rust)

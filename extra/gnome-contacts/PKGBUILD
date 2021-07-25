@@ -6,7 +6,7 @@ pkgver=3.38
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://wiki.gnome.org/Apps/Contacts"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL2)
 depends=(gtk3 folks gnome-desktop dconf gnome-online-accounts libgee cheese
          libhandy)

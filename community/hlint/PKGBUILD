@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="Source code suggestions"
 url="http://community.haskell.org/~ndm/hlint/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs' 'haskell-cpphs'
          'haskell-data-default' 'haskell-extra' 'haskell-file-embed' 'haskell-filepattern'
          'haskell-ghc' 'haskell-ghc-lib-parser-ex' 'haskell-hscolour' 'haskell-refact'

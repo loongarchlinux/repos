@@ -8,7 +8,7 @@ pkgrel=131
 pkgdesc="Backend for the persistent library using sqlite3"
 url="https://www.yesodweb.com/book/persistent"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'sqlite' 'haskell-aeson' 'haskell-conduit' 'haskell-microlens-th'
          'haskell-monad-logger' 'haskell-persistent' 'haskell-resource-pool' 'haskell-resourcet'
          'haskell-unliftio-core' 'haskell-unordered-containers')

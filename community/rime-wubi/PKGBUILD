@@ -5,7 +5,7 @@ pkgver=0.0.0.20200908
 _commit=f1876f08f1d4a9696395be0070c0e8e4353c44cb
 pkgrel=1
 pkgdesc="Wubi input for rime"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/rime/rime-wubi"
 license=('LGPL')
 # dependency for reverse lookup

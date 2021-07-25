@@ -7,7 +7,7 @@ pkgver=0.9.16
 pkgrel=3
 pkgdesc='VNC server for real X displays'
 url='https://github.com/LibVNC/x11vnc'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 optdepends=('tk: GUI support'
             'net-tools: -auth guess'

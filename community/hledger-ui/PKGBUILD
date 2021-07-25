@@ -7,7 +7,7 @@ pkgrel=15
 pkgdesc="Curses-style terminal interface for the hledger accounting system"
 url="http://hledger.org"
 license=("GPL")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-ansi-terminal' 'haskell-async'
          'haskell-base-compat-batteries' 'haskell-cmdargs' 'haskell-data-default' 'haskell-extra'
          'haskell-fsnotify' 'haskell-microlens' 'haskell-microlens-platform' 'haskell-megaparsec'

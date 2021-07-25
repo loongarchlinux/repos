@@ -7,7 +7,7 @@ pkgrel=150
 pkgdesc="A collection of tools for processing XML with Haskell."
 url="https://github.com/UweSchmidt/hxt"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-hxt-charproperties' 'haskell-hxt-regex-xmlschema' 'haskell-hxt-unicode'
          'haskell-network-uri')
 makedepends=('ghc')

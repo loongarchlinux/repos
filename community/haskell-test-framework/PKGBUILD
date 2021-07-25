@@ -8,7 +8,7 @@ pkgrel=100
 pkgdesc="Framework for running and organising tests, with HUnit and QuickCheck support"
 url="https://batterseapower.github.io/test-framework/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-ansi-wl-pprint' 'haskell-hostname'
          'haskell-old-locale' 'haskell-random' 'haskell-regex-posix' 'haskell-xml')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-libxml')

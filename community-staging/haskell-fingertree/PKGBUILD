@@ -8,7 +8,7 @@ pkgrel=58
 pkgdesc="Generic finger-tree structure, with example instances"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')

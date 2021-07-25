@@ -7,7 +7,7 @@ pkgrel=1
 _modname=naxsi
 
 pkgdesc='Nginx Anti XSS & SQL Injection'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://github.com/nbs-system/naxsi"

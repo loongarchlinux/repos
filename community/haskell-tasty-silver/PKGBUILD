@@ -7,7 +7,7 @@ pkgrel=24
 pkgdesc="A fancy test runner, including support for golden tests"
 url="https://github.com/phile314/tasty-silver"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-optparse-applicative'
          'haskell-process-extras' 'haskell-regex-tdfa' 'haskell-tagged' 'haskell-tasty'
          'haskell-temporary')

@@ -9,7 +9,7 @@ pkgver=5.44.0
 _eclver=20.4.24
 pkgrel=2
 pkgdesc="A sophisticated computer algebra system (compiled against ecl)"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL)
 url="https://maxima.sourceforge.net"
 depends=(ecl=$_eclver texinfo shared-mime-info)

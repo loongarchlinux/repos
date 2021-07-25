@@ -11,7 +11,7 @@ pkgver=3.2.7
 pkgrel=1
 pkgdesc='Network traffic and protocol analyzer/sniffer'
 url='https://www.wireshark.org/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 makedepends=('glibc' 'cmake' 'ninja' 'c-ares' 'libmaxminddb' 'qt5-tools' 'qt5-svg'
              'qt5-multimedia' 'krb5' 'libpcap' 'libssh' 'libxml2' 'libnghttp2'

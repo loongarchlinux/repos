@@ -7,7 +7,7 @@ pkgrel=13
 pkgdesc="Fast binary serialization"
 url="https://github.com/fpco/store"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-base-orphans' 'haskell-base64-bytestring'
          'haskell-contravariant' 'haskell-cryptohash' 'haskell-free'
          'haskell-hashable' 'haskell-hspec' 'haskell-hspec-smallcheck' 'haskell-lifted-base'

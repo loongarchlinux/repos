@@ -6,7 +6,7 @@ pkgver=5.44
 pkgrel=2
 pkgdesc='Screen saver and locker for the X Window System'
 url='https://www.jwz.org/xscreensaver/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('BSD')
 depends=('libglade' 'libxmu' 'glu' 'xorg-appres' 'perl-libwww' 'libsystemd.so'
          'libxcrypt' 'libcrypt.so' 'libxi' 'libxxf86vm' 'libxrandr' 'libxinerama'

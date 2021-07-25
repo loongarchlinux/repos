@@ -7,7 +7,7 @@ pkgrel=89
 pkgdesc="Haskell URI parsing as ByteStrings"
 url="https://github.com/Soostone/uri-bytestring"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-blaze-builder' 'haskell-th-lift-instances')
 makedepends=('ghc' 'haskell-hunit' 'haskell-hedgehog' 'haskell-tasty' 'haskell-tasty-hedgehog'
              'haskell-tasty-hunit' 'haskell-base-compat' 'haskell-safe')

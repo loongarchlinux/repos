@@ -8,7 +8,7 @@ pkgrel=36
 pkgdesc="String interpolation done right"
 url="https://github.com/sol/interpolate"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-src-meta')
 makedepends=('ghc' 'haskell-base-compat' 'haskell-hspec' 'haskell-quickcheck'
              'haskell-quickcheck-instances')

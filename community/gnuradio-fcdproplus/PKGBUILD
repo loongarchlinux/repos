@@ -7,7 +7,7 @@ pkgrel=5
 # they still haven't done a release, so fake it
 _commit=f1154db33e7
 pkgdesc="GNU Radio source block for Funcube Dongle Pro +"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/dl1ksv/gr-fcdproplus"
 license=('GPL3')
 depends=('gnuradio' 'libusb' 'alsa-lib' 'boost-libs')

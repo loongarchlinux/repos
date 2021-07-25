@@ -7,7 +7,7 @@ pkgrel=82
 pkgdesc="Extract and apply patches to JSON documents"
 url="https://github.com/thsutton/aeson-diff"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-edit-distance-vector' 'haskell-hashable'
          'haskell-scientific' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-optparse-applicative')

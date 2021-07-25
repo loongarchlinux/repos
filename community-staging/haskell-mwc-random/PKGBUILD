@@ -8,7 +8,7 @@ pkgrel=17
 pkgdesc="Fast, high quality pseudo random number generation"
 url="https://github.com/bos/mwc-random"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-math-functions' 'haskell-primitive' 'haskell-random' 'haskell-vector')
 makedepends=('ghc' 'haskell-doctest' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

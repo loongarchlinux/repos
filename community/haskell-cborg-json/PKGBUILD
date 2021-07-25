@@ -7,7 +7,7 @@ pkgrel=59
 pkgdesc="A library for encoding JSON as CBOR"
 url="https://github.com/well-typed/cborg-json"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-cborg' 'haskell-scientific'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc')

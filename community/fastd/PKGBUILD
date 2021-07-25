@@ -2,7 +2,7 @@
 # Contributor: NeoRaider
 
 pkgname=fastd
-arch=("x86_64")
+arch=("loongarch64" "x86_64")
 pkgver=20
 pkgrel=1
 pkgdesc="Fast and secure tunneling daemon"

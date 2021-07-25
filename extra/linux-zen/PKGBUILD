@@ -6,7 +6,7 @@ pkgrel=1
 pkgdesc='Linux ZEN'
 _srctag=v${pkgver%.*}-${pkgver##*.}
 url="https://github.com/zen-kernel/zen-kernel/commits/$_srctag"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(GPL2)
 makedepends=(
   bc kmod libelf pahole

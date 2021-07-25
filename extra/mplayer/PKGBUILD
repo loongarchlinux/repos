@@ -9,7 +9,7 @@ pkgver=38157
 pkgrel=3
 pkgdesc='Media player for Linux'
 url='http://www.mplayerhq.hu/'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL')
 makedepends=('xorgproto' 'libxxf86vm' 'libmad' 'libxinerama' 'libmng' 'libxss'
              'smbclient' 'aalib' 'jack' 'libcaca' 'faac' 'faad2' 'lirc' 'libxv'

@@ -9,7 +9,7 @@ epoch=1
 pkgrel=1
 pkgdesc='Qt and C++ GUI for radare2 reverse engineering framework'
 url='https://github.com/radareorg/cutter'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL3')
 depends=('radare2' 'capstone' 'qt5-base' 'qt5-svg' 'qt5-webengine' 'icu' 'python' 'jupyter'
          'pyside2' 'python-shiboken2' 'graphviz' 'gcc-libs')

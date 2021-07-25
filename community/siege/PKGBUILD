@@ -4,7 +4,7 @@
 pkgname=siege
 pkgver=4.0.7
 pkgrel=1
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL')
 pkgdesc="An http regression testing and benchmarking utility"
 url="https://www.joedog.org/siege-home/"

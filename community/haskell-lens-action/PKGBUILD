@@ -7,7 +7,7 @@ pkgrel=61
 pkgdesc="Monadic Getters and Folds"
 url="https://github.com/ekmett/lens-action"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-comonad' 'haskell-contravariant' 'haskell-lens'
          'haskell-profunctors' 'haskell-semigroupoids')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest')

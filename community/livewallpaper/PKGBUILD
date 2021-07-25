@@ -7,7 +7,7 @@ pkgrel=3
 pkgdesc='Animated 3D wallpapers'
 url='https://launchpad.net/livewallpaper'
 license=(GPL3)
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 depends=(glew libpeas python-cairo python-gobject python-opengl python-pillow upower)
 makedepends=(bzr cmake gobject-introspection intltool ninja vala xcftools)
 source=("$pkgname::bzr+$url/trunk#revision=${pkgver##*.}")

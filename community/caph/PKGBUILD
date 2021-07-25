@@ -2,7 +2,7 @@
 # Contributor: jose <jose1711 [at] gmail (dot) com>
 
 pkgname=caph
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 pkgver=1.1
 pkgrel=7
 pkgdesc='Sandbox game based on physics which uses doodles as a primary gameplay element'

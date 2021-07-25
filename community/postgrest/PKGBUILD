@@ -7,7 +7,7 @@ pkgrel=119
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-http' 'haskell-ranged-sets' 'haskell-aeson' 'haskell-ansi-wl-pprint'
          'haskell-base64-bytestring' 'haskell-case-insensitive' 'haskell-cassava'
          'haskell-configurator-pg' 'haskell-contravariant' 'haskell-contravariant-extras'

@@ -7,7 +7,7 @@ pkgrel=41
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-http' 'haskell-juicypixels' 'haskell-sha' 'haskell-aeson'
          'haskell-aeson-pretty' 'haskell-attoparsec' 'haskell-base64-bytestring'
          'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-case-insensitive'

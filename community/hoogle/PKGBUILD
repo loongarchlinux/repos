@@ -7,7 +7,7 @@ pkgrel=64
 pkgdesc="Haskell API Search"
 url="https://www.haskell.org/hoogle/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-aeson' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-cmdargs' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-connection' 'haskell-extra' 'haskell-foundation' 'haskell-hashable'

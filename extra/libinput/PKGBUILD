@@ -6,7 +6,7 @@ pkgver=1.16.2
 pkgrel=1
 pkgdesc="Input device management and event handling library"
 url="https://www.freedesktop.org/wiki/Software/libinput/"
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 license=(custom:X11)
 depends=('mtdev' 'systemd' 'libevdev' 'libwacom')
 # upstream doesn't recommend building docs

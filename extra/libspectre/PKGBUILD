@@ -4,7 +4,7 @@ pkgname=libspectre
 pkgver=0.2.9
 pkgrel=2
 pkgdesc="Small library for rendering Postscript documents"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 license=('GPL2')
 url="https://www.freedesktop.org/wiki/Software/libspectre"
 depends=('ghostscript>=9.00')

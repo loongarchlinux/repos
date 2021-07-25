@@ -5,7 +5,7 @@ _commit=18721df
 pkgver=83.git1.${_commit}
 pkgrel=2
 pkgdesc='WebRTC library - static linked'
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://webrtc.org/?hl=de'
 license=('custom:BSD')
 makedepends=('git' 'gn' 'ninja' 'unzip' 'python2' 'python' 'libxrandr' 'libxcomposite' 'openssl' 'glibc' 'ffmpeg' 'libva')

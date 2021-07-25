@@ -7,7 +7,7 @@ pkgrel=119
 pkgdesc="Content Addressable Storage Archive client"
 url="https://github.com/fpco/casa"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base16-bytestring'
          'haskell-casa-types' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'
          'haskell-http-conduit' 'haskell-http-types' 'haskell-memory'

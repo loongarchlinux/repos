@@ -7,7 +7,7 @@ pkgrel=88
 pkgdesc="An efficient strict text builder"
 url="https://github.com/nikita-volkov/text-builder"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-prelude' 'haskell-deferred-folds')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

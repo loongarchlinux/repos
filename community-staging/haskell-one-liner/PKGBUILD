@@ -7,7 +7,7 @@ pkgrel=43
 pkgdesc="Constraint-based generics"
 url="https://github.com/sjoerdvisscher/one-liner"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-profunctors'
          'haskell-tagged')
 makedepends=('ghc' 'haskell-hunit')

@@ -7,7 +7,7 @@ pkgrel=38
 pkgdesc="A documentation-generation tool for Haskell libraries"
 url="https://www.haskell.org/haddock/"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-base-compat' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-quickcheck' 'haskell-optparse-applicative' 'haskell-tree-diff')

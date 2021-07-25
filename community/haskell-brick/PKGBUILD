@@ -8,7 +8,7 @@ pkgrel=2
 pkgdesc="A declarative terminal user interface library"
 url="https://github.com/jtdaugherty/brick"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-vty' 'haskell-data-clist' 'haskell-dlist' 'haskell-microlens'
          'haskell-microlens-th' 'haskell-microlens-mtl' 'haskell-config-ini' 'haskell-vector'
          'haskell-contravariant' 'haskell-text-zipper' 'haskell-word-wrap')

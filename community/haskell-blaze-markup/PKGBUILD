@@ -8,7 +8,7 @@ pkgrel=17
 pkgdesc="A blazingly fast markup combinator library for Haskell"
 url="https://jaspervdj.be/blaze"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-builder')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

@@ -6,7 +6,7 @@ pkgname=nvidia
 pkgver=455.28
 pkgrel=6
 pkgdesc="NVIDIA drivers for linux"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://www.nvidia.com/"
 makedepends=('linux-headers' "nvidia-dkms=$pkgver")
 provides=('NVIDIA-MODULE')

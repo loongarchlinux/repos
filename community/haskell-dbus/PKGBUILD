@@ -8,7 +8,7 @@ pkgrel=42
 pkgdesc="A client library for the D-Bus IPC system"
 url="https://john-millikin.com/software/haskell-dbus/"
 license=("GPL3")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-conduit' 'haskell-lens'
          'haskell-network' 'haskell-random' 'haskell-split' 'haskell-th-lift'
          'haskell-vector' 'haskell-xml-conduit' 'haskell-xml-types')

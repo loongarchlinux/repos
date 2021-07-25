@@ -5,7 +5,7 @@ pkgver=0.0.0.20190120
 _commit=ed25098386f5efd3d70b08650f0d1b70c41c11a3
 pkgrel=2
 pkgdesc="Bopomofo input for rime"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/rime/rime-bopomofo"
 license=('LGPL')
 # Rime will regenerate yaml&prism bin, which makes terra-pinyin required on runtime (for translator)

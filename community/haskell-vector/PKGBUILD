@@ -6,7 +6,7 @@ pkgrel=45
 pkgdesc="Efficient Arrays"
 url="https://hackage.haskell.org/package/vector"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-primitive')
 makedepends=('ghc' 'haskell-base-orphans' 'haskell-hunit' 'haskell-quickcheck' 'haskell-random'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

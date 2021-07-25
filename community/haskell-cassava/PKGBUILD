@@ -8,7 +8,7 @@ pkgrel=55
 pkgdesc="A CSV parsing and encoding library"
 url="https://github.com/tibbe/cassava"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' "haskell-attoparsec" "haskell-hashable" "haskell-only" "haskell-scientific"
          "haskell-text-short" "haskell-unordered-containers" "haskell-vector")
 makedepends=('ghc')

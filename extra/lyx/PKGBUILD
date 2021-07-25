@@ -5,7 +5,7 @@ pkgname=lyx
 pkgver=2.3.5.2
 pkgrel=1
 pkgdesc="An advanced WYSIWYM document processor & LaTeX front-end"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://www.lyx.org"
 depends=('qt5-svg' 'texlive-core' 'python' 'imagemagick' 'enchant' 'hunspell'
          'libmythes' 'file' 'hicolor-icon-theme' 'desktop-file-utils')

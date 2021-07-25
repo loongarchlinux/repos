@@ -8,7 +8,7 @@ pkgrel=40
 pkgdesc="Orphan instances for binary"
 url="https://github.com/phadej/binary-orphans"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-quickcheck' 'haskell-tagged')

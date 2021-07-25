@@ -5,7 +5,7 @@
 pkgname=breeze
 pkgver=5.20.0
 pkgrel=1
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 url='https://www.kde.org/workspaces/plasmadesktop/'
 license=(LGPL)

@@ -20,7 +20,7 @@ _updatever=10
 pkgrel=1
 pkgver=${_majorver}.${_minorver}.${_securityver}.u${_updatever}
 _hg_tag=jdk-${_majorver}.${_minorver}.${_securityver}+${_updatever}
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url='https://openjdk.java.net/'
 license=('custom')
 makedepends=('java-environment>=10' 'java-environment<12' 'cpio' 'unzip' 'zip' 'libelf' 'libcups' 'libx11'

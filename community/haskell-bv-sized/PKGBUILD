@@ -7,7 +7,7 @@ pkgrel=18
 pkgdesc="A bitvector datatype that is parameterized by the vector width"
 url="https://github.com/GaloisInc/bv-sized"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-bitwise' 'haskell-panic' 'haskell-parameterized-utils'
          'haskell-th-lift')
 makedepends=('ghc' 'haskell-hedgehog' 'haskell-tasty' 'haskell-tasty-hedgehog')

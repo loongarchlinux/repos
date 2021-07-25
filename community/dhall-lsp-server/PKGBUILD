@@ -6,7 +6,7 @@ pkgrel=21
 pkgdesc="Language Server Protocol (LSP) server for Dhall"
 url="https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-lsp-server#readme"
 license=("custom:MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-data-default' 'dhall'
          'dhall-json' 'haskell-lsp' 'haskell-hslogger' 'haskell-lens' 'haskell-lens-family-core'
          'haskell-megaparsec' 'haskell-network-uri' 'haskell-optparse-applicative'

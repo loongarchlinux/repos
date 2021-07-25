@@ -6,7 +6,7 @@ _pkgname=NetworkManager-strongswan
 pkgver=1.5.2
 pkgrel=1
 pkgdesc="Strongswan NetworkManager plugin"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://wiki.strongswan.org/projects/strongswan/wiki/NetworkManager"
 license=('GPL')
 depends=('libnm' 'libsecret' 'strongswan>=5.5.1')

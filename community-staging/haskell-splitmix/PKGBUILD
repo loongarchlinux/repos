@@ -7,7 +7,7 @@ pkgrel=19
 pkgdesc="Fast Splittable PRNG"
 url="https://github.com/phadej/splitmix"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-async' 'haskell-base-compat' 'haskell-base-compat-batteries'
              'haskell-hunit' 'haskell-math-functions' 'haskell-test-framework'

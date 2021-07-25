@@ -7,7 +7,7 @@ pkgrel=101
 pkgdesc="Tests for Persistent"
 url="https://github.com/yesodweb/persistent"
 license=('MIT')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-persistent' 'haskell-persistent-template' 'haskell-aeson'
          'haskell-blaze-html' 'haskell-conduit' 'haskell-hspec'
          'haskell-hspec-expectations' 'haskell-hunit' 'haskell-monad-control' 'haskell-monad-logger'

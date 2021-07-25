@@ -5,7 +5,7 @@ pkgname=lib32-$_pkgbasename
 pkgver=2.2.0
 pkgrel=1
 pkgdesc="A cross-platform C/C++ extension loading library (32 bit)"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://github.com/nigels-com/glew"
 license=('BSD' 'MIT' 'GPL')
 depends=('lib32-libxmu' 'lib32-libxi' 'lib32-glu' "$_pkgbasename>=$pkgver")

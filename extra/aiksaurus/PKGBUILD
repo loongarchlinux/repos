@@ -7,7 +7,7 @@ pkgrel=7
 pkgdesc="A cross-platform, open-source thesaurus"
 url="http://aiksaurus.sourceforge.net/"
 license=('GPL')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('gtk2')
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
         'aiksaurus-gcc44.patch')

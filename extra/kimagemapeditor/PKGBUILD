@@ -6,7 +6,7 @@
 pkgname=kimagemapeditor
 pkgver=20.08.2
 pkgrel=1
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 pkgdesc="HTML Image Map Editor"
 url='https://www.kde.org'
 license=(GPL LGPL FDL)

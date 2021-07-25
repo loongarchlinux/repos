@@ -10,7 +10,7 @@ _cudaver=11.1
 _majorver=8
 pkgrel=1
 pkgdesc="NVIDIA CUDA Deep Neural Network library"
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 url="https://developer.nvidia.com/cuDNN"
 license=('custom')
 depends=('cuda>=11')

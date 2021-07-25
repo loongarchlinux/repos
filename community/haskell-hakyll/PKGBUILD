@@ -8,7 +8,7 @@ pkgrel=7
 pkgdesc="A static website compiler library"
 url="https://jaspervdj.be/hakyll"
 license=("BSD")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-cryptonite'
          'haskell-data-default' 'haskell-file-embed' 'haskell-fsnotify' 'haskell-http-conduit'
          'haskell-http-types' 'haskell-lrucache' 'haskell-memory' 'haskell-network-uri'

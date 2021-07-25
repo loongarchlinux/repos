@@ -7,7 +7,7 @@ pkgrel=52
 pkgdesc="A Haskell Web Framework (core interfaces and types)"
 url="https://github.com/snapframework/snap-core"
 license=('BSD')
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-old-locale' 'haskell-hunit' 'haskell-attoparsec'
          'haskell-case-insensitive' 'haskell-lifted-base' 'haskell-io-streams' 'haskell-hashable'
          'haskell-monad-control' 'haskell-random' 'haskell-readable' 'haskell-regex-posix'

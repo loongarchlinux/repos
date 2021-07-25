@@ -7,7 +7,7 @@ pkgrel=132
 pkgdesc="hOpenPGP-based command-line tools"
 url="https://salsa.debian.org/clint/hopenpgp-tools"
 license=("AGPL3")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base16-bytestring'
          'haskell-binary-conduit' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-crypto-pubkey'
          'haskell-cryptohash' 'haskell-errors' 'haskell-fgl' 'haskell-graphviz' 'haskell-hopenpgp'

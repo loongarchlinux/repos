@@ -8,7 +8,7 @@ pkgrel=59
 pkgdesc="Pure-Haskell utilities for dealing with XML with the conduit package."
 url="https://github.com/snoyberg/xml"
 license=("MIT")
-arch=('x86_64')
+arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-blaze-markup' 'haskell-conduit'
          'haskell-conduit-extra' 'haskell-data-default-class'
          'haskell-resourcet' 'haskell-blaze-html' 'haskell-xml-types')

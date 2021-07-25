@@ -13,7 +13,7 @@ license=(
   GPL2
   LGPL2.1
 )
-arch=(x86_64)
+arch=(loongarch64 x86_64)
 depends=(
   lib32-glibc
   lib32-libpulse
