@@ -2,7 +2,7 @@
 
 pkgname=hamlib
 pkgver=3.3
-pkgrel=10
+pkgrel=12
 pkgdesc='Ham radio equipment control libraries'
 arch=('loongarch64' 'x86_64')
 url='https://hamlib.github.io'

@@ -3,23 +3,23 @@
 
 _hkgname=typed-process
 pkgname=haskell-typed-process
-pkgver=0.2.6.0
-pkgrel=120
+pkgver=0.2.8.0
+pkgrel=5
 pkgdesc="Run external processes, with strong typing of streams"
-url="https://haskell-lang.org/library/typed-process"
+url="https://github.com/fpco/typed-process"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-unliftio-core')
 makedepends=('ghc' 'haskell-base64-bytestring' 'haskell-hspec' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a40b8db4ef2179273943a3aab0200891bd3dffe584bcd51037ddf9cebae88d4d95292883a745a0c31900c7bf2eebe2c71175fbb86dc470b60660b443f8b1e3e0')
+sha512sums=('abffc3e26edaad8da0301a945b1711636fc555c3062aff57ad7b292f87fba857177a42041f4f98eafc35a1f216f0287afb2af41c2a3091bfc4905474d64bc230')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

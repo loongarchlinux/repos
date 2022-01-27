@@ -3,24 +3,17 @@
 # Contributor: Alucryd <alucryd at gmail dot com>
 
 pkgname=android-tools
-pkgver=31.0.0
-_tag=${pkgver}p1 # https://github.com/nmeum/android-tools sometimes carries extra patch version on top of the upstream versioning
-pkgrel=4
+pkgver=31.0.3
+_tag=${pkgver} # https://github.com/nmeum/android-tools sometimes carries extra patch version on top of the upstream versioning
+pkgrel=2
 pkgdesc='Android platform tools'
 arch=(loongarch64 x86_64)
 url='http://tools.android.com/'
 license=(Apache MIT)
 depends=(libusb protobuf brotli zstd android-udev)
 makedepends=(pcre2 gtest cmake go ninja git)
-source=(https://github.com/nmeum/android-tools/releases/download/$_tag/android-tools-$_tag.tar.xz
-        android-tools-gcc11.patch)
-sha256sums=('51a4c3ba5f16945905449c4bd2c1c781a4df7469f6b7362f8837f4f640d8c7b6'
-            '75fd8517769e5cb3b9a4b54c7d2d0b728537e35a42113531e8b7dfb6f296ea84')
-
-prepare() {
-  cd android-tools-$_tag
-  patch -d vendor/boringssl -p1 < ../android-tools-gcc11.patch
-}
+source=(https://github.com/nmeum/android-tools/releases/download/$_tag/android-tools-$_tag.tar.xz)
+sha256sums=('d7d2d945b6e1a7ba0c7d0b68a6d21ada6914155bf3ca02ff06c9db628ae6b029')
 
 build() {
   cd android-tools-$_tag

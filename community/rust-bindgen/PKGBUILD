@@ -1,7 +1,7 @@
 # Maintainer : Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rust-bindgen
-pkgver=0.58.1
+pkgver=0.59.2
 pkgrel=1
 pkgdesc='Automatically generates Rust FFI bindings to C (and some C++) libraries'
 url='https://github.com/rust-lang/rust-bindgen'
@@ -10,7 +10,7 @@ makedepends=('rust')
 arch=('loongarch64' 'x86_64')
 license=('BSD')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/rust-lang/rust-bindgen/archive/v$pkgver.tar.gz")
-sha512sums=('0875fee680521711dc90762a3cfbab2d80d966f447797abc5b53ee77284719d84c720d1a1d8593f6c38ac6a8cd7645258b0b15269866d87ab85889c2f138404a')
+sha512sums=('a89d724c0696fc26ca9b0ab492c189527bbb47d551e3ac0d8c182d00d3d7a07ea6cc7e2d606b592058acfc4bafd84a5dce9592a4671d890074ae78ea75e780f1')
 
 build() {
   cd $pkgname-$pkgver

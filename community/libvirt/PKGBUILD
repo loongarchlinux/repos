@@ -1,3 +1,4 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: Robin Broda <robin@broda.me>
 # Contributor: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
@@ -5,8 +6,8 @@
 
 pkgname=(libvirt libvirt-storage-gluster libvirt-storage-iscsi-direct libvirt-storage-rbd)
 epoch=1
-pkgver=7.3.0
-pkgrel=1
+pkgver=7.10.0
+pkgrel=2
 pkgdesc="API for controlling virtualization engines (openvz,kvm,qemu,virtualbox,xen,etc)"
 arch=('loongarch64' 'x86_64')
 url="https://libvirt.org/"
@@ -27,9 +28,11 @@ optdepends=('libvirt-storage-gluster: Gluster storage backend'
             'qemu: QEMU/KVM support'
             'lvm2: Logical Volume Manager support'
             'open-iscsi: iSCSI support via iscsiadm')
+
 backup=(
   'etc/conf.d/libvirtd'
   'etc/conf.d/libvirt-guests'
+  'etc/conf.d/virtchd'
   'etc/conf.d/virtinterfaced'
   'etc/conf.d/virtlockd'
   'etc/conf.d/virtlogd'
@@ -73,6 +76,7 @@ backup=(
   'etc/libvirt/qemu.conf'
   'etc/libvirt/qemu-lockd.conf'
   'etc/libvirt/qemu/networks/default.xml'
+  'etc/libvirt/virtchd.conf'
   'etc/libvirt/virtinterfaced.conf'
   'etc/libvirt/virtlockd.conf'
   'etc/libvirt/virtlogd.conf'
@@ -91,11 +95,9 @@ backup=(
   'etc/logrotate.d/libvirtd.qemu'
   'etc/sasl2/libvirt.conf'
 )
-source=("https://libvirt.org/sources/$pkgname-$pkgver.tar.xz"{,.asc}
-        "find_programs.ini")
-sha256sums=('27bdbb85c0301475ab1f2ecd185c629ea0bfd5512bef3f6f1817b6c55d1dc1be'
-            'SKIP'
-            '735ac805fbf06021418f82297845babf481d5681bd939a6994fbdf36fe1661e4')
+source=("https://libvirt.org/sources/$pkgname-$pkgver.tar.xz"{,.asc})
+sha256sums=('cb318014af097327928c6e3d72922e3be02a3e6401247b2aa52d9ab8e0b480f9'
+            'SKIP')
 validpgpkeys=('453B65310595562855471199CA68BE8010084C9C') # Jiří Denemark <jdenemar@redhat.com>
 
 prepare() {
@@ -118,18 +120,19 @@ build() {
 
   arch-meson build \
     --libexecdir=lib/libvirt \
-    --native-file "$srcdir"/find_programs.ini \
     -Drunstatedir=/run \
     -Dqemu_group=kvm \
     -Dnetcf=disabled \
     -Dopenwsman=disabled \
     -Dapparmor=disabled \
+    -Dapparmor_profiles=disabled \
     -Dselinux=disabled \
     -Dwireshark_dissector=disabled \
     -Ddriver_bhyve=disabled \
     -Ddriver_hyperv=disabled \
     -Ddriver_libxl=disabled \
     -Ddriver_vz=disabled \
+    -Dsanlock=disabled \
     -Dsecdriver_apparmor=disabled \
     -Dsecdriver_selinux=disabled \
     -Dstorage_sheepdog=disabled \

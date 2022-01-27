@@ -1,0 +1,35 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+
+pkgname=b3sum
+pkgver=1.2.0
+pkgrel=2
+pkgdesc='Command line implementation of the BLAKE3 hash function'
+arch=('loongarch64' 'x86_64')
+url=https://github.com/BLAKE3-team/BLAKE3
+license=('Apache')
+depends=('gcc-libs')
+makedepends=('rust')
+source=("$pkgname-$pkgver.tar.gz::https://crates.io/api/v1/crates/$pkgname/$pkgver/download")
+b2sums=('82408f8dac737b5c15ecee0b5d1d25deb3b0df6b2c71c007375f6d97009b6b2213e4764273eb58b01a62075f90a337c7ee0a267de9b55ab1e8488ac50c7ca06c')
+
+prepare() {
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd $pkgname-$pkgver
+  cargo build --release --locked --offline
+}
+
+check() {
+  cd $pkgname-$pkgver
+  cargo test --locked --offline
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dt "$pkgdir"/usr/bin target/release/$pkgname
+}
+
+# vim:set ts=2 sw=2 et:

@@ -2,7 +2,7 @@
 # Contributor: Marc Tiehuis <marctiehuis@gmail.com>
 
 pkgname=zig
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('loongarch64' 'x86_64')
@@ -10,9 +10,10 @@ url='https://ziglang.org/'
 license=('MIT')
 depends=('clang' 'llvm-libs' 'lld')
 makedepends=('cmake' 'llvm')
+checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
         "resolve_DNS.patch")
-sha256sums=('03a828d00c06b2e3bb8b7ff706997fd76bf32503b08d759756155b6e8c981e77'
+sha256sums=('cd1be83b12f8269cc5965e59877b49fdd8fa638efb6995ac61eb4cea36a2e381'
             'c2b7e709dcc229f0e58e2529db900bcfb9a1cfb73da765c5c76ab1e6d0a333cc')
 
 prepare() {
@@ -31,7 +32,7 @@ build() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DZIG_PREFER_CLANG_CPP_DYLIB=ON \
         .
-    make -C build
+    cmake --build build
 }
 
 check() {
@@ -45,5 +46,5 @@ package() {
 
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
-    make -C build DESTDIR="$pkgdir" install
+    DESTDIR="$pkgdir" cmake --install build
 }

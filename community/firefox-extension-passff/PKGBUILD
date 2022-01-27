@@ -2,7 +2,7 @@
 # Contributor: Willem Mulder <14mRh4X0r@gmail.com>
 
 pkgname=firefox-extension-passff
-pkgver=1.10.6
+pkgver=1.13.0
 pkgrel=1
 pkgdesc="zx2c4 pass manager addon for firefox"
 url="https://github.com/passff/passff"
@@ -11,8 +11,8 @@ arch=('any')
 groups=('firefox-addons')
 replaces=('firefox-passff')
 depends=('firefox' 'passff-host')
-source=("$pkgname-$pkgver.xpi::https://github.com/passff/passff/releases/download/${pkgver}/passff.xpi")
-sha512sums=('11dd0a922ab6f5db7597240768f3d025f39c8dc6e4b32a38759da5105a52b44d10b1331ebad52a5cc9a35d09b79df7f1bbe69c91e0aab857e0d5ed4fa37b09e6')
+source=("$pkgname-$pkgver.xpi::https://github.com/passff/passff/releases/download/${pkgver%.0}/passff.xpi")
+sha512sums=('3bbefd6640455595a9c1e24b10c4952d8a883136d2a66519e822c5460dbe02907190ffacaf836b9d2c6f35424ee6819549fe0cafd6c4cc82812d8f7c5201b68f')
 noextract=("$pkgname-$pkgver.xpi")
 
 package() {

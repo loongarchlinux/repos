@@ -2,9 +2,9 @@
 
 pkgname=kodi-addon-audioencoder-lame
 epoch=1
-pkgver=3.0.2
+pkgver=19.1.1
 _codename=Matrix
-pkgrel=2
+pkgrel=1
 pkgdesc="LAME Audio Encoder add-on for Kodi"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/xbmc/audioencoder.lame'
@@ -12,7 +12,7 @@ license=('GPL')
 groups=('kodi-addons' 'kodi-addons-audioencoder')
 makedepends=('cmake' 'lame' 'kodi-dev')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/audioencoder.lame/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('28a8c95804292820e07e96b02b206fe7fcdfe93c0e7113cf5d2f9fb43f718f92fdbe3686441064e55a9de1674a40c3ba9574db5e44d24cbd2397feafd97e74e2')
+sha512sums=('8791b06617985104adfdb9f7a3b01c6f31a2ebdef53f10d11e397d153b33905ef0d37455abfc7cfff4bbc5a762739b7c8151b9c42b236823292d3c0bf62a7e14')
 
 build() {
     cd "audioencoder.lame-$pkgver-$_codename"

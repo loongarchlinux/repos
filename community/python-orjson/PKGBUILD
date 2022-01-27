@@ -2,54 +2,41 @@
 
 _name=orjson
 pkgname=python-orjson
-pkgver=3.5.4
-pkgrel=1
+pkgver=3.6.5
+pkgrel=2
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://github.com/ijl/orjson"
-license=('Apache' 'MIT')
-depends=('python')
-makedepends=('maturin' 'python-pip' 'rustup')
-checkdepends=('python-arrow' 'python-pendulum' 'python-psutil' 'python-pytest'
-'python-pytz' 'python-xxhash')
+license=(Apache MIT)
+depends=(python)
+makedepends=(maturin python-pip rust)
+checkdepends=(python-arrow python-pendulum python-psutil python-pytest
+python-pytz python-xxhash)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ijl/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('5ac77937b81d0f9f3ff3e943e6fa99535078282966b588cd95a58c4cb916591d332710e473c9c7ab1d25599ce922413f9946a96e71aebcbbc16f23111c343019')
-b2sums=('33d0f65fc2af3dccb827699ec46f68bbe836b6e24d054b6917f947dea1bde8bfafc9255dc4d41776d8c3f538ba5288b8448d6e403ad0e090304e8ecf6fe652fa')
+sha512sums=('5a379bd58231d56a3abcf4499db17bff3e5e7708fe7c6bd1c8c943ffcc432874804ffe3f2fd24f83d27ff7ae00ff4d8b715389a92f30c61025460c9ddc77e9ac')
+b2sums=('ba2033be5f3e68d4d301f6da7a7827f80ace596a64721c5d719c8a872f42c6c70164e1e83a119313a81d846285be65f3db26659b6a03f537a6b2eded4aa83f90')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
-  cd "$pkgname-$pkgver"
-  rustup override set nightly-2021-06-24
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  maturin build --release \
-                --strip \
-                --manylinux
+  maturin build --no-sdist --release --strip
 }
 
 check() {
   local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
   cd "$pkgname-$pkgver"
   mkdir -vp testdir
-  export PIP_CONFIG_FILE=/dev/null
-  pip install --isolated \
-              --root="testdir" \
-              --ignore-installed \
-              --no-deps target/wheels/*.whl
-  export PYTHONPATH="testdir/usr/lib/python${python_version}/site-packages:${PYTHONPATH}"
-  pytest -v
+
+  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="testdir" --ignore-installed --no-deps target/wheels/*.whl
+  PYTHONPATH="testdir/usr/lib/python${python_version}/site-packages:${PYTHONPATH}" pytest -v
 }
 
 package() {
   cd "$pkgname-$pkgver"
-  export PIP_CONFIG_FILE='/dev/null'
-  pip install --isolated \
-              --root="$pkgdir" \
-              --ignore-installed \
-              --no-deps target/wheels/*.whl
-  install -vDm 644 {CHANGELOG,README}.md \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="$pkgdir" --ignore-installed --no-deps target/wheels/*.whl
+  install -vDm 644 {CHANGELOG,README}.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -vDm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }

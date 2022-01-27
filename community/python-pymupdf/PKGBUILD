@@ -1,0 +1,42 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=PyMuPDF
+pkgname=python-pymupdf
+pkgver=1.19.4
+pkgrel=1
+pkgdesc="Python bindings for MuPDF's rendering library"
+arch=(loongarch64 x86_64)
+url="https://github.com/pymupdf/PyMuPDF"
+license=(AGPL3)
+depends=(glibc gumbo-parser jbig2dec libmupdf openjpeg2 python)
+makedepends=(freetype2 libjpeg-turbo python-distro python-setuptools swig systemd)
+checkdepends=(python-pillow python-pytest)
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
+sha512sums=('0cd2d88b942b4be16bc0d1e1e9a0b767e7f1f0646b7c342d7562138bb1ddc29cbd8891bc7ec2bf1d3be7f25ed48e8354cbbc576a292dba47c9c7a5553357df61')
+b2sums=('932ca6dda7e1e5d959afa6b78b0806f6a441988dc080851bfccf404e2eeb8e197d8179036f1ab3917d699b44e480321fcd6a4fde9cff2924617d82e01af05de8')
+
+build() {
+  cd "$_name-$pkgver"
+  python setup.py build
+}
+
+check() {
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  local _test_dir="test_dir"
+
+  cd "$_name-$pkgver"
+  mkdir -vp "${_test_dir}"
+  # install to test dir for testing
+  python setup.py install --optimize=1 --root="${_test_dir}"
+
+  export PYTHONPATH="${_test_dir}/${_site_packages}:${PYTHONPATH}"
+  pytest -v -k "not test_font1 and not test_pageids and not test_textbox3"
+}
+
+package() {
+  depends+=(libfreetype.so libjpeg.so)
+
+  cd "$_name-$pkgver"
+  python setup.py install --optimize=1 --root="${pkgdir}"
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}

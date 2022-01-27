@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=startdde
-pkgver=5.8.9
+pkgver=5.8.29
 pkgrel=1
 pkgdesc="starter of deepin desktop environment"
 arch=('loongarch64' 'x86_64')
@@ -21,7 +21,7 @@ replaces=('deepin-wm-switcher')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/startdde/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         schema.patch)
-sha512sums=('afa1c26fb09c64d729273c1ee6d8901f127b83562d4f1902d2ef06c7b0beb3266b9adc7db1fe1dac737788409236b55eca758a92b0922125183b124411dac877'
+sha512sums=('593014d4c24209df49ca3129f1684aa40d3bd34753ad595b95e0399b2e06e378bb99ca50ccd93ecbc6c1336a95b9b08e5acaf5fb659a9a6cf65702588516a65d'
             '8f0a34a273de5ad784684a8bea349363d768a64ce574621b07537af3055baa60c6d645f75e20575ed8978a03e31992b9dc6f66939b29c8d4331964ac9a1f72eb')
 
 export GO111MODULE=off
@@ -30,7 +30,7 @@ prepare() {
   patch -d startdde-$pkgver -p2 < schema.patch
 
   export GOPATH="$srcdir/build:/usr/share/gocode"
-  go get github.com/cryptix/wav golang.org/x/xerrors github.com/godbus/dbus github.com/fsnotify/fsnotify
+  go get github.com/cryptix/wav golang.org/x/xerrors github.com/godbus/dbus github.com/fsnotify/fsnotify gopkg.in/yaml.v3
 
   sed -i 's/sbin/bin/' startdde-$pkgver/Makefile
 }

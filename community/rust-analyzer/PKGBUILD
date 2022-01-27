@@ -2,21 +2,26 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rust-analyzer
-_pkgver=2021-06-28
+_pkgver=2021-12-27
 pkgver=${_pkgver//-}
 pkgrel=1
-pkgdesc='Experimental Rust compiler front-end for IDEs'
+pkgdesc='Rust compiler front-end for IDEs'
 arch=('loongarch64' 'x86_64')
 url=https://rust-analyzer.github.io/
 license=('Apache' 'MIT')
-depends=('gcc-libs' 'rust')
+depends=('gcc-libs' 'rust-src')
 makedepends=('git')
 source=("git+https://github.com/rust-analyzer/rust-analyzer.git#tag=$_pkgver")
 b2sums=('SKIP')
 
+prepare() {
+  cd $pkgname
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
 build() {
   cd $pkgname
-  cargo build --release --locked
+  RUST_ANALYZER_REV=$_pkgver cargo build --release --locked --offline
 }
 
 package() {

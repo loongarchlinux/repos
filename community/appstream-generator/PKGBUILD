@@ -1,24 +1,16 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=appstream-generator
-pkgver=0.8.4
-pkgrel=2
-pkgdesc="A fast AppStream metadata generator"
+pkgver=0.8.6
+pkgrel=1
+pkgdesc='A fast AppStream metadata generator'
 arch=(loongarch64 x86_64)
-url="https://github.com/ximion/appstream-generator"
+url='https://github.com/ximion/appstream-generator'
 license=(GPL3)
-depends=(appstream libarchive librsvg optipng glibd)
+depends=(appstream libarchive librsvg optipng glibd lmdb)
 makedepends=(ldc meson ninja mustache-d curl gir-to-d gobject-introspection docbook-xsl)
-source=($pkgname-$pkgver.tar.gz::"https://github.com/ximion/appstream-generator/archive/v$pkgver.tar.gz"
-        "FixCompilationDueToBrokenGeneratedCode.patch::https://github.com/ximion/appstream-generator/commit/d5dad3b174eea7e9fbe0ed6e7b55a366b8eb203d.patch")
-sha256sums=('49bebcc959f02d72c31f26dad84e3acb3d1a12f64f18fe0a58db23e4d66f97b5'
-            '26341b31ddb7478affaba1dbcf5581ba1ae3a3d11d9770efa8d57fcc0bcc26ea')
-
-prepare() {
-  # Fix compilation due to broken generated GdkPixbuf code
-  # https://github.com/ximion/appstream-generator/pull/90
-  patch -d $pkgname-$pkgver -p1 -i "$srcdir"/FixCompilationDueToBrokenGeneratedCode.patch
-}
+source=(https://github.com/ximion/appstream-generator/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('042b23c1437b7be24a33abab4b42184fd19869fcd9f7efe2bfa81a3d151c9136')
 
 build() {
   meson build $pkgname-$pkgver -Ddownload-js=false --prefix=/usr

@@ -1,35 +1,43 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=eslint
-pkgver=7.29.0
+pkgver=8.6.0
 pkgrel=1
 pkgdesc='An AST-based pattern checker for JavaScript'
 arch=('any')
 url='https://eslint.org'
 license=('MIT')
-depends=('nodejs' 'acorn')
-makedepends=('npm')
-source=("https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz")
-noextract=("$pkgname-$pkgver.tgz")
-sha512sums=('f361bf253a01f6a232fc0ac1cc8586f71befc0bdd1f3a0250a3b46c3e036f4e3190ea853c9bcff301c8e452ba41b1788f983c24787286322132a4f01147f670c')
+depends=('acorn' 'nodejs')
+makedepends=('npm' 'rsync')
+options=('!emptydirs')
+source=("https://github.com/eslint/eslint/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('7cf2e1bf0c98b42130191b51f3b4af1e3395f2c8487b259819cad60d0879a24239497be3dc372d7c4362eecbbe55fe4eac88377f5fca80b63e0628ed195f886b')
+
+prepare() {
+  cd eslint-$pkgver
+  # Dependencies still pin older ESLint
+  npm install --force
+}
+
+check() {
+  cd eslint-$pkgver
+  node Makefile mocha
+}
 
 package() {
-  npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
+  cd eslint-$pkgver
 
-  # Non-deterministic race in npm gives 777 permissions to random directories.
-  # See https://github.com/npm/npm/issues/9359 for details.
-  chmod -R u=rwX,go=rX "$pkgdir"
+  npm prune --production
 
-  # npm installs package.json owned by build user
-  # https://bugs.archlinux.org/task/63396
-  chown -R root:root "$pkgdir"
-
-  install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
-  ln -s ../../../lib/node_modules/eslint/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -d "$pkgdir"/usr/bin
+  ln -s ../lib/node_modules/$pkgname/bin/$pkgname.js "$pkgdir"/usr/bin/$pkgname
+  install -Dt "$pkgdir"/usr/lib/node_modules/$pkgname/bin bin/$pkgname.js
+  rsync -r --exclude .cache conf lib messages node_modules package.json \
+    "$pkgdir"/usr/lib/node_modules/$pkgname
+  install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname README.md
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 
   # Experimental dedup
-  cd "$pkgdir"/usr/lib/node_modules/$pkgname/node_modules
-  for dep in acorn; do
-    rm -r $dep;
-  done
+  rm -r "$pkgdir"/usr/lib/node_modules/$pkgname/node_modules/acorn
 }

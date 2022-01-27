@@ -2,28 +2,28 @@
 # Contributor: Lukasz Pozarlik <lpozarlik@gmail.com>
 
 pkgname=python-igraph
-pkgver=0.9.6
-pkgrel=1
+pkgver=0.9.8
+pkgrel=2
 url='https://igraph.org/python/'
 license=(GPL)
 arch=(loongarch64 x86_64)
 pkgdesc='Python bindings for the igraph library'
 depends=(python-texttable igraph)
 makedepends=(python-setuptools)
-source=(https://pypi.python.org/packages/source/p/$pkgname/$pkgname-$pkgver.tar.gz)
-sha256sums=('1824ca0489068100534d717056395d580b2d19bf4fefb378465e6a37a20bf316')
+source=(https://files.pythonhosted.org/packages/source/i/igraph/igraph-$pkgver.tar.gz)
+sha256sums=('e7bad9f5f52e6dc3ccdaa3d02d8ec433d9ada704f7a83168915cfa0c4c226730')
 
 build() {
-  cd $pkgname-$pkgver
+  cd igraph-$pkgver
   python setup.py build --use-pkg-config
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd igraph-$pkgver
   PYTHONPATH="$PWD"/`ls -d build/lib.*` python -m unittest
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd igraph-$pkgver
   python setup.py install --skip-build --root="$pkgdir" --optimize=1 
 }

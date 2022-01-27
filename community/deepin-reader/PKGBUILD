@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-reader
-pkgver=5.9.0.24
+pkgver=5.9.17
 pkgrel=1
 pkgdesc='A simple PDF reader, supporting bookmarks, highlights and annotations'
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,7 @@ depends=('deepin-qt5integration' 'djvulibre' 'karchive' 'libchardet' 'libspectre
 makedepends=('cmake' 'gtest' 'qt5-tools')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-reader/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('8f13596d1e2aff72612e5cf2569684146f3786bb46a4c83b32e4b124c5cfb0fce50bd536fed9a73723224c846d295edb301ea5d82c14fbdff87032d10625a5ca')
+sha512sums=('283a7500f8a3bae1f7d8e4a3ad66512ed2b2e1cf569d69913004343226ccfd5ea91063652e553aee99ea9b729b16496179ae96a7869cfbfd6dd56e2621ed22ff')
 
 build() {
   cd deepin-reader-$pkgver

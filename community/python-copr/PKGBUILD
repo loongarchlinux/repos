@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-copr
-pkgver=1.111
-pkgrel=1
+pkgver=1.114
+pkgrel=3
 pkgdesc="Python client for copr service"
 url="https://pagure.io/copr/copr"
 license=('GPL')
@@ -11,7 +11,7 @@ depends=('python-marshmallow' 'python-requests' 'python-requests-toolbelt' 'pyth
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-mock')
 source=("https://pagure.io/copr/copr/archive/python-copr-$pkgver-1/copr-python-copr-$pkgver-1.tar.gz")
-sha512sums=('00fc32b6b83356f94b55327194967423681b25051472011219d0efeb7a8b64aea1d0d918a14b0af97e41e69c9a7f3bdda5c863b00b477ccc7e66bcd3dc667d8b')
+sha512sums=('0c8201fb3877981a98e7e0d0aa2cd762ac29ae2241b809ff08c5043d02f52d8359affbf47ebd66121ac7372caf62c8e5a8e94577b21031c8e5dcd114d5c12c70')
 
 build() {
   cd copr-python-copr-$pkgver-1/python

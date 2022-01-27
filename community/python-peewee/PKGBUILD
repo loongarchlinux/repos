@@ -4,19 +4,19 @@
 # Contributor: juantascon
 
 pkgname=python-peewee
-pkgver=3.14.4
-pkgrel=1
+pkgver=3.14.8
+pkgrel=4
 pkgdesc="a little orm"
 url="https://pypi.python.org/pypi/peewee/"
 arch=('loongarch64' 'x86_64')
 license=('MIT')
 depends=('python' 'sqlite')
 optdepends=('python-psycopg2: for PostgreSQL database support'
-            'mysql-python: for MySQL database support')
+            'python-pymysql: for MySQL database support')
 makedepends=('python-setuptools' 'cython')
 checkdepends=('python-apsw' 'python-flask' 'python-psycopg2')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/coleifer/peewee/archive/$pkgver.tar.gz")
-sha512sums=('261856f4b691b8f5610d041a049148f213c22348a7e50514f7792932c1f4e8735b4dddb8a29c42e583c38e89551df2f05951d81bda0c47a80dc1eeeb0345f30f')
+sha512sums=('d736e5dfc139656cba7caf488d68907683893d5a2537f96269af9ed693ec79c089d2822d355be4a9c6136b5cd813b0cccf774afd585f9bd420d57a8700cabfbe')
 
 build() {
   cd peewee-$pkgver

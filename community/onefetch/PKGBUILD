@@ -1,27 +1,33 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Stephen Gregoratto <dev@sgregoratto.me>
 # Contributor: Ossama Hjaji <ossama-hjaji@live.fr>
 
 pkgname=onefetch
-pkgver=2.9.1
+pkgver=2.11.0
 pkgrel=1
 pkgdesc="Git repository summary on your terminal"
 url="https://github.com/o2sh/onefetch"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
-depends=('libgit2')
+depends=('libgit2' 'libgit2.so')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('33ac8e019e5b7412fec3c7593843e0c3780ca473498c31e36cbe95371fff943b')
+sha256sums=('ffd3cc3bd24e299ede1fada2b2da8bf066d59219da167477e1997c860650c192')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --all-features --locked
+  cargo build --frozen --release --all-features
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --release --locked
+  cargo test --frozen --all-features
 }
 
 package() {

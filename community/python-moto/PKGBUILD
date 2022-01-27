@@ -3,18 +3,21 @@
 
 pkgname=python-moto
 _pkgname=moto
-pkgver=2.0.10
+# https://github.com/spulec/moto/blob/master/CHANGELOG.md
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
 url='https://github.com/spulec/moto'
 license=(Apache)
-# depends on python-setuptools as pkg_resources is used is several modules
 # NOTE: Keep the order of dependencies matching setup.py
+# setup.py includes setuptools, which is a work around for missing dependencies in aws-xray-sdk [1].
+# I use the correct dependency in python-aws-xray-sdk, so python-setuptools is not needed here.
+# [1] https://github.com/spulec/moto/pull/4142
 depends=(python-boto3 python-botocore python-cryptography python-requests python-xmltodict
-         python-six python-werkzeug python-pytz python-dateutil python-responses
+         python-werkzeug python-pytz python-dateutil python-responses
          # Below dependencies varied with Python versions
-         python-jinja python-more-itertools python-setuptools)
+         python-jinja python-more-itertools)
 # See reqquirements-test.txt, excluding pytest-cov
 checkdepends=(python-pytest python-sure python-freezegun
               # boto is vendored (#3503), but still imported in tests
@@ -25,11 +28,13 @@ checkdepends=(python-pytest python-sure python-freezegun
 optdepends=(
   'python-yaml: for cloudformation, s3 and ssm'
   'python-jose: for apigateway and cognitoidp'
-  'python-docker: for awslambda, batch, cloudformation, dynamodb2, dynamodbstreams, ec2, ses, sns, sqs and ssm'
+  # SNS and SQS still uses docker indirectly, while upstream explicitly removes them
+  # https://github.com/spulec/moto/pull/4094
+  'python-docker: for awslambda, batch, cloudformation, dynamodb2 and dynamodbstreams'
   'python-jsondiff: for iotdata'
   'python-aws-xray-sdk: for xray'
-  'python-cfn-lint: for cloudformation and ssm'
-  'python-sshpubkeys: for ec2'
+  'python-cfn-lint: for cloudformation'
+  'python-sshpubkeys: for ec2 and efs'
   'python-flask: for moto_server'
   'python-flask-cors: for moto_server'
 )
@@ -37,11 +42,23 @@ checkdepends+=(python-yaml python-jose python-docker python-jsondiff python-aws-
                python-cfn-lint python-sshpubkeys python-flask python-flask-cors)
 source=("https://files.pythonhosted.org/packages/source/m/moto/moto-${pkgver}.tar.gz"
         sdist-no-pyc.diff)
-sha256sums=('f205da54d5e9442450a519dbe5bb49c31d9f496b551a84648afa01a360fd4b82'
+sha256sums=('0d6a179622bb9d0cd8141bb33d78882039ce7400aca3a8c07ad6d00076b60c62'
             '4193bd88380f6ab8dac49be37d940993dee4e31351ffd60c8167b7c8e5ec3208')
 
 prepare() {
   cd $_pkgname-$pkgver
+
+  # AWS Lambda and Batch tests require docker/podman, while running docker/podman
+  # in systemd-nspawn containers appears impossible without special configurations -
+  # disable them altogether
+  sed -i '/markers\s*=/a \ \ \ \ needs_docker: marks test which require docker' setup.cfg
+  find tests \( -name '*.py' -a ! -name __init__.py \) -print0 | xargs -I % -0 bash -c '
+    sed -i -E "%" \
+      -e "/__future__/a import pytest" \
+      -e "s/^(\s*)(@mock_batch)$/\1\2\n\1@pytest.mark.needs_docker/" \
+      -e "s/^(\s*)(@mock_lambda)$/\1\2\n\1@pytest.mark.needs_docker/"
+    grep __future__ "%" || sed -i "1i import pytest" "%"
+  '
 
   patch -Np1 -i ../sdist-no-pyc.diff
 
@@ -59,21 +76,11 @@ build() {
 check() {
   cd $_pkgname-$pkgver
 
-  # XXX: there are too many tests that depend on docker/podman, and there is no simple way
-  # other than listing one-by-one for exclusion. To make things worse, running docker/podman
-  # in systemd-nspawn containers appears impossible without special configurations. I gave
-  # it up and running podman _outside_ the container for testing.
-  # $ systemctl --user start podman.socket
-  # $ extra-x86_64-build -- -d "$XDG_RUNTIME_DIR/podman:/tmp/podman"
-  PODMAN_SOCK=/tmp/podman/podman.sock
-  if [ -S $PODMAN_SOCK ]; then
-    DOCKER_HOST="unix://$PODMAN_SOCK" TZ=UTC pytest tests
-  fi
+  TZ=UTC pytest tests -m 'not needs_docker'
 }
 
 package() {
   cd $_pkgname-$pkgver
 
-  # use PYTHONHASHSEED=0 work around https://bugs.python.org/issue34722
-  PYTHONHASHSEED=0 python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 }

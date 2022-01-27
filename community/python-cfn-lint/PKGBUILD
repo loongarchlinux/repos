@@ -1,7 +1,8 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-cfn-lint
-pkgver=0.51.0
+# https://github.com/aws-cloudformation/cfn-lint/blob/main/CHANGELOG.md
+pkgver=0.56.3
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -9,14 +10,14 @@ url='https://github.com/aws-cloudformation/cfn-lint'
 license=('custom:MIT No Attribution')
 depends=(python python-yaml python-six python-aws-sam-translator
          python-jsonpatch python-jsonschema python-networkx
-         python-junit-xml)
+         python-junit-xml python-jschema-to-python python-sarif-om)
 makedepends=(python-setuptools)
 checkdepends=(python-pytest python-mock python-pydot)
 optdepends=(
   'python-pydot: for building graphs from templates'
 )
 source=("https://github.com/aws-cloudformation/cfn-lint/archive/v$pkgver/cfn-lint-$pkgver.tar.gz")
-sha256sums=('ebbb0408adaab3f6fb46b0dfbdd7f58a2e90b19adf0e8c362089189656bb6649')
+sha256sums=('e1a12c868c20a9a90437354deb67fd239457d15337368fa7174346ed9f155b02')
 
 build() {
   cd cfn-lint-$pkgver
@@ -37,8 +38,7 @@ check() {
 
 package() {
   cd cfn-lint-$pkgver
-  # use PYTHONHASHSEED=0 to work around https://bugs.python.org/issue34033
-  PYTHONHASHSEED=0 python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }

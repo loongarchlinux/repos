@@ -5,7 +5,7 @@
 # Contributor: Attila Bukor <r1pp3rj4ck@w4it.eu>
 
 pkgname=guake
-pkgver=3.7.0
+pkgver=3.8.1
 pkgrel=2
 pkgdesc='Drop-down terminal for GNOME'
 arch=('any')
@@ -14,13 +14,18 @@ license=('GPL')
 depends=('libkeybinder3' 'libnotify' 'libutempter' 'libwnck3' 'python-cairo'
          'python-dbus' 'python-gobject' 'python-pbr' 'vte3')
 makedepends=('git')
-_commit=903491aa1d019ba1c8f17179a208eef2434ee949  # tags/3.7.0
+_commit=2bc96722e6c7079bebdee436490bd02a069d340c
 source=("git+https://github.com/Guake/guake#commit=$_commit")
 sha256sums=('SKIP')
 
 pkgver() {
   cd $pkgname
   git describe --tags | sed 's/-/+/g'
+}
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n b1c6d8c54a008a12d05396d9da2181584656108f # Fix metainfo install dir
 }
 
 build() {

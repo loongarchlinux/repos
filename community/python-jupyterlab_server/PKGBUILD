@@ -3,7 +3,7 @@
 
 _pipname=jupyterlab_server
 pkgname=python-$_pipname
-pkgver=2.6.0
+pkgver=2.10.2
 pkgrel=1
 pkgdesc='Launch an application built using JupyterLab'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(python-setuptools)
 conflicts=(jupyterlab_server)
 replaces=(jupyterlab_server)
 source=(https://pypi.io/packages/source/j/$_pipname/$_pipname-$pkgver.tar.gz)
-sha256sums=('f300adf6bb0a952bebe9c807a3b2a345d62da39b476b4f69ea0dc6b5f3f6b97d')
+sha256sums=('bf1ec9e49d4e26f14d70055cc293b3f8ec8410f95a4d5b4bd55c442d9b8b266c')
 
 build() {
   cd $_pipname-$pkgver

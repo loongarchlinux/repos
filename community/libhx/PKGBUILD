@@ -4,25 +4,25 @@
 # Contributor: Nathan Owe <ndowens.aur at gmail dot com>
 
 pkgname=libhx
-pkgver=3.25
+pkgver=4.2
 pkgrel=1
 pkgdesc='A library providing queue, tree, I/O and utility functions'
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url='http://libhx.sourceforge.net/'
-license=('GPL')
+license=(GPL)
 depends=(glibc)
-source=("https://downloads.sourceforge.net/${pkgname}/libHX-${pkgver}.tar."{xz,asc})
-sha256sums=('72ddc565dc9a5bab55438cb782ea01cec07cb6069f5e6930030b2be44cb05b89'
+source=(https://inai.de/files/libhx/libHX-$pkgver.tar.{xz,asc})
+sha256sums=('5216b765f73c36ff91e999fd5eabc1dbc13801d140b8238fc80ba9c263d723e6'
             'SKIP')
 validpgpkeys=(23686C10A45691BE7A425109D6388181F35A0938) # Jan Engelhardt <jengelh@inai.de>
 
 build() {
-  cd libHX-${pkgver}
+  cd libHX-$pkgver
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd libHX-${pkgver}
+  cd libHX-$pkgver
   make DESTDIR="$pkgdir" install
 }

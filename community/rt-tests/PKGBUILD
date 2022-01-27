@@ -2,21 +2,21 @@
 # Contributor: Joakim Hernberg <jhernberg at alchemy dot lu>
 
 pkgname=rt-tests
-pkgver=2.1
-pkgrel=1
+pkgver=2.3
+pkgrel=2
 pkgdesc="A collection of latency testing tools for the linux(-rt) kernel"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git/about/"
-license=('GPL2')
-groups=('realtime')
-depends=('glibc')
-makedepends=('numactl' 'python')
+license=(GPL2)
+groups=(realtime)
+depends=(glibc)
+makedepends=(numactl python)
 optdepends=('bash: for determine_maximum_mpps.sh'
             'numactl: for cyclictest, oslat and signaltest'
             'python: for get_cyclictest_snapshot and hwlatdetect')
 source=("https://git.kernel.org/pub/scm/utils/${pkgname}/${pkgname}.git/snapshot/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('80d69d4ea787d6f635b7c26909940d7a2b1529778f61de47a95e6dda4baf165be5cca03aaf04d22428f623ae54011d7fc7cd177594fc618ee61122de5b26e0e2')
-b2sums=('1c1f1cbba952b23b4ce63cc2c78ddbda6dc6a3ead60cc51a1b0e020800872a076ae13db6312d546fd2e9b7c826f50ebde90eb1f5fb12fb91627af407c7081a9b')
+sha512sums=('920e04c716a104b08c49ab5886723d68064c7a28a65078201198c3edb695d07e491ed05f62615400efa13b0ece3a74b82037aa23fec9e3b3e9577cc9686e0ed4')
+b2sums=('59bb723c1c724a0fbd6938069729e1ac264e72d30ff860079f4d90cf52dd781c211712a61872dd7f3ce28abfb0d5badab08b37ecb69194c7b1d2305d981bbfc9')
 
 build() {
   cd "${pkgname}-${pkgver}"

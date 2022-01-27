@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=rhonabwy
-pkgver=0.9.9999
-pkgrel=2
+pkgver=1.1.2
+pkgrel=1
 pkgdesc='JWK, JWKS, JWS, JWE and JWT C library'
 arch=(loongarch64 x86_64)
 url=https://github.com/babelouest/rhonabwy
@@ -11,6 +11,7 @@ depends=(
   glibc
   gnutls
   jansson
+  libcurl.so
   liborcania.so
   libulfius.so
   libyder.so
@@ -22,9 +23,10 @@ makedepends=(
   git
   graphviz
   ninja
+  systemd
 )
 provides=(librhonabwy.so)
-_tag=7bc47f2cd36fbf3bc10dab88d6cdc02d837320a2
+_tag=e4898061b3f99f6cdd8993f1d31ddd66301cf33b
 source=(git+https://github.com/babelouest/rhonabwy.git#tag=${_tag})
 validpgpkeys=(8405B02FCC28EF9744C8F253FE82139440BD22B9) # Nicolas Mora <nicolas@babelouest.org>
 b2sums=(SKIP)

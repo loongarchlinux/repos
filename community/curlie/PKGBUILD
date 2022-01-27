@@ -2,8 +2,8 @@
 # Contributor: Jianfeng Zhang <swordfeng123@gmail.com>
 
 pkgname=curlie
-pkgver=1.6.0
-pkgrel=2
+pkgver=1.6.7
+pkgrel=1
 pkgdesc='The power of curl, the ease of use of httpie.'
 arch=('loongarch64' 'x86_64')
 url="https://curlie.io"
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('glibc' 'curl')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/rs/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('7ed115d9d785e587f426e5d7f1e408ce687ed61389b63398fce0e60f3a5f3df8')
+sha256sums=('25a0ea35be6ff9dd88551c992a0f7ea565ce2fae8213c674bd28a7cc512493d9')
 
 build() {
     cd "${pkgname}-${pkgver}"
@@ -22,7 +22,7 @@ build() {
     export CGO_LDFLAGS="${LDFLAGS}"
     export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-    go build -ldflags "-X main.version=$pkgver -X main.date=$(date -u -I) -linkmode=external -extldflags=$LDFLAGS"
+    go build -ldflags "-X main.version=$pkgver -X main.date=$(date -u -I -d @$SOURCE_DATE_EPOCH) -linkmode=external -extldflags=$LDFLAGS"
 }
 
 package() {

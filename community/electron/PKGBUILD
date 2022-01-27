@@ -1,48 +1,75 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
-pkgname=electron
-pkgver=13.1.4
-_commit=9942b2ba8014f9025b4c8cb3e894476b58cc8f86
-_chromiumver=91.0.4472.106
-_gcc_patchset=5
+_use_suffix=0
+pkgver=16.0.4
+_commit=4aef2d7cc386393649a0d32d1ca27efa67b8e8b4
+_chromiumver=96.0.4664.55
+_gcc_patchset=4
+# shellcheck disable=SC2034
 pkgrel=1
+
+_major_ver=${pkgver%%.*}
+if [[ ${_use_suffix} != 0 ]]; then
+  pkgname="electron${_major_ver}"
+else
+  pkgname=electron
+fi
+# shellcheck disable=SC2034
 pkgdesc='Build cross platform desktop apps with web technologies'
+# shellcheck disable=SC2034
 arch=('loongarch64' 'x86_64')
+# shellcheck disable=SC2034
 url='https://electronjs.org/'
+# shellcheck disable=SC2034
 license=('MIT' 'custom')
-depends=('c-ares' 'ffmpeg' 'gtk3' 'libevent' 'libnghttp2' 'libxslt' 'minizip'
-         'nss' 're2' 'snappy')
+# shellcheck disable=SC2034
+depends=('c-ares' 'ffmpeg' 'gtk3' 'libevent' 'libxslt' 'minizip' 'nss' 're2'
+         'snappy')
+# shellcheck disable=SC2034
 makedepends=('clang' 'git' 'gn' 'gperf' 'harfbuzz-icu' 'http-parser'
              'java-runtime-headless' 'jsoncpp' 'libnotify' 'lld' 'llvm' 'ninja'
-             'npm' 'pciutils' 'pipewire' 'python2' 'wget' 'yarn')
+             'npm' 'pciutils' 'pipewire' 'python' 'wget' 'yarn')
+# shellcheck disable=SC2034
 optdepends=('kde-cli-tools: file deletion support (kioclient5)'
             'libappindicator-gtk3: StatusNotifierItem support'
             'pipewire: WebRTC desktop sharing under Wayland'
             'trash-cli: file deletion support (trash-put)'
             "xdg-utils: open URLs with desktop's default (xdg-email, xdg-open)")
+if [[ ${_use_suffix} == 0 ]]; then
+  # shellcheck disable=SC2034
+  conflicts=("electron${_major_ver}")
+  # shellcheck disable=SC2034
+  provides=("electron${_major_ver}")
+fi
+# shellcheck disable=SC2034
 source=('git+https://github.com/electron/electron.git'
-        'git+https://chromium.googlesource.com/chromium/tools/depot_tools.git'
+        'git+https://chromium.googlesource.com/chromium/tools/depot_tools.git#branch=main'
         "https://github.com/stha09/chromium-patches/releases/download/chromium-${_chromiumver%%.*}-patchset-${_gcc_patchset}/chromium-${_chromiumver%%.*}-patchset-${_gcc_patchset}.tar.xz"
-        "${pkgname}-launcher.sh"
-        "${pkgname}.desktop"
+        "electron-launcher.sh"
+        "electron.desktop"
         'default_app-icon.patch'
+        'std-vector-non-const.patch'
         'use-system-libraries-in-node.patch'
-        'add-clang-nomerge-attribute-to-CheckError.patch'
-        'chromium-glibc-2.33.patch'
         'sql-make-VirtualCursor-standard-layout-type.patch'
-        'unbundle-use-char16_t-as-UCHAR_TYPE.patch'
+        'unbundle-fix-visibility-of-build-config-freetype.patch'
+        'chromium-93-ffmpeg-4.4.patch'
+        'chromium-94-ffmpeg-roll.patch'
+        'unexpire-accelerated-video-decode-flag.patch'
        )
+# shellcheck disable=SC2034
 sha256sums=('SKIP'
             'SKIP'
-            '171525009003a9ed1182cfcb6f407d7169d9a731a474304e263029376719f55a'
-            '20c50e217fcb20f72fd2b465ad19659abe51feff4814515767a3065a009d58a5'
-            '5270db01f3f8aaa5137dec275a02caa832b7f2e37942e068cba8d28b3a29df39'
-            'dd2d248831dd4944d385ebf008426e66efe61d6fdf66f8932c963a12167947b4'
-            'f16103daf05713dea632b5f01e45db20ff12d1770a6539b4e8d3957a0242dd54'
-            '50133dd196d288ad538bb536aa51dccd6cb4aacfd9a60160f77e8fb16034b460'
-            '2fccecdcd4509d4c36af873988ca9dbcba7fdb95122894a9fdf502c33a1d7a4b'
+            '090af7eab39aade15a1786273f2497d6b4abfaef24279fbf97ce0dd1c38c69aa'
+            '3953f532a3ea5fce19ee33600c6ead89dcd066df6a01d3c3ab4c24f96e46fca2'
+            '4484200d90b76830b69eea3a471c103999a3ce86bb2c29e6c14c945bf4102bae'
+            '75bac9c4ad32ff9329399b8587f9772e208c009fd822cdfce61b2bd1ee9ac828'
+            '05598c7ccac38772503f00335916fe038db0d9aa240cf13a3b0f0ee69a382d98'
+            'c70652a8b24c237bcfd27469de32797a2cb46d9f0d63d897bb6418314a25644c'
             'dd317f85e5abfdcfc89c6f23f4c8edbcdebdd5e083dcec770e5da49ee647d150'
-            '59a59a60a08b335fe8647fdf0f9d2288d236ebf2cc9626396d0c4d032fd2b25d'
+            'd0b17162211dd49e3a58c16d1697e7d8c322dcfd3b7890f0c2f920b711f52293'
+            '1a9e074f417f8ffd78bcd6874d8e2e74a239905bf662f76a7755fa40dc476b57'
+            '56acb6e743d2ab1ed9f3eb01700ade02521769978d03ac43226dec94659b3ace'
+            '2a97b26c3d6821b15ef4ef1369905c6fa3e9c8da4877eb9af4361452a425290b'
            )
 
 _system_libs=('ffmpeg'
@@ -67,9 +94,15 @@ _system_libs=('ffmpeg'
              )
 
 prepare() {
-  mkdir -p "${srcdir}"/python2-path
-  ln -sf /usr/bin/python2 "${srcdir}/python2-path/python"
-  export PATH="${srcdir}/python2-path:${PATH}:${srcdir}/depot_tools"
+  sed -i "s|@ELECTRON@|${pkgname}|" electron-launcher.sh
+  sed -i "s|@ELECTRON@|${pkgname}|" electron.desktop
+  if [[ ${_use_suffix} != 0 ]]; then
+    sed -i "s|@ELECTRON_NAME@|Electron ${_major_ver}|" electron.desktop
+  else
+    sed -i "s|@ELECTRON_NAME@|Electron|" electron.desktop
+  fi
+
+  export PATH="${PATH}:${srcdir:?}/depot_tools"
 
   echo "Fetching chromium..."
   git clone --branch=${_chromiumver} --depth=1 \
@@ -88,32 +121,32 @@ prepare() {
   },
 ]" > .gclient
 
-  python2 "${srcdir}/depot_tools/gclient.py" sync \
+  python "${srcdir}/depot_tools/gclient.py" sync \
       --with_branch_heads \
       --with_tags \
       --nohooks
 
-  sed -e "s/'am'/'apply'/" -i src/electron/script/lib/git.py
+  (
+    cd src/electron || exit
+    patch -Np1 -i ../../std-vector-non-const.patch
+  )
 
   echo "Running hooks..."
-  # python2 "${srcdir}/depot_tools/gclient.py" runhooks
-  python2 src/build/landmines.py
-  python2 src/build/util/lastchange.py -o src/build/util/LASTCHANGE
-  python2 src/build/util/lastchange.py -m GPU_LISTS_VERSION \
+  # python "${srcdir}/depot_tools/gclient.py" runhooks
+  src/build/landmines.py
+  src/build/util/lastchange.py -o src/build/util/LASTCHANGE
+  src/build/util/lastchange.py -m GPU_LISTS_VERSION \
     --revision-id-only --header src/gpu/config/gpu_lists_version.h
-  python2 src/build/util/lastchange.py -m SKIA_COMMIT_HASH \
+  src/build/util/lastchange.py -m SKIA_COMMIT_HASH \
     -s src/third_party/skia --header src/skia/ext/skia_commit_hash.h
   # Create sysmlink to system clang-format
   ln -s /usr/bin/clang-format src/buildtools/linux64
   # Create sysmlink to system Node.js
   mkdir -p src/third_party/node/linux/node-linux-x64/bin
   ln -sf /usr/bin/node src/third_party/node/linux/node-linux-x64/bin
-  #python2 src/third_party/depot_tools/download_from_google_storage.py \
-  #  --no_resume --extract --no_auth --bucket chromium-nodejs \
-  #  -s src/third_party/node/node_modules.tar.gz.sha1
-  cd src/third_party/node
-  npm ci
-  cd ../../..
+  src/third_party/depot_tools/download_from_google_storage.py \
+    --no_resume --extract --no_auth --bucket chromium-nodejs \
+    -s src/third_party/node/node_modules.tar.gz.sha1
   vpython src/tools/download_optimization_profile.py \
     --newest_state=src/chrome/android/profiles/newest.txt \
     --local_state=src/chrome/android/profiles/local.txt \
@@ -123,20 +156,24 @@ prepare() {
   #  --target=linux \
   #  update \
   #  --gs-url-base=chromium-optimization-profiles/pgo_profiles
-  python2 src/electron/script/apply_all_patches.py \
+  src/electron/script/apply_all_patches.py \
       src/electron/patches/config.json
-  cd src/electron
+  cd src/electron || exit
   yarn install --frozen-lockfile
   cd ..
 
   echo "Applying local patches..."
   # Fixes for building with libstdc++ instead of libc++
-  patch -Np1 -i ../patches/chromium-90-ruy-include.patch
+  patch -Np1 -i ../patches/chromium-96-CommandLine-include.patch
+  patch -Np1 -i ../patches/chromium-96-RestrictedCookieManager-tuple.patch
+  patch -Np1 -i ../patches/chromium-96-DrmRenderNodePathFinder-include.patch
+  patch -Np1 -i ../patches/chromium-96-CouponDB-include.patch
 
-  patch -Rp1 -i ../add-clang-nomerge-attribute-to-CheckError.patch
-  patch -Np1 -i ../chromium-glibc-2.33.patch
+  patch -Np1 -i ../unbundle-fix-visibility-of-build-config-freetype.patch
+  patch -Np1 -i ../chromium-93-ffmpeg-4.4.patch
+  patch -Rp1 -i ../chromium-94-ffmpeg-roll.patch
   patch -Np1 -i ../sql-make-VirtualCursor-standard-layout-type.patch
-  patch -Np1 -i ../unbundle-use-char16_t-as-UCHAR_TYPE.patch
+  patch -Np0 -i ../unexpire-accelerated-video-decode-flag.patch
   patch -Np1 -i ../use-system-libraries-in-node.patch
   patch -Np1 -i ../default_app-icon.patch  # Icon from .desktop file
 
@@ -145,17 +182,17 @@ prepare() {
       tools/generate_shim_headers/generate_shim_headers.py
   for lib in $(printf "%s\n" "${_system_libs[@]}" | sed 's/^libjpeg$/&_turbo/'); do
       third_party_dir="third_party/${lib}"
-      if [ ! -d ${third_party_dir} ]; then
+      if [ ! -d "${third_party_dir}" ]; then
         third_party_dir="base/${third_party_dir}"
       fi
-      find ${third_party_dir} -type f \
+      find "${third_party_dir}" -type f \
           \! -path "${third_party_dir}/chromium/*" \
           \! -path "${third_party_dir}/google/*" \
           \! -path 'third_party/harfbuzz-ng/utils/hb_scoped.h' \
           \! -regex '.*\.\(gn\|gni\|isolate\)' \
           -delete
   done
-  python2 build/linux/unbundle/replace_gn_files.py \
+  build/linux/unbundle/replace_gn_files.py \
       --system-libraries \
       "${_system_libs[@]}"
 }
@@ -170,7 +207,7 @@ build() {
   CFLAGS+='   -Wno-unknown-warning-option'
   CXXFLAGS+=' -Wno-unknown-warning-option'
 
-  cd src
+  cd src || exit
   export CHROMIUM_BUILDTOOLS_PATH="${PWD}/buildtools"
   GN_EXTRA_ARGS='
     blink_symbol_level = 0
@@ -198,7 +235,7 @@ build() {
 }
 
 package() {
-  install -dm755 "${pkgdir}/usr/lib/${pkgname}"
+  install -dm755 "${pkgdir:?}/usr/lib/${pkgname}"
   bsdtar -xf src/out/Release/dist.zip -C "${pkgdir}/usr/lib/${pkgname}"
 
   chmod u+s "${pkgdir}/usr/lib/${pkgname}/chrome-sandbox"
@@ -210,12 +247,16 @@ package() {
       "${pkgdir}/usr/share/licenses/${pkgname}"
   done
 
-  install -Dm755 "${srcdir}/${pkgname}-launcher.sh" \
-    "${pkgdir}/usr/bin/${pkgname}${pkgver%%.*}"
-  ln "${pkgdir}/usr/bin/${pkgname}${pkgver%%.*}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm755 "${srcdir}/electron-launcher.sh" \
+    "${pkgdir}/usr/bin/${pkgname}"
+  if [[ "${_use_suffix}" == 0 ]]; then
+    ln "${pkgdir}/usr/bin/${pkgname}" \
+      "${pkgdir}/usr/bin/${pkgname}${_major_ver}"
+  fi
 
   # Install .desktop and icon file (see default_app-icon.patch)
-  install -Dm644 -t "${pkgdir}/usr/share/applications" "${pkgname}.desktop"
+  install -Dm644 electron.desktop \
+    "${pkgdir}/usr/share/applications/${pkgname}.desktop"
   install -Dm644 src/electron/default_app/icon.png \
           "${pkgdir}/usr/share/pixmaps/${pkgname}.png"  # hicolor has no 1024x1024
 }

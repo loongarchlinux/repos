@@ -5,7 +5,7 @@
 
 pkgbase=cockpit
 pkgname=(cockpit cockpit-pcp)
-pkgver=247
+pkgver=259
 pkgrel=1
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('loongarch64' 'x86_64')
@@ -17,7 +17,7 @@ source=("https://github.com/cockpit-project/cockpit/releases/download/$pkgver/co
         "cockpit.pam"
         "cockpit-ws.sysuser.conf"
         "cockpit-wsinstance.sysuser.conf")
-sha256sums=('bdfd0a4a17357c011a23063e37ea6ce48816675f9fd3c54ae7a1f22e65a8f0b3'
+sha256sums=('bcda542e421382513c7b28c5ebf9bdc6d674fc45e5aafdbbd044408ccb8b02a9'
             'a979e236681c6a06906937cf0f012e976347af5d6d7e7ae04a11acb01cc2689d'
             '1ad9dad75858264778bd94799b60c651f7cc1c7f7fa1c54622174303e639287a'
             '46ee8ecad7bc97ba588ab9471dde76e41c00daf40658902425626c3a1938b438')
@@ -44,14 +44,15 @@ build() {
 }
 
 package_cockpit() {
-  depends=(krb5 libssh accountsservice perl-json perl-locale-po json-glib glib-networking)
+  depends=(krb5 libssh accountsservice perl-json perl-locale-po json-glib glib-networking libpwquality)
   backup=('etc/pam.d/cockpit')
   optdepends=("cockpit-pcp: reading performance metrics"
               "cockpit-podman: user interface for managing podman containers"
               "cockpit-machines: user interface for managing virtual machines"
               "udisks2: manage hard disks"
               "networkmanager: manage network connections"
-              "packagekit: manage packages")
+              "packagekit: manage packages"
+              "sssd: authentication")
 
   cd cockpit-$pkgver
   make DESTDIR="$pkgdir" install

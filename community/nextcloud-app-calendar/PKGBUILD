@@ -3,7 +3,7 @@
 pkgname=nextcloud-app-calendar
 _name=calendar
 epoch=1
-pkgver=2.2.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="Calendar app for nextcloud"
 arch=('any')
@@ -11,13 +11,15 @@ url="https://github.com/nextcloud/calendar/"
 license=('AGPL')
 depends=('nextcloud')
 makedepends=('ripgrep' 'yq')
+groups=('nextcloud-apps')
 options=('!strip')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/nextcloud/calendar/releases/download/v$pkgver/calendar.tar.gz")
-sha256sums=('93baa6e3794d9f890dad6b8d3849237a5b1030a88b0d3d6977f74c988b6f302a')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/nextcloud-releases/calendar/releases/download/v$pkgver/calendar-v$pkgver.tar.gz")
+sha256sums=('2be768b8d5e32cfd644246e8fb18c876be4f0c4e2d1127363d22e32c99b08854')
 
 _get_nextcloud_versions() {
   _app_min_major_version="$(xq '.info.dependencies.nextcloud["@min-version"]' "${_name}/appinfo/info.xml"| sed 's/"//g')"
   _app_max_major_version="$(xq '.info.dependencies.nextcloud["@max-version"]' "${_name}/appinfo/info.xml"| sed 's/"//g')"
+  _app_max_major_version=$(expr ${_app_max_major_version} + 1)
 }
 
 check() {
@@ -31,7 +33,6 @@ check() {
     exit 1
   fi
 }
-sha256sums=('5080aad2e23179de454885bc27f3911d6c45c48b81d0f3163e9c84c97f00e008')
 
 package() {
   _get_nextcloud_versions

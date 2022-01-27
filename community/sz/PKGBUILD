@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=sz
-pkgver=2.1.11
-pkgrel=1
+pkgver=2.1.12
+pkgrel=3
 pkgdesc="Modular parametrizable lossy compressor framework for scientific data"
 arch=(loongarch64 x86_64)
 url="https://szcompressor.org/"
@@ -10,7 +10,7 @@ license=(BSD)
 depends=(glibc gcc-libs)
 makedepends=(cmake gcc-fortran hdf5 netcdf python python-numpy swig)
 source=(https://github.com/szcompressor/SZ/releases/download/v${pkgver}/sz-${pkgver}.tar.gz)
-sha256sums=('85b8ef99344a3317ba9ee63ca4b9d99a51d1832d4d8880e01c7c56b3a69cacc9')
+sha256sums=('3712b2cd7170d1511569e48a208f02dfb72ecd7ad053c321e2880b9083e150de')
 
 build() {
   cmake -B build -S SZ-${pkgver} \
@@ -19,6 +19,7 @@ build() {
     -DBUILD_FORTRAN=ON \
     -DBUILD_HDF5_FILTER=ON \
     -DBUILD_NETCDF_READER=ON \
+    -DBUILD_OPENMP=ON \
     -DBUILD_PYTHON_WRAPPER=ON
   make -C build
 }

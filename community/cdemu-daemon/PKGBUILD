@@ -4,7 +4,7 @@
 # Contributor: Charles Lindsay <charles@chaoslizard.org>
 
 pkgname=cdemu-daemon
-pkgver=3.2.5
+pkgver=3.2.6
 pkgrel=1
 pkgdesc="CD/DVD-ROM device emulator daemon"
 arch=(loongarch64 x86_64)
@@ -16,7 +16,7 @@ optdepends=('alsa-lib: to enable the ALSA audio driver'
             'pulseaudio: to enable the PA audio driver')
 install=cdemu-daemon.install
 source=("https://downloads.sourceforge.net/cdemu/$pkgname/$pkgname-$pkgver.tar.xz")
-sha256sums=('8d1053b195e8f9040c5628340740aa9bbfdd4891bac06fbc5eb5cd4ec376e699')
+sha256sums=('a6e404e3ef75c6146e36354f65880dfd63b4b8ef1f54039dc5058e190f857d8f')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -31,12 +31,18 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+
   install -Dt "$pkgdir/usr/share/doc/$pkgname" -m644 $pkgname-$pkgver/README
   install -Dt "$pkgdir/usr/lib/systemd/user" -m644 \
     $pkgname-$pkgver/service-example/cdemu-daemon.service
   install -Dt "$pkgdir/usr/share/dbus-1/services" -m644 \
     $pkgname-$pkgver/service-example/net.sf.cdemu.CDEmuDaemon.service
+
   echo vhba | install -Dm644 /dev/stdin "$pkgdir/usr/lib/modules-load.d/cdemu.conf"
+  echo 'g cdemu - -' | install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/cdemu.conf"
+  install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/rules.d/60-cdemu.rules" <<END
+ACTION=="add", KERNEL=="vhba_ctl", MODE="0660", OWNER="root", GROUP="cdemu", TAG+="uaccess"
+END
 }
 
 # vim:set sw=2 et:

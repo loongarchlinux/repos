@@ -1,8 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=node-gyp
-pkgver=8.1.0
-pkgrel=2
+pkgver=8.4.1
+pkgrel=1
 pkgdesc='Node.js native addon build tool'
 arch=('any')
 url='https://github.com/nodejs/node-gyp'
@@ -11,7 +12,7 @@ depends=('nodejs' 'nodejs-nopt' 'python' 'semver')
 makedepends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('a367a5875aaded8529de590cc18dff978285de3fc0ddf23f42de0d1fe0904203c976a184f72eea9cff38723216376ed0d23264ad20210950e0fb005534161d06')
+sha512sums=('a254c946052d01bfe13971b413ddf0643b3962226581b5f14f0400147c8d951b1742763351a17668682e8d96f0fa147c685e191bfad24f9edb58c583d7a8ebf7')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz

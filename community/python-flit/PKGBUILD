@@ -4,38 +4,29 @@
 _pkgname=flit
 pkgbase=python-$_pkgname
 pkgname=($pkgbase{,-core})
-pkgver=3.2.0
-pkgrel=2
+pkgver=3.5.1
+pkgrel=3
 pkgdesc='Simplified packaging of Python modules'
 arch=('any')
 url='https://github.com/takluyver/flit'
 license=('BSD')
-depends=('python' 'python-toml')
-makedepends=('python-setuptools' 'python-dephell'
-             'python-requests' 'python-docutils')
-             #'python-build' 'python-install' 'python-pyproject2setuppy'
+depends=('python' 'python-tomli' 'python-tomli-w')
+makedepends=('python-pip' 'python-poetry' 'python-requests' 'python-docutils')
 checkdepends=('python-pytest' 'python-testpath' 'python-responses')
 source=("$pkgbase-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('b40768fb4b0b2a2e3116ac790dfa629da5a57cda34b10abb8ce6a8febcc3436795d5122dcfa3db2c6d07d493f00391d2ca7300112561c8ff2a0b04d77c879662')
+sha512sums=('76a713df9a85e686b5a9516b01b02779ce9e62e5bb189724d4fb62c42324ce1607d9de334c1fa88e95a10089aebba804fac0214fcbed0c47b8fc057732d63339')
 
 prepare() {
   cd $_pkgname-$pkgver
-
-  dephell deps convert --from pyproject.toml --to setup.py
-
+  rm tests/test_sdist.py
   cd flit_core
-
-  dephell deps convert --from pyproject.toml --to setup.py
+  python build_dists.py
 }
 
 build() {
   cd $_pkgname-$pkgver
 
-  python setup.py build
-
-  cd flit_core
-
-  python setup.py build
+  PYTHONPATH=flit_core python -m flit build --format wheel
 }
 
 check() {
@@ -51,9 +42,7 @@ package_python-flit() {
 
   cd $_pkgname-$pkgver
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  cp -a flit/license_templates "$pkgdir"/usr/lib/python3.9/site-packages/flit/
-
+  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="${pkgdir}" --ignore-installed --no-deps dist/*.whl
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
@@ -62,7 +51,10 @@ package_python-flit-core() {
 
   cd $_pkgname-$pkgver/flit_core
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-
+  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="${pkgdir}" --ignore-installed --no-deps dist/*.whl
   install -Dm 644 ../LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  # installing tests to a subdir of your project might not conflict the toplevel, but
+  # don't do it anyway...
+  rm -r "$pkgdir"/usr/lib/python*/site-packages/flit_core/tests/
 }

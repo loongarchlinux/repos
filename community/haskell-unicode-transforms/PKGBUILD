@@ -2,24 +2,23 @@
 
 _hkgname=unicode-transforms
 pkgname=haskell-unicode-transforms
-pkgver=0.3.7.1
-pkgrel=70
+pkgver=0.4.0
+pkgrel=3
 pkgdesc="Unicode transforms (normalization NFC/NFD/NFKC/NFKD)"
 url="https://github.com/composewell/unicode-transforms/"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs')
-makedepends=('ghc' 'haskell-getopt-generics' 'haskell-hspec' 'haskell-quickcheck' 'haskell-split'
-             'haskell-text-icu')
+depends=('ghc-libs' 'haskell-unicode-data')
+makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck' 'haskell-split' 'haskell-text-icu')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('a4e39b943bcea6c86ebb8df7253a39ecf2a7bf5a083d0cf2ee1e5720af4afe47111330a787353a5728793d02739448debae2fd73fe6ba2d0eb94cbbb4bfef30f')
+sha512sums=('56a718b4912e60270a74da681002010b78c85c6b6313e88202a34630aa6162a105c148cc9a54d3d989335edf02d2bc5be60c5f541b56efd696bc450c00c2b332')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
             -f-dev -fhas-icu -f-has-llvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

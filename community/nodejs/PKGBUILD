@@ -8,17 +8,17 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=16.4.0
+pkgver=17.3.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript'
 arch=('loongarch64' 'x86_64')
 url='https://nodejs.org/'
 license=('MIT')
-depends=('openssl' 'zlib' 'icu' 'libuv' 'libnghttp2' 'c-ares') # 'http-parser' 'v8')
+depends=('brotli' 'openssl' 'zlib' 'icu' 'libuv' 'libnghttp2' 'c-ares') # 'http-parser' 'v8')
 makedepends=('python' 'procps-ng')
 optdepends=('npm: nodejs package manager')
 source=("https://github.com/nodejs/node/archive/v$pkgver/nodejs-$pkgver.tar.gz")
-sha512sums=('ec184862202ce6b26f2a35a58dc4cb8e8824b950e97a02de239d77886626a78d2efb663746a19c22521f225b81b23f9004955f8786fec570a6ac3d4254971851')
+sha512sums=('fbfc347c0f07df1d575b27f660abda97b65f336577797ba56a8837385ddb5fc6d55bf80c95042ff74ad9f4bd12e5188672b8f307a085287db89e1b9fdaba2567')
 
 build() {
   cd node-$pkgver
@@ -32,7 +32,8 @@ build() {
     --shared-libuv \
     --experimental-http-parser \
     --shared-nghttp2 \
-    --shared-cares
+    --shared-cares \
+    --shared-brotli
     # --shared-v8
     # --shared-http-parser
 

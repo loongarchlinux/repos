@@ -1,27 +1,35 @@
 # Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com
 # Contributor: Philipp A. <flying-sheep@web.de>
 
 pkgname=python-unicodedata2
-pkgver=13.0.0.post2
-pkgrel=2
+_pyname=${pkgname#python-}
+pkgver=14.0.0
+pkgrel=1
 pkgdesc="unicodedata backport/updates to Python 3"
 arch=('loongarch64' 'x86_64')
-url="https://github.com/mikekap/unicodedata2"
+url="https://github.com/fonttools/$_pyname"
 license=('Apache')
 depends=('python')
 makedepends=('python-setuptools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mikekap/unicodedata2/archive/${pkgver/.post/-}.tar.gz")
-sha256sums=('27141b225f84599b49429c5f9cd1ba7403c044102da78d4ac0e84cafdb62188f')
+checkdepends=('python-pytest'
+              'python-pytest-xdist'
+              'python-pytest-randomly')
+source=("$url/archive/$pkgver/$_pyname-$pkgver.tar.gz")
+sha256sums=('f95b778ae3c2706c4dfab731261c0c60aa2bd93b9c0ba9de49395b0c45b12a6a')
 
 build() {
-  cd "unicodedata2-${pkgver/.post/-}"
+	cd "$_pyname-$pkgver"
+	python setup.py build
+}
 
-  python setup.py build
+check() {
+	cd "$_pyname-$pkgver"
+	python setup.py test
 }
 
 package() {
-  cd "unicodedata2-${pkgver/.post/-}"
-
-  python setup.py install --root="$pkgdir" --optimize=1
+	cd "$_pyname-$pkgver"
+	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 }

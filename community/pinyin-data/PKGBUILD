@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pinyin-data
-pkgver=0.10.2
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="Pinyin Data for Hanzi"
 arch=('any')
@@ -9,7 +9,7 @@ license=('MIT')
 url="https://github.com/mozillazg/pinyin-data"
 depends=()
 source=("https://github.com/mozillazg/pinyin-data/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('2f0cb59d4d1261a4a37964b16b73081837027b6966af8a8d51d740401ef41657835c8241e4346ee0642b699797d1c398d2d5ceae6ea0559b157ccdc172b97dd2')
+sha512sums=('bab37e678e129aa1faec045bf8d695dcb00af04fabcc29614383cacf4c425b9a48c7f9a39f083936b7a2fa02f2a99e24af01bd8a5576ba2ef762271d77e9ba4b')
 
 package() {
   cd $pkgname-$pkgver

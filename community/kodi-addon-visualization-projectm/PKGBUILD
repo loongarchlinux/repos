@@ -2,9 +2,9 @@
 
 pkgname=kodi-addon-visualization-projectm
 epoch=1
-pkgver=3.3.0
+pkgver=19.0.1
 _codename=Matrix
-pkgrel=2
+pkgrel=1
 pkgdesc="ProjectM visualizer for Kodi"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/xbmc/visualization.projectm'
@@ -13,7 +13,7 @@ groups=('kodi-addons' 'kodi-addons-visualization')
 makedepends=('cmake' 'projectm' 'kodi-dev')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/visualization.projectm/archive/$pkgver-$_codename.tar.gz"
 )
-sha512sums=('fbce9121a403279a9f54eced08f2069ab6e1f732ef5c6b82380323e2357b70ffa88157428afd4884b6d119aa5a02848718e48602ce9d5f1454c8fa5ed0f78e7b')
+sha512sums=('be7a898e2646e0042efb93334ec61a668ffecaa64c51ce041f4a044461dd46b6964eea5a8ef9de5e97c6fa8bb841be4d6e153ca985e727eae1f399b15b5fa973')
 
 build() {
     cd "visualization.projectm-$pkgver-$_codename"

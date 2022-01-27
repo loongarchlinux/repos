@@ -4,7 +4,7 @@
 # Contributor: Philipp Überbacher <hollunder at gmx dot at>
 
 pkgname=qtractor
-pkgver=0.9.22
+pkgver=0.9.24
 pkgrel=1
 pkgdesc="Audio/MIDI multitrack sequencer"
 arch=('loongarch64' 'x86_64')
@@ -21,8 +21,8 @@ optdepends=(
 )
 provides=('dssi-host' 'ladspa-host' 'lv2-host' 'vst-host' 'vst3-host')
 source=("https://sourceforge.net/projects/${pkgname}/files/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('80e5dae7c38b95719ca16997022529dfbd5c51af209b54f819098299d2798677b6238dc9eaaf664cdf2437facda3757e39472ca74636eeddbb5e1f0f28a78b2c')
-b2sums=('7d53d9a31f6d9df6bdeb19d4d5687ec3037842ecfcd4e1ae167a541ade301c4cee1f1bda68c9186ec8d5f0e879c80f636536b5acd51137f4be783f5892d377be')
+sha512sums=('b65dc90566023e06edc08a437e3a9f1e8a6e524cb1c9cf78afe90cdc1437ce345b7bb4907619ced7886966923facb7dbe8f22ac23076531e95e149a71286187b')
+b2sums=('a94822b20544aa0675a4b1208b7f1dcb726973c3ffb4705ef10ef284e21433c2b92747eca189667e2e8d8cec4569421e8492ea330d7b51cb80a6157dffdd8e41')
 
 build() {
   cd "${pkgname}-${pkgver}"
@@ -38,7 +38,7 @@ build() {
 package() {
   depends+=('libasound.so' 'libaubio.so' 'libjack.so' 'liblilv-0.so' 'liblo.so'
   'libogg.so' 'librubberband.so' 'libsamplerate.so' 'libsndfile.so'
-  'libsuil-0.so' 'libvorbisenc.so' 'libvorbisfile.so' 'libvorbis.so' )
+  'libvorbisenc.so' 'libvorbisfile.so' 'libvorbis.so' )
   cd "${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install -C build
   # docs

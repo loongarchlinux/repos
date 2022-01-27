@@ -2,8 +2,8 @@
 
 _hkgname=generic-random
 pkgname=haskell-generic-random
-pkgver=1.4.0.0
-pkgrel=8
+pkgver=1.5.0.1
+pkgrel=5
 pkgdesc="Generic random generators for QuickCheck"
 url="https://github.com/lysxia/generic-random"
 license=('MIT')
@@ -11,15 +11,14 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('fdf8c3865a785dd09adc88a2e3b54a6712ccfff244b7b8e6df73402ab71d4f34ff525c9ad393d61ba7619fb8a751c1a73a9f223a434c747c218800fb2c2d75bb')
+sha512sums=('40502b90351cbdec277d85883ae80709ebf861bd8a03212c0fab2a08ffd7b538b1f071bd917519cf935cc8050e1989587c242bfb904bc8b9019849486749ec06')
 
 build() {
     cd $_hkgname-$pkgver
 
-    # Tests disabled: https://github.com/Lysxia/generic-random/issues/22
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --disable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
@@ -29,7 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    #runhaskell Setup test --show-details=direct
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

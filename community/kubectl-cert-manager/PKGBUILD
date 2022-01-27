@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: ml <>
 pkgname=kubectl-cert-manager
-pkgver=1.4.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc='Automatically provision and manage TLS certificates in Kubernetes'
 arch=('loongarch64' 'x86_64' 'aarch64')
@@ -11,7 +11,8 @@ depends=('kubectl')
 makedepends=('git' 'go')
 groups=('kubectl-plugins')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('b5aa31e0e4907bb31c627a3b6cbecf9fb0bf84846fbf479a123a4ed1ac2dee2426e361e5009a79ed164a93eb9ec0c8b50e8f0611e1f5d8e969a7996939932b06')
+sha512sums=('9975f7624b790e15764272cfed3ba314e5e4467a9300c2448137c907ae602e3290e98402493bd50c42f193b299dfa4d3ed67d2b897fd5d752aeb3fd319af83c9')
+b2sums=('ac1d89cc3651961651eb73848fb3bcbc66f30401ecebb0f5b15661fb9c256ead2e6362bf268e201c33e95995284ef75f395e87138e44caff785f3d59bb399d23')
 
 build() {
   local _x _commit

@@ -2,19 +2,19 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-panel
-pkgver=1.24.2
+pkgver=1.26.1
 pkgrel=1
 pkgdesc="The MATE Panel"
 url="https://mate-desktop.org"
 arch=('loongarch64' 'x86_64')
 license=('GPL')
-depends=('dbus-glib' 'libwnck3' 'libcanberra' 'libmateweather' 'libsm' 'mate-menus' 'mate-desktop' 'gettext')
-makedepends=('itstool' 'gobject-introspection')
+depends=('dbus-glib' 'libwnck3' 'libcanberra' 'libmateweather' 'libsm' 'mate-menus' 'mate-desktop' 'gettext' 'gtk-layer-shell')
+makedepends=('itstool' 'gobject-introspection' 'mate-common' 'yelp-tools' 'autoconf-archive')
 source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
 groups=('mate')
 conflicts=('mate-panel-gtk3')
 replaces=('mate-panel-gtk3')
-sha256sums=('30c5ba0392ec76b110220ee6d10bbdba76af36586592a6b3d604db70602848ea')
+sha256sums=('683038c483456e5068f5bb20c3d565936700c9898005c7149ee7aa44e5cc110d')
 
 build() {
     	cd "${pkgname}-${pkgver}" 

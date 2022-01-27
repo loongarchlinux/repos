@@ -1,9 +1,10 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Kevin Song <kevin.s05@gmail.com>
 
 pkgname=starship
 pkgdesc='The cross-shell prompt for astronauts'
-pkgver=0.55.0
+pkgver=1.1.1
 pkgrel=1
 arch=(loongarch64 x86_64)
 url=https://starship.rs/
@@ -13,23 +14,21 @@ depends=(
   glibc
   libgit2.so
   openssl
-)
-optdepends=(
-  'noto-fonts-emoji: emoji support for terminals'
-  'powerline-fonts: powerline symbols for terminals'
+  ttf-font-nerd
 )
 makedepends=(
   git
   rust
 )
 checkdepends=(python)
-_tag=09b12a52dd915d1391e593589f10f718a12e0f8d
+_tag=9a4b2bb536761e5aa9e0d5972e3052cc6d30c6d9
 source=(git+https://github.com/starship/starship.git#tag=${_tag})
-b2sums=(SKIP)
+b2sums=('SKIP')
 
 prepare() {
   cargo fetch \
     --locked \
+    --target $CARCH-unknown-linux-gnu \
     --manifest-path starship/Cargo.toml
 }
 
@@ -39,6 +38,7 @@ pkgver() {
 }
 
 build() {
+  export CARGO_TARGET_DIR=target
   cargo build \
     --release \
     --frozen \
@@ -48,25 +48,18 @@ build() {
 
 check() {
   cargo test \
-    --release \
     --frozen \
     --features notify-rust \
     --manifest-path starship/Cargo.toml
 }
 
 package() {
-  cargo install \
-    --frozen \
-    --features notify-rust \
-    --offline \
-    --no-track \
-    --path starship \
-    --root "${pkgdir}"/usr
-    install -Dm 644 starship/LICENSE -t "${pkgdir}"/usr/share/licenses/starship/
-    install -dm 755 "${pkgdir}"/usr/share/{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}/
-    ./starship/target/release/starship completions bash > "${pkgdir}"/usr/share/bash-completion/completions/starship
-    ./starship/target/release/starship completions fish > "${pkgdir}"/usr/share/fish/vendor_completions.d/starship.fish
-    ./starship/target/release/starship completions zsh > "${pkgdir}"/usr/share/zsh/site-functions/_starship
+  install -Dm 755 target/release/starship -t "${pkgdir}"/usr/bin/
+  install -Dm 644 starship/LICENSE -t "${pkgdir}"/usr/share/licenses/starship/
+  install -dm 755 "${pkgdir}"/usr/share/{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}/
+  ./target/release/starship completions bash > "${pkgdir}"/usr/share/bash-completion/completions/starship
+  ./target/release/starship completions fish > "${pkgdir}"/usr/share/fish/vendor_completions.d/starship.fish
+  ./target/release/starship completions zsh > "${pkgdir}"/usr/share/zsh/site-functions/_starship
 }
 
 # vim: ts=2 sw=2 et:

@@ -2,7 +2,7 @@
 # Contributor: Kwpolska <kwpolska@kwpolska.tk>
 
 pkgname=python-pudb
-pkgver=2021.1
+pkgver=2021.2.2
 pkgrel=1
 pkgdesc="A full-screen, console-based Python debugger"
 url="https://pypi.python.org/pypi/pudb"
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('python-urwid' 'python-pygments')
 checkdepends=('python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/inducer/pudb/archive/v$pkgver.tar.gz")
-sha512sums=('db7f7e01c454a678b4b63daf551f81975e7ffdf930d210d7efb2a3019b10f27713f373bc31c5561465170443462f342e0521a1e914c8ba530296fdc3055497f6')
+sha512sums=('bd9330f32c2cf427095746abd667e1d7333e1764a2af4096af2239645679002ec283b8aa9b51ed15a5eed3b6dc3d9834c4d604e9b6369a07391ed0c5d340938d')
 
 build() {
   cd "$srcdir"/pudb-$pkgver

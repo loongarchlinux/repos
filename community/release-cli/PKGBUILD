@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=release-cli
-pkgver=0.8.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="Gitlab Release CLI"
 arch=('loongarch64' 'x86_64')
@@ -10,8 +10,8 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz::https://gitlab.com/gitlab-org/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('2e3d6dc545902c428f96cc84d515d9b82857714101f27d4cac2d0ceb77bde1cca67d071ea8f30001f727cbb36a27c24e8f78db926f018b413aa470fdefe16ad7')
-b2sums=('a4be4aa478424ff5baad7447dd50dd31de2536ec950abfdafccca4408beeb2932060a7e3a2281b06080c76c0a7f1cb3df89262447694cc31796dbe61fd173996')
+sha512sums=('1b422e98fbc45589941e686e2f31b1a3844cf150568d178a10b1cb80ac114114117f8f81c5dc0a6293dd83a04c9977e79302dfe1283c1a792bf4790b8f3bf895')
+b2sums=('917b901afbc62bfe1e6aa3acabab31c9cd80b27c4964e30537ef02572fceed1c3482a824ccd2ac01bb2eabde3254c0169e3f46a908e4c617457b5564565c7df1')
 
 prepare() {
   mv -v "$pkgname-v$pkgver" "$pkgname-$pkgver"

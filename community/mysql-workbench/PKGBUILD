@@ -5,13 +5,13 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=8.0.25
-pkgrel=1
+pkgver=8.0.27
+pkgrel=3
 _mysql_version=${pkgver}
 _connector_version=${pkgver}
-_gdal_version=3.2.2
+_gdal_version=3.3.1
 _boost_version=1.73.0
-_antlr4_version=4.9.2
+_antlr4_version=4.9.3
 pkgdesc='A cross-platform, visual database design tool developed by MySQL'
 arch=('loongarch64' 'x86_64')
 url='https://www.mysql.com/products/workbench/'
@@ -29,17 +29,19 @@ source=("https://cdn.mysql.com/Downloads/MySQLGUITools/mysql-workbench-community
 	"https://downloads.sourceforge.net/project/boost/boost/${_boost_version}/boost_${_boost_version//./_}.tar.bz2"
 	'0001-mysql-workbench-no-check-for-updates.patch'
 	'0002-disable-unsupported-operating-system-warning.patch'
+	'0003-python-3-10-parser.patch'
 	'arch_linux_profile.xml')
-sha256sums=('c09b2a2895c4f195f378f108ecc881a135a4ba71b907bc8492900cc75517ec42'
+sha256sums=('fd7c821e61ed559f3d280199b441785723c4b79ae41afb9f68ad3b5cc8f3e124'
             'SKIP'
-            'c16aa9cf621bc028efba2bb11f3c36a323b125fa0d108ff92fab60e46309206e'
+            '4a7e72f899e6f24bcd479d378edd2f32f583e687f93a26291774815d5a549b97'
             'SKIP'
-            '49f082ed21c04348b7080d505ae0c85fd3bd1156ff511a3b53a97ab026243194'
+            '5886698fc682a5e8740822ed9b461bc51b60cf9cbadf4e1c7febe59584b2bfb7'
             'SKIP'
-            'a7e1e414e5c405af48982bf4724a3da64a05770254f2ce8affb5f58a7604ca57'
+            '48ab00b77d49f08cf66c60ccce55abb6455c3079f545e60c90ee7ce857bccb70'
             '4eb3b8d442b426dc35346235c8733b5ae35ba431690e38c6a8263dce9fcbb402'
             'cdf687f23bc6e8d52dbee9fa02b23d755e80f88476f0fc2e7c4c71cdfed3792f'
             '2d0f6dcf38f22e49ef7ab9de0230484f1ffac41b7ac40feaf5ef4538ae2f7a18'
+            '9de0ceba08037f15c12f730e4764d08a03813b5c59ed4c8b4d0cfbbcb82d1738'
             '3a59b46ac2e7c6a0a72733d71ca33ec85146e8399a3f23871cb3a965cd8e749e')
 
 prepare() {
@@ -52,17 +54,15 @@ prepare() {
 	# disable unsupported operating system warning
 	patch -Np1 < "${srcdir}"/0002-disable-unsupported-operating-system-warning.patch
 
-	# GCC 7.x introduced some new warnings, remove '-Werror' for the build to complete
-	sed -i '/^set/s|-Werror -Wall|-Wall|' CMakeLists.txt
+	# Python 3.10 removed the parser module, which was deprecated in 3.9 due
+	# to the switch to the new PEG parser...
+	patch -Np1 < "${srcdir}"/0003-python-3-10-parser.patch
+
+	# remove '-Werror'
+	sed -i '/^\s*set/s| -Werror||' CMakeLists.txt
 
 	# GCC 7.x complains about unsupported flag
-	sed -i 's|-Wno-deprecated-register||' ext/scintilla/gtk/CMakeLists.txt
-
-	# disable stringop-truncation for GCC 8.x
-	sed -i '/^set/s|-Wall|-Wall -Wno-stringop-truncation|' CMakeLists.txt
-
-	# make sure to link against bundled libraries
-	sed -i "/target_link_libraries/s|\\$|-L${srcdir}/install-bundle/usr/lib/ \\$|" backend/wbpublic/CMakeLists.txt
+	sed -i 's| -Wno-deprecated-register||' ext/scintilla/gtk/CMakeLists.txt
 
 	# be happy with more recent antlr
 	sed -i "/set(ANTLR_JAR_FILENAME/s/4.9.1/${_antlr4_version}/" CMakeLists.txt
@@ -166,4 +166,3 @@ package() {
 	install -D -m 0644 "${srcdir}"/arch_linux_profile.xml \
 		"${pkgdir}"/usr/share/mysql-workbench/mysql.profiles/Arch_Linux_\(MariaDB\).xml
 }
-

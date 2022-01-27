@@ -2,7 +2,7 @@
 
 pkgname=python-persistent
 pkgver=4.7.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Translucent persistent objects"
 arch=('loongarch64' 'x86_64')
 license=('ZPL')

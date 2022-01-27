@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=jrnl
-pkgver=2.8.1
-pkgrel=1
+pkgver=2.8.3
+pkgrel=2
 pkgdesc="Collect your thoughts and notes without leaving the command line"
 arch=('any')
 url="https://jrnl.sh/"
@@ -11,9 +11,9 @@ depends=('python-ansiwrap' 'python-asteval' 'python-colorama' 'python-cryptograp
          'python-parsedatetime' 'python-dateutil' 'python-pyxdg' 'python-yaml' 'python-pytz'
          'python-tzlocal')
 makedepends=('python-dephell')
-checkdepends=('python-behave' 'python-pytest')
+checkdepends=('python-behave' 'python-pytest' 'python-pytest-bdd')
 source=("https://github.com/jrnl-org/jrnl/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('a41221bea7174a8fbcfa49d41ab19feb187ceb0a8a866d3cb308b6ce11c071b5429e7ac9384fe0b5a704a3ac4633be953f8b022dd527cf5e0b67f1ad2f7f4761')
+sha512sums=('00dc9f8364c6f057a7667bc1de3857fc8cc3393832c3198f1726dfdf567a28556b8a818c67828c9fbdb36ebbd4c9066545b4b15943253d7c6c9949ab07701f32')
 
 prepare() {
   cd jrnl-$pkgver

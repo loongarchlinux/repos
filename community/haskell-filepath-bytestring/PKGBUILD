@@ -2,8 +2,8 @@
 
 _hkgname=filepath-bytestring
 pkgname=haskell-filepath-bytestring
-pkgver=1.4.2.1.7
-pkgrel=18
+pkgver=1.4.2.1.9
+pkgrel=2
 pkgdesc="Library for manipulating RawFilePaths in a cross platform way"
 url="https://hackage.haskell.org/package/filepath-bytestring"
 license=('BSD')
@@ -11,14 +11,14 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('27bd3a4f06b5d0e179babb4b5aed2e99c050981ae11ae0ccfc5460703e7aa5e3ec14ae6b0ec9cff07779129e8469450437f9ad7625c6d009331014e954a336e9')
+sha512sums=('814ca8e733afb85187055bf8fdf7381cba4de8587141eff678ec78aca76cd3042a40c3046d5fe4adaaa3575701c2a4172202ef9580ad66d87c92ee4a4e66fe87')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

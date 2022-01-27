@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-xmlschema
-pkgver=1.2.3
-pkgrel=3
+pkgver=1.9.0
+pkgrel=1
 pkgdesc="An XML Schema validator and decoder"
 url="https://github.com/sissaschool/xmlschema"
 license=('MIT')
@@ -11,7 +11,7 @@ depends=('python-elementpath')
 makedepends=('python-pip')
 checkdepends=('python-lxml')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sissaschool/xmlschema/archive/v$pkgver.tar.gz")
-sha512sums=('2f493488c266345688991e4c087856890c0ab8b6c1884abf0d2b952b64a6be0ccff2625c6fd6a41c2cd4471888a9592815c7d2d83c1aae581ba8b51d2d122075')
+sha512sums=('dc0ca98969e4ff480f5e89560174cea098f578ce8d2d09cac10af4c112380661d195ae2b36cc246a3bb813a130660e3e83ab3d17da193ea5665ee6e6d944d0d0')
 
 prepare() {
   sed -i 's/~=/>=/' xmlschema-$pkgver/setup.py
@@ -24,8 +24,6 @@ build() {
 
 check() {
   cd xmlschema-$pkgver
-  python -c "import xmlschema.codepoints; xmlschema.codepoints.save_unicode_categories()"
-  cp xmlschema/unicode_categories.json build/lib/xmlschema/
   PYTHONPATH="$PWD/build/lib" python -m unittest
 }
 

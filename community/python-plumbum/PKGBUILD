@@ -2,21 +2,20 @@
 
 pkgname=python-plumbum
 _name=plumbum
-pkgver=1.7.0
-pkgrel=3
+pkgver=1.7.2
+pkgrel=1
 pkgdesc='A small yet feature-rich Python library for shell script-like programs, and more'
 url='https://github.com/tomerfiliba/plumbum'
 arch=('any')
 license=('MIT')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'python-setuptools-scm')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('0a12891278c12bb98b8bbb825448375240ee347eb3ca166b9cbb4da3e083979d947a7bf0a843fd9a0b7c9a13d09f24e988ee877f29420a3f29f40e387eec8826')
-b2sums=('19ae8a37dff38ac3d263d9400e44ac174c46ff8cef92cf45b9ea31d6d344543fba66de3fd0fcd15acc205af5939f11be6c56e6cd9ca39a666f92f18dcd29b9f7')
+sha512sums=('77e75988255ca78fa5c253c6d076d63f8f9250a2b153ef23e40f35315e255ea09403d854a19bb265fd658bb9e5f0f705dc7530ecacc40b4b48e33acdf50dddf9')
+b2sums=('a16d9210606ac67abd425fcff109d40836dc969729cc5bf78a5d224c0beabf09d56d35f17809994d758153c6e18e4af91403f7ae0111912447367be68f6592c1')
 
 build() {
   cd "${_name}-${pkgver}"
-  export PYTHONHASHSEED=0
   python setup.py build
 }
 

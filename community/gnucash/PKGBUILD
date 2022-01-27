@@ -4,21 +4,21 @@
 # Contributor: Mark Schneider <queueRAM@gmail.com>
 
 pkgname=gnucash
-pkgver=4.5
-pkgrel=3
+pkgver=4.9
+pkgrel=1
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(loongarch64 x86_64)
 url='https://gnucash.org/'
 license=(GPL)
 depends=(aqbanking gwenhywfar boost-libs guile libdbi webkit2gtk)
-makedepends=(boost cmake gmock libdbi-drivers mariadb-libs postgresql-libs swig)
+makedepends=(boost cmake gtest libdbi-drivers mariadb-libs postgresql-libs swig)
 optdepends=('gnucash-docs: documentation'
             'libdbi-drivers: open and save data into SQL database'
             'perl-date-manip: stock information lookups'
             'perl-finance-quote: stock information lookups')
 options=(!emptydirs)
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2)
-sha256sums=('bc1f48a8453488a2e9f6b83b68613aa55caebe4d2983460bdac7e084b46cffdc')
+sha256sums=('9a551c30c1b712199fc2227a109afb984d7bef18e138170bbc7225c6c1fab72d')
 
 build() {
   cd $pkgname-$pkgver

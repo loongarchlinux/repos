@@ -1,9 +1,10 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Maxime Gauduin <alucryd@ærchlinux.org>
 
 _pkgname=httptools
 pkgname=python-$_pkgname
-pkgver=0.2.0
-pkgrel=1
+pkgver=0.3.0
+pkgrel=3
 pkgdesc='Fast HTTP parser'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/MagicStack/httptools'

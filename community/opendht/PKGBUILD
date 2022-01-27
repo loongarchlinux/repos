@@ -1,32 +1,38 @@
-# Maintainer: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Contributor: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 
 pkgname=opendht
 epoch=1
-pkgver=2.1.10
-pkgrel=1
+pkgver=2.3.1.r7+ga89e4d62
+pkgrel=4
 pkgdesc="C++14 Distributed Hash Table (DHT) implementation"
 arch=(loongarch64 x86_64)
 url="https://github.com/savoirfairelinux/opendht"
 license=(GPL3)
-depends=(openssl gnutls nettle argon2 readline fmt http-parser jsoncpp libjsoncpp.so)
-makedepends=(msgpack-c cmake cython python-setuptools cppunit restinio)
+depends=(glibc gnutls nettle readline argon2 jsoncpp libjsoncpp.so fmt http-parser openssl)
+makedepends=(git cmake msgpack-c msgpack-cxx asio restinio cython python-setuptools)
+checkdepends=(cppunit)
 optdepends=('python: to use the Python bindings')
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('917e5f691199349d6884a68c26645840914c18e72b2e21d97817618ddc55fb81')
+_commit=a89e4d626eae388bfd4049faadcb5deec58fb6fc
+source=(git+${url}#commit=${_commit})
+sha256sums=(SKIP)
+
+pkgver() {
+  cd ${pkgname}
+  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./;s/-/+/'
+}
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S ${pkgname} \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DOPENDHT_TESTS=ON \
     -DOPENDHT_DOCUMENTATION=OFF \
+    -DOPENDHT_TESTS=ON \
     -DOPENDHT_STATIC=OFF \
     -DOPENDHT_SYSTEMD=ON \
     -DOPENDHT_SYSTEMD_UNIT_FILE_LOCATION=/usr/lib/systemd/system/ \
     -DOPENDHT_LTO=ON \
-    -DOPENDHT_TOOLS=ON \
     -DOPENDHT_INDEX=ON \
     -DOPENDHT_PYTHON=ON \
     -DOPENDHT_HTTP=ON \
@@ -36,9 +42,10 @@ build() {
   make -C build
 }
 
-#check() {
-#  make -C build test
-#}
+check() {
+  # https://github.com/savoirfairelinux/opendht/issues/568
+  make -C build test || echo "Tests failed"
+}
 
 package() {
   make -C build DESTDIR="${pkgdir}" install

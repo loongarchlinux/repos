@@ -2,7 +2,7 @@
 # Contributor: Jonne Haß <me@jhass.eu>
 
 pkgname=shards
-pkgver=0.14.1
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='The package manager for the Crystal language'
 arch=(loongarch64 x86_64)
@@ -10,9 +10,9 @@ url='https://github.com/crystal-lang/shards'
 license=(Apache)
 depends=(libyaml git libevent gc)
 makedepends=(crystal)
-checkdepends=(git)
+checkdepends=(git mercurial)
 source=(shards-$pkgver.tar.gz::https://github.com/crystal-lang/shards/archive/v$pkgver.tar.gz)
-sha256sums=('040b080acb4d4d44bfe07897219fdcb7525f783e253d8878d8381bf78f13f328')
+sha256sums=('e23a51fdcb9747e86b3c58d733a1c7556a78002b46482ca0fdacfe63924dc454')
 
 build() {
   cd shards-$pkgver

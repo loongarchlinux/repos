@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 pkgname=openxr
-pkgver=1.0.17
-pkgrel=1
+pkgver=1.0.20
+pkgrel=2
 pkgdesc='An open standard for virtual reality and augmented reality platforms and devices'
 arch=('loongarch64' 'x86_64')
 url='https://www.khronos.org/openxr/'
@@ -11,7 +11,7 @@ license=('APACHE')
 source=("https://github.com/KhronosGroup/OpenXR-SDK-Source/releases/download/release-${pkgver}/OpenXR-SDK-Source-release-${pkgver}.tar.gz"{,.asc}
         fix-gcc11.patch)
 validpgpkeys=(F029455EAB70F520FF4A03BD7F534CD56F00321E)
-sha512sums=('34c944c2265bbcc2ec546da04387e728648039882edf3d24120bdbf042d7092ada82b0910e1b0ace0fa686cf177d692e80ee9bae09b4753a11525a88c33b04d0'
+sha512sums=('1f989b76c76cdece3c47b758a1c77a78a4bc91cb01504cc033a543da6bc85b18a4e981b35a2875cab454660fbb2443ea4d09e98079aae6e6253f768428012a20'
             'SKIP'
             '783726fb48dc4551dfec0da2f28049d73afe66d237db54f0914b5156b8a45c9d5edf2f9a4b97a8adbbbfa1157c07cd418dbd4d53252f2feb49e9420fde0b0840')
 

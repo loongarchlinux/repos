@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-network-utils
-pkgver=5.4.6
+pkgver=5.4.13
 pkgrel=1
 pkgdesc='DDE network utils'
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,7 @@ depends=('deepin-qt-dbus-factory' 'gio-qt' 'gsettings-qt')
 makedepends=('qt5-tools' 'gtest')
 groups=('deepin')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-network-utils/archive/$pkgver.tar.gz")
-sha512sums=('0bd77ffad2dbc4c9c040f90bd9163e24390ad1f2546523211d774f89a0c491bf8b92602232f0c2ef47218531bd0fa44d78ee58e02b20ea661ca2b6a6f070c56d')
+sha512sums=('dae416cff31421c0159ee157171d2701f75307ec035e795d7cb6d360368a2a1761bf8f2bd6d6ae19ed43788ad48903e590a2d5ec53342801cd3a147c3faa38e7')
 
 prepare() {
   cd dde-network-utils-$pkgver

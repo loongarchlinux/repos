@@ -1,8 +1,8 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=react-native-debugger
-pkgver=0.11.9
-_commit=61663f94083a75a7341b3cdf1f1e2330401f0744
+pkgver=0.12.1
+_commit=816daff45247715a09bc657e13555d89bb5cb3dd
 pkgrel=1
 pkgdesc='The standalone app for React Native Debugger, with React DevTools / Redux DevTools'
 arch=('any')

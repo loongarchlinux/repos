@@ -5,8 +5,8 @@
 
 _name=icalendar
 pkgname=python-icalendar
-pkgver=4.0.7
-pkgrel=4
+pkgver=4.0.9
+pkgrel=3
 pkgdesc='A parser/generator of iCalendar files (RFC 2445)'
 arch=('any')
 url="https://github.com/collective/icalendar"
@@ -15,8 +15,8 @@ depends=('python-dateutil' 'python-pytz')
 makedepends=('python-setuptools')
 checkdepends=('python-hypothesis' 'python-pytest')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('97f7184ddc42ade2a447af5112f5bd18ea9a89ef25ea3983cc2213fefe2c59255102b7babcd49b3e04cbe435d75d2712dd57eebc1bf1c20c54aae7081ba24379')
-b2sums=('b5d980335b1a9d8135ad9ec037e140f3ae49c3e8db6736b9e469748e3bd51c43f39fc5f9dc443de46d4d4c5856ec74bb548a8d1b47b7e52278fdc2e269be0cbe')
+sha256sums=('cc73fa9c848744843046228cb66ea86cd8c18d73a51b140f7c003f760b84a997')
+b2sums=('c1ca7a7730404f7079e8fac8270f98a60ecd4e657f2b2b3d376d620f12c11a0db6dcd5713f7d2d4935c859d544497fa544b22ffb1a83be9c11ec2ea3923da93b')
 
 build() {
   cd "${_name}-${pkgver}"
@@ -31,9 +31,7 @@ check() {
 
 package() {
   cd "${_name}-${pkgver}"
-  python setup.py install --skip-build \
-                          --optimize=1 \
-                          --root="${pkgdir}"
+  python setup.py install --optimize=1 --root="${pkgdir}"
   install -vDm 644 {CHANGES,CONTRIBUTING,README}.rst \
     -t "${pkgdir}/usr/share/doc/${pkgname}/"
   install -vDm 644 LICENSE.rst \

@@ -2,53 +2,53 @@
 
 _name=django-rest-framework
 pkgname=python-django-rest-framework
-pkgver=3.12.4
+pkgver=3.13.1
 pkgrel=1
 pkgdesc="A powerful and flexible toolkit for building Web APIs."
-arch=('any')
+arch=(any)
 url="https://www.django-rest-framework.org/"
-license=('BSD')
-depends=('python-django')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-pytest-django')
+license=(BSD)
+depends=(python-django python-pytz)
+makedepends=(python-setuptools)
+checkdepends=(python-pytest python-pytest-django)
 # bootstrap without python-django-filter, as it has a checkdepends on
 # python-django-rest-framework
-optdepends=('python-django-filter: for dynamic queryset filters'
-            'python-django-guardian: for a per-object permission model'
-            'python-markdown: for markdown support'
-            'python-psycopg2: for PostgreSQL support'
-            'python-pygments: for syntax highlighting'
-            'python-yaml: for YAML support')
+optdepends=(
+  'python-django-filter: for dynamic queryset filters'
+  'python-django-guardian: for a per-object permission model'
+  'python-markdown: for markdown support'
+  'python-psycopg2: for PostgreSQL support'
+  'python-pygments: for syntax highlighting'
+  'python-yaml: for YAML support'
+)
 # tests are not complete in pypi sdist:
 # https://github.com/encode/django-rest-framework/issues/7141
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/encode/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('406b5354809b94e371a2c7d4b62ce66c18a1f60bd02574cba603ad4c44faa4297bdbbd6ee50de63fe21d2aae18386e05d46983a506bddd17f06ce610d5b727c9')
-b2sums=('48150e8d966ddd169a2b58d90656efa8f9f549c9d2fdee6025254fba2a6221704fe6bcb246567c8acb963f76ea56046935d3190c7c391daf4773b100a641ba02')
+source=(
+  "${pkgname}-${pkgver}.tar.gz::https://github.com/encode/${_name}/archive/${pkgver}.tar.gz"
+)
+sha512sums=('a272cccf1f19b2cd09ef456a9588fb17ddc56ac3bd735cf7e130d85bb667ca87361d7de26c95b58a05d8cf693ab19c09d913b457f17ad63053ff9b516c13ec9b')
+b2sums=('01a2e1c2459f99b1d3b38b62b305a57f3a3358d34a352ef2bbeb6b130c98f19fbbb83325d1013c28107f267a0a0227215646975de54542ab9ca6dfcf2bd88404')
 
 prepare() {
-  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
-  cd "$pkgname-$pkgver"
+  cd "${_name}-$pkgver"
   # we do not use coverage during testing
   sed -e '/addopts/d' -i setup.cfg
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "${_name}-$pkgver"
   python setup.py build
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "${_name}-$pkgver"
   export PYTHONPATH="${PWD}/build:${PYTHONPATH}"
   pytest -v
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  export PYTHONHASHSEED=0
-  python setup.py install --skip-build \
-    --optimize=1 \
-    --root="${pkgdir}"
+  cd "${_name}-$pkgver"
+  python setup.py install --optimize=1 --root="${pkgdir}"
   install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -vDm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }

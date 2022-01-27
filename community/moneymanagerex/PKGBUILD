@@ -3,8 +3,8 @@
 # Contributor: Martin Dünkelmann <nc-duenkekl3 at netcologne.de>
 
 pkgname=moneymanagerex
-pkgver=1.5.3
-_commit=e724a33528e5320bbd0a115cc7347c65bd6d0a3b
+pkgver=1.5.5
+_commit=ffcd1abb7ecfa226b3ca96e7f9320e21ba2e2cd1
 pkgrel=1
 pkgdesc="An easy-to-use personal finance suite"
 arch=('loongarch64' 'x86_64')

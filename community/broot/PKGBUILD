@@ -1,18 +1,19 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Adam Fontenot <adam.m.fontenot@gmail.com>
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=broot
-pkgver=1.6.1
+pkgver=1.8.1
 pkgrel=1
 pkgdesc='Fuzzy Search + tree + cd'
 arch=('loongarch64' 'x86_64')
 url=https://github.com/Canop/broot
 license=('MIT')
-depends=('gcc-libs' 'zlib')
+depends=('gcc-libs' 'zlib' 'libgit2')
 makedepends=('rust')
+options=('!lto')
 source=("https://github.com/Canop/broot/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha256sums=('5f97d876aa554be4c67bfd161ef762425f6083da583775c13cc75bf9882f1085')
+sha256sums=('c806130c4982b064ccaa7fec79436af71d4cf06ace33c2cb34d4d30b3c1095e7')
 
 build() {
   cd $pkgname-$pkgver

@@ -2,8 +2,8 @@
 # Contributor: Stéphane Gaudreault <stephane@archlinux.org>
 
 pkgname=python-pytools
-pkgver=2021.2.7
-pkgrel=1
+pkgver=2021.2.9
+pkgrel=3
 pkgdesc="A collection of tools for Python"
 arch=('any')
 url="https://mathema.tician.de/software/pytools"
@@ -12,7 +12,7 @@ depends=('python-six' 'python-decorator' 'python-appdirs' 'python-numpy')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner')
 source=("https://pypi.io/packages/source/p/pytools/pytools-$pkgver.tar.gz")
-sha512sums=('284fbdb638d40247e330c254567f594f723cad467a504bb31852c0ec5cbbb0648d9596c65e9839975bbe3a52556896440c25da5d2171aaed7c26ba38db6a4426')
+sha512sums=('1afe6feb6e5094171aba9a2749418a5e677cb70286be1ac9b65d1470835e1ae68f72f7c4221149358ab1595cab438688882b51682c5865955edf89ae32ca6d6d')
 
 build() {
   cd "$srcdir"/pytools-$pkgver

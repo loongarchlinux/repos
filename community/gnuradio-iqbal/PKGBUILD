@@ -2,16 +2,18 @@
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 pkgname=gnuradio-iqbal
 _pkgname=gr-iqbal
-pkgver=0.38.1
-pkgrel=4
+pkgver=0.38.2
+_commit=fbee239a  # WHY didn't they tag a release for gr3.9 & pybind?
+pkgrel=6
 pkgdesc="Gnuradio I/Q balancing"
 arch=('loongarch64' 'x86_64')
 url="https://cgit.osmocom.org/gr-iqbal/"
 license=('GPL')
-depends=('gnuradio' 'fftw')
+depends=('gnuradio' 'fftw' 'libunwind')
 replaces=('gr-iqbal')
-makedepends=('git' 'cmake' 'boost' 'swig')
-source=("git://git.osmocom.org/gr-iqbal/#tag=v$pkgver")
+makedepends=('git' 'cmake' 'boost')
+#source=("git://git.osmocom.org/gr-iqbal/#tag=v$pkgver")
+source=("git://git.osmocom.org/gr-iqbal/#commit=$_commit")
 md5sums=('SKIP')
 
 prepare() {
@@ -38,7 +40,6 @@ build() {
     -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
     -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
     -DGR_PYTHON_DIR=$(echo /usr/lib/python3.*/site-packages/) \
-    -DPKG_CONFIG_PATH=/usr/lib/pkgconfig \
     -DCMAKE_LIBRARY_PATH=/usr/lib \
     -DCMAKE_INSTALL_PREFIX=/usr ../
   make

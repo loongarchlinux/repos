@@ -2,8 +2,8 @@
 
 pkgname=maui-pix
 _pkgname=pix
-pkgver=1.2.2
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='Image gallery application'
 url='https://mauikit.org/'
 arch=(loongarch64 x86_64)
@@ -12,7 +12,7 @@ depends=(mauikit-filebrowsing mauikit-imagetools hicolor-icon-theme)
 makedepends=(extra-cmake-modules)
 groups=(maui)
 source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('9ec299ae02a357adcf8b09f14280ae7a71cbf6f10f9030d8e3e9f185b2424573')
+sha256sums=('5b1ee196d292f05a4d8c8c15d0b6e3a5bc08c0cd3dc8b7d80db7bf66ed4ae697')
 
 build() {
   cmake -B build -S $_pkgname-$pkgver

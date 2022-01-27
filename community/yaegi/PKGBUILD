@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: navigaid <navigaid@gmail.com>
 pkgname=yaegi
-pkgver=0.9.18
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='Yet another Elegant Go Interpreter'
 arch=('loongarch64' 'x86_64')
@@ -10,7 +10,7 @@ license=('Apache')
 makedepends=('go')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/containous/yaegi/archive/v${pkgver}.tar.gz")
-sha512sums=('fdc9f69fa21ec35e86c01efdd5d583ac859916febe470f000407010abf944fd41501648ee87bad58927b9e3eceb401613245105da28854208661419326fc7d9f')
+sha512sums=('f511c82202c93031106d9f0cfeef63ff8f975e0381721407776180b188bcf4673ef4af6217b8e14d65b6c7d0e6cd1ee00f1a6db0c9bdaa78674d06c240bdd5aa')
 
 build() {
   cd "${pkgname}-${pkgver}"

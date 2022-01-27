@@ -1,13 +1,14 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-trimesh
-pkgver=3.9.20
-pkgrel=1
+pkgver=3.9.31
+pkgrel=3
 pkgdesc='Trimesh is a pure Python library for loading and using triangular meshes with an emphasis on watertight surfaces'
 arch=('any')
 url="https://github.com/mikedh/trimesh"
 license=('MIT')
 depends=(python python-numpy)
+makedepends=(python-setuptools)
 checkdepends=(python-scipy python-networkx python-rtree python-lxml
               python-shapely python-pillow python-sympy python-requests
               python-msgpack python-pyglet python-jsonschema
@@ -27,7 +28,7 @@ optdepends=('python-networkx: graph operations'
             'python-xxhash: hash ndarrays faster than built-in MD5/CRC'
             'python-collada: parse collada/dae/zae files')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/mikedh/trimesh/archive/${pkgver}.tar.gz)
-sha512sums=('6098c4ef60c1260289d5757951571a9d110aed0fb22c41b58ad081b623fa1904278657e7fc9f5ab416f1b4894ea7fa1a13f1b1f69367b465a7276e65f3b8c95a')
+sha512sums=('869154628e399b336a8a028b0c3b7bf0a950384e957503ba662badf8d109e330daebbda617ff240cae4c07e2d88c4e07c0115637259d17c0c30890e940e04251')
 
 build() {
   cd trimesh-${pkgver}
@@ -41,7 +42,7 @@ check() {
 
 package() {
   cd trimesh-${pkgver}
-  PYTHONHASHSEED=0 python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
 
   install -D -m644 LICENSE.md "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
 }

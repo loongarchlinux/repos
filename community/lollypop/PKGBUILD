@@ -3,8 +3,8 @@
 # Contributor: Cédric Bellegarde <gnumdk@gmail.com>
 
 pkgname=lollypop
-pkgver=1.4.20
-pkgrel=1
+pkgver=1.4.24
+pkgrel=2
 pkgdesc='Music player for GNOME'
 arch=(any)
 url=https://gitlab.gnome.org/World/lollypop
@@ -39,7 +39,7 @@ optdepends=(
   'libsecret: Last.FM support'
   'youtube-dl: Youtube support'
 )
-_tag=7cd766b798a2c89ad460c87547333ee4e52803ff
+_tag=9b9c3922381c9be0ff4c5d8cb639cc6119d166fe
 source=(git+https://gitlab.gnome.org/World/lollypop.git#tag=${_tag})
 sha256sums=(SKIP)
 

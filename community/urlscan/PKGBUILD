@@ -2,7 +2,7 @@
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 
 pkgname=urlscan
-pkgver=0.9.6
+pkgver=0.9.8
 pkgrel=1
 pkgdesc="Mutt and terminal url selector"
 url="https://github.com/firecat53/urlscan"
@@ -15,7 +15,7 @@ optdepends=(
     'wl-clipboard: Clipboard support for Wayland'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/firecat53/urlscan/archive/$pkgver.tar.gz")
-sha256sums=('e8e406e3f87060f8765aab5a4aaecb3602a0ebe7c0936c22e1ecfc65589420e9')
+sha256sums=('29bafb4fba6bcbeb896fa4ce0c746f2551a340950d5acec091cb4264b977301c')
 
 build() {
     cd "$pkgname-$pkgver"

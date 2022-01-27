@@ -1,0 +1,44 @@
+# Maintainer: Alexander Epaneshnikov <alex19ep@archlinux.com>
+# Contributor: libertylocked <libertylocked@disroot.org>
+
+pkgname=bitwarden-cli
+pkgver=1.20.0
+_jslibcommit='e1c6e4973a2532b14e3187a79688e8b0a89e9d5c'
+pkgrel=1
+pkgdesc="The command line vault"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/bitwarden/cli"
+license=('GPL3')
+depends=('gcc-libs')
+makedepends=('git' 'npm' 'node-gyp' 'nodejs-lts-fermium')
+options=('!strip')
+source=("bitwarden-cli-${pkgver}.tar.gz::https://github.com/bitwarden/cli/archive/v${pkgver}.tar.gz"
+        "jslib-${_jslibcommit}.tar.gz::https://github.com/bitwarden/jslib/archive/${_jslibcommit}.tar.gz")
+sha512sums=('5fbecc0022cd97a776b9c4e8b0ad1534c142e0506a7debd12a311da8afbd994c74da5132447f33d6dd06239fca258097f0cc17c876a9edeedf29237607fa279f'
+            'e09e53dcec3bd353e280d3b6273ea234b1b4fd5ccac213156c0d5b1e45685118e23324194c3db4d69c9793d6cd434f6cec4fa1fdbc6fdfc3a2ac0e79874a7fa5')
+
+prepare() {
+	cd cli-${pkgver}
+	rmdir -v jslib
+	ln -sv ../jslib-${_jslibcommit} jslib
+}
+
+build() {
+	cd cli-${pkgver}
+	export npm_config_cache="$srcdir/npm_cache"
+	pushd jslib
+	npm install
+	popd
+	npm install
+	npm run build:prod
+	npm run clean
+	npm run package:lin
+	./dist/linux/bw completion --shell zsh > _bw
+}
+
+package() {
+	cd cli-${pkgver}
+	install -vDm755 dist/linux/bw -t "${pkgdir}/usr/bin"
+	# package zsh completions
+	install -vDm644 "${srcdir}/cli-${pkgver}/_bw" -t "${pkgdir}/usr/share/zsh/site-functions"
+}

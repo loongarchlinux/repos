@@ -3,24 +3,22 @@
 # Contributor: Jo Christian Bergskås <jcberg@gmail.com>
 
 pkgname=fceux
-pkgver=2.3.0
+pkgver=2.5.0
 pkgrel=1
-url='https://fceux.com/'
+url='https://github.com/TASEmulators/fceux'
 pkgdesc='Fast and ultra-compatible NES/Famicom emulator'
 arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(gd minizip qt5-base sdl2)
 makedepends=(cmake git glu mesa-libgl ninja setconf scons)
-_commit='65c5b0d2a1c08db75bb41340bfa5534578926944' # fceux-2.3.0
-_url='https://github.com/TASVideos/fceux'
-source=("git+$_url#commit=$_commit")
-sha256sums=('SKIP')
+source=("git+https://github.com/TASVideos/fceux#commit=6c3a31a4f2c09be297a32f510e74b383f858773b") # fceux-2.5.0
+b2sums=('SKIP')
 
 prepare() {
   cd $pkgname
   sed -i 's/-interim git//g' src/version.h
-  setconf scripts/genGitHdr.sh GIT_URL "'""$_url""'"
-  setconf scripts/genGitHdr.sh GIT_REV $_commit
+  setconf scripts/genGitHdr.sh GIT_URL "'""${source:4:34}""'"
+  setconf scripts/genGitHdr.sh GIT_REV "${source#*=}"
 }
 
 build() {

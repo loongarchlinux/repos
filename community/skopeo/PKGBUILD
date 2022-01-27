@@ -2,37 +2,42 @@
 # Maintainer: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=skopeo
-pkgver=1.3.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='A command line utility for various operations on container images and image repositories.'
 arch=(loongarch64 x86_64)
-url='https://github.com/projectatomic/skopeo'
+url='https://github.com/containers/skopeo'
 license=(APACHE)
 depends=(gpgme device-mapper containers-common)
 makedepends=(go go-md2man btrfs-progs git systemd)
-_commit=e9207c4564dc5ff4c870762c981eca430c203fb7	#refs/tags/v1.3.1
+_commit=8a88191c844a35cd54048c34bee3a6656ed5df5f	#refs/tags/v1.5.0
 source=(git+$url#commit=$_commit)
 sha256sums=('SKIP')
 
 pkgver() {
-  cd $pkgname
+  cd ${pkgname}
   git describe --tags | sed 's/^v//;s/-/+/g'
 }
 
+prepare(){
+  cd ${pkgname}
+  sed -i 's|.PHONY: bin/skopeo||' Makefile
+  sed -i 's|-gcflags "$(GOGCFLAGS)"||' Makefile
+}
+
 build() {
-  cd $pkgname
+  cd ${pkgname}
   export CGO_LDFLAGS="${LDFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  make bin/skopeo BUILDTAGS='containers_image_ostree_stub'
+  make bin/skopeo GO_DYN_FLAGS="-buildmode=pie -trimpath" BUILDTAGS='containers_image_ostree_stub'
   make docs
 }
 
 package() {
   cd $pkgname
-  make PREFIX="$pkgdir/usr" DESTDIR="$pkgdir" install
+  make DESTDIR="${pkgdir}" PREFIX="/usr" install
   rm -rf "${pkgdir}/etc/containers/registries.d"
   rm "${pkgdir}/etc/containers/policy.json"
 }

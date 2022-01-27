@@ -3,31 +3,28 @@
 # Contributor: Gergely Imreh <imrehgATgmailDOTcom>
 
 pkgname=libx86emu
-pkgver=3.1
+pkgver=3.5
 pkgrel=1
 pkgdesc='x86 emulation library'
 arch=(loongarch64 x86_64)
 url='https://github.com/wfeldt/libx86emu'
 license=(BSD)
 makedepends=(git setconf)
-source=("git+$url#commit=0aed125dcc2214ccf9e1a52e9925ae654cefbaf1") # 3.1
-sha256sums=('SKIP')
+source=("git+$url#commit=41aaa2f246d362f6d7dea262052a43141743ead2") # tag: 3.5
+b2sums=('SKIP')
 
 prepare() {
-  sed -i 's/-shared -Wl/-shared '"$LDFLAGS"'/g' "$pkgname/Makefile"
-  setconf "$pkgname/Makefile" \
+  sed -i 's/-shared -Wl/-shared '"$LDFLAGS"'/g' $pkgname/Makefile
+  setconf $pkgname/Makefile \
     CFLAGS="$CFLAGS -shared -fPIC -fvisibility=hidden -fomit-frame-pointer -w"
 }
 
 build() {
-  make -C "$pkgname" LIBDIR=/usr/lib
+  make -C $pkgname LIBDIR=/usr/lib
 }
 
 package() {
-  make -C "$pkgname" LIBDIR=/usr/lib DESTDIR="$pkgdir" install
-  install -Dm644 "$pkgname/LICENSE" \
+  make -C $pkgname LIBDIR=/usr/lib DESTDIR="$pkgdir" install
+  install -Dm644 $pkgname/LICENSE \
     "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
-
-# getver: github.com/wfeldt/libx86emu/releases
-# vim: ts=2 sw=2 et:

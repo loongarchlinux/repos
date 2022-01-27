@@ -2,18 +2,18 @@
 
 _name=importlib_resources
 pkgname=python-importlib_resources
-pkgver=5.2.0
-pkgrel=1
+pkgver=5.4.0
+pkgrel=3
 pkgdesc="Design and implementation for a planned importlib.resources"
 arch=('any')
 url="https://github.com/python/importlib_resources"
 license=('Apache')
-depends=('python')
+depends=('python-zipp')
 makedepends=('python-setuptools-scm' 'python-toml')
 checkdepends=('python-pytest' 'python-tests')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('248de71aec8aae93f14b0c48381e7de4425f1eb0c014a4f4a49859db50e8b0a94c2e1c0a664086c74ac7fe19e526b8e3f4fc82d19d3d722df6625dc0dc708c90')
-b2sums=('570e92750351a72c95653302baee56dadc28a328a8e42af9d3346be9a256c2d43322d75622f78d87b5642ed9503c9b7f1df0b0223414847619efb2ebd5e27f5f')
+sha512sums=('9262c185bdf79fad0a11caabc5c5df836702a74e140a9f60ace857e3f6a60fdb091639b2fb7129b17bad5a46968f43dda7d176fe39af495370dd31f04891fb1b')
+b2sums=('f5be47cb63813aea15f65d251115cf398f695041871fdf6e8885fee11d9a9d7a2fbfd07efd494bd7c91077f99ab871e06d45f49de9f7e501a1691601206bfb55')
 
 prepare() {
   mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
@@ -32,8 +32,6 @@ check() {
 
 package() {
   cd "$pkgname-$pkgver"
-  python setup.py install --skip-build \
-                          --optimize=1 \
-                          --root="${pkgdir}"
+  python setup.py install --optimize=1 --root="${pkgdir}"
   install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

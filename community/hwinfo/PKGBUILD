@@ -5,20 +5,21 @@
 # Contributor: madeye
 # Contributor: ranguvar
 # Contributor: ninja_pt
+
 pkgname=hwinfo
-pkgver=21.74
+pkgver=21.80
 pkgrel=1
 pkgdesc='Hardware detection tool from openSUSE'
 arch=(loongarch64 x86_64)
 url='https://github.com/openSUSE/hwinfo'
 license=(GPL2)
-depends=(libx86emu perl-xml-parser perl-xml-writer)
+depends=('libx86emu=3.5' perl-xml-parser perl-xml-writer)
 makedepends=(flex git sysfsutils)
 options=(!emptydirs)
-source=("git+$url#commit=f4de941605355b4be1d38dc2ee0206841474a47c" # tag: 21.74
-        custom_ioctl.patch)
-b2sums=('SKIP'
-        'f54d3b7332a887d60ea259c4d00b258c9ea5a00de3a7103f750e5794e4d52f2dff9047ef2b0685cc5a76cbe2b6acaf7e08e559083332cd033193681da24e5ec3')
+source=(custom_ioctl.patch
+        "git+$url#commit=f0c3415c6356432f0ed08eac1fc7b1d316b41603") # tag: 21.80
+b2sums=('f54d3b7332a887d60ea259c4d00b258c9ea5a00de3a7103f750e5794e4d52f2dff9047ef2b0685cc5a76cbe2b6acaf7e08e559083332cd033193681da24e5ec3'
+        'SKIP')
 
 prepare() {
   cd $pkgname
@@ -36,6 +37,5 @@ build() {
 package() {
   make -C $pkgname DESTDIR="$pkgdir" LIBDIR=/usr/lib install
   mv "$pkgdir/usr/sbin" "$pkgdir/usr/bin"
+  rmdir "$pkgdir/sbin"
 }
-
-# getver: github.com/openSUSE/hwinfo/releases

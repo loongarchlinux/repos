@@ -3,14 +3,14 @@
 # Contributor: Florian Bruhin (The Compiler) <archlinux.org@the-compiler.org>
 
 pkgname=pdfjs
-pkgver=2.9.359
+pkgver=2.12.313
 pkgrel=1
 pkgdesc="PDF reader in javascript"
 arch=('any')
 url="https://mozilla.github.io/pdf.js/"
 license=('Apache')
 source=("https://github.com/mozilla/pdf.js/releases/download/v${pkgver}/pdfjs-${pkgver}-dist.zip")
-sha256sums=('b053fe9f4e467495b02909a078b055cf708de4ebffcfd8d6e7a348e711714958')
+sha256sums=('f9be28b8c0bcda9d344e17f2922d02d7137488cdfce37e7639ccc582305b4822')
 
 package() {
   mkdir -p "$pkgdir/usr/share/pdf.js"

@@ -1,29 +1,30 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=libxmlb
-pkgver=0.3.0
+pkgver=0.3.6
 pkgrel=1
 pkgdesc="Library to help create and query binary XML blobs"
 arch=(loongarch64 x86_64)
 url="https://github.com/hughsie/libxmlb"
 license=(LGPL)
-depends=(glib2 libstemmer)
+depends=(glib2 libstemmer xz)
 makedepends=(meson gobject-introspection gtk-doc)
 checkdepends=(shared-mime-info)
 source=("https://people.freedesktop.org/~hughsient/releases/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('2d566631fdef99a6f4fc7b4d1ce88eafe19b092b8d436f73dc448307dc6dd98a' 'SKIP')
+sha256sums=('84e0b942c1b9bf69001977f1c365cebeb52e33f44749eb6b727fa3735b0fca54'
+            'SKIP')
 validpgpkeys=(163EB50119225DB3DF8F49EA17ACBA8DFA970E17) # Richard Hughes <richard@hughsie.com>
 
 build() {
-    arch-meson ${pkgname}-${pkgver} build -D stemmer=true
-    ninja -v -C build
+  arch-meson ${pkgname}-${pkgver} build -D stemmer=true
+  ninja -v -C build
 }
 
 check() {
-    meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs
 }
 
 package() {
-    DESTDIR="${pkgdir}" meson install -C build
-    rm -r "${pkgdir}"/usr/{lib,share}/installed-tests/
+  DESTDIR="${pkgdir}" meson install -C build
+  rm -r "${pkgdir}"/usr/{lib,share}/installed-tests/
 }

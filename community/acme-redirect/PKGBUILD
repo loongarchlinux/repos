@@ -1,7 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Contributor: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=acme-redirect
-pkgver=0.5.1
+pkgver=0.5.3
 pkgrel=1
 pkgdesc='Minimal http daemon that answers acme challenges and redirects everything else to https'
 url='https://github.com/kpcyrd/acme-redirect'
@@ -12,22 +13,27 @@ makedepends=('cargo' 'scdoc')
 backup=('etc/acme-redirect.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('d9cecf59c3971c5adf3fcede769c95b8f6306b8711192f9340ffeffc5205a70d7fc4ca6b71c5ce16b87e12fecde019457d6a786355de53a3006e1a3e077c491b'
+sha512sums=('51de13d2aa93b04eaed7c6df2846e3631cded6186bed2d16f479591704c44111a2226b450644e7405d73d99602032283ac84ab183e6d8abba2e3584144d41158'
             'SKIP')
-b2sums=('ccef09fdb08f97c0e8991caf71f9d95e756b6abf49a490a90aa1ed618c3322d507970059e8862db4699954bcb4c78f5b63cbd6f5e9a0baf948aaa3eb7f47c820'
+b2sums=('5f9e62dbff00857a50eaec7e08620608f8b0e4ba9841ca5551ba111ef4e7768032e523304c15b2afacd43d19462df47f982a59b726268a75c775dd2ce958f180'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
 build() {
   cd "${pkgname}-${pkgver}"
-  cargo build --release --locked
+  cargo build --frozen --release
   make docs
 }
 
 check() {
   cd "${pkgname}-${pkgver}"
-  cargo test --release --locked
+  cargo test --frozen
 }
 
 package() {

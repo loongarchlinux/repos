@@ -1,0 +1,40 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Angel Velasquez <angvp@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
+
+_pyname=astroid
+pkgname=python-$_pyname
+pkgver=2.9.1
+pkgrel=1
+pkgdesc='A common base representation of python source code'
+arch=(any)
+url="https://github.com/PyCQA/$_pyname"
+license=(LGPL)
+_pydeps=(lazy-object-proxy
+         typing-extensions
+         wrapt)
+depends=(python
+         "${_pydeps[@]/#/python-}")
+makedepends=(python-setuptools)
+checkdepends=(python-pytest)
+replaces=(python-logilab-astng)
+conflicts=(python-logilab-astng)
+_archive="$_pyname-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('806555807228693bbcf8273651bf66d2ff702c1956031079146b3acb9b9b9a03')
+
+build() {
+	cd "$_archive"
+	python setup.py build
+}
+
+check() {
+	cd "$_archive"
+	pytest
+}
+
+package() {
+	cd "$_archive"
+	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+}

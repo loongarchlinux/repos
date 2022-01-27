@@ -3,7 +3,7 @@
 # Contributor: Gilles Hamel <hamelg at laposte dot net>
 
 pkgname=grafana
-pkgver=8.0.3
+pkgver=8.3.3
 pkgrel=1
 pkgdesc='Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB'
 url='https://grafana.com/'
@@ -49,15 +49,20 @@ prepare() {
   sed -ri 's,^(\s*plugins\s*=).*,\1 /var/lib/grafana/plugins,' conf/defaults.ini
   sed -ri 's,^(\s*provisioning\s*=).*,\1 /var/lib/grafana/conf/provisioning,' conf/defaults.ini
   sed -ri 's,^(\s*logs\s*=).*,\1 /var/log/grafana,' conf/defaults.ini
+
+  sed -i "s/v8.4.0-pre/v$pkgver/" package.json
 }
 
 build() {
   echo 'GOPATH setup'
-  export GOPATH="$srcdir/gopath"
-  export PATH+=":$GOPATH/bin"
-  mkdir -p "$GOPATH/src/github.com/grafana/"
-  ln -fsrT "$srcdir/grafana/" "$GOPATH/src/github.com/grafana/grafana"
-  cd "$GOPATH/src/github.com/grafana/grafana"
+#export GOPATH="$srcdir/gopath"
+#export PATH+=":$GOPATH/bin"
+#mkdir -p "$GOPATH/src/github.com/grafana/"
+#ln -fsrT "$srcdir/grafana/" "$GOPATH/src/github.com/grafana/grafana"
+#cd "$GOPATH/src/github.com/grafana/grafana"
+  cd grafana
+  echo 'Generate golang'
+  make gen-go
 
   echo 'building the backend'
   export CGO_LDFLAGS="${LDFLAGS}"
@@ -71,7 +76,7 @@ build() {
   echo 'building the frontend'
   export NPM_CONFIG_PREFIX="$srcdir/npm"
   export PATH+=":$NPM_CONFIG_PREFIX/bin"
-  yarn install --pure-lockfile --no-progress
+  yarn install
   NODE_ENV=production yarn run build
 }
 

@@ -5,23 +5,31 @@
 
 pkgbase=profanity
 pkgname=('profanity' 'profanity-gtk')
-pkgver=0.10.0
-pkgrel=1
+pkgver=0.11.1
+pkgrel=3
 epoch=1
 pkgdesc='Console based XMPP client'
 url='http://www.profanity.im'
 arch=('loongarch64' 'x86_64')
 license=('GPL3')
+_clidepends=(
+  'libcurl.so' 'libncursesw.so' 'expat' 'glib2' 'libotr'
+  'libmesode.so' 'libnotify.so' 'libcrypt.so'
+  'libgpgme.so' 'python' 'libgcrypt' 'libsignal-protocol-c'
+  'glibc' 'libreadline.so' 'libassuan' 'libgpg-error'
+  )
+_gtkdepends=(
+  'libgtk-3.so' 'libxss' 'libx11' 'libpango-1.0.so'
+  'gdk-pixbuf2' 'libatk-1.0.so' 'cairo'
+  )
 makedepends=(
-  'curl' 'ncurses' 'expat' 'glib2' 'libotr' 'libmesode' 'libnotify' 'gpgme'
-  'python' 'gtk2' 'autoconf-archive' 'libsignal-protocol-c' 'libgcrypt'
-  'libx11' 'libxss' 'libxcrypt' 'glibc' 'freetype2' 'readline' 'libassuan'
-  'harfbuzz' 'pango' 'gdk-pixbuf2' 'atk' 'cairo' 'libgpg-error')
+  ${_clidepends[@]} ${_gtkdepends[@]} 'autoconf-archive'
+  )
 checkdepends=('cmocka')
 source=(https://github.com/profanity-im/profanity/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('9702085e8323a09c12c22b0471214689d70bf0a3b00e438201f14248bf85a1f2')
-sha512sums=('998a190991eb20188a208ee659b6e90f4c15c37ccd2b9013850f20627c09df3af104ba1308a355055766b7e9e29fd5821c5d0df62b501549500af85ad03d3196')
-b2sums=('c8a8d257658a0d892582848fec3b84a13f0b8a2ca4cbeaaf23c7d5e590c61645a989832a9e23e2c52044680edcf79706babec6d83183d7e88f15243f6402e0ee')
+sha256sums=('6a8b0b5a478c3a2b17b8c2eb572a3173a70b4c3740c61dd638a2d04a45147f9f')
+sha512sums=('560116b85516f883711f54f2229619b49179666c6a5459df0dec311cc5ab6919bf648f14888b09f5c4f13a2d834f3c598967fe84ecf1169bc197274e8b5aaa93')
+b2sums=('07aac723f080b482295a2f1f12c7ab0dfa2112d7690bf4c05412497d14dc09dafbb0933650c5240aa465fadbc5a13d48384a7679809925cc47e8b01685cc7a81')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -65,10 +73,7 @@ build() {
 
 package_profanity() {
   depends=(
-    'curl' 'libcurl.so' 'ncurses' 'libncursesw.so' 'expat' 'glib2' 'libotr'
-    'libmesode' 'libmesode.so' 'libnotify' 'libnotify.so' 'libxcrypt' 'libcrypt.so'
-    'gpgme' 'libgpgme.so' 'python' 'libgcrypt' 'libsignal-protocol-c'
-    'glibc' 'readline' 'libreadline.so' 'libassuan' 'libgpg-error'
+    ${_clidepends[@]}
   )
   cd ${pkgbase}-${pkgver}
   make DESTDIR="${pkgdir}" install
@@ -77,14 +82,7 @@ package_profanity() {
 package_profanity-gtk() {
   pkgdesc+=' (gtk support)'
   depends=(
-    'curl' 'libcurl.so' 'ncurses' 'libncursesw.so' 'expat' 'glib2' 'libotr'
-    'libmesode' 'libmesode.so' 'libnotify' 'libnotify.so' 'libxcrypt' 'libcrypt.so'
-    'gpgme' 'libgpgme.so' 'python' 'libgcrypt' 'libsignal-protocol-c'
-    'glibc' 'readline' 'libreadline.so' 'libassuan' 'libgpg-error'
-
-    'gtk2' 'libxss' 'libx11' 'pango' 'libpango-1.0.so' 'libpangoft2-1.0.so'
-    'freetype2' 'libfreetype.so' 'harfbuzz' 'libharfbuzz.so' 'gdk-pixbuf2'
-    'atk' 'libatk-1.0.so' 'cairo'
+    ${_clidepends[@]} ${_gtkdepends[@]}
   )
   provides=('profanity')
   conflicts=('profanity')

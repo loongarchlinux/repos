@@ -2,23 +2,28 @@
 
 _hkgname=genvalidity
 pkgname=haskell-genvalidity
-pkgver=0.11.0.0
-pkgrel=93
+pkgver=1.0.0.1
+pkgrel=1
 pkgdesc="Testing utilities for the validity library"
 url="https://github.com/NorfairKing/genvalidity"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-random' 'haskell-validity')
-makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-core')
+makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-core')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('175bb46ac0d11d899e28f5d4481fc01660614a84a0d0a40a913e42200b757f98d22eb42bf87bf8a0f798c60676d6bfba8cc0824143500d8c4e7d61d4864cee8c')
+sha512sums=('520122e67b3b95798b9701cd090a80886efd4f029f1a7f54b76adf427d8e457ed3eafa1d3fd4d40b5456ae592cd9153e43f8ed2ed52b014a9f5b66de02f8b01f')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

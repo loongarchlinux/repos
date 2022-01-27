@@ -2,17 +2,17 @@
 
 _pkgname=sphinx-argparse-cli
 pkgname=python-$_pkgname
-pkgver=1.5.0
-pkgrel=3
+pkgver=1.8.2
+pkgrel=1
 pkgdesc='Render CLI arguments (sub-commands friendly) defined by argparse module'
 arch=('any')
-url='https://github.com/gaborbernat/sphinx-argparse-cli'
+url='https://github.com/tox-dev/sphinx-argparse-cli'
 license=('MIT')
 depends=('python' 'python-sphinx' 'python-docutils-stubs')
 makedepends=('python-setuptools-scm' 'python-toml')
 checkdepends=('python-pytest')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('95b5ef079620ddbe02e14e120fb58abbb053ae7643c465be0d0bb4888b32ac9e968e0043e6871b09a40abb5c461bcb13c8acd406e4a5859d4086c888409bbad3')
+sha512sums=('c3340441335707bc589323ae9e2eea016f13bad8cc97991367aeab04d19acc75381785a78df17262b7437353a79d7ffa3ab78534f248375950fe77444a9dea21')
 
 build() {
   cd $_pkgname-$pkgver

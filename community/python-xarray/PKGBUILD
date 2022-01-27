@@ -2,14 +2,14 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=0.17.0
-pkgrel=1
+pkgver=0.20.1
+pkgrel=3
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
 url="https://xarray.pydata.org/"
 license=(Apache)
 makedepends=(python-setuptools python-setuptools-scm)
-depends=(python-numpy python-pandas)
+depends=(python-numpy python-pandas python-typing_extensions)
 optdepends=(
   'python-netcdf4: netCDF4 support'
   'python-scipy: interpolation features & fallback for netCDF3 support'
@@ -37,23 +37,27 @@ checkdepends=(
     python-pytest
     python-pytest-xdist
     python-aiobotocore
+    python-aiohttp
     python-bottleneck
     python-boto3
     python-cftime
     python-dask
     python-distributed
+    python-fsspec
     python-h5py
     python-hypothesis
     python-lxml
     python-matplotlib
     python-netcdf4
+    python-numexpr
     python-numpy
     python-pint
+    python-requests
     python-scipy
     python-seaborn
 )
 source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('9c2edad2a4e588f9117c666a4249920b9717fb75703b96998cf65fcd4f60551f')
+sha256sums=('9c0bffd8b55fdef277f8f6c817153eb51fa4e58653a7ad92eaed9984164b7bdb')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -64,7 +68,6 @@ check() {
   cd ${_pkg}-${pkgver}
   # https://github.com/pydata/xarray/issues/4281
   pytest --deselect xarray/tests/test_distributed.py::test_serializable_locks
-  #python -c "import xarray as xr; xr.show_versions()"
 }
 
 package() {
@@ -72,6 +75,4 @@ package() {
   python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
   # Remove tests
   rm -r "${pkgdir}"$(python -c "import site; print(site.getsitepackages()[0])")/xarray/tests
-  # Fix permissions
-  chmod -R a+r "${pkgdir}"$(python -c "import site; print(site.getsitepackages()[0])")/xarray/
 }

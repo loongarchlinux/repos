@@ -2,8 +2,8 @@
 
 _pyname=tasklib
 pkgname=python-${_pyname}
-pkgver=2.3.0
-pkgrel=1
+pkgver=2.4.3
+pkgrel=3
 pkgdesc='Python library for interacting with taskwarrior databases'
 url='http://tasklib.readthedocs.org/en/latest/'
 arch=('any')
@@ -11,8 +11,8 @@ license=('BSD')
 depends=('python' 'python-pytz' 'python-tzlocal')
 makedepends=('python-setuptools' 'python-sphinx')
 source=(https://github.com/robgolding/tasklib/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('8c4e8753bb6637a78d7ac4cf3f9d3b2c78a2ffb28e87cacb8a7ca9333265ce06793f62de7c1d157b2c3c87b0cb862382fbdf797054d73dd8720d2b7b23205014')
-b2sums=('aecf028f91627cb7ca3f83c02404fdc3d7d9ed9fc68342e8732a149195d1c5f6e66845de0a6ff532df60be40faa82e16be041647dbd18be619329fafed5b7a88')
+sha512sums=('438211da96dcb5a80115b0375f6a425f4629de3e49379bb9d98f9e10342c66d2bb35b92cbd794d1fe78741fc58d89a5edc16b10ab7eb22275c9f9f0a4a87e295')
+b2sums=('76150f47942db54b92b522922aa0a668829c4f01d488f2eb33d18fef015a01c1fb72372efb4f5f8fedcb384163eb977d2bd45750c00320e2ff50db4bcae6d2ca')
 
 build() {
   cd ${_pyname}-${pkgver}

@@ -2,9 +2,9 @@
 # Contributor: t3ddy  <t3ddy1988 "at" gmail {dot} com>
 # Contributor: Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>
 pkgname=0ad
-pkgver=a24.b
-_pkgver=0.0.24b-alpha
-pkgrel=5
+pkgver=a25.b
+_pkgver=0.0.25b-alpha
+pkgrel=3
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('loongarch64' 'x86_64')
 url="http://play0ad.com/"
@@ -14,15 +14,12 @@ depends=('0ad-data' 'binutils' 'boost-libs' 'curl' 'enet' 'libogg' 'libpng' 'lib
          'gloox' 'miniupnpc' 'libminiupnpc.so' 'icu' 'nspr' 'libsodium')
 makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust')
 source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz"
-        $pkgname-rust-1.50.patch::https://github.com/0ad/0ad/commit/087a277e66c0456c2d6fdb7403d032ad09cbd18b.patch)
-sha512sums=('8173d393eb1bc57c38bef0076ba973ef46c877c06644365189c0887cd3152adba51d26b553e42221fd14343e9830a3a275bfcd9b28f66281e282ea3f247730ea'
-            '2e2763333dc23b746c4943894f9f0b8f526b7d85de7b8d02faebf95d6d39a54de3511447a679d04c5863ab886a53d66cecd7cac0c2bffc5922084445249e9b48')
+         python-3.10.patch)
+sha512sums=('e8069897b97b381099ab5ec5868d27e96c699105b3307054d1bc7bf9236a537f02625ba9034892d91f3e951b4f95c9ce5fb75ed0a7c14b8a294882482fd9c1b4'
+            '42df5eb7c4a99b31365b7f15c5bcd76c978339f2837eb8bc6ec371979429d0f0a6e31e870f6851aa40fc4859cb3e82f74821a01d04b82b486342db0fa60bf55e')
 
 prepare() {
-  cd "$pkgname-$_pkgver"
-
-  patch -Np1 -i ../$pkgname-rust-1.50.patch
-
+  patch -d $pkgname-$_pkgver -p1 < python-3.10.patch # Fix spidermonkey build with Python 3.10
 }
 
 build() {

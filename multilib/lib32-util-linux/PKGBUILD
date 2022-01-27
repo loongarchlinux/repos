@@ -4,7 +4,7 @@
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
 _pkgmajor=2.37
-_realver=${_pkgmajor}
+_realver=${_pkgmajor}.2
 pkgver=${_realver/-/}
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
@@ -16,7 +16,7 @@ license=('GPL2')
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("https://www.kernel.org/pub/linux/utils/util-linux/v${_pkgmajor}/${_pkgbasename}-${_realver}.tar."{xz,sign})
-sha256sums=('bd07b7e98839e0359842110525a3032fdb8eaf3a90bedde3dd1652d32d15cce5'
+sha256sums=('6a0764c1aae7fb607ef8a6dd2c0f6c47d5e5fd27aa08820abaad9ec14e28e9d9'
             'SKIP')
 
 build() {

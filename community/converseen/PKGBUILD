@@ -3,17 +3,16 @@
 # Contributor: archtux <antonio.arias99999 at gmail.com>
 
 pkgname=converseen
-pkgver=0.9.9.0
-pkgrel=2
+pkgver=0.9.9.3
+pkgrel=1
 pkgdesc='Batch image converter and resizer'
 arch=('loongarch64' 'x86_64')
 url='http://converseen.fasterland.net/'
 license=('GPL3')
-depends=('djvulibre' 'ghostscript' 'hicolor-icon-theme' 'libheif' 'imagemagick' 'libraw' 'librsvg'
-         'libwebp' 'libwmf' 'libzip' 'openexr' 'qt5-base')
-makedepends=('cmake' 'qt5-tools')
+depends=('hicolor-icon-theme' 'imagemagick' 'qt5-base')
+makedepends=('cmake' 'qt5-tools') 
 source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2")
-sha256sums=('f3812bfe2768463a2aa5eea98cce665a1cff7d543a0915ff3a836c837f2867c6')
+sha256sums=('ba00010cddb35ab668e9b7e6cbe25ad7f3f867e09409f5e338bf96cd40e564cb')
 
 prepare() {
   cd $pkgname-$pkgver

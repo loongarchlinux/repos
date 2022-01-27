@@ -1,27 +1,33 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=xh
-pkgver=0.10.0
+pkgver=0.14.1
 pkgrel=1
 pkgdesc="Friendly and fast tool for sending HTTP requests"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/ducaale/xh"
 license=('MIT')
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('cargo')
 replaces=('ht-rs' 'ht')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('07d63045f13a0c77990dfd1132f60d20bfddfd0625df49ee22cf4c7e3b3b46fa')
+sha256sums=('ca89e8a9a230ff16cc0bba5bd7ebdceb986eac84638e15b4928d737b9ec12776')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --locked
+  cargo build --frozen --release --features native-tls
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --release --locked
+  cargo test --frozen --features native-tls
 }
 
 package() {

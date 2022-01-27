@@ -2,7 +2,7 @@
 # Contributor: Francisco Lopes
 
 pkgname=interception-tools
-pkgver=0.6.6
+pkgver=0.6.8
 pkgrel=1
 pkgdesc='A minimal composable infrastructure on top of libudev and libevdev'
 arch=('loongarch64' 'x86_64')
@@ -17,7 +17,7 @@ makedepends=('cmake' 'systemd' 'boost')
 source=(
     "$pkgname-$pkgver.tar.gz::https://gitlab.com/interception/linux/tools/-/archive/v$pkgver/tools-v$pkgver.tar.gz"
 )
-sha256sums=('6917eb7109c7514ef620f7ea184f95e7be522b8f5b226b121675c0a7f628afee')
+sha256sums=('84ced1c10bef7f00660704685c651c4241096cc9848c31f5a04f166e1450949d')
 
 build() {
     cmake -B build \

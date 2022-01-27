@@ -2,7 +2,7 @@
 # Contributor: Sam Stuewe <halosghost at archlinux dot info>
 
 pkgname=hashcat
-pkgver=6.2.2
+pkgver=6.2.5
 pkgrel=1
 epoch=1
 pkgdesc='Multithreaded advanced password recovery utility'
@@ -13,7 +13,7 @@ makedepends=('opencl-headers')
 provides=('libhashcat.so')
 license=('MIT')
 source=(https://hashcat.net/files/${pkgname}-${pkgver}.tar.gz{,.asc})
-sha512sums=('7c906a96f682f03672976dd420492bd78e9455a174a2e82ebf064cf75609e6e1322b07113f2868c8bf53948575ce094a0b6fe98b17ea65c065bb27561dc2cc81'
+sha512sums=('2b881146c625172c91cb74b33851473155dcde2421fba1b4acfba28116499b9cff832a62c4dbc24e16df06a827494f30699a7d0e5195d5ed107704f525255383'
             'SKIP')
 validpgpkeys=('A70833229D040B4199CC00523C17DA8B8A16544F') # Hashcat signing key <signing@hashcat.net>
 

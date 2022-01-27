@@ -2,7 +2,7 @@
 
 _pyname=pysol_cards
 pkgname=python-$_pyname
-pkgver=0.10.1
+pkgver=0.14.2
 pkgrel=3
 pkgdesc='Deal PySol FC Cards'
 arch=(any)
@@ -10,8 +10,8 @@ url='https://pypi.org/project/pysol-cards/'
 license=(MIT)
 depends=(python-pbr)
 makedepends=(python-setuptools)
-source=("https://pypi.io/packages/source/p/$_pyname/$_pyname-$pkgver.tar.gz")
-sha256sums=('ea6ac7e5849d0002cc880868f3a82a84332d5bbb79eb6496ed9676a104046297')
+source=(https://pypi.io/packages/source/p/$_pyname/$_pyname-$pkgver.tar.gz)
+sha256sums=('c08de857577bc3eec970c3add3c45b365316cc2844acd6083bb56ea31d40eaf0')
 
 package() {
   cd $_pyname-$pkgver

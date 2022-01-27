@@ -4,7 +4,7 @@
 # Contributor: Yannick LM <LMyannicklm1337@gmail.com>
 
 pkgname=tint2
-pkgver=17.0
+pkgver=17.0.2
 pkgrel=1
 pkgdesc='Basic, good-looking task manager for WMs'
 arch=(loongarch64 x86_64)
@@ -12,7 +12,7 @@ url='https://gitlab.com/o9000/tint2'
 license=(GPL2)
 depends=(gtk3 imlib2 startup-notification)
 makedepends=(cmake git ninja setconf)
-source=("git+https://gitlab.com/o9000/tint2#commit=7737edff47a952604d543e36bf9190b211cf92fe") # tag: v17.0
+source=("git+$url#commit=f8f9c18cef88239688c62fdba70db9b082e1f0f4") # tag: v17.0.2
 b2sums=(SKIP)
 
 prepare() {

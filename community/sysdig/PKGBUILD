@@ -4,24 +4,21 @@
 
 pkgbase=sysdig
 pkgname=(sysdig sysdig-dkms)
-pkgver=0.27.1
-pkgrel=6
+pkgver=0.28.0
+pkgrel=4
 pkgdesc="Open source system-level exploration and troubleshooting tool"
 arch=('loongarch64' 'x86_64')
 url="https://www.sysdig.com/"
 license=('GPL2' 'Apache' 'MIT')
-makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc')
+makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so')
 source=("https://github.com/draios/sysdig/archive/$pkgver/$pkgbase-$pkgver.tar.gz"
-        "bashcomp-location.patch"
-        "glibc.patch")
-sha256sums=('b9d05854493d245a7a7e75f77fc654508f720aab5e5e8a3a932bd8eb54e49bda'
-            'aaee8a0ff414a24c5d5a479229324be1667bc5eb70702838f5d617fd986f947b'
-            '9d9ee715500cb5c3709cf6a77e95421edaaae5f15dbb1c7c8ad2147cc9637939')
+        "bashcomp-location.patch")
+sha256sums=('817e595d501acf3fe11dc659a154aadbba848dd87ae801f5bf34a42e84979f37'
+            'aaee8a0ff414a24c5d5a479229324be1667bc5eb70702838f5d617fd986f947b')
 
 prepare() {
   cd "$srcdir"/$pkgbase-$pkgver
   patch -p1 -i "$srcdir"/bashcomp-location.patch
-  patch -p1 -i "$srcdir"/glibc.patch
 }
 
 build() {
@@ -45,7 +42,7 @@ build() {
 
 package_sysdig() {
   optdepends=('sysdig-dkms: kernel module for live inspection')
-  depends=('jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc')
+  depends=('jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so')
 
   cd "$srcdir"/$pkgbase-$pkgver/build
   make install DESTDIR="$pkgdir"

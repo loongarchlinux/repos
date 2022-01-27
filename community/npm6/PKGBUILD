@@ -3,7 +3,7 @@
 
 pkgname=npm6
 _pkgname=npm
-pkgver=6.14.13
+pkgver=6.14.15
 pkgrel=1
 pkgdesc='A package manager for javascript'
 arch=('any')
@@ -11,14 +11,14 @@ url='https://www.npmjs.com/'
 license=('custom:Artistic')
 provides=('npm')
 conflicts=('npm')
-depends=('nodejs' 'node-gyp' 'semver')
+depends=('nodejs-lts-fermium' 'node-gyp' 'semver')
 # libgl: TODO
 # libvips: for sharp (doc build) (disabled as current version of gatsby imports a broken sharp)
 # libxi: for cwebp (doc build)
 makedepends=('libgl' 'libxi' 'marked' 'marked-man' 'procps-ng' 'python')
 options=('!emptydirs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/npm/cli/archive/v$pkgver.tar.gz")
-sha512sums=('8a623054ec2fd4423b841ab6e4e4ea48cb4b1a8e1a52f32faef19464dc50b391066c568aa910852304278319a061a5cc0aa2565eda1640171d4231f2ce2f77a3')
+sha512sums=('9cf3412d25c2fa4137a30b9144e8bb668d6f606e877e709d2c02e00826da86a75fbd320136f471a17495e163cd91e3898f5759ab64e0b83fed494e9a0bcb28f4')
 
 prepare() {
   cd cli-$pkgver

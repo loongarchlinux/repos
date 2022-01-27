@@ -3,8 +3,8 @@
 
 pkgname=shotcut
 pkgdesc='Cross-platform Qt based Video Editor'
-pkgver=21.05.18
-pkgrel=2
+pkgver=21.10.31
+pkgrel=1
 arch=('loongarch64' 'x86_64')
 url='https://www.shotcut.org'
 license=('GPL3')
@@ -14,7 +14,7 @@ depends=('qt5-base' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-multimedia'
 optdepends=('swh-plugins: Several audio filters')
 makedepends=('qt5-tools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mltframework/shotcut/archive/v$pkgver.tar.gz")
-sha512sums=('5f8ea42b8970e82e9222643a0da9ae7d3399b61e003b0d69158e5a7ec258ad53d937bf8264123f95cbfcb40e31f52c8c0f0e81bf32f159b0c501e3d1660a7bfb')
+sha512sums=('de5d9992a41217323b3d96cc7618ed5adc633e7d0e65b6f8f189405008f6faba011a80f38cda0126b18ab28a359f6784078cb298b2ee29dcdfdc6769963714f3')
 
 build() {
   mkdir $pkgname-$pkgver/build

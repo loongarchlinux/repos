@@ -2,20 +2,25 @@
 
 pkgname=nomad-driver-containerd
 _pkgname=containerd-driver
-pkgver=0.8
-pkgrel=2
+pkgver=0.9.2
+pkgrel=1
 pkgdesc="A nomad taskdriver for containerd containers"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/Roblox/nomad-driver-containerd"
 license=('MPL2')
-depends=('nomad' 'glibc' 'containerd')
+depends=('nomad' 'containerd')
 makedepends=('go' 'git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('ad1d8dec8351b6e4c852119c60d8f00a2a4ca66183036fc189dc9ab54ff5792f3d9989a67792c61ebb2c439fabf409814526d117f9826cc1a2bf6b69bd11c5ce')
+b2sums=('13c5cc9fa3bc55a5be04fdc89031b63b1efc49ca4dc9d1e7820c456f89776cda11ae353ae7464d5bb9f5d7627c677ad695c86d35fae921ab71c53c968be4a8ad')
 
 prepare() {
 	cd "$pkgname-$pkgver"
+
+  # create directory for build output
   mkdir build
+
+  # download dependencies
+  go mod vendor
 }
 
 build() {
@@ -23,7 +28,7 @@ build() {
   go build \
     -trimpath \
     -buildmode=pie \
-    -mod=readonly \
+    -mod=vendor \
     -modcacherw \
     -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
     -o build \

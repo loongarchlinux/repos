@@ -1,5 +1,6 @@
 # Maintainer: Jelle van der Waa <jelle@vdwaa.nl>
-# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Petrov Roman <nwhisper@gmail.com>
@@ -8,35 +9,36 @@
 
 pkgbase=calibre
 pkgname=calibre
-pkgver=5.22.1
-pkgrel=1
+pkgver=5.34.0
+pkgrel=2
 pkgdesc="Ebook management application"
 arch=('loongarch64' 'x86_64')
 url="https://calibre-ebook.com/"
 license=('GPL3')
-_py_deps=('apsw' 'beautifulsoup4' 'cchardet' 'cssselect' 'css-parser' 'dateutil' 'dbus' 'dnspython'
-          'feedparser' 'html2text' 'html5-parser' 'lxml' 'markdown' 'mechanize' 'msgpack'
+_py_deps=('apsw' 'beautifulsoup4' 'cchardet' 'cssselect' 'css-parser' 'dateutil' 'dnspython'
+          'feedparser' 'html2text' 'html5-parser' 'jeepney' 'lxml' 'markdown' 'mechanize' 'msgpack'
           'netifaces' 'unrardll' 'pillow' 'psutil' 'py7zr' 'pychm' 'pygments' 'pyqt5'
           'pyqtwebengine' 'regex' 'zeroconf')
 depends=('hunspell' 'hyphen' 'icu' 'jxrlib' 'libmtp' 'libstemmer' 'libusb'
          'libwmf' 'mathjax' 'mtdev' 'optipng' 'podofo'
          "${_py_deps[@]/#/python-}" 'qt5-imageformats' 'qt5-svg' 'ttf-liberation' 'udisks2')
 makedepends=('qt5-x11extras' 'sip' 'pyqt-builder' 'xdg-utils' 'rapydscript-ng')
-checkdepends=('xorg-server-xvfb')
 optdepends=('poppler: required for converting pdf to html'
             'speech-dispatcher: TTS support in the viewer')
 conflicts=('calibre-common' 'calibre-python3')
 replaces=('calibre-common' 'calibre-python3')
 source=("https://download.calibre-ebook.com/${pkgver}/calibre-${pkgver}.tar.xz"
-        "https://calibre-ebook.com/signatures/${pkgbase}-${pkgver}.tar.xz.sig")
-sha256sums=('93c5e30ff08159694283d08a6b43c37e01a8454c6e7eb66a071e677c2681b516'
-            'SKIP')
-b2sums=('8ce1329c7195625579f6b6bdc4e0083cf1a29caa4565e5c88ab943347623d2f0e5def8fdfbf59f31c97af37085d79820fa1ca2ca516bfeb5d582b714ea3ed09c'
-        'SKIP')
+        "https://calibre-ebook.com/signatures/${pkgbase}-${pkgver}.tar.xz.sig"
+         https://github.com/kovidgoyal/calibre/commit/dafa08e9.patch)
+sha256sums=('d4d401eefadc534851df4f3ff247949ffac785dbc993901bd2938c3f2894d7e3'
+            'SKIP'
+            '72f5fa0a38b24867400efafac1dcb3bf71c1ba0ea8620c1dafdbbdde8c978b38')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
     cd "${pkgbase}-${pkgver}"
+
+    patch -p1 -i ../dafa08e9.patch # Fix python lib dir
 
     # Desktop integration (e.g. enforce arch defaults)
     # Use uppercase naming scheme, don't delete config files under fakeroot.
@@ -74,10 +76,7 @@ check() {
         'pycryptodome'
     )
 
-    # without xvfb-run this fails with much "Control socket failed to recv(), resetting"
-    # ERROR: test_websocket_perf (calibre.srv.tests.web_sockets.WebSocketTest)
-    # one or two tests are a bit flaky, but the python3 build seems to succeed more often
-    LANG='en_US.UTF-8' xvfb-run python setup.py test "${_test_excludes[@]/#/--exclude-test-name=}"
+    LANG='en_US.UTF-8' python setup.py test "${_test_excludes[@]/#/--exclude-test-name=}"
 }
 
 package() {

@@ -2,17 +2,17 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=pysolfc
-pkgver=2.10.1
-pkgrel=2
+pkgver=2.14.1
+pkgrel=1
 pkgdesc="PySol (Fan Club edition) is an exciting collection of more than 1000 solitaire games"
 arch=('any')
 url="http://pysolfc.sourceforge.net/"
 license=('GPL3')
 depends=('python-attrs' 'pysolfc-cardsets' 'python-configobj' 'python-pillow' 
-         'python-pysol_cards' 'python-random2' 'python-six' 'tk')
+         'python-pysol_cards' 'python-random2' 'python-six' 'tk' 'python-pygame')
 makedepends=('python-setuptools')
 source=(https://downloads.sourceforge.net/$pkgname/PySolFC-$pkgver.tar.xz)
-sha256sums=('f09724f2fdef3f16d8ba5cf834872e31f559bb389f6b5226ff9aa2edbf17d319')
+sha256sums=('46f817abc5c45cfb2f7ddcdac391ef38084173837f850cbb7d73a94627c8942c')
 
 prepare() {
   cd PySolFC-$pkgver

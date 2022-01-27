@@ -2,8 +2,8 @@
 # Contributor: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
 
 pkgname=python-blessed
-pkgver=1.18.1
-pkgrel=1
+pkgver=1.19.0
+pkgrel=3
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
 url=https://github.com/jquast/blessed
@@ -19,7 +19,7 @@ makedepends=(
 checkdepends=(
   python-tox
 )
-_tag=0770aa157fee0ea159942416bd9e2a2c8585a59b
+_tag=bf0ef3073faf131b29c3f9b876d8f4816b9b2f46
 source=(git+https://github.com/jquast/blessed.git#tag=${_tag})
 sha256sums=(SKIP)
 
@@ -38,7 +38,7 @@ build() {
 check() {
   cd blessed
 
-  tox -e py39
+  tox -e py310
 }
 
 package() {

@@ -2,43 +2,39 @@
 
 _name=django-allauth
 pkgname=python-django-allauth
-pkgver=0.44.0
-pkgrel=1
+pkgver=0.47.0
+pkgrel=2
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
-arch=('any')
+arch=(any)
 url="https://github.com/pennersr/django-allauth"
-license=('MIT')
-depends=('python-django' 'python-openid' 'python-requests'
-'python-requests-oauthlib' 'python-pyjwt')
-makedepends=('python-setuptools')
-checkdepends=('python-coverage' 'python-mock' 'python-pytest')
+license=(MIT)
+depends=(python-django python-openid python-requests python-requests-oauthlib
+python-pyjwt)
+makedepends=(python-setuptools)
+checkdepends=(python-mock python-pytest)
 # tests are not available in pypi sdist:
 # https://github.com/pennersr/django-allauth/issues/2439
 # source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-source=("${_name}-${pkgver}.tar.gz::https://github.com/pennersr/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('7d864a499f516c91faac0e33d9f235770eadfdfd3314a2fa8d836c3be417a3c8e9dfeba72e06ba02a199ec227702b7eaaea385c5e254fc811dfb9c2fc3425914')
-b2sums=('84ec4b6ab31fed7eccc7aea8092c4a5f9f9e73c365bf66b6b7b59d1e5143d3b327a6e698f45ddab949c5a58fa73363fd2724ae00817a9df78ef76f665a6f77dc')
-
-prepare() {
-  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
-}
+source=(
+  "${_name}-${pkgver}.tar.gz::https://github.com/pennersr/${_name}/archive/${pkgver}.tar.gz"
+)
+sha512sums=('535f333523f2f72a0c33aecaa974817fb2bd0bc1ac6cd0d8c77ead4b71d2521f3822886ae394202a67c023e645e3ac1923345232691205afa725f04077ea0377')
+b2sums=('9cfdb92c1f35acf1da8721346f3386e1ca770e0c86998373e51e3d6da2b158711f1230cab3959361ce1cbac6bccf17f723a776b01f178e860d604ed53aae2940')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "${_name}-$pkgver"
   python setup.py build
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "${_name}-$pkgver"
   export PYTHONPATH="build:${PYTHONPATH}"
-  coverage run manage.py test allauth
+  python manage.py test allauth
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  python setup.py install --skip-build \
-                          --optimize=1 \
-                          --root="${pkgdir}"
+  cd "${_name}-$pkgver"
+  python setup.py install --optimize=1 --root="${pkgdir}"
   install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }

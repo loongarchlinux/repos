@@ -1,0 +1,59 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: John K. Luebs <jkl at johnluebs dot tld>
+
+pkgname=tea
+pkgver=0.8.0
+pkgrel=1
+pkgdesc="A command line tool to interact with Gitea servers"
+arch=('loongarch64' 'x86_64')
+url="https://gitea.com/gitea/tea"
+license=('MIT')
+makedepends=('go')
+replaces=('gitea-tea')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('deb67690c92cb2b48612ddf1cf5fb7efed6a6ad516e41956c26981b8abf94854ad6af47daa526242d8632d21b30b07dd681856434b5097c2ce75345ab970da4f')
+b2sums=('689fe4df71ed5acc8d9a0050970c33f1d659623ce94d08e75cac22cf84b3be203818477a509c0c12d2c0ab90b99c5004e1d6052fc487f4c23c33f52f9f4673ae')
+
+prepare() {
+  cd "$pkgname"
+
+  # create directory for build output
+  mkdir build
+
+  # fix zsh completion
+  sed -i "s/\$PROG/tea/" contrib/autocomplete.zsh
+}
+build() {
+  cd "$pkgname"
+
+  # set Go flags
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  local TAGS=""
+
+  go build -v \
+    -trimpath \
+    -buildmode=pie \
+    -mod=vendor \
+    -modcacherw \
+    -ldflags "-linkmode external -extldflags $LDFLAGS \
+    -X main.Version=${pkgver} \
+    -X main.Tags=${TAGS}" \
+    -o build \
+    .
+}
+
+package() {
+  cd "$pkgname"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" build/tea
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+
+  # completions
+  install -vDm644 contrib/autocomplete.sh "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm644 contrib/autocomplete.zsh "$pkgdir/usr/share/zsh/site-functions/_tea"
+}

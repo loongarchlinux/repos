@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-log
-pkgver=4.5.0
-pkgrel=2
+pkgver=4.6.1
+pkgrel=3
 pkgdesc="Oslo Logging Library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.log/$pkgver"
@@ -14,7 +14,7 @@ depends=('python-pbr' 'python-oslo-config' 'python-oslo-context' 'python-oslo-i1
 makedepends=('python-setuptools')
 checkdepends=('python-oslotest')
 source=("https://github.com/openstack/oslo.log/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('a1e1b78b96ea60e0531d00009f0e9d54b69b611c6f62ec0b777061ffa01d814d72da068f1a6b56735d135a149015e9ab56132ab729e90f748eb57f28b5fc906e')
+sha512sums=('6cace83680b01a311d2bb5befbc3fa19cc7795363f202b5d702acb7a82505db9b1e92419ce4537f2be739f111b399468ac741f3672a6ff443be0017427372d7b')
 
 export PBR_VERSION=$pkgver
 

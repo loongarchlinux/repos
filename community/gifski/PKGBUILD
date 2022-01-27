@@ -2,7 +2,7 @@
 # Contributor: Philipp Wolfer <ph.wolfer@gmail.com>
 
 pkgname=gifski
-pkgver=1.4.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc='GIF encoder based on libimagequant (pngquant). Squeezes maximum possible quality from the awful GIF format.'
 arch=('loongarch64' 'x86_64')
@@ -10,7 +10,7 @@ url='https://gif.ski'
 license=('AGPL3')
 makedepends=('rust' 'clang' 'openmp')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ImageOptim/$pkgname/archive/$pkgver.tar.gz")
-sha512sums=('7b9b5691597fb4b2b4fabd1e9d9863217d19a74ca60d5b2fc5f4ed23e70f38d5c9620b4cfd990cd0e5cb739d76b4ea4ea6e09b1e24efbd6ec23d68731df78af4')
+sha512sums=('59e849eed4c2e6cb5595097362f62ea16283544c8b1eab1e197285e9da5f8e00378d721ca807c06d9be22db88d3a62eb13411bda179b45bc2bc8815738037d34')
 
 build() {
   cd $pkgname-$pkgver

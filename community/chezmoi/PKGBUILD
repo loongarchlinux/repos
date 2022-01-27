@@ -3,7 +3,7 @@
 # Contributor:  <godeater@gmail.com>
 
 pkgname=chezmoi
-pkgver=2.0.16
+pkgver=2.9.4
 pkgrel=1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('loongarch64' 'x86_64')
@@ -11,8 +11,16 @@ url='https://www.chezmoi.io/'
 license=('MIT')
 makedepends=('go' 'git')
 depends=('glibc')
+checkdepends=('zip')
+options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
-sha512sums=('53988ec6f7ef7cc98493a7aa2cf705ac0b8e1d41ca88598f7ed2df964171628ead2f5c5c49e7d682c85fc54a53d2903bcf21159f31b4253599091070ddfea5c7')
+sha512sums=('f62426ee041b32d804da0add741cc2b7e630d6a81f975851a433e3eb99bf957b474edc960c5fe53032776b378777a8779f9017e66e387b9ce97c8bf60e7693c0')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  go mod download
+}
 
 build() {
   cd "$pkgname-$pkgver"
@@ -21,12 +29,12 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOPROXY=off
   go build \
     -trimpath \
     -buildmode=pie \
     -mod=readonly \
-    -modcacherw \
-    -tags noupgrade,noembeddocs \
+    -tags noupgrade \
     -ldflags "-X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
               -X main.version=$pkgver \
               -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@${SOURCE_DATE_EPOCH}) \

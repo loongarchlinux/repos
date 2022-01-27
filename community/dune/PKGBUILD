@@ -3,33 +3,32 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=dune
-pkgver=2.8.5
-pkgrel=1
+pkgver=2.9.1
+pkgrel=2
 pkgdesc="A composable build system for OCaml (formerly jbuilder)"
 arch=(loongarch64 x86_64)
 url="https://github.com/ocaml/dune"
 license=(Apache)
-depends=(glibc "ocaml>=4.11.1" ocaml-findlib ocaml-csexp)
+depends=('glibc' 'ocaml>=4.13.1' 'ocaml-findlib' 'ocaml-csexp')
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('4d0d8611aeb945afdff4319d7195e3b84e1896e64010a2809ca59d3e0721eded3e7c560cf28ea19c93f5a82b1843d97165751060a6b2425c8db9a7cfc17d6e32')
+sha512sums=('4fcff34de4acc4429dd73864ca90e695d8ba436839fd679608f7db292e44be70c3db455a58f59477f2055f84ce497bfa8e90e485ed9536acad3c1b3be3d4be77')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
+    make dune.exe  # this runs `ocaml bootstrap.ml`, but keeps upstream's choice
     dune_release_pkgs='dune,dune-action-plugin,dune-build-info,dune-configurator,dune-glob,dune-private-libs,dune-site'
-    make dune.exe
-    ./dune.exe build -p $dune_release_pkgs --profile dune-bootstrap
+    ./dune.exe build -p "${dune_release_pkgs}" --profile dune-bootstrap
 }
 
-# Tests requires a bunch of (currently) unpackaged dependencies
-#check() {
-#    cd ${pkgname}-${pkgver/b/-beta}
-#    make test
-#}
+# Tests require a bunch of (currently) unpackaged dependencies
+# check() {
+#     cd "${srcdir}/${pkgname}-${pkgver}"
+#     make test
+# }
 
 package() {
     cd "${srcdir}/${pkgname}-${pkgver}"
 
-    # make DESTDIR="${pkgdir}" INSTALL_ARGS="--prefix=/usr --libdir='$(ocamlfind printconf destdir)'" install
     DESTDIR="${pkgdir}" ./dune.exe install --prefix "/usr" --libdir=$(ocamlfind printconf destdir)
     # Fix doc and man install
     rm -r "${pkgdir}"/usr/doc

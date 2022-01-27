@@ -3,8 +3,8 @@
 # Contributor: xantares
 
 pkgname=python-pythran
-pkgver=0.9.11
-pkgrel=2
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='Ahead of Time compiler for numeric kernels'
 arch=(any)
 url='https://pythran.readthedocs.io/'
@@ -12,7 +12,7 @@ license=(BSD)
 depends=(python-networkx python-ply python-numpy python-beniget python-six xsimd boost)
 makedepends=(python-setuptools python-pytest-runner)
 source=(https://files.pythonhosted.org/packages/source/p/pythran/pythran-$pkgver.tar.gz)
-sha256sums=('a317f91e2aade9f6550dc3bf40b5caeb45b7e012daf27e2b3e4ad928edb01667')
+sha256sums=('0b2cba712e09f7630879dff69f268460bfe34a6d6000451b47d598558a92a875')
 
 build() {
   cd pythran-$pkgver

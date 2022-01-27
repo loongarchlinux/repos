@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-editor
-pkgver=5.9.0.50
+pkgver=5.9.14
 pkgrel=1
 pkgdesc='Simple editor for Deepin'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/deepin-editor"
 license=('GPL3')
-depends=('deepin-qt5integration' 'syntax-highlighting' 'kcodecs' 'polkit-qt5')
+depends=('deepin-qt5integration' 'enca' 'kcodecs' 'polkit-qt5' 'syntax-highlighting' 'uchardet')
 makedepends=('cmake' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-editor/archive/$pkgver.tar.gz")
-sha512sums=('ac5639b316162a16e4a54035758d30100fd1d861261192e49af919e190e9375f9d398ba057e9796146d34865dcefd5d071e88207f9347e69b0e36592e0cb9954')
+sha512sums=('6209f591e5fdf5c5b280d20818fbb5eff32bbafb7e5ca8861d481286309bb62b50ddf7fbca202e50fd5f029de626cd45c8502f31fbe6fab5489fa656a2cd9ab7')
 
 build(){
   cd deepin-editor-$pkgver

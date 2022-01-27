@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gping
-pkgver=1.2.1
+pkgver=1.2.6
 pkgrel=1
 pkgdesc="Ping, but with a graph"
 arch=('loongarch64' 'x86_64')
@@ -9,17 +9,23 @@ url="https://github.com/orf/gping"
 license=('MIT')
 depends=('iputils')
 makedepends=('rust')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('e74b1f2aa6e51dd0089b020af28c3928c43e0c0ec1a0b32c421277dc536f0ac6c1819e38cb65ec5b458ddd3eea883cd3bcced39f5ed799900bf423e22eb3ecc2')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-v$pkgver.tar.gz")
+sha512sums=('29c2c6685efe848ccf1396dd2bd729e54d63b500d3ef32ad9c3b4409538dbc95f739d093b0c3b4d2650eddbba62134383849dc4dae0454fd42d3d2010f93dd1e')
+
+prepare() {
+  mv "$pkgname-$pkgname-v$pkgver" "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked
+}
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --locked
+  cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --release --locked
+  cargo test --frozen
 }
 
 package() {

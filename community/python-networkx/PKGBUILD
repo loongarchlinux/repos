@@ -2,30 +2,21 @@
 # Contributor: Clément DEMOULINS <clement@archivel.fr>
 
 pkgname=python-networkx
-pkgver=2.5.1
-pkgrel=2
+pkgver=2.6.3
+pkgrel=4
 pkgdesc='Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.'
 arch=('any')
 license=('BSD')
 url="https://networkx.github.io"
-depends=('python-decorator')
-optdepends=('python-numpy: Provides sparse matrix representation of graphs and many numerical scientific tools.'
-            'python-scipy: Provides flexible drawing of graphs.'
-            'python-pyparsing: Required for pydot, GML file reading.'
-            'python-yaml: Required for YAML format reading and writing.')
+depends=('python-numpy' 'python-scipy' 'python-matplotlib' 'python-pandas')
+optdepends=('python-lxml: for GraphML XML format'
+            'python-pydot: for graph drawing and graph layout algorithms via GraphViz'
+            'python-yaml: for YAML format reading and writing')
+# python-pygraphviz: for graph drawing and graph layout algorithms via GraphViz
 makedepends=('python-setuptools')
-checkdepends=('python-pytest-runner')
-source=("https://github.com/networkx/networkx/archive/networkx-$pkgver.tar.gz"
-        "0001-Updated-decorator-requirement-for-4718.patch")
-sha512sums=('0eb43aa9cedacb3e6dfa44703d300591ce5214e983d01e526f34105e0a565d49ef424c4c4232340b01b3e396a09ed44aee658bab0aa613edcba4d7b9b1aebe6a'
-            '007e3dceb06f20ec7e2e492839e5d21d51966c6b6ae65d92140caebe97745b386ceebc8db6bdd4a8e27f807a7d158f42ddbaaeb2320e533567c19910ae1dd6e4')
-
-prepare() {
-  cd networkx-networkx-$pkgver
-
-  # https://github.com/networkx/networkx/pull/4773
-  patch -p1 -i ../0001-Updated-decorator-requirement-for-4718.patch
-}
+checkdepends=('python-pytest-runner' 'python-lxml' 'python-pydot' 'python-yaml')
+source=("https://github.com/networkx/networkx/archive/networkx-$pkgver.tar.gz")
+sha512sums=('514728c5bd6d3f6e984d96a9c3e98a87825cd5d0552d645d0451a57696a366afb4c24887aa480c64bd2b2f95bd36cc60b2401c9908dcf4635af7fc5ab58f0b74')
 
 build() {
   cd networkx-networkx-$pkgver

@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-sakuracloud
-pkgver=1.16.0
-pkgrel=1
+pkgver=1.19.0
+pkgrel=2
 pkgdesc="Sakura Cloud DNS Authenticator plugin for Certbot"
 arch=('any')
 license=('Apache')
@@ -14,7 +14,7 @@ source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.a
 validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
               'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('ced4cc891541eb83ef3c938f65b17277bd305e8d8beea0fa8b3aa7a73ab3e9c21c171d27b5051668228791cbdae8f94619fcfcb8262eed8f476524ef65be9cf1'
+sha512sums=('f2153a3625bd1adebc0cb0ac8704e970e99cfcdfcd77175a53213c4d6860704d79836fd8f2e4e20e1bf70f46111e630b0a35137d42795f7f08ca3b9711d0eda9'
             'SKIP')
 
 build() {

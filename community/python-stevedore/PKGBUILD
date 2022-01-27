@@ -1,8 +1,8 @@
 # Maintainer: Evangelos Foutras <evangelos@foutrelis.com
 
 pkgname=python-stevedore
-pkgver=3.3.0
-pkgrel=1
+pkgver=3.5.0
+pkgrel=3
 pkgdesc="Manage dynamic plugins for Python applications"
 arch=('any')
 url="https://github.com/openstack/stevedore"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('python-pbr')
 options=('!emptydirs')
 source=(https://pypi.org/packages/source/s/stevedore/stevedore-$pkgver.tar.gz)
-sha256sums=('3a5bbd0652bf552748871eaa73a4a8dc2899786bc497a2aa1fcb4dcdb0debeee')
+sha256sums=('f40253887d8712eaa2bb0ea3830374416736dc8ec0e22f5a65092c1174c44335')
 
 prepare() {
   cd stevedore-$pkgver

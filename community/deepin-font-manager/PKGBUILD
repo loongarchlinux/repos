@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-font-manager
-pkgver=5.8.0.22
+pkgver=5.8.12
 pkgrel=1
 pkgdesc='A font management tool for Deepin desktop'
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ makedepends=('cmake' 'deepin-file-manager' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-font-manager/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7253fd753c6d30e2d3385c2d26655f8eb7004272c256f446c7e6f08c00e5e07101438a160a7bde1f59b561236d8dc20cf98b7d59f9cca670d12e9298a9b8ca19')
+sha512sums=('04e0cbcc66856b0c711b051ec49912e584276b6da74fe4c68102a03768de28b17b993f48eba001e083bad9330334c1fd5cac29890802b8d1fffbd7f5b9dabb9d')
 
 prepare() {
   cd deepin-font-manager-$pkgver

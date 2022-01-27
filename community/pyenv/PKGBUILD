@@ -1,17 +1,17 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=pyenv
-pkgver=2.0.2
+pkgver=2.2.3
 pkgrel=1
 pkgdesc="Easily switch between multiple versions of Python"
-arch=('any')
+arch=(any)
 url="https://github.com/pyenv/pyenv"
-license=('MIT')
-depends=('bash')
+license=(MIT)
+depends=(bash)
 optdepends=('git: installing development versions')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/${pkgname}/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('05f9a7f08f15153093988a5bc6d1fcfa188ba10e8b2d21af9f212217cdd99e84e084af922960c6fc553197a071a571f1caf77375b551282f6d00eec2ca693705')
-b2sums=('53dd3a338ba3921432ee10ac6f8472b20d6e2c5fceccfdd3186ecb3a4239f266708f664c6b230953df1d9c1869dbdda1ef270e48baea1a77a9a2d74feeaf112b')
+sha512sums=('3373246b283fbfc265256f20ec93f0cd74382bda123869278562158e78700410e80bb4891ff5860ab9ccf9ec95018313277edf1f09698f88a3fdb2ac0f99557e')
+b2sums=('516ea2cbfae1e1a8a8c84937ad61b4987bd15b5c763a3a1689b17b040c0e3e5b1b1d00e4acd208b2b35fc863dc4b1cd0f461161e17648b0f146ecd31c3a910a7')
 
 package() {
   cd "$pkgname-$pkgver"
@@ -51,6 +51,8 @@ package() {
     "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
   install -vDm 644 completions/${pkgname}.zsh \
     "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  # man page
+  install -vDm 644 man/man1/*.1 -t "${pkgdir}/usr/share/man/man1/"
   # docs
   install -vDm 644 {CHANGELOG,COMMANDS,README}.md \
     -t "${pkgdir}/usr/share/doc/${pkgname}"

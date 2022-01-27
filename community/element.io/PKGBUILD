@@ -3,45 +3,51 @@
 # Contributor: Luca Weiss <luca (at) z3ntu (dot) xyz>
 # Contributor: Julian Schacher <jspp@posteo.net>
 
+_electron=electron13
 pkgbase=element.io
 pkgname=(element-web element-desktop)
-pkgver=1.7.29
-pkgrel=2
+pkgver=1.9.8
+pkgrel=1
 pkgdesc="Glossy Matrix collaboration client — "
 arch=(loongarch64 x86_64)
 url="https://element.io"
 license=(Apache)
-makedepends=(npm git yarn python rust sqlcipher electron12 nodejs-lts-fermium)
+makedepends=(npm git yarn python rust sqlcipher ${_electron} nodejs-lts-gallium)
 _url="https://github.com/vector-im/element"
 source=(element-web-${pkgver}.tar.gz::${_url}-web/archive/v${pkgver}.tar.gz
         element-web-${pkgver}.tar.gz.asc::${_url}-web/releases/download/v${pkgver}/v${pkgver}-src.tar.gz.asc
         element-desktop-${pkgver}.tar.gz::${_url}-desktop/archive/v${pkgver}.tar.gz
         element-desktop-${pkgver}.tar.gz.asc::${_url}-desktop/releases/download/v${pkgver}/v${pkgver}-src.tar.gz.asc
+        autolaunch.patch
         io.element.Element.desktop
         element-desktop.sh)
-sha256sums=('82d9c036c590b69b2b9c9df70c966246ddefdbeb35090ee9bd5fa15ee71b6739'
+sha256sums=('2bb9869589ce4c2cf7b30c8a7a0cc2786cc5c9dfe7241155eb2c983cb6c6daa5'
             'SKIP'
-            'e09a893660a42fd6e6725c3edd2388d9417534f31230f28777277c817ebe2ad3'
+            '980b8655c08821e4e9ee59a1b670ccbb9fa166ec8aecf40ae3d4b3fb8b5a6e98'
             'SKIP'
+            'aaae4ffa41590361dac0c159aecc1166f69e459e89faa9d5cab1202f0277e06f'
             '0103f28a32fe31f698836516783c1c70a76a0117b5df7fd0af5c422c224220f9'
-            '31b5f7e6efb9643daba7e0edb04284f1d153c05264ee15670c79364746e3e155')
+            '4c931121009985e7d3f73928c9db88508eedd974a7741e635bb290e3a2cd75db')
 validpgpkeys=(712BFBEE92DCA45252DB17D7C7BE97EFA179B100) # Element Releases <releases@riot.im>
 
 prepare() {
+  # Specify electron version in launcher
+  sed -i "s|@ELECTRON@|${_electron}|" element-desktop.sh
+
   cd element-web-${pkgver}
-  # Switch target to output to directory rather than .deb package
-  sed -i 's/"target": "deb"/"target": "dir"/g' package.json
-  yarn install
+  yarn install --no-fund
 
   cd ../element-desktop-${pkgver}
-  sed -i 's@"electronVersion": "12.0.2"@"electronVersion": "12.0.11"@g' package.json
-  sed -i 's@"https://packages.riot.im/desktop/update/"@null@g' element.io/release/config.json
-  yarn install
+  patch -p1 < ../autolaunch.patch
+  sed -i 's|"target": "deb"|"target": "dir"|' package.json
+  sed -i 's|"electron": "13.5"|"electron": "13.6"|' package.json
+  sed -i 's|"https://packages.element.io/desktop/update/"|null|' element.io/release/config.json
+  yarn install --no-fund
 }
 
 build() {
   cd element-web-${pkgver}
-  yarn build
+  VERSION=${pkgver} yarn build --offline
 
   cd ../element-desktop-${pkgver}
   yarn run build:native
@@ -65,7 +71,7 @@ package_element-web() {
 package_element-desktop() {
   pkgdesc+="desktop version."
   replaces=(riot-desktop)
-  depends=("element-web=${pkgver}" electron12 sqlcipher)
+  depends=("element-web=${pkgver}" ${_electron} sqlcipher)
   backup=('etc/element/config.json')
 
   cd element-desktop-${pkgver}

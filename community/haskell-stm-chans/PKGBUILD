@@ -3,8 +3,8 @@
 
 _hkgname=stm-chans
 pkgname=haskell-stm-chans
-pkgver=3.0.0.4
-pkgrel=25
+pkgver=3.0.0.6
+pkgrel=1
 pkgdesc="Additional types of channels for STM."
 url="http://code.haskell.org/~wren/"
 license=("BSD")
@@ -12,14 +12,14 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('7882fa4d036dc3de3dfbfcb62fd54eef5bf679d2adcbdc0653a1cd4c4f1b715dab6a70465573721b141cb9a281f2d6119114445c0dc79c5e4c474250f4f22d18')
+sha512sums=('da8f914f15c31c3c02b3e41cb01017fc8208fa47f24b5a9d90b92b17cc95c13a32b5cc14bd687a773276cd6e88c3ff80d4094b5899160abdd936df70618b122f')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

@@ -1,4 +1,5 @@
-# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: Lex Black <autumn-wind@web.de>
 # Contributor: Michael Jakl <jakl.michael@gmail.com>
@@ -7,32 +8,53 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.6.1
+pkgver=1.7.1
 pkgrel=2
 arch=(loongarch64 x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
 url='https://julialang.org/'
 license=(MIT)
 depends=(cblas fftw hicolor-icon-theme libgit2 libunwind libutf8proc openblas
-         suitesparse mbedtls openlibm pcre2 llvm-libs p7zip)
-makedepends=(cmake gcc-fortran python llvm patchelf)
+         suitesparse mbedtls openlibm pcre2 llvm-libs p7zip libblastrampoline)
+makedepends=(cmake gcc-fortran python llvm patchelf libwhich)
 optdepends=('gnuplot: If using the Gaston Package from julia')
 replaces=(julia-docs)
 source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$pkgver-full.tar.gz{,.asc}
+        https://github.com/JuliaLang/julia/commit/677ce6d3.patch
+        https://github.com/JuliaLang/julia/commit/47f9139e.patch
+        julia-llvm13.patch
+        julia-libgit-1.2.patch
         julia-system-cblas.patch
         julia-hardcoded-libs.patch
-        make-install-no-build.patch)
+        make-install-no-build.patch
+        julia-llvm-patchelf.patch
+        julia-libunwind-1.6.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('71d8e40611361370654e8934c407b2dec04944cf3917c5ecb6482d6b85ed767f'
+sha256sums=('add869121b7e788ff487a234fd39484469dbb3ded29b17041c63c4757515dd58'
             'SKIP'
-            'e44c260e4111908337caa82e1c3fef563b9d40e0a30da68d6e91405bf6db24dc'
-            '7497bff3cc6faac0a0664e620fd5525d7bb19d1bc3d2ff7f4d900dc36d476ceb'
-            '8be4605f92a009072ca7e843549c225fc4e959893498e7c4f8f79e861e63714d')
+            'a798c58ab518def84e4112538de59a10802e7dc854c20b08990a1619ba2aa95b'
+            'c76c6fbb4e04b185d11e3c3e0aec99a2088f3b06621ce61d29cd21227a044a7a'
+            'ab8a8ec61963661dca5bb2fa965dccaa36c500d55ef7b6767b8faef5fff461b5'
+            'c57ea92a11fa8dac72229e6a912d2372ec0d98d63486426fe3bdeeb795de48f7'
+            '8f8c12853ce847f5d1b5a4a461ddec701decdb81dae7bb31d66560c1deaed97a'
+            '03043f005c133ac9af1d4dc113ea8b525ad3b393690625be77975f0e29dd6457'
+            '8be4605f92a009072ca7e843549c225fc4e959893498e7c4f8f79e861e63714d'
+            '6048c69c987f33f2b17d78b63368b0762d1d6a1e531ef9932d0c23bda49d1384'
+            '3afa172e8b54ce48e77542677b2b7143199d444bfeed39be1644ce88b513a3d0')
 validpgpkeys=('3673DF529D9049477F76B37566E3C7DC03D6E495') # Julia (Binary signing key) <buildbot@julialang.org>
 
 prepare() {
   cd $pkgname-$pkgver
 
+# fix build with LLVM 13
+  patch -p1 -i ../677ce6d3.patch
+  patch -p1 -i ../47f9139e.patch
+# Adapt to LLVM 13 type changes
+  patch -p1 -i ../julia-llvm13.patch
+# libgit2 1.2 compatibility
+  patch -p1 -i ../julia-libgit-1.2.patch
+# libunwind 1.6 compatibility
+  patch -p1 -i ../julia-libunwind-1.6.patch
 # Add and use option to build with system cblas
   patch -p1 -i ../julia-system-cblas.patch # Add and use option to build with system cblas
 # Don't hardcode library names
@@ -41,6 +63,8 @@ prepare() {
   patch -p1 -i ../make-install-no-build.patch
 # Fix test failure
   sed -e 's|0.22314355f0 + 3.1415927f0im|0.22314355f0 - 3.1415927f0im|' -i stdlib/LinearAlgebra/test/lu.jl
+# Don't try to run patchelf on system LLVM
+  patch -p1 -i ../julia-llvm-patchelf.patch
 }
 
 _buildopts="prefix=/usr \
@@ -56,7 +80,9 @@ _buildopts="prefix=/usr \
     USE_SYSTEM_LAPACK=1 \
     USE_SYSTEM_GMP=1 \
     USE_SYSTEM_MPFR=1 \
-    USE_SYSTEM_SUITESPARSE=1 \
+    USE_SYSTEM_LIBSUITESPARSE=1 \
+    USE_SYSTEM_LIBBLASTRAMPOLINE=1 \
+    USE_SYSTEM_LIBWHICH=1 \
     USE_SYSTEM_DSFMT=0 \
     USE_SYSTEM_LIBUV=0 \
     USE_SYSTEM_UTF8PROC=1 \
@@ -73,8 +99,6 @@ _buildopts="prefix=/usr \
 build() {
   cd $pkgname-$pkgver
   make release VERBOSE=1 JLDFLAGS=${LDFLAGS} $_buildopts
-
-  ln -s /usr/lib/libopenblas.so usr/lib/julia/libopenblas64_.so # Needed for tests
 }
 
 check() {
@@ -83,7 +107,7 @@ check() {
   # this is the make testall target, plus the --skip option from
   # travis/appveyor/circleci (one test fails with DNS resolution errors)
   # Also skip tests that check for a hardcoded version number
-  ../julia --check-bounds=yes --startup-file=no ./runtests.jl all \
+  ../julia --check-bounds=yes --startup-file=no ./runtests.jl \
     --skip Sockets \
     --skip broadcast \
     --skip Distributed \
@@ -92,11 +116,13 @@ check() {
     --skip LibCURL \
     --skip LibSSH2_jll \
     --skip MbedTLS_jll \
+    --skip MPFR_jll \
     --skip SuiteSparse_jll \
     --skip PCRE2_jll \
     --skip LibGit2_jll \
     --skip MozillaCACerts_jll \
-    --skip NetworkOptions
+    --skip NetworkOptions \
+    --skip Downloads
   find ../stdlib \( -name \*.cov -o -name \*.mem \) -delete
   rm -fr ../stdlib/Artifacts/test/artifacts
 }

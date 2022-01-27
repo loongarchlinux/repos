@@ -1,7 +1,6 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
-
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=ansible
-pkgver=4.2.0
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Official assortment of Ansible collections'
 arch=('any')
@@ -9,7 +8,8 @@ url='https://pypi.org/project/ansible/'
 license=('GPL3')
 depends=('python' 'ansible-core')
 provides=('python-ansible_collections')
-optdepends=('python-pyopenssl: openssl modules'
+optdepends=('python-argcomplete: shell completions'
+            'python-pyopenssl: openssl modules'
             'python-dnspython: for dig lookup'
             'python-ovirt-engine-sdk: ovirt support'
             'python-boto3: aws_s3 module'
@@ -22,11 +22,10 @@ optdepends=('python-pyopenssl: openssl modules'
             'acme-tiny: openssl_certificate module')
 makedepends=('python-setuptools')
 source=("https://pypi.python.org/packages/source/a/ansible/ansible-${pkgver}.tar.gz")
-sha512sums=('4fc106d7af6fc125d11f50221466bbb29971a522c5e33eb0d8f29b197d67ac69fdaf6436d0af8e5227eb24357205d6ca97d9702bde47635166c76fab379cecf6')
+sha512sums=('445cb3cc0bd31f13476e242bc48bc0213547ede514ce94528d689b5e1f75a52e355a8cf58b9331dcdb005d9c48ece478aa69429383a99eff8acd800a2296035a')
 
 build() {
   cd ansible-${pkgver}
-  export PYTHONHASHSEED=0
   python setup.py build
 }
 

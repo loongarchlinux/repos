@@ -2,7 +2,7 @@
 
 pkgname=maui-shelf
 _pkgname=shelf
-pkgver=1.1.1
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='Document and EBook collection manager'
 url='https://mauikit.org/'
@@ -12,7 +12,7 @@ depends=(mauikit-filebrowsing mauikit-texteditor poppler-qt5 hicolor-icon-theme)
 makedepends=(extra-cmake-modules)
 groups=(maui)
 source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('48db21ce904c2c5b0c34cb72bda3abef9782cc587edb2c1b630187b8b074b916')
+sha256sums=('a999ab5b85be1b6220d6e5853190f4fdfc3af887635a607dd36c6ac46bc26824')
 
 build() {
   cmake -B build -S $_pkgname-$pkgver

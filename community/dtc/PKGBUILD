@@ -2,7 +2,7 @@
 # Contributor: Frederic Bezies <fredbezies at gmail dot com>
 
 pkgname=dtc
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=3
 pkgdesc='Device Tree Compiler'
 url='https://www.devicetree.org/'
@@ -10,11 +10,14 @@ arch=(loongarch64 x86_64)
 license=(GPL2)
 makedepends=(swig python)
 checkdepends=(valgrind)
-source=(https://www.kernel.org/pub/software/utils/dtc/dtc-$pkgver.tar.xz)
-sha256sums=('10503b0217e1b07933e29e8d347a00015b2431bea5f59afe0bed3af30340c82d')
+source=(https://www.kernel.org/pub/software/utils/dtc/dtc-$pkgver.tar.xz
+        python310.patch)
+sha256sums=('65cec529893659a49a89740bb362f507a3b94fc8cd791e76a8d6a2b6f3203473'
+            '767b6931887018a1dd7d41bfebebd16ab78a35de06a5689f530e376ab8c6b037')
 
 prepare() {
   cd dtc-$pkgver
+  patch -Np1 -i ../python310.patch
   sed -i 's/-Werror//' Makefile
 }
 

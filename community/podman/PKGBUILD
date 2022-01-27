@@ -4,45 +4,46 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=3.2.2
+pkgver=3.4.4
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(loongarch64 x86_64)
-url='https://github.com/containers/libpod'
+url='https://github.com/containers/podman'
 license=(Apache)
-depends=(cni-plugins conmon containers-common device-mapper iptables libseccomp
-runc slirp4netns libsystemd fuse-overlayfs)
-makedepends=(btrfs-progs go go-md2man git gpgme systemd)
-backup=('etc/cni/net.d/87-podman-bridge.conflist')
+makedepends=(apparmor btrfs-progs device-mapper go go-md2man git gpgme
+             libseccomp systemd)
 source=("git+$url#tag=v$pkgver?signed")
-validpgpkeys=('B7DBDCA456F7335E91F1C25CD3624C551D0515C4')
+validpgpkeys=('B7DBDCA456F7335E91F1C25CD3624C551D0515C4'
+              '7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE')
 sha256sums=('SKIP')
 
 pkgver() {
-  cd libpod
+  cd $pkgname
   git describe --tags | sed 's/^v//;s/-/+/g'
 }
 
 build() {
-  export BUILDTAGS='seccomp systemd'
+  # NOTE: the BUILDTAGS may change over time
+  export BUILDTAGS='apparmor seccomp systemd'
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath"
 
-  cd libpod
+  cd $pkgname
   make EXTRA_LDFLAGS='-s -w -linkmode=external'
 }
 
 package_podman() {
-  depends+=('libgpgme.so')
-  optdepends+=('podman-docker: for Docker-compatible CLI'
+  depends=(cni-plugins conmon containers-common crun fuse-overlayfs iptables
+  libdevmapper.so libgpgme.so libseccomp.so slirp4netns)
+  optdepends=('apparmor: for AppArmor support'
               'btrfs-progs: support btrfs backend devices'
               'catatonit: --init flag support'
-              'crun: support for unified cgroupsv2')
+              'podman-docker: for Docker-compatible CLI')
 
-  cd libpod
+  cd $pkgname
   make install install.completions DESTDIR="$pkgdir" PREFIX=/usr
   # remove man pages provided by containers-common
   rm -rvf "${pkgdir}/usr/share/man/man5"
@@ -54,6 +55,6 @@ package_podman-docker() {
   conflicts=(docker)
   provides=(docker)
 
-  cd libpod
+  cd podman
   make -j1 install.docker-full DESTDIR="$pkgdir" PREFIX=/usr
 }

@@ -3,25 +3,25 @@
 # Contributor: Dany Martineau <dany.luc.martineau@gmail.com>
 
 pkgname=drumstick
-pkgver=2.3.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="MIDI libraries for Qt5/C++"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://drumstick.sourceforge.io/"
-license=('GPL2')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base')
-makedepends=('alsa-lib' 'cmake' 'doxygen' 'docbook-xsl' 'fluidsynth' 'graphviz'
-'libpulse' 'qt5-tools')
-provides=('libdrumstick-alsa.so' 'libdrumstick-file.so' 'libdrumstick-rt.so'
-'libdrumstick-widgets.so')
+license=(GPL2)
+depends=(gcc-libs glibc hicolor-icon-theme qt5-base)
+makedepends=(alsa-lib cmake doxygen docbook-xsl fluidsynth graphviz
+libpulse qt5-tools)
+provides=(libdrumstick-alsa.so libdrumstick-file.so libdrumstick-rt.so
+libdrumstick-widgets.so)
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-sha512sums=('151b2dbcf348f5308d44cfaea1c2cf170133eccc5df7eb380255cbc4f6130ab1fa83fb96d218221c1f528fe1ae4a36815f2f8a29c57499aa82a264a8bfa138d5')
-b2sums=('8ce5cc252646ff221024dd9a2fda58b7a629b05ed78a2d9172f83cd24646d9395141bc1079fec4259b86b996a122bccf2a8bef899e0eb81870f93d490f62c41d')
+sha512sums=('8ab75d4e87d30f7bb77212bddf3dafcf6fc80f2556516464b2f05201350187e0e12b2958805160a9dd22e796da15a473b1e89219d6a9d5147d314ed8c6171128')
+b2sums=('402d33c03c2ae55c263672919c74ee088e38e5d5f174a403fa486a5d8dbd772f4d2435cf2045a39078875e3adb1257b6a4b5bd02d8e5a44175e3bbd4a7486b31')
 
 build() {
   cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE='None' \
+        -DCMAKE_BUILD_TYPE=None \
         -Wno-dev \
         -B build \
         -S .
@@ -38,7 +38,8 @@ check() {
 }
 
 package() {
-  depends+=('libasound.so' 'libfluidsynth.so' 'libpulse.so' 'libpulse-simple.so')
+  depends+=(libasound.so libfluidsynth.so libpulse.so libpulse-simple.so)
+
   cd "${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}/" install -C build
   install -t "${pkgdir}/usr/share/doc/${pkgname}/" \

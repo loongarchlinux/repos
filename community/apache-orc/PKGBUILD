@@ -1,9 +1,10 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
-pkgname=apache-orc
-pkgver=1.6.7
-pkgrel=4
+_pkg=orc
+pkgname=apache-${_pkg}
+pkgver=1.7.1
+pkgrel=2
 pkgdesc="Columnar storage for Hadoop workloads."
 arch=(loongarch64 x86_64)
 url="https://orc.apache.org"
@@ -12,20 +13,18 @@ depends=(lz4 protobuf snappy zlib zstd)
 makedepends=(cmake)
 checkdepends=(gtest)
 options=(staticlibs)
-source=(${pkgname}-${pkgver}.tar.gz::https://github.com/apache/orc/archive/rel/release-$pkgver.tar.gz
-        ${pkgname}-dynamic-linking.patch::https://github.com/apache/orc/commit/ca007d57cb6b399671bc71328f29d040032575df.patch)
-sha256sums=('abdffe48b8d2e7776c3b541ee2241401e49774941ca4a8c759e5d795daec8a45'
-            'b79ff208beecaa52cf0e5f7f3bab2ce637ea642cb087e1d9c72384d21dbf13a1')
+source=(https://downloads.apache.org/${_pkg}/${_pkg}-${pkgver}/${_pkg}-${pkgver}.tar.gz{,.asc})
+sha256sums=(65d71e571238cbcb7c3cbb9a10f7ad988f452d17c58479154be3b9d6ec27d005 SKIP)
+validpgpkeys=(F28C9C925C188C35E345614DEDA00CE834F0FC5C) # Dongjoon Hyun (CODE SIGNING KEY) <dongjoon@apache.org>
 
 prepare(){
-  cd orc-rel-release-${pkgver}
-  patch -Np1 -i ../${pkgname}-dynamic-linking.patch
+  cd ${_pkg}-${pkgver}
   sed -i "s|ByteSize|ByteSizeLong|g" c++/test/CreateTestFiles.cc
   sed -i "s|ByteSize|ByteSizeLong|g" c++/test/TestBufferedOutputStream.cc 
 }
 
 build(){
-  cmake -B build -S orc-rel-release-${pkgver} \
+  cmake -B build -S ${_pkg}-${pkgver} \
     -DCMAKE_CXX_FLAGS="${CXXFLAGS} -fPIC" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX="/usr" \

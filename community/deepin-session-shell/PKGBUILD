@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-shell
-pkgver=5.4.13
+pkgver=5.4.112
 pkgrel=1
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('loongarch64' 'x86_64')
@@ -11,21 +11,21 @@ url="https://github.com/linuxdeepin/dde-session-shell"
 license=('GPL3')
 # qt5-tools: for qdbus executable
 depends=('deepin-daemon' 'deepin-qt5integration' 'deepin-wallpapers' 'gsettings-qt' 'liblightdm-qt5'
-         'qt5-tools' 'startdde')
+         'lightdm' 'qt5-tools' 'startdde')
 makedepends=('cmake' 'gmock' 'gtest' 'ninja')
 conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
 groups=('deepin')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-session-shell/archive/$pkgver.tar.gz")
-sha512sums=('2daa3efad7d0be03fffb07df25845944c4124943044be11cf6f5e43701a0a1fe529456aba4c4b390e932be49c2c16083ecadfeb7736330ffb41788e12c05c4a6')
+source=("https://github.com/linuxdeepin/dde-session-shell/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+        $pkgname-fix-crash.patch::https://github.com/linuxdeepin/dde-session-shell/pull/38.patch)
+sha512sums=('4d8ab3cce164eb14d730d311e0a04015548da3f89ec2c5854318e67f100903f2da06e310af9701a11ac27d41c19ccb1ca0324680b231ac1e633eba5a84731dca'
+            '59d20082938b671999310811770eceb0a69916c82c9dbda77edbb3e210ed069a49f4093f119b92d6b3db3ad76912c13d0955f48f9451aa369a2f92461428c6ef')
 
 prepare() {
   cd dde-session-shell-$pkgver
+  patch -p1 -i ../$pkgname-fix-crash.patch
   # We don't have common-auth on Arch
-  sed -i 's/common-auth/system-login/' src/libdde-auth/authagent.cpp
-
-  # Weird upstream depends on dtkwidget 5.5 and 5.4 at the same time, while they don't really need 5.5
-  sed -i 's|5\.5||' CMakeLists.txt tests/dde-lock/CMakeLists.txt tests/lightdm-deepin-greeter/CMakeLists.txt
+  sed -i 's/common-auth/system-login/' src/libdde-auth/deepinauthframework.cpp
 }
 
 build() {

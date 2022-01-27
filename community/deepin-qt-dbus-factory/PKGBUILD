@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-qt-dbus-factory
-pkgver=5.4.5
+pkgver=5.4.20
 pkgrel=1
 pkgdesc='A repository stores auto-generated Qt5 dbus code (libdframeworkdbus)'
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ license=('GPL3')
 depends=('qt5-base')
 makedepends=('dtkcore' 'python')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-qt-dbus-factory/archive/$pkgver.tar.gz")
-sha512sums=('215414910ac5995120c8b79dc84780cf4dd5e8b150484e182823ca49cb7e7ddf275ebeb731b911509d194a18a68c9a63db09c10490e938778ccf60f56599df3e')
+sha512sums=('211a37d576411f87f1109137c9bbaf37b72c81e971169f0e8f9a66dfadf2f22e3514773dfe27407bca635f349a4bfcd1b3048114b2901527735bce22428b8b86')
 
 build() {
   cd dde-qt-dbus-factory-$pkgver

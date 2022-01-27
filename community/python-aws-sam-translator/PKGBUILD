@@ -1,28 +1,25 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aws-sam-translator
-pkgver=1.36.0
-pkgrel=1
+# https://github.com/aws/serverless-application-model/releases
+pkgver=1.42.0
+pkgrel=3
 pkgdesc='AWS Serverless Application Model (AWS SAM) prescribes rules for expressing Serverless applications on AWS'
 arch=(any)
 url='https://github.com/aws/serverless-application-model'
 license=(Apache)
 depends=(python python-boto3 python-jsonschema python-six)
 makedepends=(python-setuptools)
-checkdepends=(python-pytest python-yaml python-mock python-parameterized)
+checkdepends=(python-pytest python-pytest-env python-yaml python-mock python-parameterized)
 # Upstream intentionally exclude tests from sdist
 # https://github.com/aws/serverless-application-model/pull/381#issuecomment-382143094
-source=("https://github.com/aws/serverless-application-model/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-        "no-install-integration-tests.diff")
-sha256sums=('8922e45d2823086b700e89bd2905eab236a7a1f2f845d0e68d59f23001fcafc1'
-            '44545f773c5b8ea750f2aa03a1fb12bfe289bacd0f7c1da0b7e47fd53d8b0c18')
+source=("https://github.com/aws/serverless-application-model/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('85c8950dd23f2db86ef8f1974e1d426baafc296670d268ee84b6c74a699ebb78')
 
 prepare() {
   cd serverless-application-model-$pkgver
   # skip pytest-coverage
-  sed -i '/addopts/d' pytest.ini
-
-  patch -Np1 -i ../no-install-integration-tests.diff
+  sed -i -r 's#--cov\S*\s+\S+##g' pytest.ini
 }
 
 build() {
@@ -37,7 +34,5 @@ check() {
 
 package() {
   cd serverless-application-model-$pkgver
-  # Work around https://bugs.python.org/issue34033
-  export PYTHONHASHSEED=0
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 }

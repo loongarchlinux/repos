@@ -3,8 +3,8 @@
 # Contributor: Ralf Schmitt <ralf@systemexit.de>
 
 pkgname=python-greenlet
-pkgver=1.1.0
-pkgrel=1
+pkgver=1.1.2
+pkgrel=3
 pkgdesc="Lightweight in-process concurrent programming"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ url="https://pypi.org/project/greenlet/"
 depends=('python')
 makedepends=('python-setuptools')
 source=("https://files.pythonhosted.org/packages/source/g/greenlet/greenlet-${pkgver}.tar.gz")
-sha512sums=('13547917860d9a19f2fab519380121805d8f7801ad47b1584003833a5de66eb703373c71e67b32f13b770d429bcee6856b35bc6fc8afb7be598c2bf509bede03')
+sha512sums=('e7bcc1bfffc80fcaee735ee69f6f53e8f68bd4d3ab8ad6ed813684ffad72340a347e4810f18cc32d9c3948b5c995aefc3a53ce4ae60324093dae12042d33183b')
 
 build() {
 	cd "$srcdir"/greenlet-$pkgver
@@ -21,7 +21,7 @@ build() {
 
 check() {
     cd "$srcdir"/greenlet-$pkgver
-    PYTHONPATH="$PWD/build/lib.linux-$CARCH-3.9" python -m unittest discover -v greenlet.tests
+    PYTHONPATH="$PWD/build/lib.linux-$CARCH-3.10" python -m unittest discover -v greenlet.tests
 }
 
 package() {

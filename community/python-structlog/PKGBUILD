@@ -2,22 +2,24 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-structlog
-pkgver=21.1.0
+# https://www.structlog.org/en/stable/changelog.html
+pkgver=21.5.0
 pkgrel=1
 pkgdesc="Structured Logging for Python"
 url="https://www.structlog.org"
 license=('Apache')
 arch=('any')
-depends=('python-six')
-makedepends=('python-setuptools')
+depends=('python')
+makedepends=('python-build' 'python-flit-core' 'python-install')
 checkdepends=('python-pytest' 'python-freezegun' 'python-pretend' 'python-simplejson'
-              'python-twisted' 'python-rapidjson' 'python-greenlet' 'python-pytest-asyncio')
+              'python-twisted' 'python-rapidjson' 'python-greenlet' 'python-pytest-asyncio'
+              'python-rich')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/hynek/structlog/archive/$pkgver.tar.gz")
-sha512sums=('8ae9a749d19c8dd7eb92d27c04c9f5b5c549eec694f7a3f2963b6479367d270ea175f3be75d90faa1812da1fceb6f189add42a5db19d8c416b2321d58bf7a338')
+sha512sums=('d36388608ca540b6deec85b4d3ecc6878752ee3fc083fc37e51f5baa0e08ab45ade687461fdf071f580e226740498cf98d0ba159f6929cda2dee1d3e3b4f2a59')
 
 build() {
   cd structlog-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -27,5 +29,5 @@ check() {
 
 package() {
   cd structlog-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m install --optimize 0 1 --destdir="$pkgdir" dist/*.whl
 }

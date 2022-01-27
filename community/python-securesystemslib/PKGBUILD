@@ -1,8 +1,8 @@
 # Maintainer: Santiago Torres-Arias <santiago@archlinux.org>
 
 pkgname=python-securesystemslib
-pkgver=0.20.0
-pkgrel=1
+pkgver=0.21.0
+pkgrel=3
 pkgdesc="Cryptographic and general-purpose routines for Secure Systems Lab projects at NYU"
 arch=('any')
 license=('MIT')

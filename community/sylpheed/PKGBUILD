@@ -6,7 +6,7 @@
 
 pkgname=sylpheed
 pkgver=3.7.0
-pkgrel=4
+pkgrel=6
 pkgdesc="Lightweight and user-friendly e-mail client"
 arch=('loongarch64' 'x86_64')
 url="https://sylpheed.sraoss.jp/en/"

@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-k5test
-pkgver=0.9.2
-pkgrel=1
+pkgver=0.10.1
+pkgrel=3
 pkgdesc='Library for setting up self-contained Kerberos 5 environments'
 url='https://github.com/pythongssapi/k5test'
 arch=('any')
@@ -10,8 +10,8 @@ license=('custom')
 depends=('python' 'krb5')
 makedepends=('python-setuptools')
 source=("https://github.com/pythongssapi/k5test/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('0feb0335da75c6201f43760834c723b82428838791f9adddd75a7259e55d9d74e752ce11fdfad9a2964abf9ca2cfe03e4914127af5f3d421fe78966cbeab647e')
-b2sums=('7a4864c6c37725f87b0c4b6263093ac01a190bfd769a288c4f47c5590b42fa452af56150e89fa867b7a5b1ea56204f54b769b31b49113c5921a5209336ac9a36')
+sha512sums=('36687bed6f14a3e53446cc97a556ad16d053f2bf0ab58689bf252382d2374a663cf59c1a4157b11d0e6b07e2016f40e4d0fccb53d8503ed9eb507927a7dfec2b')
+b2sums=('673d94d572b6d37d3124466f6875bece0d37e80a16b5abe43db6a4333eecf3f5e1337b67020d00c2337d87b390df29a57cd563461fec01cfc95ee69adb9a8a39')
 
 build() {
   cd "k5test-${pkgver}"

@@ -4,7 +4,7 @@
 arch=('loongarch64' 'x86_64')
 _pkgname=KDiskMark
 pkgname=kdiskmark
-pkgver=2.2.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="HDD and SSD benchmark tool with a very friendly graphical user interface"
 url="https://github.com/JonMagon/${_pkgname}"
@@ -12,7 +12,7 @@ license=(GPL3)
 depends=(qt5-base fio libaio hicolor-icon-theme kauth)
 makedepends=(git cmake extra-cmake-modules qt5-tools)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/JonMagon/${_pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('f778dd8422ebbeff07d335284a0fd658fc581a87d4a8e07a1c3c7e17dfbe6d3c')
+sha256sums=('06d21c2f52f1dc345bd0e3c965756b70327e96775fe9561aea53efe792d736a7')
 
 build() {
     cmake -B build -S "${_pkgname}-${pkgver}" \

@@ -1,87 +1,93 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qtile
-pkgver=0.17.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc="A full-featured, pure-Python tiling window manager"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="http://www.qtile.org"
-license=('MIT')
-depends=('gdk-pixbuf2' 'glibc' 'libnotify' 'librsvg' 'pango' 'python-cairocffi'
-'python-cffi' 'python-xcffib' 'python-dbus' 'python-gobject'
-'python-setuptools')
-makedepends=('jupyter_console' 'libpulse' 'python-ipykernel' 'python-iwlib'
-'python-keyring' 'python-psutil' 'python-pytest' 'python-setuptools-scm'
-'python-xdg')
-checkdepends=('imagemagick' 'python-psutil' 'python-pytest' 'python-xvfbwrapper' 'xorg-xcalc'
-'xorg-xclock' 'xorg-xeyes' 'xorg-server-xephyr' 'xorg-xrandr' 'xterm')
-optdepends=('alsa-utils: volume widget'
-            'canto-daemon: canto widget'
-            'cmus: cmus widget'
-            'khal: khal_calendar widget'
-            'libpulse: for pulse_volume and pulseaudio_ffi widget'
-            'lm_sensors: sensors widget'
-            'moc: moc widget'
-            'python-iwlib: wlan widget'
-            'python-keyring: imapwidget widget'
-            'python-mpd2: mpd2widget widget'
-            'python-psutil: graph, net and memory widget'
-            'python-setproctitle: change process name to qtile'
-            'python-xdg: launchbar widget'
+license=(MIT)
+depends=(
+  gdk-pixbuf2
+  glibc
+  libnotify
+  librsvg
+  pango
+  python-cairocffi
+  python-cffi
+  python-xcffib
+  python-gobject
+)
+makedepends=(
+  git
+  libpulse
+  python-setuptools-scm
+)
+checkdepends=(
+  graphviz
+  gtk3
+  imagemagick
+  lm_sensors
+  procps-ng
+  python-bowler
+  python-dbus-next
+  python-gobject
+  python-pytest
+  python-pywlroots
+  python-xdg
+  xorg-server-xephyr
+  xorg-server-xvfb
+  xorg-xrandr
+)
+optdepends=(
+  'alsa-utils: for volume widget'
+  'canto-daemon: for canto widget'
+  'cmus: for cmus widget'
+  'jupyter_console: for interaction with qtile via Jupyter'
+  'khal: for khal_calendar widget'
+  'libpulse: for pulse_volume and pulseaudio_ffi widget'
+  'lm_sensors: for sensors widget'
+  'moc: for moc widget'
+  'python-dbus-next: for utils, notifications and several widgets'
+  'python-iwlib: for wlan widget'
+  'python-keyring: for imapwidget widget'
+  'python-mpd2: mpd2widget widget'
+  'python-psutil: graph, net and memory widget'
+  'python-pywlroots: for experimental wayland support'
+  'python-setproctitle: change process name to qtile'
+  'python-xdg: launchbar widget'
 )
 install="${pkgname}.install"
-source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('bfe51aabef2d48693c5bb7525cf67b1bb99cf3af5a653cd81d523e5adaa4767a43e7a87db14f9b85fae3a9e414af41a2e66736556eb1552d099755ba6f39caeb')
-b2sums=('f2290ab823b31cd8ed512f076018a8df19bbfedbb7d5c6932eee7cd46c341a08af04ed0d99f4391d1b3ccc07eb33015bbf0050c1c5d749bace4fb6dcfcb71ac9')
+source=("git+https://github.com/qtile/qtile#tag=v${pkgver}?signed")
+sha512sums=('SKIP')
+b2sums=('SKIP')
+validpgpkeys=(
+  '3CCAB226289DE0160C61BDB418D18F1BC464DCA3' # Tycho Andersen <tycho@tycho.pizza>
+  '35D92E7CC7357A81173EA1C974F9FDD20984FBEC' # Matt Colligan <mcol@posteo.net>
+)
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
   python setup.py build
+  ./scripts/ffibuild
 }
 
 check() {
-  local _python_version="$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')"
-  local _test_dir='test_dir'
-
-  cd "${pkgname}-${pkgver}"
-
-  # install into test location
-  mkdir -vp "${_test_dir}"
-  python setup.py install --skip-build \
-    --optimize=1 \
-    --root="${_test_dir}"
-  # create dummy dir for executable and symlink the test executable to it for
-  # testing
-  mkdir -vp bin
-  ln -svf "../${_test_dir}/usr/bin/${pkgname}" "bin/${pkgname}"
-
-  export PYTHONPATH="${PWD}/${_test_dir}/usr/lib/python${_python_version}/site-packages/:${PYTHONPATH}"
-  export PATH="${PWD}/test_dir/usr/bin:${PATH}"
+  cd "${pkgname}"
   export LC_TYPE=en_US.UTF-8
-  echo "building pango"
-  python3 ./libqtile/pango_ffi_build.py
-  echo "building xcursors"
-  python3 ./libqtile/backend/x11/xcursors_ffi_build.py
-  echo "building pulseaudio volume control"
-  python3 ./libqtile/widget/pulseaudio_ffi.py
-  echo "running pytest"
-  pytest -v
+  pytest -vv --backend x11 --backend wayland
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  python setup.py install --skip-build \
-    --optimize=1 \
-    --root="${pkgdir}"
+  cd "${pkgname}"
+  python setup.py install --optimize=1 --root="${pkgdir}"
   # license
   install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
   # config
-  install -vDm 644 libqtile/resources/default_config.py \
-    -t "${pkgdir}/usr/share/doc/${pkgname}/"
-  # desktop file
-  install -vDm 644 "resources/${pkgname}.desktop" \
-    -t "${pkgdir}/usr/share/xsessions/"
+  install -vDm 644 libqtile/resources/default_config.py -t "${pkgdir}/usr/share/doc/${pkgname}/"
+  # desktop files
+  install -vDm 644 "resources/${pkgname}.desktop" -t "${pkgdir}/usr/share/xsessions/"
+  install -vDm 644 "resources/${pkgname}-wayland.desktop" -t "${pkgdir}/usr/share/wayland-sessions/"
   # docs
-  install -vDm 644 {CHANGELOG,README.rst} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+  install -vDm 644 {CHANGELOG,README.rst} -t "${pkgdir}/usr/share/doc/${pkgname}/"
 }

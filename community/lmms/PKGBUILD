@@ -6,18 +6,17 @@
 
 pkgname=lmms
 pkgver=1.2.2
-pkgrel=4
+pkgrel=7
 pkgdesc='The Linux MultiMedia Studio'
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://lmms.io"
-license=('GPL2')
-groups=('pro-audio')
-depends=('gcc-libs' 'glibc' 'lame' 'libx11' 'libxcb' 'qt5-base' 'qt5-x11extras'
-'sdl' 'sndio' 'zlib')
-makedepends=('alsa-lib' 'bash-completion' 'carla' 'cmake' 'doxygen'
-'extra-cmake-modules' 'fftw' 'fltk' 'fluidsynth' 'freetype2' 'jack' 'ladspa' 'libgig'
-'libogg' 'libpulse' 'libsamplerate' 'libsndfile' 'libvorbis' 'portaudio'
-'qt5-tools' 'stk' 'wine')
+license=(GPL2)
+groups=(pro-audio)
+depends=(gcc-libs glibc lame libx11 libxcb qt5-base qt5-x11extras sdl sndio
+zlib)
+makedepends=(alsa-lib bash-completion carla cmake doxygen extra-cmake-modules
+fftw fltk fluidsynth freetype2 jack ladspa libgig libogg libpulse libsamplerate
+libsndfile libvorbis portaudio qt5-tools stk wine)
 optdepends=('pulseaudio: pulseaudio support'
             'wine: VST plugin support')
 options=(!lto)
@@ -37,8 +36,9 @@ prepare() {
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  export LDFLAGS="${LDFLAGS}"
+  # prevent mangling of static libs with LTO
+  CXXFLAGS+=' -ffat-lto-objects'
+
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE='None' \
         -DWANT_QT5=ON \
@@ -51,14 +51,14 @@ build() {
         -DOpenGL_GL_PREFERENCE=GLVND \
         -W no-dev \
         -B build \
-        -S .
+        -S "${pkgname}-${pkgver}"
   make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libasound.so' 'libfftw3f.so' 'libfltk.so' 'libfluidsynth.so'
-  'libgig.so' 'libogg.so' 'libportaudio.so' 'libpulse.so' 'libstk-4.6.1.so'
-  'libvorbis.so' 'libvorbisenc.so' 'libvorbisfile.so' 'libsamplerate.so')
-  cd "${pkgname}-${pkgver}"
+  depends+=(libasound.so libfftw3f.so libfltk.so libfluidsynth.so libgig.so
+  libogg.so libportaudio.so libpulse.so libstk-4.6.2.so libvorbis.so
+  libvorbisenc.so libvorbisfile.so libsamplerate.so)
+
   make VERBOSE=1 DESTDIR="${pkgdir}" install -C build
 }

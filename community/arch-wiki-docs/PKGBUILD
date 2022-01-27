@@ -2,14 +2,14 @@
 
 pkgname=arch-wiki-docs
 pkgdesc="Pages from Arch Wiki optimized for offline browsing"
-pkgver=20200527
-_commit=cdac9661818e5923d3a318789540028805fd7461
+pkgver=20211222
+_commit=216a2170262f5b1ee4af3ac9b565fd3be2752df9
 pkgrel=1
 arch=('any')
 url="https://github.com/lahwaacz/arch-wiki-docs"
 license=('FDL')
 options=('!strip')
-makedepends=('git' 'python' 'python-simplemediawiki' 'python-lxml' 'python-cssselect')
+makedepends=('git' 'python' 'python-simplemediawiki' 'python-lxml' 'python-cssselect' 'python-requests')
 source=("git://github.com/lahwaacz/arch-wiki-docs.git#commit=${_commit}")
 md5sums=('SKIP')
 

@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ali
-pkgver=0.7.2
+pkgver=0.7.5
 pkgrel=1
 pkgdesc="Generate HTTP load and plot the results in real-time"
 arch=('loongarch64' 'x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('8f20135ce212f508352b39afe6db8499242116a28f9654d908ab25c5b690c5b455c31d0d8eeb91e3251cf979cdad8805349c525dffee37f2e600f9f844d9c456')
+sha512sums=('6ae745556bec663abcb2a8d6c5e090fdd5e6b5a8bb889f85c528f749de79eb0e33d794265a801983f8de81629e19a1a38fe147e5095108310b1a353766866ff3')
 
 build() {
   cd "$pkgname-$pkgver"

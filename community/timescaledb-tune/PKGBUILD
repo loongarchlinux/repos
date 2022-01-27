@@ -1,0 +1,46 @@
+# Maintainer: George Rawlinson <george@rawlinson.net.nz>
+
+pkgname=timescaledb-tune
+pkgver=0.12.0
+pkgrel=1
+pkgdesc="A tool for tuning TimescaleDB for better performance"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/timescale/timescaledb-tune"
+license=('Apache')
+depends=('glibc' 'postgresql')
+makedepends=('go')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('27bd3b48713643361754a549595d550d1b6aa301ca8e2033026a7b8503631c5e2781ddbdc7819b5ca8f6a7923b8e284ca81ed3d49845a89fd97b67f39411ba03')
+b2sums=('2ecc4d7f9b779b7dfecc3176fba0d819e7ae1117c443577f1f7458a6bfc9f227628cd2b99d2bec5530ca7b920b2c3707bcdc0b9ccb6edc770043522393b83287')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # create directory for build output
+  mkdir build
+
+  # download dependencies
+  go mod download
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+
+  # set Go flags
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+
+  go build -v \
+    -buildmode=pie \
+    -trimpath \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-linkmode external -extldflags ${LDFLAGS}" \
+    -o build \
+    ./cmd/...
+}
+
+package() {
+  install -Dm755 -t "$pkgdir/usr/bin" "$pkgname-$pkgver/build/$pkgname"
+}

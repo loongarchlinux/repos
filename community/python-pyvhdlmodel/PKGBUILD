@@ -2,8 +2,8 @@
 
 _pkgname=pyVHDLModel
 pkgname=python-pyvhdlmodel
-pkgver=0.10.2
-pkgrel=1
+pkgver=0.12.0
+pkgrel=3
 pkgdesc='An abstract language model of VHDL written in Python'
 arch=('any')
 url='https://github.com/VHDL/pyVHDLModel'
@@ -12,7 +12,7 @@ depends=('python' 'python-pydecor')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('cbefe26cd88e72cc92814d153e9e9f934de3029ff2e188f9b33914f371cc722a3f27acc88a1b9a68c2fb1ec05f3b0a360c2143802030417f1f8a5c8304e0dccb')
+sha512sums=('d3e6bb9a0e04c742a4cb724b399860b0d4b4fcaecb157d0bfdc8686f80a4aa6223813b4a33ceea87406465893ea4c0d8d555f59285e4220324e78902c6e5d7ca')
 
 build() {
   cd $_pkgname-$pkgver

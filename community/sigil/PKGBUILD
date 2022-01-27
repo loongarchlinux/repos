@@ -4,8 +4,8 @@
 # Contributor: Larry Hajali <larryhaja [at] gmail [dot] com>
 
 pkgname=sigil
-pkgver=1.6.0
-pkgrel=1
+pkgver=1.8.0
+pkgrel=2
 pkgdesc="multi-platform EPUB2/EPUB3 ebook editor"
 arch=('loongarch64' 'x86_64')
 url="https://sigil-ebook.com/"
@@ -26,9 +26,9 @@ optdepends=('hunspell-en_US: for English dictionary support'
             'tk: recommended for plugins')
 source=("Sigil-${pkgver}.tar.gz::https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
         "https://github.com/Sigil-Ebook/Sigil/releases/download/${pkgver}/Sigil-${pkgver}.tar.gz.sig")
-sha256sums=('ea0e41a56fa98d54c61e2148c6d4b152bd50d8faa59a95c148c8b32b058dacda'
+sha256sums=('33d84331f259ab8d92fc2c5fed6f05fd5f011695c48f83537423635a7afdd2ec'
             'SKIP')
-b2sums=('b200f81d9a1c59e4636e0b863a0f95f137915d00e92b78118a04dfbb14237e68687cd09837c4bdf2133ba74bee9c09842a85528f445a094ea2f72a85722f95b5'
+b2sums=('78615652859d1f61bab18b1b248d342dc6892943a2310659859ab577981c4452fbaeb567758097427453c8dfe95e42b499616a423b5c11b42238f763ac0653c8'
         'SKIP')
 validpgpkeys=('B5A56206AB0FBC1A24EFAB8AA166D29A8FCDAC63') # Doug Massay <douglaslmassay@gmail.com>
 

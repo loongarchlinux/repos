@@ -4,8 +4,8 @@
 
 pkgbase=bcc
 pkgname=('bcc' 'bcc-tools' 'python-bcc')
-pkgver=0.20.0
-pkgrel=3
+pkgver=0.22.0
+pkgrel=5
 pkgdesc='BPF Compiler Collection'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/iovisor/bcc'
@@ -13,11 +13,13 @@ license=('Apache')
 makedepends=('cmake' 'clang' 'llvm' 'flex' 'bison' 'python')
 checkdepends=('netperf' 'iperf')
 source=("bcc-$pkgver.tar.gz"::"https://github.com/iovisor/bcc/releases/download/v$pkgver/bcc-src-with-submodule.tar.gz")
-sha512sums=('60ab3e7e11015878895d009afb2290d1e677e3c7bc04f493eb586136af190d7c0930757b34e721822eaf6700ecc17edeb30a4b04ea29c4a26cb885164060030a')
+sha512sums=('a522fdb11f7d45f7e85083d41a6fbf39b9dbbdad7de777532200ead1f1ce1e1e2450f027a22929d29c5531860141e73c897e5c0ac77b1e79c810e298b3c50afb')
 
 build() {
   mkdir -p bcc/build
   cd bcc/build
+  export CFLAGS+=" -ffat-lto-objects"
+  export CXXFLAGS+=" -ffat-lto-objects"
 
   # The python version is irrelevant at this stage
   cmake -DREVISION=$pkgver \

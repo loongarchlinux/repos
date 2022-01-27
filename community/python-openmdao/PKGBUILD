@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-openmdao
-pkgver=3.9.2
-pkgrel=1
+pkgver=3.12.0
+pkgrel=2
 pkgdesc="An open-source high-performance computing platform"
 url="https://github.com/OpenMDAO/OpenMDAO"
 license=('Apache')
@@ -22,7 +22,7 @@ checkdepends=('python-mpi4py' 'python-parameterized' 'python-numpydoc' 'python-p
               'python-pydocstyle' 'python-testflo' 'python-websockets' 'python-pyppeteer'
               'python-aiounittest')
 source=("https://github.com/OpenMDAO/OpenMDAO/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('704c0e2ad7964ce28d076bc14fef70744adcbf180ca47d9cb505fd355fdb227f52acd4bf4c073a3016d615e59a05f9f644b77ba570aab70ffafe79c2691ae566')
+sha512sums=('a3c3e0f8a35bb4cbdfe30d7b7013ee95fd605516af6b61c9eb52184cb15ea57dd8f8bb0be1f8083ddceae05c5697cc70977f60361bbeb5716d5020bed3483696')
 
 prepare() {
   cd OpenMDAO-$pkgver

@@ -3,7 +3,7 @@
 # Contributor: Lee.MaRS <leemars@gmail.com>
 
 pkgname=gsoap
-pkgver=2.8.114
+pkgver=2.8.118
 pkgrel=1
 pkgdesc="Offers an XML language binding to ease the development of SOAP/XML Web services in C and C/C++"
 url="https://www.cs.fsu.edu/~engelen/soap.html"
@@ -13,7 +13,7 @@ depends=('openssl' 'zlib' 'gcc-libs')
 makedepends=('autoconf' 'automake')
 options=('staticlibs')
 source=("https://prdownloads.sourceforge.net/gsoap2/${pkgname}_${pkgver}.zip")
-sha256sums=('aa70a999258100c170a3f8750c1f91318a477d440f6a28117f68bc1ded32327f')
+sha256sums=('f233f06a307a664ab1ecafd8f6d87b9c905a98c497c9f5da9083790e5b921f50')
 
 prepare() {
   cd "$srcdir"/gsoap-2.8

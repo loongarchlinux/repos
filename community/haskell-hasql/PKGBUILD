@@ -3,8 +3,8 @@
 
 _hkgname=hasql
 pkgname=haskell-hasql
-pkgver=1.4.5.1
-pkgrel=21
+pkgver=1.4.5.3
+pkgrel=22
 pkgdesc="An efficient PostgreSQL driver and a flexible mapping API"
 url="https://github.com/nikita-volkov/hasql"
 license=('MIT')
@@ -17,7 +17,7 @@ makedepends=('ghc' 'haskell-contravariant-extras' 'haskell-tasty' 'haskell-tasty
              'haskell-rerebase')
 checkdepends=('postgresql' 'pifpaf')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('cca8683aad8a334e5d53c98241070f667ecd63bb7b40d00ed6a630b64f3815d7e7f41897b1ec2167eecad2dceabd66fbc92345917b16881e41da0692890be4de')
+sha512sums=('0f5bc7a122a521716ae393a3779b85815e9afe73462294c121be3c430cffd0acef8b566958d60d74e188bec5ac05980e95970d650b96f057440a29fcf9dcf0e1')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -31,7 +31,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

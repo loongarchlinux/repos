@@ -5,7 +5,7 @@
 
 pkgname=alex
 pkgver=3.2.6
-pkgrel=4
+pkgrel=7
 pkgdesc='Lexical analyser generator for Haskell'
 arch=(loongarch64 x86_64)
 url='https://hackage.haskell.org/package/alex'

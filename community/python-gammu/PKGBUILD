@@ -2,8 +2,8 @@
 # Contributor: Felix Yan <felixonmars@archlinux>
 
 pkgname=python-gammu
-pkgver=3.1
-pkgrel=2
+pkgver=3.2.4
+pkgrel=1
 pkgdesc="Python bindings for Gammu library"
 arch=('loongarch64' 'x86_64')
 url="https://wammu.eu/python-gammu/"
@@ -11,8 +11,8 @@ license=('GPL')
 depends=('python' 'gammu')
 makedepends=('python-setuptools')
 checkdepends=('libdbi-drivers')
-source=(https://dl.cihar.com/python-gammu/python-gammu-$pkgver.tar.bz2)
-sha512sums=('98da80c1dee3cbffc819332f7936f88c5f95eaf65341e83d038bef7678563e40d724d663d4e83da162117ff2a74d0f46d06d67018903099c561f64bb0e9d3da4')
+source=($pkgname-$pkgver.tar.gz::https://github.com/gammu/$pkgname/archive/refs/tags/$pkgver.tar.gz)
+sha512sums=('9d76b402c50018cc52476376952edebb6b0934aa374ea2a2177f5497d0949fcc77644aa2a35c7402b3f2179962d903409b7b1949c5e85a0e5130058d34f89664')
 
 build() {
   cd "${srcdir}"/python-gammu-$pkgver

@@ -3,14 +3,14 @@
 # Contributor: John Williams <jwilliams4200 liamg reverse&remove moc>
 
 pkgname=fio
-pkgver=3.26
-pkgrel=1
+pkgver=3.28
+pkgrel=2
 pkgdesc='Scriptable I/O tool for storage benchmarks and drive testing'
 arch=(loongarch64 x86_64)
 url='https://github.com/axboe/fio'
 license=(GPL2)
 # TODO: enable rdma, need to move the libraries from AUR
-depends=(bash libaio python numactl glusterfs)
+depends=(bash libaio python numactl glusterfs gperftools)
 makedepends=(gtk2 curl)
 optdepends=(
   'gtk2: for gfio - fio GUI frontend' 
@@ -18,7 +18,7 @@ optdepends=(
   'gnuplot: generating plots using fio_generate_plots'
 )
 source=(https://github.com/axboe/fio/archive/fio-$pkgver.zip)
-sha256sums=('6331fb4356fc11d451794772f7c001691fd2884ab95152b77948c330ee307626')
+sha256sums=('c9d604ed4b103bbcb6d9e31cec75bd331fcd5f785fce324448dd6a4b60e0e321')
 
 prepare() {
   cd fio-fio-$pkgver

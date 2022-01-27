@@ -3,8 +3,8 @@
 
 _name=pdftotext
 pkgname=python-pdftotext
-pkgver=2.1.6
-pkgrel=1
+pkgver=2.2.2
+pkgrel=2
 pkgdesc='Simple PDF text extraction'
 arch=('loongarch64' 'x86_64')
 url=https://github.com/jalan/pdftotext
@@ -12,8 +12,8 @@ license=('MIT')
 depends=('poppler' 'python')
 makedepends=('python-setuptools')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('caf8ddbaeaf0a5897f07655a71747242addab2e695e84c5d47f2ea92dfe2a594')
-b2sums=('02135a03cb604421ab32ee1317265b3404e343b1ceabfbbeaa4973bc85dfd7fb3b92dd23611b0d9077ff8641bda256932d9457112fb27f974aac3be80747c695')
+sha256sums=('2a9aa89bc62022408781b39d188fabf5a3ad1103b6630f32c4e27e395f7966ee')
+b2sums=('5ab471cfbccd50d6b9f16e083e2b059c3fedd8eee57988a10516e9ca42dcec7743741ec4d7fd1d00e81efcce58880c9e2b2cc9cb1b9c760cfbbe98ce6cd4f1b9')
 
 build() {
   cd $_name-$pkgver
@@ -22,10 +22,9 @@ build() {
 
 check() {
   cd $_name-$pkgver
-  mkdir -p temp
-  local sitepackages=$(python -c "import site; print(site.getsitepackages()[0])")
-  python setup.py install --skip-build --root=temp
-  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$sitepackages" python -m unittest discover tests
+  python -m venv --system-site-packages test-env
+  test-env/bin/python setup.py install --optimize=1 --skip-build
+  test-env/bin/python -m unittest discover
 }
 
 package() {

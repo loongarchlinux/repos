@@ -1,17 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=python-pypandoc
-pkgver=1.5
-pkgrel=5
+pkgver=1.6.4
+pkgrel=3
 pkgdesc="Thin wrapper for pandoc"
 arch=('any')
 license=('MIT')
 url="https://github.com/bebraw/pypandoc"
-depends=('python-setuptools' 'pandoc')
-makedepends=('python-setuptools' 'pandoc')
+depends=('pandoc')
+makedepends=('python-setuptools')
 checkdepends=('texlive-core' 'texlive-latexextra')
-source=("https://github.com/bebraw/pypandoc/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('bc1a18115827ac0868b887fa3c9be46736670de8f095cb49b444e61f66779497db9a08bdac0de30f821a64cd6bad195f1d3a29d0159e6e3ad050a78ca0ecea82')
+source=("https://github.com/bebraw/pypandoc/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('f01a999040f48b858452d7de29fd0c44f7c247ff088fddfcd84ea47826327ce4572119e23a26bd929b6ff282d67974e23a61cdb5e4956ffd35af36cb991c199a')
 
 prepare() {
   # We don't really need pip and wheel at runtime
@@ -25,12 +26,11 @@ build() {
 
 check() {
   cd pypandoc-$pkgver
-  # Ignore test failures now as pandoc-citeproc is deprecated and gone
-  python setup.py test || echo "Tests failed"
+  python setup.py test
 }
 
 package() {
   cd pypandoc-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  install -D -m644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

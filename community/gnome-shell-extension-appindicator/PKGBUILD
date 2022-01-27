@@ -1,26 +1,32 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gnome-shell-extension-appindicator
-pkgver=37
+pkgver=41
 pkgrel=1
 pkgdesc='AppIndicator/KStatusNotifierItem support for GNOME Shell'
 url='https://github.com/ubuntu/gnome-shell-extension-appindicator'
 arch=('any')
 license=('GPL')
 depends=('gnome-shell>=3.34')
+makedepends=('meson' 'jq')
 optdepends=(
   'libappindicator-gtk2: support GTK+2 applications'
   'libappindicator-gtk3: support GTK+3 applications'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('e3cd3b4e134e1d3dc00f6b60d1b38c9ada5d8172bd208b3ac9f2075e69104f7b')
+sha256sums=('8b6e2fe5c19a7b3c59739c75c2718ce4baa3e9b18ca17f1ceb257d38f3eb9d57')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  meson --prefix=/usr build/
+  ninja -C build/
+}
 
 package() {
   cd "${pkgname}-${pkgver}"
-  local dest="${pkgdir}/usr/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com"
-
-  install -d "${dest}"
-  cp --parents -t "${dest}" metadata.json *.js interfaces-xml/*.xml
+  DESTDIR="${pkgdir}" ninja -C build/ install
+  # this file is generated at pkg install time
+  rm "${pkgdir}/usr/share/glib-2.0/schemas/gschemas.compiled"
 }
 
 # vim: ts=2 sw=2 et:

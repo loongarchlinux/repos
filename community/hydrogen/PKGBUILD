@@ -4,26 +4,26 @@
 # Contributor: tobias <tobias@archlinux.org>
 
 pkgname=hydrogen
-pkgver=1.0.2
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="An advanced drum machine"
-arch=('loongarch64' 'x86_64')
-license=('GPL2')
-groups=('pro-audio')
+arch=(loongarch64 x86_64)
 url="http://www.hydrogen-music.org/"
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt5-base' 'qt5-xmlpatterns')
-makedepends=('alsa-lib' 'cmake' 'jack' 'ladspa' 'libarchive' 'liblo' 'liblrdf'
-'libpulse' 'libsndfile' 'portaudio' 'portmidi' 'python' 'qt5-tools')
-checkdepends=('cppunit')
+license=(GPL2)
+groups=(pro-audio)
+depends=(gcc-libs glibc hicolor-icon-theme qt5-base qt5-xmlpatterns)
+makedepends=(alsa-lib cmake jack ladspa libarchive liblo liblrdf libpulse
+libsndfile portaudio portmidi python qt5-tools)
+checkdepends=(cppunit)
 optdepends=('new-session-manager: for session management')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/${pkgname}-music/${pkgname}/archive/${pkgver}.tar.gz")
-sha512sums=('7466b7ef1da4a078d67e1cab8744b2e0c3c048bb55e1febd22023c591ed9e2bf1cea41adc38a775a2ac60978735517a92df404d5ca8bb13603ea68c8da70daa9')
-b2sums=('a4210e666b11e173eb0e02728f601ac9811941b558096ae76f3ad45b91c5db1ff942cddd536a50f8f2f456871d69f3a6c52d53c926f4547f13783ccbb4fc250d')
+sha512sums=('c5e6bd713a0f9ef3b30bf0ae00bc41fea7494c20342c14c9f41ec05d1fdd3be721ffc3ff92bacd011e3b39a68022ea04daf55e60d334f64a00abef17d892cd37')
+b2sums=('52f6f61fc6e247875688dcea2290d92eb7bc85910620f0adcb52506d587b02dcaec6e2ecb72c77cf4eb3134534c75fc64bc4dd76a63f886cc6ea07d9b8812089')
 
 build() {
   cd "${pkgname}-${pkgver}"
-  cmake -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DCMAKE_BUILD_TYPE='None' \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=None \
         -DWANT_DEBUG=OFF \
         -DWANT_CPPUNIT=ON \
         -DWANT_LRDF=ON \
@@ -42,13 +42,13 @@ build() {
 }
 
 package() {
-  depends+=('libarchive.so' 'libasound.so' 'liblo.so' 'libjack.so' 'liblrdf.so'
-  'liblo.so' 'libportaudio.so' 'libportmidi.so' 'libpulse.so' 'libsndfile.so')
+  depends+=(libarchive.so libasound.so liblo.so libjack.so liblrdf.so liblo.so
+  libportaudio.so libportmidi.so libpulse.so libsndfile.so)
+
   cd "${pkgname}-${pkgver}"
   make DESTDIR="$pkgdir" install -C build
   # docs
-  install -vDm 644 {ChangeLog,DEVELOPERS,INSTALL.md,README.md} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 {ChangeLog,DEVELOPERS,INSTALL.md,README.md} -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
 # vim:set ts=2 sw=2 et:

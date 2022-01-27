@@ -2,7 +2,7 @@
 
 pkgbase=percona-server
 pkgname=('libperconaserverclient' 'percona-server-clients' 'percona-server')
-pkgver=8.0.23_14
+pkgver=8.0.26_16
 _boost_ver=1.73.0
 _pkgver=${pkgver/_/-}
 _myver=${pkgver/_rel*}
@@ -17,31 +17,25 @@ source=("https://www.percona.com/downloads/Percona-Server-${pkgver%.*_*}/Percona
         'my.cnf'
         'mysql-user.conf'
         'mysqlrouter-user.conf'
-        'icu68.patch'
+        'openldap-2.5.patch'
         'build-hostname.patch'
-        'no-werror.patch'
-        'rocksdb-make.patch'
-        'gcc-11.patch')
-sha256sums=('613b8c110ede5cf67a7ac32e16556f4c67d8ad35263f4f8d6457ae0789074048'
+        'no-werror.patch')
+sha256sums=('3db3939bd9b317dbcfc1a5638779ff87e755f62d7e6feeb3137876be8bb59d6a'
             '9995e192e68528793755692917f9eb6422f3052a53c5e13ba278a228af6c7acf'
             'b467b04d6d06152b2abc33f2a6de63fef0fc922dd5119d2ee1d07d3c1a489731'
             '5d7710fe88ec6d298175a309c0b776142397b119c468830b2865980292ed5da6'
             '4ca7ffdcb2d1716d4f31e4c7dd314e5d76e64f13fdc67c5d81c53650b793f5e0'
-            '80189c3d1c171eea06567aa9c66e10675d7f43721d0475fa2fca5d1e6ae03ea8'
+            '92d70b75a32517f598bbffbaf5db18b0d14be504c31f531e35c8572b330785f3'
             '1537fdbb92dd1c135c1eb9f4d10c44fd02e652db66c933d731990a1196f1397c'
-            '2343a191c452b91caa458b03b0c1ef3f5afb0e7031816c68467af5c6a6ffe253'
-            '2ff495d271f99c4d0dba89e8ccde7e6b9789a4ea6b55034de9b9217b47e32c03'
-            '94d5e76a211af079e132a5d8377e7033acbccdba3c2b8535871b51059f61d1a4')
+            '2343a191c452b91caa458b03b0c1ef3f5afb0e7031816c68467af5c6a6ffe253')
 
 prepare() {
 	cd $pkgbase-$_pkgver
 	rm -v sql/sql_yacc.{cc,h}
 
-	patch -p0 -i "$srcdir"/icu68.patch
-	patch -p1 -i "$srcdir"/build-hostname.patch
-	patch -p1 -i "$srcdir"/no-werror.patch
-	patch -p1 -i "$srcdir"/rocksdb-make.patch
-	patch -p1 -i "$srcdir"/gcc-11.patch
+	patch --verbose -p1 -i "$srcdir"/openldap-2.5.patch
+	patch --verbose -p1 -i "$srcdir"/build-hostname.patch
+	patch --verbose -p1 -i "$srcdir"/no-werror.patch
 
 	sed -r -e s@/var/run/mysqlrouter@/run/mysqlrouter@ \
 	       -e s@lib64/mysql@lib/mysql@ \
@@ -62,8 +56,8 @@ build() {
 	cd build
 
 	cmake ../$pkgbase-$_pkgver \
-		-DCMAKE_C_FLAGS_RELWITHDEBINFO="${CFLAGS} -DNDEBUG" \
-		-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="${CXXFLAGS} -DNDEBUG" \
+		-DCMAKE_C_FLAGS_RELWITHDEBINFO="${CFLAGS} -DNDEBUG -ffat-lto-objects" \
+		-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="${CXXFLAGS} -DNDEBUG -ffat-lto-objects" \
 		-Wno-dev \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
@@ -204,7 +198,7 @@ package_percona-server() {
 	rm -r usr/share/aclocal usr/lib/pkgconfig
 
 	# provided by percona-server-clients
-	rm usr/bin/mysql{,admin,check,dump,import,show,slap,pump,binlog,test,_upgrade}
+	rm usr/bin/mysql{,admin,check,dump,import,show,slap,pump,binlog,test,_upgrade,_migrate_keyring}
 	rm usr/lib/perconaserver/plugin/authentication_*_client.so
 	rm usr/share/man/man1/mysql{,admin,check,dump,import,show,slap,pump,binlog,_upgrade}.1
 

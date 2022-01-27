@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=5.4.0.20
+pkgver=5.4.13
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('loongarch64' 'x86_64')
@@ -15,7 +15,7 @@ checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-terminal/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('03879ea71fac9786ccdf0203f9c172acfc256f9ec8dca73aa2e9c83f14fa8fdf18e021fe94811ad330172394faec7f3cb990760438e63963f89a1d5ab8565018')
+sha512sums=('33f9dc6e5a8cdffe8605fd1a96f6e42764f2d6b20278c1c8f0cd160269871f787c86209d3f341b3c476735f1a3434cbfa9a209cf5e65f791a6d82c8129405f0c')
 
 prepare() {
   mkdir -p build

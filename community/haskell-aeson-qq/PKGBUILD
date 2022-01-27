@@ -3,24 +3,24 @@
 
 _hkgname=aeson-qq
 pkgname=haskell-aeson-qq
-pkgver=0.8.3
-pkgrel=196
+pkgver=0.8.4
+pkgrel=7
 pkgdesc="JSON quasiquoter for Haskell"
 url="https://github.com/sol/aeson-qq"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base-compat' 'haskell-src-meta'
          'haskell-scientific' 'haskell-vector')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f7ef90529b4c9661ffc54ab8ebfc73c9966e6338591b871678be2a6e63ecf30089fd33279a074bd8d1905d71c8198ea5cc24c828d6e940e7af7585ba826a0c29')
+sha512sums=('24281e5e6b127e444a87c388c8f39e2afce2c33a31c9b299021108b12e5a510875140a2b6912a14a4676ded405a1ef9f2bddc5fc179bb6d81d42feed4731f6b1')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

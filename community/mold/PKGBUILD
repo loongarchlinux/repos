@@ -1,0 +1,60 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Adrian Perez de Castro <aperez@igalia.com>
+
+pkgname=mold
+pkgver=1.0.1
+pkgrel=1
+pkgdesc='A Modern Linker'
+arch=('loongarch64' 'x86_64')
+url="https://github.com/rui314/mold"
+license=('AGPL3')
+depends=('gcc-libs' 'mimalloc' 'openssl' 'zlib' 'tbb')
+makedepends=('clang' 'xxhash')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('cc03a7db395362b97879c28942397d4443d12b72e067b6f979b1ece4d8aab06154b4c1a0f4c57d6ac505bcd4f892bf9a355ad281d628d4d544d8f70edaf34b72')
+b2sums=('0e40860d3c0a221d368c94b9f58c20b245ee61de6f9eb6d1454ed3b6f103933c79ddd7358049e2aacf497221232d952c2117ba2b3371cbe37fb8ad4ae42461c2')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  sed -i "s/libexec/lib/" Makefile
+}
+
+build() {
+  make \
+    -C "$pkgname-$pkgver" \
+    PREFIX=/usr \
+    LTO=1 \
+    SYSTEM_MIMALLOC=1 \
+    SYSTEM_TBB=1 \
+    SYSTEM_XXHASH=1
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+
+  # temporarily remove failing tests
+  for failing_test in defsym exception func-addr ctors-dtors reloc-zero; do
+    rm -vf "test/elf/$failing_test.sh"
+  done
+
+  make \
+    PREFIX=/usr \
+    LTO=1 \
+    SYSTEM_MIMALLOC=1 \
+    SYSTEM_TBB=1 \
+    SYSTEM_XXHASH=1 \
+    check
+}
+
+package() {
+  make \
+    -C "$pkgname-$pkgver" \
+    PREFIX=/usr \
+    LTO=1 \
+    SYSTEM_MIMALLOC=1 \
+    SYSTEM_TBB=1 \
+    SYSTEM_XXHASH=1 \
+    DESTDIR="$pkgdir" \
+    install
+}

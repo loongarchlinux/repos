@@ -1,0 +1,56 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor:  Kr1ss $(echo \<kr1ss+x-yandex+com\>|sed s/\+/./g\;s/\-/@/)
+# Contributor : ccorn
+
+pkgname=git-delta
+_pkgname=delta
+pkgver=0.11.3
+pkgrel=1
+pkgdesc='Syntax-highlighting pager for git and diff output'
+arch=('loongarch64' 'x86_64')
+url="https://github.com/dandavison/delta"
+license=('MIT')
+depends=('libgit2')
+makedepends=('rust')
+checkdepends=('git')
+options=('!lto')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('090d64d1a9a8f3b905c1f7e80b98bbf3c62b3db14668cdf1f64fe8614086dd346513b305d9b9f160cb9bf7cdd3cdce640cc948c76ea48fd5a65018d356120785')
+b2sums=('ba3707a70e1a9f589a91a931e0a908525d9c3faabd78f8e336b9677b91c03e12cddaf985b5a2babfba9522a24e04d4b550015b9d021a80ca39da1f579ea8e97e')
+
+prepare() {
+  cd "$_pkgname-$pkgver"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "$_pkgname-$pkgver"
+  cargo build --frozen --release --all-features
+}
+
+check() {
+  cd "$_pkgname-$pkgver"
+  # some tests hang for 60+ seconds, find out why
+  # took my machine ~ 470 seconds
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd "$_pkgname-$pkgver"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/delta
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+
+  # shell auto-completions
+  install -vDm644 etc/completion/completion.bash \
+    "$pkgdir/usr/share/bash-completion/completions/$_pkgname"
+  install -vDm644 etc/completion/completion.zsh \
+    "$pkgdir/usr/share/zsh/site-functions/_$_pkgname"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+}

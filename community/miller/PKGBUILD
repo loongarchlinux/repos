@@ -1,0 +1,34 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=miller
+pkgver=5.10.3
+pkgrel=1
+pkgdesc="Name-indexed data processing tool"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/johnkerl/miller"
+license=('BSD')
+depends=('glibc')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+b2sums=('5b5bf8d2e3149ae7afb5afc9154e4e06ef77cbf8dfe1a1752df4ada184f46b141dc431d5ec547f24574a5a099ee36809cfdc23984cd0ca88147c2b4b6f5a9e4a')
+
+build() {
+  cd "$pkgname-$pkgver"
+  ./configure --prefix=/usr
+  make
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  make -k check
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
+}

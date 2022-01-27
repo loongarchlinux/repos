@@ -4,23 +4,26 @@
 # Contributor: sysrq
 
 pkgname=picard
-pkgver=2.6.3
+pkgver=2.7.1
 pkgrel=1
 pkgdesc="Official MusicBrainz tagger"
+arch=(loongarch64 x86_64)
 url="https://github.com/metabrainz/picard"
-license=('GPL2')
-arch=('loongarch64' 'x86_64')
-depends=('glibc' 'hicolor-icon-theme' 'python-dateutil' 'python-discid'
-'python-fasteners' 'python-markdown' 'python-mutagen' 'python-pyqt5')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest')
-optdepends=('chromaprint: fingerprinting'
-            'qt5-multimedia: media player toolbar'
-            'qt5-translations: full UI translation')
+license=(GPL2)
+depends=(glibc hicolor-icon-theme python-dateutil python-discid
+python-fasteners python-markdown python-mutagen python-pyjwt python-pyqt5
+python-yaml)
+makedepends=(python-setuptools)
+checkdepends=(python-pytest)
+optdepends=(
+  'chromaprint: fingerprinting'
+  'qt5-multimedia: media player toolbar'
+  'qt5-translations: full UI translation'
+)
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('24b50272734302500d09b3e8b26c94da8ce8d3e42d2f63e1d1385ad837b96010e46a50f3b40879cb00d715500ad0eca334a3ee72a903cdab34405b9977f5f2b6'
+sha512sums=('25717a32fe765879c5f67f0dd90c50123b4d00db148d35b15bf95ba16e30412e509588aa8ea6c6672ffa6988a0d3d1329d0f720d8bdf0eaa474e47d01724ef9f'
             'SKIP')
-b2sums=('53f54f76ec610b64723d98bf1ce09c92b50e205bce232c2db0a49c9c25918676bd5f3bea724b3d05c2fff11348d12d9391f832b7b0369efcc901eb7a2ba1e39b'
+b2sums=('6c47edfbee0a7883f1bcdb0b8b1923c6a35ac23fa0fff1b613a45973cb2454be683988ee674f195377fe69e5ef85337733e2b8c3b7614353c8894b5ae2ac8ca7'
         'SKIP')
 # NOTE: GPG signed tags and artifacts are being evaluated: https://tickets.metabrainz.org/browse/PICARD-1934
 validpgpkeys=('68990DD0B1EDC129B856958167997E14D563DA7C') # MusicBrainz Picard Developers <picard@metabrainz.org>
@@ -37,10 +40,6 @@ check() {
 
 package() {
   cd "${pkgname}-${pkgver}"
-  python setup.py install --skip-build \
-                          --optimize=1 \
-                          --disable-autoupdate \
-                          --root="${pkgdir}"
-  install -vDm 644 {AUTHORS.txt,{CONTRIBUTING,NEWS,README}.md} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  python setup.py install --optimize=1 --root="${pkgdir}" --disable-autoupdate
+  install -vDm 644 {AUTHORS.txt,{CONTRIBUTING,NEWS,README}.md} -t "${pkgdir}/usr/share/doc/${pkgname}"
 }

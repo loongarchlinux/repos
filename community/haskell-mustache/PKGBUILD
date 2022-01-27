@@ -2,25 +2,25 @@
 
 _hkgname=mustache
 pkgname=haskell-mustache
-pkgver=2.3.1
-pkgrel=333
+pkgver=2.3.2
+pkgrel=10
 pkgdesc="A mustache template parser library."
 url="https://github.com/JustusAdam/mustache"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-either' 'haskell-unordered-containers' 'haskell-vector'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-scientific' 'haskell-th-lift' 'haskell-cmdargs' 'haskell-yaml')
 makedepends=('ghc' 'haskell-hspec' 'haskell-base-unicode-symbols' 'haskell-wreq' 'haskell-zlib'
              'haskell-tar' 'haskell-lens' 'haskell-temporary')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('162360cb635d40086721d4dd350036884207679b240d30420b9fc71eebef847e542bd143275931a22a42c583d513d0c906a6b112d780824dc189ad07e3027aa3')
+sha512sums=('763ab60bfd99c08b21b291af6b4da17c9265c09659c1c1d14c0b5d5871583f28db5eca4385b66107ed7d9d9c547429a0bbc88048f28d1f6ee80c988cf63fff98')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

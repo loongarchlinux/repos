@@ -1,33 +1,25 @@
 # Maintainer: Muflone http://www.muflone.com/contacts/english/
 
 pkgname=dbeaver-plugin-sshj
-pkgver=1.0.78.202105160657
+pkgver=1.0.93.202112261636
 pkgrel=1
 pkgdesc='DBeaver plugin for SSHv2 tunnels with Bouncy Castle algorithm'
 arch=('any')
 url='https://dbeaver.io/'
 license=('Apache')
 makedepends=('unzip')
-depends=('dbeaver-plugin-sshj-lib')
+depends=('dbeaver>=21.3.2')
 source=("https://dbeaver.io/update/ce/latest/plugins/org.jkiss.dbeaver.net.ssh.sshj_${pkgver}.jar"
-        "https://dbeaver.io/update/ce/latest/features/org.jkiss.dbeaver.net.sshj.feature_${pkgver}.jar"
         "${pkgname}.info")
-sha256sums=('7fbd4959237ec1f239436956d48818ac10033e58d09a5343b007bcf8170b20f6'
-            '85f12802e607d25b28fa4c8f0be399999cb660ecdcfefb97d2871ba389c1cb03'
-            'a76b38ac2a3084b684bf0c3f8a53533cb4a9b1772ddcebdf0e24324984763fee')
-noextract=("org.jkiss.dbeaver.net.ssh.sshj_${pkgver}.jar"
-           "org.jkiss.dbeaver.net.sshj.feature_${pkgver}.jar")
+sha256sums=('e75f1b2875154d46584674e902bd48e945545561fb7e0e3dc4e2b26c12fd1125'
+            '6040252afdad2cbcfc3f8df85a989531f3fe43537f5ffdafa8d1d41c71a29e57')
+noextract=("org.jkiss.dbeaver.net.ssh.sshj_${pkgver}.jar")
 
 package() {
   # Install plugin
   install -m 755 -d "${pkgdir}/usr/lib/dbeaver/plugins"
   install -m 644 -t "${pkgdir}/usr/lib/dbeaver/plugins" \
     "org.jkiss.dbeaver.net.ssh.sshj_${pkgver}.jar"
-
-  # Extract feature
-  install -m 755 -d "${pkgdir}/usr/share/dbeaver/features/org.jkiss.dbeaver.net.sshj.feature_${pkgver}"
-  unzip -q "${srcdir}/org.jkiss.dbeaver.net.sshj.feature_${pkgver}.jar" \
-        -d "${pkgdir}/usr/share/dbeaver/features/org.jkiss.dbeaver.net.sshj.feature_${pkgver}"
 
   # Add configuration file (handled by the hook)
   install -m 755 -d "${pkgdir}/etc/dbeaver/bundles.d"

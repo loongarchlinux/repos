@@ -9,12 +9,12 @@ pkgname=(
     "${pkgbase}-ss07" "${pkgbase}-ss08" "${pkgbase}-ss09" "${pkgbase}-ss10" "${pkgbase}-ss11" "${pkgbase}-ss12"
     "${pkgbase}-ss13" "${pkgbase}-ss14" "${pkgbase}-ss15" "${pkgbase}-ss16" "${pkgbase}-ss17" "${pkgbase}-ss18"
     )
-pkgver=7.2.2
-pkgrel=2
+pkgver='11.2.4'
+pkgrel=1
 pkgdesc='Typeface family designed for coding, terminal use and technical documents.'
 arch=('any')
 url='https://typeof.net/Iosevka/'
-license=('OFL')
+license=('custom:OFL')
 source=("${pkgbase}-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-${pkgver}.zip"
         "${pkgbase}-aile-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-aile-${pkgver}.zip"
         "${pkgbase}-curly-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-curly-${pkgver}.zip"
@@ -40,30 +40,30 @@ source=("${pkgbase}-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/
         "${pkgbase}-ss17-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss17-${pkgver}.zip"
         "${pkgbase}-ss18-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/${pkgbase}-ss18-${pkgver}.zip"
         "${pkgbase}-${pkgver}-${pkgrel}-LICENSE.md::https://raw.githubusercontent.com/be5invis/Iosevka/v${pkgver}/LICENSE.md")
-sha256sums=('0d93a0d44022090e028e43336a3e94ab47db72655af08beb08d443c2cb7bd5e3'
-            'd0007c51861a6669a9d6edace7768968f643552dc897200f68dd732e0139bee5'
-            '4ba0ae261958a6c81eef61adad3eae10e99deb9cee8d51cf36e367282e2416bf'
-            '12d8dcc9f2df7336f48af3b91df6a4e8f208638da76c59fec2801068b358a1fe'
-            '6f13853d2481a267d3f0f1a56f111dbd19d128f935b23c683bddd81e422575b3'
-            '08dbb017cc86162e306d8fbcc639c2c97e1a0a4321a471dd6242e471c83c44df'
-            'c28921bb0fad145852c7592f06411a98a09bac619bcff713648e94d07f4dd7f2'
-            '12180c766b40b182278803efa805f591419d499d872b86e1636aa193457e0667'
-            '10178c337026ec1b45b42a4e26ecac49f0f324fbd807542209a58bf584117367'
-            '60cbffe914771be3f6d5dc94d3bbec86c7ed8c2330f49d1d12b3c3df15c8a16f'
-            '36c91f25dfd0c12c6a03a5deee44df90d8a42d0877ab5f82a481b76aa6773ed5'
-            '9eace4f502ff9198d26ac158bf6c408074ad99da2aa11b852c74d6431954cf81'
-            '6c704d0225751b37c578ed42798e59e269a4c60440606835661e6641af8f9651'
-            'f99aacc11459542dcb74c591e7c285c4c60c7c1cb1fed29a59a8569c784acc8c'
-            '6d90b5cfcdafd74de63132fcfc30ae292093ec04e60d75f7d05912314163a61e'
-            'b8b955230815d690fb1d4f7ddd2e95d8169b3815112102f013af6e1eaa9d6678'
-            'f078a335fccc9a3103cc432ce764856562ff90037113099db6307e1f1f350c9b'
-            '4a59849394c75f8c9c5d9719a6cced82b8fa614084986e5616e4b380b399a962'
-            'd475bb0819db74858f5e386f4e288916d39cac9b3ae319ff00ca70e777cde567'
-            '804cd39a8f146f2af0274444a9d5fb09c7aacc96811795804ee4256902397de2'
-            'b2f315a46aa0c76a8d8b6ed92972759478af72ad6f91f5d0b0e3dbb7adc2266d'
-            '00b5eab0fba6baa73d6d2ce50a659d9438ae6317dc8f2608114223533ef2d2e3'
-            'c68f479b2a6de0ab0f38634f7838fd7952893e25580e816fbba94507732afe48'
-            '653c77e10de4ae0ec50e180d0b7f7f73a4e97d13ca7154c161bacec51b7ca816'
+sha256sums=('b1d99f7e2266305cead632162f044c5ff6a32b9d4b9aca56b1e12e8b2deacfc7'
+            'c3e2a6ae5f93a34a9e598e8cd01ec2c6883eed2e301c43c0c58ef5768d29308b'
+            '7a387e7c3dacce355c2be0a8abf43dc45ea8738d505f606c6d0fde9e41a4c0c9'
+            'c2a39afb1f126734877d0e14d5c0d601b3958b40286ac6634545c5d1fd0fbc92'
+            'b5886fd39f3578cfe06e72ec24fd0025d2053b55712ac0e9c7cb723e14a77b59'
+            'e2b3dbf0bdc650e5dcf364337b3624f4159cb37da0d5acb5cf389425111106b3'
+            'c14c8b1dad90ae8bb5072661d5cc4e8b3cc58fea4a796904a007b921120a08d0'
+            '0c83956019b19a62c612bd31e1a92102a4e6d5673e2ada7d6e48f3f8e0d449b4'
+            'c4d0768597d1f60307f234b7cf916436e7403cfb1cad8303ed08421d723bcb0c'
+            '4fef961140d648a1a6023b0567907d37bf81d61d8220db98a6fff2b89319343c'
+            '7100378876483bde56837e10fa6d2117854b7898b49a0d4c65330274e70009f8'
+            '89de90a623b0fb6b2e1e0f110db95cd74c5d434c453ecb3cf1929ebffbbfe118'
+            '682fe9b4420f501ae1af5f34f761a8d3de2ae9cdf64b7232079a3369171921cd'
+            '94826237420c89124522acf6ed50fd96e8bebb01886c501e95cb15538c03298e'
+            'acc521a8aabe8797713091f28b1572c257173f627f2b68c270335a9de31b7b89'
+            'd89b3242d126d56de022a49ab259efe133df016128da1ff09327c8e6378b1e9f'
+            'd50a0066084c88f033bbefb2ea24dacdb2f3f41f7a8014e709992de8bf3522f3'
+            '8693a77c13407b8065419c8ada2e67694853944cdb36e0a643a99a721a783dd0'
+            '844b16fa7d90816e9675ef17d9cc5fc891afd2e1377d1a0a40b60c53d35956c5'
+            'ce698f646d687c76ba905a4c0f2fbc07a7ae6cd0fd0b84bfff6218d83eb8f896'
+            'bfd26f4e95450c679a353e3bb312183e8972585f01bbec76e0a66517531b921d'
+            '6863f783a2fa2ddaf24250eb90eecc1df60c58ae7584526d8a8b145095362b22'
+            '32c895830cb2c202f8f24dd77c5a418daed41e76bd049378c2723ec36d429339'
+            '036e60b05870a67e6e517b8c6a87e9fee3fda69b11d52d7bb5cf6e8c3eafc68f'
             '72c3d557ff41d871680652f56afd565ba6834c90eadc45a4ec15410dce1c0c80')
 
 

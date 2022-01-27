@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-whitenoise
-pkgver=5.2.0
+pkgver=5.3.0
 pkgrel=2
 pkgdesc='Radically simplified static file serving for WSGI applications'
 arch=('any')
@@ -10,8 +10,15 @@ url='http://whitenoise.evans.io'
 depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-brotli' 'python-django' 'python-pytest' 'python-requests')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/evansd/whitenoise/archive/v$pkgver.tar.gz")
-sha512sums=('e68f89c6af86ffaee8931196a5714a47057b4d750b75053042007229ef390b287144a2d10376dbf232168277fc95ba4a40c128acd349242d041e6f5f39e92055')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/evansd/whitenoise/archive/v$pkgver.tar.gz"
+        $pkgname-requests-2.26.0.patch::https://github.com/evansd/whitenoise/pull/294.patch)
+sha512sums=('480098a4f4ad313f0346d72f1eca5ee2f571056077edcf07f40f37356043663fc1fa99c7a33f840c176c74ee9894a99e15828ecadae944dc0c9445034aef2cb4'
+            '8d8b1e028945bbe127dfd16999b6f7060b4f9e10d44f931974892c6b7f02e94d78e812301f33eed3c3d39b4fa282901ec076940431925181ad04f67908720c37')
+
+prepare() {
+  cd whitenoise-$pkgver
+  patch -Np1 -i ../$pkgname-requests-2.26.0.patch
+}
 
 build() {
   cd whitenoise-$pkgver

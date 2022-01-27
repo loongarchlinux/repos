@@ -3,8 +3,8 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=python-confuse
-pkgver=1.4.0
-pkgrel=1
+pkgver=1.6.0
+pkgrel=3
 pkgdesc='Painless YAML config files for Python'
 arch=(any)
 url=https://github.com/beetbox/confuse
@@ -17,7 +17,7 @@ makedepends=(
   python-poetry
 )
 checkdepends=(python-nose)
-_tag=ca66969c95d7647eb391cad0ce69075012a51777
+_tag=3162e50197f256198e7d1d24048195a3429852e6
 source=(git+https://github.com/beetbox/confuse.git#tag=${_tag})
 sha256sums=(SKIP)
 
@@ -28,7 +28,7 @@ pkgver() {
 
 build() {
   cd confuse
-  flit build --format wheel
+  python -m flit build --format wheel
 }
 
 check() {

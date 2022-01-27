@@ -3,22 +3,28 @@
 
 # upstreamed renamed to libarcus
 pkgname=arcus
-pkgver=4.9.1
-pkgrel=2
+pkgver=4.12.0
+pkgrel=1
 pkgdesc="Communication library between internal components for Ultimaker software"
 url="https://github.com/Ultimaker/libArcus"
 arch=('loongarch64' 'x86_64')
 license=('LGPL')
 makedepends=('cmake' 'sip4')
 depends=('python' 'protobuf' 'python-sip4')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Ultimaker/libArcus/archive/${pkgver}.tar.gz")
-sha512sums=('5124b80647cb0715ad94c5eaaeac797a867319de9a8064b689783fdb28598903a69e3a61393db90f5e0b3d10ee30aed844170cab63dc4b7c70509d5129a17cdd')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Ultimaker/libArcus/archive/${pkgver}.tar.gz"
+        protobuf-3.18.patch)
+sha512sums=('38c2629347e4e2c7e19e93ac58479e0e2be59f0381751a0aee7e43905b3a66fb5ea69c0581be2eb495d29919b3555e56255de2b790d557dc24e872fc1c2c1ade'
+            '5aa03da6a8db4fd3145c61bca587aac6c622536dc8211ca19be2c37ce33bf8a53508a95aa35d40d7972c7f0fea3e66ee0c506eda932be35751238f4d7f7e0d61')
+
+prepare() {
+  cd libArcus-${pkgver}
+  mkdir build
+  patch -Np1 -i ../protobuf-3.18.patch
+}
 
 build() {
-  cd libArcus-${pkgver}
-  mkdir -p build
-  cd build
-  
+  cd libArcus-${pkgver}/build
+
   cmake .. \
   -DCMAKE_INSTALL_PREFIX=/usr \
   -DCMAKE_BUILD_TYPE=Release \

@@ -1,24 +1,31 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+
 pkgname=zola
-pkgver=0.13.0
+pkgver=0.15.2
 pkgrel=1
 pkgdesc="An opinionated static site generator"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/getzola/zola"
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('cargo')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/getzola/zola/archive/v${pkgver}.tar.gz")
-sha256sums=('84c20cf5c851a465266c5cc343623752102c53929f6da31b2a4ce747a87c5c23')
+sha256sums=('9f6b1527e728cef3536e42a18fbc06647b388fb34fc07cc7aca82e44f4fa3447')
+
+prepare() {
+  cd zola-$pkgver
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
   cd zola-$pkgver
-  cargo build --release --locked
+  cargo build --frozen --release
 }
 
 check() {
   cd zola-$pkgver
-  cargo test --release --locked
+  cargo test --frozen
 }
 
 package() {

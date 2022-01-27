@@ -2,7 +2,7 @@
 
 pkgname=python-eventlet
 _pyname=eventlet
-pkgver=0.31.0
+pkgver=0.33.0
 pkgrel=2
 pkgdesc='Highly concurrent networking library'
 url='https://eventlet.net'
@@ -19,18 +19,23 @@ optdepends=(
   'python-dnspython: non-blocking DNS support'
 )
 options=('!makeflags')
-source=(https://github.com/eventlet/eventlet/archive/v${pkgver}/${_pyname}-${pkgver}.tar.gz)
-sha512sums=('50113061982f6d463058f838a13a2dfaca85ffa0a228241fe7560337d068de7b08c16d5e3c4f9b83b986d074da904669f295393b8cfd2d293c4cafdf7d401fd1')
-b2sums=('86d6ff0743ce51e3de4910c10456b172edcfe9e6cffac0b1753c24ed2fa5c84be12be92210b35fff6839cae15387cbb60701774511ec43770cb7996ecbb775ba')
+source=(https://github.com/eventlet/eventlet/archive/v${pkgver}/${_pyname}-${pkgver}.tar.gz
+        python310.patch)
+sha512sums=('455234ff08bd79e5a6b66f31f7ae87d93fde9a335f70244806cec80a4141316cd42aff91f6b8cff16f0bbe6fb673f19d6a76dc604281789e166bc41df853d8e5'
+            '07739075628ff9d140064e04189332b479f184e4647753f987b0818fa55aaca907d4880afb5cf31f980426f315e1014027dcd848551149000a12145f982cd883')
+b2sums=('6e740507307f4be34bc76d07aefb438e8562efe02220015bc0f029ada739058d9e5a5486e74e2786d44895fdea2e31ab57f0188e6bac081ea8705d08a6016b4e'
+        '783445f708c12586e026f7feac982a7b6c21f86468609c375568b51ad6055977df3d0bc740f3127b9f8bc95c1c50e81aae02ca0e0be674ed4627910d39b1ef47')
 
 prepare() {
   cd ${_pyname}-${pkgver}
+  # https://github.com/eventlet/eventlet/issues/730
+  # https://github.com/eventlet/eventlet/issues/739
+  patch -Np1 -i ../python310.patch
   sed -r 's|(check_idle_cpu_usage\(.*,) .*\)|\1 0.8\)|g' -i tests/*_test.py
 }
 
 build() {
   cd ${_pyname}-${pkgver}
-  export PYTHONHASHSEED=0
   python setup.py build
   make -C doc text
 }

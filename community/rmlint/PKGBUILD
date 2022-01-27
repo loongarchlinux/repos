@@ -5,7 +5,7 @@
 pkgbase=rmlint
 pkgname=(rmlint rmlint-shredder)
 pkgver=2.10.1
-pkgrel=2
+pkgrel=3
 url="https://github.com/sahib/rmlint"
 license=('GPL3')
 arch=('loongarch64' 'x86_64')

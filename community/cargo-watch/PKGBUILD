@@ -2,7 +2,7 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=cargo-watch
-pkgver=7.8.0
+pkgver=8.1.2
 pkgrel=1
 pkgdesc="Utility for Cargo to compile projects when sources change"
 url='https://github.com/passcod/cargo-watch'
@@ -11,12 +11,17 @@ license=('CC0-1.0')
 depends=('cargo')
 makedepends=('ruby-ronn')
 source=("https://github.com/passcod/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c1e757bfdccfedec0b08dc52b86aa011c81c9d0d3318e4841a0027291c166423146aa03aca049a2953f62feb7f6173962a986833ba7be289010bb2c9e2224135')
-b2sums=('af3a367f7e45a6a969c72dcd66d0b985b75bae13a76c970dc8360b7a76eb8d2681269d48586f8c9271ced284219131f55eb2b41053cc2978e8f5489a996910ac')
+sha512sums=('3a62091eb382ce4c90426bef3b7aa7a6b9e68c876531d98f5222da29b409705b9ed92c60aa79f73eed3ee406e92e3233bd009ab5944665b9b27cee76de7206e4')
+b2sums=('bddb358bb1f074a87507adfd7c4269e514b86ecd11f29cf5d2b58afc435f601b2450413083489ce66b281a77a74777a5c463461267adedcf7c4ada09d7aa4b7e')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
   cd ${pkgname}-${pkgver}
-  cargo build --release --locked
+  cargo build --frozen --release
   ronn --roff cargo-watch.1.ronn
 }
 

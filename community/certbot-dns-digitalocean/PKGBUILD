@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-digitalocean
-pkgver=1.16.0
-pkgrel=1
+pkgver=1.19.0
+pkgrel=2
 pkgdesc="DigitalOcean DNS Authenticator plugin for Certbot"
 arch=('any')
 license=('Apache')
@@ -14,7 +14,7 @@ source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.a
 validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
               'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('f853c971194beaa45197e72e82550a9af790fc2a072a21e6f319e6c3f6cdfefddde63f6493dcd85eca9ec0e515fcb16d71e3081346841720b3dff161c7e7be50'
+sha512sums=('59cc6fe6408b1340d31fd7419b2f5b6111b7db3e9d7aec6dfb85b4f6dd88f92d73c262608f7c833e036c9aceb9d720c5f9d3d99b728239c42b6d375ae29a6f63'
             'SKIP')
 
 build() {

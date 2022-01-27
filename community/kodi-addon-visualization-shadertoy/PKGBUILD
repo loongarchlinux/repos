@@ -2,9 +2,9 @@
 
 pkgname=kodi-addon-visualization-shadertoy
 epoch=1
-pkgver=2.3.0
+pkgver=19.1.1
 _codename=Matrix
-pkgrel=2
+pkgrel=6
 pkgdesc="Shadertoy visualizer for Kodi"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/xbmc/visualization.shadertoy'
@@ -12,7 +12,7 @@ license=('GPL')
 groups=('kodi-addons' 'kodi-addons-visualization')
 makedepends=('cmake' 'p8-platform' 'glm' 'kodi-dev')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/visualization.shadertoy/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('7693e67b3aaad0b6bc78c80b1bdfd92348de139acbb1292b56e9430dfd939b242f56e5c732625bece0088ef9e2a5627fe2f9a19aadbf076c54647c9e6929874a')
+sha512sums=('796394ee62c17c7b25a7bc39c52b17b24ba220d2f4dde3a990d6de5fe1ef0ff87820ff66140ed48ec261cda28cdadcc8f920f4af369f9f2adac486d0ae6599f1')
 
 build() {
     cd "visualization.shadertoy-$pkgver-$_codename"

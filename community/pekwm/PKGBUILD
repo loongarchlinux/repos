@@ -3,14 +3,14 @@
 # Contributor: Eddie Lozon <almostlucky@attbi.com>
 
 pkgname=pekwm
-pkgver=0.1.18
+pkgver=0.2.1
 pkgrel=1
 pkgdesc='Tabbed X11 window manager'
 arch=(loongarch64 x86_64)
 license=(GPL)
 url='https://github.com/pekdon/pekwm'
-makedepends=(gendesk git)
-depends=(libjpeg libxft libxinerama libxpm libxrandr)
+makedepends=(cmake gendesk git ninja)
+depends=(libjpeg libpng libxft libxinerama libxpm libxrandr)
 optdepends=('lxappearance: feature-rich GTK+ theme switcher'
             'nitrogen: background browser and setter'
             'tint2: basic, good-looking task manager')
@@ -26,28 +26,29 @@ backup=(etc/pekwm/autoproperties
         etc/pekwm/mouse_system
         etc/pekwm/start
         etc/pekwm/vars)
-source=("git+$url#tag=release-$pkgver")
-sha256sums=('SKIP')
+source=("git+$url#commit=d18fc4e70a5e3d9c1d51130f2d595dd078eb4704") # tag: release-0.2.1
+b2sums=(SKIP)
 
 prepare() {
   gendesk -f -n --pkgname $pkgname --pkgdesc "$pkgdesc" --name PekWM
   gendesk -f -n -wm --pkgname ${pkgname}_kdm --exec $pkgname --name PekWM
-  cd $pkgname
-  ./autogen.sh
 }
 
 build() {
-  cd $pkgname
-  ./configure --prefix=/usr --sysconfdir=/etc
-  make
+  cmake \
+    -B build \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_LIBDIR=lib \
+    -G Ninja \
+    -S $pkgname
+  ninja -C build
 }
 
 package() {
-  make -C $pkgname DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" ninja -C build install
   install -Dm644 $pkgname.desktop \
     "$pkgdir"/usr/share/xsessions/$pkgname.desktop
   install -Dm644 ${pkgname}_kdm.desktop \
     "$pkgdir"/usr/share/apps/kdm/sessions/$pkgname.desktop
 }
-
-# getver: repology.org/metapackage/pekwm/information

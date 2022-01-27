@@ -6,18 +6,19 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=1.5.15
-pkgrel=1
+pkgver=1.5.21
+pkgrel=2
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
 url=https://torsion.org/borgmatic
 license=('GPL3')
-depends=('borg' 'python-colorama' 'python-pykwalify' 'python-requests'
+depends=('borg' 'python-colorama' 'python-jsonschema' 'python-requests'
          'python-ruamel-yaml' 'python-setuptools')
+checkdepends=('python-flexmock' 'python-pytest')
 optdepends=('python-llfuse: for mount action')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('a9c9857bc9c1b3aa4a5b6c2d55e511acfdad9457a958a6de695402d5bb3ca74e')
-b2sums=('c01c469a4e0b96f4a364e0e44cd26d60cf34bc1c969cbf9931ee5ec6688cf012a1c22acb20e3a434b765ef5ec68657a2507e292e5ed3b9e0587f8784e85ecfe9')
+sha256sums=('b8aa9dbf250b95b829827310c9638a17cd52fee160a437283eed23bffcae83cf')
+b2sums=('b098334fa476304a8e63ceed37b3c2b9c67d0549bea6d06d8f0fd0f41f9812e79cea52f88fc15d2be29e491355f9544b6ccbe7c31936dfbd78eefd42e9ff2832')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -29,9 +30,16 @@ build() {
   python setup.py build
 }
 
+check() {
+  cd $pkgname-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python setup.py install --optimize=1 --skip-build
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest -c /dev/null \
+    --ignore=tests/end-to-end
+}
+
 package() {
   cd $pkgname-$pkgver
-  export PYTHONHASHSEED=0
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
   install -Dm644 -t "$pkgdir"/usr/lib/systemd/system sample/systemd/*
 }

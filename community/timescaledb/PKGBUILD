@@ -3,23 +3,26 @@
 # Contributor: Felix Fung <fylixeoi@gmail.com>
 
 pkgname=timescaledb
+_commit=a2530ab5f251ba9680d2c270496d1e2e6fcf6367
+# limit to last 5 releases
 _versions=(
-  2.1.0 # first version to work with current postgresql version
-  2.1.1
-  2.2.0
-  2.2.1
-  2.3.0 # current ts version
+  2.4.0
+  2.4.1
+  2.4.2
+  2.5.0
+  2.5.1 # current ts version
 )
 pkgver="${_versions[-1]}"
-pkgrel=2
+pkgrel=1
 pkgdesc="An open-source time-series database optimized for fast ingest and complex queries"
 arch=('loongarch64' 'x86_64')
 url="https://www.timescale.com/"
 license=('Apache' 'custom:Timescale')
 depends=('postgresql' 'postgresql-libs' 'openssl')
 makedepends=('gcc' 'cmake' 'git')
+optdepends=('timescaledb-tune: tune postgresql.conf for better performance')
 install=timescaledb.install
-source=("$pkgname::git+https://github.com/timescale/timescaledb")
+source=("$pkgname::git+https://github.com/timescale/timescaledb#commit=$_commit")
 sha512sums=('SKIP')
 
 prepare() {
@@ -31,14 +34,24 @@ build() {
     cd "$srcdir/$pkgname"
     git checkout "$version"
     BUILD_DIR="$srcdir/build/$version" ./bootstrap \
-      -DWARNINGS_AS_ERRORS=OFF -DREGRESS_CHECKS=OFF
+      -DWARNINGS_AS_ERRORS=OFF \
+      -DREGRESS_CHECKS=OFF \
+      -DTAP_CHECKS=OFF \
+      -DGENERATE_DOWNGRADE_SCRIPT=ON
 
     # build package or past shared library
     cd "$srcdir/build/$version"
+
+    # temporarily ensure reproducible builds (value from `lsb_release -r`)
+    # TODO: resolve https://github.com/timescale/timescaledb/issues/3480
+    sed \
+      -e "s:BUILD_OS_VERSION \".*\"$:BUILD_OS_VERSION \"rolling\":" \
+      -i src/config.h
+
     if [ "$version" == "${_versions[-1]}" ]; then
       make
     else
-      make timescaledb timescaledb-tsl
+      make timescaledb timescaledb-tsl sqlfile
     fi
   done
 }
@@ -59,6 +72,8 @@ package() {
       install -vDm644 -t "$pkgdir/usr/lib/postgresql" \
         "src/$pkgname-$version.so" \
         "tsl/src/$pkgname-tsl-$version.so"
+      install -Dm644 -t "$pkgdir/usr/share/postgresql/extension" \
+        "sql/timescaledb--$version.sql"
     fi
   done
 }

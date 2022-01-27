@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ukui-biometric-auth
-pkgver=1.2.1
-pkgrel=1
+pkgver=1.2.2
+pkgrel=3
 pkgdesc="Biometric authentication for UKUI"
 arch=('loongarch64' 'x86_64')
 license=('GPL')
 url="https://github.com/ukui/ukui-biometric-auth"
 groups=('ukui')
-depends=('polkit-qt5')
+depends=('opencv' 'polkit-qt5')
 makedepends=('cmake' 'ninja' 'qt5-tools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ukui/ukui-biometric-auth/archive/v$pkgver.tar.gz")
-sha512sums=('bc5dde2252120e0389ace6995fe207d64a0c8595cea3cce38ae49c7e3360f8b4b0d7a9499d6eeaaaa0c6f1ce4e7a291d1bc34c1dd343c3211f9013de24e5e99c')
+sha512sums=('11513de8b4a89ccba2b418a6998fdf0c9306c2621442e0e576de53e81a510f99971a6b89ec312c4ab4d387306cd56835b2ea2192473b6eb547a14375de1005f9')
 
 prepare() {
   mkdir -p build

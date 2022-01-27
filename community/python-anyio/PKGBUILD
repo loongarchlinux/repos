@@ -1,7 +1,8 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-anyio
-pkgver=3.2.1
+# https://github.com/agronholm/anyio/blob/master/docs/versionhistory.rst
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
@@ -16,18 +17,9 @@ optdepends=(
   'python-trio: trio backend'
 )
 source=(https://github.com/agronholm/anyio/archive/$pkgver/anyio-$pkgver.tar.gz)
-sha256sums=('176ff54241e8116fc5064b66b099eda7afbfc8451538c4ab43d76e126c49772d')
+sha256sums=('5dcba2e18b951cb35108bfd0e45cce4f6bf9723904ccd911f123843c9db5efa6')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
-
-prepare() {
-  cd anyio-$pkgver
-  # pytest-mock 3.3 comes with an API change [1], and anyio uses the new API,
-  # while python-pytest-mock in Arch is out-dated. Patch the sources to use
-  # the old API.
-  # [1] https://github.com/pytest-dev/pytest-mock/issues/202
-  sed -i 's#MockerFixture#MockFixture#' tests/test_eventloop.py
-}
 
 build() {
   cd anyio-$pkgver

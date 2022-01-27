@@ -2,8 +2,8 @@
 
 _hkgname=mysql-simple
 pkgname=haskell-mysql-simple
-pkgver=0.4.6
-pkgrel=11
+pkgver=0.4.7.1
+pkgrel=2
 pkgdesc="A mid-level MySQL client library"
 url="https://github.com/paul-rouse/mysql-simple"
 license=("BSD")
@@ -13,14 +13,14 @@ depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base16-bytestring' 'haskell-bl
 makedepends=('ghc' 'haskell-hspec')
 checkdepends=('mariadb')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('b25117804fe3ec0461044e573e3eda6e3e739fdedaf87aa57bd3718900c15a068c49ef050bc57e6d5acd17a6665c2ed554598eb1309f3fd37d7f2c333782259d')
+sha512sums=('20dd61c0f1cbffbfb36edf4b16dc4c41a2297111abb0fe4e4a7c971a7c66ad9316025fb72727fb210159a93854f4d620c682fce689a132cb795a5ca1d7361dee')
 
 build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-    --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
+    --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
 

@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-google
-pkgver=1.16.0
-pkgrel=1
+pkgver=1.19.0
+pkgrel=2
 pkgdesc="Google Cloud DNS Authenticator plugin for Certbot"
 arch=('any')
 license=('Apache')
@@ -14,7 +14,7 @@ source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.a
 validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
               'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('8e04be9cba16889f51ef8811d6bc61a0e00be29847d096c3cda56440f7cf70c3165f4e9610f31659f7ca09f45ff3a0d8f6a801c47ef3771c856169462001595c'
+sha512sums=('ce1586b8c8544f4e1716d19f247e7541d402b754773401fec5f0b36e5d0f2744540da276ed94cb08d05b6437a6e2396ab0010e31228e638015113a3a3f0b76c6'
             'SKIP')
 
 build() {

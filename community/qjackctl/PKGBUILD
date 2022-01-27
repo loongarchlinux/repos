@@ -3,7 +3,7 @@
 # Contributor: Tobias Kieslich <tobias@archlinux.org>
 
 pkgname=qjackctl
-pkgver=0.9.3
+pkgver=0.9.5
 pkgrel=1
 pkgdesc="A Qt front-end for the JACK low-latency audio server"
 url="https://qjackctl.sourceforge.io"
@@ -17,8 +17,8 @@ optdepends=(
   'qt6-wayland: for native wayland support'
 )
 source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('bfe1cbd37ebd92409f5dd7e8a28115b9922bb43ad0f38112b140c8635a33cc49614202b9e4f92d57e58ed83a85767f53b538a7e6b69702b159157868081b3435')
-b2sums=('e3fdacd8fb287e56d53c1b4afabf69aae89a9c311c1f056ae0f2c0f2c7e994e320a904d9ddd40efd48ed7b15fd7d90ed6ce07adc0db496d133431b1519c83a86')
+sha512sums=('2edceefd30a57b3b2277db271dd95c2b47b4a85106762eb3149dff94328265c096c5a26d301bd0edcd8f5d948dfc24ff2d3da532ac297121e4fee6982fb6ba56')
+b2sums=('3446b0cb5cd34541d5761f3f6e2361dcfb50656997c723b5972aa60466a1eb1a720fb5d97684079832705b084d8d1ca082f652145d51ff89aedfab71a90d5c5e')
 
 build() {
   cd "${pkgname}-${pkgver}"

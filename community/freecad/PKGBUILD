@@ -10,36 +10,45 @@
 # Contributor: gborzi
 
 pkgname=freecad
-pkgver=0.19.2
-pkgrel=2
-_commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac # tag: 0.19.2
+pkgver=0.19.3
+pkgrel=11
 pkgdesc='General purpose 3D CAD modeler'
 arch=(loongarch64 x86_64)
 url='https://freecadweb.org/'
 license=(LGPL)
 depends=(boost-libs glew jsoncpp libspnav med netcdf opencascade openmpi
-         pyside2-tools python-matplotlib python-pivy python-ply python-pyside2
-         qt5-svg qt5-tools qt5-webkit qt5-x11extras qt5-xmlpatterns
-         xerces-c)
-makedepends=(boost cmake coin eigen gcc-fortran gendesk git ninja pyside2
-             python-shiboken2 shiboken2 swig)
-source=("git+https://github.com/FreeCAD/FreeCAD#commit=$_commit" freecad.xml)
-b2sums=('SKIP'
-        'f5f295b9b5f268126feffbe3f3344c124faf5e2263f3f071348bd7f5d0bf2e30eb33fcf174d0ab76ad80ca7bd8ddea95ccbaf7f33f0896189ac78603fecb9485')
+         pyside2-tools python-gitpython python-matplotlib python-pivy
+         python-ply python-pyside2 qt5-svg qt5-tools qt5-webkit qt5-x11extras
+         qt5-xmlpatterns xerces-c)
+makedepends=(adios2 boost cmake cgns coin eigen fmt gcc-fortran gendesk git
+             jdk-openjdk libharu liblas ninja openvdb openvr ospray pdal
+             postgresql-libs python-mpi4py python-shiboken2 shiboken2 swig
+             utf8cpp)
+source=(freecad.xml
+        freecad-boost.patch
+        freecad-vtk9.patch
+        "git+https://github.com/FreeCAD/FreeCAD#commit=7b5e18a0759de778b74d3a5c17eba9cb815035ac") # tag: 0.19.2
+b2sums=('f5f295b9b5f268126feffbe3f3344c124faf5e2263f3f071348bd7f5d0bf2e30eb33fcf174d0ab76ad80ca7bd8ddea95ccbaf7f33f0896189ac78603fecb9485'
+        '6ec5dcead7f3438b387aeb3f608b910105d493aafcd47ae84715cdfe6f8651926056283ec4aeeab542b89df9fd9ffc2dbb74f5593e864acd23c8b352033ed1dc'
+        '242702f926101c57774046548068d17b22bd582ba1a1c45534ac8ceaa174c56277db80f32bed8ad1475b37006a1d777193b6c098ed8a733772152a898d1dd825'
+        'SKIP')
 
 prepare() {
-  cd FreeCAD/src
+  # Fix Boost linking with VTK 9 (thanks Fedora)
+  patch -d FreeCAD -p1 -i ../freecad-boost.patch
+  # Fix build with VTK 9 (thanks Fedora)
+  patch -d FreeCAD -p1 -i ../freecad-vtk9.patch
+  # Generate desktop shortcut
   gendesk -f -n --pkgname "$pkgname" --pkgdesc "$pkgdesc" --name FreeCAD \
     --mimetypes='application/x-extension-fcstd' --startupnotify=true
 }
 
 build() {
-  # OpenCascade requires that /bin comes before /usr/bin in $PATH
+  # OpenCascade requires that /usr/bin comes before /bin in $PATH
   export PATH="/usr/bin:$PATH"
 
-  mkdir -p build
-  cd build
-  cmake ../FreeCAD \
+  cmake \
+    -B build \
     -D BUILD_ENABLE_CXX_STD=C++14 \
     -D BUILD_QT5=ON \
     -D CMAKE_BUILD_TYPE=Release \
@@ -52,30 +61,39 @@ build() {
     -D FREECAD_USE_OCC_VARIANT='Official Version' \
     -D FREECAD_USE_QT_FILEDIALOG=ON \
     -D PYTHON_EXECUTABLE=/usr/bin/python \
-    -G Ninja
-  ninja
+    -G Ninja \
+    -S FreeCAD
+  ninja -C build
 }
 
 package() {
   DESTDIR="$pkgdir" ninja -C build install
 
-  # Package desktop shortcut
-  install -Dm644 FreeCAD/src/freecad.desktop \
+  # Desktop shortcut
+  install -Dm644 freecad.desktop \
     "$pkgdir/usr/share/applications/freecad.desktop"
 
-  # Package MIME info
+  # MIME info
   install -Dm644 freecad.xml "$pkgdir/usr/share/mime/packages/freecad.xml"
 
-  # Package icons
+  # Thumbnailer
+  install -Dm755 FreeCAD/src/Tools/freecad-thumbnailer \
+    "$pkgdir/usr/bin/freecad-thumbnailer"
+  install -Dm644 \
+    "$pkgdir/usr/lib/freecad/share/thumbnailers/FreeCAD.thumbnailer" \
+    "$pkgdir/usr/share/thumbnailers/FreeCAD.thumbnailer"
+  rm -f "$pkgdir/usr/lib/freecad/share/thumbnailers/FreeCAD.thumbnailer"
+
+  # Icons
   cd FreeCAD/src/Gui/Icons
+  install -Dm644 freecad.svg \
+    "$pkgdir/usr/share/icons/hicolor/scalable/apps/freecad.svg"
   for i in 16 32 48 64; do
     install -Dm644 "freecad-icon-$i.png" \
       "$pkgdir/usr/share/icons/hicolor/${i}x$i/apps/freecad.png"
   done
-  install -Dm644 freecad.svg \
-    "$pkgdir/usr/share/icons/hicolor/scalable/apps/freecad.svg"
 
-  # Package symlinks in /usr/bin
+  # Symlinks in /usr/bin
   install -d "$pkgdir/usr/bin"
   ln -sf /usr/lib/freecad/bin/FreeCAD "$pkgdir/usr/bin/freecad"
   ln -sf /usr/lib/freecad/bin/FreeCAD "$pkgdir/usr/bin/FreeCAD"

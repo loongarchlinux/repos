@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-dnsmadeeasy
-pkgver=1.16.0
-pkgrel=1
+pkgver=1.19.0
+pkgrel=2
 pkgdesc="DNS Made Easy DNS Authenticator plugin for Certbot"
 arch=('any')
 license=('Apache')
@@ -14,7 +14,7 @@ source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.a
 validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
               'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('cef2fdbe544a94812c063f83f726fffbaf79196d2741bbc01222e86bc0680991f88b5836466c9d65628b95fbb009b222331ad92e95b28bc0f3ec1bfcb68a2dca'
+sha512sums=('5faa1a981b8a981f75c8f802bb3c603a82a7373eceaeda734d0c8ae96fba5992d13b930dca6f65e435f63633b097ee93e2f1bcc2fc2bf71a4c4207a4d97da6e4'
             'SKIP')
 
 build() {

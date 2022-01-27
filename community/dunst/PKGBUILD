@@ -4,8 +4,8 @@
 # Contributor: feuri
 
 pkgname=dunst
-pkgver=1.6.1
-pkgrel=2
+pkgver=1.7.3
+pkgrel=1
 pkgdesc="Customizable and lightweight notification-daemon"
 url="https://dunst-project.org/"
 arch=('loongarch64' 'x86_64')
@@ -16,18 +16,18 @@ optdepends=('libnotify: dunstify')
 backup=('etc/dunst/dunstrc')
 provides=('notification-daemon')
 source=("dunst-$pkgver.tar.gz::https://github.com/dunst-project/dunst/archive/v$pkgver.tar.gz")
-md5sums=('a067aff8df233376afaf39222e863a4d')
+md5sums=('71a900dca891c02878c691f596a7ebed')
 
 build() {
   cd dunst-$pkgver
 
-  make PREFIX=/usr X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 all
+  make PREFIX=/usr SYSCONFDIR=/etc X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 all
 }
 
 package() {
   cd dunst-$pkgver
 
-  make DESTDIR="$pkgdir" PREFIX=/usr install
+  make DESTDIR="$pkgdir" SYSCONFDIR=/etc PREFIX=/usr install
   install -Dm755 dunstify "$pkgdir"/usr/bin/dunstify
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

@@ -1,68 +1,47 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=ogre
-pkgver=2.2.4
+pkgver=13.2.1
 pkgrel=1
 pkgdesc='Scene-oriented, flexible 3D engine written in C++'
 arch=('loongarch64' 'x86_64')
 url='http://www.ogre3d.org'
 license=('custom:MIT')
-depends=('freeimage' 'freetype2' 'libxaw' 'libxrandr' 'openexr' 'rapidjson'
-         'nvidia-cg-toolkit' 'zziplib' 'sdl2' 'glu' 'tinyxml' 'zlib')
+depends=('freeimage' 'freetype2' 'libxaw' 'libxrandr' 'sdl2' 'glu' 'pugixml' 'zlib')
 makedepends=('cmake' 'doxygen' 'graphviz' 'ttf-dejavu' 'mesa' 'python' 'ninja' 'cppunit')
 install=ogre.install
-source=("$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre-next/archive/v${pkgver}.tar.gz"
-        fix-includes.patch)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v${pkgver}.tar.gz")
 optdepends=('python: python bindings')
-sha512sums=('c16dac0c9e02efd45f6c3189e0600b739e551d78f4794160701377a9c1b4e24b4868a774a35c80d7f2cade44abe04128bc46949ca497a44867b55f378ede028b'
-            'a8c70b4ee692cded9c97a0101e59bede0f4c0c2445d075b15bb20e0a3cf1e0c9af3cedde2e3b8524d2430e7b338869eb9d41d5853e9cf1510688a9ddf4f4b19f')
-
-prepare() {
-  cd ogre-next-${pkgver}
-  patch -Np1 -i "${srcdir}"/fix-includes.patch
-}
+sha512sums=('54f835a2d427d860baa6ca8061c6e3c8246b93e67c0099f45a90162603ef99d9589bda51c7a07791668051b1bb1fbd3d7a8ad800addb53a9633c476998c32860')
 
 build() {
-  cd ogre-next-${pkgver}
+  cd ogre-${pkgver}
 
   cmake \
     -Bbuild \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DOGRE_CONFIG_ENABLE_JSON=TRUE \
-    -DOGRE_CONFIG_THREADS=1 \
-    -DOGRE_CONFIG_THREAD_PROVIDER="std" \
-    -DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=ON \
-    -DOGRE_USE_BOOST=TRUE \
-    -DOGRE_BUILD_TESTS=TRUE \
-    -DOGRE_INSTALL_SAMPLES_SOURCE=TRUE
+    -DOGRE_BUILD_TESTS=ON \
+    -DOGRE_BUILD_DEPENDENCIES=OFF
 
   ninja -C build
   ninja -C build OgreDoc
-  # All of these are broken
-  # -DOGRE_BUILD_COMPONENT_TERRAIN=ON \
-  # -DOGRE_BUILD_COMPONENT_VOLUME=ON \
-  # -DOGRE_BUILD_COMPONENT_PAGING=ON \
-  # -DOGRE_BUILD_COMPONENT_PROPERTY=ON \
-  # -DOGRE_BUILD_COMPONENT_RTSHADERSYSTEM=ON \
-  # -DOGRE_BUILD_COMPONENT_SCENE_FORMAT=ON \
 }
 
 check() {
-  cd ogre-next-${pkgver}
+  cd ogre-${pkgver}
 
-  # Upstream pls
-  # ninja -C build test
+  ninja -C build test
 }
 
 package() {
-  cd ogre-next-${pkgver}
+  cd ogre-${pkgver}
 
   DESTDIR="${pkgdir}" ninja -C build install
 
   mkdir -p "${pkgdir}"/opt/ogre/samples
-  mv "${pkgdir}"/usr/bin/Sample_* "${pkgdir}"/opt/ogre/samples
+  mv "${pkgdir}"/usr/bin/SampleBrowser "${pkgdir}"/opt/ogre/samples
   mv "${pkgdir}"/usr/bin/Test_* "${pkgdir}"/opt/ogre/samples
-  install -Dm644 Docs/License.html "${pkgdir}"/usr/share/licenses/${pkgname}/License.html
+  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

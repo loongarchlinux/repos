@@ -26,8 +26,8 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-xml-html' 'gambas3-gb-xml-rpc' 'gambas3-gb-xml-xslt' 'gambas3-gb-xml'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
-pkgver=3.16.1
-pkgrel=1
+pkgver=3.16.3
+pkgrel=5
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('loongarch64' 'x86_64')
 url="http://gambas.sourceforge.net/"
@@ -42,7 +42,7 @@ makedepends=('intltool' 'postgresql' 'libffi' 'bzip2' 'glib2' 'v4l-utils'
          'gmime3' 'libxcrypt')
 options=('!emptydirs' 'libtool')
 source=("https://gitlab.com/gambas/gambas/-/archive/${pkgver}/gambas-${pkgver}.tar.bz2")
-sha512sums=('515183a00b946eb81c43ad1f27924d9ee1f3a0909f05066556ff594719344cb58ac01c546ca5b5ae239bcae4cd2df817cf6774d6904c4cf2204f25862d648972')
+sha512sums=('151e53dd7023e919d82487ed782a627ebe65b3006ac225047f154eccfb910baa2124e8ed64866cf7a2871bc3ceb19b65fcafb26f0508bcdb3ce357e822cf8003')
 
 prepare() {
   cd ${srcdir}/gambas-${pkgver}
@@ -298,7 +298,7 @@ package_gambas3-gb-gsl() {
 }
 
 package_gambas3-gb-gtk3() {
-  depends=('gambas3-gb-image' 'gtk3')
+  depends=('gambas3-gb-image' 'gtk3' 'webkit2gtk')
   pkgdesc="GTK3 toolkit component"
   provides=('gambas3-gui')
 
@@ -560,7 +560,7 @@ package_gambas3-gb-qt5-webkit() {
 }
 
 package_gambas3-gb-qt5() {
-  depends=('gambas3-gb-image' 'qt5-base' 'qt5-svg' 'qt5-x11extras')
+  depends=('gambas3-gb-image' 'qt5-base' 'qt5-svg' 'qt5-webengine' 'qt5-x11extras')
   pkgdesc="Qt5 toolkit component"
   provides=('gambas3-gui')
 

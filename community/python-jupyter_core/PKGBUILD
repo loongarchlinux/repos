@@ -1,8 +1,8 @@
 # Maintainer: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-jupyter_core
-pkgver=4.7.1
-pkgrel=1
+pkgver=4.9.1
+pkgrel=3
 pkgdesc="Jupyter core package. A base package on which Jupyter projects rely."
 arch=('any')
 url="https://pypi.python.org/pypi/jupyter_core"
@@ -10,11 +10,13 @@ license=('BSD')
 depends=('python-traitlets')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-nose')
-source=("$pkgname-$pkgver.tgz::https://github.com/jupyter/jupyter_core/archive/$pkgver.tar.gz")
-sha256sums=('dfdd5af7aceb79b41b4a57fef580f56d4ad5102bffdc723cb4f442926f0dc48f')
+#source=("$pkgname-$pkgver.tgz::https://github.com/jupyter/jupyter_core/archive/$pkgver.tar.gz")
+source=("https://files.pythonhosted.org/packages/source/j/jupyter_core/jupyter_core-$pkgver.tar.gz")
+sha256sums=('dce8a7499da5a53ae3afd5a9f4b02e5df1d57250cf48f3ad79da23b4778cd6fa')
 
 prepare() {
   cd "$srcdir/jupyter_core-$pkgver"
+  sed -e '/\/usr\/local\/share\/jupyter/d' -i jupyter_core/paths.py
 }
 
 build() {

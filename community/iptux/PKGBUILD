@@ -2,8 +2,8 @@
 # Contributor: Kevin Guan <KevinGuan.gm@gmail.com>
 
 pkgname=iptux
-pkgver=0.8.1
-pkgrel=1
+pkgver=0.8.3
+pkgrel=2
 pkgdesc='LAN messenger and file sender, an IP Messenger client'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/iptux-src/iptux/'
@@ -12,7 +12,7 @@ depends=('google-glog' 'gtk3' 'jsoncpp' 'libsigc++')
 makedepends=('appstream' 'gflags' 'meson')
 checkdepends=('xorg-server-xvfb')
 source=("https://github.com/iptux-src/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('4d433065fee53d6135cdda67541b50ca33b68195b3d0c070f1fc5d4ed9c8c435')
+sha256sums=('858fa04b987a0d576f6f67d5b5cbc543df01ed2b6c241ca890f93f89ebcb2331')
 
 build() {
   arch-meson $pkgname-$pkgver build

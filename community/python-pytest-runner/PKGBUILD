@@ -1,34 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgbase=python-pytest-runner
-pkgname=('python-pytest-runner' 'python2-pytest-runner')
-pkgver=5.2
+pkgname=python-pytest-runner
+pkgver=5.3.1
 pkgrel=3
 pkgdesc="Invoke py.test as distutils command with dependency resolution"
 arch=('any')
 license=('MIT')
 url="https://github.com/pytest-dev/pytest-runner"
-makedepends=('python-pytest' 'python2-pytest' 'python-setuptools-scm' 'python2-setuptools-scm')
+depends=('python-pytest' 'python-setuptools')
+makedepends=('python-setuptools-scm' 'python-toml')
 checkdepends=('python-pytest-black' 'python-pytest-cov' 'python-pytest-virtualenv'
-              'python-pytest-flake8')
-source=("$pkgbase-$pkgver.tar.gz::https://github.com/pytest-dev/pytest-runner/archive/$pkgver.tar.gz"
-        $pkgbase-black-fix.patch::https://github.com/pytest-dev/pytest-runner/commit/18b8fa1ace1b4ac0dbd53e14940da27c10db650d.patch)
-sha512sums=('0ce9c191481ab97795d0f45bdea7669cb61c3ac6aac476954d34c3e09e6fb08fd6bf73f192c014cb7ff2bd90dbfeb0f01d9a9ba7a9c6caeb371e40b42b558d63'
-            '92650ddf5c9ad43b92c0da3a0bb7f7669523897ca089a04ef46e4856de137fb6548536c4c024c5af2ff2bfbe96401aaaddb9c4448d7781b6accc72b2019f467f')
+              'python-pytest-flake8' 'python-pytest-enabler')
+source=("https://github.com/pytest-dev/pytest-runner/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+        $pkgname-python310.patch::https://github.com/pytest-dev/pytest-runner/pull/59.patch)
+sha512sums=('3b3197e86d64e4e62a7d12e70c3e68ef539f88db2acf610951fa61f74e2a00eb64ba4faa8eb787b846f57c9a8f791f8ce6774c5b48a212a4244067c33256a0fa'
+            '71fcdc8c55f7743ae66dad89ccfadf7650d1a8395f34b2107543a80653924915372e033395e669cb3901eb75b137419a03f3b5b08a5d1a5f27e13a1f5de62a74')
+
+export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
 prepare() {
-  patch -d pytest-runner-$pkgver -p1 < $pkgbase-black-fix.patch || :
-  cp -a pytest-runner-$pkgver{,-py2}
-
-  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+  cd pytest-runner-$pkgver
+  patch -Np1 -i ../$pkgname-python310.patch
 }
 
 build() {
-  cd "$srcdir"/pytest-runner-$pkgver
+  cd pytest-runner-$pkgver
   python setup.py build
-
-  cd "$srcdir"/pytest-runner-$pkgver-py2
-  python2 setup.py build
 }
 
 check() {
@@ -37,18 +34,8 @@ check() {
   PYTHONPATH="$PWD" pytest
 }
 
-package_python-pytest-runner() {
-  depends=('python-pytest')
-
+package() {
   cd pytest-runner-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-}
-
-package_python2-pytest-runner() {
-  depends=('python2-pytest')
-
-  cd pytest-runner-$pkgver-py2
-  python2 setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

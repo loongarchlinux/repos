@@ -2,7 +2,7 @@
 
 pkgname=gnome-pie
 _pkgname=Gnome-Pie
-pkgver=0.7.2
+pkgver=0.7.3
 pkgrel=1
 pkgdesc="Circular application launcher for GNOME"
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('libarchive' 'libgee' 'libwnck3' 'gnome-menus')
 makedepends=('cmake' 'vala')
 source=($_pkgname-$pkgver.tar.gz::https://github.com/Simmesimme/$_pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('b15e6402dbdddf3a3751c919927176bdf78fca174544a971d3db569d4e9162cf')
+sha256sums=('e5d35462d72a1418555deafd3219f62e68acb28b763a55929c89be992f9c0a85')
 
 build() {
   cd $_pkgname-$pkgver

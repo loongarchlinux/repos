@@ -3,22 +3,22 @@
 
 pkgbase=lib32-harfbuzz
 pkgname=(lib32-harfbuzz lib32-harfbuzz-icu)
-pkgver=2.8.1
+pkgver=3.2.0
 pkgrel=1
-pkgdesc="OpenType text shaping engine (32-bit)"
+pkgdesc="OpenType text shaping engine - 32-bit"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
 arch=(loongarch64 x86_64)
 license=(MIT)
 makedepends=(lib32-glib2 lib32-freetype2 lib32-icu ragel git python meson
              harfbuzz)
 checkdepends=(python-fonttools python-setuptools)
-_commit=b37f03f16b39d397a626f097858e9ae550234ca0  # tags/2.8.1^0
+_commit=be91d2917d9860326cb5fd1d03ffe1042a72f6d3  # tags/3.2.0^0
 source=("git+https://github.com/harfbuzz/harfbuzz#commit=$_commit")
 sha256sums=('SKIP')
 
 pkgver() {
   cd harfbuzz
-  git describe --tags | sed 's/-/+/g'
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
@@ -45,25 +45,36 @@ check() {
   rm -r tmp
 }
 
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
 package_lib32-harfbuzz() {
   depends=(lib32-glib2 lib32-freetype2 libglib-2.0.so libfreetype.so
            libgobject-2.0.so harfbuzz)
   provides=(libharfbuzz.so libharfbuzz-subset.so libharfbuzz-gobject.so)
 
-  DESTDIR="$pkgdir" meson install -C build
-  rm -rf "${pkgdir}"/usr/{include,share,bin}
+  meson install -C build --destdir "$pkgdir"
 
-  # Split harfbuzz-icu
-  mkdir -p hb-icu/usr/lib32/pkgconfig
-  mv -t hb-icu/usr/lib32 "$pkgdir"/usr/lib32/libharfbuzz-icu*
-  mv -t hb-icu/usr/lib32/pkgconfig "$pkgdir"/usr/lib32/pkgconfig/harfbuzz-icu.pc
+  ( cd "$pkgdir"
+    rm -r usr/{bin,include}
+
+    _pick hb-icu usr/lib32/libharfbuzz-icu*
+    _pick hb-icu usr/lib32/pkgconfig/harfbuzz-icu.pc
+  )
 
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 harfbuzz/COPYING
 }
 
 package_lib32-harfbuzz-icu() {
-  pkgdesc="$pkgdesc (ICU integration)"
-  depends=("lib32-harfbuzz=$pkgver-$pkgrel" lib32-icu libharfbuzz.so harfbuzz-icu)
+  pkgdesc+=" - ICU integration"
+  depends=("lib32-harfbuzz=$pkgver-$pkgrel" libicuuc.so libharfbuzz.so harfbuzz-icu)
   provides=(libharfbuzz-icu.so)
 
   mv hb-icu/* "$pkgdir"

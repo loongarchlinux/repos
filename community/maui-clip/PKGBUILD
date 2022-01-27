@@ -2,17 +2,17 @@
 
 pkgname=maui-clip
 _pkgname=clip
-pkgver=1.1.1
-pkgrel=1
+pkgver=2.1.0
+pkgrel=2
 pkgdesc='Video player and video collection manager'
 url='https://mauikit.org/'
 arch=(loongarch64 x86_64)
 license=(GPL3)
-depends=(mauikit-filebrowsing mpv)
+depends=(mauikit-filebrowsing taglib ffmpeg)
 makedepends=(extra-cmake-modules)
 groups=(maui)
 source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('eeafc462500e4c2b0bdd99b93b367aae949ca1bea9c32fdb63ebf8cc01321773')
+sha256sums=('c09f9668c25710e4018ca1ac00fa56d7d00a5c64ffc3e967aa3abf3a46c97bef')
 
 build() {
   cmake -B build -S $_pkgname-$pkgver

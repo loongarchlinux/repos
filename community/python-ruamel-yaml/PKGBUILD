@@ -5,7 +5,7 @@
 
 _pkg=ruamel.yaml
 pkgname=python-${_pkg/./-}
-pkgver=0.17.10
+pkgver=0.17.18
 pkgrel=1
 pkgdesc="YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
 arch=('any')
@@ -14,7 +14,7 @@ license=('MIT')
 depends=('python-ruamel.yaml.clib')
 makedepends=('python-setuptools')
 source=(https://files.pythonhosted.org/packages/source/r/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha512sums=('afc0d2a9d900bd2205127d8ca3fa25e36a9f9c5d99af2c030a71dc1f45112a8da100fbea3869747f3236254a92cd945e28de7f60e2e5a845ac326fe35d071269')
+sha512sums=('9cde254b8e3f989c8e142af0845329d2ef1eabeaea304c8535f4856ba23b7c2acddd503e6d578385b62ab92b2d3a3da0e93381f8f86324209730d1ac73da9b3a')
 
 build() {
   cd ${_pkg}-${pkgver}

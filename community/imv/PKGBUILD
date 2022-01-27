@@ -2,25 +2,23 @@
 # Contributor: Harry Jeffery <harry@exec64.co.uk>
 
 pkgname=imv
-pkgver=4.2.0
-pkgrel=3
+pkgver=4.3.1
+pkgrel=1
 pkgdesc='Image viewer for Wayland and X11'
-url='https://github.com/eXeC64/imv'
+url='https:/lists.sr.ht/imv-announce/'
 arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(freeimage glu libheif libinih libnsgif librsvg libxkbcommon libxkbcommon-x11 pango)
-makedepends=(asciidoc cmocka git meson)
+makedepends=(asciidoc cmocka meson)
 conflicts=(renameutils)
-source=("git+$url#tag=v${pkgver/_/-}")
-sha1sums=('SKIP')
+source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~exec64/$pkgname/archive/v$pkgver.tar.gz")
+b2sums=('9c818a5a29457313c3d0ed1a8558555b2069aec837939dc1d2b71668ec2fd39867c8ad4fcf8605243ded96e27d346af4307d83c8854538981b62c968e9ec0ede')
 
 build() {
-  arch-meson build $pkgname
+  arch-meson build $pkgname-v$pkgver
   ninja -C build
 }
 
 package() {
   DESTDIR="$pkgdir" ninja -C build install
 }
-
-# getver: github.com/eXeC64/imv/releases

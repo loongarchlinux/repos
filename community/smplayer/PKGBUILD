@@ -1,11 +1,12 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Allan McRae <allan@archlinux.org>
 # Contributor: Alessio 'mOLOk' Bolognino <themolok@gmail.com>
 # Contributor: shamrok <szamrok@gmail.com>
 
 pkgname=smplayer
-pkgver=21.1.0
+pkgver=21.10.0
 pkgrel=1
 pkgdesc='Media player with built-in codecs that can play virtually all video and audio formats'
 url='https://www.smplayer.info/'
@@ -17,10 +18,11 @@ optdepends=('smplayer-themes: icon themes collection'
             'smplayer-skins: skin themes collection'
             'smtube: browse and play youtube videos'
             'youtube-dl: youtube videos and streaming'
+            'yt-dlp: youtube videos and streaming'
             'mplayer: alternative multimedia engine')
 source=(https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2)
-sha512sums=('94030ddba63355403f14ce70a3b7719eaa0b006017148039bcc691159c33bbb6c8a947bff10dab9fecc0daa7106ac1b9f3ac7d7ea4263d622240636743c90553')
-b2sums=('593ceae2ceeeea6a9689c8e92a1a15fcdd7e2e3f04a6982f0fc36864ced157ff4cb59a26cc9941931aef8e31eef1d580fd606cd2ae396ba1e998233a1e30e74d')
+sha512sums=('3e4a046c704eeb181570c56a819afbca939257df370c909dab3af448553702feeebba542f123d18cf6b786a19f92ee67ba60ba25a649d83f1f31411b715f7ae4')
+b2sums=('e2da80e64c4cbb9a3977ae9f5570800a2c3e012f21fdd011d66dce681488805c309fb40aae72aff5858cc06beaf1e8bbe052816eb91d3700a222b3b10be57228')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -31,16 +33,21 @@ prepare() {
 build() {
   cd ${pkgname}-${pkgver}
   export CXXFLAGS="${CXXFLAGS} ${CPPFLAGS}"
-  make PREFIX=/usr \
+  make \
+    PREFIX=/usr \
     DOC_PATH="\\\"/usr/share/doc/smplayer\\\"" \
     QMAKE_OPTS=DEFINES+=NO_DEBUG_ON_CONSOLE \
-    CFLAGS_EXTRA="${CFLAGS} ${CPPFLAGS} ${LDFLAGS}"
+    CFLAGS_EXTRA="${CFLAGS} ${CPPFLAGS} ${LDFLAGS}" \
+    all
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  make DOC_PATH=/usr/share/doc/smplayer \
-    DESTDIR="${pkgdir}" PREFIX=/usr -j1 install
+  make \
+    PREFIX=/usr \
+    DOC_PATH=/usr/share/doc/smplayer \
+    DESTDIR="${pkgdir}" \
+    install
 }
 
 # vim: ts=2 sw=2 et:

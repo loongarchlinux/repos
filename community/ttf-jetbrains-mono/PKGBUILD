@@ -3,17 +3,17 @@
 # Contributor: Jordan Day <jordanday444 at gmail.com>
 
 pkgname=ttf-jetbrains-mono
-pkgver=2.225
+pkgver=2.242
 pkgrel=1
 pkgdesc='Typeface for developers, by JetBrains'
 arch=(any)
 url='https://jetbrains.com/lp/mono'
 license=(custom:OFL)
 source=("https://github.com/JetBrains/JetBrainsMono/releases/download/v$pkgver/JetBrainsMono-$pkgver.zip")
-sha256sums=('03b2e2c0e3285703a204b6efbe2d277bf568e0bb53a395e9f4e74e9b77c4aeb2')
+b2sums=('814dc53be8a57d2d9abef06ac4ff81025225891fc0ac1889e34325c607eda410e91c4aae7fce914ce3df751cf109205172a52171ba2aa93f32fbd99856e081ed')
 
 package() {
-  find fonts/ttf -type f -name "*.ttf" -exec \
+  find fonts/ttf -type f -name '*.ttf' -exec \
     install -Dm644 -t "$pkgdir/usr/share/fonts/TTF" {} \;
   install -Dm644 OFL.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

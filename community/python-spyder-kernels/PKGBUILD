@@ -1,10 +1,9 @@
-# Maintainer: Muflone http://www.muflone.com/contacts/english/
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 _pkg=spyder-kernels
 pkgname=python-${_pkg}
-pkgver=2.0.1
-pkgrel=1
+pkgver=2.2.0
+pkgrel=2
 pkgdesc="Jupyter Kernels for the Spyder console"
 arch=(any)
 url="https://github.com/spyder-ide/spyder-kernels/"
@@ -34,7 +33,7 @@ checkdepends=(
 # No tests in pypi tarballs
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('dd97f3a43d6d1a2ff2d58a3b46c57d6edd88fa6c93aad3f4e48dd9054bfd5778')
+sha256sums=('d82b216b731743f0f63ad5d74a95b49d0c8d101dd33453384cac4c38ae8bf8e7')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -43,7 +42,7 @@ build() {
 
 check() {
   cd ${_pkg}-${pkgver}
-  pytest spyder_kernels
+  pytest -xv spyder_kernels
 }
 
 package() {

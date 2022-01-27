@@ -2,23 +2,28 @@
 
 _hkgname=validity
 pkgname=haskell-validity
-pkgver=0.11.0.0
-pkgrel=90
+pkgver=0.12.0.0
+pkgrel=4
 pkgdesc="Validity typeclass"
 url="https://github.com/NorfairKing/validity"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('48808794d5572deb88b4ea681380d88b60ea4efdbce6f020b708e3038d7a2150c6e7cca16281f31730f3d3669d33cb4ce239156f37633e833564903de93c35bc')
+sha512sums=('4078340b87dfd8adfaefe682e68563f36a43e6291037bec7d3fd45446e6d50a5622ba9909badfe71acebd1a41f5f740346acf90622d09bbef137b2a592b1850b')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

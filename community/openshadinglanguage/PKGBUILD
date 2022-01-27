@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 pkgname=openshadinglanguage
-pkgver=1.11.14.0
-pkgrel=3
+pkgver=1.11.16.0
+pkgrel=4
 pkgdesc="Advanced shading language for production GI renderers"
 arch=(loongarch64 x86_64)
 url="https://github.com/imageworks/OpenShadingLanguage"
@@ -11,7 +11,7 @@ depends=('boost-libs' 'openimageio' 'imath' 'freetype2' 'libpng'
 makedepends=('boost' 'cmake' 'python' 'llvm' 'ninja')
 optdepends=('python: the Python module')
 source=($pkgname-$pkgver.tar.gz::https://github.com/imageworks/OpenShadingLanguage/archive/Release-${pkgver}.tar.gz)
-sha512sums=('652279db2c0e7435c8e8bef466bf5e92647de3a477c6e652872bc97fc4b4432c9650b302f090beb69d44c9afd0140087a42084c99130f36b5dd750f2beed285d')
+sha512sums=('717a588bb371ff64d41dc34caad6a4e8483cba32d3b8fe7db9f98e422be050b1b89e4cf7f018e1106dfc9120d2485c3d8430a63cd80344050b00082fdd45fa1b')
 
 build() {
   cd OpenShadingLanguage-Release-$pkgver

@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=kube-linter
-pkgver=0.2.2
+pkgver=0.2.4
 pkgrel=1
 pkgdesc='Static analysis tool that checks Kubernetes YAML files and Helm charts'
 url='https://github.com/stackrox/kube-linter'
@@ -9,8 +9,8 @@ arch=('loongarch64' 'x86_64')
 license=('Apache')
 makedepends=('go')
 source=(https://github.com/stackrox/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('96a70d6144bbf407e36f4a00380312a81745c6157c0adbf3be0d83fe5b8f388b0913c078c48e73d1c452c0fbefafb6aa1ad6f0e6a30132913ca7dc8a9690ac3c')
-b2sums=('7a1ff91c4c1c460c062bfc58b8ff9dbec34e532ded0cb7d2c1cf3275294ac00993df0bd6b4ed4b2e6fcec8a523b0148ffc0ac7fa985bd299d9ddfe51382ce760')
+sha512sums=('5160a29bd401bce0e5bf3678a4d74b4e8d4af6e2918126e18078cc01da8e8fd8b749ffdb9128df06bef47b5fab68743889183ceb7917397d12877417a8ec6bee')
+b2sums=('6d97fcaa045f49121dda5d2b3cb9b8b7f1e7a343ebc8c558bf261829a4f6cd0a45ff7fa245ebeeba62da00e5ff5bdf78f02d9a17ae46f930c239b4a3b2685be0')
 
 build() {
   cd ${pkgname}-${pkgver}

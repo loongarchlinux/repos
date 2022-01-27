@@ -2,8 +2,8 @@
 # Maintainer: Mantas M. <grawity@gmail.com>
 
 pkgname=sssd
-pkgver=2.5.1
-pkgrel=1
+pkgver=2.6.1
+pkgrel=3
 pkgdesc="System Security Services Daemon"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/SSSD/sssd"
@@ -38,11 +38,9 @@ checkdepends=(
   'softhsm'
 )
 backup=('etc/logrotate.d/sssd')
-source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
-        'fix-py-tests.patch')
-sha512sums=('7441df3b5f1cc1eadb0c6853b048d780ecb36761876aaeb26b9a2d87729211d3ceeae01085dc3ec4fd1c5328f951c8abe854b1d01d91fae25466f930fe16e44a'
-            'SKIP'
-            '7570e1e67d6d23654a6be0307a1e9e0595447473f9783a70be0df7c8902833bc7f35e296b5006c6ae1e684452cd6e26d61be5e3f561b481c50d6edafaafa0698')
+source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
+sha512sums=('5b35a66c37593de738f52d5ad2f7860067af4061bd11b2f5c4b701177ef1bc3091d3c3df573d751339e9c9bb07476988b0b030b91b6a33adcb663df16be80d81'
+            'SKIP')
 validpgpkeys=('E4E366758CA0716AAB8048671EC6AB7532E7BC25'
               '16F24229488E736048952737BA88000FE6398272'
               '1A41DC67505F89A330828B66AFFE75DDE8508E12')

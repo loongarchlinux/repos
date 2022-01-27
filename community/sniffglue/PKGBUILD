@@ -2,7 +2,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=sniffglue
-pkgver=0.12.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc='Secure multithreaded packet sniffer'
 url='https://github.com/kpcyrd/sniffglue'
@@ -15,25 +15,30 @@ source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkg
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc
         sniffglue-sysuser.conf
         sniffglue.conf)
-sha512sums=('84ef2f8a8b80b8cad184c3e35137fbf422d7aab43f0e1951e2fe397296d34e57469b8387933ad983c156c0bbbc7e86bd25a487164b4094c68275703239878f0e'
+sha512sums=('c9bde39122d323453aa26136f105fcb5c16027690c1fb25bdba106ded1baa2c4e29b4b855081c092bcc8f0b13b6476c4e6c0c502eeef9737a0246e77a8cb9d60'
             'SKIP'
             '2595eb4856bc7a59c078255bf2aeeaa44a4f6a69b37cc8982e5d70a8ef14cb29b83b4d191ab3baabfbcf209f3effd232c10ec5baabc6ce52990969526d6fda98'
             '66e6b87e832ba8424334d24e3457a214e60e67c731471098329d0ca54c574518f7856ba780bb6bffde53bdefe2c8f789a242138ae67e2fef3e562fa083b362b1')
-b2sums=('c08304d69f321888ef43d688e1b09b76eb9c70f448919f667206fc91bb5d43847680b8d9a8f11fb2ebe44f788cd74fd0cbd01b2c06eb909fb4e49b9ad3c07a3b'
+b2sums=('3fb677985da3bc0e4b7cf4e588215994fc56dfb6e3bceab0fcf63f3aa519d21ab320ed06eb04e86a15a1ee60a8d6448f0851ad2e7ef76f42c4d9eb708879f432'
         'SKIP'
         '69f5ba2cddca6878b776714c5015c1573df31fc4958432291baa4537349e5bdd1ab4307fd1c00bc20484213c118ecfc2ccfab88b942c0311e4d72872bf4eeeda'
         'ad68689ed08e882f734a613300c14ddfb6d84656dec8dbbed818302b0fe69907f7fc76306f49c0bac019acf4dcb46fec984e7194b16a481f7cc4636ca9aaf303')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
 build() {
   cd ${pkgname}-${pkgver}
-  cargo build --release --locked
+  cargo build --frozen --release
 }
 
 check() {
   cd ${pkgname}-${pkgver}
-  cargo test --release --locked
+  cargo test --frozen
 }
 
 package() {

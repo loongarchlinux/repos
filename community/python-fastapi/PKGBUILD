@@ -2,8 +2,8 @@
 
 _pkgname=fastapi
 pkgname=python-$_pkgname
-pkgver=0.65.2
-pkgrel=1
+pkgver=0.68.1
+pkgrel=2
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=('any')
 url='https://github.com/tiangolo/fastapi'
@@ -13,7 +13,7 @@ optdepends=('python-requests' 'python-aiofiles' 'python-jinja' 'python-itsdanger
             'python-yaml' 'python-graphene' 'python-ujson' 'python-orjson'
             'python-email-validator' 'python-python-multipart')
 makedepends=('python-setuptools' 'python-dephell')
-checkdepends=('python-pytest-runner' 'python-pytest-cov'
+checkdepends=('python-pytest' 'python-pytest-cov' 'python-pytest-asyncio'
               'python-requests' 'python-aiofiles' 'python-jinja' 'python-itsdangerous'
               'python-yaml' 'python-graphene' 'python-ujson' 'python-orjson'
               'python-email-validator'  'python-pyjwt' 'python-sqlalchemy'
@@ -21,7 +21,7 @@ checkdepends=('python-pytest-runner' 'python-pytest-cov'
               'python-bcrypt' 'python-httpx' 'python-python-multipart'
               'python-databases' 'python-aiosqlite' 'python-jose')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('44c315be97929495830b43bb96edb8648491b8802b7905a5508fae51fc12453bf0774a7a3f9c1bb5274b89681830445f6fb63f2cc980eaff38d81344cae2d825')
+sha512sums=('754f6ede434fcf09fc71753a47b101254350dfda35cf0f500583c531a3dd6439694b61998091a104b79921e6c5855d6696e2736b2b45e44e63b8cbdf66aede79')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -41,7 +41,7 @@ build() {
 check() {
   cd $_pkgname-$pkgver
 
-  python setup.py pytest
+  python -m pytest -p no:warnings
 }
 
 package() {

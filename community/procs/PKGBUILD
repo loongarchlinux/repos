@@ -1,9 +1,10 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Filipe Nascimento <flipee at tuta dot io>
 # Contributor: Attenuation <ouyangjun1999@gmail.com>
 
 pkgname=procs
-pkgver=0.11.9
+pkgver=0.11.13
 pkgrel=1
 pkgdesc="A modern replacement for ps written in Rust"
 arch=('loongarch64' 'x86_64')
@@ -12,11 +13,16 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('9d17be4c9d733723da6bfd13417a5f73d0f6ea32802db6d94da8f377a4872b6d')
+sha256sums=('b769ddf1b2faeca4e9fb22e8e0248f5d69b4b88bd51fb37c8510d2e6a8e897d3')
+
+prepare() {
+    cd "$pkgname-$pkgver"
+    cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
     cd "$pkgname-$pkgver"
-    cargo build --release --locked
+    cargo build --release --frozen
 
     "target/release/$pkgname" --completion zsh
     "target/release/$pkgname" --completion bash
@@ -25,7 +31,7 @@ build() {
 
 check() {
     cd "$pkgname-$pkgver"
-    cargo test --release --locked
+    cargo test --frozen
 }
 
 package() {

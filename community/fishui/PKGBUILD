@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=fishui
-pkgver=0.2
+pkgver=0.5
 pkgrel=1
 pkgdesc="GUI library based on QQC2 for Cutefish applications"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/cutefishos/fishui"
 license=('GPL')
-depends=('kwindowsystem' 'qt5-quickcontrols2')
+depends=('kwindowsystem' 'qt5-declarative' 'qt5-graphicaleffects' 'qt5-quickcontrols2')
 makedepends=('extra-cmake-modules' 'ninja' 'qt5-tools')
 source=("https://github.com/cutefishos/fishui/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('89f93e62d84b29c93aa489be83f04cee110011491e346f609599ddaf1c839a8c111efd7b7fdda98fd12ca865672326028b24f6371eb5fee592bd0b2aea03692a')
+sha512sums=('562d435d210f098c955e24b95a89cbb1ab790635092814a4dc9c0df2c8c5aef963e2ae2c97f46b2e26a01a6875e50b26db1e58338794983cb010ea1ac6ada13a')
 
 build() {
   cd $pkgname-$pkgver

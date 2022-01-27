@@ -5,14 +5,14 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=swi-prolog
-pkgver=8.2.4
+pkgver=8.4.1
 pkgrel=1
 pkgdesc='Prolog environment'
 arch=(loongarch64 x86_64)
 url='https://www.swi-prolog.org/'
 license=(GPL LGPL)
-depends=(libarchive libxcrypt libyaml qt5-base)
-makedepends=(cmake jdk-openjdk junit libjpeg libxft libxinerama libxpm ninja unixodbc)
+depends=(gperftools libarchive libxcrypt libyaml qt5-base util-linux-libs)
+makedepends=(cmake jdk-openjdk junit libjpeg libxft libxinerama libxpm ninja python-protobuf unixodbc)
 optdepends=('java-runtime: for using Prolog from Java'
             'jdk-openjdk: for using Prolog from Java'
             'libjpeg: for using the pl2xpce library'
@@ -21,25 +21,26 @@ optdepends=('java-runtime: for using Prolog from Java'
             'libxpm: for using the pl2xpce library'
             'unixodbc: for using the odbc4pl library')
 source=("$pkgname-$pkgver.tar.gz::https://www.swi-prolog.org/download/stable/src/swipl-$pkgver.tar.gz")
-b2sums=('b18f26102a685ff5c66aeaf0c14a08c532f9327f9f995cd46657a71b6779d021eb4f5651b2be77883197c7c5ee31c23259f46ed559aeeb0bb53ad10aea0081ed')
+b2sums=('bd53355abe63ffde348ed38b0e7fee4bcba4e74128c73904a72ca3ba2021a8b650d08480a643ea3336f3fc6d1d7bcf7651deb1d32608581ce43bc118288df6da')
 
 build() {
-  mkdir -p build
-  cd build
-  cmake "$srcdir/swipl-$pkgver" \
+  cmake \
+    -B build \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -D CMAKE_C_FLAGS="$CFLAGS -fPIC -ffile-prefix-map=$PWD= -w" \
     -D LIBEDIT_LIBRARIES=/usr/lib/libedit.so.0 \
     -D LIBEDIT_INCLUDE_DIR=/usr/include \
-    -G Ninja
-  "$srcdir/swipl-$pkgver/scripts/pgo-compile.sh"
-  ninja
+    -G Ninja \
+    -S "swipl-$pkgver"
+  swipl-$pkgver/scripts/pgo-compile.sh
+  ninja -C build
 }
 
 check() {
-  cd build
-  ctest -j 12
+  # skip the MQI test
+  sed -i '/mqi/d' build/CTestTestfile.cmake
+  ctest --test-dir build
 }
 
 package() {

@@ -1,9 +1,9 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Julius Michaelis <gitter@liftm.de>
 
 pkgname=wasmer
-pkgver=2.0.0
-pkgrel=2
+pkgver=2.1.1
+pkgrel=1
 pkgdesc="Universal Binaries Powered by WebAssembly"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/wasmerio/wasmer"
@@ -12,15 +12,11 @@ depends=('gcc-libs' 'zlib' 'ncurses' 'libffi')
 makedepends=('rust' 'cmake' 'llvm11')
 checkdepends=('lld' 'clang')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wasmerio/wasmer/archive/${pkgver}.tar.gz")
-sha512sums=('c02b97075212a496a4c30a9cfcd6b8ef89cb08bf3e5f9f20bf5f83c63bedb5744e4976ee3641310f6a44d911d670285c8b67c3cb9725acdd632ef5f8880ba4b9')
-options=('staticlibs')
+sha512sums=('0bb5c3b7a9b97e5ed2f34c64f562fc904e2b43b76252f4ff7e98015d5a0b22e5abde43ea116d9bc295d420b2e13f240374dba3f8ba063aac18c44edfeeccaa0b')
+options=('staticlibs' '!lto')
 
-prepare() {
-  cd "$pkgname-$pkgver"
-
-  export WASMER_INSTALL_PREFIX=/usr
-  export ENABLE_LLVM=1
-}
+WASMER_INSTALL_PREFIX=/usr
+ENABLE_LLVM=1
 
 build() {
   cd "$pkgname-$pkgver"

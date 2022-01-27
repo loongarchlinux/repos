@@ -3,23 +3,33 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=gnucash-docs
-pkgver=4.5
+pkgver=4.9
 pkgrel=1
 pkgdesc='Documentation for GnuCash'
 arch=('any')
 url='https://gnucash.org/docs.phtml'
 license=('FDL')
 depends=('yelp')
+makedepends=('cmake')
 source=(https://downloads.sourceforge.net/gnucash/$pkgname-$pkgver.tar.gz)
-sha256sums=('91fd04afc8d9b700e9f034321aa782b52adf13c559e3a94410e0774c180afa43')
+sha256sums=('d901a08eb67310aac28ae9924a4c6d0f2ed423a6a2cf2adb10c5574dabba9b12')
+
+prepare() {
+  cd $pkgname-$pkgver
+  mkdir build
+}
+
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname-$pkgver/build
+
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    ..
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname-$pkgver/build
   make DESTDIR="${pkgdir}" install
 }

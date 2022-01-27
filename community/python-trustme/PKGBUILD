@@ -2,18 +2,18 @@
 
 pkgname=python-trustme
 _pyname=${pkgname/python-/}
-pkgver=0.7.0
-pkgrel=1
+pkgver=0.9.0
+pkgrel=5
 pkgdesc='Library for fake certificate authority (CA) to generate fake TLS certs'
 url='https://trustme.readthedocs.io'
 arch=('any')
 license=('MIT')
-depends=('python' 'python-cryptography')
+depends=('python' 'python-cryptography' 'python-idna')
 makedepends=('python' 'python-setuptools' 'python-cryptography')
-checkdepends=('python-pytest' 'python-pyopenssl' 'python-service_identity')
+checkdepends=('python-pytest' 'python-pyopenssl' 'python-service-identity')
 source=(https://github.com/python-trio/trustme/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('5a371fd85af6a540fa992930e4bfbb91579a60fc5e868e2cf29921a941892e25e8841c4dc5c0d36b5c243edc345e5471c272a9fc72af6c15fdcd723b4b9d867b')
-b2sums=('e0e3faab4d03b53fc0f5e3f0517a86032a25260bed24005e8ca2865922c4628143340ab970ac7de4c28155a79047fd74d2be45d176f869610160bd2ca10289aa')
+sha512sums=('c605803d91eaedb7efd1295a2bebfb9cb7723220f325a25f7fe61e8256f3700bf9da0d85f796905a76f317c7eda8261d78a46c64aeabd357854f001f6ba1628e')
+b2sums=('970700274ac25b9871b53bba4ddbac2d22bb9db672012fd1216726091c39fd901023c93b9c1b49cb2f90a9610f7f64d76ef9c9a1509282f9bbc944d56a352ff2')
 
 build() {
   cd ${_pyname}-${pkgver}

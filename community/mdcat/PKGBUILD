@@ -1,20 +1,24 @@
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 # Contributor: Wesley Moore <wes@wezm.net>
 pkgname=mdcat
-pkgver=0.22.4
-pkgrel=2
+pkgver=0.25.0
+pkgrel=1
 pkgdesc='Sophisticated Markdown rendering for the terminal'
 arch=('i686' 'loongarch64' 'x86_64')
 url="https://github.com/lunaryorn/mdcat"
 license=('MPL2')
+options=(!lto)
 depends=('gcc-libs' 'openssl')
 makedepends=('cargo' 'asciidoctor')
 optdepends=('librsvg: used to render SVG images in kitty')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-$pkgver.tar.gz")
-sha256sums=('51e13bee147e08440492c356c2b7cb7d46caeeae27448f4d72eda69d15e6aa55')
+sha256sums=('92fddabab24f2e7d673b06c1f31a7746abbb547c5581faaed17a8e3e1e5b17a5')
 
 build() {
   cd "$pkgname-$pkgname-$pkgver"
+  rustc --version
+  cargo --version
   cargo build --release --locked --target-dir=target
 }
 

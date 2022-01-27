@@ -1,0 +1,48 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Dominic Meiser [git at msrd0 dot de]
+
+pkgname=cargo-sort
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="Check if tables and items in a .toml file are lexically sorted"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/DevinR528/cargo-sort"
+license=('Apache' 'MIT')
+depends=('gcc-libs')
+makedepends=('rust')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('9b752c79d65fd6b9b679d5b5e3e1d1f3cc89bd8f544b6d2c0d14355341fbe5da938a8af977034f3e5faeb9fbbf9470a1addb1f5d4090425a2ecf3f9f87e5a4fe')
+b2sums=('818e1b1573ad7156ebdc8906976a1f08ec677dc726287e579fe2eed8c420190c76b9c3a21130d67f108c3ea01b4aeb9194802fe8d8c918e2f9d0f1c0d7798661')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # download dependencies
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" "target/release/$pkgname"
+
+  # licenses
+  install -vd "$pkgdir/usr/share/licenses/$pkgname"
+  sed -n '/^####.*$/,/^<\/sub>$/p' README.md \
+    > "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+  cp -vr examp "$pkgdir/usr/share/doc/$pkgname/examples"
+}

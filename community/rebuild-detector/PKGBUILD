@@ -1,23 +1,28 @@
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 
 pkgname=rebuild-detector
-pkgver=4.1.6
-pkgrel=2
+pkgver=4.4.1
+pkgrel=1
 pkgdesc='Detects which packages need to be rebuilt'
 arch=('any')
 url="https://github.com/maximbaz/${pkgname}"
-license=('MIT')
+license=('ISC')
 depends=('parallel' 'pacutils' 'pacman-contrib')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/maximbaz/${pkgname}/releases/download/${pkgver}/${pkgname}.tar.gz"
-        "${pkgname}-${pkgver}.tar.gz.sig::https://github.com/maximbaz/${pkgname}/releases/download/${pkgver}/${pkgname}.tar.gz.sig")
-sha256sums=('f7b46467913f5646acd5a8c1ff53f409aafed27a90ea7cc2c7e1532c71771ea0'
+makedepends=('marked-man')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/maximbaz/${pkgname}/archive/refs/tags/${pkgver}.tar.gz"
+        "${pkgname}-${pkgver}.tar.gz.sig::https://github.com/maximbaz/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.sig")
+sha256sums=('1b728629755dd2d45fd63aba1ae7c6e98e5ba0f5e8e36e0f7bbf9cfe2b20156b'
             'SKIP')
-validpgpkeys=('EB4F9E5A60D32232BB52150C12C87A28FEAC6B20')
+validpgpkeys=('56C3E775E72B0C8B1C0C1BD0B5DB77409B11B601')
+
+build() {
+    cd "${pkgname}-${pkgver}"
+    make docs
+}
 
 package() {
-    install -Dm755 -t "${pkgdir}/usr/bin" checkrebuild
-    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
-    install -Dm644 -t "${pkgdir}/usr/share/libalpm/hooks" "${pkgname}.hook"
+    cd "${pkgname}-${pkgver}"
+    make DESTDIR="${pkgdir}" install
 }
 
 # vim:set ts=4 sw=4 et:

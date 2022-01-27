@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pre-commit
-pkgver=2.10.1
-pkgrel=1
+pkgver=2.16.0
+pkgrel=2
 pkgdesc="A framework for managing and maintaining multi-language pre-commit hooks"
 url="https://github.com/pre-commit/pre-commit"
 license=('MIT')
@@ -10,9 +10,10 @@ arch=('any')
 depends=('python-cfgv' 'python-identify' 'python-nodeenv' 'python-yaml' 'python-toml'
          'python-virtualenv')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-re-assert' 'dotnet-sdk' 'git' 'go' 'nodejs' 'npm' 'python2' 'rubygems' 'rust')
+checkdepends=('python-pytest' 'python-pytest-env' 'python-re-assert' 'dotnet-sdk' 'git'
+              'go' 'nodejs' 'npm' 'python2' 'rubygems' 'rust' 'r' 'dart')
 source=("https://github.com/pre-commit/pre-commit/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('b8bc4e6f9afd1a0cc251c8b6ffb96e5fba4f02a6e253661b295e36a6e691c4a9a0a6cc5560b53b57b0200a55fc54a60c3400e780c3a6b73b9e17f7eac4c0ce78')
+sha512sums=('c9eb14a40e25e8408c2b2b5687eba4908d609bbb7bcf58a0153326696d272bca555156fd75f3ec5f0dec219aeeb4084df77f329f47cf190e40052c11e92fe185')
 
 build() {
   cd pre-commit-$pkgver
@@ -43,8 +44,8 @@ check() {
                    --deselect tests/repository_test.py::test_local_conda_additional_dependencies \
                    --deselect tests/repository_test.py::test_run_a_ruby_hook \
                    --deselect tests/languages/ruby_test.py::test_install_ruby_with_version \
-                   --deselect tests/repository_test.py::test_switch_language_versions_doesnt_clobber
-
+                   --deselect tests/repository_test.py::test_switch_language_versions_doesnt_clobber \
+                   --deselect tests/repository_test.py::test_dotnet_hook
   deactivate
 }
 

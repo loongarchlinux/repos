@@ -3,15 +3,15 @@
 # Contributor: Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>
 pkgname=0ad-data
 _pkgname=0ad
-pkgver=a24.b
-_pkgver=0.0.24b-alpha
+pkgver=a25.b
+_pkgver=0.0.25b-alpha
 pkgrel=1
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game (data files)"
 arch=('any')
 url="http://play0ad.com/"
 license=('GPL2' 'CCPL')
 source=("https://releases.wildfiregames.com/0ad-${_pkgver}-unix-data.tar.xz")
-sha512sums=('d7804d25ddf376028f230a31c6fc1201dfa366b3d5434569a1a7852bb4c400fb14e5c8934c5d6c6295320cf2e62c64be83b1e3c4c27fd116115bfe7d01106726')
+sha512sums=('d6bbe484acb7fbd507d303f5c75f8a2ccbaf8fe9dd30ff408b082f170bfd96eb9235db1b710c15656ef465b44fa5597679a694515e0c153a35fe24c0915f29f1')
 
 package() {
   cd "$_pkgname-$_pkgver"

@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=lib32-pipewire
-pkgname=(lib32-pipewire lib32-pipewire-jack)
-pkgver=0.3.31
+pkgname=(lib32-pipewire lib32-pipewire-jack lib32-pipewire-v4l2)
+pkgver=0.3.42
 pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit client library"
@@ -11,17 +11,20 @@ url="https://pipewire.org"
 license=(MIT)
 arch=(loongarch64 x86_64)
 makedepends=(git meson lib32-alsa-lib lib32-systemd lib32-dbus)
-_commit=c43dabcc96e2e072cdf08e5f094bb677d9017c6b  # tags/0.3.31
+_commit=3cac296ee09091ef64a3daa1d62529f7c13af0f2  # tags/0.3.42
 source=("git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=$_commit")
 sha256sums=('SKIP')
 
 pkgver() {
   cd pipewire
-  git describe --tags | sed 's/-/+/g'
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
   cd pipewire
+
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1930
+  git cherry-pick -n 3c66d4600750b2039f6f969a35fce82605754b9c
 }
 
 build() {
@@ -46,7 +49,9 @@ build() {
     -D avahi=disabled
     -D echo-cancel-webrtc=disabled
     -D libusb=disabled
-    -D session-managers="[]"
+    -D session-managers=[]
+    -D raop=disabled
+    -D lv2=disabled
   )
 
   export CC="gcc -m32"
@@ -55,6 +60,10 @@ build() {
 
   arch-meson pipewire build "${meson_options[@]}"
   meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
 }
 
 _pick() {
@@ -71,7 +80,8 @@ _ver=${pkgver:0:3}
 
 package_lib32-pipewire() {
   depends=(pipewire lib32-systemd libdbus-1.so libasound.so)
-  optdepends=('lib32-pipewire-jack: JACK support')
+  optdepends=('lib32-pipewire-jack: JACK support'
+              'lib32-pipewire-v4l2: V4L2 interceptor')
   provides=(libpipewire-$_ver.so)
 
   meson install -C build --destdir "$pkgdir"
@@ -79,6 +89,8 @@ package_lib32-pipewire() {
   ( cd "$pkgdir"
 
     _pick jack usr/lib32/pipewire-$_ver/jack
+
+    _pick v4l2 usr/lib32/pipewire-$_ver/v4l2
 
     rm -r usr/{bin,include,lib,share}
   )
@@ -92,6 +104,15 @@ package_lib32-pipewire-jack() {
   depends=(pipewire-jack lib32-pipewire libpipewire-$_ver.so)
 
   mv jack/* "$pkgdir"
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 pipewire/COPYING
+}
+
+package_lib32-pipewire-v4l2() {
+  pkgdesc+=" - V4L2 interceptor"
+  depends=(pipewire-v4l2 lib32-pipewire libpipewire-$_ver.so)
+
+  mv v4l2/* "$pkgdir"
 
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 pipewire/COPYING
 }

@@ -2,7 +2,7 @@
 
 _pkg=partd
 pkgname=python-${_pkg}
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=3
 pkgdesc="Concurrent appendable key-value storage"
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
     python-pyzmq
 )
 source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('6e258bf0810701407ad1410d63d1a15cfd7b773fd9efe555dac6bb82cc8832b0')
+sha256sums=('aa67897b84d522dcbc86a98b942afab8c6aa2f7f677d904a616b74ef5ddbc3eb')
 
 build() {
   cd ${_pkg}-${pkgver}

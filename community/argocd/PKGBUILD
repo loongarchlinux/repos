@@ -1,27 +1,43 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=argocd
-pkgver=2.0.4
+pkgver=2.2.2
 pkgrel=1
 pkgdesc="Declarative continuous deployment for Kubernetes"
 arch=('loongarch64' 'x86_64')
 url='https://argo-cd.readthedocs.io/en/stable/'
 license=('Apache')
-makedepends=('go')
+makedepends=('go' 'python' 'yarn')
 depends=('glibc')
 provides=('argocd-cli')
 replaces=('argocd-cli')
-source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz")
-sha512sums=('6449907433b0a2ee133692e09f843f5097ff8139bd0a042bc755bf1014dead021938fee87be677dae8a9f9f6b54133d71abde0412a41f89da30edef3713afa79')
+source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz"
+        "argo-ui-44a1a7f22a2d6707cc5d03e0b93c5c6015d864bd.tar.gz::https://github.com/argoproj/argo-ui/archive/44a1a7f22a2d6707cc5d03e0b93c5c6015d864bd.tar.gz"
+        "argo-ui.patch")
+sha512sums=('e1df88cfb228315c63d050d34d5729cdd662a841ba070bba78544893b2973a792b324d3c384d52eae73c038d8c6442b9378ee6594262295aa2b6c9e7f352c602'
+            '58c214f3d7d84bc3869bc9568bc4353f552948479d75ac58878577b1fc6a2f776e2cba2715b9af41c15edb64d8ec04309ffb29eaaa81402fd0277b9dbf3638df'
+            '6f3e80ba70c1777d52d908abb3ca8f3d37b6a73fdcb669d9a0afd97eddf9362159b67f05b0721cdc2e74493e913a4399406d12733ab0dc177f5b2713b7b30b79')
+
+prepare() {
+  cd "argo-cd-$pkgver"
+
+  patch -p0 -i ../argo-ui.patch
+}
 
 build() {
   cd "argo-cd-$pkgver"
+
+  (
+    cd ui
+    yarn install --cache-folder "${srcdir}/yarn-cache"
+    ARGO_VERSION="$pkgver" NODE_ENV='production' NODE_ONLINE_ENV='online' yarn build
+  )
 
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  go run github.com/gobuffalo/packr/packr build -o argocd \
+  go build -o argocd \
     -trimpath \
     -buildmode=pie \
     -mod=readonly \
@@ -41,7 +57,6 @@ package() {
   cd "argo-cd-$pkgver"
 
   install -D argocd "$pkgdir/usr/bin/argocd"
-  ln -s argocd "$pkgdir/usr/bin/argocd-util"
   ln -s argocd "$pkgdir/usr/bin/argocd-server"
   ln -s argocd "$pkgdir/usr/bin/argocd-repo-server"
   ln -s argocd "$pkgdir/usr/bin/argocd-application-controller"

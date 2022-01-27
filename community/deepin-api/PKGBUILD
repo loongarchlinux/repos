@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-api
-pkgver=5.4.6
+pkgver=5.4.11
 pkgrel=1
 pkgdesc='Golang bindings for dde-daemon'
 arch=('loongarch64' 'x86_64')
@@ -24,7 +24,7 @@ groups=('deepin')
 install=deepin-api.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-api/archive/$pkgver.tar.gz"
         deepin-api.sysusers)
-sha512sums=('a7a4c1ff926b2a7a028692836314cecc3f425dd113f1df3e3e20782e465bd3261573aa09189d3e6b7de2ff7a47f069b7598a07e4ea4951afd679885c3796d434'
+sha512sums=('7c847383f59667a07f47870f5aba1602a74ff684e666cd19874c37f9bb524c3c2303bc0ad7e2ae075afa52b3b538c891fa730ef262ea9bb30840494e50473a1f'
             'e894eb3928af9e244fa78010fdf16c8abb6ce18df114cf05327d02b18774d6ba5b023e4dfa0d07042f4e44a5c6e2ddb55b07f3e0db466a0e6169b52465fdefd6')
 
 export GO111MODULE=off
@@ -37,7 +37,7 @@ prepare() {
   # golang-deepin-lib's dependency, remove when go packaging resumes
   go get github.com/cryptix/wav github.com/godbus/dbus github.com/fsnotify/fsnotify
 
-  go get github.com/disintegration/imaging github.com/fogleman/gg github.com/mattn/go-sqlite3 github.com/gosexy/gettext github.com/rickb777/date
+  go get github.com/disintegration/imaging github.com/fogleman/gg github.com/mattn/go-sqlite3 github.com/gosexy/gettext github.com/rickb777/date gopkg.in/yaml.v3
 }
 
 build(){

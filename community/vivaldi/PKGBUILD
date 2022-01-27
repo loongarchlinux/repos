@@ -2,8 +2,8 @@
 # Contributor: TZ86
 
 pkgname=vivaldi
-_rpmversion=4.0.2312.33-1
-pkgver=4.0.2312.33
+_rpmversion=5.0.2497.32-1
+pkgver=5.0.2497.32
 pkgrel=1
 pkgdesc='An advanced browser made with the power user in mind.'
 url="https://vivaldi.com"
@@ -11,14 +11,13 @@ options=(!strip !zipman)
 license=('custom')
 arch=('loongarch64' 'x86_64')
 depends=('gtk3' 'libcups' 'nss' 'alsa-lib' 'libxss' 'ttf-font' 'desktop-file-utils' 'shared-mime-info' 'hicolor-icon-theme')
+makedepends=('w3m')
 optdepends=(
     'vivaldi-ffmpeg-codecs: playback of proprietary video/audio'
     'libnotify: native notifications'
 )
-source=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversion}.x86_64.rpm"
-        'eula.txt')
-sha512sums=('18aa30a5ef904c24b0680546c4d8ecab19a61f05ffca9b81cd6d4cc4fe1e968fc7476e6c83dee7dd66d3f0f6ee049eef0acc1ea293a955459c842ac469db7c1b'
-            '7cbfc3258a92ee05eeb67c5b65a92aab27f34146fd097007de5eb8e2703610c03bfa52f7ee1d6055735f927b4dcc919a79b7caf6fb5a5a9596cac11cc083e874')
+source=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversion}.x86_64.rpm")
+sha512sums=('b31db1fe101e4f34eaaedb8cd582034eb756c9aae580cd014c9e06dd2c85f4c4989cf45116ac1806377b2e1c2e904abfa01ace82ad37cf3bccb8654937726fad')
 
 package() {
     cp --parents -a {opt,usr/bin,usr/share} "$pkgdir"
@@ -40,7 +39,9 @@ package() {
     done
 
     # license
-    install -Dm644 "$srcdir/eula.txt" \
-        "$pkgdir/usr/share/licenses/$pkgname/eula.txt"
+    install -dm755 "$pkgdir/usr/share/licenses/$pkgname"
+    w3m -dump "$pkgdir/opt/$pkgname/LICENSE.html" \
+        | head -n 5 \
+        > "$pkgdir/usr/share/licenses/$pkgname/license.txt"
 }
 

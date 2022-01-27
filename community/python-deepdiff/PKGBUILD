@@ -1,0 +1,36 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-deepdiff
+pkgver=5.6.0
+pkgrel=1
+pkgdesc="Deep Difference and Search of any Python object/data."
+url="https://github.com/seperman/deepdiff"
+license=('MIT')
+arch=('any')
+depends=('python-ordered-set')
+optdepends=('python-click: for cli'
+            'python-yaml: for cli'
+            'python-toml: for cli'
+            'python-clevercsv: for cli')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'python-clevercsv' 'python-click' 'python-jsonpickle' 'python-numpy'
+              'python-yaml')
+source=("https://github.com/seperman/deepdiff/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('3ff4b200378e3ef73401adad0a7f9b6aa98c6e78387973d4690dfb2a510376b48241a6c3b23342e0008828befc145eb2e2dd936ac0236bc0b6293ab5a031c98c')
+
+build() {
+  cd deepdiff-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd deepdiff-$pkgver
+  pytest tests
+}
+
+package() {
+  cd deepdiff-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
