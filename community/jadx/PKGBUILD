@@ -2,17 +2,17 @@
 # Contributor: Nicolas Hureau <archlinux@kalenz.net>
 
 pkgname=jadx
-pkgver=1.2.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc='Command line and GUI tools to produce Java source code from Android Dex and APK files'
 url='https://github.com/skylot/jadx'
 arch=('any')
 license=('Apache')
-depends=('java-runtime=8' 'bash')
-makedepends=('java-environment=8' 'gradle')
+depends=('java-runtime>=11' 'bash')
+makedepends=('java-environment>=11' 'gradle')
 source=(https://github.com/skylot/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('d5a2ae311162b878db887f6dbd782315621bace4d644d0970c2035a18eb9747a00953f9fc035933be226dca426c894eb0569030eb572c6aae5cf855adc56a25b')
-b2sums=('a9858913ebed74a1b508d58fef2325e9f3c289b47d854e941b924384fe1c78e7ca1641b823c83bd4a5c8f7e7aff87d5819e2ddc05e860509e84a533a422f5c26')
+sha512sums=('9e9f25e0a963d86c61a3e16362043d8f82cf1c37320afa0e68b2543a8c4ad7ec77fadc8d0ef1b65a51d383eaed585c0b0df0b3e1b3e22b5ceced4c3d87609478')
+b2sums=('a0ccc29095eba0935e48e703d363e92ea1b5d6724494b69137d6fd19e520dbc5bf9ffec392bd39ac94d7d360a304e94d245f779d3df275a36f337f3b9088933d')
 
 build() {
   cd ${pkgname}-${pkgver}

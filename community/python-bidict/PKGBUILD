@@ -3,33 +3,33 @@
 
 pkgname=python-bidict
 _name=${pkgname#python-}
-pkgver=0.21.3
-pkgrel=3
+pkgver=0.22.0
+pkgrel=1
 pkgdesc='Bidirectional mapping library for Python'
 url='https://bidict.readthedocs.org/'
 arch=('any')
 license=('MPL2')
 depends=('python')
-makedepends=('python-setuptools' 'python-pip' 'python-wheel')
+makedepends=('python-setuptools' 'python-pip' 'python-wheel' 'python-build' 'python-installer')
 checkdepends=('python-pytest' 'python-sphinx' 'python-sphinx-autodoc-typehints' 'python-pytest-benchmark'
-	          'python-hypothesis' 'python-py-cpuinfo')
+	          'python-hypothesis' 'python-py-cpuinfo' 'python-sortedcollections')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz)
-sha256sums=('d50bd81fae75e34198ffc94979a0eb0939ff9adb3ef32bcc93a913d8b3e3ed1d')
-b2sums=('d6fe581d3114e03fda76a0dcc47a65a5d0a840f17e5eb492341a6498f79b0f57f1d342220016001da4342baecdc1e5b575268d73a21fc01a0520fc11f31ff5ab')
+sha256sums=('5c826b3e15e97cc6e615de295756847c282a79b79c5430d3bfc909b1ac9f5bd8')
+b2sums=('511bea446922c959c7ab2c42fadfe63dc486f9b8f4d060779048195ed02344c36819be917716be6773e2173aa9dbd9e5452e747ee325db6ee92057644789653e')
 
 build() {
   cd "bidict-${pkgver}"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd "bidict-${pkgver}"
-  python setup.py test
+  PYTHONPATH="build/lib" pytest
 }
 
 package() {
   cd "bidict-${pkgver}"
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 

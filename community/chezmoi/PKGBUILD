@@ -1,9 +1,10 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Tom Payne <twpayne@gmail.com>
 # Contributor:  <godeater@gmail.com>
 
 pkgname=chezmoi
-pkgver=2.9.4
+pkgver=2.17.1
 pkgrel=1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('loongarch64' 'x86_64')
@@ -14,7 +15,7 @@ depends=('glibc')
 checkdepends=('zip')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
-sha512sums=('f62426ee041b32d804da0add741cc2b7e630d6a81f975851a433e3eb99bf957b474edc960c5fe53032776b378777a8779f9017e66e387b9ce97c8bf60e7693c0')
+sha512sums=('4b25172326b1317db610fdb8d8d8cebc57bfaf5132ab5e07bebb172dbf900ef2447fa2f18a19c928f665dff837035d55b18930dffc4877f9e6a7666e34bc35f7')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -52,9 +53,6 @@ package() {
   cd "$pkgname-$pkgver"
 
   install -D "$pkgname" "$pkgdir/usr/bin/$pkgname"
-
-  mkdir -p "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm644 docs/*.md "$pkgdir/usr/share/doc/$pkgname/"
 
   install -Dm644 completions/chezmoi-completion.bash "$pkgdir/usr/share/bash-completion/completions/chezmoi"
   install -Dm644 completions/chezmoi.fish "$pkgdir/usr/share/fish/vendor_completions.d/chezmoi.fish"

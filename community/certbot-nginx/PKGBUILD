@@ -1,35 +1,62 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Gordian Edenhofer <gordian.edenhofer[at]yahoo[dot]de>
 
 pkgname=certbot-nginx
-pkgver=1.19.0
-pkgrel=2
-pkgdesc="Nginx plugin for Let’s Encrypt client"
+pkgver=1.27.0
+pkgrel=1
+pkgdesc="Nginx plugin for Certbot"
 arch=('any')
 license=('Apache')
 url="https://pypi.python.org/pypi/$pkgname"
-depends=('certbot' 'python-acme' 'python-mock' 'python-pyopenssl' 'python-pyparsing'
-         'python-setuptools' 'python-zope-interface')
+depends=(
+  'certbot'
+  'python-acme'
+  'python-pyopenssl'
+  'python-pyparsing'
+  'python-setuptools'
+)
+makedepends=(
+  'python-build'
+  'python-wheel'
+  'python-installer'
+)
 checkdepends=('python-pytest')
-replaces=("letsencrypt-nginx")
-source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
 validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
-              'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('6e66b255c22a998cd40a38fcd66123b598c3faf9cf31d643cd180444bed9dae8ce567094921e5a3741021fc39c49fd9a21a93ad52759f3902c909ce6ddbe5b23'
+              'A2CFB51FA275A7286234E7B24D17C995CD9775F2'
+              '86379B4F0AF371B50CD9E5FF3402831161D1D280'
+              '20F201346BF8F3F455A73F9A780CC99432A28621'
+              'F2871B4152AE13C49519111F447BF683AA3B26C3')
+sha512sums=('7516933c36bd87860fd3efb8b987575946df51cc85d673b10ee15d801dfca9872dc709261390247094f888b9b14ce201c5d302bdc3dc310c508c22e27796f9b0'
             'SKIP')
+b2sums=('21d3b3fe9994dcdbd2a35f0bb042abdfb512651af3b1cae769d84eba8b64a41a23dd4e6ca6723479e25c9b569bd90bbd8959e18936cf3d27c4c1b52fd50a0817'
+        'SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # nuke setuptools from orbit ^W install_requires
+  sed \
+    -e '/setuptools>=/d' \
+    -i setup.py
+}
 
 build() {
-  cd "$srcdir"/$pkgname-$pkgver
-  python setup.py build
+  cd "$pkgname-$pkgver"
+
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd "$pkgname-$pkgver"
+
   python -m pytest
 }
 
 package() {
-  cd "$srcdir"/$pkgname-$pkgver
-  python setup.py install --root="$pkgdir"
+  cd "$pkgname-$pkgver"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }

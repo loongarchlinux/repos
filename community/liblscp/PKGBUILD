@@ -4,33 +4,31 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=liblscp
-pkgver=0.9.4
+pkgver=0.9.6
 pkgrel=1
 pkgdesc="LinuxSampler Control Protocol C++ library"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://www.linuxsampler.org/"
-license=('LGPL2.1')
-depends=('glibc')
-provides=('liblscp.so')
-source=("https://download.linuxsampler.org/packages/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6aa9b15d538925edf3327ca05023bac8285611902703fec20572416dde5cd7300ed429a7db464d92b9f6c1d524b89066888f8cbd0d56283ff3c78074605f396a')
-b2sums=('f1824c75237e478888ffcd95c15b72e4746cbc8997924f70cced966baddb68877526cbbcd56ff419fa1eb5f1ca6a1537ce5db368ba41cac39e51813921720e9b')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  autoreconf -vfi
-}
+license=(LGPL2.1)
+depends=(glibc)
+makedepends=(cmake)
+provides=(liblscp.so)
+options=(debug)
+source=(https://download.linuxsampler.org/packages/$pkgname-$pkgver.tar.gz)
+sha512sums=('51c3b0b3dfe3947ac5d7cfec18fec597a4282aacc489cdda5a30d5853c3a43778e207ddf2f211c28ba04386fd6f30a09eed62dc2a33177e5aeccd7f77b4ef520')
+b2sums=('a86a5e9e6d52dfd2449274e1c800e40887094dcea3e39d257670dded8b3805f2cdf575b41f640b0df95cd008656d3e7c8ca93d5bc5360c8727b80d6d2695ed83')
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  ./configure --prefix=/usr
-  make
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=None \
+        -Wno-dev \
+        -B build \
+        -S $pkgname-$pkgver
+  make VERBOSE=1 -C build
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  make DESTDIR="$pkgdir" install
-  install -vDm 644 {AUTHORS,ChangeLog,NEWS,README,TODO} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+  make VERBOSE=1 DESTDIR="$pkgdir" install -C build
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 

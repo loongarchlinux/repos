@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libcontentaction
-pkgver=0.4.1
+pkgver=0.4.3
 pkgrel=1
 pkgdesc="Library for associating content with actions"
 arch=('loongarch64' 'x86_64')
-url="https://git.merproject.org/mer-core/libcontentaction"
+url="https://github.com/sailfishos/libcontentaction"
 license=('LGPL')
 depends=('qt5-systems' 'mlite')
 makedepends=('python' 'qt5-tools')
-source=("https://git.merproject.org/mer-core/libcontentaction/-/archive/$pkgver/libcontentaction-$pkgver.tar.bz2")
-sha512sums=('95f515f38ef731253e1eea54a1dcdf9b6103ab67fc2e8d08edec6039f8f880851201841da776d64629d6fcca60a268d91c049c6d0e24b64437474dc4c111837b')
+source=("https://github.com/sailfishos/libcontentaction/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('63a95b89b2c0a295b61c376bbcd623978149fb310eff1b2ff574439fe726c342e970530cfe049b687217a88437c9e116f84596525580a3575e31a32bd733c308')
 
 build() {
   cd libcontentaction-$pkgver

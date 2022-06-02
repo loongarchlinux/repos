@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtkcommon
-pkgver=5.5.17
+pkgver=5.5.21
 pkgrel=1
 pkgdesc='DTK common files'
 arch=('any')
@@ -10,7 +10,7 @@ license=('LGPL3')
 depends=('dconf')
 makedepends=('qt5-tools')
 source=("https://github.com/linuxdeepin/dtkcommon/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c5099ed9429dd8ea8748302ffff19ca5af2ab3cdfc50f33d5cd19c86c47187136544a08026e6d81c7449e747047b5154729894774b951e0d747a080aea40fecc')
+sha512sums=('5413196c0ceeb7510d4d26394c8e6796c8d173e3664eb2e7bb53fb9950fc384caa08e9452f5e71bf4cee87cb7f793e9a5e638ec30333cbbb7fdaa4f2cfc46d12')
 
 prepare() {
   cd dtkcommon-$pkgver

@@ -4,35 +4,35 @@
 
 pkgdesc="A module with some convenient utilities not included with the standard Python install"
 pkgname=python-utils
-pkgver=2.7.1
+pkgver=3.2.3
 pkgrel=1
 arch=(any)
 url="https://github.com/WoLpH/python-utils"
 license=(BSD)
-depends=(python-six)
-makedepends=(python-setuptools)
-checkdepends=(python-pytest-runner)
-source=("https://pypi.org/packages/source/p/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('9f74a33089886dcd28dfd45602c53a7c6cfc90b151a053dd7e49a5fd502479e889d08bd8b10fdd2ec3bc26e334ae66238740ff59291f4ac95fb486b64f925d4a'
+depends=(python)
+makedepends=(python-build python-installer python-setuptools python-wheel)
+checkdepends=(python-loguru python-pytest-runner)
+optdepends=('python-loguru: for logging support')
+source=(https://pypi.org/packages/source/p/$pkgname/$pkgname-$pkgver.tar.gz{,.asc})
+sha512sums=('85f1607faacf210c8e377a438c5d2f66e237cc870a91a9ed1ec7150aa8a7bb8f8fd5b3b0fb5e9585afb81801e7048f92b7ea46943205ddd9e271d6087b5e05d5'
             'SKIP')
-b2sums=('3da11dcb297cace3c2c48ae91e6011be2f484a83f264be375437775eb99d9bafe703626ab0d2217da79ec096f90648d387ec7b41611e915ef33fce152553a18c'
+b2sums=('b4e65b647b42288111edc7a90f7c1b1c3a222a999edacc2f0764e378f7c5f0b5c512842d73ea9f2e70052ba43ac48f9eb914a8a410b564bcd965c357672eda57'
         'SKIP')
 validpgpkeys=('149325FD15904E9C4EB89E95E81444E9CE1F695D') # Rick van Hattem <wolph@wol.ph>
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  python setup.py build
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
-  export PYTHONPATH="${PWD}/build:${PYTHONPATH}"
-  pytest -v -c /dev/null
+  cd $pkgname-$pkgver
+  pytest -vv -c /dev/null
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  python setup.py install --optimize=1 --root="${pkgdir}"
-  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname/"
 }

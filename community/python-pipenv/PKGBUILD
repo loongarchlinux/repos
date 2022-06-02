@@ -3,8 +3,8 @@
 # Contributor: Maikel Wever <maikelwever@gmail.com>
 
 pkgname=python-pipenv
-pkgver=2021.11.23
-pkgrel=3
+pkgver=2022.5.2
+pkgrel=1
 pkgdesc="Sacred Marriage of Pipfile, Pip, & Virtualenv."
 url="https://pipenv.pypa.io"
 arch=('any')
@@ -12,8 +12,15 @@ license=('MIT')
 depends=('python' 'python-pip' 'python-certifi'
          'python-virtualenv-clone' 'python-virtualenv')
 makedepends=('python-setuptools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pypa/pipenv/archive/v${pkgver}.tar.gz")
-sha512sums=('3873a3e7de33677b63bb133e397f46030ec28a24479b38009a4c409d93277327e8f53694fa56fdb8120f9cd632e849fde6f4205e29d9f5704c8844101e8e8298')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pypa/pipenv/archive/v${pkgver}.tar.gz"
+        "requirements_downgrade.patch")
+sha512sums=('0c0fcaf14046cb0d75cb9c260408683b53d6a5e5f2c20c4f73cc20c21af054ac2f18d3c616bfebf18dd6ad02731dadcc0efa85f861643c5ce7dc16d61e9d1983'
+            'd35c6c9d6c490af0b34a97ef2a5a37244df7aceb9b45d4caf8e3155cd28c9ea9721557235b6b99c880d866c89b2b479c974345fde4b989b480bcb7b9ccd34736')
+
+prepare() {
+  cd "pipenv-${pkgver}"
+  patch -Np1 -i ../requirements_downgrade.patch
+}
 
 build() {
   cd "pipenv-${pkgver}"

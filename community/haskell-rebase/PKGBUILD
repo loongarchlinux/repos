@@ -3,31 +3,31 @@
 
 _hkgname=rebase
 pkgname=haskell-rebase
-pkgver=1.13.0.1
-pkgrel=47
+pkgver=1.15.0.3
+pkgrel=20
 pkgdesc='A more progressive alternative to the "base" package'
 url="https://github.com/nikita-volkov/rebase"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-comonad' 'haskell-dlist'
-         'haskell-either' 'haskell-hashable' 'haskell-hashable-time' 'haskell-profunctors'
-         'haskell-scientific' 'haskell-selective' 'haskell-semigroupoids'
-         'haskell-unordered-containers' 'haskell-uuid-types' 'haskell-vector'
+         'haskell-either' 'haskell-groups' 'haskell-hashable' 'haskell-invariant'
+         'haskell-profunctors' 'haskell-scientific' 'haskell-selective' 'haskell-semigroupoids'
+         'haskell-time-compat' 'haskell-unordered-containers' 'haskell-uuid-types' 'haskell-vector'
          'haskell-vector-instances' 'haskell-void')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f0ac2c2f0b0596b01a7f2961566232b8966ce128acf8029f1d9ddcef67b44d955d6364d06b1127128a60cd947a4b0431da89e43e260da0b2eda300f2fc592e7a')
+sha512sums=('46c5790ba0bcf39b17a98eb32e6c5f68125abf9d20f51b6c3fa4fab665790eb1148878631e1e38677f53e1d81d52a1a96db18a8aec6e0eefbdacdd611340067a')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u selective $_hkgname.cabal
+    gen-setup
 }
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

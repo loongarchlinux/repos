@@ -3,28 +3,31 @@
 # Contributor: Stephan Eisvogel <eisvogel at embinet dot de>
 
 pkgname=python-pikepdf
-pkgver=4.2.0
-pkgrel=2
+pkgver=5.1.3
+pkgrel=1
 pkgdesc='Read and write PDFs with Python, powered by qpdf'
 arch=(loongarch64 x86_64)
 url='https://github.com/pikepdf/pikepdf'
 license=(MPL2)
-makedepends=(pybind11 python-setuptools-scm python-wheel python-toml)
+makedepends=(pybind11 python-build python-installer python-wheel python-toml python-setuptools-scm-git-archive)
 depends=(python-lxml python-pillow qpdf)
+checkdepends=(python-pytest-xdist python-hypothesis)
 source=(https://pypi.python.org/packages/source/p/pikepdf/pikepdf-$pkgver.tar.gz)
-sha256sums=('9a91564193f2c01a55aef4c3b97764b2cb59443034b62a95620b12eb265c647e')
-
-prepare() {
-  sed -e '/setuptools_scm_git_archive/d' -i pikepdf-$pkgver/setup.py # Remove unused build dependency
-}
+sha256sums=('c34e4239661d2ddf23caa1c4256f636c866ce8069a5052a2bf8ee06e3cae22f3')
 
 build() {
   cd pikepdf-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd pikepdf-$pkgver
+  PYTHONPATH="${PWD}/$(echo build/lib.*)" \
+  pytest -v
 }
 
 package() {
   cd pikepdf-$pkgver
-  python setup.py install --root="$pkgdir" --prefix=/usr --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
 }

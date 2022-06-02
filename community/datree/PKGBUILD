@@ -1,16 +1,17 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 pkgname=datree
-pkgver=0.14.36
+pkgver=1.4.10
 pkgrel=1
-pkgdesc='CLI tool to ensure K8s manifests and Helm charts follow best practices as well as your organization’s policies'
+pkgdesc="CLI tool to ensure K8s manifests and Helm charts follow best practices as well as your organization’s policies"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/datreeio/datree'
 license=('Apache')
 depends=('kubectl')
 makedepends=('git' 'go')
 source=("${pgname}-${pkgver}.tar.gz::https://github.com/datreeio/datree/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('ade0bc2de17ca684bcbeabdb5e4d21907bd54e619368d8220318b3fa421b90e85d0ead3d338c7bbc1f260f847b27b2f9c138121b7ed94eeb5644771e0b007d5e')
-b2sums=('18e73791185fc5a1698e293ff9d1058ae3eb3822fe96735272ce21b5c48680aeb17d4190469627a8a2dde3882e8b8b5d50d2c4b3cad21966b2a21d92fe1539ef')
+sha512sums=('fe988d5fa7467e963f086f8ca034049be330ab9a0251ed1da1526033deef53f0576b35f2c073b7862a908159f56506d2302d0bb4abcbb6bcdd4665b5a7b33cb0')
+b2sums=('cd69fb9d83ee5affa2b909d8daa82ac434ff940757f31a0096c1e21fac43da0b939fee43015bbb04806701f430d21b7d084c9aa2059736bf5389b38ebd27c8eb')
+options=('!lto')
 
 build() {
   cd "${pkgname}-${pkgver}"

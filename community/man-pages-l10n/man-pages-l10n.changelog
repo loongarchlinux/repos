@@ -1,3 +1,16 @@
+2022-05-11 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* man-pages-l10n 4.14.0-1
+	* added Greek and Ukrainian
+
+2022-02-21 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* man-pages-l10n 4.13-1
+
+2022-02-11 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* man-pages-l10n 4.12.1-2 - FS#73728 fix
+
+2022-01-16 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* man-pages-l10n 4.12.1-1
+
 2021-12-25 Jaroslav Lichtblau <svetlemodry@archlinux.org>
 	* man-pages-l10n 4.12.0-1
 

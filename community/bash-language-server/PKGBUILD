@@ -1,18 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=bash-language-server
-pkgver=2.0.0
-pkgrel=5
+pkgver=3.0.3
+pkgrel=1
 pkgdesc="Bash language server implementation based on Tree Sitter and its grammar for Bash"
 arch=("loongarch64" "x86_64")
 url="https://github.com/bash-lsp/$pkgname"
 license=("MIT")
-depends=("nodejs" "acorn")
+depends=("nodejs")
 makedepends=("yarn" "typescript" "git")
-optdepends=('bash-completion: for CLI args completion')
-source=("$url/archive/server-$pkgver.tar.gz")
-sha512sums=('e72df6f13ed4b861b81329059d41cdfada2729e9523e619ef26d6ed0a2a5400a3dda659b4f4af923a2a9fb2054b99b9d6db082508f2ba06ac0f9a421516e2ce9')
+optdepends=('bash-completion: for CLI args completion'
+            'shellcheck: to enable linting')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/server-$pkgver.tar.gz")
+sha512sums=('edcf168f10e4a7add68fdcc3b859f13cd28a2be2a77fc27352a67e41bca4fdfd53055278b02bcd17d1a6a31f8bca7248c97455487cfb781f46dcd708fcbe6076')
 
 build() {
     cd "$pkgname-server-$pkgver"
@@ -25,10 +27,6 @@ package() {
     cd "$pkgdir/usr/lib/$pkgname"
     cp -a "$srcdir/$pkgname-server-$pkgver/server/"* .
     install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" "$srcdir/$pkgname-server-$pkgver/LICENSE"
-
-    rm -r node_modules/acorn
-    mkdir -p node_modules/acorn/bin
-    ln -s /usr/bin/acorn node_modules/acorn/bin/acorn
 
     install -d "$pkgdir/usr/bin"
     ln -s "/usr/lib/$pkgname/bin/main.js" "$pkgdir/usr/bin/$pkgname"

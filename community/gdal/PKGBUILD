@@ -4,8 +4,8 @@
 
 pkgbase=gdal
 pkgname=('gdal' 'python-gdal')
-pkgver=3.4.0
-pkgrel=1
+pkgver=3.4.3
+pkgrel=2
 pkgdesc="A translator library for raster geospatial data formats"
 arch=('loongarch64' 'x86_64')
 url="https://gdal.org/"
@@ -20,7 +20,7 @@ options=('!emptydirs')
 changelog=$pkgbase.changelog
 source=(https://download.osgeo.org/${pkgbase}/${pkgver}/${pkgbase}-${pkgver}.tar.xz
         gdal-perl-vendor.patch)
-sha256sums=('ac7bd2bb9436f3fc38bc7309704672980f82d64b4d57627d27849259b8f71d5c'
+sha256sums=('02a27b35899e1c4c3bcb6007da900128ddd7e8ab7cd6ccfecf338a301eadad5a'
             '2103b98f2f15954f042d5620658b30d703125927bde2e5eb671c5facb6c2f5ed')
 
 prepare() {

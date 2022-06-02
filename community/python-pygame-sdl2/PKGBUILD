@@ -6,8 +6,8 @@ pkgname=(
   python-pygame-sdl2
   python2-pygame-sdl2
 )
-pkgver=2.1.0.r399.5777335
-pkgrel=2
+pkgver=2.1.0.r405.33f79ca
+pkgrel=1
 epoch=1
 pkgdesc='Reimplementation of portions of the pygame API using SDL2'
 arch=(loongarch64 x86_64)
@@ -30,7 +30,7 @@ makedepends=(
   python2
   python2-setuptools
 )
-_commit=5777335c4613bddf9dd51abd58d8dfa2a9a6568e
+_commit=33f79ca053a436dc27fa0478d446c91d812a71a8
 source=(
   git+https://github.com/renpy/pygame_sdl2.git#commit=${_commit}
   python-pygame-sdl2-cython2.patch

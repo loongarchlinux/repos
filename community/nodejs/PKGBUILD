@@ -8,17 +8,18 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=17.3.0
+pkgver=18.2.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript'
 arch=('loongarch64' 'x86_64')
 url='https://nodejs.org/'
 license=('MIT')
+options=(!lto)
 depends=('brotli' 'openssl' 'zlib' 'icu' 'libuv' 'libnghttp2' 'c-ares') # 'http-parser' 'v8')
 makedepends=('python' 'procps-ng')
 optdepends=('npm: nodejs package manager')
 source=("https://github.com/nodejs/node/archive/v$pkgver/nodejs-$pkgver.tar.gz")
-sha512sums=('fbfc347c0f07df1d575b27f660abda97b65f336577797ba56a8837385ddb5fc6d55bf80c95042ff74ad9f4bd12e5188672b8f307a085287db89e1b9fdaba2567')
+sha512sums=('87151c6af8ce9d1dcb06eb9fde0e42a0235f84a545247ffaf6d4e4868b1a514725a63fa9b27e3864d71fa17df7afdeca9da8bb8e7a3dcb1491a0110853c3357c')
 
 build() {
   cd node-$pkgver

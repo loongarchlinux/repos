@@ -3,8 +3,8 @@
 
 _hkgname=microlens-ghc
 pkgname=haskell-microlens-ghc
-pkgver=0.4.13
-pkgrel=4
+pkgver=0.4.13.1
+pkgrel=1
 pkgdesc="microlens + array, bytestring, containers, transformers"
 url="https://github.com/monadfix/microlens"
 license=("BSD")
@@ -12,14 +12,14 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-microlens')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b1b82ad674811e8b02128a01054511838f508410c8a18c2c8268efc449d4ae1274cf2293fc6c6fffea1a93fdbbbea9a3168a128cf15d5256336fabdcca5199fa')
+sha512sums=('d383f4ad2ab13a89001522bec5765290bccc9c17a634b545cb4ef366c13a36eb0c6826ee2aed41356c79bee651ef007d7b6810ca859be841b1a6c5d35d283cb0')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

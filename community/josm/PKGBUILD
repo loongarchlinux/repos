@@ -2,23 +2,23 @@
 # Contributor: Michele Schäuble <mschaeuble@swissonline.ch>
 
 pkgname=josm
-pkgver=18303
+pkgver=18427
 pkgrel=1
 pkgdesc="An editor for OpenStreetMap written in Java"
 arch=('any')
 url="https://josm.openstreetmap.de/"
 license=('GPL')
-depends=('desktop-file-utils' 'hicolor-icon-theme' 'java-runtime>=8' 'libxtst' 'ttf-font')
+depends=('desktop-file-utils' 'hicolor-icon-theme' 'java-runtime>=11' 'libxtst' 'ttf-font')
 makedepends=('subversion')
 changelog=$pkgname.changelog
 backup=('etc/conf.d/josm')
 source=(https://josm.openstreetmap.de/download/$pkgname-snapshot-$pkgver.jar
-        $pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver
-        $pkgname.conf.d)
+        $pkgname.conf.d
+        $pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver)
 noextract=($pkgname-snapshot-$pkgver.jar)
-sha256sums=('fa0509b31db7f2240aad8c7faddb5df044955c8d2efe45b6b34a77dd3e0c4965'
-            'SKIP'
-            'c86a73251eed42fcb129ae9b88a0ee3cf03d8d00a9385519ad536d5af0907663')
+sha256sums=('4aca1e29fa568b8d6c77becb7da416d0e7079f27fc88ba2529617be1d85a9696'
+            '29377ce55c50951b1bd0e39003a977d8ea558c0657d613cea5f0056ce255e60e'
+            'SKIP')
 
 package() {
   cd "${srcdir}"

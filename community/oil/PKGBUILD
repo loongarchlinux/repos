@@ -5,11 +5,11 @@
 # Contributor: andychu <andy@oilshell.org>
 
 pkgname=oil
-pkgver=0.9.6
+pkgver=0.10.1
 pkgrel=1
-pkgdesc="A new Unix shell"
+pkgdesc='A new Unix shell'
 arch=('loongarch64' 'x86_64')
-url="https://www.oilshell.org"
+url='https://www.oilshell.org'
 license=('Apache')
 depends=('readline')
 makedepends=('bash')
@@ -17,8 +17,8 @@ replaces=('osh')
 install=oil.install
 options=('!lto' '!strip')
 source=("$url/download/$pkgname-$pkgver.tar.xz")
-sha512sums=('541834c75ee9253370edbadc503e96d5a6cad7ea0447b797fe215266a4926e15a4d0c4549153cedef79781768a8e17697fe136b8716ca4355f23a667cfc4244c')
-b2sums=('148cb2ef2fbee45e16b267484038576833447c7d6dda2be9c25ea6859bda2be948d5ff0f338dec4dc9dbd83ff9a59c42b900f3be1a65fa00fbcf1e0d7ba06128')
+sha512sums=('76d16787c0df4b8c3bbcbd006c2114db0501427c028066a398edcf3cce3f57a3b38f78e15a31637333edc2cf56a13d344d6f6200644f1915a8806f9d2d6bc411')
+b2sums=('3a142dbd04a228bf6efbb75fb4c2c2559a52060cc3bb86b0c36605d29a64d287e02f4eafb499c9ca68afae6e8fbc8da2670fb2b594c41bba30d18e9910b83dfe')
 
 build() {
 	cd "$pkgname-$pkgver"

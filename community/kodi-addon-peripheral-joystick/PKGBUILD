@@ -1,17 +1,18 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-addon-peripheral-joystick
-pkgver=19.0.0
+pkgver=19.0.2
 _codename=Matrix
-pkgrel=5
+pkgrel=1
 pkgdesc="Joystick support for Kodi"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/xbmc/peripheral.joystick'
 license=('GPL')
 groups=('kodi-addons' 'kodi-addons-peripheral')
 makedepends=('cmake' 'kodi-dev')
+options=(!lto debug)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/peripheral.joystick/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('edb2582d56a6fee5965e99bf6ceeaf89d7278e767dd3991eba0bbe2be7431c3d53c856727f343db7a7f76aafa36eb5cd947a9136afa0248805f87cd66d751bb4')
+sha512sums=('1274d5eb9e362120810d5e3b8702166ca0d6f55e66642b99e6518be540747e4e3e8bb0632bcbffbf2a2774e63667d2b17541efb518364f0f4fb9c8e1678f3a5d')
 
 build() {
     cd "peripheral.joystick-$pkgver-$_codename"

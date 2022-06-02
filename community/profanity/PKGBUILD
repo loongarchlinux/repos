@@ -5,8 +5,8 @@
 
 pkgbase=profanity
 pkgname=('profanity' 'profanity-gtk')
-pkgver=0.11.1
-pkgrel=3
+pkgver=0.12.1
+pkgrel=2
 epoch=1
 pkgdesc='Console based XMPP client'
 url='http://www.profanity.im'
@@ -14,9 +14,9 @@ arch=('loongarch64' 'x86_64')
 license=('GPL3')
 _clidepends=(
   'libcurl.so' 'libncursesw.so' 'expat' 'glib2' 'libotr'
-  'libmesode.so' 'libnotify.so' 'libcrypt.so'
+  'libnotify.so' 'libcrypt.so'
   'libgpgme.so' 'python' 'libgcrypt' 'libsignal-protocol-c'
-  'glibc' 'libreadline.so' 'libassuan' 'libgpg-error'
+  'glibc' 'libreadline.so' 'libassuan' 'libgpg-error' 'libstrophe.so'
   )
 _gtkdepends=(
   'libgtk-3.so' 'libxss' 'libx11' 'libpango-1.0.so'
@@ -27,12 +27,13 @@ makedepends=(
   )
 checkdepends=('cmocka')
 source=(https://github.com/profanity-im/profanity/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('6a8b0b5a478c3a2b17b8c2eb572a3173a70b4c3740c61dd638a2d04a45147f9f')
-sha512sums=('560116b85516f883711f54f2229619b49179666c6a5459df0dec311cc5ab6919bf648f14888b09f5c4f13a2d834f3c598967fe84ecf1169bc197274e8b5aaa93')
-b2sums=('07aac723f080b482295a2f1f12c7ab0dfa2112d7690bf4c05412497d14dc09dafbb0933650c5240aa465fadbc5a13d48384a7679809925cc47e8b01685cc7a81')
+sha256sums=('2a271e17dfb7b556d76eb69fb6e8b9676da6f78869172e62339937c9b774b6ea')
+sha512sums=('399105dfe49e3bc711426e77d45f92b347cca6ba47059e33e0ffb3997adf7c223b2959096bbb2419891f061eb2cf63da3b90d2d2b13dcd5a0d06046e851b5c69')
+b2sums=('73d1588d94b293eae9e55274abde4ddbebc890d0e05ab266499fd768c313903e508fd009aec490f740b7bbbba765dc48c5e4056378a0cef1f0f6a71109fee226')
 
 prepare() {
   cd ${pkgname}-${pkgver}
+
   mkdir -p m4
   autoreconf -fiv
   cp -a "${srcdir}"/${pkgname}-${pkgver}{,-gtk}

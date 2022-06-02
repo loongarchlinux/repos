@@ -1,34 +1,33 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qxgedit
-pkgver=0.9.4
-pkgrel=1
+pkgver=0.9.6
+pkgrel=2
 pkgdesc="GUI for editing MIDI System Exclusive files for XG devices (eg. Yamaha DB50XG)"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://qxgedit.sourceforge.io/"
-license=('GPL2')
-groups=('pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt6-base')
-makedepends=('alsa-lib' 'cmake' 'qt6-tools')
-source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('5c2f566e70d314e9cc2c8b73caebb7d1d413cfa4386c43655f43baa1d9cd097343fb480d0dcef256d816c918797b9a45cd84ae49ca94c0ca46baca7deff24945')
-b2sums=('daf77ebf49c08180d52f9ba7f4f742612636a067e90b6ebd24c34d0e1079bf4d72768d6c77aecb6dbbc9cc63da2e5ffb3833c9675784af872aff61608f2f6b13')
+license=(GPL2)
+groups=(pro-audio)
+depends=(gcc-libs glibc hicolor-icon-theme qt6-base qt6-svg)
+makedepends=(alsa-lib cmake qt6-tools)
+options=(debug)
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
+sha512sums=('31c7e03f89efb9cf12e0c76183423aca25e399e34f52125dbaab6a15b161ad4bde43ce863bdcadc872c69310e0204f0a4e9473ba17d28fee01b023cf5644fc3a')
+b2sums=('c2730431b2d2425866dbdc1a0093cebb98be2bad43794b4f07be9fbfddbee80f089c4faf6fda21e9dbbc244755f8b382bc927f9fd44a3c248b78d1506cbc27c4')
 
 build() {
-  cd "$pkgname-$pkgver"
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE='None' \
+        -DCMAKE_BUILD_TYPE=None \
         -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
-        -S .
+        -S $pkgname-$pkgver
   make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libasound.so')
-  cd "$pkgname-$pkgver"
+  depends+=(libasound.so)
+
   make VERBOSE=1 DESTDIR="$pkgdir" install -C build
-  install -vDm 644 {AUTHORS,ChangeLog,README,TODO} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}/"
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }

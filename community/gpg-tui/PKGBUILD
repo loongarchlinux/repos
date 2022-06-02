@@ -1,14 +1,14 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gpg-tui
-pkgver=0.8.2
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="A terminal user interface for GnuPG"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/orhun/gpg-tui"
 license=('MIT')
 depends=('libxcb' 'libxkbcommon' 'gpgme')
-makedepends=('rust' 'python')
+makedepends=('cargo' 'python')
 optdepends=(
   'xplr: for file selection support'
   'xclip: for clipboard support on X11 (or xsel)'
@@ -16,18 +16,18 @@ optdepends=(
   'wl-clipboard: for clipboard support on Wayland'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('2b3399abcd210be8e8a7a8e8908832ba385b53ebc3fdbf73a8a410fb2bb30e69178a47e5c57792546ace90f5d489f82e0a7744f82c22149f242a6aac9d8106d2')
+sha512sums=('c34474af908c693c1e62ba9638d62c8278e80c5f9a80cca6346bdef6590d25f9959c060444b91b15a750a2760c91d685dd596bf1a5717ab5b28ef4e2482beae7')
 
 prepare() {
   cd "$pkgname-$pkgver"
   mkdir completions/
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd "$pkgname-$pkgver"
   cargo build --release --frozen
-  OUT_DIR=completions/ cargo run --release --bin gpg-tui-completions
+  OUT_DIR=completions/ target/release/gpg-tui-completions
 }
 
 check() {

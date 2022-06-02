@@ -2,41 +2,38 @@
 
 _name=orjson
 pkgname=python-orjson
-pkgver=3.6.5
-pkgrel=2
+pkgver=3.6.8
+pkgrel=1
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
 arch=(loongarch64 x86_64)
 url="https://github.com/ijl/orjson"
 license=(Apache MIT)
 depends=(python)
-makedepends=(maturin python-pip rust)
+makedepends=(maturin python-installer rust)
 checkdepends=(python-arrow python-pendulum python-psutil python-pytest
 python-pytz python-xxhash)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ijl/${_name}/archive/${pkgver}.tar.gz")
-sha512sums=('5a379bd58231d56a3abcf4499db17bff3e5e7708fe7c6bd1c8c943ffcc432874804ffe3f2fd24f83d27ff7ae00ff4d8b715389a92f30c61025460c9ddc77e9ac')
-b2sums=('ba2033be5f3e68d4d301f6da7a7827f80ace596a64721c5d719c8a872f42c6c70164e1e83a119313a81d846285be65f3db26659b6a03f537a6b2eded4aa83f90')
-
-prepare() {
-  mv -v "${_name}-${pkgver}" "$pkgname-$pkgver"
-}
+options=(debug)
+source=($pkgname-$pkgver.tar.gz::https://github.com/ijl/$_name/archive/$pkgver.tar.gz)
+sha512sums=('d929e26f98c5a50ccc45f782b0a7de85e68cc8631597f7c27262a35fa15d5d8c30a5493ab67279d5ea691562a572b0001509b809440c0a018cca1e99d665937d')
+b2sums=('520f038aaf058e2ddd6e41575d8fd6b88111a1627fd9000800bf695385a6292ce73911d37d268878ac6e08f3a84d5dc46eeb8ba7183d8bc5d0daee5b93a7e034')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd $_name-$pkgver
   maturin build --no-sdist --release --strip
 }
 
 check() {
-  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  cd "$pkgname-$pkgver"
-  mkdir -vp testdir
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="testdir" --ignore-installed --no-deps target/wheels/*.whl
-  PYTHONPATH="testdir/usr/lib/python${python_version}/site-packages:${PYTHONPATH}" pytest -v
+  cd $_name-$pkgver
+  python -m installer --destdir=test_dir target/wheels/*.whl
+  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
+  pytest -vv
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="$pkgdir" --ignore-installed --no-deps target/wheels/*.whl
-  install -vDm 644 {CHANGELOG,README}.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -vDm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" target/wheels/*.whl
+  install -vDm 644 {CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 LICENSE-* -t "$pkgdir/usr/share/licenses/$pkgname/"
 }

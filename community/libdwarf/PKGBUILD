@@ -4,7 +4,7 @@
 
 pkgname=libdwarf
 epoch=1
-pkgver=0.3.1
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="A library for handling DWARF Debugging Information Format"
 arch=(loongarch64 x86_64)
@@ -12,11 +12,11 @@ license=('GPL' 'LGPL')
 url="https://www.prevanders.net/dwarf.html"
 depends=('elfutils')
 provides=('libdwarf.so')
-options+=('staticlibs')
+options+=('staticlibs' 'debug')
 #_commit="245262d6ccaeed17f7564c31b78da2d4df1a3ee0"
 #source=(https://sourceforge.net/code-snapshots/git/l/li/libdwarf/code.git/libdwarf-code-$_commit.zip)
 source=(https://www.prevanders.net/libdwarf-$pkgver.tar.xz)
-sha512sums=('dd82174bcb36c32be564be747898ef09aaaa5ecc84d211bac725edf9ba55008b3942452d6684da79a320289986b45e164bbeefb5a07658daf473b143dfe40f2b')
+sha512sums=('30e5c6c1fc95aa28a014007a45199160e1d9ba870b196d6f98e6dd21a349e9bb31bba1bd6817f8ef9a89303bed0562182a7d46fcbb36aedded76c2f1e0052e1e')
 
 build() {
   cd "$srcdir"/libdwarf-$pkgver
@@ -29,7 +29,7 @@ build() {
 check() {
   cd "$srcdir"/libdwarf-$pkgver
   # cd "$srcdir"/libdwarf-code-$_commit
-  make check
+  make -j1 check
 }
 
 package() {

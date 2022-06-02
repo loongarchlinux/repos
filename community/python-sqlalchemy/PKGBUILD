@@ -3,7 +3,7 @@
 # Contributor: Sébastien Luttringer <seblu@aur.archlinux.org>
 
 pkgname=python-sqlalchemy
-pkgver=1.4.29
+pkgver=1.4.36
 pkgrel=1
 arch=('loongarch64' 'x86_64')
 url="https://www.sqlalchemy.org/"
@@ -15,7 +15,7 @@ makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner' 'python-pytest-xdist' 'python-mock')
 source=("https://pypi.io/packages/source/S/SQLAlchemy/SQLAlchemy-$pkgver.tar.gz"{,.asc})
 validpgpkeys=('83AF7ACE251C13E6BB7DEFBD330239C1C4DAFEE1')
-sha512sums=('40f7b30db6c080061aa2d38c8257c1d9df4cd5a99425becc89ffb339bd764f60c6174fc85fc2dad8be248baf8e78c20b9ac28a5ddff0f58033fa7756517bb50f'
+sha512sums=('c9bb38ce5eeb7817727e93695f10cf5c247710b809f3298b233ed8be4e2cc08e5a14581d0c5aa2af02d7a49f036fe3a0bb7a88120b58bdce0f115016bdaf2c77'
             'SKIP')
 
 prepare() {

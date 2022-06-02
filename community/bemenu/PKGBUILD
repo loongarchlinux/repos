@@ -3,7 +3,7 @@
 
 pkgbase=bemenu
 pkgname=(bemenu bemenu-ncurses bemenu-x11 bemenu-wayland)
-pkgver=0.6.4
+pkgver=0.6.7
 pkgrel=1
 
 # Wayland without wlroots is not supported.
@@ -13,16 +13,18 @@ url='https://github.com/Cloudef/bemenu'
 arch=(loongarch64 x86_64)
 license=(GPL3 LGPL3)
 
-makedepends=(libxinerama libxkbcommon ncurses pango wayland wayland-protocols wlroots)
+makedepends=(libxinerama libxkbcommon ncurses pango wayland wayland-protocols wlroots scdoc)
 
 source=(
 	"bemenu-$pkgver.tar.gz::https://github.com/Cloudef/bemenu/archive/$pkgver.tar.gz"
 	"bemenu-$pkgver.tar.gz.asc::https://github.com/Cloudef/bemenu/releases/download/$pkgver/bemenu-$pkgver.tar.gz.asc"
 )
 # Checksums provided by packager
-sha256sums=('9b1ad6768a37e3b526ac31e05903b4fc8d95d28870c8fecbe803ccfc8eae1bbe'
-            'SKIP')
-validpgpkeys=('16B6B7CACAF339DECE9F154729317348D687B86B')
+sha256sums=(
+	8982ffbeebb0f642e0a68d3ab5a16078b2f43548ddca70a5ad30a597529ff142
+	SKIP
+)
+validpgpkeys=(16B6B7CACAF339DECE9F154729317348D687B86B)
 
 build() {
 	cd "bemenu-$pkgver"
@@ -40,8 +42,7 @@ package_bemenu() {
 	provides=(libbemenu)
 
 	cd "bemenu-$pkgver"
-	make DESTDIR="$pkgdir" PREFIX=/usr install
-	rm -rf "$pkgdir"/usr/lib/bemenu/
+	make DESTDIR="$pkgdir" PREFIX=/usr install-base install-docs
 }
 
 package_bemenu-ncurses() {
@@ -50,8 +51,7 @@ package_bemenu-ncurses() {
 	depends=(libbemenu ncurses)
 
 	cd "bemenu-$pkgver"
-	make DESTDIR="$pkgdir" PREFIX=/usr install-renderers
-	rm -f "$pkgdir"/usr/lib/bemenu/bemenu-renderer-{wayland,x11}.so
+	make DESTDIR="$pkgdir" PREFIX=/usr install-curses
 }
 
 package_bemenu-wayland() {
@@ -62,8 +62,7 @@ package_bemenu-wayland() {
 	install=bemenu-wayland.install
 
 	cd "bemenu-$pkgver"
-	make DESTDIR="$pkgdir" PREFIX=/usr install-renderers
-	rm -f "$pkgdir"/usr/lib/bemenu/bemenu-renderer-{curses,x11}.so
+	make DESTDIR="$pkgdir" PREFIX=/usr install-wayland
 }
 
 package_bemenu-x11() {
@@ -72,6 +71,5 @@ package_bemenu-x11() {
 	depends=(libbemenu libxinerama pango)
 
 	cd "bemenu-$pkgver"
-	make DESTDIR="$pkgdir" PREFIX=/usr install-renderers
-	rm -f "$pkgdir"/usr/lib/bemenu/bemenu-renderer-{curses,wayland}.so
+	make DESTDIR="$pkgdir" PREFIX=/usr install-x11
 }

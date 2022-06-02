@@ -1,33 +1,61 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-google
-pkgver=1.19.0
-pkgrel=2
+pkgver=1.27.0
+pkgrel=1
 pkgdesc="Google Cloud DNS Authenticator plugin for Certbot"
 arch=('any')
 license=('Apache')
 url="https://pypi.python.org/pypi/$pkgname"
-depends=('certbot' 'python-acme' 'python-mock' 'python-google-api-python-client'
-         'python-oauth2client' 'python-setuptools' 'python-zope-interface')
+depends=(
+  'certbot'
+  'python-acme'
+  'python-google-api-python-client'
+  'python-oauth2client'
+  'python-httplib2'
+)
+makedepends=(
+  'python-build'
+  'python-wheel'
+  'python-installer'
+)
 checkdepends=('python-pytest')
-source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
-validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
+validpgpkeys=('86379B4F0AF371B50CD9E5FF3402831161D1D280'
+              '148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
-              'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('ce1586b8c8544f4e1716d19f247e7541d402b754773401fec5f0b36e5d0f2744540da276ed94cb08d05b6437a6e2396ab0010e31228e638015113a3a3f0b76c6'
+              'A2CFB51FA275A7286234E7B24D17C995CD9775F2'
+              '20F201346BF8F3F455A73F9A780CC99432A28621'
+              'F2871B4152AE13C49519111F447BF683AA3B26C3')
+sha512sums=('e41df04af7eec053fbf20ee966766266f38cb83d5307194715b9d97cf8bc20e57e99ba0970c3a8358b973680d47a775d123d10a3b0e3ba48bb32a66523b3e8ce'
             'SKIP')
+b2sums=('754da356a84d8711014f6fa81c8fa77b709d16e3625420e873db54f56adf2695910521cd30d2a7779ac9f48c9f09f19e09b144c6efb5d89e899b22e3fa0386d9'
+        'SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # nuke setuptools from orbit ^W install_requires
+  sed \
+    -e '/setuptools>=/d' \
+    -i setup.py
+}
 
 build() {
-  cd "$srcdir"/$pkgname-$pkgver
-  python setup.py build
+  cd "$pkgname-$pkgver"
+
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd "$pkgname-$pkgver"
+
   python -m pytest
 }
 
 package() {
-  cd "$srcdir"/$pkgname-$pkgver
-  python setup.py install --root="$pkgdir"
+  cd "$pkgname-$pkgver"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }

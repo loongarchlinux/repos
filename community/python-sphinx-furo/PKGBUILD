@@ -1,17 +1,19 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 _pkgname=furo
 pkgname=python-sphinx-$_pkgname
-pkgver=2021.11.23
-pkgrel=2
+pkgver=2022.04.07
+pkgrel=1
 pkgdesc='A clean customizable documentation theme for Sphinx'
 arch=('any')
 url='https://github.com/pradyunsg/furo'
 license=('MIT')
 depends=('python-sphinx' 'python-pygments' 'python-beautifulsoup4')
-makedepends=('python-build' 'python-pip' 'python-sphinx-theme-builder' 'python-flit-core')
+makedepends=('python-build' 'python-installer' 'python-sphinx-theme-builder' 'python-flit-core'
+             'nodejs-lts-gallium' 'npm')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('921b2a2337d4ec4434a9cbccfbb1faacc42477ac75a37d0d6e0bc39827fbecfec362e631fa3ff9080b580e2a6b8bc77df933d964e3f552dcad1fff1af166b481')
+sha512sums=('9a9194a0ed89bbee5f20ff4b18275e668ebfae80df88d88d5a4f305983820542a33a492a528352f48c0370bf079d39e8fc6fe2b4ade0397d88e22ec65e644b57')
 
 build() {
   cd $_pkgname-$pkgver
@@ -36,7 +38,7 @@ build() {
 package() {
   cd $_pkgname-$pkgver
 
-  PIP_CONFIG_FILE=/dev/null pip install --isolated --root="$pkgdir" --ignore-installed --no-deps dist/*.whl
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   #install -dm 755 "$pkgdir"/usr/share/doc/$pkgname
   #cp -r -a --no-preserve=ownership build/docs/html "$pkgdir"/usr/share/doc/$pkgname

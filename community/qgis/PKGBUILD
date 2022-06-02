@@ -9,8 +9,8 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=3.22.2
-pkgrel=3
+pkgver=3.24.3
+pkgrel=1
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
@@ -25,7 +25,7 @@ optdepends=('fcgi: Map server'
             'gpsbabel: GPS Tools plugin')
 source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2"
          qgstyle-infinite-loop.patch::https://github.com/qgis/QGIS/commit/19823b76.patch)
-sha256sums=('ff488a1f49a9b161dcffeb0bc8cc3142d3b4e7f4a5e8f95dcb25efc39b400870'
+sha256sums=('fc9fa28e10c32773f49f1de0c52a35a393060acd6f799d6926f08e96fbaf2b4e'
             'c5bc388da987c7c21451b3f0f74220c8bd82cfba04657ff599d1896e6ae4b304')
 
 prepare() {

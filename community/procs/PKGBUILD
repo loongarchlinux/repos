@@ -4,16 +4,16 @@
 # Contributor: Attenuation <ouyangjun1999@gmail.com>
 
 pkgname=procs
-pkgver=0.11.13
+pkgver=0.12.3
 pkgrel=1
 pkgdesc="A modern replacement for ps written in Rust"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/dalance/procs"
 license=('MIT')
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('b769ddf1b2faeca4e9fb22e8e0248f5d69b4b88bd51fb37c8510d2e6a8e897d3')
+sha256sums=('59720db4abdff1878492929b1c015dedff7cdc0ea2352b1360084e3bb4fbff33')
 
 prepare() {
     cd "$pkgname-$pkgver"

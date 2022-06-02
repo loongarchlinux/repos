@@ -2,7 +2,7 @@
 # Contributor: Enlightenment Developers <enlightenment-devel@enlightenment.org>>
 
 pkgname=enlightenment
-pkgver=0.25.0
+pkgver=0.25.3
 pkgrel=1
 pkgdesc="Enlightenment window manager"
 arch=('loongarch64' 'x86_64')
@@ -21,7 +21,7 @@ backup=('etc/enlightenment/sysactions.conf'
         'etc/enlightenment/system.conf'
         'etc/xdg/menus/e-applications.menu')
 source=("https://download.enlightenment.org/rel/apps/${pkgname}/$pkgname-$pkgver.tar.xz")
-sha256sums=('7d6e72ceed5aca135b7a49c2a1c1eb9d8fde1318613517401d0418e0e5f6df06')
+sha256sums=('37fd49ebb537216a18efe69d5c5511e118f9cdacb5652807769331707be4cff6')
 
 
 build() {

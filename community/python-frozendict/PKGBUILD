@@ -3,7 +3,7 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=python-frozendict
-pkgver=2.1.2
+pkgver=2.3.2
 pkgrel=1
 epoch=1
 pkgdesc='An immutable dictionary'
@@ -14,15 +14,14 @@ depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest')
 source=("https://pypi.org/packages/source/f/frozendict/frozendict-$pkgver.tar.gz")
-sha512sums=('80762037931c0610023cc6ab3c5b115978d60dd39b3369bd51134ce7e79d9ae0202074026f6e377210342a1eaf25785dc38e4011edb28dbd04f8fa5ec764491e')
-b2sums=('9802c71ea4e17898f9a82f1dcc76187b657f5ea5ead9d809d4fa814b9916a84becf25680922b27031786cb57f3325ba236ade8a31b0acfc6d25c65cbfc764716')
+sha512sums=('e6674f12d311ba75ea2a7e7dc70c5ffef5b34e5461858c6a0c145437946a938cf7e93ec2e0d3c9321f3e5ca2c6d3bf4707aa57e36803cccc0bf2f26a6f95e57d')
+b2sums=('f32874cab519c91a3b006b37c54fd2439527c7cdc796205e84d525d294e27088f702b7fbdc3a9758264be9286c22ef6d6cd324d28edc133b48ad6aa4481b4d06')
 
 prepare() {
 	cd frozendict-$pkgver
 	# remove unneeded tests
 	pushd test
-	rm -v c_only.py test_frozendict_c.py test_frozendict_c_subclass.py \
-	      test_coold.py test_coold_subclass.py
+	rm -v c_only.py test_frozendict_c.py test_frozendict_c_subclass.py
 	popd
 }
 

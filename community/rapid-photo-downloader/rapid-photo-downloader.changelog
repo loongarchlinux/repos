@@ -1,3 +1,25 @@
+2022-03-15 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.33-1
+
+2022-03-15 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.32-1
+
+2022-03-06 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.31-1
+
+2022-03-06 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.30-1
+
+2022-02-23 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.29-1
+
+2022-02-06 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.28-2
+	* FS#73039 - Include iOS dependencies in package
+
+2022-01-16 Jaroslav Lichtblau <svetlemodry@archlinux.org>
+	* rapid-photo-downloader 0.9.28-1
+
 2021-12-14 Evangelos Foutras <evangelos@foutrelis.com>
 	* rapid-photo-downloader 0.9.27-2
 	* add python-show-in-file-manager dep (FS#73010)

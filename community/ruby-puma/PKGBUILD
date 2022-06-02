@@ -1,0 +1,84 @@
+# Maintainer: Andreas 'Segaja' Schleifer <archlinux at segaja dot de>
+
+_gemname='puma'
+pkgname="ruby-$_gemname"
+pkgver=5.6.4
+pkgrel=1
+pkgdesc='A Ruby/Rack web server built for concurrency'
+arch=('loongarch64' 'x86_64')
+url='https://puma.io/'
+license=('BSD-3-CLAUSE')
+options=(!emptydirs)
+depends=('ruby' 'ruby-nio4r' 'ruby-sd_notify')
+makedepends=('ruby-bundler' 'ruby-minitest' 'ruby-minitest-proveit' 'ruby-minitest-retry' 'ruby-minitest-stub-const' 'ruby-rack' 'ruby-rake' 'ruby-rake-compiler' 'ruby-rdoc')
+source=("https://github.com/puma/puma/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "${pkgname}_fix_tests.patch"
+        # from https://github.com/puma/puma/pull/2852
+        "${pkgname}_2852_fix_test_binder.patch::https://github.com/puma/puma/commit/3298f7935b53bb35124be65192e0832b3df568b4.patch"
+        "${pkgname}_2852_fix_test_request_invalid.patch::https://github.com/puma/puma/commit/7aad4ac5bca8936cc197d57de8e15c6a85c2cb7c.patch")
+sha512sums=('6321a08e99be1023a1216466914416fbc91f5436ecccec4ea4cbfdc9c4ebc4979f93894ae12b72654269b0410d6a3053230806b860cb912c1abdf89766683a27'
+            '1a81082dd3e8722d6da4cdbec958d8dee38ba0c89478f29e837903094d84777d6c00460612d4915399aec53b8c6534b31ae39eb71ca562b1bfb5a9b7d631bacf'
+            'fcee232701ca05cbab0f7e73fd40e71ed6f507ad5f8970a51ea418e6692b0c81765700f663519369fcf9206e9cea8a58c85b469cc1cd20ba4cbffc59ebcd3576'
+            '28aec91b50eb89608dcd18872072ccd355ff1d2ce9b12efaee9b69e1db98bdca8a1e48f90cecf56e59c3527b3e8d4c92c192819f8830fae7090ad2553367987b')
+
+prepare() {
+  cd "${_gemname}-${pkgver}"
+
+  # remove some tests and fix others
+  patch --verbose --strip=1 --input="../${pkgname}_2852_fix_test_binder.patch"
+  patch --verbose --strip=1 --input="../${pkgname}_2852_fix_test_request_invalid.patch"
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
+
+  # we built based on a tar archive, not a git repo
+  sed --in-place 's/git ls-files/find/' "${_gemname}.gemspec"
+
+  # update gemspec/Gemfile to allow newer version of the deps
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec" Gemfile
+
+  # disable rubocop, we don't have that in our repos and it doesn't provide any benefits during building
+  sed --in-place '/rubocop/Id' Rakefile Gemfile
+
+  # disable m. Only required for debugging during development
+  sed --in-place "/'m'/d" Gemfile
+
+  # disable localhost. Only required for self-signed certificates during development
+  sed --in-place "/localhost/d" Gemfile
+}
+
+build() {
+  cd "${_gemname}-${pkgver}"
+
+  rake compile
+  rake build
+}
+
+check() {
+  cd "${_gemname}-${pkgver}"
+
+  # https://github.com/puma/puma/blob/master/CONTRIBUTING.md#file-limits
+  ulimit -Sn 5000
+
+  # some seeds cause random errors ( https://github.com/puma/puma/issues/2825 ) so we use a fixed seed
+  export TESTOPTS="--seed=21082"
+
+  rake test:all
+}
+
+package() {
+  cd "${_gemname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+  local _platform="$(gem env platform | cut -d':' -f2)"
+  local _extension_api_version="$(ruby -e'puts Gem.extension_api_version')"
+
+  gem install --ignore-dependencies --no-user-install --install-dir "${pkgdir}/${_gemdir}" --bindir "${pkgdir}/usr/bin" "pkg/${_gemname}-${pkgver}.gem"
+
+  rm "${pkgdir}/${_gemdir}/cache/${_gemname}-${pkgver}.gem" \
+      "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/ext/puma_http11/Makefile" \
+      "${pkgdir}/${_gemdir}/extensions/${_platform}/${_extension_api_version}/${_gemname}-${pkgver}/mkmf.log" \
+      "${pkgdir}/${_gemdir}/extensions/${_platform}/${_extension_api_version}/${_gemname}-${pkgver}/gem_make.out" \
+      "${pkgdir}/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/puma_http11/page-Makefile.ri"
+
+  install -D --mode=644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -D --mode=644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}

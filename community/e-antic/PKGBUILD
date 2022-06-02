@@ -1,16 +1,23 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=e-antic
-pkgver=1.0.3
+pkgver=1.2.1
 pkgrel=1
 pkgdesc='Embedded algebraic number fields (on top of antic)'
 arch=(loongarch64 x86_64)
 url='https://github.com/flatsurf/e-antic/'
 license=(LGPL)
 depends=(arb antic)
-makedepends=(boost)
+makedepends=(boost catch2)
 source=(https://github.com/flatsurf/e-antic/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('eea1dc66fed5962425bc7d2c5ccecb50d25c082b1d84276fa3838bfa96d9cb62')
+sha256sums=('a7bfb92620fd7e42a06efbe89e011abee88f4fbd99bcec34fd8300ae9b1cf543')
+
+prepare() {
+  cd $pkgname-$pkgver
+# Unbundle catch2 to fix build with glibc 2.35
+  rm -r libeantic/test/external/catch2/single_include/catch2
+  ln -s /usr/include/catch2 libeantic/test/external/catch2/single_include
+}
 
 build() {
   cd $pkgname-$pkgver
@@ -34,5 +41,5 @@ package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
 
-  install -Dm644 "$srcdir"/$pkgname-$pkgver/COPYING "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

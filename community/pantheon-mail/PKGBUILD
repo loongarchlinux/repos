@@ -3,7 +3,7 @@
 # Contributor: Riley Trautman <asonix@tamu.edu>
 
 pkgname=pantheon-mail
-pkgver=6.2.0
+pkgver=6.4.0
 pkgrel=2
 pkgdesc='Mail app designed for elementary OS'
 arch=(loongarch64 x86_64)
@@ -27,7 +27,7 @@ makedepends=(
   meson
   vala
 )
-_tag=56e99d6566a0d4682fe7f84ebd5b89fbeaf5f547
+_tag=b44991d9b1fafa5d7a83b015516c2874f1d9f3d9
 source=(pantheon-mail::git+https://github.com/elementary/mail.git#tag=${_tag})
 sha256sums=('SKIP')
 

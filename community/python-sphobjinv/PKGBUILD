@@ -2,17 +2,16 @@
 
 pkgname=python-sphobjinv
 _name=${pkgname#python-}
-pkgver=2.1
-pkgrel=3
+pkgver=2.2.2
+pkgrel=1
 pkgdesc="Manipulate and inspect Sphinx objects.inv files"
 arch=('any')
 url="https://github.com/bskinn/sphobjinv"
 license=('MIT')
-depends=('python' 'python-attrs' 'python-certifi' 'python-fuzzywuzzy'
-         'python-jsonschema')
+depends=('python' 'python-attrs' 'python-certifi' 'python-jsonschema')
 makedepends=('python-setuptools')
 source=(https://github.com/bskinn/sphobjinv/archive/v$pkgver/$_name-$pkgver.tar.gz)
-sha256sums=('e41950a578dfd5acae24f12c7fe12b8d5e44f9162487aaa27189ca2e5c45d30c')
+sha256sums=('d05d9f144b3aa37c5e83042745c39adfeb2eca83c0a12bb06af111bc3278e1d3')
 
 build() {
   cd "$_name-$pkgver"

@@ -1,18 +1,19 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 
 pkgname=qmmp
-pkgver=2.0.2
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="Qt based audio-player"
 arch=('loongarch64' 'x86_64')
 url="http://qmmp.ylsoftware.com/"
 license=('GPL')
 depends=('alsa-lib' 'curl' 'desktop-file-utils' 'hicolor-icon-theme' 'libmad' 'libvorbis'
-         'libogg' 'libxkbcommon-x11' 'taglib' 'xdg-utils' 'qt6-base') #'qt6-multimedia'
+         'libogg' 'libxkbcommon-x11' 'taglib' 'xdg-utils' 'qt6-base')
 makedepends=('cmake' 'flac' 'jack' 'libmpcdec' 'pipewire' 'pulseaudio' 'ffmpeg' 'libcdio-paranoia'
              'libcddb' 'libmms' 'libsamplerate' 'libmodplug' 'libsndfile' 'wavpack' 'mpg123' 'mesa'
              'projectm' 'faad2' 'libgme' 'libsidplayfp' 'opusfile>=0.12' 'wildmidi' 'qt6-tools')
-optdepends=('flac: native FLAC support'
+optdepends=('mpg123: to play MP3 files'
+            'flac: native FLAC support'
             'jack: JACK sound output'
             'libmpcdec: Musepack support'
             'pulseaudio: PulseAudio output'
@@ -28,10 +29,10 @@ optdepends=('flac: native FLAC support'
             'libsidplayfp: C64 music support'
             'opusfile: Opus support'
             'wildmidi: MIDI support'
-            'ffmpeg' 'libsamplerate' 'wavpack' 'mpg123')
+            'ffmpeg' 'libsamplerate' 'wavpack')
 changelog=$pkgname.changelog
-source=(http://qmmp.ylsoftware.com/files/$pkgname/2.0/$pkgname-$pkgver.tar.bz2)
-sha512sums=('6b19bc035178bfc574c0ca5be0325597cca7aaac75c5024e80b84b2f4eab05dd973a79b0f840f74a7d9a996e34d4cb865717fdd55b3275def1425c48043cba69')
+source=(http://qmmp.ylsoftware.com/files/$pkgname/2.1/$pkgname-$pkgver.tar.bz2)
+sha512sums=('b884da143d37a9008c013f5143122f876aff6b4cc291da523b0a861d9bc6c3347d55b72eec2fa6e7e16d5ed094f076658cdef26007587e404175da62ee3a043b')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver

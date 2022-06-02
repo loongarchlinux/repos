@@ -2,7 +2,7 @@
 # Contributor: Jesse Luehrs <archlinux@tozt.net>
 
 pkgname=rbw
-pkgver=1.4.1
+pkgver=1.4.3
 pkgrel=1
 pkgdesc="Unofficial Bitwarden CLI"
 arch=('loongarch64' 'x86_64')
@@ -10,9 +10,10 @@ url="https://git.tozt.net/rbw"
 license=('MIT')
 depends=('pinentry')
 makedepends=('rust')
+options=('!lto')
 source=("$url/snapshot/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('31e21cf6f1f82d691a65d4d9b6a1d2537c4393e204f40462ac5909f91337898525a322d1de9c17b47dfcd2e9f0b626e522cfe0c98a593fc146d92fb67fc5a76c')
-b2sums=('9027aad6039c99516dfd0eb6fa5837187b6242f12e312b50ecf94d75a67b45ef6025af0f630254019597ca0f305f50286410f9faaf510ecdb3d01eed67779ad9')
+sha512sums=('98b1d17fa31a753a47673e34ed740785992d660c35827975a6c89638e479aeca381af0c83c43769179a3530f24f853fbab41e63eccfbf08902e7b8738703db2d')
+b2sums=('c24d028ff4346e233cb8b4eec23ad44e9253cc69350b106379e39dd94caf7d4b50ee182a9592aff864a4a65b7b0b698b26bd7df5c1a9a98e7da7d1c7f3c71255')
 
 prepare() {
   cd "$pkgname-$pkgver"

@@ -3,9 +3,9 @@
 # Contributor: nfnty
 pkgbase='kea'
 pkgname=("${pkgbase}" "${pkgbase}-docs")
-pkgver=2.0.0
+pkgver=2.0.2
 _upstreamver="${pkgver}"
-pkgrel=3
+pkgrel=1
 pkgdesc='High-performance, extensible DHCP server engine from ISC, supporting both DHCPv4 and DHCPv6'
 arch=('loongarch64' 'x86_64')
 url='https://kea.isc.org'
@@ -60,7 +60,7 @@ source=(
   'kea-ctrl-agent.service'
   'kea.install'
 )
-sha512sums=('9b5f520b75bbe72dfb209737958e90f337c78b3a4bf4662581d4a816bf9325ed1f277f1a593449044ef483375948006490a572eb50469842c5f56e69c8b105c3'
+sha512sums=('edb7de227898fb7bd76dd8b503d02e07b4ba512b907b53399a5c45bd216820b342f00c1834858848ce8ff94aa3c228ceead0e2946cbcb1f75a03ca579630be83'
             'SKIP'
             'b83479f0b90caf4022b1c858f99d8310848a90b0cc45aaa222cb2bf08b2a97312816b8f64c8c0232b612795bc7a0bbe5b05dbc508b2f1214c1ea88dc84200a2d'
             '1b62dace9f9a955b21c5dd5b5466fb3a4f1d8057ad2a30ea89e222a769dc721ad2fe4913c41ec407e018b1b38ddde757e9b7b8fc12d4763ddde077a0abb0c971'

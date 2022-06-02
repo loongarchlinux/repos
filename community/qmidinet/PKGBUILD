@@ -1,35 +1,34 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qmidinet
-pkgver=0.9.4
-pkgrel=1
+pkgver=0.9.6
+pkgrel=2
 pkgdesc="A MIDI Network Gateway via UDP/IP Multicast"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://qmidinet.sourceforge.io"
-license=('GPL2')
-groups=('pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt6-base')
-makedepends=('alsa-lib' 'cmake' 'jack2' 'qt6-tools')
+license=(GPL2)
+groups=(pro-audio)
+depends=(gcc-libs glibc hicolor-icon-theme qt6-base qt6-svg)
+makedepends=(alsa-lib cmake jack2 qt6-tools)
 optdepends=('qt6-wayland: for native wayland support')
-source=("https://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('658af6e88bcb2a5dcf78dc7ecc15ba29040c2687fbadfb7c2f40e940d132ae21272208befde43fe227d9d27866235619335cde7d027f9b6595058ef8882421e8')
-b2sums=('d07b12d3df04b1a9fbee9491d5657e2b7d7d1c1c9f7e32406d88f8fc78d2ac0c6b5d9d50b913ebe1adf33c1888c67d82c26827c0af094f5cb1523d09fad0ff9d')
+options=(debug)
+source=(https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('8479ea1f37c91125c0d8eebc8319800ba45666b8824a4dedb0b7158ed05fd8c2194ef8ed4c8bd8bfce85213e3bc8d187619ee5016d8c827af70b8a32ad47c72f')
+b2sums=('79bf59f4db79e23f19d80813025169549bce1fbec4c8889eefbe4b2991c0c4bc55dc94425409426275da00aac992576d43f30c5520033358f83d9ce104a064ff')
 
 build() {
-  cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE='None' \
+        -DCMAKE_BUILD_TYPE=None \
         -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
-        -S .
+        -S $pkgname-$pkgver
   make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libasound.so' 'libjack.so')
-  cd "${pkgname}-${pkgver}"
+  depends+=(libasound.so libjack.so)
+
   make VERBOSE=1 DESTDIR="$pkgdir" install -C build
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 {AUTHORS,ChangeLog,README,TODO}
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname"
 }

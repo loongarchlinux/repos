@@ -3,17 +3,17 @@
 
 _hkgname=texmath
 pkgname=haskell-texmath
-pkgver=0.12.3.1
-pkgrel=27
-pkgdesc="Conversion between formats used to represent mathematics."
+pkgver=0.12.5
+pkgrel=13
+pkgdesc="Conversion between math formats."
 url="https://github.com/jgm/texmath"
 license=("GPL2")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-network-uri' 'haskell-pandoc-types' 'haskell-split' 'haskell-syb'
          'haskell-xml')
-makedepends=('ghc' 'haskell-temporary' 'haskell-utf8-string')
+makedepends=('ghc' 'haskell-pretty-show' 'haskell-tagged' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('48c18c851b76368a0b106d8bc962f11784de62d03f347967ade726cdbee181bd147765bf4fb644e93649852fa079cea987dc779ae056376b6fc6057b00709c6f')
+sha512sums=('e6980ffc848825bc6111e5ea759570e84435c582b806ce7d95a14a38f0f3f04a151aa7fe899b79e4f5d77a2f852e3db74549c42b7dd036377dcc59c4b5630198')
 
 build() {
     cd $_hkgname-$pkgver

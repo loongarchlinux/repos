@@ -3,17 +3,17 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=xh
-pkgver=0.14.1
+pkgver=0.16.1
 pkgrel=1
 pkgdesc="Friendly and fast tool for sending HTTP requests"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/ducaale/xh"
 license=('MIT')
-depends=('gcc-libs')
+depends=('gcc-libs' 'openssl')
 makedepends=('cargo')
 replaces=('ht-rs' 'ht')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('ca89e8a9a230ff16cc0bba5bd7ebdceb986eac84638e15b4928d737b9ec12776')
+sha256sums=('c1fd4f33be96ba1c19580fc66dd9d059a716f00f532a516e159ce9342e50cd43')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -22,6 +22,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  CFLAGS+=" -ffat-lto-objects"
   cargo build --frozen --release --features native-tls
 }
 

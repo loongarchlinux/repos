@@ -2,28 +2,31 @@
 # Contributor: Philipp A. <flying-sheep@web.de>
 
 pkgname=cargo-generate
-pkgver=0.11.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="Use pre-existing git repositories as templates"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/cargo-generate/cargo-generate"
 license=('MIT' 'Apache')
-depends=('curl')
-makedepends=('rust')
+depends=('curl' 'libgit2')
+makedepends=('cargo' 'libssh2')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('a2a4d1e718163e3c62cba17c374158c4032bf7cc6d40dfc64d415e905f14e6ea')
+sha256sums=('1575c37b5f357b6df1c3981481249f15cb7b2a6866518d7b9cc008a3e248b124')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
+  export RUSTUP_TOOLCHAIN=stable
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
   cd "$pkgname-$pkgver"
   cargo build --release --frozen
 }
 
 check() {
+  export RUSTUP_TOOLCHAIN=stable
   cd "$pkgname-$pkgver"
   cargo test --frozen --lib
 }

@@ -3,19 +3,20 @@
 # Contributor: Ben <contrasutra@myrealbox.com>
 
 pkgname=xpad
-pkgver=5.4.0
-pkgrel=2
-pkgdesc="Stickies-like notes application"
+pkgver=5.8.0
+pkgrel=1
+pkgdesc='Stickies-like notes application'
 arch=('loongarch64' 'x86_64')
-depends=('gtksourceview3' 'libsm')
-makedepends=('intltool')
-url="https://launchpad.net/xpad"
+url='https://launchpad.net/xpad'
 license=('GPL3')
-source=(https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.bz2{,.asc})
-validpgpkeys=('3930646349B9DD3886D9087392BF2FCCA6F2322B'
-	      '8450BEE19B722715FFDB18C6683EAA45951FC552')
-sha256sums=('a395cb282a2cfb0d56f1e911afb7e38ad74f6d738082a7c6c181b3052ca7f5e2'
+depends=('gtksourceview4' 'libsm' 'libayatana-appindicator')
+makedepends=('intltool')
+source=("https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.bz2"{,.asc})
+sha256sums=('d9a4efe47e0fb75bc47ef4ae4aa5ea8a3f44b51555eac9c72213fb5a6004be03'
             'SKIP')
+validpgpkeys=('3930646349B9DD3886D9087392BF2FCCA6F2322B'
+	      '8450BEE19B722715FFDB18C6683EAA45951FC552'
+              '7FA67C1981CEE3140281AB04108E2CAA625FE5FE') # Arthur Borsboom <arthurborsboom@gmail.com>
 
 prepare() {
   cd $pkgname-$pkgver

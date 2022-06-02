@@ -3,7 +3,7 @@
 
 pkgname=perl-io-tty
 pkgver=1.16
-pkgrel=1
+pkgrel=3
 pkgdesc="Provide an interface to TTYs and PTYs"
 arch=('loongarch64' 'x86_64')
 url="https://search.cpan.org/dist/IO-Tty/"

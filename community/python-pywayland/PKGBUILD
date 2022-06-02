@@ -2,47 +2,39 @@
 
 _name=pywayland
 pkgname=python-pywayland
-pkgver=0.4.7
-pkgrel=3
+pkgver=0.4.12
+pkgrel=1
 pkgdesc="Python bindings for the libwayland library"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://github.com/flacjacket/pywayland"
-license=('Apache')
-depends=('python-cffi' 'wayland')
-makedepends=('python-setuptools' 'wayland-protocols')
-checkdepends=('python-pytest')
-# TODO: remove provides/conflicts/replaces after 2022-01-01
-conflicts=('pywayland')
-provides=('pywayland')
-replaces=('pywayland')
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('0af88a125264fef4962547b07e3f7ead2752a339bb9049036a30e8b5e9e5942d13f9d2cca4a3e643635b533b8ce1b939c7402a661e8638b4f95f7f48755c696f')
-b2sums=('697ec8119de68fec47b225b35208eca1eb470fd846542e4e872ff8fcf19f2074c7647af895d199acde16fc58f9393a4f4f0347119864c778114cd5b4990f402b')
-
-prepare() {
-  mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
-  cd "$pkgname-$pkgver"
-  mkdir -vp temp
-}
+license=(Apache)
+depends=(python-cffi wayland)
+makedepends=(python-build python-installer python-setuptools wayland-protocols python-wheel)
+checkdepends=(python-pytest)
+options=(debug)
+source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
+sha512sums=('f27f4c375db26dcff5b42d377430810abf72fd98d8b24b4cd0671c97e5f8f0863fc71dcc9d7f2dcb60fdcd406218d6c70d5bc778e1cb9d08753d49972eec3e04')
+b2sums=('a2e0486a865a058fdc7cf3365a15c726b053e71179e9baec74695e5f195e65648cb93a30962be609970badad1f693a88c90ca763f7c9ca981526123f8136be39')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd $_name-$pkgver
   python pywayland/ffi_build.py
   python -m pywayland.scanner
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  local _py_ver=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+  local _py_ver="$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')"
 
-  cd "$pkgname-$pkgver"
-  export PYTHONPATH="build/lib.linux-${CARCH}-${_py_ver}:${PYTHONPATH}"
-  export XDG_RUNTIME_DIR="${PWD}/temp"
-  pytest -v
+  cd $_name-$pkgver
+  mkdir -vp temp
+  export PYTHONPATH="build/lib.linux-$CARCH-$_py_ver:$PYTHONPATH"
+  export XDG_RUNTIME_DIR="$PWD/temp"
+  pytest -vv
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  python setup.py install --optimize=1 --root="${pkgdir}"
-  install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname"
 }

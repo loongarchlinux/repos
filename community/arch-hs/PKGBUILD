@@ -2,8 +2,8 @@
 # Contributor: berberman <hatsue@typed.icu>
 
 pkgname=arch-hs
-pkgver=0.9.1.0
-pkgrel=83
+pkgver=0.10.1.0
+pkgrel=29
 pkgdesc="Distribute hackage packages to archlinux"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/berberman/arch-hs"
@@ -14,9 +14,9 @@ depends=('ghc-libs' 'pacman' 'haskell-diff' 'haskell-aeson' 'haskell-algebraic-g
          'haskell-microlens-th' 'haskell-neat-interpolation' 'haskell-optparse-simple'
          'haskell-polysemy' 'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal'
          'haskell-servant-client' 'haskell-split' 'haskell-tar-conduit')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('aa7b011dd2753b596df53f4adce4a131ef42fffe37eb5bfd815678b1d34bc87f83f1af36a9fc9db34b5c7d5b68e48120bab7abedfe92e0cc7530feba91c04f83')
+sha512sums=('6eb1456a005616fcdec8802d4de40bb950f35c4583684a386767f21419ceb9be2804672655b48cf0163ab141be41ad73fe2370872ac0881224caec9d44e91d44')
 
 _gen_comp(){
   LD_LIBRARY_PATH="$PWD/dist/build" dist/build/arch-hs${1}/arch-hs${1} --bash-completion-script "/usr/bin/arch-hs${1}" > bash${1}
@@ -30,15 +30,10 @@ _install_comp(){
   install -D -m644 fish${1} "$pkgdir/usr/share/fish/vendor_completions.d/arch-hs${1}.fish"
 }
 
-prepare() {
-  cd $pkgname-$pkgver
-  uusi -u megaparsec $pkgname.cabal
-}
-
 build() {
   cd $pkgname-$pkgver
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' -falpm

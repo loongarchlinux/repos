@@ -1,15 +1,15 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Nathaniel Chin <thegamingorangutans+aur at gmail.com>
 
 pkgname=av1an
-pkgver=0.2.0
+pkgver=0.3.1
 pkgrel=2
 pkgdesc='Cross-platform command-line encoding framework with per scene quality encoding'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/master-of-zen/Av1an'
 license=('GPL3')
 makedepends=('rust' 'nasm' 'clang')
-depends=('ffmpeg' 'aom' 'vapoursynth')
+depends=('ffmpeg4.4' 'aom' 'vapoursynth')
 optdepends=('svt-av1: SVT-AV1 encoder support'
             'rav1e: rav1e encoder support'
             'libvpx: vpx encoder support'
@@ -18,10 +18,12 @@ optdepends=('svt-av1: SVT-AV1 encoder support'
             'ffms2: FFMS2 chunk detection support'
             'vapoursynth-plugin-lsmashsource: L-SMASH chunk detection support')
 source=("$pkgname-$pkgver.tar.gz"::https://github.com/master-of-zen/Av1an/archive/refs/tags/$pkgver.tar.gz)
-sha256sums=('68169f0c8760cb7d42ab484a969ca5f092551352998d89c602ac3527542e6538')
+sha256sums=('67afe7ad356e91c3a5da6ed8085f796e9bcd7cb8c4f1df48b00d4c9f4db460c7')
 
 build() {
   cd "Av1an-${pkgver}"
+  export CFLAGS+=" -ffat-lto-objects"
+  export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
   cargo build --release --locked
 }
 

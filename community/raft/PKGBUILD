@@ -2,15 +2,16 @@
 # Contributor: Thomas Hipp <thomashipp at gmail dot com>
 
 pkgname=raft
-pkgver=0.11.2
+pkgver=0.13.0
 pkgrel=1
 pkgdesc="C implementation of the Raft consensus protocol"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/canonical/raft"
 license=('LGPL3')
 depends=('libuv')
+options=(debug strip)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/canonical/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('c89fd6a6fa3c9e6d670b74e389b2d028dfd39d1eec2b18661fae73a9bfd6b89d')
+sha256sums=('91b2b0437f443a60498cdf8c53da8a5934a51eee983d2f6eb6f0c8e40af07a8c')
 
 build() {
 	cd "${pkgname}-${pkgver}"

@@ -6,7 +6,7 @@ pkgname=(
   retroarch-assets-ozone
   retroarch-assets-xmb
 )
-pkgver=393
+pkgver=424
 pkgrel=1
 epoch=1
 pkgdesc='XMB menu assets for RetroArch'
@@ -16,7 +16,7 @@ license=(GPL)
 groups=(libretro)
 depends=(retroarch)
 makedepends=(git)
-_commit=9c22505bed22370d4b81d10429afc9e0d6cc11ff
+_commit=f45dd1351e6bfb9f01e12bee8d358ad22a2bb8f9
 source=(git+https://github.com/libretro/retroarch-assets.git#commit=${_commit})
 sha256sums=(SKIP)
 

@@ -15,7 +15,7 @@ pkgname=(
   'usbip'
   'x86_energy_perf_policy'
 )
-pkgver=5.15
+pkgver=5.17
 pkgrel=2
 license=('GPL2')
 arch=('loongarch64' 'x86_64')
@@ -37,6 +37,8 @@ makedepends+=('ncurses')
 makedepends+=('readline' 'zlib' 'libelf' 'libcap' 'python-docutils')
 # turbostat deps
 makedepends+=('libcap')
+# bpftool
+makedepends+=('llvm' 'clang')
 groups=("$pkgbase")
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git#tag=v${pkgver//_/-}?signed"
 #        "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-$pkgver.1.xz"
@@ -82,6 +84,7 @@ build() {
     prefix=/usr \
     lib=lib/perf \
     perfexecdir=lib/perf \
+    EXTRA_CFLAGS=' -Wno-error=bad-function-cast -Wno-error=declaration-after-statement -Wno-error=switch-enum' \
     NO_SDT=1 \
     PYTHON=python \
     PYTHON_CONFIG=python-config \
@@ -175,6 +178,7 @@ package_perf() {
     prefix=/usr \
     lib=lib/perf \
     perfexecdir=lib/perf \
+    EXTRA_CFLAGS=' -Wno-error=bad-function-cast -Wno-error=declaration-after-statement -Wno-error=switch-enum' \
     NO_SDT=1 \
     PYTHON=python \
     PYTHON_CONFIG=python-config \

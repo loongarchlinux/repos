@@ -3,9 +3,9 @@
 # Contributor: Daniel Bermond < yahoo-com: danielbermond >
 
 pkgname=nccl
-pkgver=2.11.4
+pkgver=2.12.10
 _upstr_pkgrel=1
-pkgrel=3
+pkgrel=1
 pkgdesc='Library for NVIDIA multi-GPU and multi-node collective communication primitives'
 arch=('loongarch64' 'x86_64')
 url='https://developer.nvidia.com/nccl/'

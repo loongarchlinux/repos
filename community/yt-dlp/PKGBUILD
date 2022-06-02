@@ -3,28 +3,36 @@
 # Contributor: katt <magunasu.b97@gmail.com>
 
 pkgname=yt-dlp
-pkgver=2021.12.27
+pkgver=2022.05.18
 pkgrel=1
 pkgdesc='A youtube-dl fork with additional features and fixes'
 arch=(any)
 url='https://github.com/yt-dlp/yt-dlp'
 license=(Unlicense)
-depends=(python-mutagen python-pycryptodomex python-websockets)
-makedepends=(python-setuptools pandoc)
+depends=(python-certifi)
+makedepends=(python-build python-installer python-setuptools python-wheel pandoc)
+checkdepends=(python-pytest)
 optdepends=('ffmpeg: for video post-processing'
             'rtmpdump: for rtmp streams support'
             'atomicparsley: for embedding thumbnails into m4a files'
-            'aria2: for using aria2 as external downloader')
+            'aria2: for using aria2 as external downloader'
+            'python-mutagen: For embedding thumbnail in certain formats'
+            'python-pycryptodomex: For decrypting AES-128 HLS streams and various other data'
+            'python-websockets: For downloading over websocket')
 source=($pkgname-$pkgver.tar.gz::https://github.com/yt-dlp/yt-dlp/releases/download/$pkgver/yt-dlp.tar.gz)
-sha256sums=('3492c344b1b71ac13c73a53dbb3bc504f7ebaa325c10807ad905428e74a6d630')
+sha256sums=('59a0e89d79018070844c6301f7848594b746ca4857e7da14a5e6938a24e63172')
 
 build() {
   cd $pkgname
-  make pypi-files
-  python setup.py build
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgname
+  pytest -v -m "not download"
 }
 
 package() {
   cd $pkgname
-  python setup.py install --root="$pkgdir" --skip-build --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }

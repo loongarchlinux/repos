@@ -3,8 +3,8 @@
 
 pkgbase=nautilus
 pkgname=(nautilus libnautilus-extension)
-pkgver=41.1
-pkgrel=2
+pkgver=42.2
+pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://wiki.gnome.org/Apps/Files"
 arch=(loongarch64 x86_64)
@@ -13,26 +13,24 @@ depends=(libgexiv2 gnome-desktop gvfs dconf tracker3 tracker3-miners
          gnome-autoar gst-plugins-base-libs libhandy libportal-gtk3)
 makedepends=(gobject-introspection git gtk-doc meson appstream-glib)
 checkdepends=(python-gobject)
-_commit=ca5283a5207463ef86b8509e9c2cb3c0f047288b  # tags/41.1^0
+options=(debug)
+_commit=6a9ee939f5419262d7d0ce720572805f5f64569b  # tags/42.2^0
 source=("git+https://gitlab.gnome.org/GNOME/nautilus.git#commit=$_commit"
         "git+https://gitlab.gnome.org/GNOME/libgd.git")
 sha256sums=('SKIP'
             'SKIP')
 
+pkgver() {
+  cd $pkgbase
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
 prepare() {
   cd $pkgbase
-
-  # libportal 0.5
-  git cherry-pick -n ae752ea07895b918683f664fe78950255f7faab0
 
   git submodule init
   git submodule set-url subprojects/libgd "$srcdir/libgd"
   git submodule update
-}
-
-pkgver() {
-  cd $pkgbase
-  git describe --tags | sed 's/-/+/g'
 }
 
 build() {

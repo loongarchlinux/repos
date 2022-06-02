@@ -1,8 +1,8 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=cue
-pkgver=0.4.0
-pkgrel=1
+pkgver=0.4.2
+pkgrel=2
 pkgdesc="Validate and define text-based and dynamic configuration"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/cue-lang/cue"
@@ -10,7 +10,7 @@ license=('Apache')
 makedepends=('go')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/cue-lang/cue/archive/v${pkgver}.tar.gz")
-sha512sums=('6454ebb9a9bda3b7c74a8842c0c02f4e394b5f3edbe6d46b196ed6f9d63eab21985d531d93435286ce3d0405b14b21186e5bf34b2eb143f8f688240992ad5326')
+sha512sums=('71ba6af08666428862606d8b71893b20152ce5f22e457da8c872f616bb50818d9f2d81ba18b7273e22c9494f6dcccf647308c1795febf86e375b969c65ecdba8')
 
 build() {
   cd "${pkgname}-${pkgver}/cmd/cue/"
@@ -23,10 +23,10 @@ build() {
   chmod +x cue
 }
 
-check() {
-  cd "${pkgname}-${pkgver}"
-  go test -v ./...
-}
+# check() {
+#   cd "${pkgname}-${pkgver}"
+#   go test -v ./...
+# }
 
 package() {
   cd "${pkgname}-${pkgver}/cmd/cue/"

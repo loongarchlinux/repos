@@ -1,0 +1,36 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+
+_name=selene
+pkgname=selene-linter
+pkgver=0.17.0
+pkgrel=1
+pkgdesc='Blazing-fast modern Lua linter written in Rust'
+arch=('loongarch64' 'x86_64')
+url=https://github.com/Kampfkarren/selene
+license=('MPL2')
+depends=('gcc-libs' 'openssl')
+makedepends=('rust')
+source=("$url/archive/$pkgver/$_name-$pkgver.tar.gz")
+b2sums=('60f2f5cb6d7becaa0137ad90e1b03ebd9f2e23dfed2c248fa59c87e1565c049c7298a8e2ffd6355571f7e696379d5c943193e5ab438b9c3f1a74b1b3a399cf6a')
+
+prepare() {
+  cd $_name-$pkgver
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd $_name-$pkgver
+  cargo build --release --locked --offline
+}
+
+check() {
+  cd $_name-$pkgver
+  cargo test --locked --offline
+}
+
+package() {
+  cd $_name-$pkgver
+  install -Dt "$pkgdir"/usr/bin target/release/$_name
+}
+
+# vim:set ts=2 sw=2 et:

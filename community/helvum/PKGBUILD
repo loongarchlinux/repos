@@ -1,15 +1,15 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=helvum
-pkgver=0.3.2
+pkgver=0.3.4
 pkgrel=1
 pkgdesc='GTK patchbay for PipeWire'
 arch=('loongarch64' 'x86_64')
-url='https://gitlab.freedesktop.org/ryuukyu/helvum'
+url='https://gitlab.freedesktop.org/pipewire/helvum'
 license=('GPL3')
 depends=('gtk4' 'pipewire')
-makedepends=('cargo' 'clang' 'meson')
+makedepends=('appstream-glib' 'cargo' 'clang' 'meson')
 source=("$url/-/archive/$pkgver/helvum-$pkgver.tar.gz")
-sha512sums=('a64574699215de1a4435aca6a1b1780677c5c09e83c377ccce1a9393373e2ed7fd993e8f05687fcd775d55ea0c1c8d2406634e3d82c0512666ed3517c9c51f00')
+sha512sums=('f8c73855a52e39337081ea8cf1e813444862ce8c214df7870b01c0064ed130e98074aaf305e982f1a50cc7e166d662b22246c2577c68043feca89cc325c1050f')
 
 build() {
 	meson --prefix=/usr --buildtype=plain "$pkgname-$pkgver" build

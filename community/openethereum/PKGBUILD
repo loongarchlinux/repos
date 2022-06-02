@@ -1,19 +1,20 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=openethereum
-pkgver=3.3.2
-_commit=f13fa10b8a0803116642f349c5557923afb2b5ba
+pkgver=3.3.5
+_commit=6c2d392d867b058ff867c4373e40850ca3f96969
 pkgrel=1
 pkgdesc='Fast and feature-rich multi-network Ethereum client'
 arch=('loongarch64' 'x86_64')
 url='https://parity.io/ethereum'
 license=('GPL3')
 depends=('gcc-libs')
-makedepends=('clang' 'cmake' 'git' 'rustup')
+makedepends=('clang' 'cmake' 'git' 'rust')
 provides=('parity' 'parity-ethereum')
 conflicts=('parity' 'parity-ethereum')
 replaces=('parity' 'parity-ethereum')
 backup=('etc/openethereum/config.toml')
+options=('!lto')
 source=("git+https://github.com/openethereum/openethereum.git#commit=${_commit}"
         'config.toml'
         'openethereum-system.service'
@@ -26,9 +27,8 @@ sha256sums=('SKIP'
 build() {
     cd ${pkgname}
 
-    echo '1.52.1' > rust-toolchain
     cargo build --release --features final
-    # cargo build --release -p evmbin
+    cargo build --release -p evmbin
     cargo build --release -p ethstore-cli
     cargo build --release -p ethkey-cli
 }
@@ -37,7 +37,7 @@ package() {
     cd ${pkgname}
 
     install -Dm755 -t "${pkgdir}"/usr/bin \
-        target/release/{ethstore,openethereum} # openethereum-evm
+        target/release/{ethstore,openethereum,openethereum-evm}
     install -Dm755 target/release/ethkey "${pkgdir}"/usr/bin/openethereum-ethkey
     for type in system user; do
         install -Dm644 ../openethereum-${type}.service \

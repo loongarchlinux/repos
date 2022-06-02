@@ -3,7 +3,7 @@
 
 _pkgname=qtconsole
 pkgname=python-qtconsole
-pkgver=5.2.1
+pkgver=5.3.0
 pkgrel=2
 pkgdesc="Qt-based console for Jupyter with support for rich media output"
 arch=(any)
@@ -11,6 +11,7 @@ url="https://qtconsole.readthedocs.io/"
 license=(BSD)
 depends=(
     python-ipykernel
+    python-ipython-genutils
     python-jupyter_core
     python-jupyter_client
     python-traitlets
@@ -22,15 +23,8 @@ depends=(
 )
 makedepends=(python-setuptools)
 checkdepends=(python-pytest python-pytest-qt python-flaky xorg-server-xvfb)
-source=(https://github.com/jupyter/${_pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-        ${pkgname}-py3.10.patch::https://github.com/jupyter/qtconsole/pull/513.patch)
-sha256sums=('90e6eedb84f1e3ddc775599d9f14fe7fb68e55f2b849e9006a5c4706f869f7c4'
-            '971fc34f2eada8ca6c0d1260dd7c6ce6be1082ae3eab2d31912b125e35eb239c')
-
-prepare() {
-  cd ${_pkgname}-${pkgver}
-  patch -p1 < ../${pkgname}-py3.10.patch
-}
+source=(https://github.com/jupyter/${_pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('d443da3ce2954322b65956ec674ad83161cbaac819bd8928083ca2f2997c8e25')
 
 build() {
   cd ${_pkgname}-${pkgver}
@@ -39,8 +33,7 @@ build() {
 
 check() {
   cd ${_pkgname}-${pkgver}
-  # Tests passes but then xvfb-run segfaults
-  xvfb-run -s '-nolisten local' pytest -x -vv --color=yes qtconsole || echo "Tests segfaulted"
+  xvfb-run -s '-nolisten local' pytest -x -vv --color=yes qtconsole
 }
 
 package() {

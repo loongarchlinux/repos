@@ -1,30 +1,29 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=lib32-pipewire
 pkgname=(lib32-pipewire lib32-pipewire-jack lib32-pipewire-v4l2)
-pkgver=0.3.42
-pkgrel=2
+_commit=ebc775674a0cf254cebd6d4694944006405807e3  # tags/0.3.51
+pkgver=0.3.51
+pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit client library"
 url="https://pipewire.org"
-license=(MIT)
 arch=(loongarch64 x86_64)
+license=(MIT)
 makedepends=(git meson lib32-alsa-lib lib32-systemd lib32-dbus)
-_commit=3cac296ee09091ef64a3daa1d62529f7c13af0f2  # tags/0.3.42
-source=("git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=$_commit")
+options=(debug)
+source=(git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=$_commit)
 sha256sums=('SKIP')
 
 pkgver() {
   cd pipewire
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare() {
   cd pipewire
-
-  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1930
-  git cherry-pick -n 3c66d4600750b2039f6f969a35fce82605754b9c
 }
 
 build() {
@@ -38,8 +37,13 @@ build() {
     -D systemd-user-service=disabled
     -D bluez5=disabled
     -D jack=disabled
+    -D jack-devel=true
+    -D libjack-path=/usr/lib32
     -D v4l2=disabled
     -D libcamera=disabled
+    -D libcanberra=disabled
+    -D x11=disabled
+    -D x11-xfixes=disabled
     -D pw-cat=disabled
     -D udevrulesdir=/usr/lib/udev/rules.d
     -D sdl2=disabled
@@ -88,7 +92,8 @@ package_lib32-pipewire() {
 
   ( cd "$pkgdir"
 
-    _pick jack usr/lib32/pipewire-$_ver/jack
+    _pick jack usr/lib32/libjack*
+    _pick jack usr/lib32/pkgconfig/jack.pc
 
     _pick v4l2 usr/lib32/pipewire-$_ver/v4l2
 
@@ -102,6 +107,8 @@ package_lib32-pipewire-jack() {
   pkgdesc+=" - JACK support"
   license+=(GPL2)  # libjackserver
   depends=(pipewire-jack lib32-pipewire libpipewire-$_ver.so)
+  conflicts=(lib32-jack lib32-jack2)
+  provides=(lib32-jack libjack.so libjackserver.so libjacknet.so)
 
   mv jack/* "$pkgdir"
 

@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-socketio
-pkgver=5.4.0
-pkgrel=3
+pkgver=5.6.0
+pkgrel=1
 pkgdesc='Python implementation of the Socket.IO realtime server'
 url='https://github.com/miguelgrinberg/python-socketio'
 arch=('any')
@@ -13,8 +13,8 @@ optdepends=('python-tornado: tornado asyncio webserver')
 checkdepends=('python-pytest' 'python-mock')
 options=('!makeflags')
 source=(https://github.com/miguelgrinberg/python-socketio/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('cc5907c35428103b42bbd4bf95d59012211c3efaa925485e5dd31f8c0a8c626074f84f1a4d4e660abc02a019da90299f584c25f6a7c51fd41f5c7df126f2ef26')
-b2sums=('e818fded7a7166363a1794de965bda49e8608b4614755a024550d083be738ed3e9c1a60f9298411ee9bf0699f4dfd1ed0c9106ea2a27da15822eaf2f045b7357')
+sha512sums=('65512b5d81013b1af636dbf61ed27154796ce86d4a470ecb9a749e722aaf442030a88172cd9ce6600e5c1ebd7d838be8aa26fa5887f4252174020fc926d3a447')
+b2sums=('1642053479c527d3019be67113eb57a6237aec9b6e3e3b58d5d0a5d0c5f2a20090fa2cc94b98b6036a3c96b744ab05ab3abf133e88ab629ceb7ecf2f7fc53794')
 
 build() {
   cd ${pkgbase}-${pkgver}
@@ -24,7 +24,7 @@ build() {
 
 check() {
   cd ${pkgbase}-${pkgver}
-  python setup.py test
+  PYTHONPATH=build/lib python setup.py test
 }
 
 package() {

@@ -2,15 +2,15 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=nvchecker
-pkgver=2.5
-# git rev-parse v$pkgver
-_commit=f0be206608736c108403736206a28356e8052de7
-pkgrel=2
+pkgver=2.8
+# curl https://api.github.com/repos/lilydjwg/nvchecker/git/ref/tags/v$pkgver | jq -r .object.sha
+_tag=e0c52f798723256937364b4376ac4414ac71286d
+pkgrel=1
 pkgdesc="New version checker for software releases"
 arch=('any')
 url="https://github.com/lilydjwg/nvchecker"
 license=('MIT')
-depends=('python' 'python-toml' 'python-structlog' 'python-appdirs' 'python-tornado' 'python-pycurl')
+depends=('python' 'python-tomli' 'python-structlog' 'python-appdirs' 'python-tornado' 'python-pycurl')
 makedepends=('git' 'python-docutils' 'python-setuptools' 'python-pygments')
 checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-httpbin' 'python-flaky' 'python-lxml' 'pyalpm' 'git')
 optdepends=(
@@ -21,7 +21,7 @@ optdepends=(
   'python-gobject: for nvchecker-notify'
   'libnotify: for nvchecker-notify'
 )
-source=("git+https://github.com/lilydjwg/nvchecker.git?signed#tag=$_commit")
+source=("git+https://github.com/lilydjwg/nvchecker.git?signed#tag=$_tag")
 sha512sums=('SKIP')
 validpgpkeys=(
   # No direct trust chain. Some related stuffs:

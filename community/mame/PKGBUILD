@@ -5,7 +5,7 @@
 
 pkgbase=mame
 pkgname=(mame mame-tools)
-pkgver=0.239
+pkgver=0.244
 pkgrel=1
 pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support'
 url='https://mamedev.org/'
@@ -13,11 +13,13 @@ license=(GPL2)
 arch=(loongarch64 x86_64)
 makedepends=(nasm python asio rapidjson glm libxinerama sdl2_ttf qt5-base lua53 libutf8proc pugixml portmidi portaudio flac libpulse)
 source=(https://github.com/mamedev/mame/archive/mame${pkgver/./}.tar.gz
-        mame.sh mame.desktop mame.svg)
-sha256sums=('120b4d679283ab2c7102b40fefc5165bfd9b8242fbbd5f9977d381cb65051d87'
+        mame.sh mame.desktop mame.svg
+        https://github.com/mamedev/mame/commit/034e0d2c.patch)
+sha256sums=('843c917edc46008a27b439a1fc66fc12a27c84e55e08753b963789e5614cebf7'
             'ee1c59bafc5e5441e99fa4c58108a3e18048e60672f34de865c8a5a976094dba'
             '0e5e93f84673c2d17a1bf7a6b256cfa54ef89a086a828df19bc054c12776d821'
-            '17c442c933d764175e4ce1de50a80c0c2ddd5d733caf09c3cd5e6ba697ac43f4')
+            '17c442c933d764175e4ce1de50a80c0c2ddd5d733caf09c3cd5e6ba697ac43f4'
+            'd1595a4cf79827b2773c6b3f3ae16f3ccd6e2e6043195eaa67400cf459096d49')
 
 
 prepare() {
@@ -25,8 +27,8 @@ prepare() {
 
 # Use system libraries
   sed -e 's|\# USE_SYSTEM_LIB|USE_SYSTEM_LIB|g' -i makefile
-# except for asio
-  sed -e 's|USE_SYSTEM_LIB_ASIO|\# USE_SYSTEM_LIB_ASIO|g' -i makefile
+# Fix build with GCC 12
+  patch -p1 < ../034e0d2c.patch
 }
 
 build() {
@@ -34,12 +36,15 @@ build() {
   export CFLAGS+=" -I/usr/include/lua5.3/"
   export CXXFLAGS+=" -I/usr/include/lua5.3/"
 
+  export CXXFLAGS+="  -Wp,-U_GLIBCXX_ASSERTIONS" # FS#73202
+
 # Hack to force linking to lua5.3
   mkdir lib
   ln -s /usr/lib/liblua5.3.so lib/liblua.so
   export LDFLAGS+=" -L${PWD}/lib"
 
   make \
+    VERBOSE=1 \
     NOWERROR=1 \
     OPTIMIZE=2 \
     TOOLS=1 \

@@ -72,9 +72,9 @@ index 8bf9e27..0be9682 100644
 --- a/plugins/platforms/lib/kwinutils.cpp
 +++ b/plugins/platforms/lib/kwinutils.cpp
 @@ -88,6 +88,8 @@ public Q_SLOTS:
-     void slotWindowMove();
-     void slotWindowMaximize();
-     bool compositing() const;
+      // change to Compositor::compositing()
+      bool compositing() const;
+  #endif
 +    void slotTouchPadTomoveWindow(int x, int y);
 +    void slotEndTouchPadToMoveWindow();
  

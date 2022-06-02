@@ -4,7 +4,7 @@
 
 _pkgname=libtiff
 pkgname=lib32-${_pkgname}
-pkgver=4.3.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc='Library for manipulation of TIFF images (32-bit)'
 url='http://www.simplesystems.org/libtiff/'
@@ -12,14 +12,27 @@ arch=('loongarch64' 'x86_64')
 license=('custom')
 depends=('libtiff' 'lib32-glibc' 'lib32-gcc-libs' 'lib32-libjpeg' 'lib32-zlib' 'lib32-xz' 'lib32-zstd')
 source=(https://download.osgeo.org/libtiff/tiff-${pkgver}.tar.gz{,.sig})
-sha512sums=('e04a4a6c542e58a174c1e9516af3908acf1d3d3e1096648c5514f4963f73e7af27387a76b0fbabe43cf867a18874088f963796a7cd6e45deb998692e3e235493'
+sha512sums=('78ffab7667d0feb8d38571bc482390fc6dd20b93a798ab3a8b5cc7d5ab00b44a37f67eb8f19421e4ab33ad89ab40e382128f8a4bbdf097e0efb6d9fca5ac6f9e'
             'SKIP')
-b2sums=('433a087249541f6142dd25b6dc807018639908175b0d73b4af3aa301af2dee3d76184e4689e7b2f1f9b73567ac78d50456ee94fffe00bad6da05375cf2d94d92'
+b2sums=('1480aca5f9b3d4509229fb6c1b967bdeb2053c4100f21d486d9f4a375742249aa7f54d6b5ab27679075499c226a011bc65988e22c064b3986d89f2cf5b0200dc'
         'SKIP')
 validpgpkeys=(
   'EBDFDB21B020EE8FD151A88DE301047DE1198975' # Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
   'B1FA7D81EEB8E66399178B9733EBBFC47B3DD87D' # Even Rouault <even.rouault@spatialys.com>
 )
+
+prepare() {
+  cd tiff-${pkgver}
+  # apply patch from the source array (should be a pacman feature)
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    echo "Applying patch $src..."
+    patch -Np1 < "../$src"
+  done
+}
 
 build() {
   export CC="gcc -m32"

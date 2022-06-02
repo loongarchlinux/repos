@@ -4,21 +4,30 @@
 
 pkgbase=sysdig
 pkgname=(sysdig sysdig-dkms)
-pkgver=0.28.0
-pkgrel=4
+pkgver=0.29.2
+pkgrel=2
+
+# from src/sysdig-*/cmake/modules/falcosecurity-libs.cmake
+_falcover=e5c53d648f3c4694385bbe488e7d47eaa36c229a
+
 pkgdesc="Open source system-level exploration and troubleshooting tool"
 arch=('loongarch64' 'x86_64')
 url="https://www.sysdig.com/"
 license=('GPL2' 'Apache' 'MIT')
-makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so')
+makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so' 'yaml-cpp')
 source=("https://github.com/draios/sysdig/archive/$pkgver/$pkgbase-$pkgver.tar.gz"
-        "bashcomp-location.patch")
-sha256sums=('817e595d501acf3fe11dc659a154aadbba848dd87ae801f5bf34a42e84979f37'
-            'aaee8a0ff414a24c5d5a479229324be1667bc5eb70702838f5d617fd986f947b')
+        "falcosecurity-libs-$_falcover.tar.gz::https://github.com/falcosecurity/libs/archive/$_falcover.tar.gz"
+        "bashcomp-location.patch"
+        "falcosecurity-libs-nodownload.patch")
+sha256sums=('38ea602085f706af5d07630189216fa240064122650a81456cb092579313ae8e'
+            '80903bc57b7f9c5f24298ecf1531cf66ef571681b4bd1e05f6e4db704ffb380b'
+            'aaee8a0ff414a24c5d5a479229324be1667bc5eb70702838f5d617fd986f947b'
+            'b8cedef6766c691a8a92810eb459593d80070f0cf5dfc32cae2a80ec00639429')
 
 prepare() {
-  cd "$srcdir"/$pkgbase-$pkgver
+  cd "$srcdir/$pkgbase-$pkgver"
   patch -p1 -i "$srcdir"/bashcomp-location.patch
+  patch -p1 -i "$srcdir"/falcosecurity-libs-nodownload.patch
 }
 
 build() {
@@ -42,7 +51,7 @@ build() {
 
 package_sysdig() {
   optdepends=('sysdig-dkms: kernel module for live inspection')
-  depends=('jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so')
+  depends=('jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so' 'yaml-cpp')
 
   cd "$srcdir"/$pkgbase-$pkgver/build
   make install DESTDIR="$pkgdir"

@@ -1,0 +1,36 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=gfold
+pkgver=4.0.0
+pkgrel=1
+pkgdesc="A CLI tool to help keep track of Git repositories"
+arch=('loongarch64' 'x86_64')
+url="https://github.com/nickgerace/gfold"
+license=('Apache')
+depends=('libgit2')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('aa2f5c8218b943e0d6e997139cc39892f91ccd0d006866f8ae2367acc6e52bcb326d361f6633fe0d21d1603ef6b580dcf4a894886110194fd27b587f2a423b7b')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:

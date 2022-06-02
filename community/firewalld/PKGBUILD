@@ -3,8 +3,8 @@
 # Contributor: speed145a <jonathan@tagchapter.com>
 
 pkgname=firewalld
-pkgver=1.0.2
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Firewall daemon with D-Bus interface'
 arch=(any)
 url=https://firewalld.org/
@@ -28,13 +28,14 @@ optdepends=(
   'gtk3: firewall-config'
   'libnotify: firewall-applet'
   'nm-connection-editor: firewalld-applet'
+  'python-capng: drop daemon capabilities'
   'python-pyqt5: firewall-applet'
 )
 backup=(
   etc/conf.d/firewalld
   etc/firewalld/firewalld.conf
 )
-_tag=6adcbca69f08e91329ceac94cb1b597f95c72e55
+_tag=144638c3d571e056d41f4065f8b20a66f52cc02a
 source=(
   git+https://github.com/firewalld/firewalld.git#tag=${_tag}
   firewalld-sysconfigdir.patch

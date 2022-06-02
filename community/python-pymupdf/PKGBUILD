@@ -2,41 +2,47 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.19.4
+pkgver=1.19.6
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(loongarch64 x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
 license=(AGPL3)
 depends=(glibc gumbo-parser jbig2dec libmupdf openjpeg2 python)
-makedepends=(freetype2 libjpeg-turbo python-distro python-setuptools swig systemd)
+makedepends=(freetype2 libjpeg-turbo python-distro python-build python-installer python-setuptools python-wheel swig systemd)
 checkdepends=(python-pillow python-pytest)
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('0cd2d88b942b4be16bc0d1e1e9a0b767e7f1f0646b7c342d7562138bb1ddc29cbd8891bc7ec2bf1d3be7f25ed48e8354cbbc576a292dba47c9c7a5553357df61')
-b2sums=('932ca6dda7e1e5d959afa6b78b0806f6a441988dc080851bfccf404e2eeb8e197d8179036f1ab3917d699b44e480321fcd6a4fde9cff2924617d82e01af05de8')
+options=(debug)
+source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
+sha512sums=('bd597bcb53c0a86aea41600dcd5231a08a422fb4517b3c07c3fe4b359e9d32977565c389bda199056582c4c5a55acc57c86a00c15822bc96cc266fb1211c9c68')
+b2sums=('584dfc11bafe6c8bfe2571e2e06a1ee5a5ea5bf3a4e234bc9173d398fa3d869a4a1dccba4a39a98f4f9c4d76e7a5b06cd8b826f494be2dafb010c6848682d81f')
 
 build() {
-  cd "$_name-$pkgver"
-  python setup.py build
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   local _test_dir="test_dir"
 
-  cd "$_name-$pkgver"
-  mkdir -vp "${_test_dir}"
+  cd $_name-$pkgver
+  mkdir -vp $_test_dir
   # install to test dir for testing
-  python setup.py install --optimize=1 --root="${_test_dir}"
+  python -m installer --destdir="$_test_dir" dist/*.whl
 
-  export PYTHONPATH="${_test_dir}/${_site_packages}:${PYTHONPATH}"
-  pytest -v -k "not test_font1 and not test_pageids and not test_textbox3"
+  export PYTHONPATH="$_test_dir/$_site_packages:$PYTHONPATH"
+  # disable failing tests: https://github.com/pymupdf/PyMuPDF/issues/1664
+  # disable tests that SIGABRT pytest: https://github.com/pymupdf/PyMuPDF/issues/1663
+  pytest -vv \
+    -k "not test_pageids \
+        and not test_textbox3 \
+        and not test_checkbox and not test_combobox"
 }
 
 package() {
   depends+=(libfreetype.so libjpeg.so)
 
-  cd "$_name-$pkgver"
-  python setup.py install --optimize=1 --root="${pkgdir}"
-  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }

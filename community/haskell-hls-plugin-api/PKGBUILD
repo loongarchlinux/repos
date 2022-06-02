@@ -3,7 +3,7 @@
 _hkgname=hls-plugin-api
 pkgname=haskell-hls-plugin-api
 pkgver=1.2.0.0
-pkgrel=35
+pkgrel=125
 pkgdesc="Haskell Language Server API for plugin communication"
 url="https://github.com/haskell/haskell-language-server/hls-plugin-api"
 license=("Apache")
@@ -20,14 +20,14 @@ sha512sums=('71e6addec81ba84bb26d8048107cb60a94ddb01ac4879640ec7ab7db8586515f1e0
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u ghc-api-compat $_hkgname.cabal
+  uusi -r ghc:ghc,ghc-api-compat $_hkgname.cabal
 }
 
 build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'

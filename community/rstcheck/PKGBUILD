@@ -1,33 +1,47 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rstcheck
-pkgver=3.3.1
-pkgrel=6
+pkgver=5.0.0
+pkgrel=1
 pkgdesc='Checks syntax of reStructuredText and code blocks nested within it'
 arch=('any')
 url=https://github.com/myint/rstcheck
 license=('MIT')
-depends=('python-docutils')
-makedepends=('python-setuptools')
-checkdepends=('python-sphinx')
-optdepends=('python-sphinx: Sphinx support')
-source=("$url/archive/v$pkgver/rstcheck-v$pkgver.tar.gz")
-b2sums=('3aa20104645add4fbf7d47423def9166b98d67a7b132759f0ef0a0c10b36857dd0bd9a8ba180256b0208e8e7fc27fe20065bb2b5995988a9e738be20b14ef765')
+depends=('python-docutils' 'python-typing_extensions')
+makedepends=('python-build' 'python-installer' 'python-poetry-core')
+checkdepends=('python-pytest' 'python-sphinx')
+optdepends=('python-sphinx: for Sphinx support')
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
+sha256sums=('c0c4e44ebb630a7f1ff61d8fc26adc7d49c16fcd4ba85e3ea5542b864cf982e4')
+b2sums=('b3d8d92055a27e6823e215ad08011fbc3ba5d1dab7aac0b176d154328067ebf991af003c8c59c49fd76b02542b316e7c9af09b22fa48613e0b501755934b4ae7')
+
+prepare() {
+  cd $pkgname-$pkgver
+  # Remove include list https://github.com/pypa/wheel/issues/92
+  sed -i '/^include =/d' pyproject.toml
+}
 
 build() {
-  cd rstcheck-$pkgver
-  python setup.py build
+  cd $pkgname-$pkgver
+  python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
- cd rstcheck-$pkgver
- ./test_rstcheck.py
+ cd $pkgname-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest
 }
 
 package() {
-  cd rstcheck-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/rstcheck LICENSE
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

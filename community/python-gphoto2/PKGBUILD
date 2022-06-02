@@ -2,20 +2,25 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=python-gphoto2
-pkgver=2.2.4
-pkgrel=4
+pkgver=2.3.2
+pkgrel=1
 pkgdesc="Python interface to libgphoto2"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/jim-easterbrook/python-gphoto2"
 license=('GPL3')
 depends=('libgphoto2' 'python')
-makedepends=('swig')
+makedepends=('swig' 'python-setuptools')
 source=($pkgname-$pkgver.tar.gz::https://github.com/jim-easterbrook/$pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('f79df226e61b308077ce2fd2f2922a2c6f68871e7504ddc98057c2063afe5c91')
+sha256sums=('4318187fbbf1eddbd4924cfed13a4e5ebbd43e043bd351fa741cb1cf9fb1e213')
+
+prepare() {
+  cd $pkgname-$pkgver
+#https://github.com/jim-easterbrook/python-gphoto2/issues/136
+  python developer/build_swig.py system
+}
 
 build() {
   cd $pkgname-$pkgver
-  python setup.py build_swig
   python setup.py build
 }
 

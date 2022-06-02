@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=gala
-pkgver=6.3.0
+pkgver=6.3.1
 pkgrel=1
 pkgdesc='The Pantheon Window Manager'
 arch=(loongarch64 x86_64)
@@ -17,6 +17,7 @@ depends=(
   gnome-desktop
   gtk3
   json-glib
+  libcanberra
   libdrm
   libgee
   libgexiv2
@@ -45,13 +46,9 @@ makedepends=(
   vala
 )
 provides=(libgala.so)
-_tag=7fb2bef718dc29591f419a66a2027cc14626ad4c
+_tag=14fbdf5e04c9c5d9c3676c5cd7cfcc8890950cbe
 source=(git+https://github.com/elementary/gala.git#tag=${_tag})
 b2sums=(SKIP)
-
-prepare() {
-  cd gala
-}
 
 pkgver() {
   cd gala

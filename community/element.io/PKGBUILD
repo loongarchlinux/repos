@@ -3,16 +3,16 @@
 # Contributor: Luca Weiss <luca (at) z3ntu (dot) xyz>
 # Contributor: Julian Schacher <jspp@posteo.net>
 
-_electron=electron13
+_electron=electron17
 pkgbase=element.io
 pkgname=(element-web element-desktop)
-pkgver=1.9.8
+pkgver=1.10.13
 pkgrel=1
 pkgdesc="Glossy Matrix collaboration client — "
 arch=(loongarch64 x86_64)
 url="https://element.io"
 license=(Apache)
-makedepends=(npm git yarn python rust sqlcipher ${_electron} nodejs-lts-gallium)
+makedepends=(npm git yarn python rust tcl ${_electron} nodejs-lts-gallium)
 _url="https://github.com/vector-im/element"
 source=(element-web-${pkgver}.tar.gz::${_url}-web/archive/v${pkgver}.tar.gz
         element-web-${pkgver}.tar.gz.asc::${_url}-web/releases/download/v${pkgver}/v${pkgver}-src.tar.gz.asc
@@ -21,13 +21,13 @@ source=(element-web-${pkgver}.tar.gz::${_url}-web/archive/v${pkgver}.tar.gz
         autolaunch.patch
         io.element.Element.desktop
         element-desktop.sh)
-sha256sums=('2bb9869589ce4c2cf7b30c8a7a0cc2786cc5c9dfe7241155eb2c983cb6c6daa5'
+sha256sums=('438d0796479c38e91cac1879d3325a60803aac4623f1993bce27be641f187ec7'
             'SKIP'
-            '980b8655c08821e4e9ee59a1b670ccbb9fa166ec8aecf40ae3d4b3fb8b5a6e98'
+            'ee8eca00ec59913141bab33e03cde99483142840db4923d9ecf4265289dca384'
             'SKIP'
             'aaae4ffa41590361dac0c159aecc1166f69e459e89faa9d5cab1202f0277e06f'
             '0103f28a32fe31f698836516783c1c70a76a0117b5df7fd0af5c422c224220f9'
-            '4c931121009985e7d3f73928c9db88508eedd974a7741e635bb290e3a2cd75db')
+            'c1bd9ace215e3ec9af14d7f28b163fc8c8b42e23a2cf04ce6f4ce2fcc465feba')
 validpgpkeys=(712BFBEE92DCA45252DB17D7C7BE97EFA179B100) # Element Releases <releases@riot.im>
 
 prepare() {
@@ -40,7 +40,6 @@ prepare() {
   cd ../element-desktop-${pkgver}
   patch -p1 < ../autolaunch.patch
   sed -i 's|"target": "deb"|"target": "dir"|' package.json
-  sed -i 's|"electron": "13.5"|"electron": "13.6"|' package.json
   sed -i 's|"https://packages.element.io/desktop/update/"|null|' element.io/release/config.json
   yarn install --no-fund
 }
@@ -71,7 +70,7 @@ package_element-web() {
 package_element-desktop() {
   pkgdesc+="desktop version."
   replaces=(riot-desktop)
-  depends=("element-web=${pkgver}" ${_electron} sqlcipher)
+  depends=("element-web=${pkgver}" ${_electron} libsecret)
   backup=('etc/element/config.json')
 
   cd element-desktop-${pkgver}

@@ -5,16 +5,16 @@
 # Contributor: robertfoster
 
 pkgname=easyeffects
-pkgver=6.1.5
-pkgrel=2
+pkgver=6.2.5
+pkgrel=1
 pkgdesc='Audio Effects for Pipewire applications'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/wwmm/easyeffects'
 license=('GPL3')
-depends=('calf' 'libglibmm-2.68.so' 'gtk4' 'gtkmm-4.0' 'libebur128' 'libbs2b.so'
+depends=('calf' 'gtk4' 'libebur128' 'libbs2b.so'
          'librubberband.so' 'libsamplerate.so' 'libsigc-3.0.so' 'libsndfile.so'
          'liblilv-0.so' 'lsp-plugins' 'libpipewire-0.3.so' 'rnnoise' 'rubberband'
-         'tbb' 'zita-convolver')
+         'tbb' 'zita-convolver' 'libadwaita-1.so' 'libfmt.so')
 makedepends=('appstream-glib' 'itstool' 'lv2' 'meson' 'nlohmann-json' 'zam-plugins')
 optdepends=(
   'zam-plugins: maximizer'
@@ -22,7 +22,7 @@ optdepends=(
 )
 replaces=('pulseeffects')
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('0f4505e429416186f3af4338c1c7b5afac0f0ec343749bd9bcc8cf222349b2cb25714de493236c57b1dd60dfcc3e1359cab15cdeabb661f4cb20591b518f70a6')
+sha512sums=('260b864e5928191dd5574e23a5f51f4df0dcc552c44ecf2d0c1166d589fc1b4320b9da786de88c8837dcb28527163051dc80b5a5a33a9cdde2466405c73248f2')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build

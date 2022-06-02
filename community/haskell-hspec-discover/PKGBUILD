@@ -2,8 +2,8 @@
 
 _hkgname=hspec-discover
 pkgname=haskell-hspec-discover
-pkgver=2.8.3
-pkgrel=37
+pkgver=2.9.6
+pkgrel=11
 pkgdesc="Automatically discover and run Hspec tests"
 url="http://hspec.github.io/"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-quickcheck' 'haskell-hspec-meta' 'haskell-mockery')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('f067ebfe8adfc18571fb0d93a5cabdc3367187d5e3c56b458f02f394fc8770a667b76d189060717d49391c63bc46a4974f750ad21e258a2c498c31de1724d12a')
+sha512sums=('3a883c8fb8dd29665b51fdfc9e22a2bae0010ea53b84696a71c827f8b234dadd200d8ace2200df7b2aa6bdd96dc0a543d7d841ae250fa3dd3e6d4e1d274ff335')
 
 build() {
     cd $_hkgname-$pkgver
@@ -24,7 +24,7 @@ build() {
     fi
    
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname "${_opts[@]}" \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

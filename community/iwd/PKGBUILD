@@ -3,7 +3,7 @@
 # Contributor: AndyRTR <andyrtr at archlinux.org>
 
 pkgname=iwd
-pkgver=1.20
+pkgver=1.27
 pkgrel=1
 pkgdesc='Internet Wireless Daemon'
 arch=('loongarch64' 'x86_64')
@@ -11,9 +11,10 @@ url='https://git.kernel.org/cgit/network/wireless/iwd.git/'
 license=('LGPL')
 depends=('glibc' 'readline' 'libreadline.so' 'ell')
 makedepends=('python-docutils' 'dbus' 'systemd')
+options=('debug')
 source=("https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar"{.xz,.sign})
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
-sha256sums=('7d51e2ccabe7c500e44061ac725dbd4f6b0fb518b5e3de1681063d0f15d3050f'
+sha256sums=('013b4a0a79629c20d915954fc3b5d0620ef6e0d6065db3c342f4b3f9111f46ec'
             'SKIP')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
 changelog=ChangeLog

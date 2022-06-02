@@ -1,22 +1,22 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=kernelshark
-pkgver=2.0.2
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="GUI frontend for trace-cmd based Linux kernel Ftrace captures"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://kernelshark.org/"
-license=('GPL2')
+license=(GPL2)
 depends=(freeglut gcc-libs glibc glu libglvnd qt5-base)
 makedepends=(boost cmake json-c libtracefs libtraceevent trace-cmd ttf-fira-sans)
 provides=(libkshark.so libkshark-plot.so libkshark-gui.so)
-source=("${pkgname}-${pkgver}.tar.gz::https://git.kernel.org/pub/scm/utils/trace-cmd/kernel-shark.git/snapshot/kernel-shark-${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('3e293dbc7802f1a9245f0b9081cfabb7845428239aafe8e552038b29c49d6693c970f1e49bf33ef87c23bb9e047b04f1014d3716cbd71859a1e12a54ff6a5ca5')
-b2sums=('09970743e6cc125c63f70a4967ad63db0f71b7006c1fb9e4152393f338638679a2d1655c2b1859bfd9ef317e2fb705aa85e1d087fa45baf058037bcf79cfa177')
+options=(debug)
+source=($pkgname-$pkgver.tar.gz::https://git.kernel.org/pub/scm/utils/trace-cmd/kernel-shark.git/snapshot/kernel-shark-$pkgname-v$pkgver.tar.gz)
+sha512sums=('8fd9d117401961bf892a46890a7fd97c17a2d9839704b43730a5bf90f5e2cf73c68da2453a2e208b1732055abfaf5ddd7532efe8de9256b4232abd172a04f89c')
+b2sums=('d686a0c19b9daeb355fa3c57104b9147cd0b4e492a3b0b57e5fdbd450d265f963bb35c99b896039007ea47c983d86649381fd81ec9402e4482a39e962322de3a')
 
 prepare() {
-  mv -v "kernel-shark-${pkgname}-v${pkgver}" "${pkgname}-${pkgver}"
-  cd "$pkgname-$pkgver"
+  cd kernel-shark-$pkgname-v$pkgver
 
   # replace FreeSans with ttf-fira-sans
   sed -e 's/FreeSans/FiraSans-Regular/g' \
@@ -24,19 +24,18 @@ prepare() {
 }
 
 build() {
-  cd "$pkgname-$pkgver"
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=None \
         -D_INSTALL_PREFIX=/usr \
         -D_LIBDIR=/usr/lib \
-        -DCMAKE_BUILD_TYPE='None' \
         -Wno-dev \
         -B build \
-        -S .
+        -S kernel-shark-$pkgname-v$pkgver
   make VERBOSE=1 -C build
 }
 
 package() {
   depends+=(libjson-c.so libtracefs.so libtracecmd.so libtraceevent.so)
-  cd "$pkgname-$pkgver"
-  make DESTDIR="${pkgdir}" prefix='/usr' VERBOSE=1 -C build install
+
+  make DESTDIR="${pkgdir}" prefix=/usr VERBOSE=1 install -C build
 }

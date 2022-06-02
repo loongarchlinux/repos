@@ -4,15 +4,15 @@
 # Contributor: Jan-Erik Rediger <badboy at archlinux dot us>
 
 pkgname=bash-bats
-pkgver=1.5.0
-pkgrel=1
+pkgver=1.7.0
+pkgrel=2
 pkgdesc="Bash Automated Testing System"
 arch=("any")
 url="https://github.com/bats-core/bats-core"
 license=("MIT")
 depends=('bash')
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha256sums=('36a3fd4413899c0763158ae194329af8f48bb1ff0d1338090b80b3416d5793af')
+sha256sums=('ac70c2a153f108b1ac549c2eaa4154dea4a7c1cc421e3352f0ce6ea49435454e')
 
 check() {
   cd "bats-core-${pkgver}"
@@ -23,10 +23,9 @@ package() {
   cd "bats-core-${pkgver}"
 
   # Also rename the bats-core/ folder to bats/
-  sed -i 's/BATS_ROOT\/libexec\/bats-core\/bats/BATS_ROOT\/lib\/bats\/bats/g' bin/bats
-
-  # Rename the bats-core/ folder to bats/
-  sed -i 's/BATS_ROOT\/lib\/bats-core\//BATS_ROOT\/lib\/bats\//g' libexec/bats-core/*
+  sed -i 's|BATS_ROOT/libexec/bats-core/bats|BATS_ROOT/lib/bats/bats|g' bin/bats
+  sed -i 's|BATS_ROOT/lib/bats-core/|BATS_ROOT/lib/bats/|g' libexec/bats-core/*
+  sed -i 's|BATS_ROOT/lib/bats-core/|BATS_ROOT/lib/bats/|g' lib/bats-core/*
 
   for fn in libexec/bats-core/*; do
     install -Dm755 ${fn} \

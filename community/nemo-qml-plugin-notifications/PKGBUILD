@@ -1,26 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=nemo-qml-plugin-notifications
-pkgver=1.0.9
-pkgrel=4
+pkgver=1.0.11
+pkgrel=1
 pkgdesc="Notifications plugin for Nemo Mobile"
 arch=('loongarch64' 'x86_64')
-url="https://github.com/nemomobile/nemo-qml-plugin-notifications"
+url="https://github.com/sailfishos/nemo-qml-plugin-notifications"
 license=('BSD')
 depends=('qt5-declarative')
-makedepends=('git')
-source=("git+https://github.com/nemomobile/nemo-qml-plugin-notifications.git#tag=$pkgver")
-sha512sums=('SKIP')
+source=("https://github.com/sailfishos/nemo-qml-plugin-notifications/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('e46531522ad5046ca89146d1cf0a2bc9a9beb0599e39a4a8c655468d4362f7ec53d48f4c560d7fa542ff448bb45bc83be322f16d62467cf057693b3cb24e05db')
 
 build() {
-  cd nemo-qml-plugin-notifications
-
+  cd nemo-qml-plugin-notifications-$pkgver
   qmake-qt5
   make
 }
 
 package() {
-  cd nemo-qml-plugin-notifications
-
-  make INSTALL_ROOT="${pkgdir}" install
+  cd nemo-qml-plugin-notifications-$pkgver
+  make INSTALL_ROOT="$pkgdir" install
 }

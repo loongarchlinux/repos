@@ -4,7 +4,7 @@
 
 pkgname=kubeseal
 _pkgname=sealed-secrets
-pkgver=0.17.1
+pkgver=0.17.3
 pkgrel=1
 pkgdesc="A Kubernetes controller and tool for one-way encrypted Secrets"
 arch=('loongarch64' 'x86_64')
@@ -13,7 +13,8 @@ license=('Apache')
 makedepends=('go')
 depends=('glibc')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c4f3857c29930d9e304d99be5e6b5e5acf944385ab1ed93e7b2d0ab837a9d64eafd6a723c98702b124925bcb38a430992507c4dee01469ffd45a6c2a4eab3cce')
+sha512sums=('6b00b630ba437cbe38516eaca95885fa39219441699a8819c6f5a752d23fb87961915a1484305d8b3cd4851df7f41d63ceae29ad485f83cfda46fdcf44774db0')
+options=('!lto')
 
 build() {
   cd "${_pkgname}-${pkgver}/cmd/kubeseal"

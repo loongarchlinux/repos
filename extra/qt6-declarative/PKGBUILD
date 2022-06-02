@@ -3,24 +3,33 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_qtver=6.2.2
+_qtver=6.3.0
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=2
 arch=(loongarch64 x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
 pkgdesc='Classes for QML and JavaScript languages'
 depends=(qt6-base)
-makedepends=(cmake ninja python at-spi2-core qt6-shadertools)
+makedepends=(cmake ninja python at-spi2-core qt6-shadertools qt6-languageserver)
+optdepends=('qt6-languageserver: for qmlls')
 conflicts=(qt6-quickcontrols2)
 provides=(qt6-quickcontrols2)
 replaces=(qt6-quickcontrols2)
 groups=(qt6)
-_pkgfn="${pkgname/6-/}-everywhere-src-$_qtver"
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('1a04ef0092b31354e0fded0d8391865719cb58f9ca5dc604da2b1f62c742cf28')
+options=(debug)
+_pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz
+        fix-qmlls-build.patch::https://code.qt.io/cgit/qt/qtdeclarative.git/patch/?id=95665d84)
+sha256sums=('d294b029dc2b2d4f65da516fdc3b8088d32643eb7ff77db135a8b9ce904caa37'
+            '4efef4778b5ac0380c50e5980396d432fe46b4b2f563eed56e2d60b07e88a014')
+
+prepare() {
+  patch -d $_pkgfn -p1 < fix-qmlls-build.patch
+}
 
 build() {
+  export CXXFLAGS+=" -ffat-lto-objects"
   cmake -B build -S $_pkgfn -G Ninja \
     -DINSTALL_PUBLICBINDIR=usr/bin
   cmake --build build

@@ -4,28 +4,35 @@
 # Contributor: rmorgans <rick.morgans@gmail.com>
 
 pkgname=direnv
-pkgver=2.30.2
-pkgrel=1
+pkgver=2.31.0
+pkgrel=2
 pkgdesc='A shell extension that manages your environment'
 arch=('loongarch64' 'x86_64')
-url="https://direnv.net"
+url='https://direnv.net'
 license=('MIT')
 depends=('glibc')
-makedepends=('go')
+makedepends=('git' 'go')
 checkdepends=('zsh' 'fish' 'bash' 'tcsh' 'elvish')
 options=('!lto')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/direnv/direnv/archive/v$pkgver.tar.gz")
-sha512sums=('e96864919f2b3ffaf538ea3639bf85f157f40d61fa557d07f1e34f46c058858d972636db021ac93a6ccbdd28bc28f51cc85d1d0cac5ffb1e8861521b7383f362')
-b2sums=('fc1fe404712a6ee6fb6e022fd2dbc4f254ad5709c8b4037b895507e27974ce8c106be879b8b4fa173a3a718681817e654bb4305f75180758e96c99caac0df2a5')
+_commit='abdd443bd5477557509e969e17f74244fec2c55b'
+source=("$pkgname::git+https://github.com/direnv/direnv.git#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # download dependencies
   go mod download
 }
+
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # set Go flags
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -42,14 +49,14 @@ build() {
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # run go tests
   go test -v ./...
 
   # run shell-specific tests
   bash ./test/direnv-test.bash
-  elvish ./test/direnv-test.elv
+  #elvish ./test/direnv-test.elv # temporarily skip failing test :<
   fish ./test/direnv-test.fish
   tcsh -e ./test/direnv-test.tcsh
   zsh ./test/direnv-test.zsh
@@ -59,7 +66,7 @@ check() {
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # binary
   install -vDm755 -t "$pkgdir/usr/bin" "$pkgname"

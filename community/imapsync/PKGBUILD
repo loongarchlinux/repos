@@ -1,7 +1,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=imapsync
-pkgver=1.977
+pkgver=2.178
 pkgrel=1
 pkgdesc='IMAP synchronisation, sync, copy or migration tool'
 arch=('any')
@@ -17,21 +17,19 @@ makedepends=('cpanminus' 'perl-par-packer')
 checkdepends=('inetutils' 'lsb-release' 'time' 'procps-ng' 'perl-test-deep' 'perl-test-fatal'
               'perl-test-mock-guard' 'perl-test-mockobject' 'perl-test-pod' 'perl-test-requires'
               'perl-test-warn')
-source=("https://github.com/imapsync/imapsync/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('ccbe678f331a59b2ee50150b4e6dd3b2a7fb7750f204f3d67c90beed600b83b38a712bfa723dc0a73d21fb9bc03a5013f287469afa1164962cfb0f2923d93910')
+source=("https://github.com/imapsync/imapsync/archive/refs/tags/${pkgname}-${pkgver}.tar.gz")
+b2sums=('00115b0658c28179556f661fc037e600dee8d58b24c35488c85253200e4032613e6fc1a42fa8b71408e6d6b074458555354bcc2f19ed27026980b8a1eb2ce643')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  make
+  make -C ${pkgname}-${pkgname}-${pkgver}
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  make test
+  make -C ${pkgname}-${pkgname}-${pkgver} test
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
   install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE.txt
 }

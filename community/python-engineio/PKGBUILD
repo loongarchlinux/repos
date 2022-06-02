@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-engineio
-pkgver=4.2.1
-pkgrel=3
+pkgver=4.3.2
+pkgrel=1
 pkgdesc='Python implementation of the Engine.IO realtime server'
 url='https://github.com/miguelgrinberg/python-engineio'
 arch=('any')
@@ -18,8 +18,8 @@ makedepends=('python-setuptools' 'python-sphinx' 'python-six' 'python-eventlet' 
 checkdepends=('python-mock' 'python-pytest' 'python-pytest-runner')
 options=('!makeflags')
 source=(https://github.com/miguelgrinberg/python-engineio/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('f0ea7cb0a34f49d2e3de58dc1038f41cda099fba0033af7020b9ccacd34fbf44fd1613ef14d4d05013dd99a2d35330769e6c3d2f532556fd39262229e40714f6')
-b2sums=('0a634cec9f71a3b8659e5b07cc326fb3d7801c8a834248d6f2ea5a48bcd058f8d0b86c2e43c110ea18ef641e3ace273a2ebd20f350aec9360d38ffe0f32f2778')
+sha512sums=('59933a0093167042a3873ba1561d2859359a5ad160f6b7b5c19478b1f73d1bd068779942c8bfc44dd5a8d9f155359571298b960bcd217aab341bdfec35bc5b28')
+b2sums=('87dece98d72b7b0384e3b9d57062a3eaa7aeb80ac3f2f685d50b8816e122398ffd54da1f4b99a90a1f535e2d0f0d282167a682de022373e6108f7e91f8689aa1')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -29,7 +29,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  python setup.py test
+  PYTHONPATH=build/lib python setup.py test
 }
 
 package() {

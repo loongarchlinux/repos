@@ -7,8 +7,8 @@
 pkgbase=arc-gtk-theme
 _pkgname=arc-theme
 pkgname=('arc-gtk-theme' 'arc-solid-gtk-theme')
-pkgdesc="A flat theme with transparent elements for GTK 3, GTK 2 and Gnome-Shell"
-pkgver=20211018
+pkgdesc="A flat theme with transparent elements for GTK 2,3,4 and Gnome-Shell"
+pkgver=20220405
 pkgrel=1
 arch=('any')
 # Upstream url: https://github.com/horst3180/arc-theme
@@ -18,19 +18,21 @@ license=('GPL3')
 optdepends=('arc-icon-theme: recommended icon theme'
             'gtk-engine-murrine: for gtk2 themes'
             'gnome-themes-standard: for gtk2 themes')
-makedepends=('meson' 'sassc' 'inkscape')
+makedepends=('meson>=0.53.0' 'sassc' 'glib2' 'gdk-pixbuf2')
 
 source=("${pkgname}-${pkgver}.tar.xz::${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.xz"
         "${pkgname}-${pkgver}.tar.xz.sig::${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.xz.asc")
-sha512sums=('da46efc0e38efb7f1d0cd9a5d2c4e8f00f3b8d408ec50c54d89ef67fc3bb5ea253b5fb890b0cb8e82cafebd44a599d0de2369272ed88da73dd979052b130bd55'
+sha512sums=('16655b822548820945c5fd3c0bb809d1e55db887c3b5c5309f4acd82c4dd7dd8255d246d86025231c73a303e647bb61c7f9cdc63a04f813cfb79fadf27dec204'
             'SKIP')
 validpgpkeys=('31743CDF250EF641E57503E5FAEDBC4FB5AA3B17')
 
 # Latest stable Arch package versions
-_cinnamonver=5.0
-_gnomeshellver=40
-_gtk3ver=3.24
-_gtk4ver=4.4
+_cinnamonver=5.2
+_gnomeshellver=42
+
+prepare() {
+    cd ${_pkgname}-${pkgver}
+}
 
 build() {
     cd ${_pkgname}-${pkgver}
@@ -38,18 +40,14 @@ build() {
     meson --prefix=/usr build \
       -Dgnome_shell_gresource=true \
       -Dcinnamon_version="${_cinnamonver}" \
-      -Dgnome_shell_version="${_gnomeshellver}" \
-      -Dgtk3_version="${_gtk3ver}" \
-      -Dgtk4_version="${_gtk4ver}"
+      -Dgnome_shell_version="${_gnomeshellver}"
     meson compile -C build
 
     meson --prefix=/usr build-solid \
       -Dtransparency=false \
       -Dgnome_shell_gresource=true \
       -Dcinnamon_version="${_cinnamonver}" \
-      -Dgnome_shell_version="${_gnomeshellver}" \
-      -Dgtk3_version="${_gtk3ver}" \
-      -Dgtk4_version="${_gtk4ver}"
+      -Dgnome_shell_version="${_gnomeshellver}"
     meson compile -C build-solid
 }
 

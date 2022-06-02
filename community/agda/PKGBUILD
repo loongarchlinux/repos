@@ -4,7 +4,7 @@
 _hkgname=Agda
 pkgname=agda
 pkgver=2.6.2
-pkgrel=43
+pkgrel=91
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
@@ -16,21 +16,23 @@ depends=('ghc-libs' 'ghc' 'haskell-aeson' 'haskell-async' 'haskell-blaze-html' '
          'haskell-split' 'haskell-strict' 'haskell-unordered-containers' 'haskell-uri-encode'
          'haskell-zlib')
 optdepends=('agda-stdlib: for standard library')
-makedepends=('alex' 'happy' 'ghc' 'haskell-filemanip')
+makedepends=('alex' 'happy' 'ghc' 'uusi' 'haskell-filemanip')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha512sums=('1be631c8fd2129df4b8eb97e7bbfc54838eccf745d402a9f769f9486e8f6a1f55eeab9d47dd6cd428136ea9a3800766a2c7180662b5a41a6c7f29ffadadc3627')
 
 prepare() {
     cd $_hkgname-$pkgver
     sed -i '/fno-warn-overlapping-patterns/a \        , "-dynamic"' src/full/Agda/Compiler/MAlonzo/Compiler.hs
+    uusi -u equivalence -u hashable $_hkgname.cabal
 }
 
 build() {
     cd $_hkgname-$pkgver
 
     # -fllvm is disabled because ghc+llc hangs since LLVM 13
+    # https://gitlab.haskell.org/ghc/ghc/-/issues/20559
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir="/usr/share/doc/${pkgname}" --datasubdir="$pkgname" \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fasm \
             -fcpphs -f-debug -f-enable-cluster-counting
     LC_CTYPE=en_US.UTF-8 runhaskell Setup build $MAKEFLAGS

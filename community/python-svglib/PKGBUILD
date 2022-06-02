@@ -2,40 +2,35 @@
 
 _name=svglib
 pkgname=python-svglib
-pkgver=1.1.0
-pkgrel=4
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="Read SVG files and convert them to other formats"
-arch=('any')
+arch=(any)
 url="https://github.com/deeplook/svglib"
-license=('LGPL3')
-depends=('python-lxml' 'python-reportlab' 'python-tinycss2' 'python-cssselect2')
-makedepends=('python-setuptools')
-checkdepends=('python-pillow' 'python-pytest')
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('cf510a4792b5243db3e4c5fb1df9a3aae77454d31e65fb3d8cb11195a39c9528a5ecdedf75f364923af8f052cc2758bace92372b8758025a5bbcfe0846a34a92')
-b2sums=('bd1c299a2504c271b8d682b4c4e0d7d4d6c5d66e6aa085a4216c32c8dcdf97912a89c4abab546ff3e51f6a756ea6191d118feb601449610ba88457c17cc3cdea')
-
-prepare() {
-  mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
-}
+license=(LGPL3)
+depends=(python-lxml python-reportlab python-tinycss2 python-cssselect2)
+makedepends=(python-build python-installer python-setuptools python-wheel)
+checkdepends=(python-pillow python-pytest)
+# sdist tarballs do not include all necessary files: https://github.com/deeplook/svglib/issues/341
+# source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
+source=($_name-v$pkgver.tar.gz::https://github.com/deeplook/$_name/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('457fb69ba1c298079888f200502c7099cf5ee674857ff8682948011bf8e1544715e6196544212f5c0ddef1202d04f3f05d01edb4351e673ceae16a85ca0d66e5')
+b2sums=('f53bda781479ddc5d4b04fd122b5141620db81756308973cb283957615711e62623baa74b69af954936be24970a4e4a6f026667c4069d62bf1705a839ecc52f3')
 
 build() {
-  cd "$pkgname-$pkgver"
-  python setup.py build
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  export PYTHONPATH="build:${PYTHONPATH}"
-  # disable tests that download stuff and that are broken
-  pytest -v -k "not TestWikipediaSymbols and not TestWikipediaFlags and not test_png_in_svg and not test_external_svg_in_svg"
+  cd $_name-$pkgver
+  export PYTHONPATH="build:$PYTHONPATH"
+  # disable tests that need remote resources
+  pytest -vv -k "not TestWikipediaSymbols and not TestWikipediaFlags"
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  python setup.py install --skip-build \
-                          --optimize=1 \
-                          --root="${pkgdir}"
-  install -vDm 644 {CHANGELOG,CONTRIBUTORS,README}.rst \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 {CHANGELOG,CONTRIBUTORS,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
 }

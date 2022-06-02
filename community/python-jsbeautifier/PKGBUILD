@@ -3,15 +3,15 @@
 
 pkgname=('python-jsbeautifier' 'python-cssbeautifier')
 pkgbase=python-jsbeautifier
-pkgver=1.14.0
-pkgrel=3
+pkgver=1.14.3
+pkgrel=1
 arch=('any')
 license=('MIT')
 url='https://github.com/beautify-web/js-beautify'
 depends=('python-editorconfig' 'python-six')
 makedepends=('python-setuptools')
 source=("https://github.com/beautify-web/js-beautify/archive/v$pkgver/js-beautify-v$pkgver.tar.gz")
-b2sums=('2e0d1fdfb36a5dae651b2227e81e0fc3c150482e1e6d5363fe429b481663da05ade25d3f45276e989f118cf2b06039684fba29091722aab0a50fb025507f7329')
+b2sums=('927cfbf2b5993017ea03bf220e07b62888f52dce6370a2f5dfdce6e1a3060f4ab206989ecf0dcae7310a52a2d47bca9dd6bd4524808ce0c95b2638dab2020217')
 
 prepare() {
   cd js-beautify-$pkgver

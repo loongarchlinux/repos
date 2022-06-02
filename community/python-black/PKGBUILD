@@ -3,26 +3,25 @@
 # Contributor: James Zhu <jameszhu@berkeley.edu>
 
 pkgname=python-black
-pkgver=21.12b0
-pkgrel=2
+pkgver=22.3.0
+pkgrel=1
 pkgdesc='Uncompromising Python code formatter'
 arch=('any')
 url=https://github.com/psf/black
 license=('MIT')
 depends=('python' 'python-click' 'python-mypy_extensions' 'python-pathspec'
          'python-platformdirs' 'python-tomli' 'python-typing_extensions')
-makedepends=('python-build' 'python-install' 'python-setuptools-scm'
+makedepends=('python-build' 'python-installer' 'python-setuptools-scm'
              'python-wheel')
 checkdepends=('ipython' 'python-aiohttp' 'python-parameterized' 'python-pytest'
               'python-typed-ast' 'python-tokenize-rt')
 optdepends=('ipython: for Jupyter notebook support'
             'python-tokenize-rt: for Jupyter notebook support'
             'python-aiohttp: for the blackd HTTP server'
-            'python-colorama: for colored diffs'
-            'python-typed-ast: to format Python 2 code')
+            'python-colorama: for colored diffs')
 source=("https://files.pythonhosted.org/packages/source/b/black/black-$pkgver.tar.gz")
-sha256sums=('77b80f693a569e2e527958459634f18df9b0ba2625ba4e0c2d5da5be42e6f2b3')
-b2sums=('95a00f89ba76a49050a5699531dac54fb08023337b69ee6c65eadf36e29e8389a7546dadb0e8a9e64e31ee551b22822ecc2507f3f57a816589784689114c567e')
+sha256sums=('35020b8886c022ced9282b51b5a875b6d1ab0c387b31a065b84db7c33085ca79')
+b2sums=('f35a285b622ac642a5be8ea51c27e448a5a27b427f577f11d2fd384e2e182d0552d554f672d0f4f73e8272a269352b0154b4baaf2bf3de5d765a6685a3f918cd')
 
 build() {
   cd "black-$pkgver"
@@ -32,26 +31,23 @@ build() {
 check() {
   cd "black-$pkgver"
   python -m venv --system-site-packages test-env
-  test-env/bin/python -m install --optimize=1 dist/*.whl
-  chmod +x test-env/bin/black # https://github.com/FFY00/python-install/pull/6
-  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest --run-optional no_python2
+  test-env/bin/python -m installer dist/*.whl
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest
 }
 
 package() {
   cd "black-$pkgver"
-  python -m install --optimize=1 --destdir="$pkgdir" dist/*.whl
-
-  # https://github.com/FFY00/python-install/issues/7
-  sed -i 's/patched_main \[d]/patched_main/' "$pkgdir"/usr/bin/blackd
-
-  # https://github.com/FFY00/python-install/pull/6
-  chmod +x "$pkgdir"/usr/bin/*
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/black-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  # vim plugin
+  install -Dm644 plugin/black.vim "$pkgdir/usr/share/vim/vimfiles/plugin/black.vim"
+  install -Dm644 autoload/black.vim "$pkgdir/usr/share/vim/vimfiles/autoload/black.vim"
 }
 
 # vim:set ts=2 sw=2 et:

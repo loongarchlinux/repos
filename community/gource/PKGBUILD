@@ -1,17 +1,17 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Jose Valecillos <valecillosjg (at) gmail (dot) com>
 # Contributor: Olivier Ramonat <olivier at ramonat dot fr>
 pkgname=gource
-pkgver=0.51
-pkgrel=7
+pkgver=0.53
+pkgrel=1
 pkgdesc="software version control visualization"
 license=(GPL3)
 arch=(loongarch64 x86_64)
 url=http://gource.io/
-depends=('ftgl' 'sdl2' 'sdl2_image' 'pcre' 'glew' 'boost-libs')
+depends=('ftgl' 'sdl2' 'sdl2_image' 'pcre2' 'glew' 'boost-libs')
 makedepends=('boost' 'glm' 'mesa')
 source=(https://github.com/acaudwell/Gource/releases/download/gource-${pkgver}/gource-${pkgver}.tar.gz)
-sha512sums=('f29326ffb2aa6f645fb941e08e41f0cbf8dd894d5a4d607b782caeb12a24e6446198027060b880e0ad14a36efbed19023620dd8c890cfc0c027fc90ac2d5be24')
+sha512sums=('e4190eb581d9998808d1bb4f18ba5a3ae22bacf643b9a150c7d1607e97fca2eab720592aefdcc6a47f92adb4a8df17db48bb941a67ee3d23a10f300754f473be')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"

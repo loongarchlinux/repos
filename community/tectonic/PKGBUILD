@@ -1,0 +1,41 @@
+# Maintainer: Frederik Schwan <freswa at archlinux dot org>
+# Contributor: tectonic-deploy <sasha+tectonic@hackafe.net>
+# Contributor: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Jan Tojnar <jtojnar@gmail.com>
+
+pkgname=tectonic
+pkgver=0.9.0
+pkgrel=1
+pkgdesc='Modernized, complete, self-contained TeX/LaTeX engine, powered by XeTeX and TeXLive'
+arch=('loongarch64' 'x86_64')
+url='https://tectonic-typesetting.github.io/'
+license=('MIT')
+depends=('fontconfig' 'harfbuzz-icu' 'openssl')
+makedepends=('cargo' 'pkg-config')
+options=(!lto)
+source=("https://github.com/tectonic-typesetting/tectonic/archive/refs/tags/tectonic@${pkgver}.tar.gz")
+b2sums=('051e763e313953c7634c37be8f35c8633d5f429172f1570c11a560ec90199da9f92a1fe9113a11d46e0f2c96b84560a156131ec9dc3080945f16c9e9d94e050b')
+
+prepare() {
+  cd ${pkgname}-${pkgname}-${pkgver}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd ${pkgname}-${pkgname}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --release --locked --features external-harfbuzz
+}
+
+check() {
+  cd ${pkgname}-${pkgname}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --release --locked --features external-harfbuzz
+}
+
+package() {
+  cd ${pkgname}-${pkgname}-${pkgver}
+  install -Dm755 target/release/tectonic "${pkgdir}"/usr/bin/tectonic
+  install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}

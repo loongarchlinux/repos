@@ -2,39 +2,36 @@
 
 _name=django-allauth
 pkgname=python-django-allauth
-pkgver=0.47.0
-pkgrel=2
+pkgver=0.50.0
+pkgrel=1
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
 arch=(any)
 url="https://github.com/pennersr/django-allauth"
 license=(MIT)
 depends=(python-django python-openid python-requests python-requests-oauthlib
 python-pyjwt)
-makedepends=(python-setuptools)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-mock python-pytest)
 # tests are not available in pypi sdist:
 # https://github.com/pennersr/django-allauth/issues/2439
-# source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-source=(
-  "${_name}-${pkgver}.tar.gz::https://github.com/pennersr/${_name}/archive/${pkgver}.tar.gz"
-)
-sha512sums=('535f333523f2f72a0c33aecaa974817fb2bd0bc1ac6cd0d8c77ead4b71d2521f3822886ae394202a67c023e645e3ac1923345232691205afa725f04077ea0377')
-b2sums=('9cfdb92c1f35acf1da8721346f3386e1ca770e0c86998373e51e3d6da2b158711f1230cab3959361ce1cbac6bccf17f723a776b01f178e860d604ed53aae2940')
+# source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
+source=($_name-$pkgver.tar.gz::https://github.com/pennersr/$_name/archive/$pkgver.tar.gz)
+sha512sums=('7c1870d28c7123628239f8cddda7fd6f1c9ebd847ebfbad87b7a432a7515a9a9a0541a89a96c57a4137f0fb038168a601a25ee60e894258d514b2dc7db4f1d79')
+b2sums=('936358529a067b68e55fcb4131b9a862f58a8df006f1cd47a693d264125c8da1b89dc304eb68c5b3f1f0b76aba454eaad0cd53efd5ade5b3a501bac3d43cdb8a')
 
 build() {
-  cd "${_name}-$pkgver"
-  python setup.py build
+  cd $_name-$pkgver
+  python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd "${_name}-$pkgver"
-  export PYTHONPATH="build:${PYTHONPATH}"
+  cd $_name-$pkgver
   python manage.py test allauth
 }
 
 package() {
-  cd "${_name}-$pkgver"
-  python setup.py install --optimize=1 --root="${pkgdir}"
-  install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }

@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=archlinux-appstream-data
-pkgver=20211210
+pkgver=20220512
 pkgrel=1
 pkgdesc='Arch Linux application database for AppStream-based software centers'
 arch=(any)
@@ -18,22 +18,22 @@ for _repo in core extra community multilib; do
           $_repo-icons-128x128-$pkgver.tar.gz::https://sources.archlinux.org/other/packages/$pkgname/$pkgver/$_repo/icons-128x128.tar.gz)
  noextract+=($_repo.xml.gz-$pkgver $_repo-icons-{48x48,64x64,128x128}-$pkgver.tar.gz)
 done
-sha256sums=('81bdaf023e7763099a776b1f6e8e368d79461bc40deca562e0ceafbebc641dff'
+sha256sums=('390aa4ace6b614cfcc6218db8e2d31395eea003e72f954ae20948b3c943c64fa'
             '7989bb311baa38ef545250282aa065d23281c46dfb8faabe4c653487bdbded5c'
-            'd2664603921fb6fb50815306d3d2b5538df6a7619e2e203a8c0ae43272b6011c'
+            'e76b67bfcb57bef6b74d52e7428a41eb5567f20c877b337ced1c886eafb7b431'
             '7989bb311baa38ef545250282aa065d23281c46dfb8faabe4c653487bdbded5c'
-            'd602b6abef1599f9c1a5fdbd4422c65fa19c8bacf9377c91e837706ba922e8c6'
-            '6843831004ed50f60d9e1f8556183d5b15ca1275086fa15d6a0566cdc3ecb9f0'
-            'ffa2f68bc942c787ccdcbbb1a69005879bdd04ec2587c2cdb2e2528c3e9fc55e'
-            '61841a69d79059b29bbe9f8fe109cabe2812be0dcd5e6a1aaad861d33f458fff'
-            '7748843f97c6103d4e0924d981eb1e772919dda5d3691748002e83e626bfb097'
-            'c92036a689c8c0524dd932843276ab39ea1a0fd17856749829a1040bbdf6a407'
-            '4cb1f510dc3a74845d9ddae6a6ec165a744caa2aee4529e3b1d94a57fbea4b5b'
-            'cadc4b2bad4cd4d2481b7acdbd70970e37a5a2a67da66d130b55d30ed771dc43'
-            '1ca579ff12cc527be544b32c1e465d42edc73620a72d7b37511162a5a89ef67c'
-            '53498ac465e879d2c79b8e005e92d52c1fd84fe3be5a416bbec8d6c2da587661'
-            '6e8358fe4ac10febbbc57534b43aa0b55f573430fdefb1b3cf9b98c19a338523'
-            '737481a72745446c5c878c37480013f88b23c587729b3e53bdc3fd15385ae531')
+            '37d1a2aa521ac002e74471419ebc06a1ecba52c41dad871e2ce2487ad277ce36'
+            'e319605b39dd43f4568dd829b1032130c442d1587935096f5bde42ea419b1685'
+            '66e05343d84f392410ac92e0806cf2277efb52b1e2d309f259a9f0f3112bfab7'
+            'b991772094bb3e410dbd0b7290c9605cc417b3991ffb883f8347476207844725'
+            '56623049a2e1b2cbe81350d9611b3f13bc7dc8b2e94c9e1b525d8454c3680f82'
+            '39c9e1f40f6be83d3c023924d856148f1d8ba1c18d8d36a7535628c876b14851'
+            '0071097e5d6bd65db08498aef24516e5031d3e255699c0a096174b326cc9e0fd'
+            'c0e19dfe58b5964ca0acaf3db654e8f9f599cd751e4d2758f95f0599e3284dde'
+            '46ab63b2587abc11604c30ecec74fdf2dd987f0231347e89d9e24af00ef32bd8'
+            '2aa44e7d79cb0ba8ce7e19f643bd0da9e0b4cadb476dcdd6a05586df76f53535'
+            '742280d329127a46cf7e939d6ef4cf7f093cc7000299cb13edfe183cda7c98b8'
+            '3ee505af3f244fa1593f97cc5eb472e747406c17a881b3c9490e2fb31f5fb5d6')
 
 package() {
   mkdir -p "$pkgdir"/usr/share/app-info/{icons/archlinux-arch-{core,extra,community,multilib}/{48x48,64x64,128x128},xmls}

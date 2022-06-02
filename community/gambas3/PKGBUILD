@@ -8,8 +8,8 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-db-form' 'gambas3-gb-db-mysql' 'gambas3-gb-db-odbc' 'gambas3-gb-db-postgresql' 'gambas3-gb-db-sqlite3' 'gambas3-gb-db'
          'gambas3-gb-desktop-gnome' 'gambas3-gb-desktop-x11' 'gambas3-gb-desktop'
          'gambas3-gb-eval-highlight' 'gambas3-gb-httpd'
-         'gambas3-gb-form-dialog' 'gambas3-gb-form-mdi' 'gambas3-gb-form-terminal' 'gambas3-gb-form-stock' 'gambas3-gb-form-editor' 'gambas3-gb-form'
-         'gambas3-gb-gmp' 'gambas3-gb-gsl' 'gambas3-gb-gtk3'
+         'gambas3-gb-form-dialog' 'gambas3-gb-form-mdi' 'gambas3-gb-form-terminal' 'gambas3-gb-form-stock' 'gambas3-gb-form-editor' 'gambas3-gb-form-htmlview' 'gambas3-gb-form'
+         'gambas3-gb-gmp' 'gambas3-gb-gsl' 'gambas3-gb-gtk3-opengl' 'gambas3-gb-gtk3'
          'gambas3-gb-image-effect' 'gambas3-gb-image-imlib' 'gambas3-gb-image-io' 'gambas3-gb-image' 'gambas3-gb-inotify'
          'gambas3-gb-libxml' 'gambas3-gb-logging'
          'gambas3-gb-map' 'gambas3-gb-markdown' 'gambas3-gb-media-form' 'gambas3-gb-media' 'gambas3-gb-memcached' 'gambas3-gb-mime' 'gambas3-gb-mysql'
@@ -26,8 +26,8 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-xml-html' 'gambas3-gb-xml-rpc' 'gambas3-gb-xml-xslt' 'gambas3-gb-xml'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
-pkgver=3.16.3
-pkgrel=5
+pkgver=3.17.2
+pkgrel=3
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('loongarch64' 'x86_64')
 url="http://gambas.sourceforge.net/"
@@ -42,7 +42,7 @@ makedepends=('intltool' 'postgresql' 'libffi' 'bzip2' 'glib2' 'v4l-utils'
          'gmime3' 'libxcrypt')
 options=('!emptydirs' 'libtool')
 source=("https://gitlab.com/gambas/gambas/-/archive/${pkgver}/gambas-${pkgver}.tar.bz2")
-sha512sums=('151e53dd7023e919d82487ed782a627ebe65b3006ac225047f154eccfb910baa2124e8ed64866cf7a2871bc3ceb19b65fcafb26f0508bcdb3ce357e822cf8003')
+sha512sums=('bc51b1b9cd0c034cb59ea63eaf16d68004631083e44c1ea376bfc6133881fe2d9f687814d05ccf7f35ee90505e469005a349288a4ff30b33d627a150066bdef9')
 
 prepare() {
   cd ${srcdir}/gambas-${pkgver}
@@ -262,6 +262,7 @@ package_gambas3-gb-form-editor() {
 
   _install fakeinstall/usr/lib/gambas3/gb.form.editor.*
   _install fakeinstall/usr/share/gambas3/info/gb.form.editor.*
+  _install fakeinstall/usr/share/gambas3/control/gb.form.editor/*
 }
 
 package_gambas3-gb-form-terminal() {
@@ -270,6 +271,17 @@ package_gambas3-gb-form-terminal() {
 
   _install fakeinstall/usr/lib/gambas3/gb.form.terminal.*
   _install fakeinstall/usr/share/gambas3/info/gb.form.terminal.*
+  _install fakeinstall/usr/share/gambas3/control/gb.form.terminal/*
+
+}
+
+package_gambas3-gb-form-htmlview() {
+  depends=('gambas3-gb-form')
+  pkgdesc="Htmlview component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.form.htmlview*
+  _install fakeinstall/usr/share/gambas3/info/gb.form.htmlview*
+  _install fakeinstall/usr/share/gambas3/control/gb.form.htmlview/*
 }
 
 package_gambas3-gb-form() {
@@ -295,6 +307,14 @@ package_gambas3-gb-gsl() {
 
   _install fakeinstall/usr/lib/gambas3/gb.gsl.*
   _install fakeinstall/usr/share/gambas3/info/gb.gsl.*
+}
+
+package_gambas3-gb-gtk3-opengl() {
+  depends=('gambas3-gb-gtk3' 'gambas3-gb-opengl')
+  pkgdesc="GTK3 toolkit OpenGL component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.gtk3.opengl.*
+  _install fakeinstall/usr/share/gambas3/info/gb.gtk3.opengl.*
 }
 
 package_gambas3-gb-gtk3() {
@@ -413,7 +433,7 @@ package_gambas3-gb-memcached() {
 }
 
 package_gambas3-gb-mime() {
-  depends=('gambas3-runtime' 'gmime')
+  depends=('gambas3-runtime' 'gmime3')
   pkgdesc="MIME message component"
 
   _install fakeinstall/usr/lib/gambas3/gb.mime.*
@@ -770,7 +790,7 @@ package_gambas3-ide() {
   depends=('gambas3-dev-tools' 'gambas3-gb-clipper' 'gambas3-gb-db-form' 'gambas3-gb-desktop' 'gambas3-gb-desktop-x11'
            'gambas3-gb-eval-highlight' 'gambas3-gb-form-dialog' 'gambas3-gb-form-editor' 'gambas3-gb-form-stock'
            'gambas3-gb-markdown' 'gambas3-gb-settings' 'gambas3-gb-form-mdi' 'gambas3-gb-image-effect' 'gambas3-gb-qt5'
-           'gambas3-gb-qt5-webkit' 'gambas3-gb-net-curl' 'gambas3-gb-form-terminal'  'gambas3-gb-signal'
+           'gambas3-gb-qt5-webkit' 'gambas3-gb-net-curl' 'gambas3-gb-form-terminal' 'gambas3-gb-form-htmlview' 'gambas3-gb-signal'
            'gambas3-gb-term' 'gambas3-gb-util')
   pkgdesc="Integrated Development Environment"
   conflicts=('gambas3-examples')

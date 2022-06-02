@@ -2,8 +2,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=ghidra
-pkgver=10.1.1
-_ghidra_data=7d843ec229d43c2d1a8178aaa892be90e37e95a2
+pkgver=10.1.4
 _d2j=2.0
 _yajsw=13.01
 pkgrel=1
@@ -17,13 +16,13 @@ optdepends=('python2: Python feature'
             'pam: GhidraServer support')
 options=('!strip')
 source=(https://github.com/NationalSecurityAgency/ghidra/archive/Ghidra_${pkgver}_build.tar.gz
-        "git+https://github.com/NationalSecurityAgency/ghidra-data#commit=${_ghidra_data}"
+        "git+https://github.com/NationalSecurityAgency/ghidra-data#tag=Ghidra_${pkgver}"
         https://github.com/pxb1988/dex2jar/releases/download/${_d2j}/dex-tools-${_d2j}.zip
         https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/android4me/AXMLPrinter2.jar
         https://sourceforge.net/projects/yajsw/files/yajsw/yajsw-beta-${_yajsw}/yajsw-beta-${_yajsw}.zip)
 noextract=(AXMLPrinter2.jar
            yajsw-beta-${_yajsw}.zip)
-sha512sums=('dea3bf93d80a4bf2d741d6caf4f50a1670db4a5fc915ac7840ec826ddae1b14e80e52efc560e76bcfdbd6a55e688a78bc05c4e93d0c0ef5bd5a777d7f8394d11'
+sha512sums=('53286ed5c112982642c7167bce6c37634a77e185647a3964799aeffbcf5c927489cae146d2649f5c432cc0592eb11b0b46a019bb8c75941dc1f71f23798aa292'
             'SKIP'
             'c4a6c72ea09b58a44fcb8918cfada600467f10f99a02b53d2436ac68295e73c8daf9ba0a8bc7160ba1e28e87f032ee034435ebe40af35b6e2fe9fa4607581358'
             'c1168ec913f1fbb0675915d4fd865ec9a8e8573f6c8aedcb6e68166f61f11aeaececc7548d54d78134843c0102c57d6350973f6d3027d0ffdae52a5c57a7f601'

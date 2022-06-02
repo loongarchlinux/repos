@@ -3,20 +3,21 @@
 # Contributor: Luke Yue <lukedyue@gmail.com>
 
 pkgname=clash
-pkgver=1.8.0
+pkgver=1.10.6
 pkgrel=1
 pkgdesc="A rule based proxy in Go"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/Dreamacro/clash"
 license=('GPL3')
-makedepends=('go' 'git')
+options=('!lto')
 depends=('glibc')
+makedepends=('go' 'git')
 source=("clash@.service"
         "clash_user.service"
         "${pkgname}-${pkgver}.tar.gz::https://github.com/Dreamacro/clash/archive/v${pkgver}.tar.gz")
 sha512sums=('5b53faea10bba16df98a74fcbffebb6c8b7f8c238999a147bb848b2c30732688813915fd6bc32f44ec6f90024ad29dbde059e70760c91ccea198dd05da52d077'
             '3ae61e1c6f0213ea8c3113c62f27c704f04f657cda8c726c0e487194dd5c1ce36e448f6e22b61aeef65f4a1910a2df62a3798f0cba9bae10c8e80a7cb1cfb7b3'
-            '7da78efaad5f18905bf3be719172cf6270de21c0dfe81fb1d0b918e3c35bf3433595467a3fb28e4d6508b7fa027a18fa2a1356aa0aaa0bef26aaee04ba61aee6')
+            '0bf72eaa90b90756599e5fad89f77c75695fb963463afad136e027b187a51bdd6ae8adcfe4f2fd43254ce16b1c9e67c7f9468a4cb981592f9975fd0b3a2f09a1')
 
 build() {
     export CGO_CPPFLAGS="${CPPFLAGS}"

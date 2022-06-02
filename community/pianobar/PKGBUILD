@@ -4,7 +4,7 @@
 # Contributor: Patrick Palka <patrick@parcs.ath.cx>
 
 pkgname=pianobar
-pkgver=2020.11.28
+pkgver=2022.04.01
 pkgrel=1
 pkgdesc="Console-based frontend for Pandora"
 arch=('loongarch64' 'x86_64')
@@ -13,7 +13,7 @@ license=('MIT')
 depends=('libao' 'ffmpeg' 'curl' 'json-c')
 source=(https://6xq.net/pianobar/$pkgname-$pkgver.tar.bz2{,.asc})
 validpgpkeys=('017D74E27F5856963801781DF663943E08D8092A') # Lars-Dominik Braun <lars@6xq.net>
-sha256sums=('653bfb96b548259e3ac360752f66fdb77e8e220312e52a43c652f7eb96e7d4fe'
+sha256sums=('1670b28865a8b82a57bb6dfea7f16e2fa4145d2f354910bb17380b32c9b94763'
             'SKIP')
 
 build() {

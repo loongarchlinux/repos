@@ -1,30 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dhall-docs
-pkgver=1.0.7
-pkgrel=59
+pkgver=1.0.9
+pkgrel=39
 pkgdesc="Generate HTML docs from a dhall package"
 url="https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-docs"
 license=("BSD")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-cryptonite' 'dhall' 'haskell-file-embed' 'haskell-lens-family-core'
-         'haskell-lucid' 'haskell-megaparsec' 'haskell-memory' 'haskell-mmark'
-         'haskell-optparse-applicative' 'haskell-path' 'haskell-path-io' 'haskell-prettyprinter')
-makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-foldl' 'haskell-hashable' 'haskell-tasty'
-             'haskell-tasty-hunit' 'haskell-tasty-silver' 'haskell-turtle')
+depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-cryptohash-sha256' 'dhall'
+         'haskell-file-embed' 'haskell-lens-family-core' 'haskell-lucid' 'haskell-megaparsec'
+         'haskell-mmark' 'haskell-optparse-applicative' 'haskell-path' 'haskell-path-io'
+         'haskell-prettyprinter')
+makedepends=('ghc' 'haskell-doctest' 'haskell-foldl' 'haskell-tasty' 'haskell-tasty-hunit'
+             'haskell-tasty-silver' 'haskell-turtle')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d8f4eca5add031bebb693a679f536697da0591e7fe0d2cdb50092c352d869cc5c7e8ee51d23629ed70b26302aa36027433ff9ea53f08b65c81a29cf874e041d2')
-
-prepare() {
-  cd $pkgname-$pkgver
-  uusi -u hashable -u megaparsec -u tasty-silver $pkgname.cabal
-}
+sha512sums=('ad03a2b8130f1ecc17e4a647f70e7fdee7e49dc7451f980f090d0364b724ee26ee39ee7e87683e9765bba947371d96b64f4411132d8f8a24d3a169684b10fbf0')
 
 build() {
   cd $pkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir="$pkgname" --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
@@ -38,8 +34,7 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  # https://github.com/dhall-lang/dhall-haskell/issues/2179
-  runhaskell Setup test || echo "Tests failed"
+  runhaskell Setup test --show-details=direct
 }
 
 package() {

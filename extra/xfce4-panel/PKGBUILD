@@ -2,8 +2,8 @@
 # Contributor: tobias <tobias funnychar archlinux.org>
 
 pkgname=xfce4-panel
-pkgver=4.16.3
-pkgrel=2
+pkgver=4.16.4
+pkgrel=1
 pkgdesc="Panel for the Xfce desktop environment"
 arch=('loongarch64' 'x86_64')
 url="https://docs.xfce.org/xfce/xfce4-panel/start"
@@ -13,7 +13,7 @@ depends=('exo' 'garcon' 'libxfce4ui' 'xfconf' 'libwnck3' 'libdbusmenu-gtk3'
          'hicolor-icon-theme' 'desktop-file-utils')
 makedepends=('intltool' 'gobject-introspection' 'vala')
 source=(https://archive.xfce.org/src/xfce/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
-sha256sums=('5934eaed8a76da52c29b734ccd79600255420333dd6ebd8fd9f066379af1e092')
+sha256sums=('1faf51a81a655244dba4c6ac9dd33e3ab0d78a9ee096c218b38fed6642c9cd84')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"

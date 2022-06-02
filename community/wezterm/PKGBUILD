@@ -1,9 +1,9 @@
 # Maintainer:  Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=wezterm
-pkgver=20211205.192649.672c1cc1
-_gitcommit=672c1cc135f7d366f5bd2bd79a428b2f8b2282d1
-pkgrel=1
+pkgver=20220408.101518.b908e2dd
+_gitcommit=b908e2dd8cd27c613c8d76e9e6abc5245e500d7d
+pkgrel=2
 pkgdesc="A GPU-accelerated cross-platform terminal emulator and multiplexer"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/wez/wezterm"
@@ -19,7 +19,10 @@ depends=(
   'xcb-util-image'
   'openssl'
 )
-makedepends=('rust' 'cargo' 'cmake' 'git' 'pkgconf' 'python')
+makedepends=('cargo' 'cmake' 'git' 'pkgconf' 'python' 'libssh2')
+optdepends=(
+  'python-nautilus: WezTerm context menu in Nautilus'
+)
 source=(
   "${pkgname}::git+$url#commit=$_gitcommit"
   "${pkgname}-freetype2::git+https://github.com/wez/freetype2.git"
@@ -32,6 +35,7 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP')
+options=('!lto')
 
 prepare() {
   cd "$pkgname"
@@ -43,21 +47,23 @@ prepare() {
   git config submodule."freetype2".url "${srcdir}/${pkgname}"-freetype2
 
   git submodule update --init --recursive
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd "$pkgname"
-	cargo build --frozen --release
+  export RUSTUP_TOOLCHAIN=stable
+  cargo build --frozen --release
 }
 
 check() {
   cd "$pkgname"
+  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen -- --skip "e2e::sftp"
 }
 
 package() {
-	cd "$pkgname"
+  cd "$pkgname"
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 755 "target/release/$pkgname-gui" -t "$pkgdir/usr/bin"
   install -Dm 755 "target/release/$pkgname-mux-server" -t "$pkgdir/usr/bin"
@@ -65,6 +71,7 @@ package() {
   install -Dm 644 "assets/icon/terminal.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/org.wezfurlong.$pkgname.png"
   install -Dm 644 "assets/$pkgname.desktop" "$pkgdir/usr/share/applications/org.wezfurlong.$pkgname.desktop"
   install -Dm 644 "assets/$pkgname.appdata.xml" "$pkgdir/usr/share/metainfo/org.wezfurlong.$pkgname.appdata.xml"
+  install -Dm 644 "assets/$pkgname-nautilus.py" "$pkgdir/usr/share/nautilus-python/extensions/$pkgname-nautilus.py"
   install -Dm 644 assets/shell-integration/* -t "$pkgdir/etc/profile.d"
   install -Dm 644 LICENSE.md -t "$pkgdir/usr/share/licenses/$pkgname"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"

@@ -1,12 +1,8 @@
- Makefile.am  | 2 --
- configure.ac | 4 +---
- 2 files changed, 1 insertion(+), 5 deletions(-)
-
-diff --git c/Makefile.am i/Makefile.am
-index e93714e4..effe5d3d 100644
---- c/Makefile.am
-+++ i/Makefile.am
-@@ -137,9 +137,7 @@ else
+diff --git i/Makefile.am w/Makefile.am
+index 83e73c38..8cb853c7 100644
+--- i/Makefile.am
++++ w/Makefile.am
+@@ -141,9 +141,7 @@ else
  CARGO_RELEASE_ARGS=--release
  endif
  
@@ -16,11 +12,11 @@ index e93714e4..effe5d3d 100644
  
  CARGO_VERBOSE = $(cargo_verbose_$(V))
  cargo_verbose_ = $(cargo_verbose_$(AM_DEFAULT_VERBOSITY))
-diff --git c/configure.ac i/configure.ac
-index 41590ca9..84cd56bd 100644
---- c/configure.ac
-+++ i/configure.ac
-@@ -255,9 +255,7 @@ AC_ARG_VAR(RUST_TARGET, [Set rust target (default=$host)])
+diff --git i/configure.ac w/configure.ac
+index 9abc587e..d3be718f 100644
+--- i/configure.ac
++++ w/configure.ac
+@@ -278,9 +278,7 @@ AC_ARG_VAR(RUST_TARGET, [Set rust target (default=$host)])
  : ${RUST_TARGET:=$host}
  
  AM_CONDITIONAL([CROSS_COMPILING], [test "x$cross_compiling" = xyes])

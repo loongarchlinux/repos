@@ -3,8 +3,8 @@
 
 _hkgname=streaming-commons
 pkgname=haskell-streaming-commons
-pkgver=0.2.2.2
-pkgrel=2
+pkgver=0.2.2.4
+pkgrel=19
 pkgdesc="Common lower-level functions needed by various streaming data libraries"
 url="https://github.com/fpco/streaming-commons"
 license=("MIT")
@@ -12,13 +12,13 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-network' 'haskell-random' 'haskell-zlib')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e6ac0ed127e2fa53e6f61c77c784ece23cbd76aebe5694ed8e4ebe1a97be84ccbce51e548c10ba6f0e4540cd3278e4f3460d888f835ce82276d0a16c1965db5b')
+sha512sums=('e552bba766e5b816cbd448d1cec86c5c7593f3f13c6da42c74ebf2c9698be3a3174dd922cf70de1b4940b53e580f396a51cebff6b62db305fb0fb48a5c7658bb')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
             -f-use-bytestring-builder
     runhaskell Setup build $MAKEFLAGS

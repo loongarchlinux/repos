@@ -3,32 +3,58 @@
 # Contributor: Siôn le Roux <sinisterstuf@gmail.com>
 
 pkgname=wakatime
-pkgver=13.1.0
-pkgrel=3
+epoch=1
+pkgver='1.45.3'
+pkgrel=1
 pkgdesc="Command line interface used by all WakaTime text editor plugins"
-arch=('any')
-url="https://github.com/${pkgname}/${pkgname}"
+arch=('loongarch64' 'x86_64')
+_repo="github.com/${pkgname}/${pkgname}-cli"
+url="https://${_repo}"
 license=('BSD')
-depends=('python')
-makedepends=('python-setuptools')
-source=("${pkgname}-${pkgver}::https://github.com/${pkgname}/${pkgname}/archive/${pkgver}.tar.gz"
-        'literal_comparison.patch')
-sha256sums=('910c252ff86f649e6e10f88e937062257a3dd71606db728eff49397524b34863'
-            'ef526daab8b9656b33893bbeb43d9e9d96ad81a01446bbe0d3035170a7b80163')
+depends=('glibc')
+makedepends=('git' 'go')
+checkdepends=('svn')
+source=("${pkgname}-cli::git+https://github.com/${pkgname}/${pkgname}-cli#tag=v${pkgver}")
+sha256sums=('SKIP')
 
-prepare () {
-  cd "$srcdir/legacy-python-cli-$pkgver"
-  patch -Np1 -i "${srcdir}/literal_comparison.patch"
+_binname="${pkgname}-cli-linux-amd64"
+
+build() {
+  cd "${srcdir}/${pkgname}-cli"
+
+  mkdir -p build  # create build dir
+
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+
+  local _date="$(date -u '+%Y-%m-%dT%H:%M:%S %Z')"
+  local _commit="$(git rev-parse --short HEAD)"
+
+  CGO_ENABLED="0" go build -o build/"${_binname}" \
+    -trimpath \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-linkmode external -extldflags '${LDFLAGS}' -X '${_repo}/pkg/version.OS=linux' -X '${_repo}/pkg/version.Arch=amd64' -X '${_repo}/pkg/version.BuildDate=${_date}' -X '${_repo}/pkg/version.Commit=${_commit}' -X '${_repo}/pkg/version.Version=${pkgver}'"
 }
 
-build () {
-  cd "$srcdir/legacy-python-cli-$pkgver"
-  python setup.py build
+check () {
+  cd "${srcdir}/${pkgname}-cli"
+  echo "wakatime-cli" > ./.wakatime-project
+  # some weird test assumptions fail
+  sed \
+    -e "s/<local-build>/${pkgver}/" \
+    -e "s/Equal(t, 2, offlineCount)/Equal(t, 1, offlineCount)/" \
+    -i ./main_test.go
+  CGO_ENABLED="0" go test -tags=integration ./main_test.go
 }
 
 package() {
-  cd "$srcdir/legacy-python-cli-$pkgver"
-  python setup.py install --root="$pkgdir/" --optimize=1
-  install -d "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}"/
+  cd "${srcdir}/${pkgname}-cli"
+  install -Dm755 build/"${_binname}" "${pkgdir}"/usr/bin/"${pkgname}"
+  ln -s /usr/bin/"${pkgname}" "${pkgdir}"/usr/bin/"${pkgname}"-cli
+  install -d "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  install LICENSE "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
 }

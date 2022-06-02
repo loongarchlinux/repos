@@ -1,32 +1,31 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=new-session-manager
-pkgver=1.5.1
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="Audio session manager"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://github.com/jackaudio/new-session-manager"
-license=('GPL3')
-depends=('gcc-libs' 'glibc')
-makedepends=('fltk' 'jack' 'liblo' 'meson')
+license=(GPL3)
+depends=(gcc-libs glibc)
+makedepends=(fltk jack liblo meson)
 optdepends=('fltk: for nsm-legacy-gui')
-provides=('non-session-manager')
-conflicts=('non-session-manager')
-replaces=('non-session-manager')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/jackaudio/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('b7bcc9f150caf7915d62904bca53b87ebac5802e50b204af3c3ae1f5d6f0b20d1bc5f50d54dae79c5263de29b849ff443f4d2d61caa01e75def4dc08d3a3ce63')
-b2sums=('ec7fb7c7b729753aba5a1102f92131fe5564b0df3b35a79a86b64b370f3f4ea9c054a51b671b764356357ff85a8fcbaa05ef5f847ea3963cdfa31e1ebce6487b')
+provides=(non-session-manager)
+conflicts=(non-session-manager)
+replaces=(non-session-manager)
+options=(debug)
+source=($pkgname-$pkgver.tar.gz::https://github.com/jackaudio/$pkgname/archive/v$pkgver.tar.gz)
+sha512sums=('1d4bf373e879104261ef3035fe7f62dafe22e2114ccec3b5739f075df106509f321f8caf137880874e86ea070b263e3021d4bac969209cec42337e44e6a4bd88')
+b2sums=('9ba7a2ecfd17cfc74bfac74704398cc199b0a92e6b87381ec9229a61d6a96f376da9563c6f58eb4d937821bf27739772cf138f5279327a6ffa339a72f12dcfcf')
 
 build() {
-  cd "$pkgname-$pkgver"
-  arch-meson build
+  arch-meson build $pkgname-$pkgver
   ninja -C build
 }
 
 package() {
-  depends+=('libjack.so' 'liblo.so')
-  cd "$pkgname-$pkgver"
-  DESTDIR="${pkgdir}" meson install -C build
-  install -vDm 644 {CHANGELOG,README.md} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  depends+=(libjack.so liblo.so)
+
+  DESTDIR="$pkgdir" meson install -C build
+  install -vDm 644 $pkgname-$pkgver/{CHANGELOG,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
 }

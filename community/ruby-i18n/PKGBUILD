@@ -2,50 +2,52 @@
 
 _name=i18n
 pkgname=ruby-i18n
-pkgver=1.8.11
+pkgver=1.10.0
 pkgrel=1
 pkgdesc="New wave internationalisation support for Ruby"
-arch=('any')
+arch=(any)
 url="https://github.com/ruby-i18n/i18n"
-license=('MIT')
-depends=('ruby' 'ruby-activesupport' 'ruby-json' 'ruby-mocha')
-makedepends=('ruby-bundler' 'ruby-rake' 'ruby-rdoc')
-# # TODO: package ruby-pry
-# checkdepends=('ruby-minitest' 'ruby-test_declarative')
+license=(MIT)
+depends=(ruby ruby-concurrent)
+makedepends=(ruby-rdoc)
+checkdepends=(ruby-bundler ruby-activesupport ruby-json ruby-minitest ruby-mocha ruby-rake ruby-test_declarative)
 options=(!emptydirs)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ruby-i18n/${_name}/archive/v${pkgver}.tar.gz")
-sha512sums=('af8fcc307de9959b5a01a79ac3c99d3a3573630f8cdf91c21208e07d35d1a0db60f4995f1b77921c5374a1a19ad66770a107cc41fb29cf480d02be00bf90634a')
-b2sums=('e603077c6eb02f6fd89bafd6c06f85c72528d5eb4388854f060f05a4b49a3782a3830366a1f11bd95b191048f29fae251002a34d55cb185ecefb3afc06bb2f36')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$_name/archive/v$pkgver.tar.gz")
+sha512sums=('efbe3c0c21d84c0ad69bda4a6f46a2106b3d20470b7d06fb2e62a063ac9d4047e38098b69ed30a5d892331d63aaf75e0bc29ffa5ae1d14ab066d47cccfe342fc')
+b2sums=('0675af73a52eba29ead397623d602f9eec60ff21953e5f23ee986fa5506a3296d7f54e88ea8d30cd6ccf9eefdcb589bfd798e2ac2a76f5d93d44c47b9dbe0f49')
 
 prepare() {
-  mv -v "${_name}-${pkgver}" "${pkgname}-${pkgver}"
-  cd ${pkgname}-${pkgver}
+  cd $_name-$pkgver
+
   # we don't do version pinning
-  sed -r 's|~>|>=|g' -i "${_name}.gemspec" Gemfile
+  sed -r 's|~>|>=|g' -i $_name.gemspec
+
+  # we can not rely on Gemfiles as they usually contain all sorts of development dependencies as well
+  rm -v Gemfile
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
-  gem build "${_name}.gemspec"
+  cd $_name-$pkgver
+  gem build $_name.gemspec
 }
 
-# # TODO: package ruby-pry
-# check(){
-#   cd "${pkgname}-${pkgver}"
-#   rake test
-# }
+check(){
+  cd $_name-$pkgver
+  rake test
+}
 
 package() {
-  cd "${pkgname}-${pkgver}"
   local _gemdir="$(gem env gemdir)"
+
+  cd $_name-$pkgver
   gem install --ignore-dependencies \
               --no-user-install \
-              -i "${pkgdir}/${_gemdir}" \
-              -n "${pkgdir}/usr/bin" \
-              ${_name}-${pkgver}.gem
-  install -vDm 644 MIT-LICENSE \
-    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  cd "${pkgdir}/${_gemdir}"
-  rm -rvf cache gems/${_name}-${pkgver}/{ext,lib/*/*.so} \
-    extensions/*/*/${_name}-${pkgver}/{mkmf.log,gem_make.out}
+              -i "$pkgdir/$_gemdir" \
+              -n "$pkgdir/usr/bin" \
+              $_name-$pkgver.gem
+
+  install -vDm 644 MIT-LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+  cd "$pkgdir/$_gemdir"
+  rm -rvf cache gems/$_name-$pkgver/{ext,lib/*/*.so} extensions/*/*/$_name-$pkgver/{mkmf.log,gem_make.out}
 }

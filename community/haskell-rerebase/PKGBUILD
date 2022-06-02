@@ -3,22 +3,27 @@
 
 _hkgname=rerebase
 pkgname=haskell-rerebase
-pkgver=1.13.0.1
-pkgrel=47
+pkgver=1.15.0.3
+pkgrel=20
 pkgdesc='Reexports from "base" with a bunch of other standard libraries'
 url="https://github.com/nikita-volkov/rerebase"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-rebase')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('3e59d4961a6722d53a81431b4667700da77be6b52cd84e0d45316df04b0517f4bafab69fa532d1094219a48f1e8bda5821044d66b8de8d5a72766e8aeb2bffa0')
+sha512sums=('7887c40a92a84df9361e7745c001476d6e0984c9da973f841feb3f6a413062d16a5dfe4be3171ee8d0bb96a9554384e831a1a4217eef764b97c726051c22ae1f')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

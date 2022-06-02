@@ -5,37 +5,31 @@
 # Contributor: Daniel YC Lin <dlin.tw at gmail>
 # Contributor: Florian Bruhin <archlinux.org@the-compiler.org>
 
-_pkgbase='websocket-client'
-pkgname=python-$_pkgbase
-pkgver=0.59.0
-pkgrel=3
+pkgname=python-websocket-client
+pkgver=1.3.2
+pkgrel=1
 pkgdesc="WebSocket client library for Python"
 arch=('any')
-url="https://github.com/$_pkgbase/$_pkgbase"
+url="https://github.com/websocket-client/websocket-client"
 license=('LGPL')
-depends=('python-six')
+depends=('python')
 makedepends=('python-setuptools')
-checkdepends=('python-pysocks')
-source=("https://pypi.io/packages/source/w/$_pkgbase/$_pkgbase-$pkgver.tar.gz")
-sha512sums=('c7f4a0336093de86fd00828049a836477a3c859cc4bddebd9e7d31eb746dab4de8fa11205a5fb182e5df3590964aa73f279310575dfabc4abc32157e80df42b1')
-
-prepare() {
-  # Not sure why the conditions are not working :/
-  sed -i "s/'backports.ssl_match_hostname'//" $_pkgbase-$pkgver/setup.py
-}
+checkdepends=('python-pytest')
+source=("https://pypi.io/packages/source/w/websocket-client/websocket-client-$pkgver.tar.gz")
+sha512sums=('c2a38aa3fff0e7f94433cec1939ce75074d9f89d403c0627f34e3a0486dc35fe00230ba7c05f9172a89d3ee49f0ef53ae367eca864f34ec95932966b31d6c3a8')
 
 build() {
-  cd $_pkgbase-$pkgver
+  cd websocket-client-$pkgver
   python setup.py build
 }
 
 check() {
-  cd $_pkgbase-$pkgver
-  python setup.py test
+  cd websocket-client-$pkgver
+  pytest
 }
 
 package() {
-  cd $_pkgbase-$pkgver
+  cd websocket-client-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

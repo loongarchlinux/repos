@@ -1,42 +1,59 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-pkgname=libtracefs
-pkgver=1.2.5
+pkgbase=libtracefs
+pkgname=(libtracefs libtracefs-docs)
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="Linux kernel trace file system library"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/about/"
-license=('GPL2' 'LGPL2.1')
-depends=('glibc')
-makedepends=('asciidoc' 'libtraceevent' 'xmlto')
-provides=('libtracefs.so')
-source=("$pkgname-$pkgver.tar.gz::https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/${pkgname}-${pkgver}.tar.gz"
-        "$pkgname-1.2.0-docs_makefile.patch"
-        "$pkgname-1.2.0-full_relro.patch")
-noextract=()
-sha512sums=('138951c7b4b0a8e08b38529177cfa440f48f6b9a352809de71e5b2d302c10f9f814405f6cc0c2fe89d4efa3c3c1da95e933fcf048fdb25c51d440e095d9b6bd2'
-            'bdfffba9957d889c60baea9c197709bf1a62d30ac4b8fd47d930b8d5b67fa040817b9a835e226dd1201f2ccdb7fcb43a12093c2b559fb6c0edc3e9ba167062c2'
-            '2956c79c3a5952bbe1f2b67df3adb0d6ce83c7cf4220811e7b88a133062cd6e2c238c58a6f82c140adb66ed27a6d4a4a40916ea9dc171ae7d747dbfcb98eac25')
-b2sums=('d06bbb2ea4269e03b142fd12056e2bca6008d64a3e40e5b521f2da0214db5b0768e71203b59784c1f1a0adc9d2b7450536d40d1edf032e9012dc4d8be98c6f21'
-        '1340af2c65dc344912715c69827d5849fda83e4bcf136da3ccdbee4e3b508e9b557af0828914dff8d27abebbdbdab975d8800432d5252b6b1eb0da08b0cb4b02'
-        'f7d3982f927bfd9a4125d88aa4ffc9a4d4477d6e3867a29e596bf59791789e974a50fe6b648d7f650134310d3823f7f3b8af7c113bc52b582a11637b9752c468')
+license=(GPL2 LGPL2.1)
+makedepends=(asciidoc libtraceevent xmlto)
+provides=(libtracefs.so)
+options=(debug)
+source=(
+  $pkgname-$pkgver.tar.gz::https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/$pkgname-$pkgver.tar.gz
+  $pkgname-1.2.0-docs_makefile.patch
+)
+sha512sums=('d25d666a1be9fc6c9d04afc8701891c34faa5877c6af571c4942c883bdc7d8504d732f937f0182ecdc2bae6c88737880b1ad563e6d27e32a48492ba1542adcff'
+            'bdfffba9957d889c60baea9c197709bf1a62d30ac4b8fd47d930b8d5b67fa040817b9a835e226dd1201f2ccdb7fcb43a12093c2b559fb6c0edc3e9ba167062c2')
+b2sums=('c8f9a538da2a1ca489d4affdb34312a7dc846ab2a489ec70f8aa3caed1c3139b9b3e9d5a965da7d050dc793bd01867cae8c0baa2880c7e62fea703f867de32dd'
+        '1340af2c65dc344912715c69827d5849fda83e4bcf136da3ccdbee4e3b508e9b557af0828914dff8d27abebbdbdab975d8800432d5252b6b1eb0da08b0cb4b02')
+
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  patch -Np 1 -i ../"$pkgname-1.2.0-docs_makefile.patch"
-  patch -Np 1 -i ../"$pkgname-1.2.0-full_relro.patch"
+  patch -d $pkgname-$pkgver -Np 1 -i ../$pkgname-1.2.0-docs_makefile.patch
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  make LDFLAGS="$LDFLAGS"
-  make doc
+  make LDFLAGS="$LDFLAGS" -C $pkgname-$pkgver
+  make doc -C $pkgname-$pkgver
 }
 
-package() {
-  depends+=('libtraceevent.so')
+package_libtracefs() {
+  depends+=(glibc libtraceevent.so)
+  optdepends=('libtracefs-docs: for documentation')
 
-  cd "$pkgname-$pkgver"
-  make libdir_relative=lib prefix=/usr DESTDIR="$pkgdir/" install
-  make libdir_relative=lib prefix=/usr DESTDIR="$pkgdir/" install -C Documentation
+  make libdir_relative=lib prefix=/usr DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
+  make libdir_relative=lib prefix=/usr DESTDIR="$pkgdir/" install -C $pkgname-$pkgver/Documentation
+
+  (
+    cd "$pkgdir"
+    _pick libtracefs-docs usr/share/doc
+  )
+}
+
+package_libtracefs-docs() {
+  pkgdesc+=" - documentation"
+
+  mv -v $pkgname/* "$pkgdir"
 }

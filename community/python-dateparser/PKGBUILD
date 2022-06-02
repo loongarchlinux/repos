@@ -2,14 +2,15 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=python-dateparser
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Python parser for human readable dates'
 url=https://github.com/scrapinghub/dateparser
 arch=(any)
 license=(BSD)
 depends=(
   python-dateutil
+  python-pytz
   python-regex
   python-tzlocal
   python-ruamel-yaml
@@ -18,7 +19,7 @@ makedepends=(
   git
   python-setuptools
 )
-_tag=507dc6dd775429d89481083db57d56851b704744
+_tag=89b7fda98c6093648a15db5511e48503ea6a43b7
 source=(git+https://github.com/scrapinghub/dateparser.git#tag=${_tag})
 sha256sums=(SKIP)
 

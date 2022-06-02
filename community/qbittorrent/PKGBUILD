@@ -1,5 +1,5 @@
-# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
-# Contributor: Antonio Rojas <arojas@archlinux.org>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: Timothy Redaelli <timothy.redaelli@gmail.com>
 # Contributor: carstene1ns <arch carsten-teibes de> - http://git.io/ctPKG
 # Contributor: Jkkyll Wu <adaptee at gmail [dot] com>
@@ -9,55 +9,51 @@
 
 pkgbase=qbittorrent
 pkgname=(qbittorrent qbittorrent-nox)
-pkgver=4.3.9
+pkgver=4.4.3.1
 pkgrel=2
-arch=('loongarch64' 'x86_64')
-url="https://www.qbittorrent.org"
-license=('custom' 'GPL')
-depends=('libtorrent-rasterbar' 'qt5-base')
-makedepends=('boost' 'qt5-tools' 'qt5-svg')
+arch=(loongarch64 x86_64)
+url='https://www.qbittorrent.org'
+license=(custom GPL)
+depends=(libtorrent-rasterbar qt6-base)
+makedepends=(cmake boost qt6-tools qt6-svg)
 optdepends=('python: needed for torrent search tab')
-source=("https://downloads.sourceforge.net/sourceforge/qbittorrent/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('19cff24f08306eda77d944f0388ffb192a6650089925a71142bd68c854f9493846008b02b155dedab0192eb975fdeeaba762d210478d5179f6ab7ba6aabe6a64'
-            'SKIP')
-b2sums=('1f0427bb5cf31237577e8bfa3270c33797b4e1239a69cf943ea829d6a414f738e8404cdbfa2bbd08734c496f11b9adea811799fe7e6824d7d007e6beb69b62a4'
-        'SKIP')
+source=(https://downloads.sourceforge.net/sourceforge/qbittorrent/${pkgname}-${pkgver}.tar.xz{,.asc}
+        https://github.com/qbittorrent/qBittorrent/commit/73bce485.patch)
+sha256sums=('b64559ca50b54bc6c5be17302e69f34fba8433059842aa4093865dc2c00d24c8'
+            'SKIP'
+            'ba43c4cb27065a75555fb9d88e63cadbc4db6d397e6486617da72244b713602b')
 validpgpkeys=('D8F3DA77AAC6741053599C136E4A2D025B7CC9A2') # sledgehammer999 <sledgehammer999@qbittorrent.org>
+options=(debug)
+
+prepare() {
+  patch -d $pkgbase-$pkgver -p1 < 73bce485.patch # Fix retrieving RSS feeds
+}
 
 build() {
-  cd ${pkgbase}-${pkgver}
+  cmake -B build -S $pkgbase-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT6=ON
+  cmake --build build
 
-  # tell qmake not to break makepkg's debug/!strip options
-  export QBT_ADD_CONFIG='nostrip'
-
-  mkdir -p ${pkgbase}
-  pushd ${pkgbase}
-  ../configure --prefix=/usr
-  make
-  popd
-
-  # Build nox variant
-  mkdir -p "${pkgbase}-nox"
-  pushd "${pkgbase}-nox"
-  ../configure --prefix=/usr --disable-gui --enable-systemd
-  make
+  cmake -B build-nox -S $pkgbase-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT6=ON \
+    -DGUI=OFF \
+    -DSYSTEMD=ON
+  cmake --build build-nox
 }
 
 package_qbittorrent() {
-  pkgdesc="An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar."
-  depends+=('qt5-svg' 'hicolor-icon-theme')
+  pkgdesc='An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar'
+  depends+=(qt6-svg hicolor-icon-theme)
 
-  cd ${pkgbase}-${pkgver}/${pkgbase}
-
-  make INSTALL_ROOT="${pkgdir}" install
-  install -Dm644 "${srcdir}"/${pkgbase}-${pkgver}/COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/COPYING
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $pkgbase-$pkgver/COPYING -t "$pkgdir"/usr/share/licenses/$pkgname
 }
 
 package_qbittorrent-nox() {
-  pkgdesc="An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar, w/o gui"
+  pkgdesc='An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar, w/o gui'
 
-  cd ${pkgbase}-${pkgver}/${pkgbase}-nox
-
-  make INSTALL_ROOT="${pkgdir}" install
-  install -Dm644 "${srcdir}"/${pkgbase}-${pkgver}/COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/COPYING
+  DESTDIR="$pkgdir" cmake --install build-nox
+  install -Dm644 $pkgbase-$pkgver/COPYING -t "$pkgdir"/usr/share/licenses/$pkgname
 }

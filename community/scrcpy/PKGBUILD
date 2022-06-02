@@ -2,7 +2,7 @@
 # Contributor: Andrew Rabert <ar@nullsum.net>
 
 pkgname=scrcpy
-pkgver=1.21
+pkgver=1.23
 pkgrel=2
 pkgdesc='Display and control your Android device'
 arch=(loongarch64 x86_64)
@@ -12,8 +12,8 @@ depends=(android-tools ffmpeg sdl2)
 makedepends=(meson)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$url/releases/download/v$pkgver/$pkgname-server-v$pkgver")
-b2sums=('c7228ada86c41f2ba460759ad0701a08a11a71992b517366afa5130a3c69fc01d5aabf6710e289e47a7042bd11bfb58482305214ee937191daa43ffb6c12788a'
-        '92d90606a04adb67ac956feffb4ff2e658d294304d0bade42d08660bac312cb447a713f052d353ba9fa454a55fac5334a08fe7a847f758c27bf50589ab0926b5')
+b2sums=('3081c02ba43a7c1d089ea1908323591b737515c7708c64162393b6d16eb2916931218aaef8d0a1ed13d04b6ce83a074e266174919751deee8ffb5290d382a398'
+        '909cd015e5acddffe93ecac1bb2f1e022cb30a21edfef02565879db6763035c759ea8d3b274a0d0d7aeec8da7d66c5eafe3c443f6e178e645a88f782882d42ca')
 
 build() {
   mkdir -p build
@@ -22,11 +22,11 @@ build() {
     -D b_lto=true \
     -D b_ndebug=true \
     -D prebuilt_server="../$pkgname-server-v$pkgver"
-  ninja -v -C build
+  ninja -C build
 }
 
 package() {
   DESTDIR="$pkgdir" ninja -C build install
-  install -Dm644 $pkgname-$pkgver/LICENSE \
-    -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 $pkgname-$pkgver/LICENSE -t \
+    "$pkgdir/usr/share/licenses/$pkgname"
 }

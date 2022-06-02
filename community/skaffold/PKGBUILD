@@ -4,7 +4,7 @@
 # Contributor: Stefan Cocora <stefan dot cocora at gmail dot com>
 
 pkgname=skaffold
-pkgver=1.35.1
+pkgver=1.36.0
 pkgrel=1
 pkgdesc="A command line tool that facilitates continuous development for Kubernetes applications"
 arch=("loongarch64" "x86_64")
@@ -20,9 +20,9 @@ optdepends=(
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/GoogleContainerTools/${pkgname}/archive/v${pkgver}.tar.gz"
 )
-sha256sums=('870b420c8f8decca4d5b44c93749658c9adb24b7b577dbc35a53461909521e92')
-b2sums=('e51496ba8a8c19d6c580812a68fac193c2593ed5ab2dfe585c5f09ec4138b7b6d20a9d2318ab470b048c39200205ad73da5ef27d39e344cb910ed704c30d5c8c')
-_commit="bfc618edd22b577fff49a467588f0b87f3cac3e5"
+sha256sums=('0e6c3891e7d62d023094c7d985fe5aac86f07ed1e229817d0041d8646b3de833')
+b2sums=('2729d812366330d32f6d9f484654fac9a5a9098781d553c03d98ca79450dcd9061d503b9a3cac8257dc50122bf54587c7503fc53daec417cfc470f5a4e8ee342')
+_commit="189a55291c18ac850277134d2b8f3eaa2c4f7a1d"
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"

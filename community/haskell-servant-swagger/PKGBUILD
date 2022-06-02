@@ -4,7 +4,7 @@
 _hkgname=servant-swagger
 pkgname=haskell-servant-swagger
 pkgver=1.1.10
-pkgrel=206
+pkgrel=265
 pkgdesc="Generate Swagger specification for your servant API."
 url="https://github.com/haskell-servant/servant-swagger"
 license=("BSD")
@@ -24,14 +24,14 @@ prepare() {
     cd $_hkgname-$pkgver
     # https://github.com/haskell-servant/servant-swagger/issues/129
     patch -p1 -i ../$_hkgname-fragment-instance.patch
-    uusi -u base -u doctest -u lens -u hspec $_hkgname.cabal
+    uusi -u base -u base-compat -u doctest -u lens -u hspec $_hkgname.cabal
 }
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

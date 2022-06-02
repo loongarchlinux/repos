@@ -3,7 +3,8 @@
 # Contributor: Martchus <martchus@gmx.net>
 
 pkgname=libfilezilla
-pkgver=0.35.0
+epoch=1
+pkgver=0.37.2
 pkgrel=1
 pkgdesc='Small and modern C++ library, offering some basic functionality to build high-performing, platform-independent programs'
 url='https://lib.filezilla-project.org/'
@@ -14,8 +15,8 @@ makedepends=(clang)
 checkdepends=('cppunit')
 provides=('libfilezilla.so')
 source=(https://download.filezilla-project.org/libfilezilla/libfilezilla-${pkgver}.tar.bz2)
-sha512sums=('685ed22ab8e4c197f26488751bac2b28e72e5dddce0fce4795afabe59a9c1c7775ac92958ad9c15b0717a8e9f4cf4bf44eee61179d8a2194cbc11a7e2564a5c4')
-b2sums=('3b7e54a5c999ca7a52d90bdc71a237940c7909ff2ca63c28e0ed76e743a15209cfddd66d0de54c157b42524a460079f05cc3af93a54d4b76c2d44e623bab23fe')
+sha512sums=('a8902977bae5f442045faa8a68c2f85e667a2371b1e643fde49e592fa9544b0a672c476246b01b2ba7b52390b37b0f1f33e5196be4499eddf5783f225091c93a')
+b2sums=('8ff4bee0c007c2c527d172bef8a6efd4e3238e9a265d75d5a8bcc50a204e0fcef09876f112d7eacd4df4f4cf6551361e99646dd7729ab09774a7416440c5ee06')
 
 build() {
   cd ${pkgname}-${pkgver}

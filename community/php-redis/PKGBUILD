@@ -3,8 +3,8 @@
 _name=redis
 _upstream=phpredis
 pkgbase=php-redis
-pkgname=('php-redis' 'php7-redis')
-pkgver=5.3.5
+pkgname=(php-redis php7-redis)
+pkgver=5.3.7
 pkgrel=1
 pkgdesc="An API for communicating with the Redis key-value store"
 arch=(loongarch64 x86_64)
@@ -15,8 +15,8 @@ makedepends=(liblzf php-igbinary php7-igbinary)
 checkdepends=(lsof redis)
 optdepends=('redis: use a local redis instance')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/${_upstream}/${_upstream}/archive/${pkgver}.tar.gz")
-sha512sums=('4114d1e8b7c19b4ad04e078a01fc8666c029ada49ad7807f7aebc40ca849ca901ed2b55636d7e7528c0ac1d3d37b73839b60e89661959e46714477857b289b0b')
-b2sums=('6624b049ef3381904fbdb77e478bd6a743129d0ecdbbb3ad508c63a8fb1db070576dca6ffa6bd4e63f05a5081d338b28515311879c73972afd4445fd8a7a3c43')
+sha512sums=('394ad0d5a45e2f985a1622ab9ceca55fb0b8e5ee0631a8dd763984611260e55de43bea308710569fa360ee88e02791e9b28ecaea26f2b770dc168a82a2afb4b3')
+b2sums=('32fbc8e716078ad8f08f3383042e7877aad50e7232425fb2fdae8e397e8750d2a06cc7311bd7962e6df39f3a5caf5748953dcf70de4f919ec58cd9d3ec4390a3')
 
 prepare() {
   mv -v "${_upstream}-${pkgver}" "$pkgbase-$pkgver"

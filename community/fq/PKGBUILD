@@ -2,16 +2,17 @@
 # Contributor: Daniel Milde <daniel at milde dot cz>
 
 pkgname=fq
-pkgver=0.0.2
-pkgrel=2
+pkgver=0.0.7
+pkgrel=1
 pkgdesc="Tool, language and decoders for inspecting binary data"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/wader/fq"
 license=('MIT')
 depends=('glibc')
+checkdepends=('expect')
 makedepends=('go' 'git')
 source=(${pkgname}-${pkgver}.tar.gz::"${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('1bb7b968ba4ffe6f0dc8b080a2051719caebb96c244606468aecb2786640937b')
+sha256sums=('6a59c62ea95f070e97e0d9c43ecb780e525e304c88e6474b775d51f731d6d353')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -32,7 +33,7 @@ build() {
 
 check() {
   cd "${pkgname}-${pkgver}"
-  go test ./...
+  make test
 }
 
 package() {

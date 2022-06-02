@@ -6,45 +6,34 @@
 # Contributor: Michael Krauss <hippodriver@gmx.net>
 
 pkgname=python-pyparsing
-pkgname=('python-pyparsing' 'python2-pyparsing')
-pkgver=2.4.7
-pkgrel=6
+pkgver=3.0.9
+pkgrel=1
 pkgdesc='General parsing module for Python'
 arch=('any')
 url='https://github.com/pyparsing/pyparsing/'
-makedepends=('python-setuptools' 'python2-setuptools')
 license=('MIT')
+depends=('python')
+makedepends=('python-build' 'python-installer' 'python-flit-core')
+checkdepends=('python-jinja' 'python-railroad-diagrams')
+optdepends=('python-railroad-diagrams: for generating Railroad Diagrams'
+            'python-jinja: for generating Railroad Diagrams')
 source=("https://github.com/pyparsing/pyparsing/archive/pyparsing_$pkgver.tar.gz")
-sha512sums=('c7a546729f86a2b5176e2482b566b9fd715b03e495aaef4d720b21307bb03f385dbc849247f8d266cb3d92be0a83c34ce4995b655ce85318355d5a0d42d6991e')
+sha512sums=('1158f27e31f8eced540217b7234b09005eac416fad74faf59678fdae93fe2f76e0e3b5f4adfd3ceb42c8aef19150950293e989c9a5189741175073eb7a03cd6d')
 
 build() {
   cd pyparsing-pyparsing_$pkgver
-  python setup.py build
-  python2 setup.py build
+  python -m build -nw
 }
 
 check() {
   cd pyparsing-pyparsing_$pkgver
-  python unitTests.py
-  python2 unitTests.py
+  python -m unittest
 }
 
-package_python-pyparsing() {
-  depends=('python')
-
+package() {
   cd pyparsing-pyparsing_$pkgver
-
-  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-}
-
-package_python2-pyparsing() {
-  depends=('python2')
-
-  cd pyparsing-pyparsing_$pkgver
-
-  python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 # vim:set ts=2 sw=2 et:

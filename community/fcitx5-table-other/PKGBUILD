@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-table-other
-pkgver=5.0.6
+pkgver=5.0.9
 pkgrel=1
 pkgdesc="Other tables for Fcitx5"
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL')
 depends=('fcitx5-chinese-addons')
 makedepends=('extra-cmake-modules' 'boost')
 source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
-sha512sums=('aec8c3a60ed3427b389260ed5c5a4f156a8e134b373bab28723efade6886ff3c03acd6c0fbabe003a40d3597fd8baadcf2602e649217ca0245ffb57dd221f817'
+sha512sums=('0abee354d99eb9ee78ba5292d8a5d660ff7b948638da3bf7613500d6edef3a35cd4fa794ea0540d9d22d2d81dc99a2f3d5426e10f55f8c707738678d08900263'
             'SKIP')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 

@@ -6,7 +6,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=python-matplotlib
-pkgver=3.5.1
+pkgver=3.5.2
 pkgrel=1
 pkgdesc="A python plotting library, making publication quality plots"
 arch=(loongarch64 x86_64)
@@ -35,14 +35,14 @@ checkdepends=(python-pytest python-pytest-xdist python-pytest-runner python-pyte
               texlive-bin texlive-core texlive-latexextra texlive-pictures ghostscript inkscape ffmpeg imagemagick
               gtk4 python-cairo python-cairocffi python-gobject python-pyqt5 pyside2 python-pyqt6 pyside6 python-tornado python-wxpython tk
               jupyter-nbconvert jupyter-nbformat python-ipykernel python-pandas python-pikepdf python-pytz)
-_tag=312c1fb08c5d46aaccaf8b62c8673e4202523e8a # git rev-parse v${pkgver}
-_ftver=2.11.0
+_tag=af8c92817e9c1b5cb51bd060ceb99ed956e714c1 # git rev-parse v${pkgver}
+_ftver=2.12.1
 source=(git+https://github.com/matplotlib/matplotlib.git#tag=${_tag}?signed
-        https://github.com/QuLogic/mpl-images/archive/v3.5.0-with-freetype-${_ftver}/mpl-images-3.5.0-ft${_ftver}.tar.gz
+        https://github.com/QuLogic/mpl-images/archive/v${pkgver}-with-freetype-${_ftver}/mpl-images-${pkgver}-ft${_ftver}.tar.gz
         freetype.patch)
 b2sums=('SKIP'
-        'fed606dcd4d338c6b1c7dd2add58b42b0e819598129618289036dda0499584287315819cce647c35999eb8375875e0488ca20311b03c79cf76dddb2bbdf366ba'
-        '514324b3e17e832d5199eaa6592c05ca662b1164ddc95f16ea076d6a1063b06e6a8fa4eac7740e5f73afbcc9d17244c5cc41373d5787f62cd58eab10249302c9')
+        'b3dc00bd2e2ffb36e8d61ae570dee19a7bf54155fd91d4dc03b3f0ac439466efddc9564a27c44bb3eb9b46b7505cb4920f35c1a2c74a3ab7396a4b7bbbc6a9be'
+        '0f41283060ecd070e04efa51b32321f378fbcd50d2fc3105df517f55ea5b0268f2d4494dd742e463c4790fa18ecdac26e6c6ab6adcaa134cda152a523911ece1')
 validpgpkeys=(23CAB59E3332F94D26BEF0378D86E7FAE5EB0C10) # Elliott Sales de Andrade <quantum.analyst@gmail.com>
 
 prepare() {
@@ -56,10 +56,9 @@ prepare() {
   # Install tests for check()
   sed -i 's|#tests = False|tests = True|' mplsetup.cfg
   # Use appropriate baseline images for tests
-  rm ../mpl-images-3.5.0-with-freetype-${_ftver}/matplotlib/test_streamplot/streamplot_startpoints.*
   for _module in matplotlib mpl_toolkits
   do
-    cp -r ../mpl-images-3.5.0-with-freetype-${_ftver}/${_module}/* lib/${_module}/tests/baseline_images/
+    cp -r ../mpl-images-${pkgver}-with-freetype-${_ftver}/${_module}/* lib/${_module}/tests/baseline_images/
   done
 }
 
@@ -72,10 +71,10 @@ check() {
   cd matplotlib
   python -m venv --system-site-packages test-env
   test-env/bin/python setup.py install --skip-build
-  # test_ipynb: https://github.com/matplotlib/matplotlib/issues/21654
-  # test_pcolornearestunits: https://github.com/matplotlib/matplotlib/issues/21271
+  # test_ipynb: https://github.com/matplotlib/matplotlib/issues/21654 fixed but `ModuleNotFoundError: No module named 'matplotlib'`
+  # test_cross_Qt_imports https://github.com/matplotlib/matplotlib/issues/23004
   xvfb-run -a -s "-screen 0 640x480x24" \
-    test-env/bin/python -m pytest -ra -n auto -v --color=yes --pyargs matplotlib mpl_toolkits.tests -k 'not test_ipynb and not test_pcolornearestunits'
+    test-env/bin/python -m pytest -ra -n auto -v --color=yes --pyargs matplotlib mpl_toolkits.tests -k 'not test_ipynb and not test_cross_Qt_imports'
 }
 
 package() {

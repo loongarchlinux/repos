@@ -1,34 +1,38 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 # Contributor: Thomas Dziedzic < gostrc at gmail >
 # Contributor: Tarmo Heiskanen <turskii@gmail.com>
 
 pkgname=python-flask
-pkgver=2.0.2
-pkgrel=3
+pkgver=2.1.2
+pkgrel=1
 pkgdesc='Micro webdevelopment framework for Python'
 url='http://flask.pocoo.org/'
 arch=('any')
 license=('custom:BSD')
 depends=('python-werkzeug' 'python-jinja' 'python-itsdangerous' 'python-click')
-makedepends=('python-setuptools'  'python-werkzeug' 'python-jinja' 'python-itsdangerous' 'python-click')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+checkdepends=('python-pytest')
+optdepends=(
+  'python-asgiref: async functions and views'
+  'python-dotenv: loading env vars from files'
+)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/pallets/flask/archive/${pkgver}.tar.gz")
-sha512sums=('4f97bacde3f9010adb29c1bd4b415e618cac5f03dd44eb620e7c69224f0809295dcd5a00859b55dd67239889572cff59cb81e0f7e84aa2ac01fe386e3d44e519')
+sha512sums=('f8cb5a2330b0a03f44c33ec1c0561d172639e484e2d2017d5a6ae38d871bbcc210d53dc2cb851c5d5b862a719f3d42ee61834508745e12dd22953f7a9d1f78ce')
 
 build() {
   cd "flask-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd "flask-$pkgver"
-  python setup.py test
+  PYTHONPATH="build/lib" pytest
 }
 
 package() {
   cd "flask-$pkgver"
-
-  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.rst "$pkgdir/usr/share/licenses/$pkgname/LICENSE.rst"
 }
 

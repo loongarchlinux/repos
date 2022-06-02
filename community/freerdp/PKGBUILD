@@ -4,43 +4,48 @@
 
 _name=FreeRDP
 pkgname=freerdp
-pkgver=2.4.1
-pkgrel=2
+pkgver=2.7.0
+pkgrel=1
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://www.freerdp.com/"
-license=('Apache')
-depends=('dbus-glib' 'glibc' 'gstreamer' 'gst-plugins-base-libs' 'libcups'
-'libgssglue' 'libx11' 'libxcursor' 'libxext' 'libxdamage' 'libxfixes'
-'libxkbcommon' 'libxi' 'libxinerama' 'libxkbfile' 'libxrandr' 'libxrender'
-'libxtst' 'openssl' 'pcsclite' 'wayland')
-makedepends=('alsa-lib' 'cmake' 'docbook-xsl' 'ffmpeg' 'icu' 'krb5'
-'libjpeg-turbo' 'libpulse' 'libusb' 'pam' 'systemd-libs' 'xmlto' 'xorgproto')
-provides=('libfreerdp2.so' 'libfreerdp-client2.so' 'libfreerdp-server2'
-'libfreerdp-shadow2.so' 'libfreerdp-shadow-subsystem2.so' 'libwinpr2.so'
-'libwinpr-tools2.so' 'libuwac0.so')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/${pkgname}/${pkgname}/archive/${pkgver}.tar.gz"
-        "$pkgname-2.0.0-manpage_formatting.patch")
-sha512sums=('a02c2fac8f90142b8b7a36e31a720c79d7947c32fc8d4ac1c976e4f01467b3d78c50b00974af1db6e3e61c2c81ac77c1ac9bf889d14e4be084afa18b634e28f0'
+license=(Apache)
+depends=(dbus-glib glibc gstreamer gst-plugins-base-libs libcups libgssglue
+libx11 libxcursor libxext libxdamage libxfixes libxkbcommon libxi libxinerama
+libxkbfile libxrandr libxrender libxtst openssl pcsclite wayland)
+makedepends=(alsa-lib cmake docbook-xsl ffmpeg icu krb5 libjpeg-turbo libpulse
+libusb pam systemd-libs xmlto xorgproto)
+provides=(libfreerdp2.so libfreerdp-client2.so libfreerdp-server2
+libfreerdp-shadow2.so libfreerdp-shadow-subsystem2.so libwinpr2.so
+libwinpr-tools2.so libuwac0.so)
+source=(
+  $pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/$pkgver.tar.gz
+  0001-Merge-stable-2.0.patch
+  $pkgname-2.0.0-manpage_formatting.patch
+)
+sha512sums=('85912b12ff27c02f2d535d4713109ecd1f11944a77b26aa885ea82f211411d9e02de3b6bc2e8e6bfb413ddac300a88f4616e82c2f2aea90112ab2144d5507fbc'
+            '7073e66ff670651c4553fb40d020d8e8883bedf27f898b90d3be33c78aa22efec1ddd030e90b857aeca272b3052d46919299bcb1bd11e7cd86f35fa7f17698f4'
             'd960e042d1527b5d5721136b6b20fc36f65beafd010581ea5b908668537fe9fe622de6689a29c0274b0d6f1e513615f0d02e56c1d1d1e613d093e145d39af8d7')
-b2sums=('19ceb0d7f6b141c9632e1b0ff05fa18772e80d24fb149542f6d365b709f13a8bdd4dee2d647b504f61c9ed4b5806442e8c4ec6f2a876578117fbeb7962b8771d'
+b2sums=('a27c7716f14a8eb0343a9bf84d64fa1395e2969679c66b987c0ca838c2ea15d6301cecad87307032ad13361f0263b52ecf4ec59181d793db1e75e4f6be9d6afd'
+        '52c0cadf9249fcc1ae7bfe7711d29ea35dc1041bd6035c7a02f499b29995a7721ccf8b931052013d2a72e62d5f42bd99e37ff7e57f5440f0df56d4257f134fe0'
         '8242fe56ba9cf5352d836f656645a46142c1aecea3e8200203117a0cccc226135591c16fa0a24cfa196ade7b703832ff6871a948fd3bbbcc1d9c6df9885dc360')
 
 prepare() {
-  mv -v "${_name}-${pkgver}" "${pkgname}-${pkgver}"
-  cd "${pkgname}-${pkgver}"
+  # Advance to stable-2.0 head in order to fix a critical security issue
+  # https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/issues/95
+#  patch -d $_name-$pkgver -p1 -i ../0001-Merge-stable-2.0.patch
+
   # fix man page formatting:
   # https://bugs.archlinux.org/task/64814
-  patch -Np1 -i "../${pkgname}-2.0.0-manpage_formatting.patch"
+  patch -d $_name-$pkgver -p1 -i ../$pkgname-2.0.0-manpage_formatting.patch
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  cmake -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DCMAKE_INSTALL_LIBDIR='lib' \
-        -DCMAKE_BUILD_TYPE='None' \
-        -DPROXY_PLUGINDIR='/usr/lib/freerdp2/server/proxy/plugins' \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_BUILD_TYPE=None \
+        -DPROXY_PLUGINDIR=/usr/lib/freerdp2/server/proxy/plugins \
         -DWITH_DSP_FFMPEG=ON \
         -DWITH_FFMPEG=ON \
         -DWITH_PULSE=ON \
@@ -56,16 +61,15 @@ build() {
         -DCHANNEL_URBDRC_CLIENT=ON \
         -Wno-dev \
         -B build \
-        -S .
+        -S $_name-$pkgver
   make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libasound.so' 'libavcodec.so' 'libavutil.so' 'libicuuc.so'
-  'libjpeg.so' 'libpam.so' 'libpulse.so' 'libswscale.so' 'libswresample.so'
-  'libsystemd.so' 'libusb-1.0.so')
-  cd "${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install -C build
-  install -vDm 644 {ChangeLog,README.md} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  depends+=(libasound.so libavcodec.so libavutil.so libicuuc.so libjpeg.so
+  libpam.so libpulse.so libswscale.so libswresample.so libsystemd.so
+  libusb-1.0.so)
+
+  make DESTDIR="$pkgdir" install -C build
+  install -vDm 644 $_name-$pkgver/{ChangeLog,README.md} -t "$pkgdir/usr/share/doc/$pkgname"
 }

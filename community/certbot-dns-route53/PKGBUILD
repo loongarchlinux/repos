@@ -1,33 +1,59 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-route53
-pkgver=1.19.0
-pkgrel=2
+pkgver=1.27.0
+pkgrel=1
 pkgdesc="Route53 DNS Authenticator plugin for Certbot"
 arch=('any')
 license=('Apache')
 url="https://pypi.python.org/pypi/$pkgname"
-depends=('certbot' 'python-acme' 'python-boto3' 'python-mock' 'python-setuptools'
-         'python-zope-interface')
+depends=(
+  'certbot'
+  'python-acme'
+  'python-boto3'
+)
+makedepends=(
+  'python-build'
+  'python-wheel'
+  'python-installer'
+)
 checkdepends=('python-pytest')
-source=("https://pypi.io/packages/source/c/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
 validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '1B41B758F9A78C7F444C20FA3E5B4152E3ADB1FD'
-              'A2CFB51FA275A7286234E7B24D17C995CD9775F2')
-sha512sums=('91e70e1c35d10ae41bb82b0ee6b4eb1b44fff21d6cbcfed7994de7ce9e6f33b559b51e0802b85877f0a4520864ff6f0e5da85f19a0c8578bafddd6c5cca561ce'
+              'A2CFB51FA275A7286234E7B24D17C995CD9775F2'
+              '86379B4F0AF371B50CD9E5FF3402831161D1D280'
+              '20F201346BF8F3F455A73F9A780CC99432A28621'
+              'F2871B4152AE13C49519111F447BF683AA3B26C3')
+sha512sums=('8e1862702f8b5c187c5f6a86da63edcb61b874685d804d6b60219656e39da35193bdb075e037f954d5701f84700974bcb40479bcd2312bdb914d951c73fde451'
             'SKIP')
+b2sums=('ef5967f084a6e4625ed1084a1278936c409e1d1bc028048a2ce4c9d4dc4f5927f74e78ebc1c1598ec133320ab2cc67b62f9e1f781ec886a9f032a477a70fafc6'
+        'SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  # nuke setuptools from orbit ^W install_requires
+  sed \
+    -e '/setuptools>=/d' \
+    -i setup.py
+}
 
 build() {
-  cd "$srcdir"/$pkgname-$pkgver
-  python setup.py build
+  cd "$pkgname-$pkgver"
+
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/$pkgname-$pkgver
+  cd "$pkgname-$pkgver"
+
   python -m pytest
 }
 
 package() {
-  cd "$srcdir"/$pkgname-$pkgver
-  python setup.py install --root="$pkgdir"
+  cd "$pkgname-$pkgver"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }

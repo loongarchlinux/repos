@@ -2,8 +2,8 @@
 
 _hkgname=mmark
 pkgname=haskell-mmark
-pkgver=0.0.7.3
-pkgrel=66
+pkgver=0.0.7.6
+pkgrel=15
 pkgdesc="Strict markdown processor for writers"
 url="https://github.com/mmark-md/mmark"
 license=("BSD")
@@ -15,13 +15,13 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-case-insensitive' 'haskell-dlist'
          'haskell-unordered-containers' 'haskell-yaml')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-megaparsec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1a8c8bd99598204b81967b94cd831bac44353ec9a8750f62c74a868aa14cd4bd')
+sha256sums=('8c78a5aa7a1806c315bf8c0aa68321f04f508d72e4cac412ea401371fc7c50fd')
 
 build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'

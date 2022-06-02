@@ -1,8 +1,8 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=haskell-gtk3
-pkgver=0.15.5
-pkgrel=99
+pkgver=0.15.7
+pkgrel=7
 pkgdesc="Binding to the gtk library for Gtk2Hs."
 url="https://hackage.haskell.org/package/gtk3"
 license=('LGPL2.1')
@@ -13,13 +13,13 @@ provides=('gtk2hs-gtk' 'haskell-gtk')
 replaces=('gtk2hs-gtk' 'haskell-gtk')
 conflicts=('gtk2hs-gtk' 'haskell-gtk')
 source=("https://hackage.haskell.org/packages/archive/gtk3/${pkgver}/gtk3-${pkgver}.tar.gz")
-sha512sums=('937b250f04e797b821d560a768f9eaee448f2d2d98571b6ef401de44177f50861f557e653afc7f055dfa2e15180dca9d82e36469f0fb97dff5a170ebc6c62519')
+sha512sums=('e329bec03b558948e5c346df68ad28a79d41a5abfc9acba06545f5ccea2199e58fa4086e2725ed46e51c85474ffe097e044f09f0cb307d0eb9c48cd47dcf9ccd')
 
 build() {
     cd "${srcdir}/gtk3-${pkgver}"
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir="$pkgname" \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

@@ -2,16 +2,17 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=glider
-pkgver=0.15.2
+pkgver=0.16.2
 pkgrel=1
 pkgdesc="A forward proxy with multiple protocols support"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/nadoo/glider"
 license=('GPL')
+options=('!lto')
 depends=('glibc')
 makedepends=('go' 'git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/nadoo/glider/archive/v$pkgver.tar.gz")
-sha512sums=('7a7e1260ec71e5bb594b7befca170082d17b5c7dc8d93685b578430421cfc7e6196b2735145d4a7ffd91d36bd53053441641e507cabf26ebd76ff8af94699538')
+sha512sums=('7e889f982a2ba8c7918bb6549110f71ba177b231401a3929054e81521e7b4132f7dc92024f69c03397e587950248e30284dff54914c37eb60920da1e82c95e53')
 
 build() {
   cd glider-$pkgver
@@ -20,7 +21,6 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   go build -o glider .
-
 }
 
 check(){

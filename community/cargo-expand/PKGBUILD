@@ -3,20 +3,21 @@
 # Contributor: Jian Zeng <anonymousknight96 AT gmail.com>
 
 pkgname=cargo-expand
-pkgver=1.0.10
+pkgver=1.0.21
 pkgrel=1
 pkgdesc="Subcommand to show result of macro expansion"
 arch=('loongarch64' 'x86_64')
 url='https://github.com/dtolnay/cargo-expand'
 license=('MIT' 'Apache')
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('babcda3540d16bc0bf9e473343275297ae606b192f774f403cf0c9fb10ed5918')
+sha256sums=('d1078f1e230a44a26f6e9344f318db25778ff5f50615742f7ccb5833f1a9d645')
+options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {

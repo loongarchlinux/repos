@@ -2,27 +2,27 @@
 # Contributor: Ellie Huxtable <e@elm.sh>
 
 pkgname=atuin
-pkgver=0.8.0
-pkgrel=3
+pkgver=0.9.1
+pkgrel=1
 pkgdesc="Magical shell history"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/ellie/atuin"
 license=('MIT')
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('fa745be79b3689fa1036861e8a0becebaa2fd993a252dc729a49c7ad8e7922b5')
+sha256sums=('25bba040c828ed6b36fd2c8903cc157ea8259e578d5a0bd71e8b69935d9bede4')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
   mkdir completions/
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  cargo build --release --frozen --all-features
   for sh in 'bash' 'fish' 'zsh'; do
     "target/release/$pkgname" gen-completions -s "$sh" -o completions/
   done

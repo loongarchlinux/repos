@@ -3,12 +3,12 @@
 # Contributor: Gilles Hamel <hamelg at laposte dot net>
 
 pkgname=grafana
-pkgver=8.3.3
+pkgver=8.5.3
 pkgrel=1
 pkgdesc='Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB'
 url='https://grafana.com/'
 arch=('loongarch64' 'x86_64')
-license=('Apache')
+license=('AGPL' 'Apache')
 depends=('glibc' 'freetype2' 'fontconfig' 'gsfonts')
 makedepends=('git' 'go' 'npm' 'grunt-cli' 'python' 'nodejs' 'yarn')
 backup=('etc/grafana.ini')
@@ -54,12 +54,6 @@ prepare() {
 }
 
 build() {
-  echo 'GOPATH setup'
-#export GOPATH="$srcdir/gopath"
-#export PATH+=":$GOPATH/bin"
-#mkdir -p "$GOPATH/src/github.com/grafana/"
-#ln -fsrT "$srcdir/grafana/" "$GOPATH/src/github.com/grafana/grafana"
-#cd "$GOPATH/src/github.com/grafana/grafana"
   cd grafana
   echo 'Generate golang'
   make gen-go
@@ -76,6 +70,7 @@ build() {
   echo 'building the frontend'
   export NPM_CONFIG_PREFIX="$srcdir/npm"
   export PATH+=":$NPM_CONFIG_PREFIX/bin"
+  export NODE_OPTIONS="--max-old-space-size=8192" # Increase to 8 GB
   yarn install
   NODE_ENV=production yarn run build
 }

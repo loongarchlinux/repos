@@ -1,0 +1,27 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+
+_name=aiohttp-openmetrics
+pkgname=python-aiohttp-openmetrics
+pkgver=0.0.5
+pkgrel=1
+pkgdesc='OpenMetrics provider for aiohttp'
+arch=('any')
+url=https://github.com/jelmer/aiohttp-openmetrics
+license=('Apache')
+depends=('python-aiohttp' 'python-prometheus_client')
+makedepends=('python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
+sha256sums=('a770cc4a1b1bb0ca45aae71b0cc63fcd57aac322125882a20c5fcd09e457dff1')
+b2sums=('ca769cd18b84b929667500b60635ff7545f149033f9d6134d8f83273c7b003231c76941cc9eab1056a1c980d0ad096916c40b285e87e8f7f1ed80cdeb4140bd2')
+
+build() {
+  cd $_name-$pkgver
+  python setup.py build
+}
+
+package() {
+  cd $_name-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+}
+
+# vim:set ts=2 sw=2 et:

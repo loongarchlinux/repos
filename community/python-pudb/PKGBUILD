@@ -2,33 +2,31 @@
 # Contributor: Kwpolska <kwpolska@kwpolska.tk>
 
 pkgname=python-pudb
-pkgver=2021.2.2
+pkgver=2022.1.1
 pkgrel=1
 pkgdesc="A full-screen, console-based Python debugger"
 url="https://pypi.python.org/pypi/pudb"
 arch=('any')
 license=('MIT')
-depends=('python-urwid' 'python-pygments')
-checkdepends=('python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/inducer/pudb/archive/v$pkgver.tar.gz")
-sha512sums=('bd9330f32c2cf427095746abd667e1d7333e1764a2af4096af2239645679002ec283b8aa9b51ed15a5eed3b6dc3d9834c4d604e9b6369a07391ed0c5d340938d')
+depends=('python-urwid' 'python-pygments' 'python-jedi' 'python-packaging')
+checkdepends=('python-pytest' 'python-pytest-mock')
+source=("https://github.com/inducer/pudb/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('ee3875cbf06ede72da2c3ab1436b7aae31a8e90fa291313073a52d960fd0214daf99318361d695c9ed359a48caea347c490d434fe7189ff0e9b75cfee26538ac')
 
 build() {
-  cd "$srcdir"/pudb-$pkgver
+  cd pudb-$pkgver
   python setup.py build
 }
 
 check() {
-  # TODO: make it work...
-
-  cd "$srcdir"/pudb-$pkgver
-  # python -m pytest --tb=native -rxs test/
+  cd pudb-$pkgver
+  python -m pytest --tb=native -rxs test/
 }
 
 package() {
   cd pudb-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 # vim: set ft=sh ts=2 sw=2 et:

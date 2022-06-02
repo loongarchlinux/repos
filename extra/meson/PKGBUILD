@@ -3,7 +3,7 @@
 # Contributor: Anatol Pomozov <anatol dot pomozov at gmail>
 
 pkgname=meson
-pkgver=0.60.3
+pkgver=0.62.1
 pkgrel=1
 pkgdesc='High productivity build system'
 url='https://mesonbuild.com/'
@@ -16,20 +16,18 @@ checkdepends=('gcc-objc' 'vala' 'rust' 'gcc-fortran' 'mono' 'boost' 'qt5-base' '
               'doxygen' 'vulkan-validation-layers' 'openssh' 'mercurial' 'gtk-sharp-2' 'qt5-tools'
               'libwmf' 'valgrind' 'cmake' 'netcdf-fortran' 'openmpi' 'nasm' 'gnustep-base' 'libelf'
               'python-pytest-xdist' 'python2-setuptools' 'ldc' 'rust-bindgen' 'cuda' 'hotdoc')
-source=(https://github.com/mesonbuild/meson/releases/download/${pkgver/rc/.rc}/meson-${pkgver}.tar.gz{,.asc}
-        skip-test.diff
+source=(https://github.com/mesonbuild/meson/releases/download/${pkgver}/meson-${pkgver}.tar.gz{,.asc}
+        0001-Skip-broken-tests.patch
         arch-meson)
-sha512sums=('0aa6ef71c20cd899ebb0b202c6319e093e1df1c39fa58c94a1bb479efe630213272127346eab589948898d115d02d64f4bdffd892fbb9700884c1edf2dc6c6dc'
+sha512sums=('52d2d06c27275b824046164403908be8555faed33aef862940623cef3e4f84b4c9b8d461c291642e6ea2c0db30b2ec4a99f46bde5d54945a26c1dbeca219cc32'
             'SKIP'
-            '8c4e9053980bb9cec7d8756a844e13adb44f29615aa279d57f35733925ff3ba7a8451f796e335d63f1fa180a72d42ecbd4ab3782a25497e5ceff551304ae255f'
+            'd94c5b102835704e38ae778f0d420b30b4acf64f4321304ad63472a3fb044fcdc2fcb18edf47e239678534e107b6b892ee5328f0840d6649e10201bcf072e8f8'
             'f451f8a7ef9cf1dd724c2ce20bb85a3f1611b87b2e7a17ef0fdbe8ab82a67389f818ea30a5adfe8413143e4eac77ea2e0b8234b5b2466b41a892e2bd0435376c')
 validpgpkeys=('19E2D6D9B46D8DAA6288F877C24E631BABB1FE70') # Jussi Pakkanen <jpakkane@gmail.com>
 
 prepare() {
   cd ${pkgname}-${pkgver}
-
-  # Our containers do not allow sanitizers to run
-  patch -Np1 -i ../skip-test.diff
+  patch -Np1 -i ../0001-Skip-broken-tests.patch
 }
 
 build() {
@@ -51,7 +49,6 @@ package() {
   cp -rt "${pkgdir}/usr/share/vim/vimfiles" data/syntax-highlighting/vim/*/
 
   install -Dt "${pkgdir}/usr/share/bash-completion/completions" -m644 data/shell-completions/bash/*
-  install -Dt "${pkgdir}/usr/share/emacs/site-lisp" -m644 data/syntax-highlighting/emacs/*
   install -Dt "${pkgdir}/usr/share/zsh/site-functions" -m644 data/shell-completions/zsh/*
 
   # Arch packaging helper

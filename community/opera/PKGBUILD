@@ -9,7 +9,7 @@
 # Contributor: eworm
 
 pkgname=opera
-pkgver=82.0.4227.43
+pkgver=87.0.4390.36
 pkgrel=1
 pkgdesc="A fast and secure web browser"
 url="https://www.opera.com/"
@@ -23,19 +23,19 @@ optdepends=(
     'upower: opera battery save'
 )
 source=(
-    "https://get.geo.opera.com/pub/${pkgname}/desktop/${pkgver}/linux/${pkgname}-stable_${pkgver}_amd64.rpm"
+    "https://get.geo.opera.com/pub/${pkgname}/desktop/${pkgver}/linux/${pkgname}-stable_${pkgver}_amd64.deb"
     "opera"
     "default"
     'eula.html'
     'terms.html'
     'privacy.html'
 )
-sha512sums=('04ad10e61ddf23bb6a4bcfd641da03866291ced19f339dfa2daa81edee00232522ba376c5469e7e458fc15263efb8f8798295707a799a7ebb514c35859faf634'
+sha512sums=('63f8ced96609eb712972039256ca4dc6e004276affa9b4e47042ad34cdb15f0fe653549d15dfaced3243ce5cf39a49d7aca94e309fc705b46bc88fbd35d178ab'
             '7e854e4c972785b8941f60117fbe4b88baeb8d7ca845ef2e10e8064043411da73821ba1ab0068df61e902f242a3ce355b51ffa9eab5397ff3ae3b5defd1be496'
             'ddb1773877fcfd7d9674e63263a80f9dd5a3ba414cda4cc6c411c88d49c1d5175eede66d9362558ddd53c928c723101e4e110479ae88b8aec4d2366ec179297f'
-            '6814bed38c091848b0ab710a3b408bd3878daa93d417e9638d289db2aec8dff1c1b0d8af38458b973b4ef0ba2fb0dfc8df3c40d10d7d532539c8e3a203cf7ed7'
-            '4ba9a8929c57f6ebe33e002e8b9177aeba810c3071641983c75dd46bc9c07ca8ac1940256707f53c5164d63cfcf71e23d0a463ddbd5b56e6d9210478568ddff2'
-            'c1002e685b7cc64521a0e916489fc7bba21ccd83555f434e8ca56440bc9666d06ceb15275724c574575067622a83f0c39381f6a2cf75228dd519525a89eb3ba4')
+            'aaaa4435a3b6a08bf8e6ad4802afcbf111c1e8f477054251f031b70ae57ac1234fa19048121d64c878dc3b1de03522ce7ef11a263a86dc7062f643d569ecff82'
+            '800d62321344ff4e3521ff20fae281cad9206bae80e60965784d144f8bf852f756cbc21f4c9d8d4e93d026da7ca10e0eda7601c83a6d8d85125831eacb907d9a'
+            '43d4a066758805597527dbdfc95b4c8ad4b22c5db812b9493e50f8820c72f30c1e431bed40fdb821ab0c23a63aa31dc0e946ab708cc23ac617446964fa6b96f2')
 
 prepare() {
     sed -e "s/%pkgname%/$pkgname/g" -i "$srcdir/opera"
@@ -45,9 +45,14 @@ prepare() {
 }
 
 package() {
-    install -dm755 "$pkgdir/usr"
-    cp -a usr/share "$pkgdir/usr/"
-    cp -a usr/lib64 "$pkgdir/usr/lib"
+    tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
+
+    # get rid of the extra subfolder {i386,x86_64}-linux-gnu
+    (
+        cd "$pkgdir/usr/lib/"*-linux-gnu/
+        mv "$pkgname" ../
+    )
+    rm -rf "$pkgdir/usr/lib/"*-linux-gnu
 
     # suid opera_sandbox
     chmod 4755 "$pkgdir/usr/lib/$pkgname/opera_sandbox"
@@ -56,13 +61,13 @@ package() {
     install -Dm644 "$srcdir/default" "$pkgdir/etc/$pkgname/default"
 
     # install opera wrapper
-    #rm "$pkgdir/usr/bin/$pkgname"
+    rm "$pkgdir/usr/bin/$pkgname"
     install -Dm755 "$srcdir/opera" "$pkgdir/usr/bin/$pkgname"
 
     # license
-    #install -Dm644 \
-        #"$pkgdir/usr/share/doc/${pkgname}-stable/copyright" \
-        #"$pkgdir/usr/share/licenses/$pkgname/copyright"
+    install -Dm644 \
+        "$pkgdir/usr/share/doc/${pkgname}-stable/copyright" \
+        "$pkgdir/usr/share/licenses/$pkgname/copyright"
 
     # eula
     install -Dm644 \

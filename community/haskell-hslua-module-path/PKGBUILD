@@ -2,16 +2,16 @@
 
 _hkgname=hslua-module-path
 pkgname=haskell-hslua-module-path
-pkgver=0.1.0.1
-pkgrel=68
+pkgver=1.0.1
+pkgrel=15
 pkgdesc="Lua module to work with file paths."
 url="https://github.com/hslua/hslua-module-path"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-hslua')
+depends=('ghc-libs' 'haskell-hslua' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('c858d8900f9fbde354ebfc90fce84d10c89b9f51ab62198df033936399a4aeff')
+sha256sums=('dd505e9236b6140dd9a5b3711b9a010de058cd5fe5b65c07981b5b32fd74d8b9')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -22,7 +22,7 @@ build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'

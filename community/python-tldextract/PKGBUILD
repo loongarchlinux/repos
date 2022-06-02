@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-tldextract
-pkgver=3.1.2
-pkgrel=3
+pkgver=3.3.0
+pkgrel=1
 pkgdesc="Accurately separate the TLD from the registered domain and subdomains of a URL, using the Public Suffix List"
 arch=('any')
 url="https://github.com/john-kurkowski/tldextract"
@@ -12,7 +12,7 @@ makedepends=('python-setuptools-scm' 'python-pip')
 checkdepends=('python-pytest' 'python-pytest-mock' 'python-pytest-pylint' 'python-responses'
               'python-isort')
 source=("https://pypi.io/packages/source/t/tldextract/tldextract-$pkgver.tar.gz")
-sha512sums=('2c2340a9142d49aa7c0db71b5a7fb1a63e19354a5da8edd7de923e55c8ec03d8a8551f4710c66d6d1aece1d0d78701229ef5ed2ed49bcce44972b7b96747bd77')
+sha512sums=('530e8592c2813c297355cdea591a772fad3e4cdcfccf72844c49ad68ab1acd57e6050828f78fe3bbfb9d54d62f33c63fec70dfb81d9955abf971703f53daa326')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 

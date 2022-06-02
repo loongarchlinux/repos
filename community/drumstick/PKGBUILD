@@ -3,7 +3,7 @@
 # Contributor: Dany Martineau <dany.luc.martineau@gmail.com>
 
 pkgname=drumstick
-pkgver=2.5.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc="MIDI libraries for Qt5/C++"
 arch=(loongarch64 x86_64)
@@ -14,22 +14,21 @@ makedepends=(alsa-lib cmake doxygen docbook-xsl fluidsynth graphviz
 libpulse qt5-tools)
 provides=(libdrumstick-alsa.so libdrumstick-file.so libdrumstick-rt.so
 libdrumstick-widgets.so)
-source=("https://downloads.sourceforge.net/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.bz2")
-sha512sums=('8ab75d4e87d30f7bb77212bddf3dafcf6fc80f2556516464b2f05201350187e0e12b2958805160a9dd22e796da15a473b1e89219d6a9d5147d314ed8c6171128')
-b2sums=('402d33c03c2ae55c263672919c74ee088e38e5d5f174a403fa486a5d8dbd772f4d2435cf2045a39078875e3adb1257b6a4b5bd02d8e5a44175e3bbd4a7486b31')
+options=(debug)
+source=(https://downloads.sourceforge.net/$pkgname/$pkgver/$pkgname-$pkgver.tar.bz2)
+sha512sums=('d6e7acad74044cea4dcfe08998599f85b2670d97012871e592d32adfe4727d5d9c698cb4b5246237ceea96304d9166c82cda106bf4ac92000d7da87e60e9bd27')
+b2sums=('6301b9b5eb058ebef7e21311e63b262bf0fe81c50b9767bb7543b4fc4b1bd501f021b96cce4a83fe5a7536c739354c8e81ee527077dbc150eecffc985791cf0e')
 
 build() {
-  cd "${pkgname}-${pkgver}"
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=None \
         -Wno-dev \
         -B build \
-        -S .
+        -S $pkgname-$pkgver
   make VERBOSE=1 -C build
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
   # some tests fail due to insufficient system privileges, hence only run those
   # that make sense in the build environment
   # https://sourceforge.net/p/drumstick/bugs/24/
@@ -40,8 +39,6 @@ check() {
 package() {
   depends+=(libasound.so libfluidsynth.so libpulse.so libpulse-simple.so)
 
-  cd "${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}/" install -C build
-  install -t "${pkgdir}/usr/share/doc/${pkgname}/" \
-    -vDm 644 {AUTHORS,ChangeLog,NEWS,readme.md,TODO}
+  make DESTDIR="$pkgdir" install -C build
+  install -vDm 644 $pkgname-$pkgver/{AUTHORS,ChangeLog,NEWS,readme.md,TODO} -t "$pkgdir/usr/share/doc/$pkgname/"
 }

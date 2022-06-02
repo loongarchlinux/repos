@@ -4,17 +4,17 @@
 # Contributor: fuero <fuerob@gmail.com>
 
 pkgname=lazygit
-pkgver=0.31.4
-pkgrel=1
+pkgver=0.34
+pkgrel=2
 pkgdesc='Simple terminal UI for git commands'
 url='https://github.com/jesseduffield/lazygit'
 arch=('loongarch64' 'x86_64')
 license=('MIT')
 depends=('git' 'glibc')
 makedepends=('go')
-source=("https://github.com/jesseduffield/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('584b04e5d5666f863bd742efcce5b8ec30095ff97fd7f6f887e94e94c6eac7d8')
-b2sums=('58f07b6f4c6fafe787c6e5dcd9e0bf4fa4133be34f893b5c1429021c8308953e0486442e563e99f19be4c51aa2c100067de6b7bf244fd0f932cd54e9d56a06d7')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('f715ab86b219fd42462399459bfa1e04a5925268bff4839c4d96bd01264d6847')
+b2sums=('dd53369181f2abf6d7a4776bc751f39a37eb8184fe3811834ee8a99fdcbd4939b260bd1bb86ed26d54b86f4cd509d065cefddcdc5118c266621dfa697a07e7f8')
 
 build() {
   cd ${pkgname}-${pkgver}

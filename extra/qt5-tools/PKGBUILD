@@ -2,9 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-tools
-pkgver=5.15.2+kde+r17
-pkgrel=4
-_commit=33693a928986006d79c1ee743733cde5966ac402
+_basever=5.15.4
+pkgver=5.15.4+kde+r0
+pkgrel=1
+_commit=53ee43a51b5a3de2877dafffc78e71ff55926708
 arch=('loongarch64' 'x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -14,7 +15,7 @@ makedepends=('qt5-declarative' 'vulkan-headers' 'clang' 'qt5-webkit' 'git')
 optdepends=('clang: for qdoc' 'qt5-webkit: for Qt Assistant')
 groups=('qt' 'qt5')
 conflicts=('qtchooser')
-_pkgfqn=qttools
+_pkgfqn=${pkgname/5-/}
 source=(git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit
         {assistant,designer,linguist,qdbusviewer}.desktop)
 sha256sums=('SKIP'
@@ -22,23 +23,21 @@ sha256sums=('SKIP'
             '92f3e5dc8bc416e02893c38a05287238853e0c20732df1e62d6a672744a34e7c'
             '15781519115e36d2c67c12ee6bc636425cd445072f43cb8bdd1364cfacbe4c45'
             '6bc07903971983efb9492700efb2c03e24fbb1ce61b520b6e7d0a04662400701')
+options=(debug)
 
 pkgver() {
   cd $_pkgfqn
-  echo "5.15.2+kde+r"`git rev-list --count origin/5.15.2..$_commit`
+  echo "$_basever+kde+r"`git rev-list --count v$_basever-lts-lgpl..$_commit`
 }
 
 prepare() {
   mkdir -p build
-
-  cd $_pkgfqn
-  git revert -n dbe0567470db2b369a9fdb28d9fbac38be3e2d60 # Revert version bump
 }
 
 build() {
   cd build
 
-  qmake ../${_pkgfqn}
+  qmake ../${_pkgfqn} CONFIG+=fat-static-lto
   make
 }
 

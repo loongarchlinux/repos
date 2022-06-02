@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-dock
-pkgver=5.4.69.1
-pkgrel=1
+pkgver=5.5.9.1
+pkgrel=2
 pkgdesc='Deepin desktop-environment - dock module'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/dde-dock"
@@ -16,7 +16,7 @@ conflicts=('dde-dock')
 replaces=('dde-dock')
 groups=('deepin')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-dock/archive/$pkgver.tar.gz")
-sha512sums=('71a1fcaed63bfcc90172314ffd51582481b63b7023b6fc908f6fe96de2d0cf5efea2b0b36235e8d443be33757132f21e0ccac09ee489a31a510d5229de421151')
+sha512sums=('b6bace4e370947884f36cbcd3781b3316f50bff81cdba304e0fd76fcc07018122033d18f371c522b1c9e7bc31187bb9030a5295894ab56e7f0ee3880efe72735')
 
 build() {
   cd dde-dock-$pkgver

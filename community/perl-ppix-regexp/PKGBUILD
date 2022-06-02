@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-ppix-regexp
-pkgver=0.082
-pkgrel=1
+pkgver=0.085
+pkgrel=2
 pkgdesc="Parse regular expressions"
 arch=('any')
 license=('PerlArtistic')
@@ -10,7 +10,7 @@ url="https://metacpan.org/release/PPIx-Regexp"
 depends=('perl-list-moreutils' 'perl-ppi' 'perl-task-weaken')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/W/WY/WYANT/PPIx-Regexp-$pkgver.tar.gz")
-sha512sums=('ba8565a41252328cb0d951c780e5d688138683d8d3fad1e7ffd73bd555c9e420b2318c995baefedff02b2f9a6af53ed73641cd09c39e91f30d81e3ecde90068e')
+sha512sums=('d5c29e4127b803267e81f1cf6dde522850a3efb85de8421bfd2c5e144c36c3cfa5ec51e13342c6f2a104325748c5d59891b19de02d69b8e7a3243356e0bcf4ff')
 
 build() {
   cd PPIx-Regexp-$pkgver

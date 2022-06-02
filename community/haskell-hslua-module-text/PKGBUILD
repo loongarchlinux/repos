@@ -3,22 +3,22 @@
 
 _hkgname=hslua-module-text
 pkgname=haskell-hslua-module-text
-pkgver=0.3.0.1
-pkgrel=127
+pkgver=1.0.1
+pkgrel=15
 pkgdesc="Lua module for text"
 url="https://github.com/hslua/hslua-module-text"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-hslua')
+depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('15ba5e97261e9fa0bb4053575a0dd368048141a401200c32bb53a969cc741d2bd2d04890fef5c488fb6f476438d28e4d5ab9fea4a62aecdee285e8f1a1adecc4')
+sha512sums=('6dbe21f6a3b4f75428e1cad69c79b4da5783e655635a740f44616898ec872e5bd58ee1f9f5c5d5ac415fc08e7bda9f7f0485b36dd759f35fe44e2cc1c8f9efef')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

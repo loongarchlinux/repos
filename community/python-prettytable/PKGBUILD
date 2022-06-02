@@ -4,27 +4,20 @@
 
 _pkgname=prettytable
 pkgname=python-prettytable
-pkgver=1.0.0
-pkgrel=3
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="A simple Python library for easily displaying tabular data"
 url="https://github.com/jazzband/prettytable"
 arch=('any')
 license=('BSD')
 depends=('python-wcwidth')
 makedepends=('python-setuptools-scm')
-checkdepends=('python-pytest')
-source=("https://files.pythonhosted.org/packages/source/p/prettyTable/prettytable-${pkgver}.tar.gz"
-        '0001-Fix-column-spacing-with-xterm-reset-escape-sequence.patch')
-sha512sums=('2b19d46e375fcc6f6f518d335e5d1e14eac854d0545000581496a13df03292a888ed05e7c9952afccc06706fc5258f7beb27c60291b336d586cebe432b784713'
-            '86cf8be475f62b0dfaa2483a37293cefd61e97bfe3c1226076cacc199da69bc5ea7e561bc311dd1b65f808f4fab202a0d38f702568ab7fbc091f285d2e52c924')
+checkdepends=('python-pytest-lazy-fixture')
+conflicts=('python-ptable')
+source=("https://files.pythonhosted.org/packages/source/p/prettyTable/prettytable-${pkgver}.tar.gz")
+sha512sums=('feeaeeb0a1897c0aaa2bc0ac7f470244529e8c70debb26976494719607840c8b8a80698b7e463402031b250fe152091e947555be2a6f983764e01bdaa1a71a22')
 
-export SETUPTOOLSA_SCM_PRETEND_VERSION=$pkgver
-
-prepare() {
-  pushd prettytable-$pkgver
-  patch -p1 -i "$srcdir"/0001-Fix-column-spacing-with-xterm-reset-escape-sequence.patch
-  popd
-}
+export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
 build() {
   cd prettytable-$pkgver
@@ -33,11 +26,11 @@ build() {
 
 check() {
   cd prettytable-$pkgver
-  pytest
+  python setup.py egg_info
+  PYTHONPATH="$PWD/src" pytest
 }
 
 package() {
   cd prettytable-$pkgver
-  chmod 644 -R prettytable.egg-info
   python setup.py install --root="$pkgdir/"
 }

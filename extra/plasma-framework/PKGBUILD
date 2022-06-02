@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-framework
-pkgver=5.89.0
+pkgver=5.94.0
 pkgrel=1
 pkgdesc='Plasma library and runtime components based upon KF5 and Qt5'
 arch=(loongarch64 x86_64)
@@ -13,9 +13,10 @@ depends=(kactivities kdeclarative kwayland kirigami2)
 makedepends=(extra-cmake-modules qt5-tools qt5-doc kdoctools doxygen)
 groups=(kf5)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b709a8effe04f12f4c04c65c185e09ee7479477b505283ae70d5d1fbd450a673'
+sha256sums=('6cebfb9e7b61062194119bf7c4ef0e9529cd7321c8e06fb68b68fa518815ed2a'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+options=(debug)
 
 build() {
   cmake -B build -S $pkgname-$pkgver \

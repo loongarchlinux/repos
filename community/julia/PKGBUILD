@@ -8,8 +8,8 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.7.1
-pkgrel=2
+pkgver=1.7.3
+pkgrel=1
 arch=(loongarch64 x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
 url='https://julialang.org/'
@@ -22,37 +22,52 @@ replaces=(julia-docs)
 source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$pkgver-full.tar.gz{,.asc}
         https://github.com/JuliaLang/julia/commit/677ce6d3.patch
         https://github.com/JuliaLang/julia/commit/47f9139e.patch
-        julia-llvm13.patch
+        https://github.com/JuliaLang/julia/commit/1eb063f1.patch
+        https://github.com/JuliaLang/julia/commit/99d4e655.patch
+        f8c918b0.patch
+        63303980.patch
         julia-libgit-1.2.patch
+        julia-libgit-1.4.patch
         julia-system-cblas.patch
         julia-hardcoded-libs.patch
         make-install-no-build.patch
-        julia-llvm-patchelf.patch
-        julia-libunwind-1.6.patch)
+        julia-libunwind-1.6.patch
+        julia-libblastrampoline-4.patch
+        julia-gcc-12.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('add869121b7e788ff487a234fd39484469dbb3ded29b17041c63c4757515dd58'
+sha256sums=('4be529b0716de1ec48ba52e83a0fafd4be2269be9cc43074ad15ce788aeca093'
             'SKIP'
-            'a798c58ab518def84e4112538de59a10802e7dc854c20b08990a1619ba2aa95b'
-            'c76c6fbb4e04b185d11e3c3e0aec99a2088f3b06621ce61d29cd21227a044a7a'
-            'ab8a8ec61963661dca5bb2fa965dccaa36c500d55ef7b6767b8faef5fff461b5'
-            'c57ea92a11fa8dac72229e6a912d2372ec0d98d63486426fe3bdeeb795de48f7'
+            'a5cd89ce78157362377df382ce5a4fbef14543b818beecc06dfd6d63c90334f2'
+            'bbaea5ed91577a4633625a339dc1fb48cb4d74893e69bafc993db2953078891c'
+            '9a176b411414825f1694d3fbe377fdc0d4937883a9926db0f531dbac7e75464a'
+            'c033fce112db85b02ebc1d3c8f8bac1240e0409ffdded7fd3322163834c41257'
+            'bc6c85cbbca489ef0b2876dbeb6ae493c11573e058507b8bcb9e01273bc3a38c'
+            '96303f5cb520e861c7fdc5eb6d64767b597ecf2057a0aa37250af546738da63e'
+            '40e1f46415a7241c1258d2e9d01890455ac728879a5cc6bb1d8f57d6e1f7a69a'
+            'cfe498a090d0026b92f9db4ed65ac3818c2efa5ec83bcefed728d27abff73081'
             '8f8c12853ce847f5d1b5a4a461ddec701decdb81dae7bb31d66560c1deaed97a'
             '03043f005c133ac9af1d4dc113ea8b525ad3b393690625be77975f0e29dd6457'
             '8be4605f92a009072ca7e843549c225fc4e959893498e7c4f8f79e861e63714d'
-            '6048c69c987f33f2b17d78b63368b0762d1d6a1e531ef9932d0c23bda49d1384'
-            '3afa172e8b54ce48e77542677b2b7143199d444bfeed39be1644ce88b513a3d0')
+            '3afa172e8b54ce48e77542677b2b7143199d444bfeed39be1644ce88b513a3d0'
+            '79cd957d0599a8ee1dbdf7f2ebd1a5bd85ab7e499584858e89a8d9609ba1ced4'
+            'b903859c262048057f873e4a39c4837382896d3059860465443823133a5a59da')
 validpgpkeys=('3673DF529D9049477F76B37566E3C7DC03D6E495') # Julia (Binary signing key) <buildbot@julialang.org>
+options=(!lto)
 
 prepare() {
   cd $pkgname-$pkgver
 
-# fix build with LLVM 13
+# fixes for LLVM 13
   patch -p1 -i ../677ce6d3.patch
   patch -p1 -i ../47f9139e.patch
-# Adapt to LLVM 13 type changes
-  patch -p1 -i ../julia-llvm13.patch
+  patch -p1 -i ../1eb063f1.patch
+  patch -p1 -i ../f8c918b0.patch
+  patch -p1 -i ../63303980.patch
+  patch -p1 -i ../99d4e655.patch
 # libgit2 1.2 compatibility
   patch -p1 -i ../julia-libgit-1.2.patch
+# libgit2 1.4 compatibility
+  patch -p1 -i ../julia-libgit-1.4.patch
 # libunwind 1.6 compatibility
   patch -p1 -i ../julia-libunwind-1.6.patch
 # Add and use option to build with system cblas
@@ -63,8 +78,10 @@ prepare() {
   patch -p1 -i ../make-install-no-build.patch
 # Fix test failure
   sed -e 's|0.22314355f0 + 3.1415927f0im|0.22314355f0 - 3.1415927f0im|' -i stdlib/LinearAlgebra/test/lu.jl
-# Don't try to run patchelf on system LLVM
-  patch -p1 -i ../julia-llvm-patchelf.patch
+# Port to libblastrampoline 4 API
+  patch -p1 -i ../julia-libblastrampoline-4.patch
+# Fix failures with GCC 12 https://github.com/JuliaLang/julia/pull/45249
+  patch -p0 -i ../julia-gcc-12.patch
 }
 
 _buildopts="prefix=/usr \
@@ -120,6 +137,7 @@ check() {
     --skip SuiteSparse_jll \
     --skip PCRE2_jll \
     --skip LibGit2_jll \
+    --skip Zlib_jll \
     --skip MozillaCACerts_jll \
     --skip NetworkOptions \
     --skip Downloads

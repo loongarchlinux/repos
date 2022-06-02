@@ -3,8 +3,8 @@
 
 _hkgname=pandoc-types
 pkgname=haskell-pandoc-types
-pkgver=1.22
-pkgrel=121
+pkgver=1.22.2
+pkgrel=13
 pkgdesc="Types for representing a structured document"
 url="https://pandoc.org/"
 license=("BSD")
@@ -13,13 +13,13 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-quickcheck' 'haskell-syb')
 makedepends=('ghc' 'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-quickcheck2' 'haskell-hunit' 'haskell-string-qq')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b5f7c15b31c5ee6faa4d7574baa32d252b1e79350840f2d7ac3f3896b969e18241e514fb06e85aa97d7a74c0904839d04a4d8e5d4ff86d0a2b80957b99279ee0')
+sha512sums=('c4e78de0d6f2df67a716f7e549d629b9ead7f2569674cd84cd73a430c7ee97d1ebe30e0a95e84b5f45dab2a5cee6c6d5cc30f6c47f11859c938c75f63406878b')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

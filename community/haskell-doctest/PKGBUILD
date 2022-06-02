@@ -3,19 +3,20 @@
 
 _hkgname=doctest
 pkgname=haskell-doctest
-pkgver=0.18.2
-pkgrel=21
+pkgver=0.20.0
+pkgrel=7
 pkgdesc="Test interactive Haskell examples"
 url="https://github.com/sol/doctest"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-base-compat' 'haskell-exceptions' 'haskell-ghc' 'haskell-syb'
+depends=('ghc-libs' 'haskell-base-compat' 'haskell-ghc' 'haskell-syb'
          'haskell-code-page' 'haskell-ghc-paths')
 makedepends=('ghc')
-checkdepends=('haskell-hunit' 'haskell-hspec' 'haskell-hspec-core' 'haskell-quickcheck'
-              'haskell-stringbuilder' 'haskell-silently' 'haskell-setenv' 'haskell-mockery')
+checkdepends=('haskell-hunit' 'haskell-hspec' 'haskell-hspec-core' 'haskell-hspec-discover'
+              'haskell-quickcheck' 'haskell-stringbuilder' 'haskell-silently' 'haskell-setenv'
+              'haskell-mockery')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('fd6c9d5b3292083ec3d9301779c0d165879cea0b71d5548cd49e6394f6eaf908679312f1ed9606298966169cd383886df18fb292e15a4132c1567f4c46782b83')
+sha512sums=('037866d709fdd371941132aea31d15c65cbfcad7832cec4fa98ed580b939930cc2ef87eb77e8bdbf77bee40088b673afe66d9021d6e227416ede25159f8d93fa')
 
 prepare() {
     # Add -dynamic flag
@@ -33,7 +34,7 @@ build() {
     fi
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname "${_opts[@]}" \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
@@ -44,7 +45,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {

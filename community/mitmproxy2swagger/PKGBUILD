@@ -1,0 +1,25 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=mitmproxy2swagger
+pkgver=0.5.3
+pkgrel=1
+pkgdesc='Automagically reverse-engineer REST APIs via capturing traffic'
+url='https://github.com/alufers/mitmproxy2swagger'
+arch=('any')
+license=('MIT')
+depends=(python mitmproxy python-ruamel-yaml python-json-stream)
+makedepends=(python-installer python-poetry)
+source=(https://github.com/alufers/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+b2sums=('86ff02cb129a2270fb9ea0d664a953dbb3d92adb4569025500f728362aa87d9aee8f1889f1ff4363c7b26674044d1db5e8560de88684306f62fa8f9d59bf2705')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  poetry build --format wheel
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+}
+
+# vim: ts=2 sw=2 et:

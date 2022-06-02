@@ -2,25 +2,36 @@
 # Contributor: Sanpi <sanpi+aur@homecomputing.fr>
 
 pkgname=cargo-spellcheck
-pkgver=0.9.6
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="Checks all your documentation for spelling and grammar mistakes"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/drahnr/cargo-spellcheck"
 license=('MIT' 'Apache')
 depends=('hunspell')
-makedepends=('rust' 'clang' 'hunspell-en_US')
+makedepends=('cargo' 'clang' 'hunspell-en_US')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('34907919e3d82d53aee995ff196e2bf302b4b4b36b0703f69f831652ee9887b6')
+sha256sums=('0044cce075e43ee70023d4e5bd30452a2a2bf58ee32f5d9cb27d41a51f8be10c')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  mkdir -p completions
+}
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --locked
+  cargo build --release --frozen
+  local _completion="target/release/$pkgname completions"
+  $_completion --shell bash > "completions/$pkgbase"
+  $_completion --shell fish > "completions/$pkgbase.fish"
+  $_completion --shell zsh  > "completions/_$pkgbase"
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --release --locked
+  cargo test --frozen
 }
 
 package() {
@@ -28,6 +39,9 @@ package() {
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm 664 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
+  install -Dm 664 "completions/$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -Dm 664 "completions/_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
 }
 
 # vim: ts=2 sw=2 et:

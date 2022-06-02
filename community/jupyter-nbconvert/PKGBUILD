@@ -2,17 +2,17 @@
 
 pkgname=jupyter-nbconvert
 _name=nbconvert
-pkgver=6.1.0
-pkgrel=5
+pkgver=6.5.0
+pkgrel=3
 pkgdesc="Jupyter Notebook Conversion"
 arch=('any')
 url="https://pypi.python.org/pypi/nbconvert"
 license=('BSD')
 depends=(
-  'jupyter'
-  'jupyter-nbclient'
   'jupyter-nbformat'
+  'jupyter-nbclient'
   'jupyterlab_pygments'
+  'python-beautifulsoup4'
   'python-bleach'
   'python-defusedxml'
   'python-entrypoints'
@@ -20,17 +20,20 @@ depends=(
   'python-pandocfilters'
   'python-mistune1'
   'python-pygments'
-  'python-testpath'
   'python-traitlets'
+  'python-tinycss2'
 )
-# really depends on jupyter-client, not jupyter
-makedepends=('python-pyppeteer' 'python-setuptools')
-checkdepends=('chromium' 'python-pytest')
+makedepends=('python-pyppeteer')
+checkdepends=('python-pytest' 'python-ipywidgets')
 optdepends=('pandoc: non-html conversion output'
             'python-pyppeteer: for webPDF conversion support')
-source=("$pkgname-$pkgver.tgz::https://github.com/jupyter/nbconvert/archive/$pkgver.tar.gz")
-sha512sums=('beb1d66788871b2d8b1576bf4e615053a870e6959c832294872a84c89b0329a28364f2d88625dedf3947b27d68e2915155cd6d1152610aec50c4bd7226698483')
-b2sums=('9eceb9ed42d63bb495583139400ba1d6d68979379bec7ba408ba6c7e3954604f637a55f5c9e76573d0031f41269516877bfb745f685128d2c6161dff9d352818')
+source=("https://github.com/jupyter/nbconvert/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('548bfb47a15ab12b7c68e6be7c702db791effa8d524707152249a562a019b8f5')
+
+prepare() {
+  cd nbconvert-$pkgver
+  sed -e 's|setuptools>=60.0|setuptools|' -i pyproject.toml
+}
 
 build() {
   cd nbconvert-$pkgver
@@ -38,17 +41,18 @@ build() {
 }
 
 check() {
-  cd "${_name}-${pkgver}"
+  cd nbconvert-$pkgver
+  export PYTHONPATH="$PWD" # Make sure system nbconvert is not used
   # disable tests that download chromium and (probably) require a graphical session
-  pytest -vv -k 'TestWebPDFExporter and not (test_export or test_webpdf_without_pyppeteer)'
-  pytest -vv -k 'TestNbConvertApp and not test_webpdf_with_chromium'
+  pytest -v -k 'TestWebPDFExporter and not (test_export or test_webpdf_without_pyppeteer)' -W ignore::DeprecationWarning
+  pytest -v -k 'TestNbConvertApp and not test_webpdf_with_chromium' -W ignore::DeprecationWarning
   # run all remaining tests
-  pytest -vv -k 'not TestWebPDFExporter and not TestNbConvertApp'
+  pytest -v -k 'not TestWebPDFExporter and not TestNbConvertApp' -W ignore::DeprecationWarning
 }
 
 package() {
-  cd "nbconvert-$pkgver"
-  python setup.py install --root="$pkgdir" --optimize=0
+  cd nbconvert-$pkgver
+  python setup.py install --skip-build --optimize=1 --root="$pkgdir"
 
-  install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }

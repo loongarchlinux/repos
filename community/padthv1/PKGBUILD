@@ -1,40 +1,41 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=padthv1
-pkgver=0.9.23
-pkgrel=1
+pkgver=0.9.25
+pkgrel=2
 pkgdesc="An old-school polyphonic additive synthesizer"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://padthv1.sourceforge.io/"
-license=('GPL2')
-groups=('lv2-plugins' 'pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'lv2-host' 'qt5-base')
-makedepends=('alsa-lib' 'cmake' 'fftw' 'jack' 'liblo' 'lv2' 'qt5-tools')
-optdepends=('alsa-lib: for standalone application'
-            'jack: for standalone application'
-            'liblo: for standalone application'
-            'new-session-manager: for session management using the standalone application'
-            'qt6-wayland: for native wayland support')
-source=("https://download.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('d313025c012b2944d5a0b3ef95bda8065f0f6bf4e280094344b8fc75f4312af178eb80771b2b1fa6caf6585b27b60f4f173ef67bd89a264ae4527e99ba99900a')
-b2sums=('464c135738cc8afde19f47cbe7589bf8481b1d8d25c248a621ceba619aaf41972acd02743511584de9442acb10c6d42e3012f5b1c06fbd80ff9dec488c0933c3')
+license=(GPL2)
+groups=(lv2-plugins pro-audio)
+depends=(gcc-libs glibc hicolor-icon-theme lv2-host qt6-base qt6-svg)
+makedepends=(alsa-lib cmake fftw jack liblo lv2 qt6-tools)
+optdepends=(
+  'alsa-lib: for standalone application'
+  'jack: for standalone application'
+  'liblo: for standalone application'
+  'new-session-manager: for session management using the standalone application'
+  'qt6-wayland: for native wayland support'
+)
+options=(debug)
+source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
+sha512sums=('60a27f9e134fd42695a2e017d5eb16258afc74acac7ea631ca0ef521ea42910d484ca14b5aba342fd17788fccd91affdc786f5fb3f8ac165a22b531aade389a3')
+b2sums=('f09e7c0264879cbe9560433d14561271d3f068943104ebd4cf4e8e6d0fa6f5c570bea5df1f47d7694a06c8c7030a49386b6579070b91e2c16d70290820c6ee55')
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  cmake -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DCMAKE_BUILD_TYPE='None' \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=None \
         -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
-        -S .
+        -S $pkgname-$pkgver
   make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libfftw3.so')
-  cd "${pkgname}-${pkgver}"
-  make VERBOSE=1 DESTDIR="$pkgdir/" install -C build
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 {AUTHORS,ChangeLog,README,TODO}
+  depends+=(libfftw3.so)
+
+  make VERBOSE=1 DESTDIR="$pkgdir" install -C build
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 # vim:set ts=2 sw=2 et:

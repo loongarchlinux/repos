@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-quicktimeline
-_qtver=6.2.2
+_qtver=6.3.0
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(loongarch64 x86_64)
@@ -13,9 +13,10 @@ pkgdesc='Qt module for keyframe-based timeline construction'
 depends=(qt6-declarative)
 makedepends=(cmake ninja)
 groups=(qt6)
-_pkgfn="${pkgname/6-/}-everywhere-src-$_qtver"
+options=(debug)
+_pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
 source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('939d5479b035f674dd669b3e084ec9688eaea62763d2a7ad134630ff20efd479')
+sha256sums=('9ff0a931159efc6be5bd9f8a1e4a16a70e2dab37cf22ad85c6d330ccfdf31c1a')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja

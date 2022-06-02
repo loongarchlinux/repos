@@ -3,14 +3,15 @@
 
 pkgdesc='FUSE implementation of overlayfs'
 pkgname=fuse-overlayfs
-pkgver=1.8
+pkgver=1.8.2
 pkgrel=1
 arch=(loongarch64 x86_64)
 url=https://github.com/containers/fuse-overlayfs
 license=(GPL3)
 depends=(fuse3)
 makedepends=(git)
-_commit=65d3f3110fcfc363aca2114f45f03a2e309aa7a5	#refs/tags/v1.8^{}
+options=(debug)
+_commit=d01bdd73b6bd1ffccaa163ef3e2660e1838305cb	#refs/tags/v1.8.2^{}
 source=("git+https://github.com/containers/fuse-overlayfs.git#commit=$_commit?signed")
 validpgpkeys=('AC404C1C0BF735C63FF4D562263D6DF2E163E1EA')
 sha512sums=('SKIP')

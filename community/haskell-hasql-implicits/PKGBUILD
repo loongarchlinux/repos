@@ -2,23 +2,28 @@
 
 _hkgname=hasql-implicits
 pkgname=haskell-hasql-implicits
-pkgver=0.1.0.2
-pkgrel=42
+pkgver=0.1.0.3
+pkgrel=29
 pkgdesc="Implicit definitions for Hasql, such as default codecs for standard types"
 url="https://github.com/nikita-volkov/hasql-implicits"
 license=("MIT")
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-hasql' 'haskell-network-ip' 'haskell-scientific'
          'haskell-uuid' 'haskell-vector')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('2788d365dd9d0c4826562472b577ac3715043f3a722ef7c21aaed754f122e74d')
+sha256sums=('42cfd03f80172bc7de36c13fdba28dbf5a6f4095b1a4cc0a40ac294382f78777')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  gen-setup
+}
 
 build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'

@@ -2,8 +2,8 @@
 
 _hkgname=invariant
 pkgname=haskell-invariant
-pkgver=0.5.4
-pkgrel=106
+pkgver=0.5.6
+pkgrel=7
 pkgdesc="Haskell98 invariant functors"
 url="https://github.com/nfrisby/invariant-functors"
 license=('custom:BSD2')
@@ -13,13 +13,13 @@ depends=('ghc-libs' 'haskell-bifunctors' 'haskell-comonad' 'haskell-contravarian
          'haskell-transformers-compat' 'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('82bd8c8936eb56cede53036967470155286d7b3b85dd1576e03170fcec497b6f05cbafb857b064767a195391b9f9b29b33a5f858d8c09e39ab761c20732af87b')
+sha512sums=('7bcbf6aa88fe2a202ac62dd2672d1a790eb45e38b14156a7818e38098ad8b94ac09e4daddf52883d985399de2c646557a0a8fbb7b729f7e1108660998978219f')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

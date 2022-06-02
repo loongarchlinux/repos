@@ -4,42 +4,43 @@
 
 _name=rugged
 # ideally this should match $pkgver, as package() might fail otherwise. thanks, github
-_libgit2_pkgver=1.3.0
+_libgit2_pkgver=1.4.3
 pkgname=ruby-rugged
-pkgver=1.3.0
-pkgrel=3
+pkgver=1.4.3
+pkgrel=1
 pkgdesc="A Ruby binding to the libgit2 linkable library"
 arch=(loongarch64 x86_64)
 url="https://github.com/libgit2/rugged"
 license=(MIT)
 depends=(glibc ruby)
-makedepends=(libgit2 ruby-minitest ruby-rake ruby-rake-compiler ruby-rdoc)
-checkdepends=(git)
+makedepends=(libgit2 ruby-rdoc)
+checkdepends=(git ruby-minitest ruby-rake ruby-rake-compiler)
 options=(!emptydirs)
-source=("${_name}-${pkgver}.tar.gz::https://github.com/libgit2/${_name}/archive/v${pkgver}.tar.gz"
-        "libgit2-${_libgit2_pkgver}.tar.gz::https://github.com/libgit2/libgit2/archive/v${_libgit2_pkgver}.tar.gz")
-sha512sums=('e090af00c505512c41151cd29ac413ae051f08ca2657c1fab2662c2eae9b4d26d7eec5828a0fcdd6dbccc1937a24e7246ee8d7cff8280a18c1f60e7529069515'
-            '842a648a67ff23ba9e6bf14b706ba9081164866e14000ebf3858442b7046925f05e1dbf00a7d740dc4bf32280e260730e23a9492e817094aa90736ae335ee76e')
-b2sums=('b56b8fc4e839744a2aee06fa315f9df84353712ca499f9f5190e20af55915d03ee15d7c7dc275fea372e091c914c25d2b9b52272fecc0a78999639ee02690865'
-        'b701c105bb0a5bdcdd5ed1db180662ad4949c540944664d5d8c2f5d78998f15d15bd3669ae3e3d43bfa1b81207c0a94b7e49fc76e57f4cc8ef791ab26e62fc70')
+source=(
+  $_name-$pkgver.tar.gz::https://github.com/libgit2/$_name/archive/v$pkgver.tar.gz
+  libgit2-$_libgit2_pkgver.tar.gz::https://github.com/libgit2/libgit2/archive/v$_libgit2_pkgver.tar.gz
+)
+sha512sums=('412116c07b00554f2fe2b73212c455e05008143555ba9704b1ffc19494b0533a3c42ac7112b3762771aec41321ff354f5f330dcb00443697bb463512426f3f2a'
+            '3dfa16c1c705b99fbda55e5e86e67703621d6f8fb62a03cfe998c834d242f33f4200fc0b6bc5d32fe5254c8b8e845259688e4bea9c2dbfc2b7df91841c335d28')
+b2sums=('56d7651a0ee2e5542a39f08786e0e97a77f1cce284efe52b72bf85658ad096d2936cca7c340498261b0468f2ca5962ae0554abeb060c48354c97984d152898ac'
+        '9308100ede912eae9d1fa4011c67f88f225aa11a49adf845389559fcbc213f31b0f91e4a5b496d282d42ac7f843f03c4ef7236f2d200331c615013d1250f6c31')
 
 prepare() {
-  mv -v "${_name}-${pkgver}" "${pkgname}-${pkgver}"
-  cd ${pkgname}-${pkgver}
+  cd $_name-$pkgver
   # we don't do version pinning
-  sed -r 's|~>|>=|g' -i ${_name}.gemspec
+  sed -r 's|~>|>=|g' -i $_name.gemspec
   # remove broken and useless libgit2 "version check":
   # https://github.com/libgit2/rugged/issues/698
   sed '68,90d' -i ext/rugged/extconf.rb
   # source tarball doesn't include vendored libgit2 version, which is only
   # needed for test fixtures (resources): https://github.com/libgit2/rugged/issues/801
-  mv -v ../libgit2-${_libgit2_pkgver}/* vendor/libgit2
+  mv -v ../libgit2-$_libgit2_pkgver/* vendor/libgit2
   # remove all tests requiring an internet connection
   rm -rv test/online/*
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd $_name-$pkgver
   export CI_BUILD=true
   export RUGGED_USE_SYSTEM_LIBRARIES=true
   export CMAKE_FLAGS=" --use-system-libraries"
@@ -48,12 +49,12 @@ build() {
 }
 
 check(){
-  cd "${pkgname}-${pkgver}"
+  cd $_name-$pkgver
   # ConfigTest#test_read_global_config_file fails, if no gitconfig is set for
   # user...
   # https://github.com/libgit2/rugged/issues/432
   git config --global user.name "Foo Bar"
-  rake test
+  rake test --trace --verbose TESTOPTS="--verbose"
 }
 
 package() {
@@ -61,21 +62,15 @@ package() {
 
   depends+=(libgit2.so)
 
-  cd ${pkgname}-${pkgver}
-  gem install --ignore-dependencies \
-              --no-user-install \
-              -i "${pkgdir}/${_gemdir}" \
-              -n "${pkgdir}/usr/bin" \
-              pkg/${_name}-${pkgver}.gem
-  install -vDm 644 "$pkgdir/$_gemdir/gems/$_name-$pkgver/LICENSE" \
-    -t "${pkgdir}/usr/share/licenses/${pkgname}/"
-  install -vDm 644 README.md CHANGELOG.md -t \
-    "${pkgdir}/usr/share/doc/${pkgname}"
+  cd $_name-$pkgver
+  gem install --ignore-dependencies --no-user-install -i "$pkgdir/$_gemdir" -n "$pkgdir/usr/bin" pkg/$_name-$pkgver.gem
+  install -vDm 644 "$pkgdir/$_gemdir/gems/$_name-$pkgver/LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 README.md CHANGELOG.md -t "$pkgdir/usr/share/doc/$pkgname"
   # removing all unneeded stuff
-  cd "${pkgdir}/${_gemdir}"
+  cd "$pkgdir/$_gemdir"
   rm -rvf cache \
-    "doc/${_name}-${pkgver}/ri/ext/" \
-    "gems/${_name}-${pkgver}/"{ext,lib/*/*.so} \
-    extensions/*/*/${_name}-${pkgver}/{mkmf.log,gem_make.out} \
-    gems/${_name}-${pkgver}/vendor
+    doc/$_name-$pkgver/ri/ext/ \
+    gems/$_name-$pkgver/{ext,lib/*/*.so} \
+    extensions/*/*/$_name-$pkgver/{mkmf.log,gem_make.out} \
+    gems/$_name-$pkgver/vendor
 }

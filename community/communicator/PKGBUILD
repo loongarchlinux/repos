@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=communicator
-pkgver=2.1.0
+pkgver=2.1.2
 pkgrel=1
 pkgdesc='Contacts and dialer application'
 url='https://mauikit.org/'
@@ -11,7 +11,7 @@ depends=(mauikit-filebrowsing mauikit-texteditor hicolor-icon-theme kpeople kcon
 makedepends=(extra-cmake-modules qt5-location)
 groups=(maui)
 source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('7ccfe48a933a5192a6166ce65f16f109eb398c6dfcd5ac553ef56b67b836e10b')
+sha256sums=('d1b1177719debfe8cbcf699ab31a5fbe379e329f442ae6cc67491f7a65ebea54')
 
 build() {
   cmake -B build -S $pkgname-$pkgver

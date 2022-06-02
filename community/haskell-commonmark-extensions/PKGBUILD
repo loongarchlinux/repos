@@ -1,9 +1,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 _hkgname=commonmark-extensions
 pkgname=haskell-commonmark-extensions
-pkgver=0.2.1.2
-pkgrel=35
+pkgver=0.2.3
+pkgrel=11
 pkgdesc="Pure Haskell commonmark parser"
 url="https://github.com/jgm/commonmark-hs"
 license=('BSD')
@@ -11,7 +12,7 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-commonmark' 'haskell-emojis' 'haskell-network-uri')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('f2a41ad2f71d67512affc0c5882d86256e7b9f7dce1194c8a6708ba5dfbb0807d8dbdd8a7972c6c2e0a0dcf6695fe68cd1430488756222dc1a545671e0aa10e1')
+sha512sums=('6fec4a53c66c14d8b694934e6fa2ddcd7aa34128cc22c2f9ed38236f95e87a939b48e1ed5f41469a068a2cd923ba11ffee9669a2801aa4723d7185117b874be7')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -20,9 +21,9 @@ prepare() {
 
 build() {
     cd $_hkgname-$pkgver
-    
+
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
@@ -38,7 +39,7 @@ check() {
 
 package() {
     cd $_hkgname-$pkgver
-    
+
     install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
     install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
     runhaskell Setup copy --destdir="$pkgdir"

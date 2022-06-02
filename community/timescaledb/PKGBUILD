@@ -1,24 +1,24 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Felix Fung <fylixeoi@gmail.com>
 
 pkgname=timescaledb
-_commit=a2530ab5f251ba9680d2c270496d1e2e6fcf6367
+_commit=9ae47c6802b6ad4a6e13d243e4d5cc2e4119affb
 # limit to last 5 releases
 _versions=(
-  2.4.0
-  2.4.1
-  2.4.2
   2.5.0
-  2.5.1 # current ts version
+  2.5.1
+  2.5.2
+  2.6.0
+  2.6.1 # current ts version
 )
 pkgver="${_versions[-1]}"
-pkgrel=1
+pkgrel=3
 pkgdesc="An open-source time-series database optimized for fast ingest and complex queries"
 arch=('loongarch64' 'x86_64')
 url="https://www.timescale.com/"
 license=('Apache' 'custom:Timescale')
-depends=('postgresql' 'postgresql-libs' 'openssl')
+depends=('postgresql<15' 'postgresql-libs<15' 'openssl')
 makedepends=('gcc' 'cmake' 'git')
 optdepends=('timescaledb-tune: tune postgresql.conf for better performance')
 install=timescaledb.install
@@ -69,7 +69,7 @@ package() {
     if [ "$version" == "${_versions[-1]}" ]; then
       make DESTDIR="$pkgdir/" install
     else
-      install -vDm644 -t "$pkgdir/usr/lib/postgresql" \
+      install -vDm755 -t "$pkgdir/usr/lib/postgresql" \
         "src/$pkgname-$version.so" \
         "tsl/src/$pkgname-tsl-$version.so"
       install -Dm644 -t "$pkgdir/usr/share/postgresql/extension" \

@@ -2,8 +2,8 @@
 
 _hkgname=th-desugar
 pkgname=haskell-th-desugar
-pkgver=1.12
-pkgrel=51
+pkgver=1.13.1
+pkgrel=3
 pkgdesc="Functions to desugar Template Haskell"
 url="https://github.com/goldfirere/th-desugar"
 license=('BSD')
@@ -12,13 +12,13 @@ depends=('ghc-libs' 'haskell-ordered-containers' 'haskell-syb' 'haskell-th-abstr
          'haskell-th-lift' 'haskell-th-orphans' 'haskell-transformers-compat')
 makedepends=('ghc' 'haskell-hunit' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('9615de6e08992eea2449ebc366016f5c62efbef0cec744d4e5a93223a12986f069a4a7707e0fbff9754388b8547226e7c4bf91b221e1077729cde257c659e74f')
+sha512sums=('41d551c7d57196831e6035e513617c77a78f1f5409e192a40726ff8302ccbec57e2e9af178afd19d7a929b9da4e240566734f2e3feb26548033311b080f17649')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

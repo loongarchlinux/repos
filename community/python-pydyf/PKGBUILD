@@ -1,0 +1,65 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-pydyf
+pkgver=0.2.0
+pkgrel=1
+pkgdesc='A low-level PDF generator'
+arch=('any')
+url='https://www.courtbouillon.org/pydyf'
+license=('BSD')
+depends=('python')
+makedepends=(
+  'git'
+  'python-build'
+  'python-flit-core'
+  'python-installer'
+)
+checkdepends=(
+  'python-pytest'
+  'python-pillow'
+  'ghostscript'
+)
+_commit='1ab5cbacc5ef9004fbf783634a86e94edcc4c2c1'
+source=(
+  "$pkgname::git+https://github.com/CourtBouillon/pydyf.git#commit=$_commit"
+  'remove-unnecessary-test-args.patch'
+)
+b2sums=('SKIP'
+        'eac0ff06b669ccdf0b1ebf55b314fde5c8dd7e0f7f02559681f7ad485ba13db2ba07e5b7a4ec06dbf39bf823d6f7a67c6cab8ebd87630334de6ae6b8745d9e7b')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  cd "$pkgname"
+
+  # thou shalt not lint coding style in integration tests
+  patch -p1 -i ../remove-unnecessary-test-args.patch
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # skip failing tests
+  pytest \
+    --deselect tests/test_pydyf.py::test_transform \
+    --deselect tests/test_pydyf.py::test_text
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}

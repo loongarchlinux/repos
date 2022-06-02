@@ -4,7 +4,7 @@
 _hkgname=summoner-tui
 pkgname=haskell-summoner-tui
 pkgver=2.0.1.1
-pkgrel=263
+pkgrel=350
 pkgdesc="Tool for scaffolding fully configured batteries-included production-level Haskell projects using TUI."
 url="https://github.com/kowainik/summoner"
 license=('MPL2')
@@ -17,15 +17,16 @@ sha256sums=('9f840f25d72c54b4b5ed0c5e6755e52ca71e9961759de6bd0046d567bd1f2c27')
 
 prepare(){
   cd $_hkgname-$pkgver
-  echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
-  uusi $_hkgname.cabal
+  uusi -u base -u brick -u vty $_hkgname.cabal
+  gen-setup
+  sed -i 's|renderCheckbox :: Bool -> String|renderCheckbox :: (Ord n) => Bool -> String|' src/Summoner/Tui/Field.hs
 }
 
 build() {
   cd $_hkgname-$pkgver    
     
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'

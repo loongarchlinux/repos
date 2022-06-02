@@ -4,7 +4,7 @@
 _hkgname=servant
 pkgname=haskell-servant
 pkgver=0.18.3
-pkgrel=34
+pkgrel=79
 pkgdesc="A family of combinators for defining webservices APIs"
 url="http://haskell-servant.readthedocs.org/"
 license=("BSD")
@@ -20,14 +20,14 @@ sha512sums=('818569dc38fdb5df5a489c4a6622e65698439fbf8c24d4969a84728a1acd33966ae
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u mmorph $_hkgname.cabal
+    uusi -u base-compat -u hspec -u mmorph $_hkgname.cabal
 }
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

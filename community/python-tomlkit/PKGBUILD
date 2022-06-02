@@ -4,22 +4,24 @@
 
 _pkgname=tomlkit
 pkgname=python-tomlkit
-pkgver=0.8.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="Style-preserving TOML library for Python"
 url="https://github.com/sdispater/tomlkit"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build'
+             'python-installer'
+             'python-poetry')
 checkdepends=('python-pytest'
               'python-yaml')
 source=("https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
-sha512sums=('77b267201021e740d8134d0d5edfbef2cf077adac0b320d80887fdedda3f63f74df1957e8230976f16c80fcc58fd4cfabb195cccf0eda7d6cd29f5f65d362147')
+sha512sums=('2e89748140cfdae217ac3ac999f0b718414d28218d61fb5219adc503ede2ea1f4003be9ef4453f189b0ee86df463c59520244b9fd26553bd4d8047674cba61c9')
 
 build() {
   cd tomlkit-$pkgver
-  python setup.py build
+  python -m build -wn
 }
 
 check() {
@@ -29,6 +31,6 @@ check() {
 
 package() {
   cd tomlkit-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer -d "$pkgdir" dist/*.whl
   install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }

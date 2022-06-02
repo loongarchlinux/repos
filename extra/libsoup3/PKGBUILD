@@ -2,18 +2,20 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=libsoup3
-pkgver=3.0.3
+pkgver=3.0.6
 pkgrel=1
 pkgdesc="HTTP client/server library for GNOME"
 url="https://wiki.gnome.org/Projects/libsoup"
 arch=(loongarch64 x86_64)
 license=(LGPL)
-depends=(glib2 glib-networking sqlite krb5 libpsl brotli libnghttp2)
+depends=(glib2 glib-networking sqlite krb5 libpsl brotli libnghttp2
+         libsysprof-capture)
 makedepends=(gobject-introspection python vala git gtk-doc meson samba
              python-quart)
 checkdepends=(apache php-apache)
 optdepends=('samba: Windows Domain SSO')
-_commit=fbf69d004d1ef75bd93a10819378030b4c479bb9  # tags/3.0.3^0
+options=(debug)
+_commit=5211c27a4c77c9bae511721cf20f0abac554d8b4  # tags/3.0.6^0
 source=("git+https://gitlab.gnome.org/GNOME/libsoup.git#commit=$_commit")
 sha256sums=('SKIP')
 
@@ -29,8 +31,7 @@ prepare() {
 build() {
   arch-meson libsoup build \
     -D gtk_doc=true \
-    -D autobahn=disabled \
-    -D sysprof=disabled
+    -D autobahn=disabled
   meson compile -C build
 }
 

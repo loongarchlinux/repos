@@ -3,7 +3,7 @@
 _hkgname=structured
 pkgname=haskell-structured
 pkgver=0.1.1
-pkgrel=16
+pkgrel=58
 pkgdesc="Structure (hash) of your data types"
 url="https://github.com/phadej/binary-tagged"
 license=('BSD')
@@ -18,13 +18,14 @@ sha512sums=('2edece8d10d21535bfaa77c9a71a2b1cfdcf45d9869994b0cd051fec4d9f781a4e4
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u hashable $_hkgname.cabal
 }
 
 build() {
     cd $_hkgname-$pkgver    
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

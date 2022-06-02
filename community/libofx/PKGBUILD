@@ -3,7 +3,7 @@
 
 pkgbase=libofx
 pkgname=('libofx' 'libofx-doc')
-pkgver=0.9.15
+pkgver=0.10.5
 pkgrel=1
 pkgdesc="API for the OFX banking standard"
 arch=('loongarch64' 'x86_64')
@@ -11,8 +11,8 @@ url="https://github.com/libofx"
 license=('GPL')
 depends=('opensp' 'curl' 'libxml++2.6')
 checkdepends=('gnupg')
-source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha256sums=('e95c14e09fc37b331af3ef4ef7bea29eb8564a06982959fbd4bca7e331816144')
+source=(https://github.com/$pkgname/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('570ea744fb654750ed9c60456c771e7cbb035465f409e9ee1118f671b47b3bc3')
 
 build() {
   cd $pkgbase-$pkgver

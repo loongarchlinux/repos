@@ -1,33 +1,29 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=fluajho
-pkgver=1.7.0
+pkgver=1.7.2
 pkgrel=1
 pkgdesc="A simple sf2 soundfont host/player"
-arch=('loongarch64' 'x86_64')
+arch=(any)
 url="https://www.laborejo.org/fluajho/"
-license=('GPL3')
-groups=('pro-audio')
-depends=('glibc' 'hicolor-icon-theme' 'python' 'python-pyqt5' 'ttf-dejavu')
-makedepends=('fluidsynth' 'glib2' 'jack' 'libsndfile' 'util-linux-libs' 'ncurses')
+license=(GPL3)
+groups=(pro-audio)
+depends=(hicolor-icon-theme libcalfbox-lss python python-pyqt5 ttf-dejavu)
 optdepends=('new-session-manager: Session management')
-provides=('soundfont-synthesizer')
-source=("https://www.laborejo.org/downloads/${pkgname}-${pkgver}.tar.gz"{,.sig})
-sha512sums=('e660c95a1f6c56162cf5adbd7c26f9a7ba4f264c0bd9ae4810b9501e9308c3d5226b66f78f25439ac32a8c1a7e5e97bddce1eaf71357eab5bf8ca07f757da98f'
+provides=(soundfont-synthesizer)
+source=(https://www.laborejo.org/downloads/$pkgname-$pkgver.tar.gz{,.sig})
+sha512sums=('3b74edb734710781723df2b182a2dbab2a52af3167ae79fffdec9ccbae4ed8046012513a507e6ebc4852ff7ad57f3b3df231128b498f186d5128600fc26cc6b6'
             'SKIP')
-b2sums=('7d7aec68cdc30081acdecbf21d7642d1cb951494420ea57317eef48ecfb293b9243380e85598a950e878e84e3417b8852a8715c8b73fed0c5c50038a8e845d74'
+b2sums=('d20d31d9db743aa56c24422ab0a8d593118be4138d13caffba1e978d37583ac32b6c5871210a39752751cfef4616f4f6f3510c3c9038332787b97852d908823a'
         'SKIP')
 validpgpkeys=('45D952EF384ADFBB00913E3428C6A306F2909FEE') # Nils Hilbricht <nils@hilbricht.com>
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd $pkgname-$pkgver
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  depends+=('libfluidsynth.so' 'libglib-2.0.so' 'libjack.so' 'libncursesw.so'
-  'libsndfile.so' 'libuuid.so')
-  cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
 }

@@ -1,9 +1,10 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Adam Fontenot <adam.m.fontenot@gmail.com>
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=broot
-pkgver=1.8.1
+pkgver=1.13.1
 pkgrel=1
 pkgdesc='Fuzzy Search + tree + cd'
 arch=('loongarch64' 'x86_64')
@@ -13,16 +14,21 @@ depends=('gcc-libs' 'zlib' 'libgit2')
 makedepends=('rust')
 options=('!lto')
 source=("https://github.com/Canop/broot/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha256sums=('c806130c4982b064ccaa7fec79436af71d4cf06ace33c2cb34d4d30b3c1095e7')
+sha256sums=('95b4b01c43f23b8d4f06030b57c9b2e47a4fbbc4f6099acaf6e42d1f1697385e')
+
+prepare() {
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
 
 build() {
   cd $pkgname-$pkgver
-  cargo build --release --locked
+  cargo build --release --frozen
 }
 
 check() {
   cd $pkgname-$pkgver
-  cargo test --release --locked
+  cargo test --frozen
 }
 
 package() {
@@ -35,6 +41,7 @@ package() {
   sed -i "s/#date//" man/page
   install -Dm644 man/page "$pkgdir/usr/share/man/man1/$pkgname.1"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 resources/icons/vscode/vscode.ttf "$pkgdir/usr/share/fonts/TTF/vscode.ttf"
 }
 
 # vim:set ts=2 sw=2 et:

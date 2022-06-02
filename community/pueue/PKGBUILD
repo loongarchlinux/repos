@@ -2,26 +2,30 @@
 # Contributor: Arne Beer <privat@arne.beer>
 
 pkgname=pueue
-pkgver=1.0.4
+pkgver=2.0.2
 pkgrel=1
-pkgdesc="A command scheduler for shells"
+pkgdesc="A CLI tool for managing long running shell commands"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/nukesor/pueue"
 license=('MIT')
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('c4ddb496f86ab4c10b322d5a64be4f96f6c8779796983f4500fe341300b65072')
+sha256sums=('92e54105f840d973d048c280a9320c8740d205770d82f8ca882a4eb5716c4136')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  mkdir -p utils/completions/
 }
 
 build() {
   cd "$pkgname-$pkgver"
+  CFLAGS+=" -ffat-lto-objects"
   cargo build --release --frozen
-  ./build_completions.sh
+  ./target/release/pueue completions bash utils/completions/
+  ./target/release/pueue completions fish utils/completions/
+  ./target/release/pueue completions zsh utils/completions/
 }
 
 check() {

@@ -2,8 +2,8 @@
 # Contributor: Olli <olli@suruatoel.xyz>
 
 pkgname=tomcat10
-pkgver=10.0.14
-pkgrel=1
+pkgver=10.0.20
+pkgrel=2
 pkgdesc='Open source implementation of the Java Servlet 5.0 and JavaServer Pages 3.0 technologies'
 arch=(any)
 url=https://tomcat.apache.org/
@@ -30,7 +30,7 @@ backup=(
   etc/tomcat10/web.xml
 )
 install=tomcat10.install
-_tag=3bb5b5fcf02e25ae627e480937e755e0a99c82d7
+_tag=2a46c651529a9d237b4d6beb1ef846922d949342
 source=(
   git+https://github.com/apache/tomcat.git#tag=${_tag}
   tomcat10.service

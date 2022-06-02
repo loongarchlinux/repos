@@ -3,35 +3,34 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=qsynth
-pkgver=0.9.4
+pkgver=0.9.7
 pkgrel=2
 pkgdesc="Qt GUI for FluidSynth"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://qsynth.sourceforge.io/"
-license=('GPL')
-groups=('pro-audio')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'qt6-base')
-makedepends=('cmake' 'fluidsynth' 'qt6-tools')
+license=(GPL)
+groups=(pro-audio)
+depends=(gcc-libs glibc hicolor-icon-theme qt6-base qt6-svg)
+makedepends=(cmake fluidsynth qt6-tools)
 optdepends=('qt6-wayland: for native wayland support')
-source=("https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('764a90fd86451cd3a12c71f061f4a603cdce54ae80e6543d05fa66a97ea0b7c50bac0350f01f597ec93ed445a5433a9dea6d9c5a43ce385c231aaea8e13675d4')
-b2sums=('e25195755c52c63912b03a416878d248712b78ba0014414bc8b1d31cbd5bb75562640de4a0255d2727a40274a6ff3a84b201d39c93674140ff31ccc581bfd254')
+options=(debug)
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
+sha512sums=('1df8b96423a44d2a3db47417867319cea5df941e4e17e7b04c5b9c3839fff4c7d77cbc4a1ba86a2c17f5bbe13aefa59fc46a8769ecb1a2590c1f4c6c28ae6081')
+b2sums=('7f74aebf0c635943e64be636035f86bb74e94514f97f199046cebed37675503c15225f626aba9bc862d07b13d941bb26bc3d3550f0f2c0dc32a8ed6db6c7f029')
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  cmake -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DCMAKE_BUILD_TYPE='None' \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=None \
         -DCONFIG_QT6=ON \
         -Wno-dev \
         -B build \
-        -S .
+        -S $pkgname-$pkgver
   make VERBOSE=1 -C build
 }
 
 package() {
-  depends+=('libfluidsynth.so')
-  cd "${pkgname}-${pkgver}"
-  make VERBOSE=1 DESTDIR="$pkgdir/" install -C build
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 {AUTHORS,ChangeLog,README,TODO,TRANSLATORS}
+  depends+=(libfluidsynth.so)
+
+  make VERBOSE=1 DESTDIR="$pkgdir" install -C build
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README,TRANSLATORS} -t "$pkgdir/usr/share/doc/$pkgname"
 }

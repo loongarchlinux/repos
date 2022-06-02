@@ -1,12 +1,12 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
 _use_suffix=1
-pkgver=14.2.2
-_commit=dbe8546e1b7f7219e92df18ed5f284f8218aa623
+pkgver=14.2.9
+_commit=37a7155bd859a0a5bce195c8d145e15326d225b1
 _chromiumver=93.0.4577.82
 _gcc_patchset=6
 # shellcheck disable=SC2034
-pkgrel=1
+pkgrel=2
 
 _major_ver=${pkgver%%.*}
 if [[ ${_use_suffix} != 0 ]]; then
@@ -28,7 +28,8 @@ depends=('c-ares' 'ffmpeg' 'gtk3' 'libevent' 'libxslt' 'minizip' 'nss' 're2'
 # shellcheck disable=SC2034
 makedepends=('clang' 'git' 'gn' 'gperf' 'harfbuzz-icu' 'http-parser'
              'java-runtime-headless' 'jsoncpp' 'libnotify' 'lld' 'llvm' 'ninja'
-             'npm' 'pciutils' 'pipewire' 'python' 'wget' 'yarn')
+             'npm' 'pciutils' 'pipewire' 'python' 'python-httplib2'
+             'python-pyparsing' 'python-six' 'wget' 'yarn')
 # shellcheck disable=SC2034
 optdepends=('kde-cli-tools: file deletion support (kioclient5)'
             'libappindicator-gtk3: StatusNotifierItem support'
@@ -42,12 +43,15 @@ if [[ ${_use_suffix} == 0 ]]; then
   provides=("electron${_major_ver}")
 fi
 # shellcheck disable=SC2034
+options=('!lto') # Electron adds its own flags for ThinLTO
+# shellcheck disable=SC2034
 source=('git+https://github.com/electron/electron.git'
         'git+https://chromium.googlesource.com/chromium/tools/depot_tools.git#branch=main'
         "https://github.com/stha09/chromium-patches/releases/download/chromium-${_chromiumver%%.*}-patchset-${_gcc_patchset}/chromium-${_chromiumver%%.*}-patchset-${_gcc_patchset}.tar.xz"
         "electron-launcher.sh"
         "electron.desktop"
         'default_app-icon.patch'
+        'jinja-python-3.10.patch'
         'use-system-libraries-in-node.patch'
         'linux-sandbox-syscall-broker-use-struct-kernel_stat.patch'
         'linux-sandbox-fix-fstatat-crash.patch'
@@ -57,9 +61,11 @@ source=('git+https://github.com/electron/electron.git'
         'gn-visibility-webrtc.patch'
         'replace-blacklist-with-ignorelist.patch'
         'sql-make-VirtualCursor-standard-layout-type.patch'
-        'chromium-93-ffmpeg-4.4.patch'
+        'breakpad-fix-for-non-constant-SIGSTKSZ.patch'        
+        'chromium-94-ffmpeg-roll.patch'
         'chromium-93-pdfium-include.patch'
         'chromium-harfbuzz-3.0.0.patch'
+        'sandbox-build-if-glibc-2.34-dynamic-stack-size-is-en.patch'
         'skia-harfbuzz-3.0.0.patch'
        )
 # shellcheck disable=SC2034
@@ -69,6 +75,7 @@ sha256sums=('SKIP'
             '3953f532a3ea5fce19ee33600c6ead89dcd066df6a01d3c3ab4c24f96e46fca2'
             '4484200d90b76830b69eea3a471c103999a3ce86bb2c29e6c14c945bf4102bae'
             '75bac9c4ad32ff9329399b8587f9772e208c009fd822cdfce61b2bd1ee9ac828'
+            '09de0ebb4002be7fb4ede63d3977e4f1235637750169c9e71bfdbd75bf750f7a'
             '7cb11fb44aaf4d15f36caca3c0d1b082a723c30d43cd44db147248db5683a2a9'
             '268e18ad56e5970157b51ec9fc8eb58ba93e313ea1e49c842a1ed0820d9c1fa3'
             '253348550d54b8ae317fd250f772f506d2bae49fb5dc75fe15d872ea3d0e04a5'
@@ -78,11 +85,12 @@ sha256sums=('SKIP'
             '574785a21168c3e9b7aa82630713ceb6ced12f699133db66b10fc84b7bb2c631'
             'd3344ba39b8c6ed202334ba7f441c70d81ddf8cdb15af1aa8c16e9a3a75fbb35'
             'dd317f85e5abfdcfc89c6f23f4c8edbcdebdd5e083dcec770e5da49ee647d150'
-            '1a9e074f417f8ffd78bcd6874d8e2e74a239905bf662f76a7755fa40dc476b57'
+            'b4d28867c1fabde6c50a2cfa3f784730446c4d86e5191e0f0000fbf7b0f91ecf'
+            '56acb6e743d2ab1ed9f3eb01700ade02521769978d03ac43226dec94659b3ace'
             '7c0c47f4b67d96515bcfa68ffd34d515d03f1e9e41c063459f39e4169de0324c'
             '7ce947944a139e66774dfc7249bf7c3069f07f83a0f1b2c1a1b14287a7e15928'
-            'dae11dec5088eb1b14045d8c9862801a342609c15701d7c371e1caccf46e1ffd'
-           )
+            'f910be9370c880de6e1d61cc30383c069e421d7acf406166e4fbfad324fc7d61'
+            'dae11dec5088eb1b14045d8c9862801a342609c15701d7c371e1caccf46e1ffd')
 
 _system_libs=('ffmpeg'
               'flac'
@@ -178,9 +186,11 @@ prepare() {
   patch -Np1 -i ../patches/chromium-93-DevToolsEmbedderMessageDispatcher-include.patch
   patch -Np1 -i ../patches/chromium-93-ScopedTestDialogAutoConfirm-include.patch
 
-  patch -Np1 -i ../chromium-93-ffmpeg-4.4.patch
+  patch -Np1 -d third_party/breakpad/breakpad < ../breakpad-fix-for-non-constant-SIGSTKSZ.patch
   patch -Np1 -i ../chromium-93-pdfium-include.patch
+  patch -Np1 -i ../chromium-94-ffmpeg-roll.patch
   patch -Np1 -i ../chromium-harfbuzz-3.0.0.patch
+  patch -d third_party/jinja2 -Np1 -i ../../../jinja-python-3.10.patch
   patch -Np1 -d third_party/skia <../skia-harfbuzz-3.0.0.patch
   patch -Np1 -i ../linux-sandbox-syscall-broker-use-struct-kernel_stat.patch
   patch -Np1 -i ../linux-sandbox-fix-fstatat-crash.patch
@@ -189,7 +199,10 @@ prepare() {
   patch -Np1 -i ../gn-visibility-mojo.patch
   patch -Np1 -i ../gn-visibility-webrtc.patch
   patch -Rp1 -i ../replace-blacklist-with-ignorelist.patch
+  patch -Np1 -i ../sandbox-build-if-glibc-2.34-dynamic-stack-size-is-en.patch
   patch -Np1 -i ../sql-make-VirtualCursor-standard-layout-type.patch
+  patch -d third_party/electron_node/tools/inspector_protocol/jinja2 \
+      -Np1 -i ../../../../../../jinja-python-3.10.patch
   patch -Np1 -i ../use-system-libraries-in-node.patch
   patch -Np1 -i ../default_app-icon.patch  # Icon from .desktop file
 
@@ -218,6 +231,14 @@ build() {
   export CXX=clang++
   export AR=ar
   export NM=nm
+
+  CFLAGS="${CFLAGS/-fexceptions/}"
+  CXXFLAGS="${CXXFLAGS/-fexceptions/}"
+
+  # This appears to cause random segfaults when combined with ThinLTO
+  # https://bugs.archlinux.org/task/73518
+  CFLAGS=${CFLAGS/-fstack-clash-protection}
+  CXXFLAGS=${CXXFLAGS/-fstack-clash-protection}
 
   # Do not warn about unknown warning options
   CFLAGS+='   -Wno-unknown-warning-option'

@@ -3,26 +3,30 @@
 
 _pyname=ufoLib2
 pkgname=python-${_pyname,,}
-pkgver=0.11.4
+pkgver=0.13.1
 pkgrel=3
 pkgdesc='A library to deal with UFO font sources'
 arch=(any)
 url="https://github.com/fonttools/$_pyname"
 license=(Apache)
 _pydeps=(attrs
+         cattrs
          fonttools
-         fs) # for fonttools[ufo]
+         fs # for fonttools[ufo]
+         lxml)
 depends=(python
          "${_pydeps[@]/#/python-}")
-makedepends=(python-setuptools-scm)
+makedepends=(python-{build,installer}
+             python-wheel # todo: make this go away
+             python-setuptools-scm) # scm required for _version file generation
 checkdepends=(python-pytest)
 _archive="$_pyname-$pkgver"
-source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.zip")
-sha256sums=('25359d24a46c7a67c3cd060f0ff2daee2e8aa96c0a811c43ef5111407beee49b')
+source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
+sha256sums=('3275a2da623e6d4b7ee29c984cdb3a5b86bbc23f0a1ce94486d8bb5c308aa47b')
 
 build() {
 	cd "$_archive"
-	python setup.py build
+	python -m build -wn
 }
 
 check() {
@@ -32,5 +36,5 @@ check() {
 
 package() {
 	cd "$_archive"
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	python -m installer -d "$pkgdir" dist/*.whl
 }

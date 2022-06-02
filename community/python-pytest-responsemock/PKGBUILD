@@ -2,8 +2,8 @@
 
 _name=pytest-responsemock
 pkgname=python-pytest-responsemock
-pkgver=1.0.1
-pkgrel=3
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="Simplified requests calls mocking for pytest"
 arch=(any)
 url="https://github.com/idlesign/pytest-responsemock"
@@ -11,29 +11,25 @@ license=(BSD)
 depends=(python-pytest python-responses)
 makedepends=(python-setuptools)
 checkdepends=(python-requests)
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
-sha512sums=('4b04f5e1e7608640cf8310d33ce6ad53cdf416f0a05a087b86288abff53bd9ce2ecbfaf83320b1356e4aecfc7f3d7bf12dbfb30d1488aabf96e32f5e37612c8a')
-b2sums=('b62184c382b9110b5a0479c1fe5aaf24a7fc0342aa69f8d21559a870c937ec635a3e18bf803ff3544843af664ab0b3b996bbba2eb2c3796cf7a5b3a6f862c001')
-
-prepare() {
-  mv -v "${_name}-$pkgver" "$pkgname-$pkgver"
-}
+source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
+sha512sums=('276b01afed3813a357d61dd0fb557824fc8001ae3c2f507bdcb05e12a5e2014e68102a14fc38e0565c304f963e5a5d152163e587fb55d0c46fea5f28a68ff247')
+b2sums=('cbf90544a1e4c9a73e524c25a5bf0d418523ac4ae5576f42454ff9bbd81ecdf4d27daa7c0e433acd8fd9dc365992714d60ef73a5ddbe6ec45e4d1fb2076324c3')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$_name-$pkgver"
   python setup.py build
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  export PYTHONPATH="build:${PYTHONPATH}"
+  cd "$_name-$pkgver"
+  export PYTHONPATH="build:$PYTHONPATH"
   # disable flaky tests
   pytest -v -k "not test_bypass"
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  python setup.py install --optimize=1 --root="${pkgdir}"
-  install -vDm 644 {AUTHORS,CHANGELOG,README.rst} -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -vDm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd "$_name-$pkgver"
+  python setup.py install --optimize=1 --root="$pkgdir"
+  install -vDm 644 {AUTHORS,CHANGELOG,README.rst} -t "$pkgdir/usr/share/doc/$pkgname"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }

@@ -2,7 +2,7 @@
 # Contributor: Yunxiang Li <shironeko@waifu.club>
 
 pkgname=poke
-pkgver=1.4
+pkgver=2.3
 pkgrel=1
 pkgdesc="Interactive, extensible editor for binary data."
 arch=(loongarch64 x86_64)
@@ -11,9 +11,10 @@ license=('GPL3')
 depends=('gc' 'readline' 'gettext' 'json-c')
 makedepends=('help2man')
 checkdepends=('dejagnu')
+options=('!lto' 'debug')
 source=("https://ftp.gnu.org/gnu/poke/poke-${pkgver}.tar.gz"{,.sig})
 validpgpkeys=('BDFA5717FC1DD35C2C3832A23EF90523B304AF08')
-sha256sums=('ce054df29560c921230132703ee449fe130b6e25ab03aa6cc796bb401506aa24'
+sha256sums=('3690cf1116da7cb3a9ec6b4f7003e253e268b510212a288fd38aafed0ebcc766'
             'SKIP')
 
 build() {

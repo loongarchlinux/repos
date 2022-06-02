@@ -3,13 +3,13 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=i3status-rust
-pkgver=0.20.7
+pkgver=0.21.10
 pkgrel=1
 pkgdesc='Resourcefriendly and feature-rich replacement for i3status, written in pure Rust'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/greshake/i3status-rust'
 license=('GPL3')
-depends=('libpulse')
+depends=('libpulse' 'lm_sensors')
 makedepends=('rust')
 optdepends=('alsa-utils: for the volume block'
             'bluez: for the bluetooth block'
@@ -18,7 +18,6 @@ optdepends=('alsa-utils: for the volume block'
             'ibus: for the ibus block'
             'iw: display wifi signal strength in net block'
             'kdeconnect: for the kdeconnect block'
-            'lm_sensors: for the temperature block'
             'networkmanager: for the networkmanager block'
             'powerline-fonts: for all themes using the Powerline arrow char'
             'pulseaudio: for the volume block'
@@ -26,10 +25,18 @@ optdepends=('alsa-utils: for the volume block'
             'ttf-font-awesome: for the awesome icons'
             'upower: for the battery block')
 source=("https://github.com/greshake/i3status-rust/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('40f951e1a927a2cbe2a45f3875d6750432e8f1f02ce2d2f153d6b00a8102d87bca8bdeb5a3713c73a998c7798ca88c5fea2feed84e3363859b532a5bc2cb49eb')
+b2sums=('dccd302d0e871c57679c85e879c0d9c2b58ee22c142132d3fc9b81170441a7d456d71810d28b4e6c2bcd7e5b4082d18e816aedd0f17b4d94a83771ee17c4fb67')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
 
 build() {
   cd ${pkgname}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
   cargo build --release --locked --features 'pulseaudio maildir'
 }
 

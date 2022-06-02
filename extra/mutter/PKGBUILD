@@ -2,43 +2,44 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Michael Kanis <mkanis_at_gmx_dot_de>
 
-pkgname=mutter
-pkgver=41.2
+pkgbase=mutter
+pkgname=(mutter mutter-docs)
+pkgver=42.2
 pkgrel=1
 pkgdesc="A window manager for GNOME"
 url="https://gitlab.gnome.org/GNOME/mutter"
 arch=(loongarch64 x86_64)
 license=(GPL)
 depends=(dconf gobject-introspection-runtime gsettings-desktop-schemas
-         libcanberra startup-notification zenity libsm gnome-desktop upower
+         libcanberra startup-notification zenity libsm gnome-desktop 
          libxkbcommon-x11 gnome-settings-daemon libgudev libinput pipewire
-         xorg-xwayland graphene libxkbfile)
+         xorg-xwayland graphene libxkbfile libsysprof-capture)
 makedepends=(gobject-introspection git egl-wayland meson xorg-server
-             wayland-protocols)
-checkdepends=(xorg-server-xvfb pipewire-media-session python-dbusmock)
-provides=(libmutter-9.so)
-groups=(gnome)
-_commit=664ac09eecfd365b5258f53d2c9e6c8410a37919  # tags/41.2^0
+             wayland-protocols sysprof gi-docgen)
+checkdepends=(xorg-server-xvfb wireplumber python-dbusmock)
+options=(debug)
+_commit=10cece870cf25c15daa8b20130d328257ec5f132  # tags/42.2^0
 source=("git+https://gitlab.gnome.org/GNOME/mutter.git#commit=$_commit")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd $pkgname
+  cd mutter
   git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
-  cd $pkgname
+  cd mutter
 }
 
 build() {
   CFLAGS="${CFLAGS/-O2/-O3} -fno-semantic-interposition"
   LDFLAGS+=" -Wl,-Bsymbolic-functions"
-  arch-meson $pkgname build \
+
+  arch-meson mutter build \
     -D egl_device=true \
     -D wayland_eglstream=true \
-    -D installed_tests=false \
-    -D profiler=false
+    -D docs=true \
+    -D installed_tests=false
   meson compile -C build
 }
 
@@ -50,19 +51,43 @@ _check() (
   pipewire &
   _p1=$!
 
-  pipewire-media-session &
+  wireplumber &
   _p2=$!
 
   trap "kill $_p1 $_p2; wait" EXIT
 
-  meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs -t 3
 )
 
 check() {
-  dbus-run-session xvfb-run -s '-nolisten local' \
+  dbus-run-session xvfb-run -s '-nolisten local +iglx -noreset' \
     bash -c "$(declare -f _check); _check"
 }
 
-package() {
-  meson install -C build --destdir "$pkgdir"
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
 }
+
+package_mutter() {
+  provides=(libmutter-10.so)
+  groups=(gnome)
+
+  meson install -C build --destdir "$pkgdir"
+
+  _pick docs "$pkgdir"/usr/share/mutter-*/doc
+}
+
+package_mutter-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv docs/* "$pkgdir"
+}
+
+# vim:set sw=2 et:

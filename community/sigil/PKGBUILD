@@ -1,18 +1,28 @@
-# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
-# Maintainer: Alad Wenter <alad@mailbox.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Alad Wenter <alad@mailbox.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Larry Hajali <larryhaja [at] gmail [dot] com>
 
 pkgname=sigil
-pkgver=1.8.0
-pkgrel=2
-pkgdesc="multi-platform EPUB2/EPUB3 ebook editor"
+pkgver=1.9.10
+pkgrel=1
+pkgdesc='multi-platform EPUB2/EPUB3 ebook editor'
 arch=('loongarch64' 'x86_64')
-url="https://sigil-ebook.com/"
-license=('GPL3')
-depends=('hicolor-icon-theme' 'hunspell' 'mathjax2' 'minizip' 'python-css-parser'
-         'python-dulwich' 'python-lxml' 'qt5-svg' 'qt5-webengine')
-makedepends=('qt5-tools' 'cmake')
+url=https://sigil-ebook.com
+_url=https://github.com/Sigil-Ebook/Sigil
+license=(GPL3)
+depends=(hicolor-icon-theme
+         hunspell
+         mathjax2
+         minizip
+         python-css-parser
+         python-dulwich
+         python-lxml
+         qt5-svg
+         qt5-webengine)
+makedepends=(cmake
+             qt5-tools)
 optdepends=('hunspell-en_US: for English dictionary support'
             'hyphen-en: for English hyphenation support in plugins'
             'pageedit: external editor to replace BookView'
@@ -24,40 +34,40 @@ optdepends=('hunspell-en_US: for English dictionary support'
             'python-pyqt5: recommended for plugins'
             'python-pyqt5-webengine: recommended for plugins'
             'tk: recommended for plugins')
-source=("Sigil-${pkgver}.tar.gz::https://github.com/Sigil-Ebook/Sigil/archive/${pkgver}.tar.gz"
-        "https://github.com/Sigil-Ebook/Sigil/releases/download/${pkgver}/Sigil-${pkgver}.tar.gz.sig")
-sha256sums=('33d84331f259ab8d92fc2c5fed6f05fd5f011695c48f83537423635a7afdd2ec'
+_archive="${pkgname^}-$pkgver"
+source=("$_url/archive/$pkgver/$_archive.tar.gz"
+        "$_url/releases/download/${pkgver}/$_archive.tar.gz.sig")
+sha256sums=('35b6051d966c2848a8a031ebe691449229b3c95a56145647dc71857acc18fad5'
             'SKIP')
-b2sums=('78615652859d1f61bab18b1b248d342dc6892943a2310659859ab577981c4452fbaeb567758097427453c8dfe95e42b499616a423b5c11b42238f763ac0653c8'
+b2sums=('ef8d6b5552689f0501971563b429efa050456826ee85dbf524ecb1c1931506de95909e3443bc259353c012b3e4a2b6ce3299f20af8e65d07324818a8f208c2a8'
         'SKIP')
 validpgpkeys=('B5A56206AB0FBC1A24EFAB8AA166D29A8FCDAC63') # Doug Massay <douglaslmassay@gmail.com>
 
+prepare() {
+	cd "$_archive"
+	mkdir -p build
+}
+
 build() {
-    mkdir -p "${srcdir}"/Sigil-${pkgver}/build
-    cd "${srcdir}"/Sigil-${pkgver}/build
-
-    cmake -G "Unix Makefiles" \
-        -DUSE_SYSTEM_LIBS=1 \
-        -DSYSTEM_LIBS_REQUIRED=1 \
-        -DINSTALL_BUNDLED_DICTS=0 \
-        -DINSTALL_HICOLOR_ICONS=1 \
-        -DDISABLE_UPDATE_CHECK=1 \
-        -DMATHJAX_DIR=/usr/share/mathjax2 \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        -DCMAKE_C_FLAGS:STRING="${CFLAGS}" \
-        -DCMAKE_CXX_FLAGS:STRING="${CXXFLAGS}" \
-        -DCMAKE_SKIP_RPATH=ON ..
-
-    make
+	cd "$_archive/build"
+	cmake -G "Unix Makefiles" \
+		-DUSE_SYSTEM_LIBS=1 \
+		-DSYSTEM_LIBS_REQUIRED=1 \
+		-DINSTALL_BUNDLED_DICTS=0 \
+		-DINSTALL_HICOLOR_ICONS=1 \
+		-DDISABLE_UPDATE_CHECK=1 \
+		-DMATHJAX_DIR=/usr/share/mathjax2 \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_C_FLAGS:STRING="$CFLAGS" \
+		-DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS" \
+		-DCMAKE_SKIP_RPATH=ON ..
+	make
 }
 
 package() {
-    cd "${srcdir}"/Sigil-${pkgver}/build
-
-    make install DESTDIR="${pkgdir}"
-
-    # Compile python bytecode
-    python -m compileall "${pkgdir}"/usr/share/sigil/{plugin_launchers/python/,python3lib}
-    python -O -m compileall "${pkgdir}"/usr/share/sigil/{plugin_launchers/python/,python3lib}
+	cd "$_archive/build"
+	make install DESTDIR="$pkgdir"
+	python -m compileall "$pkgdir/usr/share/sigil/"{plugin_launchers/python/,python3lib}
+	python -O -m compileall "$pkgdir/usr/share/sigil/"{plugin_launchers/python/,python3lib}
 }

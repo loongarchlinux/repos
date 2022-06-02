@@ -2,8 +2,8 @@
 
 _hkgname=input-parsers
 pkgname=haskell-input-parsers
-pkgver=0.2.3
-pkgrel=31
+pkgver=0.2.3.2
+pkgrel=14
 pkgdesc="Extension of the parsers library with more capability and efficiency"
 url="https://github.com/blamario/input-parsers"
 license=('BSD')
@@ -11,14 +11,15 @@ arch=('loongarch64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-monoid-subclasses' 'haskell-parsers')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('6db607bb49d94603c62243554c631a5e4e0ffb79dc5352b43e5ce0a23318f22796a4162275ab51ea979fe056970d21fe3a59df8e077fea702b3de4dbe50ea5a4')
+sha512sums=('3eca3e83ba1e98e4f2386f6162e1a6e2eaad902aa390785032fded05ea11ba69f1490bae7ed57283782b9b6650fe3dd35765a9cc4a9960fbde1bbada897311c3')
 
 build() {
     cd $_hkgname-$pkgver    
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
+        -fbinary -fparsec -fattoparsec
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script

@@ -1,23 +1,25 @@
+diff --git a/src/parallel b/src/parallel
+index 551c066..eb4819e 100755
 --- a/src/parallel
 +++ b/src/parallel
-@@ -1624,11 +1624,6 @@ sub options_hash() {
- 	 "gnu" => \$opt::gnu,
- 	 "link|xapply" => \$opt::link,
+@@ -1920,11 +1920,6 @@ sub options_completion_hash() {
+ 	 "gnu[Behave like GNU parallel]" => \$opt::gnu,
+ 	 "link|xapply[Link input sources]" => \$opt::link,
  	 "linkinputsource|xapplyinputsource=i" => \@opt::linkinputsource,
 -	 # Before changing these lines, please read
--	 # https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice
+-	 # https://www.gnu.org/software/parallel/parallel_design.html#citation-notice
 -	 # https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt
 -	 # You accept to be put in a public hall of shame by removing
--         # the lines.
- 	 "bibtex|citation" => \$opt::citation,
- 	 "wc|willcite|will-cite|nn|nonotice|no-notice" => \$opt::willcite,
- 	 # Termination and retries
-@@ -1783,15 +1778,6 @@ sub parse_options(@) {
+-	 # these lines.
+ 	 ("bibtex|citation".
+ 	  "[Print the citation notice and BibTeX entry for GNU parallel, ".
+ 	  "silence citation notice for all future runs, and exit. ".
+@@ -2159,15 +2154,6 @@ sub parse_options(@) {
      my @argv_before = @ARGV;
      @ARGV = read_options();
  
 -    # Before changing these line, please read
--    # https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice
+-    # https://www.gnu.org/software/parallel/parallel_design.html#citation-notice
 -    # https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt
 -    # You accept to be added to a public hall of shame by
 -    # removing the lines.
@@ -28,7 +30,7 @@
      # no-* overrides *
      if($opt::nokeeporder) { $opt::keeporder = undef; }
  
-@@ -2072,81 +2058,6 @@ sub parse_options(@) {
+@@ -2459,81 +2445,6 @@ sub parse_options(@) {
      if(defined $opt::eta) { $opt::progress = $opt::eta; }
      if(defined $opt::bar) { $opt::progress = $opt::bar; }
  
@@ -57,7 +59,7 @@
 -    #
 -    # This means you can help financing development
 -    #
--    #   WITHOUT PAYING A SINGLE CENT!
+-    #	WITHOUT PAYING A SINGLE CENT!
 -    #
 -    # Before implementing the citation notice it was discussed with
 -    # the users:
@@ -110,7 +112,7 @@
      parse_halt();
  
      if($ENV{'PARALLEL_ENV'}) {
-@@ -5073,83 +4984,9 @@ sub usage() {
+@@ -5507,85 +5418,9 @@ sub usage() {
  	 "",
  	 "GNU Parallel can do much more. See 'man $Global::progname' for details",
  	 "",
@@ -118,14 +120,14 @@
 -	 "If you use programs that use GNU Parallel to process data for an article in a",
 -	 "scientific publication, please cite:",
 -	 "",
--         "  Tange, O. (2021, December 22). GNU Parallel 20211222 ('Støjberg').",
--	 "  Zenodo. https://doi.org/10.5281/zenodo.5797028",
+-	 "  Tange, O. (2022, May 22). GNU Parallel 20220522 ('NATO').",
+-	 "  Zenodo. https://doi.org/10.5281/zenodo.6570228",
 -	 "",
--	 # Before changing these lines,  please read
--         # https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice
--	 # https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt	 
+-	 # Before changing these lines,	 please read
+-	 # https://www.gnu.org/software/parallel/parallel_design.html#citation-notice
+-	 # https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt
 -	 # You accept to be put in a public hall of shame by removing
--         # the lines.
+-	 # these lines.
 -	 "This helps funding further development; AND IT WON'T COST YOU A CENT.",
 -	 "If you pay 10000 EUR you should feel free to use GNU Parallel without citing.",
 -	 "",
@@ -151,19 +153,19 @@
 -	     "If you use programs that use GNU Parallel to process data for an article in a",
 -	     "scientific publication, please cite:",
 -	     "",
--	     "  Tange, O. (2021, December 22). GNU Parallel 20211222 ('Støjberg').",
--	     "  Zenodo. https://doi.org/10.5281/zenodo.5797028",
+-	     "  Tange, O. (2022, May 22). GNU Parallel 20220522 ('NATO').",
+-	     "  Zenodo. https://doi.org/10.5281/zenodo.6570228",
 -	     "",
 -	     # Before changing these line,  please read
--	     # https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice and
+-	     # https://www.gnu.org/software/parallel/parallel_design.html#citation-notice and
 -	     # https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt
 -	     # You accept to be put in a public hall of shame by
--	     # removing the lines.
+-	     # removing these lines.
 -	     "This helps funding further development; AND IT WON'T COST YOU A CENT.",
 -	     "If you pay 10000 EUR you should feel free to use GNU Parallel without citing.",
 -	     "",
 -	     "More about funding GNU Parallel and the citation notice:",
--	     "https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice",
+-	     "https://www.gnu.org/software/parallel/parallel_design.html#citation-notice",
 -	     "",
 -	     "To silence this citation notice: run 'parallel --citation' once.",
 -	     ""
@@ -183,8 +185,10 @@
 -	    print $fh $runs;
 -	    close $fh;
 -	    if($runs >= 10) {
--		::status("Come on: You have run parallel $runs times. Isn't it about time ",
--			 "you run 'parallel --citation' once to silence the citation notice?",
+-		::status("Come on: You have run parallel $runs times. ".
+-			 "Isn't it about time ",
+-			 "you run 'parallel --citation' once to silence ".
+-			 "the citation notice?",
 -			 "");
 -	    }
 -	}
@@ -194,14 +198,15 @@
  sub status(@) {
      my @w = @_;
      my $fh = $Global::status_fd || *STDERR;
-@@ -5214,97 +5051,7 @@ sub version() {
+@@ -5649,98 +5484,7 @@ sub version() {
+ 	 "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>",
  	 "This is free software: you are free to change and redistribute it.",
  	 "GNU $Global::progname comes with no warranty.",
- 	 "",
+-	 "",
 -	 "Web site: https://www.gnu.org/software/${Global::progname}\n",
 -	 "When using programs that use GNU Parallel to process data for publication",
 -	 "please cite as described in 'parallel --citation'.\n",
--        );
+-	);
 -}
 -
 -sub citation() {
@@ -220,38 +225,38 @@
 -	"If you use programs that use GNU Parallel to process data for an article in a",
 -	"scientific publication, please cite:",
 -	"",
--	"\@software{tange_2021_5797028,",
+-	"\@software{tange_2022_6570228,",
 -	"      author       = {Tange, Ole},",
--	"      title        = {GNU Parallel 20211222 ('Støjberg')},",
--	"      month        = Dec,",
--	"      year         = 2021,",
+-	"      title        = {GNU Parallel 20220522 ('NATO')},",
+-	"      month        = May,",
+-	"      year         = 2022,",
 -	"      note         = {{GNU Parallel is a general parallelizer to run",
--        "                       multiple serial command line programs in parallel",
+-	"                       multiple serial command line programs in parallel",
 -	"                       without changing them.}},",
 -	"      publisher    = {Zenodo},",
--	"      doi          = {10.5281/zenodo.5797028},",
--	"      url          = {https://doi.org/10.5281/zenodo.5797028}",
+-	"      doi          = {10.5281/zenodo.6570228},",
+-	"      url          = {https://doi.org/10.5281/zenodo.6570228}",
 -	"}",
 -	"",
--	"(Feel free to use \\nocite{tange_2021_5797028})",
+-	"(Feel free to use \\nocite{tange_2022_6570228})",
 -	"",
 -	# Before changing these lines, please read
--	# https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice and
+-	# https://www.gnu.org/software/parallel/parallel_design.html#citation-notice and
 -	# https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt
 -	# You accept to be put in a public hall of shame by removing
--	# the lines.
+-	# these lines.
 -	"This helps funding further development; AND IT WON'T COST YOU A CENT.",
 -	"If you pay 10000 EUR you should feel free to use GNU Parallel without citing.",
 -	"",
 -	"More about funding GNU Parallel and the citation notice:",
 -	"https://lists.gnu.org/archive/html/parallel/2013-11/msg00006.html",
--	"https://www.gnu.org/software/parallel/parallel_design.html#Citation-notice",
+-	"https://www.gnu.org/software/parallel/parallel_design.html#citation-notice",
 -	"https://git.savannah.gnu.org/cgit/parallel.git/tree/doc/citation-notice-faq.txt",
 -	"",
 -	"If you send a copy of your published article to tange\@gnu.org, it will be",
 -	"mentioned in the release notes of next version of GNU Parallel.",
 -	""
-         );
+-	);
 -    while(not grep { -e "$_/will-cite" } @Global::config_dirs) {
 -	print "\nType: 'will cite' and press enter.\n> ";
 -	my $input = <STDIN>;
@@ -289,7 +294,7 @@
 -	    }
 -	}
 -    }
++  );
  }
  
  sub show_limits() {
-

@@ -1,27 +1,32 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=libomemo
-pkgver=0.7.1
-pkgrel=3
+pkgver=0.8.1
+pkgrel=1
 pkgdesc='Implementation of OMEMO (XEP-0384) in C'
 arch=('loongarch64' 'x86_64')
 url='https://github.com/gkdr/libomemo'
 license=('MIT')
 depends=('sqlite' 'libgcrypt' 'mxml' 'glib2')
+makedepends=('cmake' 'cmocka')
 provides=('libomemo.so')
 source=("https://github.com/gkdr/libomemo/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('a3909650e399075f62026bd048a667a276a6cd7197ac18ddf9e3c12f57e5fd9cb2f5532ba69d0836af87e1415a5ffdc1746cf90a596dcf255265a64e921f039d')
+b2sums=('b75ad298946dff680705ba0927293ea30cb8bf616a417c6584cef9f84e0894c5581462782a4b1003bf9e530695eea10bba9f37ae94e957a0008a35c862f17f62')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  make PREFIX="/usr"
+  cmake -B build -S ${pkgname}-${pkgver} -DCMAKE_INSTALL_PREFIX='/usr'
+  cmake --build build
+}
+
+check() {
+  cd build
+  ctest --output-on-failure
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR="${pkgdir}" PREFIX="/usr" install
+  DESTDIR="${pkgdir}" cmake --install build
   chmod a+x "${pkgdir}"/usr/lib/libomemo.so.${pkgver}
   ln -sf libomemo.so.${pkgver} "${pkgdir}"/usr/lib/libomemo.so
   ln -sf libomemo.so.${pkgver} "${pkgdir}"/usr/lib/libomemo.so.${pkgver%%.*}
-  install -Dm644 -t "${pkgdir}"/usr/share/licenses/${pkgname} LICENSE
+  install -Dm644 -t "${pkgdir}"/usr/share/licenses/${pkgname} ${pkgname}-${pkgver}/LICENSE
 }

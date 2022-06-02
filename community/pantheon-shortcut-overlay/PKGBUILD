@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-shortcut-overlay
-pkgver=1.2.0
-pkgrel=1
+pkgver=1.2.1
+pkgrel=2
 pkgdesc='A native, OS-wide shortcut overlay'
 arch=(loongarch64 x86_64)
 url=https://github.com/elementary/shortcut-overlay
@@ -20,9 +20,14 @@ makedepends=(
   meson
   vala
 )
-_tag=d9ba4fcff6a8dfab17bdb1229e488047be8fccb5
+_tag=e9b604293eb8451d16eb6afa697c6867432a94fe
 source=(pantheon-shortcut-overlay::git+https://github.com/elementary/shortcut-overlay.git#tag=${_tag})
-sha256sums=(SKIP)
+b2sums=(SKIP)
+
+prepare() {
+  cd pantheon-shortcut-overlay
+  git cherry-pick -n 130f78eb4b7770586ea98ba0a5fdbbf5bb116f3f
+}
 
 pkgver() {
   cd pantheon-shortcut-overlay

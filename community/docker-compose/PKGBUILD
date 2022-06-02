@@ -6,7 +6,7 @@
 # Contributor: Josh VanderLinden <arch@cloudlery.com>
 
 pkgname=docker-compose
-pkgver=2.2.2
+pkgver=2.6.0
 pkgrel=1
 pkgdesc="Fast, isolated development environments using Docker"
 arch=('loongarch64' 'x86_64')
@@ -15,7 +15,7 @@ license=("Apache")
 makedepends=('go')
 checkdepends=('docker')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/docker/compose/archive/v$pkgver.tar.gz")
-sha512sums=('3ffe0d6af693ab5360defa5718fd901ce0f9c3d8ad53dcfb99d7bb7fba5dac8eb259b6017e6decefba6fa07e2a568754cbf1c96427687bfd2c7ec63c4a6a4fb6')
+sha512sums=('df8402f0f827b7c1defbb7d0b5037ea38db98337d8ebc4756f0316cf55e368e6c61401fb0d000e1942e0878d5ce1870b0f2a3217ac4b34d1e5f4c3aab68832fe')
 
 build() {
   cd "compose-$pkgver"
@@ -24,12 +24,12 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -ldflags=-X=github.com/docker/compose/v2/internal.Version=${pkgver} -mod=readonly -modcacherw"
-  go build -trimpath -tags "e2e,kube" -o compose ./cmd
+  CGO_ENABLED=0 go build -trimpath -tags "e2e,kube" -o compose ./cmd
 }
 
 check(){
   cd "compose-$pkgver"
-  go test -tags "e2e,kube" -v $(go list -tags "e2e,kube" ./... | grep -vE 'e2e')
+  CGO_ENABLED=0 go test -tags "e2e,kube" -v $(go list -tags "e2e,kube" ./... | grep -vE 'e2e')
 }
 
 package() {

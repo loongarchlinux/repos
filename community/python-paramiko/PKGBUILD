@@ -4,8 +4,8 @@
 # Contributor: Mario Danic <mario.danic@gmail.com>
 
 pkgname=python-paramiko
-pkgver=2.7.2
-pkgrel=5
+pkgver=2.11.0
+pkgrel=1
 pkgdesc="Python module that implements the SSH2 protocol"
 url="https://github.com/paramiko/paramiko/"
 license=('LGPL')
@@ -15,7 +15,7 @@ makedepends=('python-setuptools' 'python-bcrypt' 'python-cryptography' 'python-p
 checkdepends=('python-pytest-runner' 'python-pytest-relaxed' 'python-pyasn1' 'python-invoke'
              'python-mock')
 source=("https://github.com/paramiko/paramiko/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c9bc569428a0a61814cb73941356de5bae7fea7891ba4fd3f5c00ff1ee5083454bfde7e969fb4aaf5254b909f7f0132f590d67803eda8a67503e5c02ec2bf01a')
+sha512sums=('59e439bd54d83938f91d6c9888f2278bafa4ca48582939580bdabc6207dbe6dc856f6006ad26b7ec91b9d39e92ca70dc6270c6b5d4f77a5e1fa0ec8bd084d4b5')
 
 check() {
   cd paramiko-$pkgver

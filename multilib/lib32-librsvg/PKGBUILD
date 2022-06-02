@@ -4,22 +4,23 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-librsvg
-pkgver=2.52.5
+pkgver=2.54.3
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
 url="https://wiki.gnome.org/Projects/LibRsvg"
 arch=(loongarch64 x86_64)
 license=(LGPL)
-depends=(lib32-gdk-pixbuf2 lib32-pango lib32-libxml2 librsvg)
-makedepends=(gobject-introspection gtk-doc git rust lib32-rust-libs)
+depends=(lib32-cairo lib32-freetype2 lib32-gdk-pixbuf2 lib32-glib2
+         lib32-harfbuzz lib32-libxml2 lib32-pango librsvg)
+makedepends=(gobject-introspection git rust lib32-rust-libs)
 checkdepends=(ttf-dejavu)
-provides=(librsvg-${pkgver%%.*}.so)
-_commit=756616b808ce63ef09036f37952409b88b471522  # tags/2.52.5^0
+options=(debug)
+_commit=63ef9f647f02fffed298e46de61a8a671acbd911  # tags/2.54.3^0
 source=("git+https://gitlab.gnome.org/GNOME/librsvg.git#commit=$_commit"
         multilib.diff)
 sha256sums=('SKIP'
-            'b3d86492069009dad784f542a9c681248bc2fe3802899175e06c0c9931679536')
+            '2bf8570948e0ff3da4c26a8c5d600bd3a66f26bc81abcaeb437df28c01aa9a2a')
 
 pkgver() {
   cd librsvg
@@ -29,7 +30,7 @@ pkgver() {
 prepare() {
   cd librsvg
 
-  # Hack to cross-compile rust only
+  # Hack to remove docs and cross-compile rust only
   git apply -3 ../multilib.diff
 
   NOCONFIGURE=1 ./autogen.sh
@@ -37,6 +38,9 @@ prepare() {
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2
 
 build() {
   cd librsvg
@@ -47,21 +51,22 @@ build() {
   export RUST_TARGET=i686-unknown-linux-gnu
 
   ./configure --prefix=/usr --disable-static --disable-vala \
-    --disable-gtk-doc --disable-introspection --libdir=/usr/lib32
+    --disable-introspection --libdir=/usr/lib32
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool
   make
 }
 
 check() {
-  cd librsvg
   # Test suite is very dependent on the versions of
   # Cairo, Pango, FreeType and HarfBuzz
-  make check || :
+  make -C librsvg check || :
 }
 
 package() {
-  cd librsvg
-  make DESTDIR="$pkgdir" install
+  provides=(librsvg-${pkgver%%.*}.so)
+
+  make -C librsvg DESTDIR="$pkgdir" install
+
   rm -r "$pkgdir"/usr/{bin,include,share}
 }
 

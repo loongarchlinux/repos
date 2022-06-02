@@ -3,8 +3,8 @@
 # Contributor: Diab Neiroukh <lazerl0rd@thezest.dev>
 
 pkgname=mimalloc
-pkgver=2.0.3
-pkgrel=2
+pkgver=2.0.6
+pkgrel=1
 pkgdesc="General-purpose allocator with excellent performance characteristics"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/microsoft/mimalloc"
@@ -12,10 +12,10 @@ license=('MIT')
 depends=('glibc')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('275a5249d09a57c9a039714fc6eef24ae778496954972419f3ac8e33f3d12e9837ba0691a3c08a4ab807c26b868aad3a5b2c28ee10ecaa60fe21ffe1d416f08f')
-b2sums=('4b803881ab75afa358cb2dd251268c0934472074bf1983c3851a9d4f8c8ec0ea3907b52c40b0efe1cc09916cf4c5aa93f786a606e0b999536118b91bb5800310')
+sha512sums=('f2fc0fbfb6384e85959897f129e5d5d9acc51bda536d5cabcd7d4177dbda9fb735b8a8c239b961f8bea31d37c9ae10f66da23aa91d497f95393253d4ac792bb3')
+b2sums=('bd8a38cc0eab6ad950a63f494f24e6a91c50d2104335e9ce70963a7baadd26c7a2b7440b2fcabe502d9961549222873d017cb525bf5b32da967cf51aa167603c')
 
-prepare() {
+build() {
   cmake \
     -B build \
     -S "$pkgname-$pkgver" \
@@ -23,9 +23,7 @@ prepare() {
     -DMI_BUILD_STATIC=OFF \
     -DMI_BUILD_OBJECT=OFF \
     -DMI_INSTALL_TOPLEVEL=ON
-}
 
-build() {
   cmake --build build
 }
 

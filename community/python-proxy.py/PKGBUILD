@@ -1,42 +1,44 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=python-proxy.py
-pkgver=2.3.1
-_commit=82d562b7d6b068ea706634f97e6a086f5209df61 # git rev-parse "v$pkgver"
-pkgrel=3
+_name=${pkgname#python-}
+pkgver=2.4.2
+pkgrel=1
 pkgdesc='Lightweight HTTP, HTTPS, HTTP2 and WebSockets proxy server'
 arch=('any')
 url='https://github.com/abhinavsingh/proxy.py'
 license=('BSD')
-depends=('python' 'python-typing_extensions')
-makedepends=('git' 'python-setuptools')
-checkdepends=('python-paramiko')
-optdepends=('python-paramiko: proxy over SSH tunnel support')
-source=("git+$url#commit=$_commit")
-sha512sums=('SKIP')
+depends=('python')
+makedepends=('python-build' 'python-installer' 'python-setuptools-scm'
+             'python-setuptools-scm-git-archive' 'python-wheel')
+checkdepends=('python-httpx' 'python-pytest' 'python-pytest-asyncio' 'python-pytest-cov' 'python-pytest-mock')
+optdepends=('python-httpx: Cloudflare DNS resolver plugin support'
+            'python-paramiko: proxy over SSH tunnel support')
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz"
+        "python-proxy.py-2.4.0_fix-asyncio-deprecationwarning.patch::$url/commit/e0cc90d057b44ef506b88362d71f2c707db11db9.patch")
+sha256sums=('bfa62b4d0306fd914f24d3eecccdae385e8c111c4c204673f0e27bcabcf1db76'
+            'd7ffe35494b1943b41b4c8285043626c46323a706d99ceaf1ca268c6b91db5eb')
 
 prepare() {
-	cd "${pkgname#python-}"
-	# Remove strict version dependency for typing_extensions
-	sed -i 's/==.*//' requirements.txt
+	cd "$_name-$pkgver"
+	# Fix pytest-asyncio 0.17.0 DeprecationWarning (https://github.com/abhinavsingh/proxy.py/pull/998)
+	patch --forward --strip=1 --input="$srcdir/python-proxy.py-2.4.0_fix-asyncio-deprecationwarning.patch"
 }
 
-pkgver() {
-	cd "${pkgname#python-}"
-	git describe --tags | sed 's/^v//;s/\([^-]*-\)g/r\1/;s/-/./g'
-}	
-
 build() {
-	cd "${pkgname#python-}"
-	python setup.py build
+	cd "$_name-$pkgver"
+	python -m build --wheel --no-isolation
 }
 
 check() {
-	cd "${pkgname#python-}"
-	python setup.py test
+	cd "$_name-$pkgver"
+	pytest
 }
 
 package() {
-	cd "${pkgname#python-}"
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	cd "$_name-$pkgver"
+	python -m installer --destdir="$pkgdir" dist/*.whl
 	install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+
+	# Remove entry point usr/bin/proxy to avoid conflict with libproxy (FS#73325)
+	rm -r "$pkgdir/usr/bin"
 }

@@ -3,18 +3,18 @@
 
 pkgname=python-pg8000
 # https://github.com/tlocke/pg8000#release-notes
-pkgver=1.23.0
-pkgrel=3
+pkgver=1.29.1
+pkgrel=1
 pkgdesc="Pure-Python PostgreSQL database driver, DB-API compatible"
 arch=(any)
 url='https://github.com/tlocke/pg8000'
 license=(BSD)
-makedepends=(python-setuptools)
+makedepends=(python-setuptools python-build python-installer python-versioningit python-wheel)
 checkdepends=(python-pytest python-pytest-mock python-pytest-benchmark
               python-pytz postgresql)
 depends=(python python-scramp)
 source=("https://files.pythonhosted.org/packages/source/p/pg8000/pg8000-$pkgver.tar.gz"{,.asc})
-sha256sums=('a413e00141342813a2ca47e8b7b0549ff338cca02bc819076b6d70f12d755c79'
+sha256sums=('80b4f4de4b0254832b7948511e0dd46342d1c0446ccd4fdd892b63d02e4fbc7b'
             'SKIP')
 validpgpkeys=(
   'D5681B7EC7292511C4CC1450892B00AB699851E8'  # Tony Locke <tlocke@tlocke.org.uk>, proven by https://keybase.io/tlocke
@@ -22,7 +22,7 @@ validpgpkeys=(
 
 build() {
   cd pg8000-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -60,12 +60,15 @@ EOF
   pg_ctl reload
   # Upstream tests require LANG=en_GB.UTF-8 or LANG=C.UTF-8 :/
   # https://github.com/tlocke/pg8000/blob/1.19.2/test/native/test_typeconversion.py#L455-L458
-  PYTHONPATH="$PWD" LANG=C.UTF-8 pytest test
+  # test_readme: skipped as many tests need a postgresql instance listening on the default port
+  # localhost:5432, which may cause conflicts until devtools supports a separate network namespace [1]
+  # [1] https://gitlab.archlinux.org/archlinux/devtools/-/issues/72
+  PYTHONPATH="$PWD" LANG=C.UTF-8 pytest test -k 'not test_readme'
   pg_ctl stop
 }
 
 package() {
   cd pg8000-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }

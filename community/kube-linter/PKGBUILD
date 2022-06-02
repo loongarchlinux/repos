@@ -1,16 +1,16 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=kube-linter
-pkgver=0.2.4
-pkgrel=1
+pkgver=0.3.0
+pkgrel=2
 pkgdesc='Static analysis tool that checks Kubernetes YAML files and Helm charts'
 url='https://github.com/stackrox/kube-linter'
 arch=('loongarch64' 'x86_64')
 license=('Apache')
 makedepends=('go')
 source=(https://github.com/stackrox/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('5160a29bd401bce0e5bf3678a4d74b4e8d4af6e2918126e18078cc01da8e8fd8b749ffdb9128df06bef47b5fab68743889183ceb7917397d12877417a8ec6bee')
-b2sums=('6d97fcaa045f49121dda5d2b3cb9b8b7f1e7a343ebc8c558bf261829a4f6cd0a45ff7fa245ebeeba62da00e5ff5bdf78f02d9a17ae46f930c239b4a3b2685be0')
+sha512sums=('bcd8a28eb52902c0b1e248a43ec9ce96afdced554b7198fd7898853d02a88093f72bed038fcc36373250da68bc362e3a89e52e73a5ebe74267000b89bfdc6e6a')
+b2sums=('7cbd904ad2bd8e5b5496c606a3a640e93235907b3422f3e18d022c0be370fbde1ba19766a24f9d13f194066d471cd5449d6d1cf12f0a05d92233676d82c175eb')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -21,11 +21,18 @@ build() {
     -modcacherw \
     -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
     ./cmd/kube-linter
+
+  for i in bash fish zsh; do
+    ./kube-linter completion ${i} > ./kube-linter.${i}
+  done
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  install -Dm 755 kube-linter -t "${pkgdir}/usr/bin"
+  install -Dm755 kube-linter -t "${pkgdir}/usr/bin"
+  install -Dm644 kube-linter.bash "${pkgdir}"/usr/share/bash-completion/completions/kube-linter
+  install -Dm644 kube-linter.fish "${pkgdir}"/usr/share/fish/completions/kube-linter.fish
+  install -Dm644 kube-linter.zsh "${pkgdir}"/usr/share/zsh/site-functions/_kube-linter
 }
 
 # vim: ts=2 sw=2 et:

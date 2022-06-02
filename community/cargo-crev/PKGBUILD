@@ -1,17 +1,18 @@
 # Maintainer: kpcyrd <git@rxv.cc>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-crev
-pkgver=0.21.3
-pkgrel=2
+pkgver=0.23.2
+pkgrel=1
 pkgdesc="Scalable, social, Code REView and recommendation system that we desperately need"
 url="https://github.com/crev-dev/cargo-crev"
-depends=('openssl' 'curl')
+depends=('openssl' 'libcurl.so' 'libgit2.so')
 makedepends=('cargo' 'clang')
 arch=('loongarch64' 'x86_64')
 license=('MPL' 'Apache' 'MIT')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/crev-dev/cargo-crev/archive/v${pkgver}.tar.gz")
-sha512sums=('9342586a5c7fa5d3d1889889470f0e62dd36934062d35bd8be628f5e65e9de754bd4cee656d1098574412968dd2ccbc0111f126566e24ba5395ffeedcc780fdf')
-b2sums=('c622878895734d0e07475f93710aa3ef4ee7db95d77cb60df1bf80ef7ac8fd5269642f20319be9d1315f96ef88bcd7fc391852f8c55785b72af7207849db1531')
+sha512sums=('0c17c0de3b9fb0160630826de435ff857a02d56f4713c33b65e6eb03cd8ca73fff5cd5945c71ebcacac2979f92ffe50b55bae24923d2352456463b3fcf54d9df')
+b2sums=('36b674d3e2bc881b8ba3e3e455ca115015ba5c4e16a8a02a680e47946055342d599850d52e06cf4dc2e5e4f8785546154798dc8e8f12839decb20279319aad3e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -19,8 +20,13 @@ prepare() {
 }
 
 build() {
-  cd "${pkgname}-${pkgver}/cargo-crev"
-  cargo build --frozen --release --no-default-features
+  cd "${pkgname}-${pkgver}"
+  LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo build --frozen --release --no-default-features
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo test --frozen --no-default-features
 }
 
 package() {

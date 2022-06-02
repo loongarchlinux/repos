@@ -2,27 +2,27 @@
 
 _hkgname=emojis
 pkgname=haskell-emojis
-pkgver=0.1
-pkgrel=130
+pkgver=0.1.2
+pkgrel=19
 pkgdesc="Conversion between emoji characters and their names"
 url="https://github.com/jgm/emojis"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-hunit')
+makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('587c67bff3f77c362b16c93889762a9aad6fb5250c0bced45f5053f59dd6a11ab2886e53f286bbc4de2b8793be133708b1f9c5d4d52bcef1820f5a7c1ecfa7d2')
+sha512sums=('e34d1c1797f37e3cbe37f5f617496aa70310ca654c98069d393c10c5fcf56e336f35d06e018c859354ea54ae1c5fbbe4a24d484a5f59cceb5a9e3c25caf2a52d')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
 }
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

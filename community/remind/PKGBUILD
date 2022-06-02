@@ -4,8 +4,8 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=remind
-pkgver=3.3.10
-_pkgver=03.03.10
+pkgver=4.0.0
+_pkgver=04.00.00
 pkgrel=1
 pkgdesc='A sophisticated calendar and alarm program.'
 arch=('loongarch64' 'x86_64')
@@ -14,7 +14,7 @@ license=('GPL')
 optdepends=('tk: for tkremind')
 source=("https://dianne.skoll.ca/projects/$pkgname/download/$pkgname-$_pkgver.tar.gz"{,.sig})
 options=('!emptydirs')
-md5sums=('57e0d3941a0c76aca050ce36dada7a05'
+md5sums=('0fc6fb884e907c9dfdac240d27146aca'
          'SKIP')
 validpgpkeys=('738E4D954052902C147D07B2685A5A5E511D30E2') # Dianne Skoll
 

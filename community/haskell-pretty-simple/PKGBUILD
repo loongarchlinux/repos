@@ -2,22 +2,23 @@
 
 _hkgname=pretty-simple
 pkgname=haskell-pretty-simple
-pkgver=4.0.0.0
-pkgrel=122
+pkgver=4.1.0.0
+pkgrel=13
 pkgdesc="Pretty printer for data types with a 'Show' instance"
 url="https://github.com/cdepillabout/pretty-simple"
 license=('BSD')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal')
+depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-prettyprinter'
+         'haskell-prettyprinter-ansi-terminal')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-glob' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('b30ad63fac3545e6f6b2d67b323e4d43ef29ea2a51e2ac3433e8d0ffa6776e90ac2bbe3ab790c500244c77a54a93cc5a2a6b6e87a2524f8777c74529f7681f78')
+sha512sums=('e293be11be5feb2d536241510666c45322968ebba2fccdbe54565c79b004e9603c47f8331fb8dbbc2e600bb2930f4d3a65efd5f6cd6ec52df8f544cac22665a1')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

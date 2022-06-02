@@ -1,20 +1,20 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=menyoki
-pkgver=1.5.5
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="Screen{shot,cast} and perform ImageOps on the command line"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/orhun/menyoki"
 license=('GPL3')
 depends=('gcc-libs' 'libxrandr')
-makedepends=('rust')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f4a44c96867403c6e2a0473ee911080a7ca11b7f45cf76bd1dd1704152e033bd59aba0411dd21bb5017b73f40ec1a9a9c2e8e666274f3b4f38056e961ab5be57')
+sha512sums=('e593fd1cf94e07fdac9e59e318c71eecb3eb70ad39b4ffd938cb90a2d6ff37512160ab2135f2bc20034970166a13c39818be8d1bfa5e986b87a1a015a5440dc5')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {

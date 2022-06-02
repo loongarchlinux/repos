@@ -1,8 +1,8 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Collaborator: Jonathan Fine (were.Vire AT gmail DOT com)
 pkgname=tiled
-pkgver=1.7.2
-pkgrel=2
+pkgver=1.8.5
+pkgrel=1
 pkgdesc='A general purpose tile map editor, built to be flexible and easy to use'
 arch=('loongarch64' 'x86_64')
 url='http://www.mapeditor.org'
@@ -14,7 +14,7 @@ makedepends=('mesa' 'qt5-tools' 'python' 'qbs')
 optdepends=('python: Python plugin'
             'qt5-imageformats: Support for additional image formats (including WebP)')
 source=($pkgname-$pkgver.tar.gz::https://github.com/bjorn/tiled/archive/v${pkgver}.tar.gz)
-sha512sums=('6d766adbfcb642279eb0ba27410858c54a29ed8e697445b6fb96ce210d0b1433b1ed4715e1d78af3aea8ec71a87b24eea52216bf6236159e0c8fdf87a2339a59')
+sha512sums=('fe1c3f869cbabe200862d0a15c9a5ea6ca23bf890ebc01001414ec35ea1f1509010cf7ac675021857353fd8acf7fe154c2bdd25abdc4ee713def4e4e86fab3e2')
 
 build() {
   cd $pkgname-$pkgver

@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=wingpanel
-pkgver=3.0.1
-pkgrel=4
+pkgver=3.0.2
+pkgrel=6
 pkgdesc='The Pantheon Top Panel'
 arch=(loongarch64 x86_64)
 url=https://github.com/elementary/wingpanel
@@ -25,7 +25,8 @@ makedepends=(
   vala
 )
 provides=(libwingpanel-2.0.so)
-_tag=8fce5684de93e3dcb42dfa1c86db973a839598b1
+options=(debug)
+_tag=34d11b48f7048c44e373b3e25165ea0d26de7a9c
 source=(git+https://github.com/elementary/wingpanel.git#tag=${_tag})
 sha256sums=('SKIP')
 
@@ -33,6 +34,13 @@ pkgver() {
   cd wingpanel
 
   git describe --tags
+}
+
+prepare() {
+  cd wingpanel
+
+  # mutter 42
+  git cherry-pick -n b5e8f8b044a49da4621fdf044dfe21b1213edcde
 }
 
 build() {

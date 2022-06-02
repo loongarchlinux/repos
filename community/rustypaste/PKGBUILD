@@ -1,0 +1,51 @@
+# Maintainer: Frederik Schwan <freswa at archlinux dot org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=rustypaste
+pkgver=0.7.1
+pkgrel=1
+pkgdesc='A minimal file upload/pastebin service'
+arch=('loongarch64' 'x86_64')
+url='https://github.com/orhun/rustypaste'
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo')
+backup=('etc/rustypaste/config.toml')
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/orhun/rustypaste/archive/refs/tags/v${pkgver}.tar.gz)
+b2sums=('a46cae0327a32c3b3c4e70bf0fc8d5ae11e3b01e87f3240fd125264c6cada25129a997912415b328b15f8328450446d363bc978aaf5be6ce38791a5e6c9a3ec1')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --release --frozen
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  CFLAGS+=' -ffat-lto-objects'
+  cargo test --frozen -- --test-threads 1
+
+  cd fixtures
+  sed -i "s|target/debug|target/release|" test-fixtures.sh
+  ./test-fixtures.sh
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm755 target/release/${pkgname} -t "${pkgdir}"/usr/bin
+  install -Dm644 config.toml -t "${pkgdir}"/etc/rustypaste
+  install -Dm644 README.md -t "${pkgdir}"/usr/share/doc/${pkgname}
+  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -Dm644 extra/systemd/rustypaste.env -t "${pkgdir}"/etc/rustypaste
+  install -Dm644 extra/systemd/rustypaste.service -t "$pkgdir"/usr/lib/systemd/system/
+  install -Dm644 extra/systemd/rustypaste.sysusers "${pkgdir}"/usr/lib/sysusers.d/rustypaste.conf
+  install -Dm644 extra/systemd/rustypaste.tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/rustypaste.conf
+}

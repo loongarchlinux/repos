@@ -3,7 +3,7 @@
 
 _hkgname=turtle
 pkgname=haskell-turtle
-pkgver=1.5.23
+pkgver=1.5.25
 pkgrel=10
 pkgdesc="Shell programming, Haskell-style"
 url="https://github.com/Gabriel439/Haskell-Turtle-Library"
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-ansi-wl-pprint' 'haskell-async' 'haskell-clock'
          'haskell-system-filepath' 'haskell-temporary' 'haskell-unix-compat')
 makedepends=('ghc' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4ede00a91822c5848e1f13daf9750add961bb7ed8a1abe34da889bf7532bba3132a1fe200dbd667cc6b87c0772c5e9e94d1c4b69ccc419c301bc0fb70fff58cf')
+sha512sums=('e29fd8ff1e75ef2678d0cbb93e0593481e842481846c2b8dfec2fbf756b945d60b275190f5ac32381ec76c1129179ae8dbe054b838ff8dd3bba7f9d210e0259c')
 
 prepare() {
     sed -i 's/]/, "-dynamic"]/' $_hkgname-$pkgver/test/Main.hs
@@ -25,7 +25,7 @@ build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

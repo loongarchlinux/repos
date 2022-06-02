@@ -2,8 +2,8 @@
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 
 pkgname=waybar
-pkgver=0.9.8
-pkgrel=3
+pkgver=0.9.13
+pkgrel=1
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -17,6 +17,8 @@ depends=(
     'libdate-tz.so'
     'libspdlog.so'
     'gtk-layer-shell'
+    'libupower-glib.so'
+    'upower'
     'libevdev'
     'libpulse'
     'libnl'
@@ -28,9 +30,14 @@ depends=(
 )
 makedepends=(
     'cmake'
+    'catch2'
     'meson'
     'scdoc' # For generating manpages
     'wayland-protocols'
+)
+backup=(
+    etc/xdg/waybar/config
+    etc/xdg/waybar/style.css
 )
 optdepends=(
     'otf-font-awesome: Icons in the default configuration'
@@ -38,7 +45,7 @@ optdepends=(
 source=(
     "$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz"
 )
-sha256sums=('3f067c484aaee3e7d8ded382e72c280a92913b0c4e8a20d0ac9afdf8baf19405')
+sha256sums=('9e6553274ce3013d2be9912f975287efe4dfd38de4e335db43a73aff2a3b0a34')
 
 build() {
     cd "Waybar-$pkgver"

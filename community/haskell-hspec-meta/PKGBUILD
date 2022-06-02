@@ -2,17 +2,17 @@
 
 _hkgname=hspec-meta
 pkgname=haskell-hspec-meta
-pkgver=2.7.8
-pkgrel=147
+pkgver=2.9.3
+pkgrel=37
 pkgdesc="A version of Hspec which is used to test Hspec itself"
 url="http://hspec.github.io/"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-quickcheck' 'haskell-setenv' 'haskell-random' 'haskell-quickcheck-io'
-         'haskell-ansi-terminal' 'haskell-clock' 'haskell-call-stack')
+depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-clock' 'haskell-ghc'
+         'haskell-quickcheck' 'haskell-quickcheck-io' 'haskell-random' 'haskell-setenv')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('f3a6dc3159090b505b67eb9a852b7a56ef19985984e7326ffc7812af56d87c9418d5ad69e181bf777cdee39c146575a5fec2174dd94c2a3926a15ebcb45f22d0')
+sha512sums=('d6205a4aead9c8824a89b18f41d2513a0115c76f9130b7100e349f2b8c91dfef34c704ba169f5b103895d0144a8fdf79eaf46abf1c7447da7d634eb3b7c8e80b')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -23,7 +23,7 @@ build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

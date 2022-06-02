@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma5-applets-window-buttons
-pkgver=0.10.1
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='Plasma 5 applet in order to show window buttons in your panels'
 arch=(loongarch64 x86_64)
@@ -12,7 +12,8 @@ makedepends=(extra-cmake-modules)
 conflicts=(libappletdecoration)
 replaces=(libappletdecoration)
 source=(https://github.com/psifidotos/applet-window-buttons/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('6d20f7888a76bf72d068d529aaaf57ebf89e60e52caa692b8075502b92fc541f')
+sha256sums=('0588a3bba77206766549139b4bee1a08b7be7a7113e658f746709b9ee4d3017a')
+options=(debug)
 
 build() {
   cmake -B build -S applet-window-buttons-$pkgver

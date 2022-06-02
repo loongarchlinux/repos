@@ -1,28 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt5integration
-pkgver=5.5.8
-pkgrel=1
+pkgver=5.5.20
+pkgrel=2
 pkgdesc='Qt platform theme integration plugins for DDE'
 arch=('loongarch64' 'x86_64')
 url="https://github.com/linuxdeepin/qt5integration"
 license=('GPL3')
+options=('debug')
 depends=('dtkwidget' 'libqtxdg' 'deepin-qt5platform-plugins')
 makedepends=('xcb-util-renderutil' 'deepin-file-manager' 'gtest')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/qt5integration/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c1c71a8f220d8e237636387eeb9a41d3438bacfcf93497d9ce2f0f6873f295aaeaea2fd09ff92d35baa249034dcc35ee115de4734ec4c60cbf9a3333241a7f3d')
+sha512sums=('6f7a309475eff0a268466f2425bdac0851919b8fe83431451eb5629b0555ace42534986202455fa11e2b76f53f679553694e318f8bcdeea1f775ebd4850c39e1')
 
 build() {
   cd qt5integration-$pkgver
   qmake-qt5 PREFIX=/usr
-  make
+  make -j1
 }
 
 package() {
   cd qt5integration-$pkgver
   make INSTALL_ROOT="$pkgdir" install
-
-  # Upstream installs the same plugin twice as Qt plugins, which breaks everything.
-  find "$pkgdir"/usr/lib/qt/plugins/ -type f ! -name '*5.5.so' -delete -print
 }

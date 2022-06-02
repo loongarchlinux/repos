@@ -2,22 +2,28 @@
 
 _hkgname=hslua-module-system
 pkgname=haskell-hslua-module-system
-pkgver=0.2.2.1
-pkgrel=139
+pkgver=1.0.1
+pkgrel=15
 pkgdesc="Lua module wrapper around Haskell's System module"
-url="https://github.com/hslua/hslua-module-system"
+url="https://github.com/hslua/hslua"
 license=('MIT')
 arch=('loongarch64' 'x86_64')
-depends=('ghc-libs' 'haskell-hslua' 'haskell-temporary')
-makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
+depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-packaging'
+         'haskell-temporary')
+makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('66cf57b8c80605bdfa5145fc61dbe59b66dd67a82a8365006b80e2ab74a71fff0fdf0ffa690daab66e82b8ad086adbcd622a6844b2107c0b9719b8cdabdf542b')
+sha512sums=('25567139c46c0d6bf8d95ffc5c2cf5cc9028939820091d969a5139f9e2fb493d6210008d9f83af7bcddc08cf62d086896077ae9a3bb2aa59060c81cc908a888d')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver    
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script

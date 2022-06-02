@@ -3,14 +3,14 @@
 # Contributor: Aaron McDaniel (mcd1992) <'aur' at the domain 'fgthou.se'>
 
 pkgname=rz-cutter
-_gitcommit=78a9a112099e0d045773d77f4b1166fc3b7d2eef
-pkgver=2.0.4
-pkgrel=1
+_gitcommit=f5a7a79ee8efc04514189565b1d319c7a39bf0de
+pkgver=2.0.5
+pkgrel=3
 pkgdesc='Qt and C++ GUI for rizin reverse engineering framework'
 url='https://github.com/rizinorg/cutter'
 arch=('loongarch64' 'x86_64')
 license=('GPL3')
-depends=('rizin' 'capstone' 'qt5-base' 'qt5-svg' 'qt5-webengine' 'icu' 'python' 'jupyter'
+depends=('rizin' 'capstone' 'qt5-base' 'qt5-svg' 'qt5-webengine' 'icu' 'python'
          'pyside2' 'python-shiboken2' 'graphviz' 'gcc-libs' 'syntax-highlighting')
 makedepends=('git' 'cmake' 'ninja' 'shiboken2' 'qt5-tools')
 optdepends=('rz-ghidra: ghidra decompiler plugin')
@@ -30,6 +30,8 @@ prepare() {
   cd cutter
   git config 'submodule.src/translations.url' "${srcdir}/cutter-translations"
   git submodule update --init src/translations
+
+  git cherry-pick -n 1ef6d1269cf0ffde2d91eb067134ee9215791296 # Fix build with syntax-highlighting 5.92
 }
 
 build() {

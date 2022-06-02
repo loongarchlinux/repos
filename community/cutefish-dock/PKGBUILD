@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=cutefish-dock
-pkgver=0.5
+pkgver=0.8
 pkgrel=1
 pkgdesc="CutefishOS application dock"
 arch=('loongarch64' 'x86_64')
@@ -11,7 +11,7 @@ groups=('cutefish')
 depends=('fishui' 'qt5-svg')
 makedepends=('extra-cmake-modules' 'ninja' 'qt5-tools')
 source=("https://github.com/cutefishos/dock/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0cfa7afc6c58f09f7a684a376bdf52fab13f6c203c15556ea9ad6fc41d00aa1e6c06663dcf18b655bcee3143098f86ccdb7af4a30d67179bc58ac87ebfb33283')
+sha512sums=('98d97abcbc82afd31e13fff3f76bc81f12ba2ab2c1fdcec3c0c800d1945d9353bb7d7086d3d79ae0edc397db025a76afcd7e09e2e68ab60f07770bd3931515d7')
 
 build() {
   cd dock-$pkgver

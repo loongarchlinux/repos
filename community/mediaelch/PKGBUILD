@@ -2,18 +2,18 @@
 # Contributor: Matt Harrison <matt@mistbyte.com>
 
 pkgname=mediaelch
-pkgver=2.8.12
-pkgrel=1
+pkgver=2.8.16
+pkgrel=3
 pkgdesc='Media Manager for handling Movies, TV Shows and Concerts/Music Videos for Kodi'
 url='https://www.mediaelch.de/mediaelch/'
 arch=('loongarch64' 'x86_64')
 license=('LGPL3')
 depends=('glibc' 'gcc-libs' 'libmediainfo' 'qt5-declarative' 'qt5-multimedia'
-         'qt5-script' 'qt5-svg' 'quazip')
+         'qt5-svg' 'quazip-qt5')
 makedepends=('cmake' 'ninja' 'qt5-tools')
 source=(https://github.com/Komet/MediaElch/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c3f30fb18ad496057984ea7ea2593710ec4069eda1f4324ba10dffb66a5c3a75')
-b2sums=('f0c8afa6b12988621d339b5c6b56d7dd4354d61598a2cb26a2f4a75784d197aad5e2d425d59032b174efb57b079ec9a9fd948553e74f5e1bcea8b49a494dc047')
+sha256sums=('bbb195fde2c1c5019326bc275013b772da92e1325f3ff47b266474e230545611')
+b2sums=('76c57eb0e6ef215a2fcaacffbcf2d10406f7a4ebbea9e420195d5391d758e7789c276e32a359a7d8bfbf74e2f3e7bd7bf75293911d3ae7aa9e8d370bccbe38ce')
 
 prepare() {
   cd MediaElch-${pkgver}

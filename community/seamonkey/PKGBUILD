@@ -1,7 +1,7 @@
 # Maintainer: Kyle Keen <keenerd@gmail.com>
 
 pkgname=seamonkey
-pkgver=2.53.10.2
+pkgver=2.53.12
 pkgrel=1
 pkgdesc="SeaMonkey internet suite"
 arch=('loongarch64' 'x86_64')
@@ -9,15 +9,15 @@ license=('MPL')
 depends=('dbus-glib' 'gtk3' 'hunspell' 'icu'
          'libevent' 'libpulse' 'libvpx' 'libxt' 'mime-types'
          'nss' 'sqlite' 'startup-notification')
-makedepends=('autoconf2.13' 'clang' 'gtk2' 'imake' 'llvm' 'mesa' 'python' 'python2-setuptools'
-             'python2-psutil' 'rust' 'yasm' 'unzip' 'zip' 'nasm')
+makedepends=('autoconf2.13' 'clang' 'imake' 'llvm' 'mesa' 'python' 'python2-setuptools'
+             'rust' 'yasm' 'unzip' 'zip' 'nasm')
 optdepends=('networkmanager: Location detection via available WiFi networks'
 	    'libnotify: Notification integration'
 	    'pulseaudio: Audio support')
 url="https://www.seamonkey-project.org/"
 source=("https://archive.mozilla.org/pub/seamonkey/releases/$pkgver/source/seamonkey-$pkgver.source.tar.xz"
         "mozconfig")
-sha256sums=('b644f74c340c4c295c1dd93eca5d8971810bcd64f9554527ef6e9e3fdf28fee4'
+sha256sums=('a1a694219d01db24b5241d1afa785599fe6998a58b03d1b51c4b51995058098e'
             '05bbf05f6a2f060ba3b69a420d57e95766880869a3e416cb05f60894bce1213b')
 install="$pkgname.install"
 options=(!lto)

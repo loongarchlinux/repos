@@ -5,8 +5,8 @@
 # Contributor: Amr Hassan <amr.hassan@gmail.com>
 
 pkgname=python-pylast
-pkgver=4.3.0
-pkgrel=3
+pkgver=5.0.0
+pkgrel=1
 pkgdesc='A Python interface to Last.fm and Libre.fm'
 arch=(any)
 url='https://github.com/pylast/pylast'
@@ -17,7 +17,7 @@ makedepends=(
   python-setuptools
   python-setuptools-scm
 )
-_tag=3db88e98ce77bc86bf533389b06a028a75251409
+_tag=aefa7cef1bb4487f19914f2719c806ec891fdb93
 source=(git+https://github.com/pylast/pylast.git#tag=${_tag})
 sha256sums=(SKIP)
 

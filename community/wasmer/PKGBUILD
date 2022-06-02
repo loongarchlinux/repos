@@ -2,17 +2,17 @@
 # Contributor: Julius Michaelis <gitter@liftm.de>
 
 pkgname=wasmer
-pkgver=2.1.1
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Universal Binaries Powered by WebAssembly"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/wasmerio/wasmer"
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'ncurses' 'libffi')
+depends=('gcc-libs' 'zlib' 'ncurses' 'libffi' 'libxkbcommon')
 makedepends=('rust' 'cmake' 'llvm11')
 checkdepends=('lld' 'clang')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wasmerio/wasmer/archive/${pkgver}.tar.gz")
-sha512sums=('0bb5c3b7a9b97e5ed2f34c64f562fc904e2b43b76252f4ff7e98015d5a0b22e5abde43ea116d9bc295d420b2e13f240374dba3f8ba063aac18c44edfeeccaa0b')
+sha512sums=('c199a24520d063cf77179823bddba198d470e3f04ea0d21b0cd9f1154a8d777ff8af10e430a34190e7feacc89273d3da11aa1f79c0ed8e417f327a88057045b3')
 options=('staticlibs' '!lto')
 
 WASMER_INSTALL_PREFIX=/usr

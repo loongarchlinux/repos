@@ -5,41 +5,49 @@
 # Contributor: Matthew Gamble <internet@matthewgamble.net>
 
 pkgname=sad
-pkgver=0.4.17
+pkgver=0.4.21
 pkgrel=1
-pkgdesc="Space Age seD"
+pkgdesc='Space Age seD'
 arch=('loongarch64' 'x86_64')
-url="https://github.com/ms-jpq/sad"
+url='https://github.com/ms-jpq/sad'
 license=('MIT')
 depends=('gcc-libs')
-makedepends=('rust')
+makedepends=('git' 'rust')
 optdepends=(
   'fzf: for tui usage'
   'diff-so-fancy: for diff colourizer'
   'git-delta: for diff colourizer'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('4cb667679c02b73c17c2f00ed34e4e458b6f07692700f5a7bc37fa63f74ea13f2d89f79659b3d7a973e890de8d647ca59b57f6a682ee42415af02b79b78022e0')
+options=('!lto')
+_commit='d815a755a82f9ee90b598bc9dc88ef06f5d66f5e'
+source=("$pkgname::git+$url#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # download dependencies
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo build --frozen --release --all-features
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo test --frozen --all-features
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # binary
   install -vDm755 -t "$pkgdir/usr/bin" "target/release/$pkgname"

@@ -3,7 +3,7 @@
 # Contributor: Frederik Schwan <frederik dot schwan at linux dot com>
 
 pkgname=gitea
-pkgver=1.15.8
+pkgver=1.16.8
 pkgrel=1
 pkgdesc="Painless self-hosted Git service, community managed."
 arch=(loongarch64 x86_64)
@@ -20,9 +20,10 @@ optdepends=(
   'redis: Redis support'
   'sqlite: SQLite support'
 )
+checkdepends=(openssh)
 options=(!lto)
-_tag=cb1f4426e7932caf0c7a0c704d35b2090d711b2f # git rev-parse v${pkgver}
-source=("git+https://github.com/go-gitea/gitea.git#tag=${_tag}?signed"
+_tag=00828ab4678507a39ff9826a44c00e1c70e25c1f # git rev-parse v${pkgver}
+source=(git+https://github.com/go-gitea/gitea.git#tag=${_tag}?signed
         gitea.tmpfiles
         gitea.service
         gitea.sysusers)
@@ -42,15 +43,14 @@ validpgpkeys=(
 )
 install=gitea.install
 
-prepare() {
-  cd ${pkgname}
-  # Fetch dependency using go mod
-  make vendor
-}
-
 pkgver() {
   cd ${pkgname}
   git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  cd ${pkgname}
+  make deps
 }
 
 build() {
@@ -63,6 +63,11 @@ build() {
   export LDFLAGS="-X 'code.gitea.io/gitea/modules/setting.AppWorkPath=/var/lib/gitea/' -X 'code.gitea.io/gitea/modules/setting.CustomConf=/etc/gitea/app.ini'"
   export TAGS="bindata sqlite sqlite_unlock_notify pam"
   make -j1
+}
+
+check() {
+  cd ${pkgname}
+  make test
 }
 
 package() {

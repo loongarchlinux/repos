@@ -3,18 +3,27 @@
 # Contributor: Daniel Maslowski <info@orangecms.org>
 
 pkgname=fisher
-pkgver=4.3.0
-pkgrel=2
-pkgdesc="A package manager for the fish shell"
+pkgver=4.3.2
+pkgrel=1
+pkgdesc='A package manager for the fish shell'
 arch=('any')
-url="https://github.com/jorgebucaran/fisher"
+url='https://github.com/jorgebucaran/fisher'
 license=('MIT')
 depends=('fish' 'curl')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-b2sums=('f8f15aadb1d75aac4fb0bab3d8a64e70bbb3c73d02273e9479aec510ae8503a738689018c65f54bd137a2eca4ca4fa5da7fbc8e45eb0575eb270c5fabc0bd17e')
+makedepends=('git')
+# TODO add fishtape for tests
+_commit='cf4c6cc561b6b495fc8ac0c3b31482f89dd08d49'
+source=("$pkgname::git+$url#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # install to global fish directory
   install -vDm644 -t "$pkgdir/usr/share/fish/vendor_functions.d" functions/fisher.fish

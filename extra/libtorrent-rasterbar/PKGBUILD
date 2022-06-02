@@ -3,7 +3,7 @@
 # Contributor: Hugo Doria <hugo@archlinux.org>
 
 pkgname=libtorrent-rasterbar
-pkgver=1.2.15
+pkgver=2.0.6
 pkgrel=1
 epoch=1
 pkgdesc="A C++ BitTorrent library that aims to be a good alternative to all the other implementations around"
@@ -14,7 +14,7 @@ depends=('boost-libs' 'openssl')
 makedepends=('boost' 'cmake' 'ninja' 'python-setuptools')
 options=('!emptydirs')
 source=(https://github.com/arvidn/libtorrent/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('c409c53ec9c299a05b51ab61d7df1209803cbd6070f0a014dd6fb42c30f6f5230ea90848330f901c61816bc70901e618409acacc95bb0e5acb7f81211d001fa2')
+sha512sums=('4a5d710706040ef6193967dbb13998cb0ddebe7e95c3bf8aec0812876027c68c32b001fd3f07cd4ff1b819660a8d46ae8c7077e72caf92572288a51cdec7daea')
 
 prepare() {
   mkdir -p build

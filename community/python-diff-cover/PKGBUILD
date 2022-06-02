@@ -2,42 +2,41 @@
 
 _name=diff_cover
 pkgname=python-diff-cover
-pkgver=6.4.4
-pkgrel=2
+pkgver=6.5.0
+pkgrel=1
 pkgdesc="Automatically find diff lines that need test coverage"
 arch=(any)
 url="https://github.com/Bachmann1234/diff_cover"
 license=(Apache)
 depends=(python-chardet python-jinja python-pluggy python-pygments)
-makedepends=(python-setuptools)
+makedepends=(python-build python-installer python-poetry python-wheel)
 checkdepends=(python-pytest python-pytest-mock python-tomli)
 optdepends=('python-tomli: for TOML support')
-source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('10e19a6a1585f043f18aa9bf73a788d1b69b876eaab7fc3567e93e3a5f7d6731dae0a9f4459b51e4dc2543b3479843c20b2ca226ceab2b6a5de3540048de4a8e'
+source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz{,.asc})
+sha512sums=('c4fdfad930150a1f67e46d1fa228bf8fd3201624ab5a529f7d26d635a111fb40cd28c2afb1908188e8c23f9d823a72c9a35818f2ab7a9d1233625e71068d2ed7'
             'SKIP')
-b2sums=('98527bc20a9325ad7cbe3086ba3635a208bc8037d527d97b5bb1ac2f022691e7e52206d27f7e2588c6daac224ccf644116b0db838c09667de813378626def1e8'
+b2sums=('a7f520106da428f7c62f62ba44fd8e0104337dd83f6d550ea3176fbb8adf5a639606469bb2fafbcac6aa9d567f9883c0cbfb8e763d7f8feae98779808efd2432'
         'SKIP')
 validpgpkeys=('54CAEABCAC2956D407348256972401BDE60128CB') # Matt Bachmann <matt.bachmann@lola.com>
 
 build() {
-  cd "${_name}-${pkgver}"
-  python setup.py build
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  local _test_dir='test_dir'
 
-  cd "${_name}-${pkgver}"
+  cd $_name-$pkgver
   # install to temporary location, as importlib is used
-  python setup.py install --optimize=1 --root="${_test_dir}"
-  PYTHONPATH="${_test_dir}/${_site_packages}:${PYTHONPATH}" \
+  python -m installer --destdir=test_dir dist/*.whl
+  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
   # ignore integration and code style checks
-  pytest -v --ignore 'tests/test_integration.py' --ignore 'tests/test_violations_reporter.py' --ignore 'tests/test_clover_violations_reporter.py'
+  pytest -vv --ignore 'tests/test_integration.py' --ignore 'tests/test_violations_reporter.py' --ignore 'tests/test_clover_violations_reporter.py'
 }
 
 package() {
-  cd "${_name}-${pkgver}"
-  python setup.py install --optimize=1 --root="${pkgdir}"
-  install -vDm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname"
 }

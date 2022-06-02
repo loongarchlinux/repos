@@ -4,7 +4,7 @@
 
 pkgname=nextcloud-app-notes
 _name=notes
-pkgver=4.2.0
+pkgver=4.3.1
 pkgrel=1
 pkgdesc="Simple Notes app for Nextcloud"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('ripgrep' 'yq')
 groups=('nextcloud-apps')
 options=('!strip')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/nextcloud/notes/releases/download/v${pkgver}/notes.tar.gz")
-sha512sums=('7df83665555a98919c6a6383f624b4a7aa8612e60b6707e0996e6bda8592b7fc4bb9326ebbd50491d5cec14a3feb04989134c3d032833c9f7fe29a04a32ca20c')
+sha512sums=('2b21580f2a2a79fac8e46cc6c6ddb564f05469866c816c27f32b2b14f3a1c2dd64cb646735e24c2daec1401fb465dab943b20955e4b388924245a881c1e8dd89')
 
 _get_nextcloud_versions() {
   _app_min_major_version="$(xq '.info.dependencies.nextcloud["@min-version"]' "${_name}/appinfo/info.xml"| sed 's/"//g')"

@@ -1,34 +1,58 @@
-# Maintainer: Eli Schwartz <eschwartz@archlinux.org>
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
+# Contributor: Daurnimator <daurnimator@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
 # Contributor: lp76 <l.peduto@gmail.com>
 # Contributor: Daenyth <Daenyth+Arch AT gmail DOT com>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 
-pkgname=ncdu
-pkgver=1.16
-pkgrel=2
+pkgname='ncdu'
+pkgver=2.1.2
+pkgrel=1
 pkgdesc='Disk usage analyzer with an ncurses interface'
 url='https://dev.yorhel.nl/ncdu'
 license=('MIT')
 depends=('ncurses')
+makedepends=('zig')
 arch=('loongarch64' 'x86_64')
 source=("https://dev.yorhel.nl/download/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha256sums=('2b915752a183fae014b5e5b1f0a135b4b408de7488c716e325217c2513980fd4'
+sha256sums=('9e0d6ef03618a3c316726bf49217b7efe45cec758b2c917ce892ded74332c6dc'
             'SKIP')
-b2sums=('61d004581bdcf1885bec24d0a1de4fc890fe91bba511abbdbc507a48f31946caf5c7324979e8410e53cfca8ada1b20342b737dc4e8b1f034f2fca5aea84e4369'
+b2sums=('fb64058bec2e8f286fa82e16986cddd9126e5c94d513740d48ff1c971e7ee95270fe6c1cfbbe240bb8e99fba4e3fd6d2624f99870422835da44447a2507f0b8b'
         'SKIP')
 validpgpkeys=('74460D32B80810EBA9AFA2E962394C698C2739FA') # Yoran Heling <projects@yorhel.nl>
 
 build() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
+    cd "${pkgname}-${pkgver}"
 
-    ./configure --prefix=/usr
-    make
+    # since RELRO is not doable in the zig.build file (https://github.com/ziglang/zig/issues/6977)
+    # we are running zig build-exe directly
+    zig build-exe \
+        -target x86_64-linux.5.10-gnu.2.34 -mcpu baseline \
+        -L /usr/local/lib -L /usr/lib \
+        -isystem /usr/local/include -isystem /usr/include \
+        ./src/main.zig ./src/ncurses_refs.c \
+        -lc -lncursesw \
+        -OReleaseSafe \
+        --name ncdu \
+        -D _DEFAULT_SOURCE -D _XOPEN_SOURCE=600 \
+        -fPIE \
+        -z relro -z now \
+        -fno-each-lib-rpath
+}
+
+check() {
+    cd "${pkgname}-${pkgver}"
+
+    zig build test
 }
 
 package() {
-    cd "${srcdir}/${pkgname}-${pkgver}"
+    cd "${pkgname}-${pkgver}"
 
-    make DESTDIR="${pkgdir}" install
-    install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    install --verbose -D --mode=755 "./${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+
+    make install-doc PREFIX="${pkgdir}/usr"
+
+    install --verbose -D --mode=644 LICENSES/MIT.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

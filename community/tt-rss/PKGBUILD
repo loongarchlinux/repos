@@ -5,7 +5,7 @@
 # Contributor: Erik Mank <erik@braindisorder.org>
 
 pkgname=tt-rss
-pkgver=r11198.7aeaa1b03
+pkgver=r11220.b59bde7b4
 pkgrel=1
 epoch=2
 pkgdesc='Web-based news feed (RSS/Atom) aggregator'
@@ -19,16 +19,24 @@ optdepends=('mysql'
             'postgresql'
             'php-gd: for coloured feed badges')
 makedepends=('git')
-_commit=7aeaa1b039b269c75e543045dcf8c077b3aa258d
+_commit=b59bde7b45727724e5f711e1d7f88a6cabbbf5e4
 # periodic releases are over https://tt-rss.org/forum/viewtopic.php?f=10&t=3262
 source=(git+https://git.tt-rss.org/fox/tt-rss.git#commit=$_commit
-        tt-rss.service)
+       tt-rss.service)
 sha1sums=('SKIP'
           'd764e22065f8e0104b4f1d5dcf41cce01cd7bec5')
 
 pkgver() {
   cd tt-rss
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd tt-rss
+
+  # https://bugs.archlinux.org/task/73451
+  git revert -n a201e10ee024f03fb6aad0ec1069cc4da72a9ac5
+  git revert -n aaebe55456b34b878b7bcccef021af7f2c8d3a75
 }
 
 package() {

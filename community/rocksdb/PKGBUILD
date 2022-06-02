@@ -2,7 +2,7 @@
 # Contributor: László Várady <laszlo.varady93@gmail.com>
 
 pkgname=rocksdb
-pkgver=6.26.1
+pkgver=7.2.2
 pkgrel=1
 pkgdesc='Embedded key-value store for fast storage'
 arch=(loongarch64 x86_64)
@@ -11,7 +11,7 @@ license=(GPL2 Apache)
 depends=(bzip2 jemalloc lz4 snappy zlib zstd tbb liburing)
 makedepends=(python)
 source=(rocksdb-$pkgver.tar.gz::https://github.com/facebook/rocksdb/archive/v$pkgver.tar.gz)
-sha256sums=('5aeb94677bdd4ead46eb4cefc3dbb5943141fb3ce0ba627cfd8cbabeed6475e7')
+sha256sums=('c4ea6bd2e3ffe3f0f8921c699234d59108c9122d61b0ba2aa78358642a7b614e')
 
 build() {
   cd rocksdb-$pkgver

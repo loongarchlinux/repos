@@ -1,38 +1,43 @@
-# Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 # Contributor: Thomas Dziedzic < gostrc at gmail >
 # Contributor: Dan Serban
 # Contributor: Richard Murri
 
 pkgname=python-werkzeug
-pkgver=2.0.2
-pkgrel=3
+pkgver=2.1.2
+pkgrel=1
 pkgdesc='Swiss Army knife of Python web development'
-url='http://werkzeug.pocoo.org/'
+url='https://werkzeug.palletsprojects.com/'
 arch=('any')
 license=('custom:BSD')
 depends=('python')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest-timeout' 'python-requests' 'python-pytest-xprocess')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/pallets/werkzeug/archive/${pkgver}.tar.gz")
-sha512sums=('789f210546c089e8a437a379e516147fd854806357938bd559a61855182143bdeca967c86a41d004e6adb119d31e4493e3c36e74aff989ee9cd08e48d1428dd9')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+checkdepends=('python-pytest' 'python-pytest-timeout' 'python-pytest-xprocess' 'python-requests'
+              'python-ephemeral-port-reserve' 'python-greenlet' 'python-watchdog'
+              'python-cryptography')
+source=("https://github.com/pallets/werkzeug/archive/${pkgver}/$pkgname-$pkgver.tar.gz")
+sha512sums=('28c4a794a3dbc8423e59244fbcf192b60b53f378444aaaf60330bdd62cec38a4625033b5d72b55613c8b26053a60153ddcb816331ff28ad3ee03bede74d8b1b3')
 
 build() {
   cd "werkzeug-$pkgver"
 
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
-# check() {
-#   cd "werkzeug-$pkgver"
-#   PYTHONPATH="$PWD/build/lib" pytest
-# }
+check() {
+  cd "werkzeug-$pkgver"
+  PYTHONPATH="build/lib" pytest \
+    --deselect=tests/test_serving.py \
+    --deselect=tests/test_debug.py::test_basic \
+    --deselect=tests/middleware/test_http_proxy.py
+}
 
 package() {
   cd "werkzeug-$pkgver"
 
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE.rst "$pkgdir/usr/share/licenses/$pkgname/LICENSE.rst"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm 644 LICENSE.rst -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
 # vim:set ts=2 sw=2 et:

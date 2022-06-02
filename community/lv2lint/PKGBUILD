@@ -1,39 +1,34 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=lv2lint
-pkgver=0.14.0
+pkgver=0.16.2
 pkgrel=1
 pkgdesc="Check whether a given LV2 plugin is up to the specification"
-arch=('loongarch64' 'x86_64')
+arch=(loongarch64 x86_64)
 url="https://open-music-kontrollers.ch/lv2/lv2lint/"
-license=('Artistic2.0')
-depends=('glibc' 'libelf')
-makedepends=('curl' 'lilv' 'lv2' 'meson')
-source=("https://git.open-music-kontrollers.ch/lv2/${pkgname}/snapshot/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('0776f8f2479958138f21e92f46e0a52b3c8f62e6a2a8c3f961b6e1d4b5c0b116b6a788588b170ce5108adfff782f9796547297aba3f639f744ad7665015c40f5'
+license=(Artistic2.0)
+depends=(glibc libelf)
+makedepends=(curl lilv lv2 meson)
+options=(debug)
+source=(https://git.open-music-kontrollers.ch/lv2/$pkgname/snapshot/$pkgname-$pkgver.tar.xz{,.asc})
+sha512sums=('3478dc8f29f9b34bcabe1c10d92af1e9450f549150bed2925a5065bed983b63ae0731348db1a828099bd9037b5f0e50e3f1125861a2d8bdd55ebad8bf638b45f'
             'SKIP')
-b2sums=('76abb35a7fdefe39031a5cc7aafcbf9fee634cff369feab24d29153127be2b65117de749c26e18f9190a3097da4b6d32cabd28dedcc7a3a9cd41272cc5bc8f4c'
+b2sums=('4d4abdd5979248e83079698664d6d9098fc7ae820f6db052693112573c17103d575858d25912b1d84200258e6d4c3068579c641e7e523ce675bcc2b252bb5c7f'
         'SKIP')
 validpgpkeys=('5AE26CEBBF49705C19FB273A30258F99258CB76A') # Hanspeter Portner <dev@open-music-kontrollers.ch>
 
 build() {
-  cd "$pkgname-$pkgver"
-  arch-meson \
-        -Donline-tests='enabled' \
-        -Delf-tests='enabled' \
-        build
+  arch-meson -Donline-tests=enabled -Delf-tests=enabled build $pkgname-$pkgver
   ninja -C build
 }
 
 check() {
-  cd "$pkgname-$pkgver"
   ninja -C build test
 }
 
 package() {
-  depends+=('libcurl.so' 'liblilv-0.so')
-  cd "$pkgname-$pkgver"
-  DESTDIR="$pkgdir/" ninja -C build install
-  install -vDm 644 {ChangeLog,README.md,TODO} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  depends+=(libcurl.so liblilv-0.so)
+
+  DESTDIR="$pkgdir" ninja -C build install
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README.md,TODO} -t "$pkgdir/usr/share/doc/$pkgname/"
 }

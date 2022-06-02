@@ -1,3 +1,4 @@
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Chris Brannon <chris@the-brannons.com>
@@ -5,26 +6,33 @@
 # Contributor: Anders Bergh <anders1@gmail.com>
 
 pkgname=luajit
-pkgver=2.0.5
-pkgrel=3
+# LuaJIT has abandoned versioned releases and now advises using git HEAD
+# https://github.com/LuaJIT/LuaJIT/issues/665#issuecomment-784452583
+_commit=1b8d8cabdcc4f1977dc8c51a82074653078d870b
+pkgver="2.1.0.beta3.r409.g${_commit::8}"
+pkgrel=1
 pkgdesc='Just-in-time compiler and drop-in replacement for Lua 5.1'
 arch=('loongarch64' 'x86_64')
 url='https://luajit.org/'
 license=('MIT')
 depends=('gcc-libs')
-source=("https://luajit.org/download/LuaJIT-$pkgver.tar.gz")
-md5sums=('48353202cbcacab84ee41a5a70ea0a2c')
-sha256sums=('874b1f8297c697821f561f9b73b57ffd419ed8f4278c82e05b48806d30c1e979')
-b2sums=('961c8622e19b0e66a76a875cb46ad149cb2559b5af41f360dc41dd0d6bb924583e6477dd1329f67c2ac6ea4b8dc42c5e2f4d63ea49400aba4d9e7c7e85e4b085')
+options=('debug')
+source=("LuaJIT-${_commit}.tar.gz::https://repo.or.cz/luajit-2.0.git/snapshot/${_commit}.tar.gz")
+md5sums=('9f4be58cc59179cc696eac507b0879cb')
+sha256sums=('369882937289a81e178505a34842d8fe0a02dcdd707e1c57111cf2a6a90fa0e5')
+b2sums=('f8079977d59edf42748e3e2dc0639b314703eca9ad7d2e6b86e6a0af6869cbd95ecd48e8ecbd0252745c1401822af9515d4bbd7dd878897aa20a2dfe5dbf7355')
 
 build() {
-  cd "LuaJIT-$pkgver"
-  make amalg PREFIX=/usr
+  cd "luajit-2.0-${_commit::7}"
+  # Avoid early stripping
+  make amalg PREFIX=/usr BUILDMODE=dynamic TARGET_STRIP=" @:"
 }
 
 package() {
-  cd "LuaJIT-$pkgver"
+  cd "luajit-2.0-${_commit::7}"
 
   make install DESTDIR="$pkgdir" PREFIX=/usr
   install -Dm644 COPYRIGHT "$pkgdir/usr/share/licenses/$pkgname/COPYRIGHT"
+
+  ln -sf luajit-2.1.0-beta3 "$pkgdir/usr/bin/luajit"
 }

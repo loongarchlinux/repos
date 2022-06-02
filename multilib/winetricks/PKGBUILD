@@ -5,19 +5,21 @@
 # Contributor: Allan McRae <allan@archlinux.org>
 
 pkgname=winetricks
-pkgver=20210825
+pkgver=20220411
 pkgrel=1
 pkgdesc='Script to install various redistributable runtime libraries in Wine.'
 url='https://wiki.winehq.org/winetricks'
 license=('LGPL')
 arch=('loongarch64' 'x86_64')
-depends=('cabextract' 'perl' 'unzip' 'wine' 'xorg-xmessage')
+depends=('cabextract' 'perl' 'unzip' 'xorg-xmessage')
 optdepends=('zenity: GUI for GNOME desktop'
             'kdialog: GUI for KDE desktop')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Winetricks/winetricks/archive/$pkgver.tar.gz")
-sha512sums=('b9eb61a0bfe4001cb23f41f3b4707333be81660372347b5e8fe887fe1e2278bd5e2b91e0c5ddd73010652902a8985f0e253792c8769216de397ca75fac8b0c81')
+sha512sums=('c4e77c5e62d2df56db6aa75979cc775f26472917108b0498c975458fd6f7ecbef52c329b7b6f33c12510176e105190bc538447b39348a42b7f1a8e07e5d92d09')
 
 package() {
+  depends+=('wine')
+
   cd winetricks-$pkgver
   make DESTDIR="$pkgdir" install
 }

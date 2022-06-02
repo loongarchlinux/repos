@@ -4,29 +4,30 @@
 # Contributor: uastasi <uastasi@archlinux.us>
 
 pkgname=gnote
-pkgver=41.1
+pkgver=42.0
 pkgrel=1
 pkgdesc="A note taking application"
 url="https://wiki.gnome.org/Apps/Gnote"
 arch=(loongarch64 x86_64)
 license=(GPL3)
-depends=(gtkmm3 gspell libxslt dconf libsecret)
+depends=(gtkmm3 gspell libxslt libsecret)
 makedepends=(yelp-tools meson git)
-_commit=236c6b0d109814e39daf8a6c404df21445afaf73  # tags/41.1^0
+options=(debug)
+_commit=8d73a6a2e5aa0fac0f4689d739c31c4933045f5e  # tags/42.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnote.git#commit=$_commit")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
+  cd gnote
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
-  cd $pkgname
+  cd gnote
 }
 
 build() {
-  arch-meson $pkgname build
+  arch-meson gnote build
   meson compile -C build
 }
 
