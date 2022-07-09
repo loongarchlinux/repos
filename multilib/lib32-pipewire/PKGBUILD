@@ -4,15 +4,15 @@
 
 pkgbase=lib32-pipewire
 pkgname=(lib32-pipewire lib32-pipewire-jack lib32-pipewire-v4l2)
-_commit=ebc775674a0cf254cebd6d4694944006405807e3  # tags/0.3.51
-pkgver=0.3.51
-pkgrel=1
+_commit=3853eba32f1a354b7287f7990ba467679749532a  # tags/0.3.53
+pkgver=0.3.53
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit client library"
 url="https://pipewire.org"
 arch=(loongarch64 x86_64)
 license=(MIT)
-makedepends=(git meson lib32-alsa-lib lib32-systemd lib32-dbus)
+makedepends=(git lib32-alsa-lib lib32-dbus lib32-systemd meson)
 options=(debug)
 source=(git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=$_commit)
 sha256sums=('SKIP')
@@ -24,11 +24,15 @@ pkgver() {
 
 prepare() {
   cd pipewire
+
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/releases/0.3.53#distros
+  git cherry-pick -n 9af94508886b19bb398f4e2a777447ca42907c2f
 }
 
 build() {
   local meson_options=(
     --libdir /usr/lib32
+    -D bluez5-codec-lc3plus=disabled
     -D examples=disabled
     -D man=disabled
     -D tests=disabled

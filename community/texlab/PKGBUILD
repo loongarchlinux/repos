@@ -3,7 +3,7 @@
 # Contributor: Patrick Förster <patrick DOT foerster AT outlook DOT de>
 
 pkgname=texlab
-pkgver=3.3.2
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="A cross-platform implementation of the Language Server Protocol for LaTeX."
 arch=('loongarch64' 'x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo' 'npm')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/latex-lsp/texlab/archive/v${pkgver}.tar.gz")
-sha512sums=('330b9b3129b883923242f9599699e808d54177b054426a6dd246437f76159d5610962040583e1fa0943ee9a8a6d7c8b79f5fb42bddd871294ad2005959ff485f')
+sha512sums=('366a223e7f1d484a4ea31b4c97dfa25f025270ee8b09d0e56c5d2542d1dfbfa47cb5fb4bf292991cb30831a0f6a812e957747245d335bc63aeef9f05ed9e4805')
 options=('!lto')
 
 prepare() {

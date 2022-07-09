@@ -1,24 +1,24 @@
-# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
-# Maintainer:  TDY <tdy@gmx.com>
-# Contributor: Grigorios Bouzakis <grbzks[at]gmail[dot]com>
+# Maintainer: Christian Hesse <mail@eworm.de>
 
 pkgname=tmux
-pkgver=3.2_a
-pkgrel=1
+pkgver=3.3_a
+pkgrel=2
 pkgdesc='A terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('loongarch64' 'x86_64')
 license=('BSD')
-depends=('ncurses' 'libevent' 'libutempter')
+depends=('ncurses' 'libevent' 'libutempter' 'systemd-libs')
+makedepends=('systemd')
 source=("https://github.com/tmux/tmux/releases/download/${pkgver/_/}/tmux-${pkgver/_/}.tar.gz")
-sha256sums=('551553a4f82beaa8dadc9256800bcc284d7c000081e47aa6ecbb6ff36eacd05f')
+sha256sums=('e4fd347843bd0772c4f48d6dde625b0b109b7a380ff15db21e97c11a4dcdf93f')
 
 build() {
 	cd "$srcdir/$pkgname-${pkgver/_/}"
 
 	./configure \
 		--prefix=/usr \
-		--enable-utempter
+		--enable-utempter \
+		--enable-systemd
 	make
 }
 

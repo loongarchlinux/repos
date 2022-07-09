@@ -1,19 +1,19 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=jacktrip
-pkgver=1.5.3
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Multi-machine audio network performance over the Internet"
 arch=(loongarch64 x86_64)
 url="https://github.com/jacktrip/jacktrip"
 license=(LGPL3 GPL3 MIT)
 groups=(pro-audio)
-depends=(gcc-libs glibc hicolor-icon-theme qt5-base)
+depends=(gcc-libs glibc hicolor-icon-theme qt5-base qt5-declarative qt5-networkauth qt5-svg)
 makedepends=(help2man meson jack python-jinja python-yaml)
 options=(debug)
 source=($pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz)
-sha512sums=('ab8faabfaf5aefcc035d19e8a00480f84be5a83b8330966d762029ed9187f3710968679c518d4cf7f6b372b4b4e7da53c3184654dc3648e3e75589adab8bd520')
-b2sums=('59cf75f55a7396c045ac6866d260ef4d28b5ff87cfc74b2d18a6674ad334c03a65859a611280d2401071823e9a35c2ece1b695629943cb1b94fcbd9c96376df8')
+sha512sums=('3b89017c37bacbdbcd07458926ffae29bf2d310a40dc8fcb7390e8aa8f2860f9fab053810d613e9c7c9184acd4e4876848cb1f4a8e7044898a298c19c7ee213f')
+b2sums=('24084ca45731906086668435c5b81ce84972907d9052236e1636f38ecbdc70e2bc737cf647f42633c19a81c9ba3cc7d1ac4c8ec146b4540383b79490bad00338')
 
 build() {
   arch-meson -Drtaudio=disabled build $pkgname-$pkgver

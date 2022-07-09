@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=102.0b2
+pkgver=103.0b3
 pkgrel=1
 pkgdesc="Developer Edition of the popular Firefox web browser"
 arch=('loongarch64' 'x86_64')
@@ -10,8 +10,8 @@ license=('MPL' 'GPL' 'LGPL')
 url="https://www.mozilla.org/firefox/channel/#developer"
 depends=('gtk3' 'libxt' 'mime-types' 'dbus-glib' 'ffmpeg' 'ttf-font' 'libpulse' 'nss')
 makedepends=('unzip' 'zip' 'diffutils' 'python-setuptools' 'yasm' 'mesa' 'imake' 'inetutils'
-             'xorg-server-xvfb' 'autoconf2.13' 'rust' 'clang' 'llvm' 'jack' 'nodejs'
-             'python-psutil' 'cbindgen' 'nasm' 'lld' 'python-zstandard' 'dump_syms'
+             'xorg-server-xvfb' 'autoconf2.13' 'rust' 'clang' 'llvm' 'jack'
+             'nodejs' 'cbindgen' 'nasm' 'lld' 'python-zstandard' 'dump_syms'
              'wasi-compiler-rt' 'wasi-libc' 'wasi-libc++' 'wasi-libc++abi')
 optdepends=('networkmanager: Location detection via available WiFi networks'
             'libnotify: Notification integration'
@@ -25,13 +25,13 @@ source=(https://archive.mozilla.org/pub/firefox/releases/$pkgver/source/firefox-
         firefox-install-dir.patch
         "$pkgname".desktop
         identity-icons-brand.svg
-        psutil.patch)
-sha512sums=('b47f42a1b7f71af08d92433856fe40e1fe7de34c424206852a1c761a66bc53b1c9d24220bc4f38d17d463f390d8b18657a64086865aa7e31a3b71f0dd9a0f54b'
+        zstandard-0.18.0.diff)
+sha512sums=('b0f132a8abb03ebf482c160d8bc2d70f735d046dea2e4c9849904b33e67c5e2e87ea47a1325f6c74745c5b92f9539d31a5ade9e13dd2ba05147a2e03bb010e6f'
             'SKIP'
             'b66dbe7f262d036e5a5b895ab5b0dbb03313bca18b0823c001ef2dbaeb1a33169b57db0cf4dfd268499f28913845119902b5d62e8a6a9cc4820eb0ee2f322a1e'
             '2ff0cb8e2eb94cee306b488adf6d7f4debbaff6155be3ed3eeee814cdb356e2e60fe38cc29d6c8d10079937fd2c930cfddf283977cf645395d31eaf76c7f0ac2'
             'b579b73176c72a5ecf36e3f63bba08fdb8041ae99d54e5cab906660fed6a9cf2311f7ca1ec1649e451cc6d5a4b1e6060b974b1d7befe9c8df3c5a89c50383c17'
-            'd445a6964958de41687eb0f33addee1f382b3e5c8cbb9d568ccaf11e230ef11baa08f166c79750de24958c0f38e4e934c7a04e676b96053cdbdb917653d6a5cd')
+            'c949cf492bc93b6f3f1f827744e0f39e555c518434c8e73e27143a769b0d123fe4ba2cae07b7b7e7b594f8da43383d4fb4cd28b6b52e0d3e7a985afbadfb3d04')
 validpgpkeys=('14F26682D0916CDD81E37B6D61B7B526D98F0353') # Mozilla Software Releases <release@mozilla.com>
 
 # Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
@@ -50,7 +50,9 @@ prepare() {
   mkdir mozbuild
   cd firefox-${pkgver%b*}
   patch -Np1 -i ../firefox-install-dir.patch
-  patch -Np1 -i ../psutil.patch
+
+  # Unbreak build with python-zstandard 0.18.0
+  patch -Np1 -i ../zstandard-0.18.0.diff
 
   echo -n "$_google_api_key" > google-api-key
   echo -n "$_mozilla_api_key" > mozilla-api-key

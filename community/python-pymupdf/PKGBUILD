@@ -2,7 +2,7 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.19.6
+pkgver=1.20.1
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(loongarch64 x86_64)
@@ -10,11 +10,11 @@ url="https://github.com/pymupdf/PyMuPDF"
 license=(AGPL3)
 depends=(glibc gumbo-parser jbig2dec libmupdf openjpeg2 python)
 makedepends=(freetype2 libjpeg-turbo python-distro python-build python-installer python-setuptools python-wheel swig systemd)
-checkdepends=(python-pillow python-pytest)
+checkdepends=(python-fonttools python-pillow python-pytest)
 options=(debug)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('bd597bcb53c0a86aea41600dcd5231a08a422fb4517b3c07c3fe4b359e9d32977565c389bda199056582c4c5a55acc57c86a00c15822bc96cc266fb1211c9c68')
-b2sums=('584dfc11bafe6c8bfe2571e2e06a1ee5a5ea5bf3a4e234bc9173d398fa3d869a4a1dccba4a39a98f4f9c4d76e7a5b06cd8b826f494be2dafb010c6848682d81f')
+sha512sums=('0969e2d7f4d0dfce8d546ccfa27c703cc636c071af6722bf886ca8ca4579637bc9d46c5152f2fca8212e168839075b061c515993e107310cd50c396039202a42')
+b2sums=('bba7212f5869306221f866b2d4195a7ed6dc2eb80b3fbd31859f78f61d30fc4fb5d41e331c53ca05c8e4c2d94eadcfab784765e2f496f01177f62f47e648bb27')
 
 build() {
   cd $_name-$pkgver
@@ -31,12 +31,7 @@ check() {
   python -m installer --destdir="$_test_dir" dist/*.whl
 
   export PYTHONPATH="$_test_dir/$_site_packages:$PYTHONPATH"
-  # disable failing tests: https://github.com/pymupdf/PyMuPDF/issues/1664
-  # disable tests that SIGABRT pytest: https://github.com/pymupdf/PyMuPDF/issues/1663
-  pytest -vv \
-    -k "not test_pageids \
-        and not test_textbox3 \
-        and not test_checkbox and not test_combobox"
+  pytest -vv -c /dev/null tests/
 }
 
 package() {
@@ -44,5 +39,5 @@ package() {
 
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }

@@ -1,28 +1,26 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-pycares
-pkgver=4.1.2
-pkgrel=3
+pkgver=4.2.1
+pkgrel=1
 pkgdesc='Python interface for c-ares'
 arch=('loongarch64' 'x86_64')
 url=https://github.com/saghul/pycares
 license=('MIT')
 depends=('c-ares' 'python-cffi')
 makedepends=('python-setuptools')
-#checkdepends=('python-idna')
+checkdepends=('python-idna')
 optdepends=('python-idna')
 source=("https://files.pythonhosted.org/packages/source/p/pycares/pycares-$pkgver.tar.gz")
-sha256sums=('03490be0e7b51a0c8073f877bec347eff31003f64f57d9518d419d9369452837')
-b2sums=('0996030aa19aac737a7d1e98561bc4b99d6e99c97e989a823b4e4222de895e8fcf49bbfa76e39cfe59a39394c64f8f60e3da1b157cd3a62d4e2f1e8e71607f59')
+sha256sums=('735b4f75fd0f595c4e9184da18cd87737f46bc81a64ea41f4edce2b6b68d46d2')
+b2sums=('62caa1d40c936354aaa519ec5214f31f6ccf69724624d443c76d036e9c5c7a260854d203c66b718ef2c3ba82ad280079f46e969e12443800ce11d8f273e7ba56')
 
 build() {
   cd pycares-$pkgver
   PYCARES_USE_SYSTEM_LIB=1 python setup.py build
 }
 
-# Test failures: test_custom_resolvconf, test_getaddrinfo{,2..4},
-#                gethostbyaddr{,6}, gethostbyname{,_small_timeout},
-#                test_getnameinfo
+# Test failures: test_custom_resolvconf, gethostbyaddr{,6}, test_getnameinfo
 #check() {
 #  cd pycares-$pkgver
 #  mkdir -p temp

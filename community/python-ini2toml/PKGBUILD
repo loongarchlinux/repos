@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-ini2toml
+pkgver=0.11
+pkgrel=1
+pkgdesc="Automatically conversion of .ini/.cfg files to TOML equivalents"
+url="https://github.com/abravalheri/ini2toml"
+license=('MPL')
+arch=('any')
+# The default installation is broken. Adding [full] flavor dependencies here.
+depends=('python-configupdater' 'python-packaging' 'python-tomlkit')
+makedepends=('python-setuptools-scm')
+checkdepends=('python-pytest-cov' 'python-tomli-w' 'python-validate-pyproject')
+source=("https://github.com/abravalheri/ini2toml/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('7329fd3ba31567638fffce22f2370c2055503bd4abc3d7dab30b1828eb54204d31036753efddfab52e79703ce7583f6070e1207c95345096c0751c2d429fd6ea')
+
+export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+
+build() {
+  cd ini2toml-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd ini2toml-$pkgver
+  python setup.py install --root="$PWD/tmp_install" --optimize=1
+  # TODO
+  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.10/site-packages:$PYTHONPATH" pytest --deselect tests/test_cli.py::test_auto_formatting
+}
+
+package() {
+  cd ini2toml-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+}

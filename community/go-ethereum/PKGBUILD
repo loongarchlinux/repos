@@ -1,8 +1,8 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=go-ethereum
-pkgver=1.10.17
-_commit=25c9b49fdb74931137431c24cf28d3c65f9420d2
+pkgver=1.10.20
+_commit=8f2416a89a3def6ec2c749d5afafbf2c9a18e3c8
 pkgrel=1
 pkgdesc='Official Go implementation of the Ethereum protocol'
 arch=('loongarch64' 'x86_64')

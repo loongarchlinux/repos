@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=eslint
-pkgver=8.16.0
+pkgver=8.18.0
 pkgrel=1
 pkgdesc='An AST-based pattern checker for JavaScript'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('acorn' 'nodejs')
 makedepends=('npm' 'rsync')
 options=('!emptydirs')
 source=("https://github.com/$pkgname/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('c1728cf447bbafb7ab0aa9d244d2252a730d24313c144751febd222f6808ebbf35a089bcb830811955b719b5eeca2bb3ffa2bf0c83d513991f94588ac449765e')
+b2sums=('50f2ceea00749c85ff8d2bcfba23e2b0f35806cd89f988c61a57d9080197fb2cfc82a3459070828bd575319c380920b7b8f43dae302a3903011e11a2776073ea')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -33,8 +33,8 @@ package() {
   install -d "$pkgdir"/usr/bin
   ln -s $_npmdir/bin/$pkgname.js "$pkgdir"/usr/bin/$pkgname
   install -Dt "$pkgdir"/$_npmdir/bin bin/$pkgname.js
-  rsync -r --exclude .cache conf lib messages node_modules package.json \
-    "$pkgdir"/$_npmdir
+  rsync -r --exclude .cache --exclude .package-lock.json conf lib messages \
+    node_modules package.json "$pkgdir"/$_npmdir
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname README.md
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 

@@ -2,7 +2,8 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.4.22
+_commit=e59456c8c29350c2b7f03d0dccfbd6fa5c95b9bf  # v0.4.25.nitrokey^{}
+pkgver=0.4.25
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
@@ -27,7 +28,7 @@ depends=(
   python-urllib3
 )
 makedepends=(git python-build python-flit python-installer)
-source=(git+https://github.com/nitrokey/pynitrokey#tag=v$pkgver.nitrokey?signed)
+source=(git+https://github.com/nitrokey/pynitrokey#commit=$_commit?signed)
 sha512sums=('SKIP')
 b2sums=('SKIP')
 validpgpkeys=(868184069239FF65DE0BCD7DD9BAE35991DE5B22)  # Szczepan Zalega (Nitrokey) <szczepan@nitrokey.com>

@@ -2,7 +2,7 @@
 
 _name=sphinx-click
 pkgname=python-sphinx-click
-pkgver=4.0.3
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="Sphinx plugin to automatically document click-based applications"
 arch=(any)
@@ -12,8 +12,8 @@ depends=(python-pbr python-sphinx)
 makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-pytest python-click)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('e5d6f82c49cd50309026b9697ea41827a216cf27001d1a38a9fc3f7fa6d0dacbbb7793853b27304e2cb5b584bb4eed491476595d543bcce9ddfbd21832cacb16')
-b2sums=('dc6c5fa888168661c067206b063517f12ccaa6dec634b8c0f3743cd19264223043b196a4d3b2417fe5c28b350838386905ccbe0478a7e7cad792d95cc63d6472')
+sha512sums=('9b9fee96b17242a1a2cfc097a49aaaa0134e47d250231481d13c438abfdd17b149adf2bde9c3591a94e4e17f02dc800c2b48002eb74994b43fec0d50ddb1083e')
+b2sums=('3f0cd707d6eb26bb63d81cd86324b715eecbb85d038a94104599034563be024d4d4cab5ed488b1d1fb55d4f7c6abb599f48c96f8ea582be0c3d4a37169e7638d')
 
 build() {
   cd $_name-$pkgver

@@ -3,8 +3,8 @@
 # Contributor: Grey Christoforo <first name at last name dot net>
 
 pkgname=wasm-bindgen
-pkgver=0.2.80
-pkgrel=1
+pkgver=0.2.81
+pkgrel=2
 pkgdesc="Interoperating JS and Rust code"
 arch=('loongarch64' 'x86_64')
 url="https://github.com/rustwasm/wasm-bindgen"
@@ -13,14 +13,17 @@ replaces=('wasm-bindgen-cli')
 depends=('rust-wasm' 'nodejs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+        "$pkgname-$pkgver-fix-tests.patch::$url/commit/f19fd27988d6393dceb183386eca36a2e6156bc6.patch"
         "Cargo.lock")
-sha256sums=('c91a4768e9915e833a8ee5bf681d400a4d81d5c9223bc2bb2c4ea50b28f52999'
-            'b3a0a8549ddced8277dfbfa9078d2f0bb438003840ce702cbf43cbd898c88fc1')
+sha256sums=('301652b8854fe63cf3af1c570b0111fe6788d0d158b5725549df2bb592749f2c'
+            '2ea60a70385c8b6f61ae23580bc4b5896194d10d5d8617cbb8258d21e3cbe4ce'
+            '864c8053da46756e9b9268136bb6a898455c7d21c5220095be9170fa36cf2de3')
 
 prepare() {
   # https://github.com/rustwasm/wasm-bindgen/issues/1819
   cp Cargo.lock "$pkgname-$pkgver"
   cd "$pkgname-$pkgver/crates/cli"
+  patch -Np3 -i "$srcdir/$pkgname-$pkgver-fix-tests.patch"
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
@@ -34,7 +37,7 @@ check() {
   cargo test --frozen --all-features
 }
 
-package(){
+package() {
   cd "$pkgname-$pkgver"
   find target/release \
     -maxdepth 1 \

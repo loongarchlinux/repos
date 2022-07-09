@@ -1,8 +1,9 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 _name=selene
 pkgname=selene-linter
-pkgver=0.17.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc='Blazing-fast modern Lua linter written in Rust'
 arch=('loongarch64' 'x86_64')
@@ -10,8 +11,9 @@ url=https://github.com/Kampfkarren/selene
 license=('MPL2')
 depends=('gcc-libs' 'openssl')
 makedepends=('rust')
+options=('!lto')
 source=("$url/archive/$pkgver/$_name-$pkgver.tar.gz")
-b2sums=('60f2f5cb6d7becaa0137ad90e1b03ebd9f2e23dfed2c248fa59c87e1565c049c7298a8e2ffd6355571f7e696379d5c943193e5ab438b9c3f1a74b1b3a399cf6a')
+b2sums=('4e351bf9ea98b02a2eee649760365980878d3caa5a10a9d68f7bc83d55a2db0fe395d896a99a66a34360f9d6625320654de1fb28f4d4ab0fb665edae4e5f4bfc')
 
 prepare() {
   cd $_name-$pkgver

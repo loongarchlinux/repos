@@ -3,19 +3,22 @@
 
 pkgname=sile
 pkgdesc='The SILE Typesetter, a modern typesetting system inspired by LaTeX, customizable in Lua'
-pkgver=0.12.5
-pkgrel=1
+pkgver=0.13.2
+pkgrel=2
 arch=(loongarch64 x86_64)
 url=https://www.sile-typesetter.org
 _url="https://github.com/sile-typesetter/$pkgname"
 license=(MIT)
 _luadeps=(bit32
           cassowary
+          cldr
           cliargs
           cosmo
           expat
           filesystem
+          fluent
           linenoise
+          loadkit
           lpeg
           luaepnf
           luarepl
@@ -43,13 +46,14 @@ depends+=(libfreetype.so
           libicui18n.so
           libicuio.so
           libicuuc.so)
-optdepends=('libertinus-font: math package default font')
+optdepends=('libertinus-font: math package default font'
+            'noto-fonts-cjk: tate enabled classes default font')
 checkdepends=(poppler)
 provides=(libtexpdf.so)
 options=(debug)
 _archive="$pkgname-$pkgver"
 source=("$_url/releases/download/v$pkgver/$_archive.tar.xz")
-sha256sums=('de97ff483dd4cd5150ae3ec5b60ca11515bc47e143eb0ee980da67c5716c3c7d')
+sha256sums=('7d0a1f22100cefbc85d67b1e78fe114c3b4b510dc3a24ec59a9485e9b3ef7b08')
 
 build () {
 	cd "$_archive"

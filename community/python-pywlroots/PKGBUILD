@@ -2,7 +2,7 @@
 
 _name=pywlroots
 pkgname=python-pywlroots
-pkgver=0.15.14
+pkgver=0.15.18
 pkgrel=1
 pkgdesc="Python binding to the wlroots library using cffi"
 arch=(loongarch64 x86_64)
@@ -17,8 +17,8 @@ conflicts=(pywlroots)
 replaces=(pywlroots)
 options=(debug)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('9fc2dc8f51e48b6a1b0a5fcdc6b3f01f411bc44275c67ed88ee358fddba4627614ea73e150e8c01345ea74dba7e3f584f453e5fd2162e28f24c7a27ed11d38eb')
-b2sums=('8227056b1ad6ebbf37d07a1a7fca1720741aa203105e933cce708b716c515777b7d4ce8d6f960870d42b44c30d8e56574917546061b20212025099d462d6572b')
+sha512sums=('128ae616b629a03630f08ac95b4b32107c2bb92790cb5d2bf59f82207c1ac27a76603797bde78346da22beb0f033c1c7195e167f35e4eec460eea861231594f7')
+b2sums=('2a10ca46e7edc6d10991b570c08aa9f79d308bd59d4b91104915f31039951524bb84bef54cec123f4f8f0a04d6fb8afada2ab8037ec50a0bbdd7b802c0c69af9')
 
 build() {
   cd $_name-$pkgver
