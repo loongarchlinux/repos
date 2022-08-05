@@ -4,11 +4,11 @@
 _hkgname=warp-tls
 pkgname=haskell-warp-tls
 pkgver=3.3.2
-pkgrel=123
+pkgrel=128
 pkgdesc="HTTP over TLS support for Warp via the TLS package"
 url="https://github.com/yesodweb/wai"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-cryptonite" "haskell-data-default-class" "haskell-network"
          "haskell-streaming-commons" "haskell-tls" "haskell-tls-session-manager" "haskell-unliftio"
          "haskell-wai" "haskell-warp")

@@ -3,11 +3,11 @@
 _hkgname=hashable-time
 pkgname=haskell-hashable-time
 pkgver=0.3
-pkgrel=64
+pkgrel=67
 pkgdesc="Hashable instances for Data.Time"
 url="https://github.com/w3rs/hashable-time"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-time-compat')
 makedepends=('ghc' 'haskell-hashable')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

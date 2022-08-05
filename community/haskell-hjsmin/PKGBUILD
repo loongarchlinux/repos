@@ -4,11 +4,11 @@
 _hkgname=hjsmin
 pkgname=haskell-hjsmin
 pkgver=0.2.0.4
-pkgrel=174
+pkgrel=177
 pkgdesc="Haskell implementation of a javascript minifier"
 url="https://github.com/erikd/hjsmin"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-language-javascript' 'haskell-optparse-applicative')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

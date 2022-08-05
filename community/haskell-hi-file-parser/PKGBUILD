@@ -3,11 +3,11 @@
 _hkgname=hi-file-parser
 pkgname=haskell-hi-file-parser
 pkgver=0.1.2.0
-pkgrel=94
+pkgrel=99
 pkgdesc="Parser for GHC's hi files"
 url="https://github.com/commercialhaskell/hi-file-parser"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-rio' 'haskell-vector')
 makedepends=('ghc' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

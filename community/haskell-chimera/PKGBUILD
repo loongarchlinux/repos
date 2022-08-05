@@ -3,11 +3,11 @@
 _hkgname=chimera
 pkgname=haskell-chimera
 pkgver=0.3.2.0
-pkgrel=73
+pkgrel=78
 pkgdesc="Lazy infinite streams with O(1) indexing and applications for memoization"
 url="https://github.com/Bodigrim/chimera#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-adjunctions' 'haskell-distributive' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')

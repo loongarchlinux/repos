@@ -10,7 +10,7 @@ depends=()
 makedepends=(meson gtk3 gtk2)
 optdepends=('gtk3: GTK3 module' 'gtk2: GTK2 module')
 url="https://gitlab.com/vala-panel-project/vala-panel-appmenu/"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(LGPL3)
 source=("https://gitlab.com/vala-panel-project/vala-panel-appmenu/-/archive/$pkgver/vala-panel-appmenu-$pkgver.tar.gz"
         80-appmenu-gtk-module)

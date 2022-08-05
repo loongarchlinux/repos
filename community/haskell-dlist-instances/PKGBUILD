@@ -3,9 +3,9 @@
 _hkgname=dlist-instances
 pkgname=haskell-dlist-instances
 pkgver=0.1.1.1
-pkgrel=163
+pkgrel=166
 pkgdesc='Difference lists instances'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://hackage.haskell.org/package/$_hkgname"
 license=(MIT)
 depends=(ghc-libs haskell-dlist)

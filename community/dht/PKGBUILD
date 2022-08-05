@@ -3,9 +3,9 @@
 
 pkgname=dht
 pkgver=0.27
-pkgrel=1
+pkgrel=2
 pkgdesc='BitTorrent DHT library'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url='https://github.com/jech/dht'
 license=(MIT)
 makedepends=(cmake)

@@ -9,7 +9,7 @@ epoch=1
 _commit='4ca006fed80410bd9b061a1519bd5d9366bb0bc8'
 pkgdesc='VNC server for real X displays'
 url='https://github.com/LibVNC/x11vnc'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL')
 depends=('libvncserver' 'openssl' 'libxcrypt' 'libxtst' 'libxext' 'libxinerama'
          'libxrandr' 'libxfixes' 'libxdamage' 'libxcomposite' 'libx11' 'avahi'

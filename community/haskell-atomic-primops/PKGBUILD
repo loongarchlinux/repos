@@ -3,11 +3,11 @@
 _hkgname=atomic-primops
 pkgname=haskell-atomic-primops
 pkgver=0.8.4
-pkgrel=126
+pkgrel=129
 pkgdesc="A safe approach to CAS and other atomic ops in Haskell"
 url="https://github.com/rrnewton/haskell-lockfree/wiki"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-primitive')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

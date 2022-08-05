@@ -3,11 +3,11 @@
 _hkgname=network-bsd
 pkgname=haskell-network-bsd
 pkgver=2.8.1.0
-pkgrel=156
+pkgrel=159
 pkgdesc="POSIX network database (<netdb.h>) API"
 url="https://github.com/haskell/network-bsd"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-network')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

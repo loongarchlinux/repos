@@ -3,11 +3,11 @@
 _hkgname=haskell-src-exts-util
 pkgname=haskell-src-exts-util
 pkgver=0.2.5
-pkgrel=226
+pkgrel=231
 pkgdesc="Helper functions for working with haskell-src-exts trees"
 url="https://github.com/pepeiborra/haskell-src-exts-util"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-data-default' 'haskell-src-exts' 'haskell-uniplate')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

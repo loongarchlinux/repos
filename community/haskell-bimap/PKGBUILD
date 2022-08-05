@@ -3,11 +3,11 @@
 _hkgname=bimap
 pkgname=haskell-bimap
 pkgver=0.5.0
-pkgrel=8
+pkgrel=11
 pkgdesc="Bidirectional mapping between two key types"
 url="https://github.com/joelwilliamson/bimap"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

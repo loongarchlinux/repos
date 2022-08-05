@@ -3,11 +3,11 @@
 _hkgname=tdigest
 pkgname=haskell-tdigest
 pkgver=0.2.1.1
-pkgrel=125
+pkgrel=130
 pkgdesc="On-line accumulation of rank-based statistics"
 url="https://github.com/phadej/haskell-tdigest#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-reducers' 'haskell-semigroupoids'
          'haskell-vector' 'haskell-vector-algorithms')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-quickcheck')

@@ -7,7 +7,7 @@ _jrubyver=9.2.13.0
 pkgrel=1
 pkgdesc='Tool for managing events and logs'
 url='https://www.elastic.co/products/logstash/'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('Apache')
 depends=('java-runtime-headless>=8' 'ruby' 'ruby-bundler' 'coreutils' 'awk')
 makedepends=('jdk11-openjdk' 'git')

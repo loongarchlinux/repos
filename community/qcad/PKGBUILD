@@ -5,17 +5,17 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=qcad
-pkgver=3.27.6.3
-pkgrel=2
+pkgver=3.27.6.7
+pkgrel=3
 pkgdesc='A 2D CAD package based upon Qt'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://www.qcad.org"
 license=('GPL3')
 options=(debug)
-depends=('qt5-script' 'qt5-svg' 'gcc-libs' 'qt5-xmlpatterns' 'qt5-tools')
+depends=('qt5-script' 'qt5-svg' 'gcc-libs' 'qt5-xmlpatterns' 'qt5-tools' 'qt5-wayland')
 makedepends=('glu')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/qcad/qcad/archive/v${pkgver}.tar.gz")
-sha512sums=('2752d72b4ddca90b9c7ccc7458a9afa30b044dc17d9bac747dd5c67c297775568b0db7febfb183d29fbf6d930301c0c0902a152e8caabf2165a328a00e52dcf9')
+sha512sums=('120234870c3dcb328edeee0744cb0388fc128bac99e4ada0bd87a48c7b4cbd62238f9ca14d8d59ce0995aa7c64a7c63dd402c68e253b18952b847ab61d462c5a')
 
 prepare() {
   rm *.tar.gz
@@ -51,6 +51,7 @@ package() {
   # qt
   cp -r plugins platforminputcontexts platforms xcbglintegrations \
       "$pkgdir"/usr/lib/qcad
+  cp -r /usr/lib/qt/plugins/{wayland-decoration-client,wayland-graphics-integration-client,wayland-graphics-integration-server,wayland-shell-integration} "$pkgdir/usr/lib/qcad/plugins/"
   #install -dm755 "$pkgdir"/usr/lib/qcad/plugins/{designer,imageformats,printsupport,sqldrivers}
   #for sofiles in /usr/lib/qt/plugins/designer/*.so
   #do

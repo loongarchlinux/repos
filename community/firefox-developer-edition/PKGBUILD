@@ -2,10 +2,10 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=103.0b3
+pkgver=104.0b4
 pkgrel=1
 pkgdesc="Developer Edition of the popular Firefox web browser"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('MPL' 'GPL' 'LGPL')
 url="https://www.mozilla.org/firefox/channel/#developer"
 depends=('gtk3' 'libxt' 'mime-types' 'dbus-glib' 'ffmpeg' 'ttf-font' 'libpulse' 'nss')
@@ -26,7 +26,7 @@ source=(https://archive.mozilla.org/pub/firefox/releases/$pkgver/source/firefox-
         "$pkgname".desktop
         identity-icons-brand.svg
         zstandard-0.18.0.diff)
-sha512sums=('b0f132a8abb03ebf482c160d8bc2d70f735d046dea2e4c9849904b33e67c5e2e87ea47a1325f6c74745c5b92f9539d31a5ade9e13dd2ba05147a2e03bb010e6f'
+sha512sums=('b54bb9dc35ce7c3666b5245f638c45cd7efd2f2439d1c52f721f73854806f956b855dbdd44d179d3d0ddf7e33a87d22c8bc24c9d9fff69202db0412a33189b7c'
             'SKIP'
             'b66dbe7f262d036e5a5b895ab5b0dbb03313bca18b0823c001ef2dbaeb1a33169b57db0cf4dfd268499f28913845119902b5d62e8a6a9cc4820eb0ee2f322a1e'
             '2ff0cb8e2eb94cee306b488adf6d7f4debbaff6155be3ed3eeee814cdb356e2e60fe38cc29d6c8d10079937fd2c930cfddf283977cf645395d31eaf76c7f0ac2'

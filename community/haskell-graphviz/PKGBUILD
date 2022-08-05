@@ -4,11 +4,11 @@
 _hkgname=graphviz
 pkgname=haskell-graphviz
 pkgver=2999.20.1.0
-pkgrel=144
+pkgrel=147
 pkgdesc="Bindings to Graphviz for graph visualisation."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-colour' 'haskell-dlist' 'haskell-fgl' 'haskell-polyparse'
          'haskell-temporary' 'haskell-wl-pprint-text')
 makedepends=('ghc')

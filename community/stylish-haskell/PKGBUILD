@@ -3,11 +3,11 @@
 
 pkgname=stylish-haskell
 pkgver=0.13.0.0
-pkgrel=22
+pkgrel=27
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-file-embed' 'haskell-ghc-lib-parser'
          'haskell-optparse-applicative' 'haskell-strict' 'haskell-syb' 'haskell-hsyaml'
          'haskell-hsyaml-aeson')

@@ -4,11 +4,11 @@
 _hkgname=JuicyPixels
 pkgname=haskell-juicypixels
 pkgver=3.3.7
-pkgrel=20
+pkgrel=23
 pkgdesc="Picture loading/serialization (in png, jpeg, bitmap, gif, tga, tiff and radiance)"
 url="https://github.com/Twinside/Juicy.Pixels"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-primitive" "haskell-vector" "haskell-zlib")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

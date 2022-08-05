@@ -2,11 +2,11 @@
 
 pkgname=dhall-bash
 pkgver=1.0.40
-pkgrel=56
+pkgrel=67
 pkgdesc='Compile Dhall to Bash'
 url='https://dhall-lang.org'
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'dhall' 'haskell-neat-interpolation' 'haskell-shell-escape'
          'haskell-optparse-generic')
 makedepends=('ghc')

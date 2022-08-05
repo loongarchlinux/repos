@@ -5,7 +5,7 @@
 pkgname=tre
 pkgver=0.8.0
 pkgrel=6
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 pkgdesc="POSIX compliant regexp matching library. Includes agrep for approximate grepping."
 url="https://laurikari.net/tre"
 depends=('glibc')

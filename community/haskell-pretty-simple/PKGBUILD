@@ -3,11 +3,11 @@
 _hkgname=pretty-simple
 pkgname=haskell-pretty-simple
 pkgver=4.1.0.0
-pkgrel=22
+pkgrel=27
 pkgdesc="Pretty printer for data types with a 'Show' instance"
 url="https://github.com/cdepillabout/pretty-simple"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-glob' 'haskell-quickcheck')

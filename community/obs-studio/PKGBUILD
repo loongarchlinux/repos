@@ -3,9 +3,9 @@
 
 pkgname=obs-studio
 pkgver=27.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Free, open source software for live streaming and recording"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://obsproject.com"
 license=('GPL2')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon-x11' 'mbedtls' 'rnnoise' 'pciutils'

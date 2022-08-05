@@ -3,11 +3,11 @@
 _hkgname=ghc-check
 pkgname=haskell-ghc-check
 pkgver=0.5.0.6
-pkgrel=50
+pkgrel=53
 pkgdesc="detect mismatches between compile-time and run-time versions of the ghc api"
 url="https://hackage.haskell.org/package/ghc-check"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-paths' 'haskell-safe-exceptions' 'haskell-th-compat')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

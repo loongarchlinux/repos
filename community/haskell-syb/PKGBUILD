@@ -6,11 +6,11 @@
 _hkgname=syb
 pkgname=haskell-syb
 pkgver=0.7.2.1
-pkgrel=146
+pkgrel=152
 pkgdesc="library for generic programming in Haskell"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-tasty' 'haskell-tasty-hunit')

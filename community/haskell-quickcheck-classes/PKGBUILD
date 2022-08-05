@@ -3,11 +3,11 @@
 _hkgname=quickcheck-classes
 pkgname=haskell-quickcheck-classes
 pkgver=0.6.5.0
-pkgrel=88
+pkgrel=93
 pkgdesc="QuickCheck common typeclasses"
 url="https://github.com/andrewthad/quickcheck-classes#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-aeson' 'haskell-primitive'
          'haskell-primitive-addr' 'haskell-quickcheck-classes-base' 'haskell-semigroupoids'
          'haskell-semirings' 'haskell-vector')

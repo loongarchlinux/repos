@@ -3,11 +3,11 @@
 
 pkgname=haskell-primitive
 pkgver=0.7.4.0
-pkgrel=11
+pkgrel=17
 pkgdesc="Wrappers for primitive operations"
 url="https://hackage.haskell.org/package/primitive"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi')
 checkdepends=('haskell-base-orphans' 'haskell-quickcheck' 'haskell-quickcheck-classes-base'

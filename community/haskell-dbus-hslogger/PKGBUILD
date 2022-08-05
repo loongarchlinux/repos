@@ -3,11 +3,11 @@
 _hkgname=dbus-hslogger
 pkgname=haskell-dbus-hslogger
 pkgver=0.1.0.1
-pkgrel=337
+pkgrel=343
 pkgdesc="Expose a dbus server to control hslogger"
 url="https://github.com/IvanMalison/dbus-hslogger"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-dbus' 'haskell-hslogger' 'haskell-optparse-applicative')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

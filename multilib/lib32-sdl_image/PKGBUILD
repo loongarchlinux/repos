@@ -7,7 +7,7 @@ pkgver=1.2.12
 pkgrel=7
 pkgdesc="A simple library to load images of various formats as SDL surfaces (32-bit)"
 url="https://www.libsdl.org/projects/SDL_image/"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(custom)
 depends=('lib32-sdl>=1.2.13' lib32-libpng 'lib32-libjpeg-turbo' lib32-libtiff lib32-zlib "$_pkgbasename")
 provides=('libSDL_image-1.2.so')

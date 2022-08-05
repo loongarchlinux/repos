@@ -3,11 +3,11 @@
 _hkgname=special-values
 pkgname=haskell-special-values
 pkgver=0.1.0.0
-pkgrel=152
+pkgrel=155
 pkgdesc="Typeclass providing special values"
 url="https://github.com/minad/special-values"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ieee754' 'haskell-scientific')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -3,9 +3,9 @@
 
 pkgname=urh
 pkgver=2.9.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Universal Radio Hacker: investigate wireless protocols like a boss'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/jopohl/urh'
 license=('GPL3')
 depends=('python' 'python-pyqt5' 'python-numpy' 'python-psutil' 'cython')

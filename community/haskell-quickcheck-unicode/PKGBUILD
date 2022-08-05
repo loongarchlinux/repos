@@ -3,11 +3,11 @@
 _hkgname=quickcheck-unicode
 pkgname=haskell-quickcheck-unicode
 pkgver=1.0.1.0
-pkgrel=188
+pkgrel=191
 pkgdesc="Generator and shrink functions for testing Unicode-related software."
 url="https://github.com/bos/quickcheck-unicode"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

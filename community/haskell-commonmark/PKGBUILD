@@ -4,11 +4,11 @@
 _hkgname=commonmark
 pkgname=haskell-commonmark
 pkgver=0.2.2
-pkgrel=2
+pkgrel=6
 pkgdesc="Pure Haskell commonmark parser"
 url="https://github.com/jgm/commonmark-hs"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-unicode-data' 'haskell-unicode-transforms')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -6,7 +6,7 @@ pkgver=1.0.3
 pkgrel=2
 
 pkgdesc='ModSecurity v3 Nginx Connector (module for nginx)'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('nginx' 'libmodsecurity')
 makedepends=('nginx-src')
 url="https://github.com/SpiderLabs/ModSecurity-nginx"

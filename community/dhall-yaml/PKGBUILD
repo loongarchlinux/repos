@@ -2,11 +2,11 @@
 
 pkgname=dhall-yaml
 pkgver=1.2.10
-pkgrel=50
+pkgrel=61
 pkgdesc="Convert between Dhall and YAML"
 url="https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-yaml"
 license=("GPL3")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hsyaml' 'haskell-hsyaml-aeson' 'haskell-aeson' 'haskell-ansi-terminal'
          'dhall' 'dhall-json' 'haskell-optparse-applicative' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal' 'haskell-vector')

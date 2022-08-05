@@ -8,7 +8,7 @@ pkgver=2.0.5
 pkgrel=3
 pkgdesc='Qt and C++ GUI for rizin reverse engineering framework'
 url='https://github.com/rizinorg/cutter'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL3')
 depends=('rizin' 'capstone' 'qt5-base' 'qt5-svg' 'qt5-webengine' 'icu' 'python'
          'pyside2' 'python-shiboken2' 'graphviz' 'gcc-libs' 'syntax-highlighting')

@@ -4,11 +4,11 @@
 _hkgname=unliftio
 pkgname=haskell-unliftio
 pkgver=0.2.22.0
-pkgrel=10
+pkgrel=13
 pkgdesc="The MonadUnliftIO typeclass for unlifting monads to IO (batteries included)"
 url="https://github.com/fpco/monad-unlift"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-unliftio-core')
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-quickcheck')

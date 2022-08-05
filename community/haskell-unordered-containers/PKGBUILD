@@ -7,11 +7,11 @@
 _hkgname=unordered-containers
 pkgname=haskell-unordered-containers
 pkgver=0.2.19.1
-pkgrel=16
+pkgrel=21
 pkgdesc="Efficient hashing-based container types"
 url="https://github.com/haskell-unordered-containers/unordered-containers"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'haskell-chasingbottoms' 'haskell-hunit' 'haskell-nothunks' 'haskell-quickcheck'
              'haskell-random' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

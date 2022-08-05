@@ -4,11 +4,11 @@
 _hkgname=vector-algorithms
 pkgname=haskell-vector-algorithms
 pkgver=0.8.0.4
-pkgrel=115
+pkgrel=118
 pkgdesc="Efficient algorithms for vector arrays"
 url="https://github.com/erikd/vector-algorithms/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

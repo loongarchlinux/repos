@@ -4,11 +4,11 @@
 _hkgname=lifted-base
 pkgname=haskell-lifted-base
 pkgver=0.2.3.12
-pkgrel=217
+pkgrel=220
 pkgdesc="lifted IO operations from the base library"
 url="https://github.com/basvandijk/lifted-base"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-monad-control" "haskell-transformers-base")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

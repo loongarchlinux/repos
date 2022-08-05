@@ -4,8 +4,8 @@
 # Contributor: Javier Tiá <javier dot tia at gmail dot com>
 
 pkgname=visidata
-pkgver=2.8
-pkgrel=2
+pkgver=2.9.1
+pkgrel=1
 pkgdesc='Terminal spreadsheet multitool for discovering and arranging data'
 arch=(any)
 url=https://www.visidata.org
@@ -24,6 +24,7 @@ optdepends=('python-dnslib: pcap support'
             'python-pypng: png support'
             'python-requests: http support'
             'python-tabulate: tabulate saver support'
+            'python-urllib3: remote zip support'
             'python-vobject: vcf support'
             'python-wcwidth: tabulate saver with unicode support'
             'python-xlrd: xls support')
@@ -32,13 +33,12 @@ optdepends=('python-dnslib: pcap support'
 #             'python-mapbox-vector-tile: mbtiles support'
 #             'python-namestand: graphviz support'
 #             'python-pyshp: shapefiles support')
-makedepends=(python-{build,installer}
-             python-setuptools
-             python-wheel)
+makedepends=(python-{build,installer,wheel}
+             python-setuptools)
 checkdepends=(python-pytest)
 _archive="$pkgname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
-sha256sums=('26d6cdacdca394a4820bda7f142746e190c49a7871c109f477f8ffddc1ccd0c9')
+sha256sums=('99cb1cf0208ca68732ed781fae892c7dba4be1d440e05d6566a01d43816243b6')
 
 build() {
 	cd "$_archive"
@@ -47,7 +47,8 @@ build() {
 
 check() {
 	cd "$_archive"
-	pytest
+	# Packaging is missing some tsv data files used in tests
+	pytest -k 'not test_baseCommands'
 }
 
 package() {

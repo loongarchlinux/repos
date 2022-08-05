@@ -3,11 +3,11 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.29.1
-_commit=17f98a7f4d5a61c0d74689aba57652a8333fba39
+pkgver=0.31.0
+_commit=e545db85efaf9bb64a18d44f81fcfa7116704164
 pkgrel=1
 pkgdesc='An experimental diff tool that compares files based on their syntax'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://difftastic.wilfred.me.uk'
 license=('MIT')
 depends=('gcc-libs')

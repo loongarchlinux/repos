@@ -9,12 +9,12 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=3.24.3
-pkgrel=2
+pkgver=3.26.1
+pkgrel=1
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('exiv2' 'gdal' 'gsl' 'hicolor-icon-theme' 'libzip' 'ocl-icd' 'pdal' 'protobuf'
          'python-gdal' 'python-jinja' 'python-owslib' 'python-psycopg2' 'python-pygments'
          'python-qscintilla-qt5' 'python-yaml' 'qca' 'qt5-3d' 'qt5-imageformats'
@@ -25,8 +25,8 @@ optdepends=('fcgi: Map server'
             'gpsbabel: GPS Tools plugin')
 source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2"
          qgstyle-infinite-loop.patch::https://github.com/qgis/QGIS/commit/19823b76.patch)
-sha256sums=('fc9fa28e10c32773f49f1de0c52a35a393060acd6f799d6926f08e96fbaf2b4e'
-            'c5bc388da987c7c21451b3f0f74220c8bd82cfba04657ff599d1896e6ae4b304')
+sha256sums=('34826c7466d88de2f7e1ac466022215f07cc6fc87d0a5523a9acf6598c28bfe4'
+            'c85a9156957e5a892a24835ace8f4778da8c35bc12968583cfc2980427eb0eed')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < qgstyle-infinite-loop.patch # Fix infinite loop

@@ -3,11 +3,11 @@
 _hkgname=lukko
 pkgname=haskell-lukko
 pkgver=0.1.1.3
-pkgrel=102
+pkgrel=107
 pkgdesc="Access to platform dependent file locking APIs"
 url="https://github.com/phadej/lukko"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-async' 'haskell-singleton-bool' 'haskell-tasty'
              'haskell-tasty-expected-failure' 'haskell-tasty-hunit' 'haskell-temporary')

@@ -3,11 +3,11 @@
 _hkgname=text-builder
 pkgname=haskell-text-builder
 pkgver=0.6.6.6
-pkgrel=8
+pkgrel=16
 pkgdesc="An efficient strict text builder"
 url="https://github.com/nikita-volkov/text-builder"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-text-builder-dev')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

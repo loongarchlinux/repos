@@ -4,11 +4,11 @@
 _hkgname=BNFC
 pkgname=bnfc
 pkgver=2.9.4
-pkgrel=19
+pkgrel=22
 pkgdesc="A compiler front-end generator."
 url="http://bnfc.digitalgrammars.com/"
 license=("GPL2")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-string-qq')
 optdepends=('ghc: for default haskell backend'
             'alex: for default haskell backend'

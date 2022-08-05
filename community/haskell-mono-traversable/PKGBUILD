@@ -4,11 +4,11 @@
 _hkgname=mono-traversable
 pkgname=haskell-mono-traversable
 pkgver=1.0.15.3
-pkgrel=61
+pkgrel=66
 pkgdesc="Type classes for mapping, folding, and traversing monomorphic containers"
 url="https://github.com/snoyberg/mono-traversable"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-split' 'haskell-unordered-containers'
          'haskell-vector' 'haskell-vector-algorithms')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-foldl' 'haskell-hspec')

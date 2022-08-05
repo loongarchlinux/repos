@@ -3,11 +3,11 @@
 _hkgname=graphite
 pkgname=haskell-graphite
 pkgver=0.10.0.1
-pkgrel=106
+pkgrel=112
 pkgdesc="Graphs and networks library"
 url="https://github.com/alx741/graphite#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-cassava' 'haskell-graphviz' 'haskell-hashable'
          'haskell-random' 'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'haskell-hspec')

@@ -3,11 +3,11 @@
 _hkgname=arch-web
 pkgname=haskell-arch-web
 pkgver=0.1.1
-pkgrel=6
+pkgrel=13
 pkgdesc="Arch Linux official and AUR web interface binding"
 url="https://github.com/berberman/arch-web"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-deriving-aeson' 'haskell-http-client'
          'haskell-http-client-tls' 'haskell-http-types' 'haskell-lens' 'haskell-servant'
          'haskell-servant-client' 'haskell-servant-client-core')

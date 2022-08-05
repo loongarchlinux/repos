@@ -3,7 +3,7 @@
 # Contributor: Kyle Laker <kyle@laker.email>
 
 pkgname=warpinator
-pkgver=1.2.10
+pkgver=1.2.13
 pkgrel=1
 pkgdesc='LAN file sender, send and receive files across the network'
 arch=('any')
@@ -15,7 +15,7 @@ depends=('gtk3' 'libnm' 'python-cryptography' 'python-gobject' 'python-grpcio' '
 makedepends=('meson' 'polkit')
 optdepends=('ufw: Open a firewall port for Warpinator')
 source=("https://github.com/linuxmint/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('fcf63182af59e6cd12d117a0cdb01cea34a4b1b70be22f6430fd8e08a1ceb0e4')
+sha256sums=('933362297488afad9d85bec84188e0dec047c1fb692f3e1cb3ab921812a57b22')
 
 prepare() {
   cd $pkgname-$pkgver

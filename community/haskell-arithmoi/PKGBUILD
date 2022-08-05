@@ -3,11 +3,11 @@
 _hkgname=arithmoi
 pkgname=haskell-arithmoi
 pkgver=0.12.0.1
-pkgrel=83
+pkgrel=88
 pkgdesc="Efficient basic number-theoretic functions."
 url="https://github.com/Bodigrim/arithmoi"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-chimera' 'haskell-constraints' 'haskell-exact-pi'
          'haskell-integer-logarithms' 'haskell-integer-roots' 'haskell-mod' 'haskell-random'
          'haskell-semirings' 'haskell-vector')

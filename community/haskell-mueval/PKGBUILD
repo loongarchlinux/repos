@@ -3,11 +3,11 @@
 _hkgname=mueval
 pkgname=haskell-mueval
 pkgver=0.9.3
-pkgrel=132
+pkgrel=135
 pkgdesc="Safely evaluate pure Haskell expressions"
 url="https://github.com/gwern/mueval"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-extensible-exceptions' 'haskell-hint'
          'haskell-show' 'haskell-simple-reflect')
 makedepends=('ghc')

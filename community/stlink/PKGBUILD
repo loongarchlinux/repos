@@ -4,7 +4,7 @@ pkgname=stlink
 pkgver=1.7.0
 pkgrel=1
 pkgdesc='Firmware programmer for STM32 STLINK v1/v2 protocol'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url='https://github.com/texane/stlink'
 license=(BSD)
 # Add support for gtk3-based GUI

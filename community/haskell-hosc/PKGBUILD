@@ -3,9 +3,9 @@
 _name=hosc
 pkgname=haskell-hosc
 pkgver=0.19.1
-pkgrel=60
+pkgrel=63
 pkgdesc="Haskell Open Sound Control"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/rd--/hosc"
 license=('GPL')
 depends=('ghc-libs' 'haskell-blaze-builder' 'haskell-data-binary-ieee754' 'haskell-network')

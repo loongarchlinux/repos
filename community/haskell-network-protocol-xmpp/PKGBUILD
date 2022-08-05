@@ -4,11 +4,11 @@
 _hkgname=network-protocol-xmpp
 pkgname=haskell-network-protocol-xmpp
 pkgver=0.4.10
-pkgrel=39
+pkgrel=42
 pkgdesc="Client library for the XMPP protocol."
 url="https://git.sr.ht/~singpolyma/network-protocol-xmpp"
 license=("GPL3")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-gnuidn" "haskell-gnutls" "haskell-gsasl" "haskell-libxml-sax"
          "haskell-monads-tf" "haskell-network" "haskell-network-simple" "haskell-xml-types")
 makedepends=('ghc')

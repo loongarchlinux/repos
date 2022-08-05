@@ -3,11 +3,11 @@
 _hkgname=nettle
 pkgname=haskell-nettle
 pkgver=0.3.0
-pkgrel=223
+pkgrel=226
 pkgdesc="Safe nettle binding"
 url="https://github.com/stbuehler/haskell-nettle"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'nettle' 'haskell-byteable' 'haskell-crypto-cipher-types' 'haskell-tagged'
          'haskell-securemem')
 makedepends=('ghc')

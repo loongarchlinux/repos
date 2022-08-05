@@ -3,11 +3,11 @@
 _hkgname=tar-conduit
 pkgname=haskell-tar-conduit
 pkgver=0.3.2
-pkgrel=309
+pkgrel=314
 pkgdesc="Extract and create tar files using conduit for streaming"
 url="https://github.com/snoyberg/tar-conduit"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-safe-exceptions')
 makedepends=('ghc' 'haskell-conduit-extra' 'haskell-hspec' 'haskell-quickcheck' 'haskell-weigh')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -3,11 +3,11 @@
 _hkgname=filtrable
 pkgname=haskell-filtrable
 pkgver=0.1.6.0
-pkgrel=133
+pkgrel=136
 pkgdesc="Class of filtrable containers"
 url="https://github.com/strake/filtrable.hs"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-smallcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

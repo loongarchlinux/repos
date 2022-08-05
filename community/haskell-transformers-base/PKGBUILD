@@ -4,11 +4,11 @@
 _hkgname=transformers-base
 pkgname=haskell-transformers-base
 pkgver=0.4.6
-pkgrel=52
+pkgrel=55
 pkgdesc="Lift computations from the bottom of a transformer stack"
 url="https://github.com/mvv/transformers-base"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-transformers-compat')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

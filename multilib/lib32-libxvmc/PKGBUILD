@@ -5,7 +5,7 @@ pkgname=lib32-$_pkgbasename
 pkgver=1.0.13
 pkgrel=1
 pkgdesc="X11 Video Motion Compensation extension library (32-bit)"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://xorg.freedesktop.org/"
 license=('custom')
 depends=('lib32-libxv>=1.0.5' $_pkgbasename)

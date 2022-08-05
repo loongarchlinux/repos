@@ -4,11 +4,11 @@
 _hkgname=knob
 pkgname=haskell-knob
 pkgver=0.1.1
-pkgrel=77
+pkgrel=80
 pkgdesc="Memory-backed handles"
 url="https://github.com/felixonmars/knob"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-chell')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"

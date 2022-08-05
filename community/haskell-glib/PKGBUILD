@@ -2,11 +2,11 @@
 
 pkgname=haskell-glib
 pkgver=0.13.8.2
-pkgrel=17
+pkgrel=21
 pkgdesc="Binding to the GLIB library for Gtk2Hs."
 url="https://hackage.haskell.org/package/glib"
 license=('LGPL2.1')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'glib2' 'haskell-utf8-string')
 makedepends=('ghc' "haskell-gtk2hs-buildtools")
 provides=('gtk2hs-glib')

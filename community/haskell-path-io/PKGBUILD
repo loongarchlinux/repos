@@ -5,11 +5,11 @@
 _hkgname=path-io
 pkgname=haskell-path-io
 pkgver=1.7.0
-pkgrel=24
+pkgrel=30
 pkgdesc="Interface to ‘directory’ package for users of ‘path’"
 url="https://github.com/mrkkrp/path-io"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-path' 'haskell-temporary'
          'haskell-unix-compat')
 makedepends=('ghc' 'haskell-hspec')

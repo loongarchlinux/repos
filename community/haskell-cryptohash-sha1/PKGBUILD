@@ -3,11 +3,11 @@
 _hkgname=cryptohash-sha1
 pkgname=haskell-cryptohash-sha1
 pkgver=0.11.101.0
-pkgrel=33
+pkgrel=36
 pkgdesc="Fast, pure and practical SHA-1 implementation"
 url="https://github.com/hvr/cryptohash-sha1"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-sha' 'haskell-base16-bytestring' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

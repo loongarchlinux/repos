@@ -4,11 +4,11 @@
 _hkgname=pandoc-types
 pkgname=haskell-pandoc-types
 pkgver=1.22.2
-pkgrel=22
+pkgrel=27
 pkgdesc="Types for representing a structured document"
 url="https://pandoc.org/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-quickcheck' 'haskell-syb')
 makedepends=('ghc' 'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-quickcheck2' 'haskell-hunit' 'haskell-string-qq')

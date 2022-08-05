@@ -4,11 +4,11 @@
 _hkgname=with-location
 pkgname=haskell-with-location
 pkgver=0.1.0
-pkgrel=214
+pkgrel=217
 pkgdesc="Use ImplicitParams-based source locations in a backward compatible way"
 url="https://github.com/sol/with-location"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

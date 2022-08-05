@@ -4,11 +4,11 @@
 _hkgname=free
 pkgname=haskell-free
 pkgver=5.1.9
-pkgrel=2
+pkgrel=7
 pkgdesc="Monads for free"
 url="https://github.com/ekmett/free/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-comonad' 'haskell-distributive' 'haskell-indexed-traversable'
          'haskell-profunctors' 'haskell-semigroupoids' 'haskell-th-abstraction'
          'haskell-transformers-base')

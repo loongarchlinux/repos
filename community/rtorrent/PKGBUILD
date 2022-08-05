@@ -10,7 +10,7 @@ pkgrel=3
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
 license=('GPL')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=("libtorrent=0.13.${pkgver##*.}" 'curl' 'xmlrpc-c')
 source=("https://github.com/rakshasa/rtorrent/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('9edf0304bf142215d3bc85a0771446b6a72d0ad8218efbe184b41e4c9c7542af')

@@ -5,9 +5,9 @@
 
 pkgname=sparse
 pkgver=0.6.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Semantic parser for C'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='http://sparse.wiki.kernel.org/'
 license=('MIT')
 depends=(

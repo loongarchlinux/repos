@@ -3,11 +3,11 @@
 _hkgname=mysql-simple
 pkgname=haskell-mysql-simple
 pkgver=0.4.7.2
-pkgrel=17
+pkgrel=20
 pkgdesc="A mid-level MySQL client library"
 url="https://github.com/paul-rouse/mysql-simple"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base16-bytestring' 'haskell-blaze-builder'
          'haskell-blaze-textual' 'haskell-mysql' 'haskell-old-locale' 'haskell-pcre-light')
 makedepends=('ghc' 'haskell-hspec')

@@ -7,7 +7,7 @@ pkgver=1.12
 pkgrel=4
 pkgdesc='Implements arithmetic and logical operations over arbitrary-precision integers and rational numbers'
 url='https://github.com/ocaml/Zarith'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL2')
 depends=('ocaml>=4.13.1' 'gmp')
 makedepends=('ocaml-findlib')

@@ -9,7 +9,7 @@ pkgrel=1
 
 pkgdesc="Minimalistic document viewer"
 url="https://pwmt.org/projects/zathura/"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('custom')
 
 makedepends=('python-sphinx' 'texlive-bin' 'meson' 'ninja' 'appstream-glib' 'check')

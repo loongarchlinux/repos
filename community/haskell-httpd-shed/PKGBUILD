@@ -4,11 +4,11 @@
 _hkgname=httpd-shed
 pkgname=haskell-httpd-shed
 pkgver=0.4.1.1
-pkgrel=401
+pkgrel=404
 pkgdesc="A simple web-server with an interact style API"
 url="https://github.com/andygill/httpd-shed/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-network' 'haskell-network-bsd' 'haskell-network-uri')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

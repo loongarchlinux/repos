@@ -3,11 +3,11 @@
 
 pkgname=hledger-web
 pkgver=1.25
-pkgrel=95
+pkgrel=111
 pkgdesc="Web-based user interface for the hledger accounting system"
 url="http://hledger.org"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-base64'
          'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-case-insensitive'
          'haskell-clientsession' 'haskell-cmdargs' 'haskell-conduit' 'haskell-conduit-extra'

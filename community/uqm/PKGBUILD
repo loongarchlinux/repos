@@ -6,9 +6,9 @@
 
 pkgname=uqm
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The Ur-Quan Masters, a port of Star Control 2"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="http://sc2.sourceforge.net/"
 license=('GPL')
 depends=('libmikmod' 'libvorbis' 'sdl_image' 'libgl' 'glu')

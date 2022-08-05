@@ -8,7 +8,7 @@ pkgrel=1
 
 pkgdesc='A self-contained Python package of low-level cryptographic primitives'
 url='https://www.pycryptodome.org/'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('BSD')
 
 depends=('python')

@@ -3,11 +3,11 @@
 _hkgname=insert-ordered-containers
 pkgname=haskell-insert-ordered-containers
 pkgver=0.2.5.1
-pkgrel=64
+pkgrel=70
 pkgdesc="Associative containers retating insertion order for traversals."
 url="https://github.com/phadej/insert-ordered-containers"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-hashable' 'haskell-indexed-traversable' 'haskell-lens'
          'haskell-optics-core' 'haskell-optics-extra' 'haskell-semigroupoids'
          'haskell-unordered-containers')

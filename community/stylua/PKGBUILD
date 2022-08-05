@@ -1,17 +1,18 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 _name=StyLua
 pkgname=stylua
-pkgver=0.13.1
+pkgver=0.14.2
 pkgrel=1
 pkgdesc='Code formatter for Lua'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url=https://github.com/JohnnyMorganz/StyLua
 license=('MPL2')
 depends=('gcc-libs')
 makedepends=('rust')
 source=("$url/archive/v$pkgver/$_name-$pkgver.tar.gz")
-b2sums=('dc009099818c30f05a7e33c3ff3a68d215e78c1534c1a542bbb26a1f4ea2fd361382a67a5abe3c26ea7b32d39914535349aca76df8b2e6a169aa3824b69a1c27')
+b2sums=('c9be933d9e9a80d25695154f76a73dfdfb529ecbceaf56bceb04c6aede622afe8c88ad54fa46a9c23b70a112cb8a0903b71c8f7d5f132e609160bd73815b9833')
 
 prepare() {
   cd $_name-$pkgver
@@ -34,5 +35,3 @@ package() {
   cd $_name-$pkgver
   install -Dt "$pkgdir"/usr/bin target/release/$pkgname
 }
-
-# vim:set ts=2 sw=2 et:

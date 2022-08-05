@@ -3,11 +3,11 @@
 _hkgname=one-liner
 pkgname=haskell-one-liner
 pkgver=2.1
-pkgrel=10
+pkgrel=15
 pkgdesc="Constraint-based generics"
 url="https://github.com/sjoerdvisscher/one-liner"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-linear-base'
          'haskell-profunctors' 'haskell-tagged')
 makedepends=('ghc' 'haskell-hunit')

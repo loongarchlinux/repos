@@ -3,11 +3,11 @@
 _hkgname=these
 pkgname=haskell-these
 pkgver=1.1.1.1
-pkgrel=147
+pkgrel=150
 pkgdesc="An either-or-both data type"
 url="https://github.com/isomorphism/these"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-assoc' 'haskell-hashable')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

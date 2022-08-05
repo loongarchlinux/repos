@@ -4,11 +4,11 @@
 _hkgname=http-conduit
 pkgname=haskell-http-conduit
 pkgver=2.3.8
-pkgrel=207
+pkgrel=212
 pkgdesc="HTTP client package with conduit interface and HTTPS support"
 url="https://www.yesodweb.com/book/http-conduit"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-types' 'haskell-resourcet'
          'haskell-unliftio-core')

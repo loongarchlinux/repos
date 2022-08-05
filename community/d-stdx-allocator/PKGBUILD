@@ -3,9 +3,9 @@
 pkgname=d-stdx-allocator
 _pkgname=stdx-allocator
 pkgver=3.0.2
-pkgrel=19
+pkgrel=20
 pkgdesc='Extracted std.experimental.allocator'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/dlang-community/stdx-allocator'
 license=('Boost')
 depends=('liblphobos' 'd-mir-core')

@@ -4,11 +4,11 @@
 _hkgname=servant
 pkgname=haskell-servant
 pkgver=0.18.3
-pkgrel=89
+pkgrel=95
 pkgdesc="A family of combinators for defining webservices APIs"
 url="http://haskell-servant.readthedocs.org/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-aeson' 'haskell-attoparsec'
          'haskell-bifunctors' 'haskell-case-insensitive' 'haskell-http-api-data'
          'haskell-http-media' 'haskell-http-types' 'haskell-mmorph' 'haskell-network-uri'

@@ -4,11 +4,11 @@
 _hkgname=quickcheck-instances
 pkgname=haskell-quickcheck-instances
 pkgver=0.3.27
-pkgrel=23
+pkgrel=28
 pkgdesc="Common quickcheck instances"
 url="https://github.com/haskellari/qc-instances"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-onetuple' 'haskell-quickcheck' 'haskell-case-insensitive'
          'haskell-data-fix' 'haskell-hashable' 'haskell-integer-logarithms' 'haskell-old-time'
          'haskell-scientific' 'haskell-splitmix' 'haskell-strict' 'haskell-tagged'

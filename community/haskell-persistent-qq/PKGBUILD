@@ -3,11 +3,11 @@
 _hkgname=persistent-qq
 pkgname=haskell-persistent-qq
 pkgver=2.12.0.2
-pkgrel=37
+pkgrel=46
 pkgdesc="Provides a quasi-quoter for raw SQL for persistent"
 url="https://github.com/yesod-web/persistent"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-src-meta' 'haskell-persistent')
 makedepends=('ghc' 'haskell-aeson' 'haskell-fast-logger' 'haskell-hspec' 'haskell-hunit'
              'haskell-monad-logger' 'haskell-persistent-sqlite' 'haskell-resourcet'

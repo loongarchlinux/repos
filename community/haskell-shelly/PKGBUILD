@@ -4,11 +4,11 @@
 _hkgname=shelly
 pkgname=haskell-shelly
 pkgver=1.10.0
-pkgrel=22
+pkgrel=27
 pkgdesc="Shell-like (systems) programming in Haskell"
 url="https://github.com/yesodweb/Shelly.hs"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-unix-compat' 'haskell-monad-control' 'haskell-lifted-base'
          'haskell-lifted-async' 'haskell-enclosed-exceptions'
          'haskell-async' 'haskell-transformers-base')

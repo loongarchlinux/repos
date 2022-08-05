@@ -7,7 +7,7 @@ pkgname="ocaml-$_projectname"
 pkgver=0.15.1
 pkgrel=1
 pkgdesc='Library containing the definition of S-expressions and some base converters'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/janestreet/$_projectname"
 license=('MIT')
 depends=('ocaml>=4.13.1')

@@ -6,7 +6,7 @@ pkgver=4.30
 pkgrel=4
 pkgdesc='Comprehensive design and management interface for PostgreSQL'
 url='https://www.pgadmin.org/'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('custom')
 depends=('qt5-base' 'postgresql-libs' 'hicolor-icon-theme' 'python'
          'libxcrypt' 'libcrypt.so' 'glibc' 'gcc-libs'

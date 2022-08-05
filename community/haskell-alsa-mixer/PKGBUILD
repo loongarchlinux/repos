@@ -7,7 +7,7 @@ pkgrel=73
 pkgdesc='Bindings to the ALSA simple mixer API'
 url='https://hackage.haskell.org/package/alsa-mixer'
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'glibc' 'gmp' 'alsa-lib' 'haskell-base' 'haskell-unix'
          'haskell-alsa-core' 'haskell-extensible-exceptions')
 makedepends=('ghc' 'c2hs')

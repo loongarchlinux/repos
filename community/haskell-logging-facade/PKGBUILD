@@ -4,11 +4,11 @@
 _hkgname=logging-facade
 pkgname=haskell-logging-facade
 pkgver=0.3.1
-pkgrel=70
+pkgrel=76
 pkgdesc="Simple logging abstraction that allows multiple back-ends"
 url="https://github.com/sol/logging-facade"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-call-stack')
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-hspec-discover')

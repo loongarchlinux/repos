@@ -4,11 +4,11 @@
 _hkgname=parsers
 pkgname=haskell-parsers
 pkgver=0.12.11
-pkgrel=16
+pkgrel=21
 pkgdesc="Parsing combinators"
 url="https://github.com/ekmett/parsers/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base-orphans' 'haskell-charset'
          'haskell-scientific' 'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances')

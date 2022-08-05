@@ -3,11 +3,11 @@
 _hkgname=hls-retrie-plugin
 pkgname=haskell-hls-retrie-plugin
 pkgver=1.0.1.1
-pkgrel=185
+pkgrel=201
 pkgdesc="Retrie integration plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-retrie-plugin"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-api-compat'
          'haskell-ghcide' 'haskell-hashable' 'haskell-hls-plugin-api' 'haskell-lsp'
          'haskell-lsp-types' 'haskell-retrie' 'haskell-safe-exceptions'

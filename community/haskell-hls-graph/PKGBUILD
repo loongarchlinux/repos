@@ -3,11 +3,11 @@
 _hkgname=hls-graph
 pkgname=haskell-hls-graph
 pkgver=1.4.0.0
-pkgrel=160
+pkgrel=165
 pkgdesc="Haskell Language Server internal graph API"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-shake' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

@@ -2,12 +2,12 @@
 
 _hkgname=clash-prelude
 pkgname=haskell-clash-prelude
-pkgver=1.6.1
-pkgrel=32
+pkgver=1.6.3
+pkgrel=3
 pkgdesc="Clash: a functional hardware description language - Prelude library"
 url="https://github.com/clash-lang/clash-prelude"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-arrows' 'haskell-constraints' 'haskell-data-binary-ieee754'
          'haskell-data-default-class' 'haskell-extra' 'haskell-ghc-typelits-extra'
          'haskell-ghc-typelits-knownnat' 'haskell-ghc-typelits-natnormalise' 'haskell-half'
@@ -19,11 +19,11 @@ makedepends=('ghc' 'uusi' 'haskell-doctest-parallel' 'haskell-hedgehog' 'haskell
              'haskell-quickcheck-classes-base' 'haskell-tasty' 'haskell-tasty-hedgehog'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-th')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('362274232a9afb85acfacb9563af3837c9b81c5a7ec7dc42884192f533971ca16ea4b4fd0eafdbe05d2a2805085d3c25c6bb2927c13beba7af5a3effdfff429e')
+sha512sums=('bc8ab36af16b78bee39f0229f824e81f043034ae7acba1b4474f2781d3641352992be497802cdfd2877a23335ec1a87a7c726b9a236ee568f7d41a09f471368e')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u hedgehog -u lens $_hkgname.cabal
+    uusi -u lens $_hkgname.cabal
     gen-setup
 }
 

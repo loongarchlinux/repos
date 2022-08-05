@@ -3,11 +3,11 @@
 _hkgname=hasql-dynamic-statements
 pkgname=haskell-hasql-dynamic-statements
 pkgver=0.3.1
-pkgrel=134
+pkgrel=147
 pkgdesc="Toolkit for constructing Hasql statements dynamically"
 url="https://github.com/nikita-volkov/hasql-dynamic-statements"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hasql' 'haskell-hasql-implicits' 'haskell-ptr')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'pifpaf' 'postgresql')

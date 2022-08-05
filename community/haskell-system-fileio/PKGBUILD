@@ -4,11 +4,11 @@
 _hkgname=system-fileio
 pkgname=haskell-system-fileio
 pkgver=0.3.16.4
-pkgrel=193
+pkgrel=196
 pkgdesc="Consistent filesystem interaction across GHC versions"
 url="https://github.com/fpco/haskell-filesystem"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-system-filepath")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

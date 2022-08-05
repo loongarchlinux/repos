@@ -6,7 +6,7 @@ pkgver=1.1.4
 pkgrel=1
 pkgdesc="Library for Open Chinese Convert"
 url="https://github.com/BYVoid/OpenCC"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('Apache')
 makedepends=('chrpath' 'cmake' 'darts' 'doxygen' 'marisa' 'pybind11' 'python-setuptools'
              'python-wheel' 'rapidjson' 'tclap' 'gtest')

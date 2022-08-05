@@ -3,11 +3,11 @@
 _hkgname=th-env
 pkgname=haskell-th-env
 pkgver=0.1.1
-pkgrel=5
+pkgrel=8
 pkgdesc="Template Haskell splices that expand to an environment variable"
 url="https://github.com/dzhus/th-env#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-th-compat')
 makedepends=('ghc' 'haskell-markdown-unlit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

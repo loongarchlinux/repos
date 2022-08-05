@@ -5,9 +5,9 @@
 
 pkgname=mapnik
 pkgver=3.1.0
-pkgrel=11
+pkgrel=12
 pkgdesc="Free Toolkit for developing mapping applications and rendering beautiful maps"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://mapnik.org/"
 license=('LGPL')
 depends=('boost-libs' 'cairo' 'freetype2' 'gdal' 'harfbuzz' 'icu' 'libjpeg-turbo' 'libpng'

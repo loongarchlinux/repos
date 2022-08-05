@@ -9,7 +9,7 @@ pkgver=8.17.1
 pkgrel=1
 pkgdesc='Implementation of the sendmail Mail Filter API'
 url='https://www.proofpoint.com/us/sendmail-open-source'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 options=('staticlibs')
 license=('custom:Sendmail')
 # Signing keys sourced from upstream. Current version is signed with the 2021 keys.

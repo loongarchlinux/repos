@@ -3,7 +3,7 @@
 pkgname=python-psutil
 pkgver=5.9.1
 pkgrel=1
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 pkgdesc='A cross-platform process and system utilities module for Python'
 url='https://github.com/giampaolo/psutil'
 license=('custom: BSD')

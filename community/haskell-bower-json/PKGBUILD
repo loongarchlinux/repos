@@ -4,11 +4,11 @@
 _hkgname=bower-json
 pkgname=haskell-bower-json
 pkgver=1.0.0.1
-pkgrel=386
+pkgrel=392
 pkgdesc="Read bower.json from Haskell"
 url="https://github.com/hdgarrood/bower-json"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-aeson-better-errors" "haskell-scientific"
          "haskell-unordered-containers" "haskell-vector")
 makedepends=('ghc')

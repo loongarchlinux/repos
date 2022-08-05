@@ -5,7 +5,7 @@ pkgver=1.4.1
 pkgrel=1
 pkgdesc='Exporter for bird metrics'
 url='https://github.com/czerwonk/bird_exporter'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('Apache')
 
 depends=('glibc')

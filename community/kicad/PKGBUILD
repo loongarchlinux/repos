@@ -6,10 +6,10 @@
 # Contributor: Rachel Mant <aur@dragonmux.network>
 
 pkgname=kicad
-pkgver=6.0.6
+pkgver=6.0.7
 pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='http://kicad.org/'
 license=('GPL')
 depends=(
@@ -21,7 +21,7 @@ depends=(
   'opencascade'
   'python'
   'python-wxpython'
-  'wxgtk3'
+  'wxwidgets-gtk3'
 )
 makedepends=(
   'git'
@@ -34,7 +34,7 @@ optdepends=(
   'kicad-library: for footprints, symbols and templates'
   'kicad-library-3d: for 3D models of components'
 )
-_commit='59091ec2636b35ed079395adb0d38738a0d665b9'
+_commit='f9a2dced07acac97c62eef0931269fea6bcfb828'
 source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#commit=$_commit"
   'fix-archive-permissions.patch'
@@ -66,10 +66,9 @@ build() {
     -B build \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_LIBDIR=lib \
     -DKICAD_USE_OCC=ON \
+    -DKICAD_USE_EGL=ON \
     -DKICAD_SCRIPTING_WXPYTHON=ON \
-    -DwxWidgets_CONFIG_EXECUTABLE=/usr/bin/wx-config-gtk3 \
     -DKICAD_BUILD_I18N=ON \
     -DKICAD_I18N_UNIX_STRICT_PATH=ON \
     -DKICAD_BUILD_QA_TESTS=OFF \

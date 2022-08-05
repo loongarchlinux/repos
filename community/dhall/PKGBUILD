@@ -2,11 +2,11 @@
 
 pkgname=dhall
 pkgver=1.41.1
-pkgrel=46
+pkgrel=56
 pkgdesc='A configuration language guaranteed to terminate'
 url='https://dhall-lang.org'
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-terminal'
          'haskell-atomic-write' 'haskell-base16-bytestring' 'haskell-case-insensitive'
          'haskell-cborg' 'haskell-cborg-json' 'haskell-contravariant' 'haskell-cryptohash-sha256'

@@ -4,11 +4,11 @@
 _hkgname=persistent-sqlite
 pkgname=haskell-persistent-sqlite
 pkgver=2.13.0.3
-pkgrel=163
+pkgrel=171
 pkgdesc="Backend for the persistent library using sqlite3"
 url="https://www.yesodweb.com/book/persistent"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'sqlite' 'haskell-aeson' 'haskell-conduit' 'haskell-microlens-th'
          'haskell-monad-logger' 'haskell-persistent' 'haskell-resource-pool' 'haskell-resourcet'
          'haskell-unliftio-core' 'haskell-unordered-containers')

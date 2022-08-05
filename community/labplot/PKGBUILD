@@ -3,7 +3,7 @@
 pkgname=labplot
 pkgver=2.9.0
 pkgrel=2
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
 license=(GPL2)

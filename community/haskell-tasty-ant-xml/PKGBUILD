@@ -3,11 +3,11 @@
 _hkgname=tasty-ant-xml
 pkgname=haskell-tasty-ant-xml
 pkgver=1.1.8
-pkgrel=81
+pkgrel=84
 pkgdesc="Render tasty output to XML for Jenkins"
 url="https://github.com/ocharles/tasty-ant-xml"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-generic-deriving' 'haskell-tagged' 'haskell-tasty' 'haskell-xml')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

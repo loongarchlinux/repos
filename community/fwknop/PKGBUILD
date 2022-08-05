@@ -11,7 +11,7 @@ pkgver=2.6.10
 pkgrel=2
 pkgdesc='FireWall KNock OPerator: Single Packet Authorization and Port Knocking'
 url='https://www.cipherdyne.org/fwknop'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL2')
 backup=(etc/${pkgname}/access.conf
         etc/${pkgname}/fwknopd.conf)

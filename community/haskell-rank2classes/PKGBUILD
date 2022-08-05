@@ -3,11 +3,11 @@
 _hkgname=rank2classes
 pkgname=haskell-rank2classes
 pkgver=1.4.4
-pkgrel=30
+pkgrel=33
 pkgdesc="Standard type constructor class hierarchy, only with methods of rank 2 types"
 url="https://github.com/blamario/grampa/tree/master/rank2classes"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-distributive')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-markdown-unlit'
              'haskell-tasty' 'haskell-tasty-hunit')

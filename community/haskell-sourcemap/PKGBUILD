@@ -4,11 +4,11 @@
 _hkgname=sourcemap
 pkgname=haskell-sourcemap
 pkgver=0.1.7
-pkgrel=47
+pkgrel=52
 pkgdesc="Implementation of source maps as proposed by Google and Mozilla."
 url="https://github.com/juhp/sourcemap"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-attoparsec" "haskell-unordered-containers"
          "haskell-utf8-string")
 makedepends=('ghc')

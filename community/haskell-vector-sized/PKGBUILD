@@ -3,11 +3,11 @@
 _hkgname=vector-sized
 pkgname=haskell-vector-sized
 pkgver=1.5.0
-pkgrel=70
+pkgrel=75
 pkgdesc="Size tagged vectors"
 url="https://github.com/expipiplus1/vector-sized#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-adjunctions' 'haskell-comonad' 'haskell-distributive'
          'haskell-finite-typelits' 'haskell-hashable' 'haskell-indexed-list-literals'
          'haskell-primitive' 'haskell-vector')

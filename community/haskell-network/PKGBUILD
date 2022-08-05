@@ -4,11 +4,11 @@
 _hkgname=network
 pkgname=haskell-network
 pkgver=3.1.2.7
-pkgrel=28
+pkgrel=31
 pkgdesc="Low-level networking interface"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-doctest' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck'
              'haskell-temporary')

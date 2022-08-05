@@ -4,11 +4,11 @@
 _hkgname=scientific
 pkgname=haskell-scientific
 pkgver=0.3.7.0
-pkgrel=63
+pkgrel=66
 pkgdesc="Numbers represented using scientific notation"
 url="https://github.com/basvandijk/scientific"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-integer-logarithms' 'haskell-primitive')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')

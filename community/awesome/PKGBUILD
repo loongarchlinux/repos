@@ -12,7 +12,7 @@ pkgver=4.3
 pkgrel=3
 pkgdesc='Highly configurable framework window manager'
 url='https://awesomewm.org'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(GPL2)
 depends=(cairo
          dbus

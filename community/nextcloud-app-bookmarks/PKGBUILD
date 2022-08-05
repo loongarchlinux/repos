@@ -4,7 +4,7 @@
 _name=bookmarks
 pkgname=nextcloud-app-bookmarks
 epoch=1
-pkgver=10.5.1
+pkgver=11.0.1
 pkgrel=1
 pkgdesc="Bookmarks app for nextcloud"
 arch=(any)
@@ -14,8 +14,8 @@ makedepends=(nextcloud yq)
 groups=(nextcloud-apps)
 options=(!strip)
 source=($pkgname-$pkgver.tar.gz::https://github.com/nextcloud/$_name/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha256sums=('bf7520e337668d61ac1537fa7a92387e2b3a7fcad0e37583eb90f2fc87dee242')
-b2sums=('afd50029dd0d255fb472e5316ba90933f3de2a2e5ed2cbcfe9d43580fe13e3f14031aee0c4208514328eec76fc60e7982f604563037241693464acfc8fa98fb1')
+sha256sums=('3b67040ddb60d19f3e369823e8ae74f30417029b125f784382fb28f90348fe42')
+b2sums=('77f4b44c7ffcb3353254a6cb843eeeec3e0f1d467e76cbd9c014fd8ea20f7cc59ab53f2522e54cdf0c7bafe93d0a98ca5267a174c7af27db187e0a9e881c23c5')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory

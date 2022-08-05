@@ -4,11 +4,11 @@
 _hkgname=critbit
 pkgname=haskell-critbit
 pkgver=0.2.0.0
-pkgrel=204
+pkgrel=207
 pkgdesc="Crit-bit maps and sets"
 url="https://github.com/bos/critbit"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-vector")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"

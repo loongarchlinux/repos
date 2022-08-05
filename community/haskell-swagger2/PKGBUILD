@@ -5,11 +5,11 @@ _hkgname=swagger2
 pkgname=haskell-swagger2
 pkgver=2.6.1
 _commit=44ad73cd0f49c0cd17ad9f9ec4a9fdb3d4e7e776
-pkgrel=111
+pkgrel=117
 pkgdesc="Swagger 2.0 data model"
 url="https://github.com/GetShopTV/swagger2"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base-compat-batteries'
          'haskell-cookie' 'haskell-hashable' 'haskell-generics-sop' 'haskell-http-media'
          'haskell-insert-ordered-containers' 'haskell-lens' 'haskell-network' 'haskell-optics-core'

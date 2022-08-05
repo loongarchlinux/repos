@@ -4,11 +4,11 @@
 _hkgname=hasql-pool
 pkgname=haskell-hasql-pool
 pkgver=0.5.2.2
-pkgrel=57
+pkgrel=69
 pkgdesc="A pool of connections for Hasql"
 url="https://github.com/nikita-volkov/hasql-pool"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-prelude' 'haskell-hasql' 'haskell-resource-pool')
 makedepends=('ghc' 'haskell-hspec')
 checkdepends=('pifpaf' 'postgresql')

@@ -4,11 +4,11 @@
 _hkgname=tasty-rerun
 pkgname=haskell-tasty-rerun
 pkgver=1.1.18
-pkgrel=119
+pkgrel=122
 pkgdesc="Rerun only tests which failed in a previous test run"
 url="https://github.com/ocharles/tasty-rerun"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-split' 'haskell-tagged' 'haskell-tasty')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

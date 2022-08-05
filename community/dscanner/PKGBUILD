@@ -2,11 +2,11 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=dscanner
-pkgver=0.12.1
-pkgrel=1
-_pkgcommit=e027965176499b578b297e8bead32a0400d07a6d
+pkgver=0.12.2
+pkgrel=2
+_pkgcommit=8761fa1e38c4461e0dda1782b859d46172cc3676
 pkgdesc="Swiss-army knife for D source code"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/dlang-community/D-Scanner"
 license=("custom")
 groups=('dlang')

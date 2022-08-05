@@ -3,11 +3,11 @@
 _hkgname=fgl-arbitrary
 pkgname=haskell-fgl-arbitrary
 pkgver=0.2.0.6
-pkgrel=76
+pkgrel=79
 pkgdesc="QuickCheck support for fgl"
 url="https://github.com/haskell/fgl.git"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-fgl')
 makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

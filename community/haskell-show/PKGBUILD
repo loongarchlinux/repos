@@ -3,11 +3,11 @@
 _hkgname=show
 pkgname=haskell-show
 pkgver=0.6
-pkgrel=97
+pkgrel=100
 pkgdesc="'Show' instances for Lambdabot"
 url="https://github.com/mokus0/show.git"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-syb')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

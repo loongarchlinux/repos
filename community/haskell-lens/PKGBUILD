@@ -4,11 +4,11 @@
 _hkgname=lens
 pkgname=haskell-lens
 pkgver=5.1.1
-pkgrel=14
+pkgrel=20
 pkgdesc="Lenses, Folds and Traversals"
 url="https://github.com/ekmett/lens/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-assoc' 'haskell-base-orphans' 'haskell-bifunctors'
          'haskell-call-stack' 'haskell-comonad' 'haskell-contravariant' 'haskell-distributive'
          'haskell-free' 'haskell-hashable' 'haskell-indexed-traversable'

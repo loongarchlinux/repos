@@ -4,11 +4,11 @@
 _hkgname=spdx
 pkgname=haskell-spdx
 pkgver=1.0.0.3
-pkgrel=8
+pkgrel=11
 pkgdesc="SPDX license expression language, Extras"
 url="https://github.com/phadej/spdx"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-base-compat' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

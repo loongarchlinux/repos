@@ -4,7 +4,7 @@ pkgname=perl-text-unidecode
 pkgver=1.30
 pkgrel=3
 pkgdesc='US-ASCII transliterations of Unicode text'
-arch=('i686' 'loongarch64' 'x86_64')
+arch=('i686' 'loong64' 'x86_64')
 url='https://metacpan.org/pod/Text::Unidecode'
 license=('GPL' 'PerlArtistic')
 depends=('perl>=5.6.0')

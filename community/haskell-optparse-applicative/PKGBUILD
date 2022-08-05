@@ -4,11 +4,11 @@
 _hkgname=optparse-applicative
 pkgname=haskell-optparse-applicative
 pkgver=0.16.1.0
-pkgrel=251
+pkgrel=258
 pkgdesc="Utilities and combinators for parsing command line options"
 url="https://github.com/pcapriotti/optparse-applicative"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-ansi-wl-pprint" "haskell-transformers-compat")
 makedepends=('ghc' 'uusi')
 checkdepends=('haskell-quickcheck')

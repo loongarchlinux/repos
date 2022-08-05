@@ -4,11 +4,11 @@
 _hkgname=async
 pkgname=haskell-async
 pkgver=2.2.4
-pkgrel=78
+pkgrel=86
 pkgdesc="Run IO operations asynchronously and wait for their results"
 url="https://github.com/simonmar/async"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'uusi')
 checkdepends=('haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')

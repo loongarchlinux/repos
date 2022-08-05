@@ -3,11 +3,11 @@
 _hkgname=hackage-db
 pkgname=haskell-hackage-db
 pkgver=2.1.2
-pkgrel=83
+pkgrel=88
 pkgdesc="Access cabal-install's Hackage database via Data.Map"
 url="https://github.com/NixOS/hackage-db#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-tar' 'haskell-utf8-string')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

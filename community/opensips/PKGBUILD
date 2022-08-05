@@ -17,7 +17,7 @@ optdepends=('postgresql-libs'
 backup=("etc/opensips/opensips.cfg"
 	"etc/opensips/osipsconsolerc"
 	"etc/opensips/opensipsctlrc")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL')
 install=opensips.install
 options=('!emptydirs' 'zipman' '!makeflags' 'docs')

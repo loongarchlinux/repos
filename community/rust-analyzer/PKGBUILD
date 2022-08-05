@@ -2,11 +2,11 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rust-analyzer
-_pkgver=2022-06-27
+_pkgver=2022-08-01
 pkgver=${_pkgver//-}
 pkgrel=1
 pkgdesc='Rust compiler front-end for IDEs'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url=https://rust-analyzer.github.io/
 license=('Apache' 'MIT')
 depends=('gcc-libs' 'rust-src')
@@ -26,8 +26,6 @@ build() {
 
 package() {
   cd $pkgname
-  install -Dt "$pkgdir"/usr/bin target/release/$pkgname
+  install -Dt "$pkgdir"/usr/bin target/release/$pkgname{,-proc-macro-srv}
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE-MIT
 }
-
-# vim:set ts=2 sw=2 et:

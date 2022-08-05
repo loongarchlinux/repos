@@ -6,7 +6,7 @@ pkgver=1.7.0
 pkgrel=2
 pkgdesc='Application launcher for wlroots based Wayland compositors'
 url="https://codeberg.org/dnkl/$pkgname"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(MIT)
 makedepends=(meson
              scdoc

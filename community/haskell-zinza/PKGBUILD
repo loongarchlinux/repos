@@ -3,11 +3,11 @@
 _hkgname=zinza
 pkgname=haskell-zinza
 pkgver=0.2
-pkgrel=80
+pkgrel=85
 pkgdesc="Typed templates with jinja like syntax"
 url="https://github.com/phadej/zinza"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-golden' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

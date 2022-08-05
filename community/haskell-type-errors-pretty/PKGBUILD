@@ -3,11 +3,11 @@
 _hkgname=type-errors-pretty
 pkgname=haskell-type-errors-pretty
 pkgver=0.0.1.2
-pkgrel=53
+pkgrel=56
 pkgdesc="Combinators for writing pretty type errors easily"
 url="https://github.com/kowainik/type-errors-pretty"
 license=('MPL2')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-glob')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

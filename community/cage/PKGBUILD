@@ -3,9 +3,9 @@
 
 pkgname=cage
 pkgver=0.1.4
-pkgrel=8
+pkgrel=9
 pkgdesc="A kiosk compositor for Wayland"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://www.hjdskes.nl/projects/cage/"
 license=(MIT)
 depends=(glibc wayland)

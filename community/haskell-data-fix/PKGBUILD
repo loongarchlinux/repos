@@ -3,11 +3,11 @@
 _hkgname=data-fix
 pkgname=haskell-data-fix
 pkgver=0.3.2
-pkgrel=52
+pkgrel=55
 pkgdesc="Fixpoint data types"
 url="https://github.com/spell-music/data-fix"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -5,7 +5,7 @@ pkgname=pacmanlogviewer
 pkgver=1.4.3
 pkgrel=2
 pkgdesc="Inspect pacman log files"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://opendesktop.org/content/show.php?content=150484'
 license=('GPL')
 depends=('qt5-base' 'hicolor-icon-theme')

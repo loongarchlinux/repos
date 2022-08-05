@@ -4,11 +4,11 @@
 
 pkgname=r8168
 pkgver=8.050.03
-pkgrel=4
+pkgrel=13
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 makedepends=('linux-headers')
 source=(https://github.com/mtorromeo/r8168/archive/$pkgver/$pkgname-$pkgver.tar.gz
         https://github.com/mtorromeo/r8168/releases/download/$pkgver/$pkgname-$pkgver.tar.gz.asc

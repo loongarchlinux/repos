@@ -5,15 +5,15 @@
 # Contributor: robertfoster
 
 pkgname=easyeffects
-pkgver=6.2.6
+pkgver=6.2.8
 pkgrel=1
 pkgdesc='Audio Effects for Pipewire applications'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/wwmm/easyeffects'
 license=('GPL3')
 depends=('calf' 'gtk4' 'libebur128' 'libbs2b.so'
          'librubberband.so' 'libsamplerate.so' 'libsigc-3.0.so' 'libsndfile.so'
-         'liblilv-0.so' 'lsp-plugins' 'libpipewire-0.3.so' 'rnnoise' 'rubberband'
+         'liblilv-0.so' 'lsp-plugins' 'pipewire-pulse' 'rnnoise' 'rubberband'
          'tbb' 'zita-convolver' 'libadwaita-1.so' 'libfmt.so')
 makedepends=('appstream-glib' 'itstool' 'lv2' 'meson' 'nlohmann-json' 'zam-plugins')
 optdepends=(
@@ -22,7 +22,7 @@ optdepends=(
 )
 replaces=('pulseeffects')
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('0c93c6afdc337bd5fe60beab00475087eece250ac7014a8b5ac0e6cad9154b3ac22cfa61a44bbbaa99aff79d4706772e903a056c3719a58d9507772684d6f767')
+sha512sums=('8a306308e783ed19fd5380a6b8d1e0ddba1400bca3447ddbf2954355f6d74229d0e750e5ce50b19c9ad1979ee88cda6ad4d1b2549eef7bb88cd29b6dc96dc33b')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build

@@ -3,11 +3,11 @@
 _hkgname=svg-builder
 pkgname=haskell-svg-builder
 pkgver=0.1.1
-pkgrel=90
+pkgrel=95
 pkgdesc="DSL for building SVG."
 url="https://github.com/diagrams/svg-builder.git"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-builder' 'haskell-hashable' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

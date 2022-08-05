@@ -4,11 +4,11 @@
 _hkgname=interpolate
 pkgname=haskell-interpolate
 pkgver=0.2.1
-pkgrel=213
+pkgrel=219
 pkgdesc="String interpolation done right"
 url="https://github.com/sol/interpolate"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-src-meta')
 makedepends=('ghc' 'haskell-base-compat' 'haskell-hspec' 'haskell-quickcheck'
              'haskell-quickcheck-instances')

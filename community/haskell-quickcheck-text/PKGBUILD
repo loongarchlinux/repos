@@ -3,11 +3,11 @@
 _hkgname=quickcheck-text
 pkgname=haskell-quickcheck-text
 pkgver=0.1.2.1
-pkgrel=76
+pkgrel=79
 pkgdesc="Alternative arbitrary instance for Text"
 url="https://github.com/olorin/quickcheck-text"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

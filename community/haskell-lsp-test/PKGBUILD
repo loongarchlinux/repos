@@ -3,11 +3,11 @@
 _hkgname=lsp-test
 pkgname=haskell-lsp-test
 pkgver=0.14.0.1
-pkgrel=118
+pkgrel=124
 pkgdesc="Functional test framework for LSP servers."
 url="https://github.com/haskell/lsp/blob/master/lsp-test/README.md"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson-pretty'
          'haskell-ansi-terminal' 'haskell-async' 'haskell-conduit' 'haskell-conduit-parse'
          'haskell-data-default' 'haskell-lens' 'haskell-lsp' 'haskell-lsp-types'

@@ -10,7 +10,7 @@ pkgver=3.5.3
 pkgrel=1
 pkgdesc='ANother Tool for Language Recognition'
 url='https://www.antlr3.org'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(BSD)
 makedepends=(git)
 source=("git+https://github.com/antlr/antlr3.git#tag=$pkgver")

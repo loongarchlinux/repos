@@ -3,11 +3,11 @@
 _hkgname=ormolu
 pkgname=haskell-ormolu
 pkgver=0.2.0.0
-pkgrel=86
+pkgrel=92
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/tweag/ormolu"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-diff' 'haskell-dlist'
          'haskell-gitrev' 'haskell-optparse-applicative' 'haskell-syb')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-path' 'haskell-path-io')

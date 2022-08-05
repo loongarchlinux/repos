@@ -8,7 +8,7 @@ pkgrel=5
 _modname="ngx_${pkgname#nginx-mod-}"
 
 pkgdesc="Brotli compression filter module for nginx"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=("nginx" 'brotli')
 makedepends=("nginx-src")
 url="https://github.com/google/ngx_brotli"

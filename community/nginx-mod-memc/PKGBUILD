@@ -7,7 +7,7 @@ pkgrel=10
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='Extended version of the standard memcached module for nginx'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://github.com/openresty/memc-nginx-module"

@@ -6,7 +6,7 @@ pkgver=1.17.6
 pkgrel=2
 pkgdesc="2D graphics library with support for multiple output devices (32-bit)"
 url="https://cairographics.org/"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(LGPL MPL)
 depends=(lib32-zlib lib32-libpng lib32-fontconfig lib32-freetype2 lib32-libx11
          lib32-libxext lib32-libxrender lib32-libxcb lib32-glib2 lib32-pixman

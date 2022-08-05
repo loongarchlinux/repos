@@ -7,7 +7,7 @@ pkgver=0.4.10.2
 pkgrel=3
 pkgdesc='A turn-based space empire and galactic conquest game'
 url='https://www.freeorion.org'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL2')
 depends=(
   'boost-libs'

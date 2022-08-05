@@ -4,11 +4,11 @@
 _hkgname=x509-system
 pkgname=haskell-x509-system
 pkgver=1.6.7
-pkgrel=34
+pkgrel=37
 pkgdesc="Handle per-operating-system X.509 accessors and storage"
 url="https://github.com/vincenthz/hs-certificate"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-pem" "haskell-x509" "haskell-x509-store")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

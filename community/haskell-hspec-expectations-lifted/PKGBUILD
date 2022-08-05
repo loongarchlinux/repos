@@ -3,11 +3,11 @@
 _hkgname=hspec-expectations-lifted
 pkgname=haskell-hspec-expectations-lifted
 pkgver=0.10.0
-pkgrel=118
+pkgrel=121
 pkgdesc="A version of hspec-expectations generalized to MonadIO"
 url="https://github.com/hspec/hspec-expectations-lifted"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hspec-expectations')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

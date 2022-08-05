@@ -5,9 +5,9 @@
 
 pkgname=sl
 pkgver=5.05
-pkgrel=2
+pkgrel=3
 pkgdesc='Steam Locomotive runs across your terminal when you type "sl" as you meant to type "ls"'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 # The original project: https://github.com/mtoyoda/sl
 # We use a slightly-less dead fork that contains useful patches, such as SIGINT support
 url="https://github.com/eyJhb/sl"

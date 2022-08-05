@@ -3,7 +3,7 @@
 
 pkgname=blobby2
 pkgver=1.0
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 pkgrel=4
 pkgdesc="A beach ball game with blobs of goo"
 url="http://sourceforge.net/projects/blobby/"

@@ -4,11 +4,11 @@
 _hkgname=bencode
 pkgname=haskell-bencode
 pkgver=0.6.1.1
-pkgrel=150
+pkgrel=153
 pkgdesc="Parser and printer for bencoded data."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-transformers-compat')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

@@ -3,11 +3,11 @@
 _hkgname=bytestring-encoding
 pkgname=haskell-bytestring-encoding
 pkgver=0.1.2.0
-pkgrel=23
+pkgrel=26
 pkgdesc="ByteString ↔ Text converter based on GHC.IO.Encoding"
 url="https://github.com/msakai/bytestring-encoding#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-th')

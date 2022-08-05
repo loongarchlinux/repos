@@ -3,11 +3,11 @@
 _hkgname=tree-diff
 pkgname=haskell-tree-diff
 pkgver=0.2.1.1
-pkgrel=68
+pkgrel=74
 pkgdesc="Diffing of (expression) trees"
 url="https://github.com/phadej/tree-diff"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-wl-pprint' 'haskell-ansi-terminal'
          'haskell-base-compat' 'haskell-hashable' 'haskell-parsers' 'haskell-primitive'
          'haskell-quickcheck' 'haskell-scientific' 'haskell-semialign' 'haskell-strict'

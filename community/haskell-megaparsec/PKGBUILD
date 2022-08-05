@@ -4,11 +4,11 @@
 _hkgname=megaparsec
 pkgname=haskell-megaparsec
 pkgver=9.2.1
-pkgrel=8
+pkgrel=11
 pkgdesc="Monadic parser combinators"
 url="https://github.com/mrkkrp/megaparsec"
 license=("custom:BSD2")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-parser-combinators'
          'haskell-scientific')
 makedepends=('ghc')

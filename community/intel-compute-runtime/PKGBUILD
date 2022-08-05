@@ -2,10 +2,10 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=22.23.23405
+pkgver=22.29.23750
 pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://01.org/compute-runtime"
 license=(MIT)
 depends=(gcc-libs intel-gmmlib intel-graphics-compiler)
@@ -15,8 +15,14 @@ optdepends=('libva: for cl_intel_va_api_media_sharing'
 provides=(opencl-driver level-zero-driver)
 # https://github.com/intel/compute-runtime/issues/528
 options=(!lto)
-source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('ce594214b6e6424e53cf41c9c36325ecb84910230fda66b557cd13f275bc6c95')
+source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+        ${pkgname}-fix-odr-issues.patch::https://github.com/intel/compute-runtime/commit/78c96db2faacdc3406a24a91f017aeae40b7ca54.patch)
+sha256sums=('c473fa8e2b2cd7d7df86287e3fe71d6c9252ee644f06ae12b9ce459df997b214'
+            '0ede1c3dedeb41c4441938690c8d0e9e6a5dafdec530d45b35de3923fc12a6af')
+
+prepare() {
+  patch -p1 -d compute-runtime-${pkgver} < ${pkgname}-fix-odr-issues.patch
+}
 
 build() {
   # ${${pkgver#*.}%.*} not supported by bash?

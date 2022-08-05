@@ -13,7 +13,7 @@ _pkgver=1.5.5 # pacman's vercmp does not like alphabet characters without a dot 
 pkgver=1.5.5
 pkgrel=3
 pkgdesc="Dovecot FTS plugin based on Xapian"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/grosjo/fts-xapian"
 license=('LGPL2.1')
 depends=("dovecot=${_dcpkgver}" 'icu' 'xapian-core')

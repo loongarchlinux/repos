@@ -3,11 +3,11 @@
 _hkgname=safe-exceptions
 pkgname=haskell-safe-exceptions
 pkgver=0.1.7.3
-pkgrel=8
+pkgrel=11
 pkgdesc="Safe, consistent, and easy exception handling"
 url="https://github.com/fpco/safe-exceptions"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hspec' 'haskell-void')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

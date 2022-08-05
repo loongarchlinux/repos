@@ -4,11 +4,11 @@
 _hkgname=semigroupoids
 pkgname=haskell-semigroupoids
 pkgver=5.3.7
-pkgrel=42
+pkgrel=47
 pkgdesc="Semigroupoids: Category sans id"
 url="https://github.com/ekmett/semigroupoids"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-comonad' 'haskell-contravariant'
          'haskell-distributive' 'haskell-hashable' 'haskell-tagged' 'haskell-transformers-compat'
          'haskell-unordered-containers')

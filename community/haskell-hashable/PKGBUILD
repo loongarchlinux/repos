@@ -4,11 +4,11 @@
 _hkgname=hashable
 pkgname=haskell-hashable
 pkgver=1.4.0.2
-pkgrel=21
+pkgrel=28
 pkgdesc="A class for types that can be converted to a hash value"
 url="https://github.com/haskell-unordered-containers/hashable"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-ghc-bignum-orphans')
 makedepends=('ghc')
 checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-random' 'haskell-test-framework'

@@ -3,11 +3,11 @@
 _hkgname=bv-sized
 pkgname=haskell-bv-sized
 pkgver=1.0.4
-pkgrel=28
+pkgrel=35
 pkgdesc="A bitvector datatype that is parameterized by the vector width"
 url="https://github.com/GaloisInc/bv-sized"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-bitwise' 'haskell-panic' 'haskell-parameterized-utils'
          'haskell-random' 'haskell-th-lift')
 makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-monadrandom' 'haskell-tasty'

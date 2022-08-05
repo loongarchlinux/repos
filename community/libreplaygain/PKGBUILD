@@ -5,7 +5,7 @@ pkgname=libreplaygain
 pkgver=475
 pkgrel=4
 pkgdesc="A library to adjust audio gain"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://www.musepack.net/index.php?pg=src"
 license=('LGPL')
 depends=('glibc')

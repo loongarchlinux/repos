@@ -3,11 +3,11 @@
 _hkgname=type-errors
 pkgname=haskell-type-errors
 pkgver=0.2.0.0
-pkgrel=172
+pkgrel=175
 pkgdesc="Tools for writing better type errors"
 url="https://github.com/isovector/type-errors"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-first-class-families' 'haskell-syb' 'haskell-th-abstraction')
 makedepends=('ghc' 'haskell-doctest')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

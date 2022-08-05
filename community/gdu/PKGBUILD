@@ -8,7 +8,7 @@ license=('MIT')
 pkgdesc="Fast disk usage analyzer"
 depends=('glibc')
 makedepends=('go' 'git')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/dundee/gdu"
 source=("git+https://github.com/dundee/gdu.git#tag=v${pkgver}?signed")
 sha256sums=(SKIP)

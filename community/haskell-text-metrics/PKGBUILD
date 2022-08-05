@@ -3,11 +3,11 @@
 _hkgname=text-metrics
 pkgname=haskell-text-metrics
 pkgver=0.3.2
-pkgrel=32
+pkgrel=35
 pkgdesc="Calculate various string metrics efficiently"
 url="https://github.com/mrkkrp/text-metrics"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

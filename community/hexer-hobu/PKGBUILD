@@ -1,9 +1,9 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@gmail.com>
 pkgname=hexer-hobu
 pkgver=1.4.0
-pkgrel=7
+pkgrel=8
 pkgdesc="LAS and OGR hexagonal density and boundary surface generation"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/hobu/hexer"
 license=(LGPL)
 depends=(gdal)

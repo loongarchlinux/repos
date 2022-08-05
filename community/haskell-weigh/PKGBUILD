@@ -3,11 +3,11 @@
 _hkgname=weigh
 pkgname=haskell-weigh
 pkgver=0.0.16
-pkgrel=165
+pkgrel=168
 pkgdesc="Measure allocations of a Haskell functions/values"
 url="https://github.com/fpco/weigh"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-split' 'haskell-temporary')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -4,11 +4,11 @@
 _hkgname=vault
 pkgname=haskell-vault
 pkgver=0.3.1.5
-pkgrel=95
+pkgrel=100
 pkgdesc="A persistent store for values of arbitrary types"
 url="https://github.com/HeinrichApfelmus/vault"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

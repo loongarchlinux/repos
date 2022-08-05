@@ -4,11 +4,11 @@
 _hkgname=aeson-compat
 pkgname=haskell-aeson-compat
 pkgver=0.3.10
-pkgrel=41
+pkgrel=47
 pkgdesc="Compatibility layer for aeson"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-attoparsec-iso8601'
          'haskell-base-compat' 'haskell-hashable' 'haskell-scientific'
          'haskell-tagged' 'haskell-time-locale-compat' 'haskell-unordered-containers'
@@ -20,7 +20,7 @@ sha512sums=('5e44568c29e9886cdfa10dfa9e7f9ce93b0927a2317fdfc9427378867d6b5cf95d1
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u hashable $_hkgname.cabal
+    uusi -u attoparsec-iso8601 -u hashable $_hkgname.cabal
 }
 
 build() {

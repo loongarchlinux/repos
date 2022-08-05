@@ -6,7 +6,7 @@ pkgname=libnsgif
 pkgver=0.2.1
 pkgrel=7
 pkgdesc='Decoding library for the GIF image file format'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url='https://www.netsurf-browser.org/projects/libnsgif/'
 license=(MIT)
 makedepends=('netsurf-buildsystem>=1.9')

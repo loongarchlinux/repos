@@ -2,7 +2,7 @@
 # Contributor: crab2313 <crab2313@gmail.com>
 
 pkgname=python-gitlab
-pkgver=3.5.0
+pkgver=3.7.0
 pkgrel=1
 pkgdesc="Python wrapper for the GitLab API"
 arch=('any')
@@ -11,7 +11,7 @@ license=('LGPL3')
 depends=('python' 'python-requests' 'python-six' 'python-requests-toolbelt')
 makedepends=('python-setuptools')
 source=($pkgname-$pkgver.tar.gz::https://github.com/python-gitlab/python-gitlab/archive/v${pkgver}.tar.gz)
-sha512sums=('161c7ed7c7bab580318bc89b41478c8b9c03ff78808aae6ef1aa6ac5bc4157ebad9983529ef5b44e10f259f1f1d92b30cdbb81912b68ae49bd026e5dcd90b432')
+sha512sums=('a69aa646b2e8339c43f1a5ae86855ed0ea6cd0629289216da391fd6a315df4852b189a22cb439aec08668308c9e99a39d211fa3abb4153028304fa01edf9f3af')
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"

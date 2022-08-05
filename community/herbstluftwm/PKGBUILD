@@ -3,9 +3,9 @@
 
 pkgname=herbstluftwm
 pkgver=0.9.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Manual tiling window manager for X"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://herbstluftwm.org"
 license=('BSD')
 depends=('glib2' 'libxinerama' 'libxrandr' 'libxft' 'libxfixes')

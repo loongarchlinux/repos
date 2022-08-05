@@ -5,7 +5,7 @@ _tag='b1bba35b097639865a4f2accc92194d9ce8e39e0' # git rev-parse v${pkgver}
 pkgver=0.7
 pkgrel=2
 pkgdesc='modern, legacy free, simple yet efficient vim-like editor'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/martanne/vis#vis-a-vim-like-text-editor'
 depends=('acl' 'libacl.so' 'bash' 'ncurses' 'libncursesw.so' 'libtermkey'
          'libtermkey.so' 'lua' 'lua-lpeg' 'tre' 'file')

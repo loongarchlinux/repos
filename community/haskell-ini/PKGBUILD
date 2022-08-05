@@ -4,11 +4,11 @@
 _hkgname=ini
 pkgname=haskell-ini
 pkgver=0.4.1
-pkgrel=223
+pkgrel=228
 pkgdesc="Quick and easy configuration files in the INI format."
 url="https://github.com/chrisdone/ini"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

@@ -6,7 +6,7 @@ pkgrel=3
 
 pkgdesc='Non-blocking redis client for python'
 url='https://pypi.org/project/hiredis/'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('Apache')
 
 depends=('python')

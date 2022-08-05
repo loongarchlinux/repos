@@ -3,11 +3,11 @@
 _hkgname=newtype-generics
 pkgname=haskell-newtype-generics
 pkgver=0.6.2
-pkgrel=6
+pkgrel=9
 pkgdesc="A typeclass and set of functions for working with newtypes"
 url="https://github.com/sjakobi/newtype-generics"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

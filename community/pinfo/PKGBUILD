@@ -6,7 +6,7 @@ pkgname=pinfo
 pkgver=0.6.13
 pkgrel=2
 pkgdesc="A hypertext info file viewer"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="http://pinfo.sourceforge.net/"
 # https://fossies.org/linux/misc/pinfo-0.6.10.tar.gz/
 license=('GPL')

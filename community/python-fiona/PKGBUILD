@@ -3,9 +3,9 @@
 _pkg=Fiona
 pkgname=python-${_pkg,,}
 pkgver=1.8.21
-pkgrel=1
+pkgrel=2
 pkgdesc="Read and write geographic data files"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://github.com/Toblerity/Fiona"
 license=(BSD)
 depends=(

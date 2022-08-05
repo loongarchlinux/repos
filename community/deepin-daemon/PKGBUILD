@@ -3,10 +3,10 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=5.13.49
-pkgrel=1
+pkgver=5.14.44
+pkgrel=2
 pkgdesc='Daemon handling the DDE session settings'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/linuxdeepin/dde-daemon"
 license=('GPL3')
 depends=('deepin-desktop-schemas' 'deepin-api'
@@ -58,7 +58,7 @@ install="$pkgname.install"
 source=("https://github.com/linuxdeepin/dde-daemon/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         $pkgname-fix-vanilla-libinput.patch
         'deepin-daemon.sysusers')
-sha512sums=('c08262fc05ec3fedb05fa6578bb3e6c0b1c6edbb596536b154b1c75f29655cb6796bdf34b3ed11e41c9499c62f9edb9d30340cc9e656f3dd3a61dfb6cf55a5b0'
+sha512sums=('f016e69e0ef7fd981242d39466d827c8313741e9d82b31a5c75e834bc5a6a076ab73f6efdf39ce04f9bfda86f14fe0840af4d62585c413e1c67e7185e4980509'
             '944b0ae6cf7f613fd00884593c5e5f43aaf0efe4ea7aaa546a06b4367b8da4f2bc486dca640f77743bd1b7b9e4aacf741afe5c5e3ee219c2fdd4cc891ab3d367'
             '808c02d4fec4cbbb01119bbb10499090199e738b7dd72c28a57dde098eef6132723f3434c151f79e21d9f788c7f7bae8046573ac93ba917afe0e803fbffa6d5a')
 
@@ -79,6 +79,10 @@ prepare() {
          github.com/Lofanmi/pinyin-golang/pinyin gopkg.in/yaml.v3
 
   sed -i 's#/usr/share/backgrounds/default_background.jpg#/usr/share/backgrounds/deepin/desktop.jpg#' accounts/user.go
+
+  # https://github.com/linuxdeepin/developer-center/discussions/3327
+  sed -i 's#/usr/libexec#/usr/lib#' keybinding/shortcuts/system_shortcut.go
+  sed -i 's#${PREFIX}/libexec/#${PREFIX}/lib/#' Makefile
 }
 
 build() {

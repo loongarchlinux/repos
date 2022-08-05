@@ -4,11 +4,11 @@
 _hkgname=zip-archive
 pkgname=haskell-zip-archive
 pkgver=0.4.2.1
-pkgrel=20
+pkgrel=23
 pkgdesc="Library for creating and modifying zip archives."
 url="https://github.com/jgm/zip-archive"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-digest' 'haskell-old-time' 'haskell-temporary'
          'haskell-zlib')
 makedepends=('ghc' 'haskell-hunit' 'unzip')

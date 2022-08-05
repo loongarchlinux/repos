@@ -3,11 +3,11 @@
 _hkgname=hls-ormolu-plugin
 pkgname=haskell-hls-ormolu-plugin
 pkgver=1.0.1.0
-pkgrel=190
+pkgrel=208
 pkgdesc="Integration with the Ormolu code formatter"
 url="https://hackage.haskell.org/package/hls-ormolu-plugin"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-api-compat' 'haskell-ghcide'
          'haskell-hls-plugin-api' 'haskell-lens' 'haskell-lsp' 'haskell-ormolu')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types')

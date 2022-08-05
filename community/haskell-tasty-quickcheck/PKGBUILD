@@ -4,11 +4,11 @@
 _hkgname=tasty-quickcheck
 pkgname=haskell-tasty-quickcheck
 pkgver=0.10.2
-pkgrel=138
+pkgrel=152
 pkgdesc="QuickCheck support for the Tasty test framework."
 url="https://github.com/UnkindPartition/tasty"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-quickcheck' 'haskell-random'
          'haskell-tagged' 'haskell-tasty')
 makedepends=('ghc')

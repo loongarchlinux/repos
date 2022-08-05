@@ -4,11 +4,11 @@
 
 pkgname=hledger-ui
 pkgver=1.25
-pkgrel=75
+pkgrel=93
 pkgdesc="Curses-style terminal interface for the hledger accounting system"
 url="http://hledger.org"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-ansi-terminal' 'haskell-async'
          'haskell-cmdargs' 'haskell-data-default' 'haskell-doclayout' 'haskell-extra'
          'haskell-fsnotify' 'haskell-microlens' 'haskell-microlens-platform' 'haskell-megaparsec'
@@ -17,6 +17,11 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-ansi-terminal' 'has
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('100febd118e7ad538d82e215d7413aac1b8b914fcb8be1bc6a26c311d9d2ba2accad187ffa3bdc623c448e9c36ba5dcf81a86db139541fbc33abba3557dd8f62')
+
+prepare() {
+    cd $pkgname-$pkgver
+    uusi -u doclayout $pkgname.cabal
+}
 
 build() {
     cd $pkgname-$pkgver

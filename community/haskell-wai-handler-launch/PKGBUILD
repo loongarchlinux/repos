@@ -4,11 +4,11 @@
 _hkgname=wai-handler-launch
 pkgname=haskell-wai-handler-launch
 pkgver=3.0.3.1
-pkgrel=427
+pkgrel=432
 pkgdesc="Launch a web app in the default browser."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-wai' 'haskell-warp' 'haskell-http-types' 'haskell-streaming-commons'
          'haskell-async')
 makedepends=('ghc')

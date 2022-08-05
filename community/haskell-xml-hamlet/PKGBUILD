@@ -4,11 +4,11 @@
 _hkgname=xml-hamlet
 pkgname=haskell-xml-hamlet
 pkgver=0.5.0.2
-pkgrel=56
+pkgrel=62
 pkgdesc="Hamlet-style quasiquoter for XML content"
 url="http://www.yesodweb.com/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-shakespeare"
          "haskell-xml-conduit")
 makedepends=('ghc')

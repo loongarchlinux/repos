@@ -6,7 +6,7 @@ pkgrel=1
 epoch=1
 
 pkgdesc='ModSecurity v3 library component'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('yajl' 'curl' 'libxml2' 'pcre' 'geoip' 'libmaxminddb' 'ssdeep' 'luajit')
 makedepends=('doxygen')
 options=('debug')

@@ -3,11 +3,11 @@
 _hkgname=HTF
 pkgname=haskell-htf
 pkgver=0.15.0.0
-pkgrel=23
+pkgrel=28
 pkgdesc="The Haskell Test Framework"
 url="https://github.com/skogsbaer/HTF/"
 license=("LGPL2")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-hunit' 'haskell-quickcheck' 'haskell-aeson'
          'haskell-base64-bytestring' 'haskell-cpphs' 'haskell-src' 'haskell-lifted-base'
          'haskell-monad-control' 'haskell-old-time' 'haskell-random' 'haskell-regex-compat'

@@ -3,9 +3,9 @@
 _pkgname=fold-debounce
 pkgname=haskell-fold-debounce
 pkgver=0.2.0.9
-pkgrel=162
+pkgrel=165
 pkgdesc='Fold multiple events that happen in a given period of time'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://hackage.haskell.org/package/$_pkgname"
 license=(BSD)
 depends=(ghc-libs haskell-stm haskell-stm-delay haskell-data-default-class)

@@ -17,7 +17,7 @@ fi
 # shellcheck disable=SC2034
 pkgdesc='Build cross platform desktop apps with web technologies'
 # shellcheck disable=SC2034
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 # shellcheck disable=SC2034
 url='https://electronjs.org/'
 # shellcheck disable=SC2034

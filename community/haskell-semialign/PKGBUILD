@@ -3,11 +3,11 @@
 _hkgname=semialign
 pkgname=haskell-semialign
 pkgver=1.2.0.1
-pkgrel=56
+pkgrel=61
 pkgdesc="Align and Zip type-classes from the common Semialign ancestor."
 url="https://github.com/haskellari/these"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-indexed-traversable'
          'haskell-indexed-traversable-instances' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-these' 'haskell-unordered-containers' 'haskell-vector')

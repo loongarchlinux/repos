@@ -3,16 +3,16 @@
 
 _hkgname=commonmark-extensions
 pkgname=haskell-commonmark-extensions
-pkgver=0.2.3
-pkgrel=17
+pkgver=0.2.3.2
+pkgrel=3
 pkgdesc="Pure Haskell commonmark parser"
 url="https://github.com/jgm/commonmark-hs"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-commonmark' 'haskell-emojis' 'haskell-network-uri')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('6fec4a53c66c14d8b694934e6fa2ddcd7aa34128cc22c2f9ed38236f95e87a939b48e1ed5f41469a068a2cd923ba11ffee9669a2801aa4723d7185117b874be7')
+sha512sums=('93b6c856f8aa5858e2700e8ffd98dd56a294cae95430b0ec1ea1c6a48f952eb5c1ce8223a10a36f4249933e2efc92d8110ba54463af467535b435c236b03f619')
 
 prepare() {
     cd $_hkgname-$pkgver

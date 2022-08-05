@@ -4,11 +4,11 @@
 _hkgname=aeson-pretty
 pkgname=haskell-aeson-pretty
 pkgver=0.8.9
-pkgrel=67
+pkgrel=72
 pkgdesc="JSON pretty-printing library and command-line tool."
 url="https://github.com/informatikr/aeson-pretty"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-attoparsec" "haskell-base-compat" "haskell-cmdargs"
          "haskell-scientific" "haskell-unordered-containers" "haskell-vector")
 makedepends=('ghc')

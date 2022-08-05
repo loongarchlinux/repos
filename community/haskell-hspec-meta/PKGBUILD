@@ -3,11 +3,11 @@
 _hkgname=hspec-meta
 pkgname=haskell-hspec-meta
 pkgver=2.9.3
-pkgrel=58
+pkgrel=70
 pkgdesc="A version of Hspec which is used to test Hspec itself"
 url="http://hspec.github.io/"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-call-stack' 'haskell-clock' 'haskell-ghc'
          'haskell-quickcheck' 'haskell-quickcheck-io' 'haskell-random' 'haskell-setenv')
 makedepends=('ghc' 'uusi')

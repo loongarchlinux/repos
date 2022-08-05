@@ -4,11 +4,11 @@
 _hkgname=fsnotify
 pkgname=haskell-fsnotify
 pkgver=0.3.0.1
-pkgrel=292
+pkgrel=297
 pkgdesc="Cross platform library for file change notification."
 url="https://github.com/haskell-fswatch/hfsnotify"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-async" "haskell-hinotify" 'haskell-shelly'
          "haskell-unix-compat")
 makedepends=('ghc')

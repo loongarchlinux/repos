@@ -4,11 +4,11 @@
 _hkgname=project-template
 pkgname=haskell-project-template
 pkgver=0.2.1.0
-pkgrel=220
+pkgrel=225
 pkgdesc="Specify Haskell project templates and generate files"
 url="https://github.com/fpco/haskell-ide"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-resourcet')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')

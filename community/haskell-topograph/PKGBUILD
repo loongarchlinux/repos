@@ -3,11 +3,11 @@
 _hkgname=topograph
 pkgname=haskell-topograph
 pkgver=1.0.0.1
-pkgrel=70
+pkgrel=73
 pkgdesc="Directed acyclic graphs"
 url="https://github.com/phadej/topograph"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-vector')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

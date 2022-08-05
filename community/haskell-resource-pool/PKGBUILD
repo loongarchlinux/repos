@@ -4,11 +4,11 @@
 _hkgname=resource-pool
 pkgname=haskell-resource-pool
 pkgver=0.2.3.2
-pkgrel=246
+pkgrel=249
 pkgdesc="A high-performance striped resource pooling implementation"
 url="https://github.com/bos/pool"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-hashable" "haskell-monad-control"
          "haskell-transformers-base" "haskell-vector")
 makedepends=('ghc')

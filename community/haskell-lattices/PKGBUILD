@@ -3,11 +3,11 @@
 _hkgname=lattices
 pkgname=haskell-lattices
 pkgver=2.0.3
-pkgrel=53
+pkgrel=58
 pkgdesc="Fine-grained library for constructing and manipulating lattices"
 url="https://github.com/phadej/lattices/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-base-compat' 'haskell-hashable'
          'haskell-integer-logarithms' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-universe-base' 'haskell-universe-reverse-instances' 'haskell-unordered-containers')

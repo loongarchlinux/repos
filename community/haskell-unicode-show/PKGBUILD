@@ -4,11 +4,11 @@
 _hkgname=unicode-show
 pkgname=haskell-unicode-show
 pkgver=0.1.1.1
-pkgrel=14
+pkgrel=17
 pkgdesc="Print and show in unicode"
 url="https://github.com/nushio3/unicode-show#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-safe')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

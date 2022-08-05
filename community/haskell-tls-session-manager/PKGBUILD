@@ -4,11 +4,11 @@
 _hkgname=tls-session-manager
 pkgname=haskell-tls-session-manager
 pkgver=0.0.4
-pkgrel=269
+pkgrel=274
 pkgdesc="In-memory TLS session manager"
 url="https://hackage.haskell.org/package/tls-session-manager"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-auto-update" 'haskell-basement' "haskell-clock" 'haskell-memory'
          "haskell-psqueues" "haskell-tls")
 makedepends=('ghc')

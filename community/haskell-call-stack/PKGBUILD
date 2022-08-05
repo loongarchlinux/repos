@@ -4,11 +4,11 @@
 _hkgname=call-stack
 pkgname=haskell-call-stack
 pkgver=0.4.0
-pkgrel=85
+pkgrel=91
 pkgdesc="Use GHC call-stacks in a backward compatible way"
 url="https://github.com/sol/call-stack"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-nanospec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

@@ -3,11 +3,11 @@
 _hkgname=lumberjack
 pkgname=haskell-lumberjack
 pkgver=1.0.1.0
-pkgrel=31
+pkgrel=36
 pkgdesc="Trek through your code forest and make logs"
 url="https://github.com/GaloisInc/lumberjack"
 license=("custom:ISC")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-contravariant' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal')
 makedepends=('ghc')

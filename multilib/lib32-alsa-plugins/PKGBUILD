@@ -6,7 +6,7 @@ pkgname=lib32-alsa-plugins
 pkgver=1.2.7.1
 pkgrel=1
 pkgdesc="Additional ALSA plugins (32-bit)"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://www.alsa-project.org"
 license=(LGPL2.1)
 depends=("alsa-plugins=1:$pkgver" lib32-alsa-lib lib32-glibc)

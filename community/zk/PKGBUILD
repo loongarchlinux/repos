@@ -2,16 +2,16 @@
 # Contributor: Nogweii <me@nogweii.net>
 
 pkgname=zk
-pkgver=0.10.1
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='A command-line tool helping you to maintain a Zettelkasten or personal wiki'
-arch=('loongarch64' 'x86_64')
-url="https://github.com/mickael-menu/zk"
+arch=('loong64' 'x86_64')
+url='https://github.com/mickael-menu/zk'
 license=('GPL3')
 depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
-_commit='dbd791f6723199174833c367449af365cce441c8'
+_commit='78c40eeecfd31f11b5990ec306e17dd249384006'
 source=("$pkgname::git+$url.git#commit=$_commit")
 md5sums=('SKIP')
 

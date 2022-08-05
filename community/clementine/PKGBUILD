@@ -9,7 +9,7 @@ pkgrel=2
 pkgdesc='A modern music player and library organizer'
 url=https://www.clementine-player.org/
 license=(GPL)
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 depends=(chromaprint gst-plugins-base-libs libcdio libgpod liblastfm-qt5 libmtp libmygpo-qt5
          taglib protobuf qt5-x11extras projectm alsa-lib libpulse crypto++ hicolor-icon-theme)
 makedepends=(boost cmake qt5-tools sparsehash)

@@ -7,11 +7,11 @@
 # fine with them.
 
 pkgname=blender
-pkgver=3.2.0
-pkgrel=3
+pkgver=3.2.1
+pkgrel=1
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL')
 url="https://www.blender.org"
 depends=('libpng' 'libtiff' 'openexr' 'python' 'desktop-file-utils' 'python-requests' 'potrace'

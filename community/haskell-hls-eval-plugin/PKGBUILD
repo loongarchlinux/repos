@@ -3,11 +3,11 @@
 _hkgname=hls-eval-plugin
 pkgname=haskell-hls-eval-plugin
 pkgver=1.1.2.0
-pkgrel=188
+pkgrel=205
 pkgdesc="Eval plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-quickcheck' 'haskell-aeson' 'haskell-dlist'
          'haskell-extra' 'haskell-ghc' 'haskell-ghc-api-compat' 'haskell-ghc-paths' 'haskell-ghcide'
          'haskell-hashable' 'haskell-hls-plugin-api' 'haskell-lens' 'haskell-lsp'

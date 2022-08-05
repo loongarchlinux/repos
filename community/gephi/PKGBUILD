@@ -6,7 +6,7 @@ pkgname=gephi
 pkgver=0.9.5
 pkgrel=1
 pkgdesc="An interactive graph visualization and exploration platform"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://gephi.org"
 license=('CDDL' 'GPL3')
 depends=('java-runtime=11' 'java-environment=11' 'libxxf86vm')

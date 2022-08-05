@@ -3,11 +3,11 @@
 _hkgname=text-conversions
 pkgname=haskell-text-conversions
 pkgver=0.3.1.1
-pkgrel=10
+pkgrel=13
 pkgdesc="Safe conversions between textual types"
 url="https://github.com/cjdev/text-conversions"
 license=('ISC')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-base64-bytestring')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

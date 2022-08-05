@@ -5,7 +5,7 @@ pkgname=sha3sum
 pkgver=1.2.2
 pkgrel=1
 pkgdesc="Keccak-family checksum calculator, including SHA-3"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/maandree/sha3sum'
 license=('custom:ISC')
 depends=('libkeccak>=1.2')

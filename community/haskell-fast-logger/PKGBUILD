@@ -4,11 +4,11 @@
 _hkgname=fast-logger
 pkgname=haskell-fast-logger
 pkgver=3.1.1
-pkgrel=26
+pkgrel=31
 pkgdesc="A fast logging system"
 url="https://github.com/kazu-yamamoto/logger"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-auto-update' 'haskell-easy-file' 'haskell-unix-compat'
          'haskell-unix-time')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')

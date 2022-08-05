@@ -4,7 +4,7 @@ pkgname=libretro-pcsx2
 pkgver=11900
 pkgrel=2
 pkgdesc='Sony PlayStation 2 core'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url=https://github.com/libretro/pcsx2
 license=(
   GPL2

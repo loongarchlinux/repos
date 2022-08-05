@@ -3,11 +3,11 @@
 
 pkgname=dice
 pkgver=0.1.0.1
-pkgrel=17
+pkgrel=20
 pkgdesc="Simplistic D&D style dice-rolling system."
 url='https://github.com/lambdabot/dice'
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-mwc-random' 'haskell-random-fu')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"

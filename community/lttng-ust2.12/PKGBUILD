@@ -7,7 +7,7 @@ pkgname=lttng-ust2.12
 pkgver=2.12.0
 pkgrel=3
 pkgdesc='LTTng user space tracing libraries for LTTng'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url=https://lttng.org/
 license=(
   LGPL2.1

@@ -4,11 +4,11 @@
 _hkgname=json
 pkgname=haskell-json
 pkgver=0.10
-pkgrel=102
+pkgrel=105
 pkgdesc="Support for serialising Haskell to and from JSON"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-syb")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

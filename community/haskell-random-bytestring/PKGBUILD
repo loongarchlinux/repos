@@ -3,11 +3,11 @@
 _hkgname=random-bytestring
 pkgname=haskell-random-bytestring
 pkgver=0.1.4
-pkgrel=33
+pkgrel=36
 pkgdesc="Efficient generation of random bytestrings"
 url="https://www.github.com/larskuhtz/random-bytestring"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-mwc-random' 'haskell-pcg-random')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

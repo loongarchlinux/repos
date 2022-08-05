@@ -4,11 +4,11 @@
 _hkgname=pcre-light
 pkgname=haskell-pcre-light
 pkgver=0.4.1.0
-pkgrel=193
+pkgrel=199
 pkgdesc="Portable regex library for Perl 5 compatible regular expressions"
 url="https://github.com/Daniel-Diaz/pcre-light"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'pcre')
 makedepends=('ghc')
 checkdepends=('haskell-hunit')

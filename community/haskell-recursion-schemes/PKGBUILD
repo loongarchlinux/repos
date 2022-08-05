@@ -3,11 +3,11 @@
 _hkgname=recursion-schemes
 pkgname=haskell-recursion-schemes
 pkgver=5.2.2.2
-pkgrel=54
+pkgrel=59
 pkgdesc="Representing common recursion patterns as higher-order functions"
 url="https://github.com/ekmett/recursion-schemes"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-comonad' 'haskell-data-fix' 'haskell-free'
          'haskell-th-abstraction')
 makedepends=('ghc' 'uusi' 'haskell-hunit')

@@ -4,11 +4,11 @@
 _hkgname=fclabels
 pkgname=haskell-fclabels
 pkgver=2.0.5.1
-pkgrel=62
+pkgrel=65
 pkgdesc="First class accessor labels implemented as lenses."
 url="https://github.com/sebastiaanvisser/fclabels"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans')
 makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

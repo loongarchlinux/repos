@@ -26,7 +26,7 @@ sha256sums=('657d9332ef0453a513a55c4ed84993ac5157e215efa423d2d7aa432a4bbc4ab4'
             'b3561f995cd5d8ec272883646ef88c44b6f2e27cfcf0b93aad38cf7201b01eac')
 validpgpkeys=('0EF50ED55514BFF6B72B9DAC06CE3819086C750B') # "Raymond Toy <toy.raymond@gmail.com>
 url="https://www.cons.org/cmucl/"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 
 prepare() {
   patch -p1 -d "${srcdir}" -i "${srcdir}/0001-Fix-68-Use-O1-when-compiling-with-gcc-now.patch"

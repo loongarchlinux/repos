@@ -2,16 +2,16 @@
 # Contributor: Chad Kunde <Kunde21@gmail.com>
 
 pkgname=gopls
-pkgver=0.8.4
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='Language server for Go programming language'
-arch=(loongarch64 x86_64 aarch64 armv7h armv7l)
+arch=(loong64 x86_64 aarch64 armv7h armv7l)
 url='https://github.com/golang/tools/tree/master/gopls'
 license=(BSD)
 depends=(glibc)
 makedepends=('git' 'go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/golang/tools/archive/gopls/v${pkgver}.tar.gz")
-sha256sums=('815060abeb22755352414ef62ffb265b2f0f9d38786c164595f85c9c25c8a7cb')
+sha256sums=('420fd56ed614fc8a56547ad7737c2d0f163255a6a2953f1e57d854eeb5cb1b7b')
 
 build() {
   cd "tools-${pkgname}-v${pkgver}/${pkgname}"

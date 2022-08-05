@@ -12,7 +12,7 @@ pkgver=4.2
 pkgrel=1
 pkgdesc='Lightweight NTP client and server'
 url='https://chrony.tuxfamily.org/'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL2')
 depends=('glibc' 'libcap' 'libcap.so' 'libedit' 'libedit.so' 'libseccomp' 'libseccomp.so'
          'nettle' 'libnettle.so' 'gnutls')

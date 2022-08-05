@@ -9,7 +9,7 @@ pkgver=0.8
 pkgrel=1
 pkgdesc="A simple port-knocking daemon"
 url="http://www.zeroflux.org/projects/knock"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL2')
 depends=('libpcap>=1.0.0')
 backup=('etc/knockd.conf')

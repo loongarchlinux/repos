@@ -1,12 +1,12 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-security-plugin
-pkgver=2.0.1.0
+pkgver=2.1.0.0
 pkgrel=1
-_opensearchver=2.0.1
+_opensearchver=2.1.0
 _jdkver=11
 pkgdesc="OpenSearch Security Plugin"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://opensearch.org/docs/latest/security-plugin"
 license=('Apache')
 depends=("opensearch=${_opensearchver}")

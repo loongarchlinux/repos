@@ -4,11 +4,11 @@
 _hkgname=psqueues
 pkgname=haskell-psqueues
 pkgver=0.2.7.3
-pkgrel=32
+pkgrel=35
 pkgdesc="Pure priority search queues"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

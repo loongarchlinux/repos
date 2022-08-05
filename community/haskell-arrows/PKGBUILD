@@ -3,11 +3,11 @@
 _hkgname=arrows
 pkgname=haskell-arrows
 pkgver=0.4.4.2
-pkgrel=76
+pkgrel=79
 pkgdesc="Arrow classes and transformers"
 url="http://www.haskell.org/arrows/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-stream')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

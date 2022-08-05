@@ -5,11 +5,11 @@
 _hkgname=ShellCheck
 pkgname=shellcheck
 pkgver=0.8.0
-pkgrel=130
+pkgrel=148
 pkgdesc="Shell script analysis tool"
 url="https://www.shellcheck.net"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-diff' 'haskell-quickcheck' 'haskell-regex-tdfa')
 makedepends=('ghc' 'pandoc' 'uusi')
 source=("$_hkgname-$pkgver.tar.gz::https://github.com/koalaman/shellcheck/archive/v$pkgver.tar.gz")

@@ -3,11 +3,11 @@
 _hkgname=reinterpret-cast
 pkgname=haskell-reinterpret-cast
 pkgver=0.1.0
-pkgrel=196
+pkgrel=199
 pkgdesc="Memory reinterpretation casts for Float/Double and Word32/Word64"
 url="https://github.com/nh2/reinterpret-cast"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-data-binary-ieee754' 'haskell-hspec' 'haskell-loop')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

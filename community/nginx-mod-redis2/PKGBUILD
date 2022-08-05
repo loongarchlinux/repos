@@ -7,7 +7,7 @@ pkgrel=10
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='Nginx upstream module for the Redis 2.0 protocol'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://github.com/openresty/redis2-nginx-module"

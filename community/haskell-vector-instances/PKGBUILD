@@ -4,11 +4,11 @@
 _hkgname=vector-instances
 pkgname=haskell-vector-instances
 pkgver=3.4
-pkgrel=377
+pkgrel=383
 pkgdesc="Orphan Instances for 'Data.Vector'"
 url="https://github.com/ekmett/vector-instances"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-comonad" "haskell-hashable" "haskell-keys" "haskell-pointed"
          "haskell-semigroupoids" "haskell-vector")
 makedepends=('ghc')

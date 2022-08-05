@@ -4,17 +4,17 @@
 # Contributor: Tobias Veit - nIcE <m.on.key.tobi[at]gmail[dot]com>
 
 pkgname=metasploit
-pkgver=6.2.0
-pkgrel=2
+pkgver=6.2.8
+pkgrel=1
 pkgdesc='Advanced open-source platform for developing, testing, and using exploit code'
-url='https://www.metasploit.com/'
-arch=('loongarch64' 'x86_64')
+url='https://github.com/rapid7/metasploit-framework'
+arch=('loong64' 'x86_64')
 license=('BSD')
 depends=('ruby' 'ruby-bundler' 'libpcap' 'postgresql-libs' 'sqlite' 'libxslt' 'libxml2' 'inetutils' 'git')
 options=('!strip' '!emptydirs')
 source=(https://github.com/rapid7/metasploit-framework/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('98014297bc1601ebb8bfba2933607b709e5674f7f85f8e3934c82258d30c250ecdf49a6d99656894a6cec85d140bcd69ea47fd559d6ac44af36b44bdebfd6eee')
-b2sums=('57262140499d4b87b9b8d493ed45887bba30130b9c093b910ce1cf45343327cb60ddde82af731be29fd2c904ad556a6f7032f56a9f9f918d92709a8d60d208ab')
+sha512sums=('79dd4d3fb0b292f5721b49be0dd8f9ea0ca53385dfbcbe4757d01ca8ddd2d4492a4f0356a2a95e93f09fb7973ca1dbc9cffef319d0dd7d7c75e10b461f55a322')
+b2sums=('e42f7424b4e829e905905727765fb6e2b452ddcbf170a42db7dbca1ec409b31a2264e7b73a4f57adae40edbe0293d4ad564c289d30d172a491500e167734fab9')
 
 prepare() {
   cd ${pkgname}-framework-${pkgver}

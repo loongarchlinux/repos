@@ -4,11 +4,11 @@
 _hkgname=abstract-deque
 pkgname=haskell-abstract-deque
 pkgver=0.3
-pkgrel=156
+pkgrel=159
 pkgdesc="Abstract, parameterized interface to mutable Deques."
 url="https://github.com/rrnewton/haskell-lockfree/wiki"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-random")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

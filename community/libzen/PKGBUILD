@@ -6,7 +6,7 @@ pkgrel=1
 
 pkgdesc="shared library for libmediainfo and mediainfo"
 url="https://mediaarea.net"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('BSD')
 
 depends=('gcc-libs')

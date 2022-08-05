@@ -3,11 +3,11 @@
 _hkgname=data-serializer
 pkgname=haskell-data-serializer
 pkgver=0.3.5
-pkgrel=102
+pkgrel=107
 pkgdesc="Common API for serialization libraries"
 url="https://github.com/mvv/data-serializer"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-data-endian' 'haskell-parsers' 'haskell-split')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

@@ -7,7 +7,7 @@ pkgver=3.4.0
 pkgrel=4
 url='https://github.com/manisandro/gImageReader'
 pkgdesc='Gtk/Qt front-end to tesseract-ocr'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL3')
 depends=('djvulibre' 'gtksourceviewmm' 'gtkspellmm' 'libtesseract.so' 'libxml++' 'libzip' 'podofo' 'poppler-glib'
          'poppler-qt6' 'qt6-imageformats' 'qtspell' 'quazip-qt6' 'sane' 'tesseract')

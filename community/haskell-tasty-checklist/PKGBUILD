@@ -3,11 +3,11 @@
 _hkgname=tasty-checklist
 pkgname=haskell-tasty-checklist
 pkgver=1.0.3.0
-pkgrel=103
+pkgrel=110
 pkgdesc="Check multiple items during a tasty test"
 url="https://github.com/kquick/tasty-checklist"
 license=("custom:ISC")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-parameterized-utils')
 makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-hunit' 'haskell-tasty'
              'haskell-tasty-expected-failure' 'haskell-tasty-hunit')

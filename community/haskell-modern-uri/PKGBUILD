@@ -3,11 +3,11 @@
 _hkgname=modern-uri
 pkgname=haskell-modern-uri
 pkgver=0.3.4.4
-pkgrel=15
+pkgrel=18
 pkgdesc="Modern library for working with URIs"
 url="https://github.com/mrkkrp/modern-uri"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-contravariant' 'haskell-megaparsec'
          'haskell-profunctors' 'haskell-reflection' 'haskell-tagged')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-megaparsec' 'haskell-hspec-discover')

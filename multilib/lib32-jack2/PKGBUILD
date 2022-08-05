@@ -6,7 +6,7 @@ pkgname=lib32-jack2
 pkgver=1.9.21
 pkgrel=1
 pkgdesc="The JACK low-latency audio server (32 bit)"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://github.com/jackaudio/jack2"
 license=(GPL2 LGPL2.1)
 depends=(lib32-gcc-libs lib32-glibc lib32-opus jack2=$pkgver)

@@ -4,11 +4,11 @@
 _hkgname=cmark-gfm
 pkgname=haskell-cmark-gfm
 pkgver=0.2.3
-pkgrel=19
+pkgrel=22
 pkgdesc="Fast, accurate GitHub Flavored Markdown parser and renderer"
 url="https://github.com/kivikakk/cmark-gfm-hs"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'cmark-gfm')
 makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

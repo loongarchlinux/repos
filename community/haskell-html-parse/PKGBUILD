@@ -3,11 +3,11 @@
 _hkgname=html-parse
 pkgname=haskell-html-parse
 pkgver=0.2.0.2
-pkgrel=82
+pkgrel=87
 pkgdesc="A high-performance HTML tokenizer"
 url="http://github.com/bgamari/html-parse"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-quickcheck-instances' 'haskell-string-conversions')

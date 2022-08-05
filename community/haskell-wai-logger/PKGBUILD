@@ -4,11 +4,11 @@
 _hkgname=wai-logger
 pkgname=haskell-wai-logger
 pkgver=2.4.0
-pkgrel=78
+pkgrel=88
 pkgdesc="A logging system for WAI"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-byteorder' 'haskell-fast-logger'
          'haskell-http-types' 'haskell-network' 'haskell-wai')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest')

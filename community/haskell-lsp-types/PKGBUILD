@@ -3,11 +3,11 @@
 _hkgname=lsp-types
 pkgname=haskell-lsp-types
 pkgver=1.3.0.1
-pkgrel=93
+pkgrel=99
 pkgdesc="Haskell library for the Microsoft Language Server Protocol, data types"
 url="https://github.com/haskell/lsp"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-dependent-sum'
          'haskell-dependent-sum-template' 'haskell-diff' 'haskell-dlist' 'haskell-hashable'
          'haskell-hslogger' 'haskell-lens' 'haskell-network-uri' 'haskell-rope-utf16-splay'

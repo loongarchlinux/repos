@@ -3,11 +3,11 @@
 _hkgname=dense-linear-algebra
 pkgname=haskell-dense-linear-algebra
 pkgver=0.1.0.0
-pkgrel=193
+pkgrel=196
 pkgdesc="Simple and incomplete pure haskell implementation of linear algebra"
 url="https://github.com/bos/statistics"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-math-functions' 'haskell-primitive' 'haskell-vector'
          'haskell-vector-algorithms' 'haskell-vector-th-unbox' 'haskell-vector-binary-instances')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')

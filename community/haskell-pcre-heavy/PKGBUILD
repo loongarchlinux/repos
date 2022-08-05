@@ -4,11 +4,11 @@
 _hkgname=pcre-heavy
 pkgname=haskell-pcre-heavy
 pkgver=1.0.0.2
-pkgrel=240
+pkgrel=243
 pkgdesc="A regexp library on top of pcre-light you can actually use"
 url="https://github.com/myfreeweb/pcre-heavy"
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-pcre-light' 'haskell-string-conversions')
 makedepends=('ghc' 'haskell-glob' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

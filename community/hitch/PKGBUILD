@@ -12,7 +12,7 @@ depends=(libev openssl)
 checkdepends=(lsof)
 makedepends=(python-docutils)
 
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 source=("https://hitch-tls.org/source/hitch-$pkgver.tar.gz")
 # sha256sums source: https://hitch-tls.org/source/SHA256SUM
 sha256sums=('dcd65cbec6287c622a5a317d5f37e1ea5526daa93fb4db28f4206fc9911a1785')

@@ -3,11 +3,11 @@
 _hkgname=jira-wiki-markup
 pkgname=haskell-jira-wiki-markup
 pkgver=1.4.0
-pkgrel=63
+pkgrel=66
 pkgdesc="Handle Jira wiki markup"
 url="https://github.com/tarleb/jira-wiki-markup"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

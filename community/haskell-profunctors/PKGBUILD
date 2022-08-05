@@ -4,11 +4,11 @@
 _hkgname=profunctors
 pkgname=haskell-profunctors
 pkgver=5.6.2
-pkgrel=91
+pkgrel=94
 pkgdesc="Profunctors"
 url="https://github.com/ekmett/profunctors/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-comonad'
          'haskell-contravariant' 'haskell-distributive' 'haskell-tagged')
 makedepends=('ghc')

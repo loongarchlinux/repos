@@ -5,7 +5,7 @@ pkgver=1.4.0
 pkgrel=2
 pkgdesc="NetworkManager VPN plugin for Fortinet SSLVPN"
 url="https://wiki.gnome.org/Projects/NetworkManager"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(GPL)
 _pppver=2.4.9
 depends=(libnm libsecret "ppp=$_pppver" openfortivpn)

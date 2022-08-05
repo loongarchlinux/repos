@@ -7,7 +7,7 @@ pkgname=lib32-${_name}
 pkgver=6.3
 pkgrel=1
 pkgdesc="System V Release 4.0 curses emulation library (32-bit)"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://invisible-island.net/ncurses/ncurses.html'
 license=('MIT')
 depends=('lib32-gcc-libs' 'lib32-glibc' "${_name}=${pkgver}")

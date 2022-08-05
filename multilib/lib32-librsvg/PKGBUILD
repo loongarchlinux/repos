@@ -9,7 +9,7 @@ pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
 url="https://wiki.gnome.org/Projects/LibRsvg"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(LGPL)
 depends=(lib32-cairo lib32-freetype2 lib32-gdk-pixbuf2 lib32-glib2
          lib32-harfbuzz lib32-libxml2 lib32-pango librsvg)

@@ -4,11 +4,11 @@
 _hkgname=colourista
 pkgname=haskell-colourista
 pkgver=0.1.0.1
-pkgrel=70
+pkgrel=73
 pkgdesc="Convenient interface for printing colourful messages based on the ansi-terminal library."
 url="https://github.com/kowainik/colourista"
 license=('MPL2')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal')
 makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

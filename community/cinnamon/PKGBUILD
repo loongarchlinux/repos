@@ -6,10 +6,10 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=5.4.2
+pkgver=5.4.8
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://github.com/linuxmint/cinnamon"
 license=(GPL2)
 depends=(accountsservice caribou cinnamon-control-center cinnamon-menus cinnamon-screensaver
@@ -18,7 +18,7 @@ depends=(accountsservice caribou cinnamon-control-center cinnamon-menus cinnamon
          network-manager-applet nemo polkit-gnome python-cairo python-dbus
          python-gobject python-pam python-pexpect python-pillow python-pyinotify
          python-pytz python-tinycss2 python-xapp python-requests timezonemap xapps)
-optdepends=('blueberry: Bluetooth support'
+optdepends=('blueman: Bluetooth support'
             'cinnamon-translations: i18n'
             'gnome-panel: fallback mode'
             'metacity: fallback mode'
@@ -30,11 +30,11 @@ source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         0001-cinnamon-settings-don-t-rely-on-the-presence-of-cinn.patch
         set_wheel.diff
         default-theme.patch)
-sha512sums=('2f2931f05a8633a7e1c52542684e5fa6c67c939b3058d61f797f2a0b346f80e3bd7101b5d3eb1e0e07bf1e7a913597becb555bf480b8bdfaba0f457ea18d0f2a'
+sha512sums=('00ecbb11d077a38dabc5746810613f250a993b5a51eb2a37398e9e99b2cd2e9ee10db67ef213c4d2b14b33468f57ef776195a930cc79dc2f79e162b8e8f89002'
             '77c2229d350bb1445375d206af769f1dde9329ce3575e40e9c1d5fea3ec0f49c0a7ef36d78caf895d9224147947bd102bab924b5579dc8dc5f8d3269e0c76374'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
-b2sums=('a5976b5e294e60204e8ac7ec0df672d25e59bb84d2e1107290dc4ca7ed87c6f581310a6b00659469ed2308244acda336afcb69fe30bc400a81cebdfdeb79397c'
+b2sums=('25ea4fa389384840c63f9da2292b3acc9fa7973235cda048222258710d211c8955ed474ba559c05a85196ee85c0471408c54d9ae571adea273563a2975fbab97'
         '1d873efa0d17e358f834c4374f39bbf3f74340849f9c28a0950c0a064772083798aba3435e564acdf43a94665389917788e295073d4a65cc18600d71b7a9f008'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
@@ -44,7 +44,7 @@ prepare() {
 
   # Check for the cc-panel module path, not for the irrelevant binary
   # https://github.com/linuxmint/cinnamon/pull/7382
-  patch --no-backup-if-mismatch -p1 -i ../0001-cinnamon-settings-don-t-rely-on-the-presence-of-cinn.patch
+  patch --no-backup-if-mismatch -p1 < ../0001-cinnamon-settings-don-t-rely-on-the-presence-of-cinn.patch
 
   # Use wheel group instread of sudo (taken from Fedora)
   patch -p1 < ../set_wheel.diff
@@ -66,13 +66,10 @@ prepare() {
 }
 
 build() {
-  mkdir -p build
-  cd build
-  arch-meson --libexecdir=lib/cinnamon ../${pkgname}-${pkgver}
-  samu
+  arch-meson --libexecdir=lib/cinnamon ${pkgname}-${pkgver} build
+  samu -C build
 }
 
 package() {
-  cd build
-  DESTDIR="${pkgdir}" samu install
+  DESTDIR="${pkgdir}" samu -C build install
 }

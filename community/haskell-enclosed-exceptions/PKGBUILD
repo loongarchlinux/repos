@@ -4,11 +4,11 @@
 _hkgname=enclosed-exceptions
 pkgname=haskell-enclosed-exceptions
 pkgver=1.0.3
-pkgrel=203
+pkgrel=206
 pkgdesc="Catching all exceptions from within an enclosed computation"
 url="https://github.com/jcristovao/enclosed-exceptions"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-lifted-base" "haskell-monad-control" "haskell-transformers-base")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

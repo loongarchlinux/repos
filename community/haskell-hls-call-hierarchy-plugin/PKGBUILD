@@ -3,11 +3,11 @@
 _hkgname=hls-call-hierarchy-plugin
 pkgname=haskell-hls-call-hierarchy-plugin
 pkgver=1.0.0.0
-pkgrel=185
+pkgrel=202
 pkgdesc="Call hierarchy plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-call-hierarchy-plugin"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-api-compat'
          'haskell-ghcide' 'haskell-hiedb' 'haskell-hls-plugin-api' 'haskell-lens' 'haskell-lsp'
          'haskell-sqlite-simple' 'haskell-unordered-containers')

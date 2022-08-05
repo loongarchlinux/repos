@@ -3,11 +3,11 @@
 _hkgname=prettyprinter-convert-ansi-wl-pprint
 pkgname=haskell-prettyprinter-convert-ansi-wl-pprint
 pkgver=1.1.2
-pkgrel=65
+pkgrel=70
 pkgdesc="Converter from ansi-wl-pprint documents to prettyprinter-based ones."
 url="https://github.com/quchen/prettyprinter"
 license=('custom:BSD2')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-ansi-wl-pprint' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal')
 makedepends=('ghc' 'haskell-doctest')

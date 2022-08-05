@@ -10,7 +10,7 @@ pkgrel=2
 epoch=1
 pkgdesc='Console based XMPP client'
 url='http://www.profanity.im'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL3')
 _clidepends=(
   'libcurl.so' 'libncursesw.so' 'expat' 'glib2' 'libotr'

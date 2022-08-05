@@ -2,16 +2,16 @@
 # Contributor: Thorben Günther <echo YWRtaW5AeGVucm94Lm5ldAo= | base64 -d>
 
 pkgname=hut
-pkgver=0.1.0
-pkgrel=3
+pkgver=0.2.0
+pkgrel=1
 pkgdesc='A CLI tool for Sourcehut'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://sr.ht/~emersion/hut'
 license=('AGPL3')
 depends=('glibc')
 makedepends=('git' 'go' 'scdoc')
 options=('!lto')
-_commit='2bc780f40a6be4fbf0fd98efb125798b685ac240'
+_commit='6bd1ee439a2253c3ab492b79447cd8f472ccc0da'
 source=("git+https://git.sr.ht/~emersion/hut#commit=$_commit")
 sha256sums=('SKIP')
 

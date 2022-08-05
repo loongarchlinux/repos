@@ -3,11 +3,11 @@
 _hkgname=scotty
 pkgname=haskell-scotty
 pkgver=0.12
-pkgrel=303
+pkgrel=308
 pkgdesc="Haskell web framework inspired by Ruby's Sinatra, using WAI and Warp"
 url="https://github.com/scotty-web/scotty"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat-batteries' 'haskell-blaze-builder'
          'haskell-case-insensitive' 'haskell-data-default-class' 'haskell-http-types'
          'haskell-monad-control' 'haskell-network' 'haskell-regex-compat'

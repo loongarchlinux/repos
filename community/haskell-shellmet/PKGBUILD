@@ -4,11 +4,11 @@
 _hkgname=shellmet
 pkgname=haskell-shellmet
 pkgver=0.0.4.1
-pkgrel=2
+pkgrel=5
 pkgdesc="Shellmet provides easy and convenient way to call shell commands from Haskell programs."
 url="https://github.com/kowainik/shellmet"
 license=('MPL2')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-glob' 'haskell-markdown-unlit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

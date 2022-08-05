@@ -7,7 +7,7 @@ _zstdver=1.5.2
 pkgver=15.2.14
 pkgrel=6
 pkgdesc='Distributed, fault-tolerant storage platform delivering object, block, and file system'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://ceph.com/'
 license=('GPL')
 makedepends=("zstd=${_zstdver}" 'bash' 'bc' 'boost' 'boost-libs' 'bzip2' 'c-ares' 'cmake' 'coreutils' 'coffeescript'

@@ -3,17 +3,17 @@
 # Contributor: Nicolas Storme <nicolas@atelier-web.com>
 
 pkgname=goaccess
-pkgver=1.6
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="An open source real-time web log analyzer and interactive viewer"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://goaccess.io'
 license=('GPL')
 depends=('ncurses' 'libmaxminddb' 'openssl')
 optdepends=('geoip2-database: for geoip support')
 backup=('etc/goaccess/goaccess.conf')
 source=("https://tar.goaccess.io/$pkgname-$pkgver.tar.gz")
-sha512sums=('4ac4c057b5f001fa51da0a924bd96c9de83294dd9e0715615817a9d65f512598264c29776f5e8825a75a9d39680fab9454b966c3bbe663587f7b2a6f05422082')
+sha512sums=('5299df01fd06777bf85da12e4d4ec3b9eca866bbab6cac64f3d674b0b3ecc90dc4c28f5bc2c94064b7654d381aa873626e98ec9f26fc2b546380bb9e40077a85')
 
 build() {
   cd $pkgname-$pkgver

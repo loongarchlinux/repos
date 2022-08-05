@@ -6,7 +6,7 @@ pkgname=lib32-libsamplerate
 pkgver=0.2.2
 pkgrel=1
 pkgdesc="An audio sample rate conversion library"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://libsndfile.github.io/libsamplerate/"
 license=('BSD')
 depends=('lib32-glibc' "${_name}=${pkgver}")

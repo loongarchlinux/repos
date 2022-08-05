@@ -4,11 +4,11 @@
 _hkgname=either
 pkgname=haskell-either
 pkgver=5.0.2
-pkgrel=18
+pkgrel=23
 pkgdesc="An either monad transformer"
 url="https://github.com/ekmett/either/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-profunctors' 'haskell-semigroupoids')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

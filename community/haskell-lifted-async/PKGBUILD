@@ -3,11 +3,11 @@
 _hkgname=lifted-async
 pkgname=haskell-lifted-async
 pkgver=0.10.2.2
-pkgrel=62
+pkgrel=69
 pkgdesc="Run lifted IO operations asynchronously and wait for their results"
 url="https://github.com/maoe/lifted-async"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-constraints' 'haskell-lifted-base'
          'haskell-monad-control' 'haskell-transformers-base')
 makedepends=('ghc')

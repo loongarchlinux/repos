@@ -4,11 +4,11 @@
 _hkgname=optparse-simple
 pkgname=haskell-optparse-simple
 pkgver=0.1.1.4
-pkgrel=146
+pkgrel=153
 pkgdesc="Simple interface to optparse-applicative"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-githash' 'haskell-optparse-applicative' 'haskell-th-compat')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

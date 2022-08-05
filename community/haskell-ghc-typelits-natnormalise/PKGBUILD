@@ -3,11 +3,11 @@
 _hkgname=ghc-typelits-natnormalise
 pkgname=haskell-ghc-typelits-natnormalise
 pkgver=0.7.6
-pkgrel=56
+pkgrel=59
 pkgdesc="GHC typechecker plugin for types of kind GHC.TypeLits.Nat"
 url="https://github.com/clash-lang/ghc-typelits-natnormalise"
 license=('custom:BSD2')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-tcplugins-extra')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

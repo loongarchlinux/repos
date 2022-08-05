@@ -4,11 +4,11 @@
 _hkgname=wai-cors
 pkgname=haskell-wai-cors
 pkgver=0.2.7
-pkgrel=247
+pkgrel=252
 pkgdesc="CORS for WAI"
 url="https://github.com/larskuhtz/wai-cors"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-attoparsec" "haskell-base-unicode-symbols" "haskell-case-insensitive"
          "haskell-http-types" "haskell-wai")
 makedepends=('ghc')

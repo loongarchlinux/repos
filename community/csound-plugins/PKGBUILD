@@ -2,9 +2,9 @@
 
 pkgname=csound-plugins
 pkgver=1.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Extra opcodes for Csound"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://github.com/csound/plugins"
 license=('GPL')
 groups=('pro-audio')

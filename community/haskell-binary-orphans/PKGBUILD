@@ -4,11 +4,11 @@
 _hkgname=binary-orphans
 pkgname=haskell-binary-orphans
 pkgver=1.0.2
-pkgrel=31
+pkgrel=36
 pkgdesc="Orphan instances for binary"
 url="https://github.com/phadej/binary-orphans"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-onetuple')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-quickcheck' 'haskell-tagged')

@@ -7,7 +7,7 @@ pkgname=lib32-db
 pkgver=5.3.28
 pkgrel=5
 pkgdesc='The Berkeley DB embedded database system'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://www.oracle.com/technology/software/products/berkeley-db/index.html'
 license=('custom')
 depends=("db=${pkgver}" 'lib32-gcc-libs')

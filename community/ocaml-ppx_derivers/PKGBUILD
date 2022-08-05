@@ -7,7 +7,7 @@ pkgname="ocaml-$_projectname"
 pkgver=1.2.1
 pkgrel=8
 pkgdesc='Shared deriving plugin registry'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/ocaml-ppx/$_projectname"
 license=('BSD')
 depends=('ocaml>=4.13.1')

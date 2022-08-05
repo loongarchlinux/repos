@@ -4,11 +4,11 @@
 _hkgname=pipes
 pkgname=haskell-pipes
 pkgver=4.3.16
-pkgrel=68
+pkgrel=71
 pkgdesc="Compositional pipelines"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-mmorph' 'haskell-void')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-quickcheck2')

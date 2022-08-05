@@ -4,7 +4,7 @@
 pkgname=('minetest' 'minetest-server' 'minetest-common')
 pkgver=5.5.1
 pkgrel=1
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://www.minetest.net/'
 license=('LGPL')
 makedepends=('sqlite' 'freetype2' 'leveldb' 'postgresql' 'spatialindex' 'openal' 'libvorbis' 'curl'

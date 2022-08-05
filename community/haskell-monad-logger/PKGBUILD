@@ -4,11 +4,11 @@
 _hkgname=monad-logger
 pkgname=haskell-monad-logger
 pkgver=0.3.36
-pkgrel=218
+pkgrel=223
 pkgdesc="A class of monads which can log messages."
 url="https://github.com/snoyberg/monad-logger"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-fast-logger' 'haskell-lifted-base' 'haskell-monad-control' 'haskell-monad-loops'
          'haskell-resourcet' 'haskell-stm-chans'

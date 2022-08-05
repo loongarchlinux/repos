@@ -6,7 +6,7 @@ pkgrel=1
 pkgdesc="Simple Signed Certificate Generator"
 url="https://github.com/sgallagher/sscg"
 license=('GPL')
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 depends=(openssl popt talloc ding-libs)
 makedepends=(git help2man meson)
 source=(git+https://github.com/sgallagher/sscg.git?signed#tag=${pkgname}-${pkgver})

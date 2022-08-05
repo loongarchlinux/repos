@@ -3,11 +3,11 @@
 _hkgname=heapsize
 pkgname=haskell-heapsize
 pkgver=0.3.0.1
-pkgrel=127
+pkgrel=133
 pkgdesc="Determine the size of runtime data structures"
 url="https://github.com/pepeiborra/heapsize.git"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-hashtables' 'haskell-primitive'
          'haskell-unordered-containers')
 makedepends=('ghc')

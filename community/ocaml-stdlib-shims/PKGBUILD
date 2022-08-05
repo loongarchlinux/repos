@@ -6,7 +6,7 @@ pkgname="ocaml-$_projectname"
 pkgver=0.3.0
 pkgrel=4
 pkgdesc='Shim to substitute `Pervasives` with `Stdlib` before 4.08'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/ocaml/$_projectname"
 license=('custom:LGPL2.1 with linking exception')
 depends=('ocaml>=4.13.1')

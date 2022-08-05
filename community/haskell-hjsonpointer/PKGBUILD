@@ -4,11 +4,11 @@
 _hkgname=hjsonpointer
 pkgname=haskell-hjsonpointer
 pkgver=1.5.0
-pkgrel=304
+pkgrel=309
 pkgdesc="JSON Pointer library"
 url="https://github.com/haskell-foundation/foundation"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-hashable' 'haskell-unordered-containers'
          'haskell-vector')
 makedepends=('ghc' 'haskell-hspec' 'haskell-http-types' 'haskell-quickcheck')

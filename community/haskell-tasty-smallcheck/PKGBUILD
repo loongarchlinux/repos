@@ -3,11 +3,11 @@
 _hkgname=tasty-smallcheck
 pkgname=haskell-tasty-smallcheck
 pkgver=0.8.2
-pkgrel=309
+pkgrel=319
 pkgdesc="SmallCheck support for the Tasty test framework"
 url="https://github.com/feuerbach/tasty"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative' 'haskell-smallcheck' 'haskell-tagged'
          'haskell-tasty')
 makedepends=('ghc')

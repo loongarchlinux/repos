@@ -3,11 +3,11 @@
 _hkgname=hls-module-name-plugin
 pkgname=haskell-hls-module-name-plugin
 pkgver=1.0.0.1
-pkgrel=185
+pkgrel=202
 pkgdesc="Module name plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-module-name-plugin"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ghcide' 'haskell-hls-plugin-api' 'haskell-lsp'
          'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')

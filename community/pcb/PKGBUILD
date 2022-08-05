@@ -14,7 +14,7 @@ pkgrel=2
 pkgdesc='Interactive printed circuit board editor'
 url='http://pcb.geda-project.org/'
 license=('GPL')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('gtkglext' 'gd')
 optdepends=('tk: additional tools'
             'tcl: additional tools'

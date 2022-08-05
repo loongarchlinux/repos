@@ -3,11 +3,11 @@
 _hkgname=resolv
 pkgname=haskell-resolv
 pkgver=0.1.2.0
-pkgrel=151
+pkgrel=154
 pkgdesc="Domain Name Service (DNS) lookup via the libresolv standard library routines"
 url="https://github.com/hvr/resolv"
 license=('GPL')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base16-bytestring')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

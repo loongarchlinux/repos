@@ -3,11 +3,11 @@
 _hkgname=tostring
 pkgname=haskell-tostring
 pkgver=0.2.1.1
-pkgrel=21
+pkgrel=24
 pkgdesc="The ToString class"
 url="https://github.com/silkapp/tostring.git"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-utf8-string')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

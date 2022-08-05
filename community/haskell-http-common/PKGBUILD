@@ -3,11 +3,11 @@
 _hkgname=http-common
 pkgname=haskell-http-common
 pkgver=0.8.3.4
-pkgrel=64
+pkgrel=69
 pkgdesc="Common types for HTTP clients and servers"
 url="https://github.com/aesiniath/http-common"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-blaze-builder' 'haskell-case-insensitive'
          'haskell-network' 'haskell-random' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi')

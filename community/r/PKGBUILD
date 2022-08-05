@@ -5,9 +5,9 @@
 
 pkgname=r
 pkgver=4.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Language and environment for statistical computing and graphics'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(GPL)
 url='https://www.r-project.org/'
 depends=(lapack libtiff pcre2 perl libxmu pango zip unzip curl icu which)
@@ -47,6 +47,7 @@ build() {
                rdocdir=/usr/share/doc/R/ \
                --with-x \
                --enable-R-shlib \
+               --enable-memory-profiling \
                --with-lapack \
                --with-blas \
                F77=gfortran \

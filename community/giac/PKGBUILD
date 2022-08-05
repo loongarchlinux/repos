@@ -1,11 +1,11 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=giac
-_pkgver=1.9.0-11
+_pkgver=1.9.0-19
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc='A free computer algebra system'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url='http://www-fourier.ujf-grenoble.fr/~parisse/giac.html'
 license=(GPL3)
 depends=(fltk mpfi gsl pari ntl lapack curl glpk libao gmp-ecm libsamplerate)
@@ -15,7 +15,7 @@ replaces=(libgiac xcas)
 provides=(libgiac xcas)
 source=(http://www-fourier.ujf-grenoble.fr/~parisse/debian/dists/stable/main/source/${pkgname}_$_pkgver.tar.gz
         giac-test-pari-2.11.patch)
-sha256sums=('94d8b3255e1d53fc538e8b8deabe50ddad4d7819553908a8b54d9d0e04eca27f'
+sha256sums=('6bb7899de4008c48e65c3b7a472b32ae018abb54b6db2aea174cf34af8e583fe'
             'c5f091986f0a0807fc1ae5a3b7454132816e9bc3ed64411f0a7bdf90a8c8e624')
 
 prepare() {

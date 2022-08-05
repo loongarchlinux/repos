@@ -5,7 +5,7 @@ pkgname=libqtshadowsocks
 pkgver=2.1.0
 pkgrel=14
 pkgdesc="A lightweight library for shadowsocks"
-arch=("loongarch64" "x86_64")
+arch=("loong64" "x86_64")
 url="https://github.com/shadowsocks/libQtShadowsocks"
 license=("GPL")
 depends=('botan>=2.7.0' 'qt5-base')

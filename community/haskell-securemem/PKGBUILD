@@ -4,11 +4,11 @@
 _hkgname=securemem
 pkgname=haskell-securemem
 pkgver=0.1.10
-pkgrel=235
+pkgrel=238
 pkgdesc="abstraction to an auto scrubbing and const time eq, memory chunk."
 url="https://github.com/vincenthz/hs-securemem"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-byteable" "haskell-memory")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

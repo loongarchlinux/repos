@@ -3,11 +3,11 @@
 _hkgname=parameterized-utils
 pkgname=haskell-parameterized-utils
 pkgver=2.1.5.0
-pkgrel=45
+pkgrel=52
 pkgdesc="Classes and data structures for working with data-kind indexed types"
 url="https://github.com/GaloisInc/parameterized-utils"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-constraints' 'haskell-hashable'
          'haskell-hashtables' 'haskell-indexed-traversable' 'haskell-lens' 'haskell-profunctors'
          'haskell-th-abstraction' 'haskell-vector')

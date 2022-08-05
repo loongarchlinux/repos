@@ -4,11 +4,11 @@
 _hkgname=binary-parser
 pkgname=haskell-binary-parser
 pkgver=0.5.7.2
-pkgrel=13
+pkgrel=19
 pkgdesc="A highly-efficient but limited parser API specialised for bytestrings"
 url="https://github.com/nikita-volkov/binary-parser"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

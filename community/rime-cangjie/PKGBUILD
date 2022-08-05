@@ -5,7 +5,7 @@ pkgver=0.0.0.20210223
 _commit=8dfad9e537f18821b71ba28773315d9c670ae245
 pkgrel=1
 pkgdesc="Cangjie input for rime"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/rime/rime-cangjie"
 license=('LGPL')
 # dependency for reverse lookup

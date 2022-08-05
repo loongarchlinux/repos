@@ -5,7 +5,7 @@
 pkgname=python-gevent
 pkgver=21.12.0
 pkgrel=1
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 pkgdesc="Python network library that uses greenlet and libev for easy and scalable concurrency"
 license=("MIT")
 url="http://www.gevent.org/"

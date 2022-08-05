@@ -4,11 +4,11 @@
 _hkgname=trifecta
 pkgname=haskell-trifecta
 pkgver=2.1.2
-pkgrel=71
+pkgrel=77
 pkgdesc="A modern parser combinator library with convenient diagnostics"
 url="https://github.com/ekmett/trifecta"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-ansi-terminal" "haskell-blaze-builder" "haskell-blaze-html"
          "haskell-blaze-markup" "haskell-charset" "haskell-comonad" "haskell-fingertree"
          "haskell-hashable" 'haskell-indexed-traversable' "haskell-lens" "haskell-parsers"

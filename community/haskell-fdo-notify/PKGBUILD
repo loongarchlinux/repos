@@ -4,11 +4,11 @@
 _hkgname=fdo-notify
 pkgname=haskell-fdo-notify
 pkgver=0.3.1
-pkgrel=586
+pkgrel=592
 pkgdesc="Desktop Notifications client"
 url="https://bitbucket.org/taejo/fdo-notify/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-dbus")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

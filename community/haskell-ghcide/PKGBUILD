@@ -2,12 +2,12 @@
 
 _hkgname=ghcide
 pkgname=haskell-ghcide
-pkgver=1.4.2.0
-pkgrel=5
+pkgver=1.4.2.3
+pkgrel=9
 pkgdesc="The core of an IDE"
 url="https://github.com/haskell/haskell-language-server/tree/master/ghcide#readme"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson-pretty'
          'haskell-async' 'haskell-base16-bytestring' 'haskell-bytestring-encoding'
          'haskell-case-insensitive' 'haskell-cryptohash-sha1' 'haskell-data-default'
@@ -17,20 +17,20 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-glob' 'haskell-aeson' 'haskell-aeson
          'haskell-gitrev' 'haskell-haddock-library' 'haskell-hashable' 'haskell-heapsize'
          'haskell-hie-bios' 'haskell-hie-compat' 'haskell-hiedb' 'haskell-hls-graph'
          'haskell-hls-plugin-api' 'haskell-hslogger' 'haskell-implicit-hie-cradle' 'haskell-lens'
-         'haskell-lsp' 'haskell-lsp-test' 'haskell-lsp-types' 'haskell-network-uri'
-         'haskell-opentelemetry' 'haskell-optparse-applicative' 'haskell-parallel'
-         'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal' 'haskell-regex-tdfa'
-         'haskell-retrie' 'haskell-rope-utf16-splay' 'haskell-safe' 'haskell-safe-exceptions'
-         'haskell-sorted-list' 'haskell-sqlite-simple' 'haskell-syb' 'haskell-unliftio'
-         'haskell-unliftio-core' 'haskell-unordered-containers' 'haskell-utf8-string'
-         'haskell-vector')
+         'haskell-lsp' 'haskell-lsp-test' 'haskell-lsp-types' 'haskell-monoid-subclasses'
+         'haskell-network-uri' 'haskell-opentelemetry' 'haskell-optparse-applicative'
+         'haskell-parallel' 'haskell-prettyprinter' 'haskell-prettyprinter-ansi-terminal'
+         'haskell-regex-tdfa' 'haskell-retrie' 'haskell-rope-utf16-splay' 'haskell-safe'
+         'haskell-safe-exceptions' 'haskell-sorted-list' 'haskell-sqlite-simple' 'haskell-syb'
+         'haskell-unliftio' 'haskell-unliftio-core' 'haskell-unordered-containers'
+         'haskell-utf8-string' 'haskell-vector' 'haskell-vector-algorithms')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-ghc-typelits-knownnat'
              'haskell-implicit-hie' 'haskell-quickcheck-instances' 'haskell-record-dot-preprocessor'
              'haskell-record-hasfield' 'haskell-tasty' 'haskell-tasty-expected-failure'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-rerun')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('b9cbf69fd609de45d4b35507932f18a44c8290b5e7280bb21e9f343d8fa01e867ed426cc6abb3871e93fa9e22741c356d63b8a1be07d06c2d87a5154d83a64da')
+sha512sums=('f57bd36ef6df459271f182f68904c9b0f67e70333d9f6bf6bc29cd5cf430265083a2f53087072c420a678872a6844d6f5679b36906067104f158bfa100484fe2')
 
 prepare() {
   cd $_hkgname-$pkgver

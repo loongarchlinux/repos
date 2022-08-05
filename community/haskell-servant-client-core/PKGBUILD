@@ -3,11 +3,11 @@
 _hkgname=servant-client-core
 pkgname=haskell-servant-client-core
 pkgver=0.18.3
-pkgrel=99
+pkgrel=105
 pkgdesc="Core functionality and class for client function generation for servant APIs"
 url="http://docs.servant.dev/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat' 'haskell-base64-bytestring' 'haskell-free'
          'haskell-http-media' 'haskell-http-types' 'haskell-network-uri' 'haskell-safe'
          'haskell-servant' 'haskell-sop-core')

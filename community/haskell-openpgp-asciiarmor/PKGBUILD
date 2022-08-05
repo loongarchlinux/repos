@@ -3,11 +3,11 @@
 _hkgname=openpgp-asciiarmor
 pkgname=haskell-openpgp-asciiarmor
 pkgver=0.1.2
-pkgrel=187
+pkgrel=190
 pkgdesc="OpenPGP (RFC4880) ASCII Armor codec"
 url="http://floss.scru.org/openpgp-asciiarmor"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-base64-bytestring')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

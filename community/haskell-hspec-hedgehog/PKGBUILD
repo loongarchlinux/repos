@@ -4,11 +4,11 @@
 _hkgname=hspec-hedgehog
 pkgname=haskell-hspec-hedgehog
 pkgver=0.0.1.2
-pkgrel=175
+pkgrel=180
 pkgdesc="Integrate Hedgehog and Hspec!"
 url="https://github.com/parsonsmatt/hspec-hedgehog/"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hspec' 'haskell-hspec-core' 'haskell-hedgehog'
          'haskell-hunit' 'haskell-quickcheck' 'haskell-splitmix')
 makedepends=('ghc')

@@ -4,11 +4,11 @@
 _hkgname=Glob
 pkgname=haskell-glob
 pkgver=0.10.2
-pkgrel=40
+pkgrel=43
 pkgdesc="Globbing library"
 url="https://iki.fi/matti.niemenmaa/glob/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-transformers-compat')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')

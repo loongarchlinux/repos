@@ -5,9 +5,9 @@
 
 pkgname=tilix
 pkgver=1.9.5
-pkgrel=2
+pkgrel=3
 pkgdesc="A tiling terminal emulator for Linux using GTK+ 3"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/gnunn1/tilix"
 license=('MPL')
 depends=('libx11' 'gtkd' 'vte3' 'dconf' 'gsettings-desktop-schemas')

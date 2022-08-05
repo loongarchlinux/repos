@@ -5,7 +5,7 @@ pkgname=perl-dbd-pg
 pkgver=3.15.1
 pkgrel=1
 pkgdesc="Postgres Driver for DBI"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://search.cpan.org/dist/DBD-Pg"
 license=('GPL' 'PerlArtistic')
 depends=('perl-dbi>=1.52' 'postgresql-libs')

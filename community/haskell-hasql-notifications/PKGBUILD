@@ -3,11 +3,11 @@
 _hkgname=hasql-notifications
 pkgname=haskell-hasql-notifications
 pkgver=0.2.0.1
-pkgrel=8
+pkgrel=20
 pkgdesc="LISTEN/NOTIFY support for Hasql"
 url="https://github.com/diogob/hasql-notifications"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hasql' 'haskell-hasql-pool' 'haskell-postgresql-libpq')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec' 'pifpaf' 'postgresql')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

@@ -3,11 +3,11 @@
 _hkgname=ral
 pkgname=haskell-ral
 pkgver=0.2.1
-pkgrel=48
+pkgrel=53
 pkgdesc="Random access lists"
 url="https://github.com/phadej/vec"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-adjunctions' 'haskell-bin' 'haskell-boring'
          'haskell-distributive' 'haskell-fin' 'haskell-hashable' 'haskell-indexed-traversable'
          'haskell-semigroupoids')

@@ -8,7 +8,7 @@ pkgdesc='TCP connection hijacker, rust rewrite of shijack'
 url='https://github.com/kpcyrd/rshijack'
 depends=('gcc-libs')
 makedepends=('cargo')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL3')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)

@@ -3,11 +3,11 @@
 _hkgname=mersenne-random-pure64
 pkgname=haskell-mersenne-random-pure64
 pkgver=0.2.2.0
-pkgrel=129
+pkgrel=132
 pkgdesc="Generate high quality pseudorandom numbers purely using a Mersenne Twister"
 url="http://code.haskell.org/~dons/code/mersenne-random-pure64/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-random')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

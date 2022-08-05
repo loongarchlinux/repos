@@ -4,11 +4,11 @@
 _hkgname=foundation
 pkgname=haskell-foundation
 pkgver=0.0.28
-pkgrel=19
+pkgrel=22
 pkgdesc="Alternative prelude with batteries and no dependencies"
 url="https://github.com/haskell-foundation/foundation"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-basement')
 makedepends=('ghc' 'uusi' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

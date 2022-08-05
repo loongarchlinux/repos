@@ -4,11 +4,11 @@
 _hkgname=adjunctions
 pkgname=haskell-adjunctions
 pkgver=4.4.1
-pkgrel=13
+pkgrel=18
 pkgdesc="Adjunctions and representable functors"
 url="https://github.com/ekmett/adjunctions/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-comonad' 'haskell-contravariant' 'haskell-distributive' 'haskell-free'
          'haskell-profunctors' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-transformers-compat' 'haskell-void')

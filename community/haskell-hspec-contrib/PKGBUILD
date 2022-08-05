@@ -3,11 +3,11 @@
 _hkgname=hspec-contrib
 pkgname=haskell-hspec-contrib
 pkgver=0.5.1
-pkgrel=190
+pkgrel=193
 pkgdesc="Contributed functionality for Hspec"
 url="https://hspec.github.io/"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hspec-core' 'haskell-hunit')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

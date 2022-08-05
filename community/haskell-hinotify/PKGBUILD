@@ -4,11 +4,11 @@
 _hkgname=hinotify
 pkgname=haskell-hinotify
 pkgver=0.4.1
-pkgrel=121
+pkgrel=124
 pkgdesc="Haskell binding to inotify"
 url="https://github.com/kolmodin/hinotify"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-async")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

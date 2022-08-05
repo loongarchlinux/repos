@@ -4,11 +4,11 @@
 _hkgname=filelock
 pkgname=haskell-filelock
 pkgver=0.1.1.5
-pkgrel=142
+pkgrel=145
 pkgdesc="Portable interface to file locking (flock / LockFileEx)"
 url="https://github.com/takano-akio/filelock"
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-async')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

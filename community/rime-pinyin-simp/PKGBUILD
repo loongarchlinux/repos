@@ -5,7 +5,7 @@ pkgver=0.0.0.20210627
 _commit=b0e84cda02c613ebdedc127a26131b3800f45a8e
 pkgrel=1
 pkgdesc="Simple pinyin input for rime"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/rime/rime-pinyin-simp"
 license=('LGPL')
 # dependency for reverse lookup

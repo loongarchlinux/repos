@@ -3,11 +3,11 @@
 _hkgname=time-compat
 pkgname=haskell-time-compat
 pkgver=1.9.6.1
-pkgrel=47
+pkgrel=50
 pkgdesc="Compatibility package for time"
 url="https://github.com/phadej/time-compat"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-hashable')
 makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tagged'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

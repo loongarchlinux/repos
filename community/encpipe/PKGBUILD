@@ -5,7 +5,7 @@ pkgver=0.5
 pkgrel=2
 pkgdesc='Encrypt data from stdin to stdout with libhydrogen'
 url='https://github.com/jedisct1/encpipe'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('ISC')
 makedepends=('git')
 source=("git+https://github.com/jedisct1/${pkgname}.git#tag=${pkgver}"

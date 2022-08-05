@@ -3,11 +3,11 @@
 _hkgname=rio
 pkgname=haskell-rio
 pkgver=0.1.22.0
-pkgrel=16
+pkgrel=21
 pkgdesc="A standard library for Haskell"
 url="https://github.com/commercialhaskell/rio"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-microlens' 'haskell-microlens-mtl'
          'haskell-primitive' 'haskell-typed-process' 'haskell-unliftio' 'haskell-unliftio-core'
          'haskell-unordered-containers' 'haskell-vector')

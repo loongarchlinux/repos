@@ -3,11 +3,11 @@
 _hkgname=structured
 pkgname=haskell-structured
 pkgver=0.1.1
-pkgrel=67
+pkgrel=72
 pkgdesc="Structure (hash) of your data types"
 url="https://github.com/phadej/binary-tagged"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base16-bytestring' 'haskell-hashable'
          'haskell-scientific' 'haskell-tagged' 'haskell-time-compat' 'haskell-unordered-containers'
          'haskell-uuid-types' 'haskell-vector')

@@ -3,11 +3,11 @@
 _hkgname=th-extras
 pkgname=haskell-th-extras
 pkgver=0.0.0.6
-pkgrel=24
+pkgrel=27
 pkgdesc="A grab bag of functions for use with Template Haskell"
 url="https://github.com/mokus0/th-extras"
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-syb' 'haskell-th-abstraction')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

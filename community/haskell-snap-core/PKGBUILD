@@ -3,11 +3,11 @@
 _hkgname=snap-core
 pkgname=haskell-snap-core
 pkgver=1.0.5.0
-pkgrel=28
+pkgrel=33
 pkgdesc="A Haskell Web Framework (core interfaces and types)"
 url="https://github.com/snapframework/snap-core"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-old-locale' 'haskell-hunit' 'haskell-attoparsec'
          'haskell-case-insensitive' 'haskell-lifted-base' 'haskell-io-streams' 'haskell-hashable'
          'haskell-monad-control' 'haskell-random' 'haskell-readable' 'haskell-regex-posix'

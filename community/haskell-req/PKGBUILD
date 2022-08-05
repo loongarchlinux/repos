@@ -3,11 +3,11 @@
 _hkgname=req
 pkgname=haskell-req
 pkgver=3.9.1
-pkgrel=149
+pkgrel=155
 pkgdesc="HTTP client library"
 url="https://github.com/mrkkrp/req"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-authenticate-oauth' 'haskell-blaze-builder'
          'haskell-case-insensitive' 'haskell-connection' 'haskell-http-api-data'
          'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-types' 'haskell-modern-uri'

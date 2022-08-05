@@ -5,7 +5,7 @@ pkgname=sniffit
 pkgver=0.5
 pkgrel=2
 pkgdesc="Very good packet sniffer for unix with ncurses interactive mode"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://packages.ubuntu.com/source/sniffit"
 #seems the website are out, ubuntu have all sources
 #url=http://reptile.rug.ac.be/~coder/sniffit/sniffit.html"

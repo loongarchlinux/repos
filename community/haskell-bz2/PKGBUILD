@@ -3,11 +3,11 @@
 _hkgname=bz2
 pkgname=haskell-bz2
 pkgver=1.0.1.0
-pkgrel=164
+pkgrel=167
 pkgdesc="Bindings to libbz2"
 url="https://hub.darcs.net/vmchale/bz2"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'bzip2')
 makedepends=('ghc' 'c2hs' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

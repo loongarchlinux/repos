@@ -5,9 +5,9 @@
 
 pkgname=faust
 pkgver=2.41.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A functional programming language for realtime audio signal processing."
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://faust.grame.fr/"
 license=(GPL2)
 groups=(pro-audio)

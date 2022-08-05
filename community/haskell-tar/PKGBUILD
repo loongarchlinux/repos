@@ -4,11 +4,11 @@
 _hkgname=tar
 pkgname=haskell-tar
 pkgver=0.5.1.1
-pkgrel=122
+pkgrel=125
 pkgdesc="Reading, writing and manipulating \".tar\" archive files."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-bytestring-handle' 'haskell-quickcheck' 'haskell-tasty'
              'haskell-tasty-quickcheck')

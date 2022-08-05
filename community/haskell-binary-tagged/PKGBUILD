@@ -4,11 +4,11 @@
 _hkgname=binary-tagged
 pkgname=haskell-binary-tagged
 pkgver=0.3.1
-pkgrel=66
+pkgrel=71
 pkgdesc="Tagged binary serialisation."
 url="https://github.com/phadej/binary-tagged#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-structured' 'haskell-tagged')
 makedepends=('ghc' 'haskell-binary-instances' 'haskell-quickcheck' 'haskell-quickcheck-instances'
              'haskell-singleton-bool' 'haskell-tasty' 'haskell-tasty-hunit'

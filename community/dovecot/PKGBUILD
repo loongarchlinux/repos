@@ -18,7 +18,7 @@ pkgrel=1
 
 pkgdesc="An IMAP and POP3 server written with security primarily in mind"
 url="https://dovecot.org/"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=("LGPL")
 
 depends=('krb5' 'openssl' 'sqlite' 'mariadb-libs' 'libsodium'

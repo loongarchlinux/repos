@@ -4,11 +4,11 @@
 _hkgname=incremental-parser
 pkgname=haskell-incremental-parser
 pkgver=0.5.0.3
-pkgrel=32
+pkgrel=37
 pkgdesc="Generic parser library capable of providing partial results from partial input."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('GPL')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-input-parsers' 'haskell-monoid-subclasses' 'haskell-parsers'
          'haskell-rank2classes')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-checkers' 'haskell-tasty'

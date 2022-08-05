@@ -6,7 +6,7 @@ pkgname=endless-sky
 pkgver=0.9.14
 pkgrel=1
 pkgdesc="A sandbox-style space exploration and combat game"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://endless-sky.github.io/"
 # licenses obtained via following script:
 # grep "^License:" copyright | sed -e "s/License: //" -e "s/ /-/" | sort | uniq

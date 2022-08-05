@@ -3,11 +3,11 @@
 _hkgname=hls-haddock-comments-plugin
 pkgname=haskell-hls-haddock-comments-plugin
 pkgver=1.0.0.3
-pkgrel=185
+pkgrel=202
 pkgdesc="Haddock comments plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc' 'haskell-ghc-exactprint' 'haskell-ghcide' 'haskell-hls-plugin-api'
          'haskell-lsp-types' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')

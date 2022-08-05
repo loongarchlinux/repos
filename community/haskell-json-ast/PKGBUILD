@@ -3,11 +3,11 @@
 _hkgname=json-ast
 pkgname=haskell-json-ast
 pkgver=0.3.1
-pkgrel=227
+pkgrel=232
 pkgdesc="Universal JSON AST datastructure"
 url="https://github.com/nikita-volkov/json-ast"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-vector' 'haskell-scientific' 'haskell-unordered-containers')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

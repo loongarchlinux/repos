@@ -3,11 +3,11 @@
 _hkgname=network-simple
 pkgname=haskell-network-simple
 pkgver=0.4.5
-pkgrel=39
+pkgrel=42
 pkgdesc="Simple network sockets usage patterns."
 url="https://github.com/k0001/network-simple"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-network' 'haskell-network-bsd' 'haskell-safe-exceptions' 'haskell-socks')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

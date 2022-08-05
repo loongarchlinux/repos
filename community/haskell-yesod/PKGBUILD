@@ -4,11 +4,11 @@
 _hkgname=yesod
 pkgname=haskell-yesod
 pkgver=1.6.2
-pkgrel=66
+pkgrel=75
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-conduit' 'haskell-data-default-class'
          'haskell-fast-logger' 'haskell-file-embed' 'haskell-monad-logger' 'haskell-shakespeare'
          'haskell-streaming-commons' 'haskell-unordered-containers' 'haskell-wai'

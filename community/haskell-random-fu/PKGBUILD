@@ -3,11 +3,11 @@
 _hkgname=random-fu
 pkgname=haskell-random-fu
 pkgver=0.3.0.0
-pkgrel=23
+pkgrel=26
 pkgdesc="Random number generation"
 url="https://github.com/mokus0/random-fu"
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-erf' 'haskell-math-functions' 'haskell-monad-loops' 'haskell-random'
          'haskell-random-shuffle' 'haskell-rvar' 'haskell-syb' 'haskell-vector')
 makedepends=('ghc')

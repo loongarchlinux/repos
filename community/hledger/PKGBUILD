@@ -4,11 +4,11 @@
 
 pkgname=hledger
 pkgver=1.25
-pkgrel=59
+pkgrel=72
 pkgdesc="Command-line interface for the hledger accounting system"
 url="http://hledger.org"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
          'haskell-data-default' 'haskell-decimal' 'haskell-diff' 'haskell-githash'
          'haskell-hashable' 'haskell-hledger-lib' 'haskell-lucid' 'haskell-math-functions'

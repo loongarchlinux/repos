@@ -4,11 +4,11 @@
 _hkgname=yesod-persistent
 pkgname=haskell-yesod-persistent
 pkgver=1.6.0.8
-pkgrel=38
+pkgrel=47
 pkgdesc="Some helpers for using Persistent from Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-blaze-builder" "haskell-conduit" "haskell-persistent"
          "haskell-resource-pool" "haskell-resourcet" "haskell-yesod-core")
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-wai-extra' 'haskell-persistent-sqlite')

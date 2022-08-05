@@ -4,9 +4,9 @@
 
 pkgname=nrpe
 pkgver=4.0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Nagios Remote Plugin Executor"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL')
 depends=('openssl')
 optdepends=("monitoring-plugins: common tools for monitoring using $pkgname")

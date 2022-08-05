@@ -4,11 +4,11 @@
 _hkgname=wl-pprint-annotated
 pkgname=haskell-wl-pprint-annotated
 pkgver=0.1.0.1
-pkgrel=190
+pkgrel=193
 pkgdesc="Pretty printer with annotation support"
 url="https://github.com/minad/wl-pprint-annotated"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

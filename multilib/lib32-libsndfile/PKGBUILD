@@ -6,7 +6,7 @@ pkgname=lib32-$_name
 pkgver=1.1.0
 pkgrel=1
 pkgdesc="A C library for reading and writing files containing sampled audio data (32-bit)"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://libsndfile.github.io/libsndfile/"
 license=(LGPL2.1)
 depends=(lib32-opus $_name=$pkgver)

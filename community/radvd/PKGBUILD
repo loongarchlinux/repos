@@ -11,7 +11,7 @@ url='http://www.litech.org/radvd/'
 license=('custom')
 depends=('glibc')
 makedepends=('check')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 backup=('etc/radvd.conf')
 # for unknown reasons upstream has stopped signing the tarballs since version 2.19
 validpgpkeys=(

@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc='Run commands as super user or another user'
 url='https://github.com/Duncaen/OpenDoas'
 license=(custom:ISC)
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 
 depends=(pam)
 provides=(doas)

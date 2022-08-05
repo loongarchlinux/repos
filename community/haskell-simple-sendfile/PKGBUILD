@@ -4,11 +4,11 @@
 _hkgname=simple-sendfile
 pkgname=haskell-simple-sendfile
 pkgver=0.2.30
-pkgrel=288
+pkgrel=293
 pkgdesc="Cross platform library for the sendfile system call"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-network')
 makedepends=('ghc' 'haskell-hunit' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-resourcet'
              'haskell-hspec')

@@ -5,7 +5,7 @@ pkgver=0.3.4
 pkgrel=1
 pkgdesc='Open-source tools to disasm, debug, analyze and manipulate binary files'
 url='https://rizin.re'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL3' 'LGPL3')
 depends=(
   'sh' 'capstone' 'libcapstone.so' 'openssl' 'libzip' 'zlib' 'lz4' 'xxhash'

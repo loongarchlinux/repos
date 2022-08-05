@@ -4,7 +4,7 @@ pkgname=lib32-$_pkgbasename
 pkgver=1.22.1
 pkgrel=1
 pkgdesc="Userspace tools and conversion library for Video 4 Linux (32-bit)"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://linuxtv.org/"
 provides=("lib32-libv4l=$pkgver")
 replaces=('lib32-libv4l')

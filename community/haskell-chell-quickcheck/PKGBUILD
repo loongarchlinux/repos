@@ -3,11 +3,11 @@
 _hkgname=chell-quickcheck
 pkgname=haskell-chell-quickcheck
 pkgver=0.2.5.3
-pkgrel=29
+pkgrel=32
 pkgdesc="QuickCheck support for the Chell testing library"
 url="https://github.com/typeclasses/chell"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-chell' 'haskell-quickcheck' 'haskell-random')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

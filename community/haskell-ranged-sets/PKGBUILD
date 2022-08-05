@@ -3,11 +3,11 @@
 _hkgname=Ranged-sets
 pkgname=haskell-ranged-sets
 pkgver=0.4.0
-pkgrel=178
+pkgrel=181
 pkgdesc="Ranged sets for Haskell"
 url="https://code.haskell.org/ranged-sets"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hunit' 'haskell-quickcheck')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

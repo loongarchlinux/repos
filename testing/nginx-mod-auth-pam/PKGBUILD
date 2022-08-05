@@ -7,7 +7,7 @@ pkgrel=2
 _modname=ngx_http_auth_pam_module
 
 pkgdesc='Nginx module to use PAM for simple http authentication'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=("nginx" 'pam')
 makedepends=("nginx-src")
 url="https://github.com/sto/ngx_http_auth_pam_module"

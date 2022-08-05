@@ -6,10 +6,10 @@
 
 pkgname=(libvirt libvirt-storage-gluster libvirt-storage-iscsi-direct libvirt-storage-rbd)
 epoch=1
-pkgver=8.5.0
+pkgver=8.6.0
 pkgrel=1
 pkgdesc="API for controlling virtualization engines (openvz,kvm,qemu,virtualbox,xen,etc)"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://libvirt.org/"
 license=('LGPL' 'GPL3') #libvirt_parthelper links to libparted which is GPL3 only
 depends=('libpciaccess' 'yajl' 'fuse3' 'gnutls' 'parted' 'libssh' 'libxml2' 'numactl' 'polkit')
@@ -23,7 +23,7 @@ optdepends=('libvirt-storage-gluster: Gluster storage backend'
             'dmidecode: DMI system info support'
             'dnsmasq: required for default NAT/DHCP for guests'
             'radvd: IPv6 RAD support'
-            'ebtables: required for default NAT networking'
+            'iptables-nft: required for default NAT networking'
             'qemu-desktop: QEMU/KVM support'
             'qemu-emulators-full: Support of additional QEMU architectures'
             'lvm2: Logical Volume Manager support'
@@ -83,7 +83,7 @@ backup=(
 )
 options=(debug)
 source=("https://libvirt.org/sources/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('401e99b5e1b83de39a86347e091a85eb4dba82a87053dfcb5aa250328f97db62'
+sha256sums=('a81847c43ac9ade61b6f8447c44e8ba2cc544ab49bac5c0b18a5b105f5da3ae2'
             'SKIP')
 validpgpkeys=('453B65310595562855471199CA68BE8010084C9C') # Jiří Denemark <jdenemar@redhat.com>
 
@@ -93,6 +93,7 @@ prepare() {
   sed -i 's|/sysconfig/|/conf.d/|g' \
     src/remote/libvirtd.service.in \
     tools/{libvirt-guests.service,libvirt-guests.sh,virt-pki-validate}.in \
+    docs/manpages/libvirt-guests.rst \
     src/locking/virtlockd.service.in \
     src/logging/virtlogd.service.in
   sed -i 's|/usr/libexec/qemu-bridge-helper|/usr/lib/qemu/qemu-bridge-helper|g' \

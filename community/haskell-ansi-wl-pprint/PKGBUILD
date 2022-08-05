@@ -4,11 +4,11 @@
 _hkgname=ansi-wl-pprint
 pkgname=haskell-ansi-wl-pprint
 pkgver=0.6.9
-pkgrel=318
+pkgrel=324
 pkgdesc="The Wadler/Leijen Pretty Printer for colored ANSI terminal output"
 url="https://github.com/ekmett/ansi-wl-pprint"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

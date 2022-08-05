@@ -4,11 +4,11 @@
 _hkgname=hedgehog
 pkgname=haskell-hedgehog
 pkgver=1.1.1
-pkgrel=35
+pkgrel=42
 pkgdesc="A modern property-based testing system"
 url="https://hedgehog.qa"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-barbies'
          'haskell-concurrent-output' 'haskell-erf' 'haskell-lifted-async' 'haskell-mmorph'
          'haskell-monad-control' 'haskell-pretty-show' 'haskell-primitive' 'haskell-random'

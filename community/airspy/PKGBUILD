@@ -4,7 +4,7 @@ pkgname=airspy
 pkgver=1.0.10
 pkgrel=1
 pkgdesc="Host code for Airspy SDR."
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://www.airspy.com"
 license=('GPL2')
 depends=('libusb>=1.0')

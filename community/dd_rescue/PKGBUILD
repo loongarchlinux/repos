@@ -11,7 +11,7 @@ url="http://www.garloff.de/kurt/linux/ddrescue/"
 license=("GPL")
 depends=('openssl')
 optdepends=('lzo: for libddr_lzo')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 source=("http://www.garloff.de/kurt/linux/ddrescue/$pkgname-${pkgver}.tar.bz2"{,.asc})
 sha512sums=('e1d32711421ebbafd80fd210718667ff8c2d22b5349945105b3e4c29d54d381385b1fd188b2d8aa1b7a0aaf2cc9d8f7374373cff3992726a3d17549ca50f3904'
             'SKIP')

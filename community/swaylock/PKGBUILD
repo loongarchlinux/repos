@@ -3,7 +3,7 @@
 
 pkgname=swaylock
 pkgver=1.6
-pkgrel=1
+pkgrel=2
 license=("MIT")
 pkgdesc="Screen locker for Wayland"
 makedepends=(
@@ -19,7 +19,7 @@ depends=(
     'wayland'
     'gdk-pixbuf2'  # For images other than PNG
 )
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/swaywm/swaylock"
 options=(debug)
 backup=('etc/pam.d/swaylock')

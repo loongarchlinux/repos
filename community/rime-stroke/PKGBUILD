@@ -5,7 +5,7 @@ pkgver=0.0.0.20191221
 _commit=ea8576d1accd6fda339e96b415caadb56e2a07d1
 pkgrel=2
 pkgdesc="Stroke input for rime"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/rime/rime-stroke"
 license=('LGPL')
 # dependency for reverse lookup

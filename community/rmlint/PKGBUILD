@@ -8,7 +8,7 @@ pkgver=2.10.1
 pkgrel=3
 url="https://github.com/sahib/rmlint"
 license=('GPL3')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 makedepends=('scons' 'python-sphinx' 'gettext' 'sqlite' 'util-linux-libs'
              'binutils' 'json-glib' 'libelf' 'python-gobject' 'python-cairo'
              'dconf' 'gtksourceview3' 'librsvg' 'desktop-file-utils' 'python-requests')

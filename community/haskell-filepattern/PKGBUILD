@@ -3,11 +3,11 @@
 _hkgname=filepattern
 pkgname=haskell-filepattern
 pkgver=0.1.2
-pkgrel=209
+pkgrel=214
 pkgdesc="File path glob-like matching"
 url="https://github.com/ndmitchell/filepattern"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-extra')
 makedepends=('ghc' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

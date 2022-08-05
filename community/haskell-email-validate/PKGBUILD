@@ -4,11 +4,11 @@
 _hkgname=email-validate
 pkgname=haskell-email-validate
 pkgver=2.3.2.16
-pkgrel=15
+pkgrel=18
 pkgdesc="Validating an email address string against RFC 5322"
 url="http://porg.es/blog/email-address-validation-simpler-faster-more-correct"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-quickcheck' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

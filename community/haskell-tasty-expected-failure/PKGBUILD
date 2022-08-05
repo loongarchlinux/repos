@@ -4,11 +4,11 @@
 _hkgname=tasty-expected-failure
 pkgname=haskell-tasty-expected-failure
 pkgver=0.12.3
-pkgrel=200
+pkgrel=210
 pkgdesc="Mark tasty tests as failure expected"
 url="https://github.com/nomeata/tasty-expected-failure"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-tagged' 'haskell-tasty' 'haskell-unbounded-delays')
 makedepends=('ghc')
 checkdepends=('haskell-hedgehog' 'haskell-tasty-golden' 'haskell-tasty-hedgehog'

@@ -4,11 +4,11 @@
 _hkgname=random
 pkgname=haskell-random
 pkgver=1.2.1.1
-pkgrel=26
+pkgrel=34
 pkgdesc="Pseudo-random number generation"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-splitmix')
 makedepends=('ghc')
 checkdepends=('haskell-doctest' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'

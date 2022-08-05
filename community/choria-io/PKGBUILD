@@ -4,7 +4,7 @@ pkgname=choria-io
 pkgver=0.23.0
 pkgrel=1
 pkgdesc='Go based server to host Choria agents, networks, federations and discovery'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://choria.io'
 license=('Apache')
 depends=('glibc' 'logrotate' 'puppet>=6.0.0' 'facter')

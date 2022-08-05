@@ -4,8 +4,8 @@
 pkgdesc='Library to create Wayland desktop components using the Layer Shell protocol'
 pkgname=gtk-layer-shell
 pkgver=0.7.0
-pkgrel=2
-arch=(loongarch64 x86_64)
+pkgrel=3
+arch=(loong64 x86_64)
 license=(LGPL3)
 url="https://github.com/wmww/gtk-layer-shell"
 depends=(

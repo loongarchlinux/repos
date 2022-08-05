@@ -4,11 +4,11 @@
 _hkgname=js-jquery
 pkgname=haskell-js-jquery
 pkgver=3.3.1
-pkgrel=815
+pkgrel=820
 pkgdesc="Obtain minified jQuery code"
 url="https://github.com/ndmitchell/js-jquery#readme"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-http')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

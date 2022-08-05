@@ -4,11 +4,11 @@
 _hkgname=wai-conduit
 pkgname=haskell-wai-conduit
 pkgver=3.0.0.4
-pkgrel=429
+pkgrel=434
 pkgdesc="Conduit wrappers for WAI"
 url="https://github.com/yesodweb/wai"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-http-types' 'haskell-wai')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

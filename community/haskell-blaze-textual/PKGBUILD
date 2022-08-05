@@ -3,11 +3,11 @@
 _hkgname=blaze-textual
 pkgname=haskell-blaze-textual
 pkgver=0.2.2.1
-pkgrel=46
+pkgrel=49
 pkgdesc="Fast rendering of common datatypes"
 url="https://github.com/bos/blaze-textual"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-builder' 'haskell-old-locale' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-double-conversion' 'haskell-test-framework'
              'haskell-test-framework-quickcheck2')

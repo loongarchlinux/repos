@@ -4,11 +4,11 @@
 _hkgname=distributive
 pkgname=haskell-distributive
 pkgver=0.6.2.1
-pkgrel=152
+pkgrel=155
 pkgdesc="Distributive functors -- Dual to Traversable"
 url="https://github.com/ekmett/distributive/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-orphans' 'haskell-tagged')
 makedepends=('ghc')
 checkdepends=('haskell-generic-deriving' 'haskell-hspec' 'haskell-hspec-discover')

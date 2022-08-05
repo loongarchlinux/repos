@@ -3,9 +3,9 @@
 
 pkgname=systembus-notify
 pkgver=1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="System bus notification daemon"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/rfjakob/systembus-notify"
 license=('MIT')
 depends=('systemd')

@@ -3,11 +3,11 @@
 _hkgname=optics-extra
 pkgname=haskell-optics-extra
 pkgver=0.4.2.1
-pkgrel=10
+pkgrel=15
 pkgdesc="Extra utilities and instances for optics-core"
 url="https://github.com/well-typed/optics-extra"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-indexed-profunctors'
          'haskell-indexed-traversable-instances' 'haskell-optics-core'
          'haskell-unordered-containers' 'haskell-vector')

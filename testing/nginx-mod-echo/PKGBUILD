@@ -7,7 +7,7 @@ pkgrel=3
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='Nginx module that provides directives "echo", "sleep", "time" and more'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://github.com/openresty/echo-nginx-module"

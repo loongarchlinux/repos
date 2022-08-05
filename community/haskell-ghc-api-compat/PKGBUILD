@@ -8,7 +8,7 @@ pkgrel=6
 pkgdesc="GHC-API compatibility helpers"
 url="https://hackage.haskell.org/package/ghc-api-compat"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc')
 makedepends=('ghc' 'uusi')
 # https://gitlab.haskell.org/haskell/ghc-api-compat/-/issues/1

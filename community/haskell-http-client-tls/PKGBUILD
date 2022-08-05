@@ -4,11 +4,11 @@
 _hkgname=http-client-tls
 pkgname=haskell-http-client-tls
 pkgver=0.3.6.1
-pkgrel=27
+pkgrel=32
 pkgdesc="http-client backend using the connection package and tls library"
 url="https://github.com/snoyberg/http-client"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-case-insensitive" "haskell-connection" "haskell-cryptonite"
          "haskell-data-default-class" "haskell-http-client"
          "haskell-http-types" "haskell-memory" "haskell-network" "haskell-network-uri"

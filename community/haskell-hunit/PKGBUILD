@@ -4,11 +4,11 @@
 _hkgname=HUnit
 pkgname=haskell-hunit
 pkgver=1.6.2.0
-pkgrel=127
+pkgrel=133
 pkgdesc="A unit testing framework for Haskell"
 url="http://hunit.sourceforge.net/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-call-stack')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

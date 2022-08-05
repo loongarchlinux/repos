@@ -1,10 +1,10 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=nerdctl
-pkgver=0.21.0
+pkgver=0.22.0
 pkgrel=1
 pkgdesc='Docker-compatible CLI for containerd'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/containerd/nerdctl'
 license=('Apache')
 depends=('containerd')
@@ -16,7 +16,7 @@ optdepends=(
   'slirp4netns: for rootless mode'
 )
 options=('!lto')
-_commit='9ddf5226eabcbb7b4b43987f3b0f8d53d86d3bca'
+_commit='8e278e2aa61a89d4e50d1a534217f264bd1a5ddf'
 source=(
   "$pkgname::git+$url.git#commit=$_commit"
   'skip-failing-test.patch'

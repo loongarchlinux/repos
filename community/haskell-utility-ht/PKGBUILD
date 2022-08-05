@@ -4,11 +4,11 @@
 _hkgname=utility-ht
 pkgname=haskell-utility-ht
 pkgver=0.0.16
-pkgrel=76
+pkgrel=79
 pkgdesc="Various small helper functions for Lists, Maybes, Tuples, Functions"
 url="http://www.haskell.org/haskellwiki/Utility-HT"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-doctest-exitcode-stdio' 'haskell-doctest-lib')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

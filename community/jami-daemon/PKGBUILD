@@ -2,10 +2,10 @@
 # Contributor: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 
 pkgname=jami-daemon
-pkgver=20220511
-pkgrel=2
+pkgver=20220722
+pkgrel=1
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://jami.net"
 license=(GPL3)
 groups=(jami)
@@ -15,12 +15,12 @@ depends=(glibc opendht gnutls nettle libgit2 libsecp256k1 ffmpeg speexdsp
 # portaudio needs a not-yet-upstream patch https://git.jami.net/savoirfairelinux/jami-daemon/-/issues/650
 makedepends=(git cmake perl asio msgpack-c msgpack-cxx restinio systemd meson)
 checkdepends=(cppunit)
-_commit=35a0fcdeb8b4c14f21e8aea87fe4892c8566fef4
-_pjprojectver=e1f389d0b905011e0cb62cbdf7a8b37fc1bcde1a
+_commit=6f64b069a1c95a15b744d4044ad3d8032147439f
+_pjprojectver=4af5d666d18837abaac94c8ec6bfc84984dcf1e2
 source=(git+https://git.jami.net/savoirfairelinux/${pkgname}.git#commit=${_commit}
         https://github.com/savoirfairelinux/pjproject/archive/${_pjprojectver}/pjproject-${_pjprojectver}.tar.gz)
 noextract=(pjproject-${_pjprojectver}.tar.gz)
-sha512sums=(SKIP a1ed0519ddf8dc91f47042497530cbcb1c8736506d0c2b677751a3368c0a202952ff563946664705dbf5806bed8ade784885db62f8278a204f516a4e60917b1e)
+sha512sums=(SKIP 3113daca372c84beda1f9f9a1b73f02ba7d565bb1d40662cc30bf741ec0ffda4e7d69034521073ce12f80498c071166a67959531e39abb865ea8d1e48564677f)
 
 pkgver() {
   cd ${pkgname}

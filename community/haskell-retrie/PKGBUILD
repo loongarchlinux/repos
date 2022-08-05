@@ -3,11 +3,11 @@
 _hkgname=retrie
 pkgname=haskell-retrie
 pkgver=1.1.0.0
-pkgrel=53
+pkgrel=59
 pkgdesc="A powerful, easy-to-use codemodding tool for Haskell."
 url="https://github.com/facebookincubator/retrie"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-async' 'haskell-data-default'
          'haskell-ghc-exactprint' 'haskell-src-exts' 'haskell-list-t'
          'haskell-optparse-applicative' 'haskell-random-shuffle' 'haskell-syb'

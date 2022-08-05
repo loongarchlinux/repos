@@ -5,12 +5,13 @@
 # Contributor: Tobias Bohrmann (PlainTextField) <honeypot.carbage@aechelon.de>
 
 pkgname=tepl
-pkgver=6.1.1
+pkgver=6.0.2
 pkgrel=1
-_commit=a3538fdee2f3518541bfc4041286143e6c8e16de
+epoch=1
+_commit=52b2715293a8cb8c2be853686be0bc711cef6759
 pkgdesc="Library that eases the development of GtkSourceView-based text editors and IDEs"
 url="https://gitlab.gnome.org/swilmet/tepl"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(LGPL3)
 depends=(amtk
          gtksourceview4

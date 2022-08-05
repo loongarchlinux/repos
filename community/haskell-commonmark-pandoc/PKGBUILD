@@ -3,11 +3,11 @@
 _hkgname=commonmark-pandoc
 pkgname=haskell-commonmark-pandoc
 pkgver=0.2.1.2
-pkgrel=52
+pkgrel=60
 pkgdesc="Bridge between commonmark and pandoc AST"
 url="https://github.com/jgm/commonmark-hs"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-commonmark' 'haskell-commonmark-extensions' 'haskell-pandoc-types')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -4,11 +4,11 @@
 _hkgname=xml-conduit
 pkgname=haskell-xml-conduit
 pkgver=1.9.1.1
-pkgrel=119
+pkgrel=124
 pkgdesc="Pure-Haskell utilities for dealing with XML with the conduit package."
 url="https://github.com/snoyberg/xml"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-blaze-markup' 'haskell-conduit'
          'haskell-conduit-extra' 'haskell-data-default-class'
          'haskell-resourcet' 'haskell-blaze-html' 'haskell-xml-types')

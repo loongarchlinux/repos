@@ -5,11 +5,11 @@
 _hkgname=hledger-lib
 pkgname=haskell-hledger-lib
 pkgver=1.25
-pkgrel=38
+pkgrel=48
 pkgdesc="A reusable library providing the core functionality of hledger"
 url="http://hledger.org"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-terminal'
          'haskell-blaze-markup' 'haskell-call-stack' 'haskell-cassava' 'haskell-cassava-megaparsec'
          'haskell-cmdargs' 'haskell-data-default' 'haskell-decimal' 'haskell-doclayout'
@@ -24,7 +24,7 @@ sha512sums=('cab8a307b58785dacee0b3a76eb9b45dcbefb180a811bf6ab6f93fde9dcedd7c99c
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u megaparsec $_hkgname.cabal
+    uusi -u doclayout -u megaparsec $_hkgname.cabal
 }
 
 build() {

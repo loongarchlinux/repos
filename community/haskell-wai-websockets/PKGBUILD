@@ -4,11 +4,11 @@
 _hkgname=wai-websockets
 pkgname=haskell-wai-websockets
 pkgver=3.0.1.2
-pkgrel=354
+pkgrel=359
 pkgdesc="Provide a bridge between WAI and the websockets package."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-http-types' 'haskell-network' 'haskell-wai'
          'haskell-websockets')
 makedepends=('ghc')

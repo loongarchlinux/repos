@@ -4,11 +4,11 @@
 _hkgname=quickcheck-assertions
 pkgname=haskell-quickcheck-assertions
 pkgver=0.3.0
-pkgrel=231
+pkgrel=234
 pkgdesc="HUnit like assertions for QuickCheck"
 url="https://github.com/s9gf4ult/quickcheck-assertions"
 license=("LGPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-ieee754' 'haskell-pretty-show')
 makedepends=('ghc' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

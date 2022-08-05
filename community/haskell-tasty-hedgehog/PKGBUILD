@@ -3,11 +3,11 @@
 _hkgname=tasty-hedgehog
 pkgname=haskell-tasty-hedgehog
 pkgver=1.2.0.0
-pkgrel=38
+pkgrel=47
 pkgdesc="Integration for tasty and hedgehog"
 url="https://github.com/qfpl/tasty-hedgehog"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hedgehog' 'haskell-tagged' 'haskell-tasty')
 makedepends=('ghc')
 checkdepends=('haskell-tasty-expected-failure')

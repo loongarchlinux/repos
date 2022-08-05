@@ -4,11 +4,11 @@
 _hkgname=test-framework-smallcheck
 pkgname=haskell-test-framework-smallcheck
 pkgver=0.2
-pkgrel=206
+pkgrel=209
 pkgdesc="SmallCheck support for the test-framework package"
 url="https://github.com/feuerbach/smallcheck"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-test-framework' 'haskell-smallcheck')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

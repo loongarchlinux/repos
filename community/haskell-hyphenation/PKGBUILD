@@ -3,11 +3,11 @@
 _hkgname=hyphenation
 pkgname=haskell-hyphenation
 pkgver=0.8.2
-pkgrel=71
+pkgrel=76
 pkgdesc="Configurable Knuth-Liang hyphenation"
 url="https://github.com/ekmett/hyphenation"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-file-embed' 'haskell-unordered-containers' 'haskell-zlib')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

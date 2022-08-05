@@ -4,11 +4,11 @@
 _hkgname=tagsoup
 pkgname=haskell-tagsoup
 pkgver=0.14.8
-pkgrel=176
+pkgrel=179
 pkgdesc="Parsing and extracting information from (possibly malformed) HTML/XML documents"
 url="http://community.haskell.org/~ndm/tagsoup/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

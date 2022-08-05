@@ -4,11 +4,11 @@
 _hkgname=hspec-wai
 pkgname=haskell-hspec-wai
 pkgver=0.11.1
-pkgrel=240
+pkgrel=245
 pkgdesc="Experimental Hspec support for testing WAI applications"
 url="https://github.com/hspec/hspec-wai"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-base-compat' 'haskell-case-insensitive'
          'haskell-hspec' 'haskell-hspec-core' 'haskell-hspec-expectations' 'haskell-http-types'
          'haskell-wai' 'haskell-wai-extra')

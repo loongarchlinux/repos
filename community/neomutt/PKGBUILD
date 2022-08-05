@@ -10,7 +10,7 @@ pkgrel=1
 pkgdesc='A version of mutt with added features'
 url='https://neomutt.org/'
 license=('GPL')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('glibc' 'gpgme' 'lua53' 'notmuch-runtime' 'krb5' 'gnutls' 'sqlite'
          'libsasl' 'ncurses' 'libidn2' 'lmdb' 'gdbm' 'kyotocabinet'
          'lz4' 'zlib' 'zstd' 'db')

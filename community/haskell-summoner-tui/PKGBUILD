@@ -4,11 +4,11 @@
 _hkgname=summoner-tui
 pkgname=haskell-summoner-tui
 pkgver=2.0.1.1
-pkgrel=366
+pkgrel=377
 pkgdesc="Tool for scaffolding fully configured batteries-included production-level Haskell projects using TUI."
 url="https://github.com/kowainik/summoner"
 license=('MPL2')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-brick' 'haskell-colourista' 'haskell-microlens' 'haskell-microlens-th'
          'haskell-relude' 'haskell-summoner' 'haskell-validation-selective' 'haskell-vty')
 makedepends=('ghc' 'uusi')

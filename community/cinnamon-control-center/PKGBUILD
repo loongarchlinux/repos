@@ -6,10 +6,10 @@
 # Jan de Groot <jgc@archlinux.org>
 
 pkgname=cinnamon-control-center
-pkgver=5.4.2
+pkgver=5.4.4
 pkgrel=1
 pkgdesc="The Control Center for Cinnamon"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://github.com/linuxmint/${pkgname}"
 license=(GPL)
 depends=(cinnamon-settings-daemon cinnamon-menus colord
@@ -20,8 +20,8 @@ optdepends=('cinnamon-translations: i18n'
 makedepends=(meson samurai gnome-online-accounts)
 options=(!emptydirs)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('a2ca00bf5781649a6a95a06e920494c0527fd098f497bf1a2c2d31af4fc7824f')
-b2sums=('9b6b60765366c2905f2a3250ecd090e7e54fdc015b34b11b38a53eac8bbd896b05b5b30e07a1ca8f3c47b01d86271cf9574b21598dc98f514b9c1739d31e429f')
+sha256sums=('b2078902eef73090fd827321202eddb79500d444550b6694be536640620a8eb1')
+b2sums=('ba3058766f664fe3f92a376684528476349a4c4ba476eee96e80a1d777b20cd52e136c09024273e8d4935dc4bcd5dd420ce69042750d4e648c173e57237eae3f')
 
 build() {
   mkdir -p build

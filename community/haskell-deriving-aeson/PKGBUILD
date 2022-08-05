@@ -3,11 +3,11 @@
 _hkgname=deriving-aeson
 pkgname=haskell-deriving-aeson
 pkgver=0.2.8
-pkgrel=65
+pkgrel=70
 pkgdesc="Type driven generic aeson instance customisation"
 url="https://github.com/fumieval/deriving-aeson.git"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

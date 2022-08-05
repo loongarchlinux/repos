@@ -3,9 +3,9 @@
 _name=Tidal
 pkgname=haskell-tidal
 pkgver=1.8.0
-pkgrel=12
+pkgrel=15
 pkgdesc="A domain specific language for live coding pattern."
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://tidalcycles.org/"
 license=(GPL3)
 groups=(pro-audio)

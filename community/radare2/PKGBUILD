@@ -6,7 +6,7 @@ pkgver=5.6.6
 pkgrel=3
 pkgdesc='Open-source tools to disasm, debug, analyze and manipulate binary files'
 url='https://radare.org'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL3' 'LGPL3')
 depends=('sh' 'capstone' 'libcapstone.so' 'openssl' 'libzip' 'zlib'
          'lz4' 'xxhash' 'libxxhash.so' 'file' 'libuv' 'tree-sitter'

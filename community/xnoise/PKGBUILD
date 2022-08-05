@@ -5,7 +5,7 @@ pkgname=xnoise
 pkgver=0.2.21
 pkgrel=5
 pkgdesc="Media player with a slick GUI, great speed and lots of features."
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="http://www.xnoise-media-player.com/"
 license=('GPL2')
 depends=('desktop-file-utils' 'gst-plugins-base-libs' 'gst-plugins-good' 'gtk3' 'libsoup' 'sqlite' 'libtaginfo>=0.2' 'librsvg')

@@ -3,11 +3,11 @@
 _hkgname=nanospec
 pkgname=haskell-nanospec
 pkgver=0.2.2
-pkgrel=276
+pkgrel=281
 pkgdesc="A lightweight implementation of a subset of Hspec's API"
 url="https://github.com/commercialhaskell/nanospec"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-silently')

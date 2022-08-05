@@ -8,7 +8,7 @@ pkgbase=zeroc-ice
 pkgver=3.7.7
 pkgrel=1
 pkgdesc="An object-oriented middleware that provides RPC functionality"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://zeroc.com"
 license=('GPL' 'custom:ice')
 makedepends=('java-environment=11') # 'gradle' currently not compatible

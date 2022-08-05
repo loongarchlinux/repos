@@ -4,11 +4,11 @@
 _hkgname=Diff
 pkgname=haskell-diff
 pkgver=0.4.1
-pkgrel=25
+pkgrel=28
 pkgdesc="O(ND) diff algorithm in haskell"
 url="http://github.com/seereason/Diff"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

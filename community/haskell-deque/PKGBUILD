@@ -3,11 +3,11 @@
 _hkgname=deque
 pkgname=haskell-deque
 pkgver=0.4.4
-pkgrel=81
+pkgrel=87
 pkgdesc="Double-ended queues"
 url="https://github.com/nikita-volkov/deque"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-strict-list')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')

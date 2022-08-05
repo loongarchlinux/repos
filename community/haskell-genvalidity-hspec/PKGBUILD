@@ -3,11 +3,11 @@
 _hkgname=genvalidity-hspec
 pkgname=haskell-genvalidity-hspec
 pkgver=1.0.0.0
-pkgrel=37
+pkgrel=41
 pkgdesc="Standard spec's for GenValidity instances"
 url="https://github.com/NorfairKing/validity"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-genvalidity' 'haskell-genvalidity-property' 'haskell-hspec'
          'haskell-hspec-core' 'haskell-quickcheck' 'haskell-validity')
 makedepends=('ghc' 'uusi')

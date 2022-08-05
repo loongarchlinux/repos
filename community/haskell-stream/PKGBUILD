@@ -3,11 +3,11 @@
 _hkgname=Stream
 pkgname=haskell-stream
 pkgver=0.4.7.2
-pkgrel=76
+pkgrel=79
 pkgdesc="A library for manipulating infinite lists."
 url="https://hackage.haskell.org/package/Stream"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-lazysmallcheck')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

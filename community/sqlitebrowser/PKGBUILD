@@ -10,7 +10,7 @@ pkgver=3.12.2
 pkgrel=2
 pkgdesc='SQLite Database browser is a light GUI editor for SQLite databases, built on top of Qt'
 url='https://sqlitebrowser.org/'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(GPL3)
 depends=(
   qt5-base hicolor-icon-theme sqlcipher qcustomplot qhexedit2 qscintilla-qt5

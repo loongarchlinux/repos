@@ -3,11 +3,11 @@
 _hkgname=test-framework-leancheck
 pkgname=haskell-test-framework-leancheck
 pkgver=0.0.4
-pkgrel=56
+pkgrel=59
 pkgdesc="LeanCheck support for test-framework"
 url="https://github.com/rudymatela/test-framework-leancheck"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-leancheck' 'haskell-test-framework')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -3,11 +3,11 @@
 _hkgname=lsp
 pkgname=haskell-lsp
 pkgver=1.2.0.1
-pkgrel=103
+pkgrel=109
 pkgdesc="Haskell library for the Microsoft Language Server Protocol"
 url="https://github.com/haskell/lsp"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-async' 'haskell-attoparsec' 'haskell-data-default'
          'haskell-dependent-map' 'haskell-hashable' 'haskell-hslogger'
          'haskell-lens' 'haskell-lsp-types' 'haskell-network-uri' 'haskell-random'

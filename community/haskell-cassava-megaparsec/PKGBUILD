@@ -3,11 +3,11 @@
 _hkgname=cassava-megaparsec
 pkgname=haskell-cassava-megaparsec
 pkgver=2.0.4
-pkgrel=43
+pkgrel=49
 pkgdesc="Megaparsec parser of CSV files that plays nicely with Cassava"
 url="https://github.com/stackbuilders/cassava-megaparsec"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-cassava' 'haskell-megaparsec' 'haskell-unordered-containers'
          'haskell-vector')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-megaparsec')

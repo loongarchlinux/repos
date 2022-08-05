@@ -4,11 +4,11 @@
 _hkgname=language-python
 pkgname=haskell-language-python
 pkgver=0.5.8
-pkgrel=105
+pkgrel=108
 pkgdesc="Parsing and pretty printing of Python code."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-monads-tf' 'haskell-utf8-string')
 makedepends=('happy' 'alex' 'ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

@@ -4,11 +4,11 @@
 _hkgname=microlens-platform
 pkgname=haskell-microlens-platform
 pkgver=0.4.2.1
-pkgrel=41
+pkgrel=46
 pkgdesc="microlens + all batteries included (best for apps)"
 url="https://github.com/monadfix/microlens"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-hashable" "haskell-microlens" "haskell-microlens-ghc"
          "haskell-microlens-mtl" "haskell-microlens-th"
          "haskell-unordered-containers" "haskell-vector")

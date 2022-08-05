@@ -4,11 +4,11 @@
 _hkgname=text-short
 pkgname=haskell-text-short
 pkgver=0.1.5
-pkgrel=29
+pkgrel=32
 pkgdesc="Memory-efficient representation of Unicode text strings"
 url="https://github.com/hvr/text-short"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

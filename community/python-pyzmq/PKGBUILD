@@ -1,9 +1,9 @@
 # Maintainer: Kyle Keen <keenerd at gmail dot com>
 pkgname=python-pyzmq
 pkgver=23.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python3 bindings for zeromq, written in Cython"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="http://www.zeromq.org/bindings:python"
 license=('LGPL')
 depends=('zeromq' 'python')

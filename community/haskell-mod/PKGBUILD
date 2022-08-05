@@ -3,11 +3,11 @@
 _hkgname=mod
 pkgname=haskell-mod
 pkgver=0.1.2.2
-pkgrel=88
+pkgrel=93
 pkgdesc="Fast type-safe modular arithmetic"
 url="https://github.com/Bodigrim/mod"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-semirings' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck-classes' 'haskell-quickcheck-classes-base' 'haskell-tasty'
              'haskell-tasty-quickcheck')

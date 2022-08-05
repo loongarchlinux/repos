@@ -2,19 +2,19 @@
 # Maintainer: kpcyrd <git@rxv.cc>
 
 pkgname=cross
-pkgver=0.2.2
+pkgver=0.2.4
 pkgrel=1
 pkgdesc="'Zero setup' cross compilation and 'cross testing' of Rust crates"
 url="https://github.com/rust-embedded/cross"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('Apache' 'MIT')
 depends=('gcc-libs')
 makedepends=('rust')
 optdepends=('docker: provide container'
             'podman: provide container')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/rust-embedded/cross/archive/v${pkgver}.tar.gz")
-sha256sums=('a338090e5b2004ae5ea0620d57b8f46446da7ae62782c1a4173bcc696ef774f0')
-b2sums=('b0e4d1edfef1b6949cc43fecb2625be92ae54ec982a3d583c25e676f68d6dfa48a6e46780129c6923fb92325563767c603a7d0056f170447ed07b052c9aa7778')
+sha256sums=('ad07c95b2e873f260661478670fb7ebc84ae9b8227ee509b905c28f6ed418477')
+b2sums=('acb2dd5db104b4d02c2f98ec64761c936a0f873429220da6d60092e03e68fcd4a9ec528de7d4755b73269f71786577a49663dfb6a3bfe395f8d79d9bacc721aa')
 
 build() {
   cd ${pkgname}-${pkgver}

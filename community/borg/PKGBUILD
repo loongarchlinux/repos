@@ -9,7 +9,7 @@ pkgrel=1
 pkgdesc='Deduplicating backup program with compression and authenticated encryption'
 url='https://borgbackup.github.io/'
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('acl' 'lz4' 'openssl' 'xz' 'zstd' 'python' 'python-packaging'
          'python-msgpack')
 optdepends=('openssh: repositories on remote hosts'

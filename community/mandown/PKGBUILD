@@ -3,7 +3,7 @@
 pkgname=mandown
 pkgver=0.1.2
 pkgrel=1
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=('Apache')
 url="https://gitlab.com/kornelski/mandown"
 pkgdesc="Create man pages from markdown markup"

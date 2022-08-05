@@ -3,11 +3,11 @@
 _hkgname=quickcheck-classes-base
 pkgname=haskell-quickcheck-classes-base
 pkgver=0.6.2.0
-pkgrel=155
+pkgrel=162
 pkgdesc="QuickCheck common typeclasses from 'base'"
 url="https://github.com/andrewthad/quickcheck-classes"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

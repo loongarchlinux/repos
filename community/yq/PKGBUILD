@@ -4,7 +4,7 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=yq
-pkgver=2.14.0
+pkgver=3.1.0
 pkgrel=1
 pkgdesc="Command-line YAML, XML, TOML processor - jq wrapper for YAML/XML/TOML documents"
 arch=('any')
@@ -15,20 +15,15 @@ depends=('jq'
          'python-toml'
          'python-xmltodict'
          'python-yaml')
-makedepends=('python-setuptools-scm')
+makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 conflicts=('go-yq')
 source=("https://files.pythonhosted.org/packages/source/y/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('f4bf2b299d1e5c7ebd74cfb25d1f5d9b6401063bac07a2d09a156144c1d644e1')
-b2sums=('07e200524390e938705854c5d1ac4921fbc8f165cdbf8152e36124e52a1c51c70d6d711b67a3dac8c2bbf1f75040466e8d94505aa5f19e388a31bbcdc92e91bd')
-
-prepare() {
-  cd $pkgname-$pkgver
-  sed -i '/"setuptools",/d' setup.py
-}
+sha256sums=('30a84aa22486c749ba269256bd586c0bcd370b7e2a71e76c3924ead4867e74f2')
+b2sums=('9ebeec400462788613b256a29c9706f4d6a06ced8a86b72ce6128cea6bdf258a62ff18b643cea00d5170f68af798d28af324b3908fc3fdea83329bc5feaa5539')
 
 build() {
   cd $pkgname-$pkgver
-  python setup.py build
+  python -m build -wn
 }
 
 check() {
@@ -38,5 +33,5 @@ check() {
 
 package() {
   cd $pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer -d "$pkgdir" dist/*.whl
 }

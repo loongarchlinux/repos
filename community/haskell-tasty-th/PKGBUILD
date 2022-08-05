@@ -4,11 +4,11 @@
 _hkgname=tasty-th
 pkgname=haskell-tasty-th
 pkgver=0.1.7
-pkgrel=266
+pkgrel=269
 pkgdesc="Automatic tasty test case discovery using TH"
 url="https://github.com/bennofs/tasty-th"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-src-exts' 'haskell-tasty')
 makedepends=('ghc' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

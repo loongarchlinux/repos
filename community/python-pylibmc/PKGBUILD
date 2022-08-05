@@ -6,7 +6,7 @@ pkgrel=7
 
 pkgdesc='Quick and small memcached client for Python'
 url='https://pypi.python.org/pypi/pylibmc'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL')
 
 depends=('libmemcached' 'python')

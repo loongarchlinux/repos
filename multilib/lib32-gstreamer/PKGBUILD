@@ -7,7 +7,7 @@ pkgver=1.20.3
 pkgrel=1
 pkgdesc="GStreamer open-source multimedia framework core library (32-bit)"
 url="https://gstreamer.freedesktop.org/"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(LGPL)
 makedepends=(meson git wayland-protocols lib32-glib2 lib32-libunwind lib32-gtk3 lib32-libelf
              lib32-alsa-lib lib32-cdparanoia lib32-libtheora lib32-libvisual lib32-libxv lib32-opus lib32-orc lib32-pango lib32-sdl2

@@ -3,11 +3,11 @@
 _hkgname=opentelemetry
 pkgname=haskell-opentelemetry
 pkgver=0.7.0
-pkgrel=63
+pkgrel=66
 pkgdesc="The OpenTelemetry Haskell Client"
 url="https://github.com/ethercrow/opentelemetry-haskell"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-ghc-trace-events' 'haskell-hashable')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

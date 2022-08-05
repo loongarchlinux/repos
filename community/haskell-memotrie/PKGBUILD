@@ -3,11 +3,11 @@
 _hkgname=MemoTrie
 pkgname=haskell-memotrie
 pkgver=0.6.10
-pkgrel=168
+pkgrel=171
 pkgdesc="Trie-based memo functions"
 url="https://github.com/conal/MemoTrie"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-newtype-generics')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

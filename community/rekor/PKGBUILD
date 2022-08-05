@@ -2,16 +2,16 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=rekor
-pkgver=0.8.2
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="Signature Transparency Log -- Sigstore client and server tools"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/sigstore/rekor"
 license=('Apache')
 makedepends=('go' 'git')
 checkdepends=('openssh')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/sigstore/rekor/archive/v${pkgver}.tar.gz")
-sha256sums=('2463c66dc36b38fbcf98a64e4a6d542a4a27b63839ede592b6d5a4850ae0a373')
+sha256sums=('90e6ed3cb3a5b36b83b7487d776af53847862eb6358e0024138a23ed35d818c7')
 
 build() {
   cd "${pkgname}-${pkgver}"

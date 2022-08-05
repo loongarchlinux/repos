@@ -4,11 +4,11 @@
 _hkgname=yesod-auth
 pkgname=haskell-yesod-auth
 pkgver=1.6.10.5
-pkgrel=48
+pkgrel=57
 pkgdesc="Authentication for Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-authenticate' 'haskell-base16-bytestring'
          'haskell-base64-bytestring' 'haskell-blaze-builder' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'

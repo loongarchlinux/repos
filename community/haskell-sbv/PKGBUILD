@@ -4,11 +4,11 @@
 _hkgname=sbv
 pkgname=haskell-sbv
 pkgver=8.17
-pkgrel=27
+pkgrel=32
 pkgdesc="SMT Based Verification: Symbolic Haskell theorem prover using SMT solving"
 url="https://leventerkok.github.io/sbv"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-async' 'haskell-libbf' 'haskell-random'
          'haskell-syb' 'haskell-uniplate')
 makedepends=('ghc' 'haskell-doctest' 'haskell-glob' 'hlint' 'haskell-tasty' 'haskell-tasty-golden'

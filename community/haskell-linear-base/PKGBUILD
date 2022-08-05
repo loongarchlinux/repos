@@ -3,11 +3,11 @@
 _hkgname=linear-base
 pkgname=haskell-linear-base
 pkgver=0.1.0
-pkgrel=83
+pkgrel=88
 pkgdesc="Standard library for linear types"
 url="https://github.com/tweag/linear-base"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-primitive' 'haskell-storable-tuple'
          'haskell-vector')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-hedgehog' 'haskell-mmorph' 'haskell-tasty'

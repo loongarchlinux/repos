@@ -5,9 +5,9 @@
 
 pkgname=pam-krb5
 pkgver=4.11
-pkgrel=1
+pkgrel=2
 pkgdesc="PAM module providing Kerberos v5 support"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://www.eyrie.org/~eagle/software/pam-krb5/"
 license=('custom')
 depends=('krb5' 'pam')

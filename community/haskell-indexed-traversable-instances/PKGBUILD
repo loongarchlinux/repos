@@ -3,11 +3,11 @@
 _hkgname=indexed-traversable-instances
 pkgname=haskell-indexed-traversable-instances
 pkgver=0.1.1
-pkgrel=34
+pkgrel=39
 pkgdesc="More instances of FunctorWithIndex, FoldableWithIndex, TraversableWithIndex"
 url="https://github.com/haskellari/indexed-traversable"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-indexed-traversable' 'haskell-onetuple' 'haskell-tagged'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'

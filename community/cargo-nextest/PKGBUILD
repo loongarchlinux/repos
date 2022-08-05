@@ -2,17 +2,17 @@
 # Contributor: KokaKiwi <kokakiwi+aur at kokakiwi dot net>
 
 pkgname=cargo-nextest
-pkgver=0.9.23
+pkgver=0.9.33
 pkgrel=1
 pkgdesc="A next-generation test runner for Rust."
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/nextest-rs/nextest"
 license=('Apache' 'MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/cargo-nextest-$pkgver.tar.gz")
-sha256sums=('955369402febff493326080f1ef423f07f9d2fc1abbe0f52793c1a6f2a4b73af')
-b2sums=('a6e24899241708a770a30a94a0df539b282255f744840ed910af2fde90b40a4e60976bc641eafc71e989549571c31a12aeeabc094abea3c777498b778e13a0f8')
+sha256sums=('f75c53b4df3c72ae5a89e75c15d571645ee6719d86bb1171d64d0281eb71361f')
+b2sums=('f92c88819c0a8e5ef9f2125d8b6b5daa9d96993b6bd631c4e36049be4ea171b3ff8eb73a287857532e978ee9f40bb9a5301ce9ebe804349df599b1b7645fa39a')
 options=('!lto')
 
 prepare() {
@@ -23,6 +23,8 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  export RUSTC_BOOTSTRAP=1
+  export RUSTFLAGS+='--cfg process_group --cfg process_group_bootstrap_hack'
   cargo build --release --frozen --package "$pkgname" --no-default-features --features default-no-update
 }
 

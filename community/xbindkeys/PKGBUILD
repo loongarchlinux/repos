@@ -6,9 +6,9 @@
 
 pkgname=xbindkeys
 pkgver=1.8.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Launch shell commands with your keyboard or your mouse under X"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://www.nongnu.org/xbindkeys/xbindkeys.html"
 license=('GPL')
 depends=('libx11' 'guile')

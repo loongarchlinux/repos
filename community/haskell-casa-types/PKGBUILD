@@ -3,11 +3,11 @@
 _hkgname=casa-types
 pkgname=haskell-casa-types
 pkgver=0.0.2
-pkgrel=259
+pkgrel=266
 pkgdesc="Content Addressable Storage Archive types"
 url="https://github.com/fpco/casa"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base16-bytestring'
          'haskell-hashable' 'haskell-path-pieces' 'haskell-persistent')
 makedepends=('ghc' 'uusi')

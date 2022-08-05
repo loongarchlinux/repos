@@ -13,7 +13,7 @@ pkgver=2.8.2
 pkgrel=4
 url="https://github.com/${_pkgname}/${_pkgname}"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 makedepends=(
     'python-setuptools'
     'python-sphinx'

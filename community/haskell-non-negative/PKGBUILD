@@ -4,11 +4,11 @@
 _hkgname=non-negative
 pkgname=haskell-non-negative
 pkgver=0.1.2
-pkgrel=189
+pkgrel=192
 pkgdesc="Non-negative numbers"
 url="http://code.haskell.org/~thielema/non-negative/"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-quickcheck' 'haskell-utility-ht')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

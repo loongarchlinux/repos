@@ -1,12 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=clash-ghc
-pkgver=1.6.1
-pkgrel=36
+pkgver=1.6.3
+pkgrel=3
 pkgdesc="CAES Language for Synchronous Hardware"
 url="https://clash-lang.org/"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-clash-lib' 'haskell-clash-prelude' 'haskell-concurrent-supply'
          'haskell-data-binary-ieee754' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-typelits-extra'
          'haskell-ghc-typelits-knownnat' 'haskell-ghc-typelits-natnormalise' 'haskell-hashable'
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-clash-lib' 'haskell-clash-prelude' 'haskell-concurr
 makedepends=('ghc' 'uusi')
 conflicts=('clash')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3a4b1bae4bb9debda2987579baa8c60e546c588ab969a6ae9ee1c847c3fc83cd7bb43cf16b8334499ac7c70ff56ed409d575b1f2ada2c1a28601b12b2508ee67')
+sha512sums=('cd91aa9c70476d106fb44401a5eb2eacbf34dd72b4c99aaf0f0c52d6010fd8b03a373d94c94518f4486198fc4058d4121d3430258f205ec5e4aa7360684b8328')
 
 prepare() {
   cd $pkgname-$pkgver

@@ -2,9 +2,9 @@
 
 pkgname=nlopt
 pkgver=2.7.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Nonlinear optimization library"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://nlopt.readthedocs.io/en/latest/"
 license=(LGPL)
 depends=(gcc-libs)

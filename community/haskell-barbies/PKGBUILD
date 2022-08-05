@@ -3,11 +3,11 @@
 _hkgname=barbies
 pkgname=haskell-barbies
 pkgver=2.0.3.1
-pkgrel=15
+pkgrel=18
 pkgdesc="Classes for working with types that can change clothes."
 url="https://github.com/jcpetruzza/barbies#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-distributive')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')

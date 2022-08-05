@@ -8,7 +8,7 @@ pkgver=3.36.9
 pkgrel=2
 pkgdesc='A window manager for GNOME'
 url=https://gitlab.gnome.org/GNOME/mutter
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 license=(GPL2)
 depends=(
   dconf

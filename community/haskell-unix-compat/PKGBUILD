@@ -6,11 +6,11 @@
 pkgname=haskell-unix-compat
 _hkgname=unix-compat
 pkgver=0.6
-pkgrel=5
+pkgrel=10
 pkgdesc="Portable POSIX-compatibility layer."
 url="https://github.com/jacobstanley/unix-compat"
 license=('BSD3')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hunit' 'haskell-extra' 'haskell-hspec' 'haskell-monad-parallel'
              'haskell-temporary')

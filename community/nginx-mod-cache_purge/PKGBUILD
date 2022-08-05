@@ -7,7 +7,7 @@ pkgrel=2
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='Nginx module with ability to purge content from FastCGI, proxy, SCGI and uWSGI caches'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('nginx')
 makedepends=('nginx-src')
 url="https://github.com/nginx-modules/ngx_cache_purge"

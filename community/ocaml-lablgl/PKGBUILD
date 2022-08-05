@@ -8,7 +8,7 @@ pkgver=1.06
 pkgrel=11
 pkgdesc='OCaml interface to OpenGL'
 url="https://github.com/garrigue/lablgl"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('BSD')
 depends=('glu' 'glut' 'libxi' 'libxmu' 'libgl' 'ocaml>=4.13.1')
 options=('!strip' '!makeflags' 'staticlibs')

@@ -3,11 +3,11 @@
 _hkgname=base-compat-batteries
 pkgname=haskell-base-compat-batteries
 pkgver=0.12.1
-pkgrel=33
+pkgrel=39
 pkgdesc="base-compat with extra batteries"
 url="https://hackage.haskell.org/package/base-compat-batteries"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat')
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-hspec-discover' 'haskell-quickcheck')

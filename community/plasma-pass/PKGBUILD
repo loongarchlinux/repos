@@ -3,7 +3,7 @@
 pkgname=plasma-pass
 pkgver=1.2.0
 pkgrel=1
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 pkgdesc="Plasma applet for the Pass password manager"
 url="https://www.dvratil.cz/2018/05/plasma-pass/"
 license=(GPL)

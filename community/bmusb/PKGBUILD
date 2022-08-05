@@ -5,7 +5,7 @@ _commit=327dca2d848e4c4656be1bfb54a2edf2e6587a71
 pkgver=0.7.6
 pkgrel=2
 pkgdesc="a free driver for BlackMagic's Intensity Shuttle andUltraStudio SDI USB3 cards"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://git.sesse.net/?p=bmusb;a=summary"
 license=('GPL2')
 depends=('libusb')

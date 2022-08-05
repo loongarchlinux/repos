@@ -2,11 +2,11 @@
 
 pkgname=cabal-fmt
 pkgver=0.1.5.1
-pkgrel=60
+pkgrel=63
 pkgdesc="Format .cabal files"
 url="https://github.com/phadej/cabal-fmt.git"
 license=("GPL" "BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"

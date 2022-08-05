@@ -5,13 +5,13 @@
 pkgbase=sysdig
 pkgname=(sysdig sysdig-dkms)
 pkgver=0.29.2
-pkgrel=5
+pkgrel=6
 
 # from src/sysdig-*/cmake/modules/falcosecurity-libs.cmake
 _falcover=e5c53d648f3c4694385bbe488e7d47eaa36c229a
 
 pkgdesc="Open source system-level exploration and troubleshooting tool"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://www.sysdig.com/"
 license=('GPL2' 'Apache' 'MIT')
 makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'libb64' 'intel-tbb' 'grpc' 'libgrpc++_unsecure.so' 'yaml-cpp')

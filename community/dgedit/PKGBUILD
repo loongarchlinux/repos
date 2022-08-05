@@ -3,7 +3,7 @@ pkgname=dgedit
 pkgver=0.10.0
 pkgrel=2
 pkgdesc="The DrumGizmo drumkit editor"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://drumgizmo.org/wiki/doku.php?id=getting_dgedit"
 license=('GPL3')
 groups=('pro-audio')

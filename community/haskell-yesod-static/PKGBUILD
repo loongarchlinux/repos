@@ -4,11 +4,11 @@
 _hkgname=yesod-static
 pkgname=haskell-yesod-static
 pkgver=1.6.1.0
-pkgrel=469
+pkgrel=478
 pkgdesc="Static file serving subsite for Yesod Web Framework."
 url="http://www.yesodweb.com/"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestring'
          'haskell-blaze-builder' 'haskell-conduit' 'haskell-cryptonite'
          'haskell-cryptonite-conduit' 'haskell-css-text' 'haskell-data-default'

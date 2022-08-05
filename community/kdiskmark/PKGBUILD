@@ -1,7 +1,7 @@
 # Maintainer: Jiachen YANG <farseerfc@gmail.com>
 # AUR Maintainer: Gabriel Rauter <rauter.gabriel@gmail.com>
 
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 _pkgname=KDiskMark
 pkgname=kdiskmark
 pkgver=2.3.0

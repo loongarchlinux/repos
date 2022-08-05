@@ -3,11 +3,11 @@
 _hkgname=deferred-folds
 pkgname=haskell-deferred-folds
 pkgver=0.9.18.2
-pkgrel=2
+pkgrel=8
 pkgdesc="Abstractions over deferred folds"
 url="https://github.com/metrix-ai/deferred-folds"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-foldl' 'haskell-hashable' 'haskell-primitive'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'

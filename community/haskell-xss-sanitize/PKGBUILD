@@ -4,11 +4,11 @@
 _hkgname=xss-sanitize
 pkgname=haskell-xss-sanitize
 pkgver=0.3.7
-pkgrel=51
+pkgrel=54
 pkgdesc="sanitize untrusted HTML to prevent XSS attacks"
 url="https://github.com/yesodweb/haskell-xss-sanitize"
 license=("custom:BSD2")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-attoparsec" "haskell-css-text" "haskell-network-uri" "haskell-tagsoup"
          "haskell-utf8-string")
 makedepends=('ghc')

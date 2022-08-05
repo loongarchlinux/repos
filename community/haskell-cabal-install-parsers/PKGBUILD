@@ -3,11 +3,11 @@
 _hkgname=cabal-install-parsers
 pkgname=haskell-cabal-install-parsers
 pkgver=0.4.2
-pkgrel=134
+pkgrel=140
 pkgdesc="Utilities to work with cabal-install files"
 url="https://haskell-ci.rtfd.org/"
 license=("GPL" "BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-base16-bytestring' 'haskell-binary-instances'
          'haskell-cryptohash-sha256' 'haskell-lukko' 'haskell-network-uri' 'haskell-tar')
 makedepends=('ghc' 'uusi' 'haskell-ansi-terminal' 'haskell-tasty' 'haskell-tasty-golden'

@@ -3,11 +3,11 @@
 _hkgname=cryptonite-conduit
 pkgname=haskell-cryptonite-conduit
 pkgver=0.2.2
-pkgrel=499
+pkgrel=504
 pkgdesc="Conduit bridge for cryptonite"
 url="https://github.com/haskell-crypto/cryptonite-conduit"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'
          'haskell-memory' 'haskell-resourcet')
 makedepends=('ghc')

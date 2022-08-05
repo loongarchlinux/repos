@@ -3,11 +3,11 @@
 _hkgname=network-run
 pkgname=haskell-network-run
 pkgver=0.2.4
-pkgrel=71
+pkgrel=74
 pkgdesc="Simple network runner library"
 url="https://github.com/kazu-yamamoto/network-run"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-network')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

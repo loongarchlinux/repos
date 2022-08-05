@@ -4,11 +4,11 @@
 _hkgname=protolude
 pkgname=haskell-protolude
 pkgver=0.3.1
-pkgrel=2
+pkgrel=5
 pkgdesc="A sensible set of defaults for writing custom Preludes."
 url="https://github.com/sdiehl/protolude"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-hashable' 'haskell-transformers-compat')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

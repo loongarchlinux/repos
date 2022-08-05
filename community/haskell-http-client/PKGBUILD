@@ -4,11 +4,11 @@
 _hkgname=http-client
 pkgname=haskell-http-client
 pkgver=0.7.11
-pkgrel=32
+pkgrel=37
 pkgdesc="An HTTP client engine"
 url="https://github.com/snoyberg/http-client"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-async' 'haskell-base64-bytestring' 'haskell-blaze-builder'
          'haskell-case-insensitive' 'haskell-cookie' 'haskell-http-types' 'haskell-iproute'
          'haskell-mime-types' 'haskell-network' 'haskell-network-uri' 'haskell-random'

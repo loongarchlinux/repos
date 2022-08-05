@@ -4,11 +4,11 @@
 _hkgname=haskell-ci
 pkgname=haskell-ci
 pkgver=0.12.1
-pkgrel=251
+pkgrel=269
 pkgdesc="Cabal package script generator for Travis-CI"
 url="https://haskell-ci.rtfd.org/"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base-compat'
          'haskell-base16-bytestring' 'haskell-cabal-install-parsers' 'haskell-cryptohash-sha256'
          'haskell-generic-lens-lite' 'haskell-hsyaml' 'haskell-indexed-traversable'

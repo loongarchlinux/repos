@@ -9,7 +9,7 @@ url="https://github.com/dvarrazzo/py-setproctitle"
 depends=('python')
 makedepends=(python-setuptools python-wheel python-build python-installer)
 checkdepends=('python-pytest' 'procps-ng')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 source=(https://files.pythonhosted.org/packages/source/s/setproctitle/setproctitle-$pkgver.tar.gz)
 sha256sums=('ecf28b1c07a799d76f4326e508157b71aeda07b84b90368ea451c0710dbd32c0')
 

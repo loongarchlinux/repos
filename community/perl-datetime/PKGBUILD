@@ -5,7 +5,7 @@ pkgname=perl-datetime
 pkgver=1.58
 pkgrel=1
 pkgdesc="A complete, easy to use date and time object"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://search.cpan.org/dist/DateTime"
 license=('GPL' 'PerlArtistic')
 depends=('perl-datetime-timezone>=0.59' 'perl-datetime-locale>=0.41'

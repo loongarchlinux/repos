@@ -4,11 +4,11 @@
 _hkgname=hspec-golden
 pkgname=haskell-hspec-golden
 pkgver=0.2.0.0
-pkgrel=69
+pkgrel=72
 pkgdesc="Golden tests for hspec."
 url="https://github.com/stackbuilders/hspec-golden"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hspec-core' 'haskell-optparse-applicative')
 makedepends=('ghc' 'haskell-hspec' 'haskell-silently')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

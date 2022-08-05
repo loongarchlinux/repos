@@ -7,7 +7,7 @@ pkgname=cadence
 pkgver=0.9.2
 pkgrel=1
 pkgdesc="JACK toolbox for audio production."
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://kx.studio/Applications:Cadence"
 license=(GPL2)
 # NOTE: alsa-utils is required for aplay/ arecord calls

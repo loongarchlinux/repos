@@ -4,11 +4,11 @@
 _hkgname=haskell-src-exts
 pkgname=haskell-src-exts
 pkgver=1.23.1
-pkgrel=155
+pkgrel=158
 pkgdesc="Manipulating Haskell source: abstract syntax, lexer, parser, and pretty-printer"
 url="https://github.com/haskell-suite/haskell-src-exts"
 license=("custom:BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'happy' 'haskell-pretty-show' 'haskell-smallcheck' 'haskell-tasty'
              'haskell-tasty-golden' 'haskell-tasty-smallcheck')

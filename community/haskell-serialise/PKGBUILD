@@ -3,11 +3,11 @@
 _hkgname=serialise
 pkgname=haskell-serialise
 pkgver=0.2.5.0
-pkgrel=11
+pkgrel=17
 pkgdesc="A binary serialisation library for Haskell values"
 url="https://github.com/well-typed/cborg"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-cborg' 'haskell-half' 'haskell-hashable' 'haskell-primitive'
          'haskell-strict' 'haskell-these' 'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'

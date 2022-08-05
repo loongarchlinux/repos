@@ -7,7 +7,7 @@ pkgname=lib32-libusb
 pkgver=1.0.26
 pkgrel=1
 pkgdesc="A cross-platform user library to access USB devices (32-bit)"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="http://libusb.info/"
 license=(LGPL2.1)
 depends=(lib32-glibc lib32-systemd libusb=$pkgver)

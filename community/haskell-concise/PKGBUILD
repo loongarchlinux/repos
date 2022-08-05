@@ -4,11 +4,11 @@
 _hkgname=concise
 pkgname=haskell-concise
 pkgver=0.1.0.1
-pkgrel=394
+pkgrel=400
 pkgdesc="Utilities for Control.Lens.Cons"
 url="https://github.com/frasertweedal/hs-concise"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-lens')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-quickcheck')

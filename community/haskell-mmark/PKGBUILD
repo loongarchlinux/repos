@@ -3,11 +3,11 @@
 _hkgname=mmark
 pkgname=haskell-mmark
 pkgver=0.0.7.6
-pkgrel=25
+pkgrel=30
 pkgdesc="Strict markdown processor for writers"
 url="https://github.com/mmark-md/mmark"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-case-insensitive' 'haskell-dlist'
          'haskell-email-validate' 'haskell-foldl' 'haskell-hashable' 'haskell-html-entity-map'
          'haskell-lucid' 'haskell-megaparsec' 'haskell-microlens' 'haskell-microlens-th'

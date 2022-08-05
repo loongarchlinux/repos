@@ -3,11 +3,11 @@
 _hkgname=wreq
 pkgname=haskell-wreq
 pkgver=0.5.3.3
-pkgrel=220
+pkgrel=226
 pkgdesc="An easy-to-use HTTP client library."
 url="https://github.com/bos/wreq"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-authenticate-oauth'
          'haskell-base16-bytestring' 'haskell-case-insensitive' 'haskell-cryptonite'
          'haskell-hashable' 'haskell-http-client' 'haskell-http-client-tls'

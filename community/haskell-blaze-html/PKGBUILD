@@ -4,11 +4,11 @@
 _hkgname=blaze-html
 pkgname=haskell-blaze-html
 pkgver=0.9.1.2
-pkgrel=174
+pkgrel=177
 pkgdesc="A blazingly fast HTML combinator library for Haskell"
 url="https://jaspervdj.be/blaze"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-blaze-builder' 'haskell-blaze-markup')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')

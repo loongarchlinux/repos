@@ -4,11 +4,11 @@
 _hkgname=tasty-hunit
 pkgname=haskell-tasty-hunit
 pkgver=0.10.0.3
-pkgrel=339
+pkgrel=350
 pkgdesc="HUnit support for the Tasty test framework."
 url="https://documentup.com/feuerbach/tasty"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-tasty' 'haskell-call-stack')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

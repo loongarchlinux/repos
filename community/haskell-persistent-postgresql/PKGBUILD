@@ -3,11 +3,11 @@
 _hkgname=persistent-postgresql
 pkgname=haskell-persistent-postgresql
 pkgver=2.13.0.3
-pkgrel=170
+pkgrel=179
 pkgdesc="Backend for the persistent library using postgresql."
 url="http://www.yesodweb.com/book/persistent"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-blaze-builder' 'haskell-conduit'
          'haskell-monad-logger' 'haskell-persistent' 'haskell-postgresql-libpq'
          'haskell-postgresql-simple' 'haskell-resource-pool' 'haskell-resourcet'

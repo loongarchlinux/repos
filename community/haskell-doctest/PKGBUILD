@@ -4,11 +4,11 @@
 _hkgname=doctest
 pkgname=haskell-doctest
 pkgver=0.20.0
-pkgrel=17
+pkgrel=23
 pkgdesc="Test interactive Haskell examples"
 url="https://github.com/sol/doctest"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat' 'haskell-ghc' 'haskell-syb'
          'haskell-code-page' 'haskell-ghc-paths')
 makedepends=('ghc')

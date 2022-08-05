@@ -3,11 +3,11 @@
 _hkgname=hls-pragmas-plugin
 pkgname=haskell-hls-pragmas-plugin
 pkgver=1.0.1.0
-pkgrel=185
+pkgrel=202
 pkgdesc="Pragmas plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-pragmas-plugin"
 license=("Apache")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-fuzzy' 'haskell-ghcide' 'haskell-hls-plugin-api'
          'haskell-lens' 'haskell-lsp' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types')

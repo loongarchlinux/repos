@@ -5,7 +5,7 @@ pkgver=0.0.0.20210805
 _commit=6e677427764b542313858eaed22c2951d8ec22fe
 pkgrel=1
 pkgdesc="Luna pinyin for rime"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://github.com/rime/rime-luna-pinyin"
 license=('LGPL')
 # dependency for reverse lookup

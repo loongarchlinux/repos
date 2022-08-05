@@ -3,11 +3,11 @@
 _hkgname=conduit-parse
 pkgname=haskell-conduit-parse
 pkgver=0.2.1.1
-pkgrel=6
+pkgrel=11
 pkgdesc="Parsing framework based on conduit"
 url="https://github.com/k0ral/conduit-parse"
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-conduit' 'haskell-dlist' 'haskell-parsers' 'haskell-safe'
          'haskell-safe-exceptions')
 makedepends=('ghc' 'hlint' 'haskell-resourcet' 'haskell-tasty' 'haskell-tasty-hunit')

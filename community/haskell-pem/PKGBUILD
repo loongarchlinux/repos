@@ -5,11 +5,11 @@
 _hkgname=pem
 pkgname=haskell-pem
 pkgver=0.2.4
-pkgrel=233
+pkgrel=236
 pkgdesc="Privacy Enhanced Mail (PEM) format reader and writer."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-basement' 'haskell-memory')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')

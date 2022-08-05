@@ -3,11 +3,11 @@
 _hkgname=refinery
 pkgname=haskell-refinery
 pkgver=0.4.0.0
-pkgrel=80
+pkgrel=85
 pkgdesc="Toolkit for building proof automation systems"
 url="https://github.com/totbwf/refinery#readme"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-mmorph')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-checkers' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")

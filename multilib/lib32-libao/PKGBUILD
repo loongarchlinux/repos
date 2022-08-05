@@ -10,7 +10,7 @@ pkgver=1.2.2
 pkgrel=3
 pkgdesc="A cross-platform audio output library and plugins (32-bit)"
 url="https://www.xiph.org/ao/"
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('GPL2')
 depends=("libao=${pkgver}" 'lib32-gcc-libs' 'lib32-glibc' 'lib32-libpulse')
 makedepends=('gcc-multilib' 'lib32-alsa-lib')

@@ -2,13 +2,13 @@
 # Contributor: Jonne Haß <me@jhass.eu>
 
 pkgname=crystal
-pkgver=1.4.1
-pkgrel=1
+pkgver=1.5.0
+pkgrel=2
 pkgdesc='The Crystal Programming Language'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url='https://crystal-lang.org'
 license=(Apache)
-depends=(gc libatomic_ops pcre libevent llvm-libs)
+depends=(gc pcre libevent llvm-libs)
 makedepends=(libxml2 llvm crystal) # to compile version N we need crystal compiler of N-1 version
 checkdepends=(libyaml libxml2 gmp inetutils git)
 optdepends=('shards: crystal language package manager'
@@ -16,12 +16,12 @@ optdepends=('shards: crystal language package manager'
             'gmp: For BigInt support'
             'libxml2: For XML support')
 source=(crystal-$pkgver.tar.gz::https://github.com/crystal-lang/crystal/archive/$pkgver.tar.gz)
-sha256sums=('97466656adede19943619e18af030c1d542c2c3dd1f36f3a422310bd8b53f5e0')
+sha256sums=('f53e459ef6c7227df922a76fb62e350c90d52d30bfaa84b90feda9731bb98655')
 
 build() {
   cd $pkgname-$pkgver
 
-  make release=1 \
+  make release=1 interpreter=1 \
        FLAGS="--release --no-debug" \
        CRYSTAL_PATH="$srcdir/$pkgname-$pkgver/src" \
        CRYSTAL_CONFIG_VERSION="$pkgver" \

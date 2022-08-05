@@ -3,11 +3,11 @@
 _hkgname=th-reify-many
 pkgname=haskell-th-reify-many
 pkgver=0.1.10
-pkgrel=50
+pkgrel=54
 pkgdesc="Recurseively reify template haskell datatype info"
 url="https://github.com/mgsloan/th-reify-many"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-safe' 'haskell-th-expand-syns')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

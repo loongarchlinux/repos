@@ -4,11 +4,11 @@
 _hkgname=http-types
 pkgname=haskell-http-types
 pkgver=0.12.3
-pkgrel=244
+pkgrel=249
 pkgdesc="Generic HTTP types for Haskell (for both client and server code)."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive')
 makedepends=('ghc' 'haskell-doctest' 'haskell-hspec' 'haskell-quickcheck'
              'haskell-quickcheck-instances')

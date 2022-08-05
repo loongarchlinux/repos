@@ -3,11 +3,11 @@
 
 pkgname=c2hs
 pkgver=0.28.8
-pkgrel=88
+pkgrel=93
 pkgdesc="C->Haskell FFI tool that gives some cross-language type safety"
 url="https://github.com/haskell/c2hs"
 license=("GPL2")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-language-c')
 makedepends=('ghc' 'uusi' 'haskell-test-framework' 'haskell-test-framework-hunit' 'haskell-hunit'
              'haskell-shelly')

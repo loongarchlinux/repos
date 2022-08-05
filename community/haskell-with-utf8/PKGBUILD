@@ -3,11 +3,11 @@
 _hkgname=with-utf8
 pkgname=haskell-with-utf8
 pkgver=1.0.2.3
-pkgrel=63
+pkgrel=69
 pkgdesc="Get your IO right on the first try"
 url="https://github.com/serokell/haskell-with-utf8#readme"
 license=("MPL2")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-safe-exceptions' 'haskell-th-env')
 makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-hedgehog' 'haskell-tasty' 'haskell-tasty-discover'
              'haskell-tasty-hedgehog' 'haskell-tasty-hunit' 'haskell-temporary')

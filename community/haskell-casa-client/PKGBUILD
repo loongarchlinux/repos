@@ -3,11 +3,11 @@
 _hkgname=casa-client
 pkgname=haskell-casa-client
 pkgver=0.0.1
-pkgrel=469
+pkgrel=476
 pkgdesc="Content Addressable Storage Archive client"
 url="https://github.com/fpco/casa"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base16-bytestring'
          'haskell-casa-types' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'
          'haskell-http-conduit' 'haskell-http-types' 'haskell-memory'

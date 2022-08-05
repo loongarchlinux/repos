@@ -3,11 +3,11 @@
 _hkgname=network-byte-order
 pkgname=haskell-network-byte-order
 pkgver=0.1.6
-pkgrel=128
+pkgrel=131
 pkgdesc="Network byte order utilities"
 url="https://github.com/kazu-yamamoto/network-byte-order"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-doctest')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

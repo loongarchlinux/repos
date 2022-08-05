@@ -3,9 +3,9 @@
 _hkgname=basic-prelude
 pkgname=haskell-basic-prelude
 pkgver=0.7.0
-pkgrel=180
+pkgrel=185
 pkgdesc='An enhanced core prelude; a common foundation for alternate preludes'
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://hackage.haskell.org/package/$_hkgname"
 license=(MIT)
 depends=(ghc-libs haskell-hashable haskell-unordered-containers haskell-vector)

@@ -3,11 +3,11 @@
 _hkgname=markdown-unlit
 pkgname=haskell-markdown-unlit
 pkgver=0.5.1
-pkgrel=109
+pkgrel=112
 pkgdesc="Literate Haskell support for Markdown"
 url="https://github.com/sol/markdown-unlit"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base-compat')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-silently'
              'haskell-stringbuilder' 'haskell-temporary')

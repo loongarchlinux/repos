@@ -12,7 +12,7 @@ _reponame=fts-elastic
 pkgver=1.1.0
 pkgrel=3
 pkgdesc="Dovecot FTS plugin for elasticsearch"
-arch=(loongarch64 x86_64)
+arch=(loong64 x86_64)
 url="https://github.com/filiphanes/fts-elastic"
 license=(MIT)
 depends=("dovecot=${_dcpkgver}" json-c)

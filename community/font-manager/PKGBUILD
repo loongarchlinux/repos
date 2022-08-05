@@ -12,7 +12,7 @@ pkgver=0.8.8
 pkgrel=1
 pkgdesc='A simple font management application for GTK+ Desktop Environments'
 url=https://fontmanager.github.io
-arch=(loongarch64 x86_64 i686)
+arch=(loong64 x86_64 i686)
 license=(GPL)
 depends=(gtk3
          json-glib

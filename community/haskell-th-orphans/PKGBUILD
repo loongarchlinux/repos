@@ -3,11 +3,11 @@
 _hkgname=th-orphans
 pkgname=haskell-th-orphans
 pkgver=0.13.13
-pkgrel=4
+pkgrel=8
 pkgdesc="Orphan instances for TH datatypes"
 url="https://github.com/ekmett/th-orphans/"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-th-compat' 'haskell-th-lift' 'haskell-th-lift-instances'
          'haskell-th-reify-many')
 makedepends=('ghc' 'haskell-hspec')

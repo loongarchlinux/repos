@@ -4,11 +4,11 @@
 _hkgname=tamarin-prover-utils
 pkgname=haskell-tamarin-prover-utils
 pkgver=1.6.1
-pkgrel=50
+pkgrel=53
 pkgdesc="Utility library for the tamarin prover"
 url="http://www.infsec.ethz.ch/research/software/tamarin"
 license=("GPL")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-sha' 'haskell-base64-bytestring' 'haskell-blaze-builder'
          'haskell-dlist' 'haskell-fclabels' 'haskell-safe' 'haskell-syb')
 makedepends=('ghc')

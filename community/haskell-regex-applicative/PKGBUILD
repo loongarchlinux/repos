@@ -4,11 +4,11 @@
 _hkgname=regex-applicative
 pkgname=haskell-regex-applicative
 pkgver=0.3.4
-pkgrel=143
+pkgrel=146
 pkgdesc="Regex-based parsing with applicative interface"
 url="https://github.com/feuerbach/regex-applicative"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-filtrable')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

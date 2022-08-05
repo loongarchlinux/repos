@@ -3,11 +3,11 @@
 _hkgname=raw-strings-qq
 pkgname=haskell-raw-strings-qq
 pkgver=1.1
-pkgrel=173
+pkgrel=176
 pkgdesc="Raw string literals for Haskell"
 url="https://github.com/23Skidoo/raw-strings-qq"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

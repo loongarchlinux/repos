@@ -5,9 +5,9 @@
 pkgbase=bcc
 pkgname=('bcc' 'bcc-tools' 'python-bcc')
 pkgver=0.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc='BPF Compiler Collection'
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url='https://github.com/iovisor/bcc'
 license=('Apache')
 makedepends=('cmake' 'clang' 'llvm' 'flex' 'bison' 'python')

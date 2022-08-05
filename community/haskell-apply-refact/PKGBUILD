@@ -3,11 +3,11 @@
 _hkgname=apply-refact
 pkgname=haskell-apply-refact
 pkgver=0.9.3.0
-pkgrel=117
+pkgrel=122
 pkgdesc="Perform refactorings specified by the refact library."
 url="https://github.com/mpickering/apply-refact"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-extra' 'haskell-filemanip' 'haskell-ghc-exactprint'
          'haskell-optparse-applicative' 'haskell-refact' 'haskell-syb' 'haskell-uniplate'
          'haskell-unix-compat')

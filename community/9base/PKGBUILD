@@ -12,7 +12,7 @@ source=(https://dl.suckless.org/tools/$pkgname-$pkgver.tar.gz 9 plan9.sh)
 depends=(sh)
 conflicts=('plan9port' '9rc-devel')
 provides=('plan9')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 license=('custom')
 
 build() {

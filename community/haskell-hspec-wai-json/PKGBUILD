@@ -4,11 +4,11 @@
 _hkgname=hspec-wai-json
 pkgname=haskell-hspec-wai-json
 pkgver=0.11.0
-pkgrel=293
+pkgrel=299
 pkgdesc="Testing JSON APIs with hspec-wai"
 url="https://github.com/hspec/hspec-wai"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-qq' 'haskell-case-insensitive'
          'haskell-hspec-wai')
 makedepends=('ghc' 'uusi' 'haskell-hspec')

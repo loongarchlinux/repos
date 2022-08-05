@@ -3,11 +3,11 @@
 _hkgname=checkers
 pkgname=haskell-checkers
 pkgver=0.6.0
-pkgrel=20
+pkgrel=25
 pkgdesc="Check properties on standard classes and data structures"
 url="https://github.com/haskell-checkers/checkers"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-random' 'haskell-quickcheck' 'haskell-semigroupoids')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

@@ -10,7 +10,7 @@ url="http://alexthepuffin.googlepages.com/"
 license=('GPL')
 depends=('gmp' 'fuse' 'libgcrypt')
 makedepends=('git')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 source=(
     "$pkgname::git+https://github.com/simonvetter/afpfs-ng.git#commit=$_commit"
 )

@@ -3,11 +3,11 @@
 _hkgname=assoc
 pkgname=haskell-assoc
 pkgver=1.0.2
-pkgrel=146
+pkgrel=149
 pkgdesc="swap and assoc: Symmetric and Semigroupy Bifunctors"
 url="https://github.com/phadej/assoc"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-bifunctors' 'haskell-tagged')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

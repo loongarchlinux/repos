@@ -4,11 +4,11 @@
 _hkgname=unix-time
 pkgname=haskell-unix-time
 pkgver=0.4.7
-pkgrel=179
+pkgrel=182
 pkgdesc="Unix time parser/formatter and utilities"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-old-time')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-hspec' 'haskell-old-locale'
              'haskell-quickcheck')

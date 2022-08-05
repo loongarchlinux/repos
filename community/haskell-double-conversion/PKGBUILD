@@ -3,11 +3,11 @@
 _hkgname=double-conversion
 pkgname=haskell-double-conversion
 pkgver=2.0.4.1
-pkgrel=20
+pkgrel=23
 pkgdesc="Fast conversion between single and double precision floating point and text"
 url="https://github.com/Haskell-mouse/double-conversion"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'double-conversion')
 makedepends=('ghc' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit'
              'haskell-test-framework-quickcheck2')

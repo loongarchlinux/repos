@@ -4,11 +4,11 @@
 _hkgname=cipher-aes
 pkgname=haskell-cipher-aes
 pkgver=0.2.11
-pkgrel=273
+pkgrel=276
 pkgdesc="Fast AES cipher implementation with advanced mode of operations"
 url="https://github.com/vincenthz/hs-cipher-aes"
 license=("BSD")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' "haskell-byteable" "haskell-crypto-cipher-types" "haskell-securemem")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

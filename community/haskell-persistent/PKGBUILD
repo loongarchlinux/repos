@@ -4,11 +4,11 @@
 _hkgname=persistent
 pkgname=haskell-persistent
 pkgver=2.13.3.1
-pkgrel=27
+pkgrel=34
 pkgdesc="Type-safe, multi-backend data serialization"
 url="http://www.yesodweb.com/book/persistent"
 license=("MIT")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base64-bytestring'
          'haskell-blaze-html' 'haskell-conduit' 'haskell-fast-logger' 'haskell-http-api-data'
          'haskell-lift-type' 'haskell-monad-logger' 'haskell-path-pieces' 'haskell-resource-pool'

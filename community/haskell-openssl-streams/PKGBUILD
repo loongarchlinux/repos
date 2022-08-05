@@ -3,11 +3,11 @@
 _hkgname=openssl-streams
 pkgname=haskell-openssl-streams
 pkgver=1.2.3.0
-pkgrel=154
+pkgrel=157
 pkgdesc="OpenSSL network support for io-streams"
 url="https://github.com/snapframework/openssl-streams"
 license=('BSD')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-hsopenssl' 'haskell-io-streams' 'haskell-network')
 makedepends=('ghc' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)

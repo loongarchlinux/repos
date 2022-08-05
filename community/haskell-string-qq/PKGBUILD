@@ -4,11 +4,11 @@
 _hkgname=string-qq
 pkgname=haskell-string-qq
 pkgver=0.0.4
-pkgrel=160
+pkgrel=163
 pkgdesc="QuasiQuoter for non-interpolated strings, texts and bytestrings."
 url="https://hackage.haskell.org/package/string-qq"
 license=("custom:PublicDomain")
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")

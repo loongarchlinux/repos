@@ -5,7 +5,7 @@
 pkgname=('handbrake' 'handbrake-cli')
 pkgver=1.5.1
 pkgrel=2
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 url="https://handbrake.fr/"
 license=('GPL')
 _commondeps=('libxml2' 'libass' 'libvorbis' 'opus' 'speex' 'libtheora' 'lame'

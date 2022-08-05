@@ -3,11 +3,11 @@
 _hkgname=http-download
 pkgname=haskell-http-download
 pkgver=0.2.0.0
-pkgrel=466
+pkgrel=472
 pkgdesc="Verified downloads with retries"
 url="https://github.com/commercialhaskell/http-download"
 license=('MIT')
-arch=('loongarch64' 'x86_64')
+arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-conduit' 'haskell-conduit-extra'
          'haskell-cryptonite' 'haskell-cryptonite-conduit'
          'haskell-http-client' 'haskell-http-conduit' 'haskell-http-types' 'haskell-memory'
