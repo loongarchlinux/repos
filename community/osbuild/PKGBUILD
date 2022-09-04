@@ -3,17 +3,17 @@
 
 pkgname=osbuild
 pkgdesc='Build Pipelines for Operating System Artifacts'
-pkgver=60
+pkgver=66
 pkgrel=1
 url="https://www.osbuild.org"
 arch=(any)
 license=(Apache)
-depends=(bubblewrap curl e2fsprogs qemu-img python util-linux python-yaml python-jsonschema)
+depends=(bubblewrap curl e2fsprogs qemu-img python util-linux python-yaml python-jsonschema python-toml)
 makedepends=(make python-docutils python-setuptools)
 optdepends=('dnf: build rpm/dnf images'
             'pacman: build pacman images')
 source=($pkgname-$pkgver.tar.gz::https://github.com/osbuild/osbuild/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('8584b5fed404f78ae785f2597eb5a44ca2fb5cb4ed8888abf446ad67dba54986')
+sha256sums=('405eb9c9398f09895ac5d43dfc2cc256f5c61183ad88817f45c910fe63867709')
 
 prepare() {
   cd $pkgname-$pkgver

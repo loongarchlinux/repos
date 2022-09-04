@@ -3,7 +3,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.79.0
+pkgver=0.81.0
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -54,8 +54,8 @@ checkdepends=(
   python-passlib
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('a20113a38d9bacc551a5dafed3698ca576bb87682f0569bd0bb0e22d0401168b2d8dde59f2cedddfa88b1e99f5b211447bf0f1d88d1ee21551b13bb12ea2f023')
-b2sums=('a9dab045bd3b41e03c58acbe1f5b8d1f9837b179b7b1e65d26d9ffa8572efcb447ee329c5d4f8636246c9e74899ebd23da9fc79c20fb408024416800c32bff46')
+sha512sums=('b1cd55d125e9cfcadbd9f41b40bb5c7d2d14c6fbb082b7bdca15408bfcca575ff7ab52b414a7c22f8eed5ff480f737619de2abb03a3634e52b652f27623541b5')
+b2sums=('38de43ca7e93a4ce9ed3ad144ccca1b82f49b409f1db018a68e3c6b2087f605d72769902defc6e521c679ef4b57b83dabd0dff8af29087d16523c1124b375629')
 
 prepare() {
   cd $_name-$pkgver

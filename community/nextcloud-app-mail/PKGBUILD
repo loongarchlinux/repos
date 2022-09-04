@@ -1,10 +1,9 @@
 # Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
-# Maintainer: Jonas Heinrich <onny@project-insanity.org>
 # Contributor: Jonas Heinrich <onny@project-insanity.org>
 
 pkgname=nextcloud-app-mail
 _name=mail
-pkgver=1.13.6
+pkgver=1.13.8
 pkgrel=1
 pkgdesc="An email app for NextCloud"
 arch=(any)
@@ -14,8 +13,8 @@ makedepends=(nextcloud yq)
 groups=(nextcloud-apps)
 options=(!strip)
 source=($pkgname-$pkgver.tar.gz::https://github.com/nextcloud-releases/mail/releases/download/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('e0c143b62d0ebfb892ffc0ffb87b77c30385b4f21bfd7c52df9d288302b66d4f96163d31e16279c09e5e8b9cddf4fdcd42ac9955a54f4c2eff07ef08dd0491ff')
-b2sums=('62185f502452eea6f88a0455ae4cc1ba398e14ccc916d6f1d670528d40c7bcc287b722544d8e1301cda2dd029e61b13ac83054473c0bec4c4db12448edd1a8ea')
+sha512sums=('2a47b56e8918f3e9a556a8b80e6f29843a7d0c03886d2d4a0eead70e8bb2c2f47c221646e2b6dbd5a38d2221c7173e3e5627e085d555599e460d49fcfd8e3177')
+b2sums=('88b56f31021d17be4c0dcbf3ca63045b7478160ca8c28f2562a7e251cc7d66969dc9f30535e0f677af625cc804c9bb5159e5168f8f788578d98112af03109536')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory

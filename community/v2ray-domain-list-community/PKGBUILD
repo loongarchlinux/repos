@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=v2ray-domain-list-community
-pkgver=20220730021420
+pkgver=20220831082552
 pkgrel=1
 pkgdesc="A list of domains to be used as geosites for routing purpose in Project V"
 arch=('any')
@@ -9,7 +9,7 @@ url="https://github.com/v2fly/domain-list-community"
 license=('MIT')
 makedepends=('go' 'git')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/v2fly/domain-list-community/archive/$pkgver.tar.gz")
-sha512sums=('c923800bd0c619c29a29cb0d91f97d0b6567d824fb80ff0c088b5bfaaa51731d5c43a9a0c4c1a44b1467387a6e8fea1ff7c65e26b925254a1430c5ad4d4971e2')
+sha512sums=('f823de2a04c1e78e9405deb83095fb9192f793209f27fb45e18e6fb37be8565ba6d99aa0b934030493262945a96b227b1642df666416e1ff96aa6b630bf5f103')
 
 build() {
   cd domain-list-community-$pkgver

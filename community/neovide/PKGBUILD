@@ -2,8 +2,8 @@
 # Contributor: peeweep <peeweep at 0x0 dot ee>
 
 pkgname=neovide
-pkgver=0.9.0
-pkgrel=3
+pkgver=0.10.1
+pkgrel=1
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(loong64 x86_64)
 url="https://github.com/$pkgname/$pkgname"
@@ -22,14 +22,11 @@ makedepends=(cargo
 optdepends=('vulkan-intel: vulkan support for intel')
 _archive=("$pkgname-$pkgver")
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('8206cbfbb9ece987a24051e0c834c205663d3263c7aa40ae0e5bcc0aba2e61cc')
+sha256sums=('f3b21b3203ba1ef81bb05447dbd3792c37a7f3d171f3e36202fa3495d3be9361')
 
 prepare() {
 	cd "$_archive"
-	sed -i \
-		-e '/^debug/s/true/false/' \
-		-e '/^incremental/a opt-level = 3' \
-		Cargo.toml
+	sed -i -e '/^incremental/a opt-level = 3' Cargo.toml
 	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 

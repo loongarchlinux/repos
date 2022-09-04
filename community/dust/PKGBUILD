@@ -3,7 +3,7 @@
 # Contributor: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=dust
-pkgver=0.8.1
+pkgver=0.8.3
 pkgrel=1
 pkgdesc="A more intuitive version of du in rust"
 arch=('loong64' 'x86_64')
@@ -12,7 +12,7 @@ license=('Apache')
 depends=('gcc-libs')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('7cbb9ea052d4283bfdfeb2a9afbcebc995682b4cfe10cacad2e4f954c2e629bad30d141176ac7c1a0c0dea83dcaf284b076cf2145bc76d6a137e2d135df3ecd4')
+b2sums=('6f84013033d98e4b6cadee2bf1caff6c419c9fd95beebbe0f3f37fc3c99b45a6d37883e8353cb5f703fb47da6f91f1b8539d38be408010dc13bf746b75f17810')
 
 prepare() {
   cd "$pkgname-$pkgver"

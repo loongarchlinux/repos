@@ -2,8 +2,8 @@
 # Contributor: Tommaso Sardelli <lacapannadelloziotom at gmail dot com>
 
 pkgname=bpftrace
-pkgver=0.15.0
-pkgrel=2
+pkgver=0.16.0
+pkgrel=1
 pkgdesc='High-level tracing language for Linux eBPF'
 arch=('loong64' 'x86_64')
 url='https://github.com/iovisor/bpftrace'
@@ -13,7 +13,7 @@ makedepends=('cmake' 'llvm13' 'git' 'linux-headers' 'ninja' 'gtest' 'cereal'
              'asciidoctor' 'xxd')
 options=(!strip)
 source=("https://github.com/iovisor/bpftrace/archive/v$pkgver/bpftrace-$pkgver.tar.gz")
-sha512sums=('916e9afeab301e62472e570ef77a3b9b27b43251880b64f1c5f151583c59a6c61e9ede50f3607044b27c5a6ce1a654f290153bf3f9237ebc0a823b5e6356187a')
+sha512sums=('52ca4fea4e2f8d2cbf0f9f1bc69af0ee3408201f019006dd2e838b9458cfc01761eba3df24c39e05cf93220d85d0cecc69bb44ec72f9f44cec0eb94479bff734')
 
 build() {
   cd bpftrace-$pkgver

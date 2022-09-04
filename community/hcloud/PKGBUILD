@@ -4,7 +4,7 @@
 
 _pkgname=cli
 pkgname=hcloud
-pkgver=1.30.1
+pkgver=1.30.3
 pkgrel=1
 pkgdesc="CLI for Hetzner Cloud"
 arch=('loong64' 'x86_64')
@@ -16,7 +16,7 @@ makedepends=('go-pie')
 depends=('glibc')
 provides=('hcloud')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/hetznercloud/cli/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('82c854a40eec0cc0ecfc1b7b744674d2342b5f603e41903d327ff49e94aedf1c92415b89504be53d10cc1feb0ffe8198f4063924c1ef6ae1c3107a2a44a28c54')
+sha512sums=('72246c670b15ea4ef8b1647dd4058bfe9aa4d4c849f47de7d943999b92287767ff206aa70e47083aceac94de0517bf436f5b2501faf732046f328dd082230bf6')
 
 build() {
   export CGO_ENABLED=1

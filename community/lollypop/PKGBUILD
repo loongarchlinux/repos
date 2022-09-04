@@ -3,14 +3,13 @@
 # Contributor: Cédric Bellegarde <gnumdk@gmail.com>
 
 pkgname=lollypop
-pkgver=1.4.34
-pkgrel=1
+pkgver=1.4.35
+pkgrel=2
 pkgdesc='Music player for GNOME'
 arch=(any)
 url=https://gitlab.gnome.org/World/lollypop
 license=(GPL)
 depends=(
-  appstream-glib
   gst-plugins-base-libs
   gst-python
   gtk3
@@ -22,6 +21,7 @@ depends=(
   totem-plparser
 )
 makedepends=(
+  appstream-glib
   git
   gobject-introspection
   intltool
@@ -39,24 +39,23 @@ optdepends=(
   'libsecret: Last.FM support'
   'youtube-dl: Youtube support'
 )
-_tag=56b421a7ff348d3420c6178dac91939b6952c731
+_tag=311bd3e21b8825b22bbfc397f0fcfbcf54e20b40
 source=(git+https://gitlab.gnome.org/World/lollypop.git#tag=${_tag})
 sha256sums=(SKIP)
 
 pkgver() {
   cd lollypop
-
   git describe --tags
 }
 
 build() {
   arch-meson lollypop build \
     --libexecdir=lib/lollypop
-  ninja -C build
+  meson compile -C build
 }
 
 package() {
-  DESTDIR="${pkgdir}" ninja -C build install
+  DESTDIR="${pkgdir}" meson install -C build
 }
 
 # vim: ts=2 sw=2 et:

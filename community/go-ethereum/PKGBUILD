@@ -1,8 +1,8 @@
-# Maintainer: Nicola Squartini <tensor5@gmail.com>
+# Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=go-ethereum
-pkgver=1.10.20
-_commit=8f2416a89a3def6ec2c749d5afafbf2c9a18e3c8
+pkgver=1.10.23
+_commit=d901d85377c2c2f05f09f423c7d739c0feecd90a
 pkgrel=1
 pkgdesc='Official Go implementation of the Ethereum protocol'
 arch=('loong64' 'x86_64')

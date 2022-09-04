@@ -4,8 +4,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=xmobar
-pkgver=0.40
-pkgrel=4
+pkgver=0.43
+pkgrel=3
 pkgdesc='Minimalistic Text Based Status Bar'
 url='https://hackage.haskell.org/package/xmobar'
 license=('BSD')
@@ -21,7 +21,7 @@ depends=('libxft' 'libxinerama' 'libxrandr' 'libxpm' 'ghc-libs' 'haskell-x11'
          'haskell-http-types' 'haskell-http-client-tls' 'haskell-alsa-core' 'haskell-alsa-mixer')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-temporary')
 source=(https://github.com/jaor/xmobar/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('4e8636f86cafbc71ec6f7fba48772954036537a5eca83f0402e988b85ff74e3bc2f8d9435d428e80966e4c781a049e752aa5ebb8a9a7e1da877fe74e51622ef6')
+sha512sums=('c6ba561d2baad809119c4edc823e494c7565044443a347cb17ef3f74c8c964509408d71fa003dde7e0b8bf25248734b38ed8c8e027dec7b51cdd3af2f63258d5')
 
 prepare() {
   cd xmobar-${pkgver}

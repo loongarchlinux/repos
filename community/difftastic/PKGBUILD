@@ -1,17 +1,18 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Daniel M. Capella <polyzen@archlinux.org>
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.31.0
-_commit=e545db85efaf9bb64a18d44f81fcfa7116704164
+pkgver=0.34.0
+_commit=3f0fdbff9f770616204040b1266645d6250a556a
 pkgrel=1
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=('loong64' 'x86_64')
 url='https://difftastic.wilfred.me.uk'
 license=('MIT')
 depends=('gcc-libs')
-makedepends=('git' 'rust' 'mdbook')
+makedepends=('git' 'rust' 'mdbook' 'jq')
 source=("$pkgname::git+https://github.com/Wilfred/difftastic.git#commit=$_commit")
 b2sums=('SKIP')
 

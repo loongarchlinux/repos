@@ -4,18 +4,31 @@
 # Contributor: scj <scj archlinux us>
 
 pkgname=python-levenshtein
-pkgver=0.12.2
-pkgrel=3
+pkgver=0.20.1
+pkgrel=2
 pkgdesc="Python extension for computing string edit distances and similarities"
 url="https://pypi.python.org/pypi/python-Levenshtein/"
 license=('GPL')
 arch=('loong64' 'x86_64')
-depends=('python')
-makedepends=('python-setuptools')
-source=("https://files.pythonhosted.org/packages/source/p/python-Levenshtein/python-Levenshtein-$pkgver.tar.gz")
-sha512sums=('97eac9d19121758af7620ad3963846e48434ceabb5376a83f28452015adf1a620620bfb53edb1c4f60b0fc8ec2b0faf35a105d7e2a0fc5df7a45fce81ba0dcdb')
+depends=('python-rapidfuzz')
+makedepends=('python-scikit-build' 'cython' 'rapidfuzz-cpp')
+checkdepends=('python-pytest')
+#source=("https://files.pythonhosted.org/packages/source/L/Levenshtein/Levenshtein-$pkgver.tar.gz")
+source=("https://github.com/maxbachmann/Levenshtein/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('9f3ab4d0e9766980e30956b85142528af2263f557d7cd3de50684fcb9aa713cdd7fd011762d16b2e2f0fe0a54e217c6d8f45246a6ccd33a4ea132ce0674c0a0f')
+
+build() {
+  cd Levenshtein-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd Levenshtein-$pkgver
+  PYTHONPATH=`echo "$PWD"/_skbuild/linux-x86_64-*/setuptools/lib.linux-x86_64-*` \
+  pytest
+}
 
 package() {
-  cd python-Levenshtein-$pkgver
-  python setup.py build install -O1 --prefix=/usr --root="$pkgdir"
+  cd Levenshtein-$pkgver
+  python setup.py install -O1 --root="$pkgdir"
 }

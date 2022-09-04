@@ -2,12 +2,12 @@
 # Contributor: Clément DEMOULINS <clement@archivel.fr>
 
 pkgname=python-networkx
-pkgver=2.8.4
+pkgver=2.8.6
 pkgrel=1
 pkgdesc='Python package for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks.'
 arch=('any')
 license=('BSD')
-url="https://networkx.github.io"
+url="https://networkx.org/"
 depends=('python-numpy' 'python-scipy' 'python-matplotlib' 'python-pandas')
 optdepends=('python-lxml: for GraphML XML format'
             'python-pydot: for graph drawing and graph layout algorithms via GraphViz'
@@ -16,7 +16,7 @@ optdepends=('python-lxml: for GraphML XML format'
 makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner' 'python-lxml' 'python-pydot' 'python-yaml')
 source=("https://github.com/networkx/networkx/archive/networkx-$pkgver.tar.gz")
-sha512sums=('fb225f012b674dad254cf089ec5a7e67fd7e0b14d48cba281d11a5427f41db376f96ab2f52f93ce2d7c37183329e3a05bdfb907b12c51c93dbd81298b031caac')
+sha512sums=('527e8335004dc719fbff30da8f73916af6c5ddc265187ef663186c5ee4c99032c0f904357c588b3e33b060cc095d7acb44498d3597bbbfb3887dd01dfe9c716f')
 
 build() {
   cd networkx-networkx-$pkgver

@@ -4,6 +4,7 @@
 pkgname=profile-sync-daemon
 pkgver=6.45
 pkgrel=1
+epoch=1
 pkgdesc="Symlinks and syncs browser profile dirs to RAM"
 arch=(any)
 url="https://github.com/graysky2/profile-sync-daemon"

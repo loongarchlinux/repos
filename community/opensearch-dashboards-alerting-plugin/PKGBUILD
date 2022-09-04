@@ -2,14 +2,14 @@
 
 pkgname='opensearch-dashboards-alerting-plugin'
 _pluginname='alerting-dashboards-plugin'
-pkgver=2.1.0.0
-_dashboardsver=2.1.0
+pkgver=2.2.1.0
+_dashboardsver=2.2.1
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Alerting Plugin'
 url='https://opensearch.org/docs/latest/monitoring-plugins/alerting'
 arch=('loong64' 'x86_64')
 license=('Apache')
-depends=("opensearch-dashboards=${_dashboardsver}" 'coffeescript')
+depends=("opensearch-dashboards=${_dashboardsver}" "opensearch-dashboards-notifications-plugin" 'coffeescript')
 makedepends=('yarn' 'python' 'git')
 options=('!strip' 'emptydirs')
 source=(
@@ -36,7 +36,7 @@ build() {
 
 check() {
   cd "OpenSearch-Dashboards/plugins/${_pluginname}"
-  yarn test:jest
+  yarn test:jest -u
 }
 
 package() {

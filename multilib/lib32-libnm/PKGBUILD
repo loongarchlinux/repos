@@ -8,7 +8,7 @@
 # Contributor: Ryszard Knop <dragoon@dragonic.eu>
 
 pkgname=lib32-libnm
-pkgver=1.38.2
+pkgver=1.40.0
 pkgrel=1
 pkgdesc="NetworkManager client library (32-bit)"
 url="https://networkmanager.dev/"
@@ -21,10 +21,10 @@ depends=(
   lib32-nss
   lib32-systemd
   lib32-util-linux
+  libnm
 )
 makedepends=(
   git
-  intltool
   lib32-dbus
   lib32-jansson
   lib32-libndp
@@ -35,7 +35,7 @@ makedepends=(
 )
 provides=(libnm.so)
 options=(debug)
-_commit=abfd2d6ea729926bff0ddafa1367a54f6d6f4230  # tags/1.38.2^0
+_commit=5d4802f7d869e2a91192dc75bf33cff892a3facf  # tags/1.40.0^0
 source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#commit=$_commit")
 b2sums=('SKIP')
 
@@ -59,7 +59,7 @@ build() {
     -D dbus_conf_dir=/usr/share/dbus-1/system.d
 
     # platform
-    -D dist_version="${pkgver}-${pkgrel}"
+    -D dist_version="$pkgver-$pkgrel"
     -D libaudit=no
     -D session_tracking_consolekit=false
     -D suspend_resume=systemd
@@ -81,6 +81,8 @@ build() {
 
     # configuration plugins
     -D config_plugins_default=keyfile
+    -D ifcfg_rh=false
+    -D ifupdown=false
 
     # handlers for resolv.conf
     -D netconfig=no
@@ -102,7 +104,7 @@ build() {
 
 package() {
   meson install -C build --destdir "${pkgdir}"
-  rm -rf "${pkgdir}"/{etc,usr/{bin,include,lib,lib32/NetworkManager,share},var}
+  rm -r "${pkgdir}"/{etc,usr/{bin,include,lib,lib32/NetworkManager,share},var}
 }
 
-# vim:set sw=2 et:
+# vim:set sw=2 sts=-1 et:

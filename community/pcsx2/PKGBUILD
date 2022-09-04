@@ -3,8 +3,8 @@
 # Contributor: vEX <vex@niechift.com>
 
 pkgname=pcsx2
-pkgver=1.7.3114
-pkgrel=1
+pkgver=1.7.3187
+pkgrel=4
 pkgdesc='A Sony PlayStation 2 emulator'
 arch=(loong64 x86_64)
 url=https://www.pcsx2.net
@@ -45,10 +45,12 @@ makedepends=(
   ninja
   png++
   qt6-tools
+  qt6-wayland
   vulkan-headers
   zstd
 )
-_tag=94c83245dbb10e35fee099d3820fe9250879bc18
+optdepends=('qt6-wayland: Wayland support')
+_tag=573706e5e42cd43474308a0f04a15daf516abbe8
 source=(
   git+https://github.com/PCSX2/pcsx2.git#tag=${_tag}
   git+https://github.com/mozilla/cubeb.git
@@ -108,8 +110,9 @@ build() {
     -DQT_BUILD=ON \
     -DUSE_SYSTEM_LIBS=ON \
     -DUSE_VTUNE=OFF \
+    -DWAYLAND_API=ON \
+    -DX11_API=ON \
     -DXDG_STD=ON \
-    -DSDL2_API=ON \
     -Wno-dev
   cmake --build build
 }

@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <i@hexchain.org>
 pkgname=telegram-desktop
-pkgver=4.0.2
-pkgrel=4
+pkgver=4.1.1
+pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('loong64' 'x86_64')
 url="https://desktop.telegram.org/"
@@ -17,7 +17,7 @@ optdepends=('webkit2gtk: embedded browser features'
 source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
         fix-tgcalls-cstdint.patch
        )
-sha512sums=('0078b627d06dd8e655bd2bcc222ecbb3b15b7d88f858810bccdca84793ad02a60f4a4bf3808838752d65d4f6cffa3ddb5f70c5afc8e94cb6edae52101362feeb'
+sha512sums=('3240b9f81c3901997b1ea13fd7db7b8598b31c0faa68a2f711909ed11f33345db5a45ac99c0be77f1caeb1f571093ea42b1dbc7e7bb15e989c8756805c2ec887'
             'ba24a2f1524010b4891764aacee2e27a5ebae44cf7626ab2aaf9e6c48b0f8088bf920886ceeb497b3c463fa0c3b885dd63db273d4c29cab6c96c8193c0c5c888')
 
 prepare() {
