@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-svg
-_qtver=6.4.0-beta3
+_qtver=6.4.0-rc
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(loong64 x86_64)
@@ -16,7 +16,7 @@ groups=(qt6)
 options=(debug)
 _pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
 source=(https://download.qt.io/development_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('f51c977590b79040fb890a8c3e46f5ee685f773d772cfc448db541b51f4f81df')
+sha256sums=('550deaa77bc2a6fc68cec8bb1751833390f8af1e7679c3b0a80d85b6505cbe5d')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \

@@ -3,7 +3,7 @@
 
 _gemname=gio2
 pkgname=ruby-$_gemname
-pkgver=3.5.1
+pkgver=4.0.3
 pkgrel=1
 pkgdesc='Ruby/GIO2 is a Ruby binding of gio-2.x.'
 arch=(loong64 x86_64)
@@ -14,7 +14,7 @@ makedepends=(gobject-introspection ruby-native-package-installer)
 options=(!emptydirs)
 source=(https://rubygems.org/downloads/$_gemname-$pkgver.gem)
 noextract=($_gemname-$pkgver.gem)
-sha1sums=('10f2f5edc49731fc457ee321d245d3d2e578e8a4')
+sha1sums=('577d0e807ac4081f1372df16f0539f485b708587')
 
 package() {
   local _gemdir="$(ruby -e'puts Gem.default_dir')"

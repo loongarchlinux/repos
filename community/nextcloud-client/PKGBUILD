@@ -11,10 +11,10 @@ pkgname=(nextcloud-client nextcloud-client-cloudproviders)
 epoch=2
 # Upstream does not provide signed tarballs (yet)
 # https://github.com/nextcloud/desktop/issues/1510
-pkgver=3.5.4
+pkgver=3.6.0
 # curl https://api.github.com/repos/nextcloud/desktop/git/ref/tags/v$pkgver | jq -r .object.sha
-_tag=774aec60736195a8312887cdde33243d1ffcdc00
-pkgrel=1
+_tag=3cf3c038b44d99779de0dff8c525bc4211c68074
+pkgrel=2
 arch=(loong64 x86_64)
 url='https://nextcloud.com/'
 license=(GPL)
@@ -83,7 +83,7 @@ check() {
 package_nextcloud-client() {
   pkgdesc='Nextcloud desktop client'
   depends=(hicolor-icon-theme openssl sqlite qtkeychain-qt5 qt5-svg qt5-websockets
-           xdg-utils libcloudproviders qt5-graphicaleffects qt5-quickcontrols2)
+           xdg-utils libcloudproviders qt5-graphicaleffects qt5-quickcontrols2 qt5-quickcontrols)
   optdepends=(
     'kio: integration with Dolphin'
     'nemo-python: integration with Nemo'

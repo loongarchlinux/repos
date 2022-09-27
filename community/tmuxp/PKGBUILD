@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.13.1
+pkgver=1.15.2
 pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
@@ -11,8 +11,8 @@ depends=(python-click python-colorama python-kaptan python-libtmux)
 makedepends=(python-build python-installer python-poetry-core python-wheel)
 checkdepends=(python-pytest python-pytest-mock python-pytest-rerunfailures)
 source=(https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('9d17613ac54d321b03298139d6d971061058d9af9f0ff1a282aebb606a4da6ec4e15a6cf569767e5eae238df926b0c79f980bef592077e4cd42523ba9141979a')
-b2sums=('5a78e1e01e9046bde4372ea011ea69230752e59aacec6252d79f96abeefe7014f3115463083dd2e2fd966836584f90fd060ae06a5e85802a4816b3a6ce2f8f96')
+sha512sums=('a64b73870a8d4760f1abcbacd3fccd65ed90c3d94a841635f4ae1a19e37bd185b7a69dbe0728550876ebd6377f66be7c63c49adc290c7046987ca87a9da4f368')
+b2sums=('5ddcfba684aa488c913d395a0679e2891faf82c018a5c00fea27455c0525e204a9b2d560a915a696ac3f0c4f60d9b3a1bf1ad730a093d7e1f2d94e75d950d98e')
 
 build() {
   cd $pkgname-$pkgver
@@ -24,11 +24,17 @@ check() {
     # https://github.com/tmux-python/tmuxp/issues/788
     --deselect tests/test_workspacebuilder.py::test_automatic_rename_option
   )
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd $pkgname-$pkgver
-  pytest -vv "${_deselected[@]}"
+  python -m installer --destdir=test_dir dist/*.whl
+  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
+  pytest -vv "${_deselected[@]}" tests
 }
 
 package() {
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 

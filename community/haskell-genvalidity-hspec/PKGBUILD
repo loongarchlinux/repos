@@ -2,8 +2,8 @@
 
 _hkgname=genvalidity-hspec
 pkgname=haskell-genvalidity-hspec
-pkgver=1.0.0.0
-pkgrel=46
+pkgver=1.0.0.2
+pkgrel=2
 pkgdesc="Standard spec's for GenValidity instances"
 url="https://github.com/NorfairKing/validity"
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-genvalidity' 'haskell-genvalidity-property' 'haskel
          'haskell-hspec-core' 'haskell-quickcheck' 'haskell-validity')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('90818ec5bbf91ebe67ae9d079a695de2520c48b93cb7344e003f1b85963a6bb64addc15f1d5789b263b13a390b03c1bb49efecb52bc3de2d4b6988dad96d0626')
+sha512sums=('9088de3e788fda70068403c3aae3f510d202f9bc355e69d4294de1a634a255dc0d9b45cb6036375efb0eff12a1d3ca088dd541e007cde5912284d9eaa5936a94')
 
 prepare() {
     cd $_hkgname-$pkgver

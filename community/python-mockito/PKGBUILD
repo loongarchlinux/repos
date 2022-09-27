@@ -3,7 +3,7 @@
 # Contributor: Thomas S Hatch <thatch45@gmail.com>
 
 pkgname=python-mockito
-pkgver=1.3.1
+pkgver=1.3.5
 pkgrel=1
 pkgdesc='Spying framework'
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python')
 makedepends=('python-pytest' 'python-setuptools')
 checkdepends=('python-numpy')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/kaste/mockito-python/archive/$pkgver.tar.gz")
-sha512sums=('e2e7a75051fd38e52767e355daa4da46bc9afd99644c9d76e544666e47b2c002806b7e0afac2a8895b29d790119740b15aa3d24a8b118caa0a7cc2c645035672')
+sha512sums=('161f5bb8fa53eb477d042ccbbb408bcddf3ba1dd060bb95381595b3e468496be1ca28792e3a3e4d7e979bedd3f91fa5cf5f14e0ac43bdfeafe84d3a3cf53f501')
 
 build() {
   cd mockito-python-$pkgver

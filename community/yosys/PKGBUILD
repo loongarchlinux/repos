@@ -3,8 +3,8 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.12
-pkgrel=7
+pkgver=0.20
+pkgrel=2
 pkgdesc='A framework for RTL synthesis'
 arch=('loong64' 'x86_64')
 url='http://www.clifford.at/yosys/'
@@ -19,7 +19,7 @@ optdepends=('graphviz: Schematics display support'
             'z3: alternative solver for yosys-smtbmc')
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=("https://github.com/cliffordwolf/yosys/archive/$pkgname-$pkgver.tar.gz")
-sha512sums=('df91ea75ae08c7c7e134cfa6284c4e9349e6f85f2df32e4710a571176d5e1a334a6e1e77d52bf573686d33b405559e40af1a8d42cbd4e1f95f0e3b4e212e0b06')
+sha512sums=('c26ef7687f2395621ac77c8ebc0f94d55c2185cf120bac84245a60d1111e7a81e472804a038c390e158ca3130c63b5d5e90bbef672e9d1af431cb12c33148690')
 
 _make() {
     make \

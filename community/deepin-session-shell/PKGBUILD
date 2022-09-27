@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-shell
-pkgver=5.5.34
+pkgver=5.5.72
 pkgrel=1
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('loong64' 'x86_64')
@@ -11,14 +11,14 @@ url="https://github.com/linuxdeepin/dde-session-shell"
 license=('GPL3')
 options=('debug')
 # qt5-tools: for qdbus executable
-depends=('deepin-daemon' 'deepin-qt5integration' 'deepin-wallpapers' 'gsettings-qt' 'liblightdm-qt5'
-         'lightdm' 'qt5-tools' 'startdde')
+depends=('deepin-daemon' 'deepin-network-core' 'deepin-qt5integration' 'deepin-wallpapers'
+         'gsettings-qt' 'liblightdm-qt5' 'lightdm' 'qt5-tools' 'startdde')
 makedepends=('cmake' 'gmock' 'gtest' 'ninja')
 conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/dde-session-shell/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4bdc6ae7004a2a4d30f3dfb5259cebeec1332af401c44626bc9a7f4553817c840194ae2bbe6e6c21d337e6b1d369598013c053e469362fb1743b671032cddee8')
+sha512sums=('e0ea9645922ad8757114cd60f6f3238b277d681bf3c0021923dc0271694dbdab5298de5aa08ab6e84d3bd69acce80ec9cbae0304178f77c5aabfef7182c5c9ea')
 
 prepare() {
   cd dde-session-shell-$pkgver
@@ -28,7 +28,7 @@ prepare() {
 
 build() {
   cd dde-session-shell-$pkgver
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
   ninja
 }
 

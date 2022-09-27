@@ -3,20 +3,20 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-dock
-pkgver=5.5.38.1
+pkgver=5.5.67
 pkgrel=2
 pkgdesc='Deepin desktop-environment - dock module'
 arch=('loong64' 'x86_64')
 url="https://github.com/linuxdeepin/dde-dock"
 license=('GPL3')
 depends=('qt5-svg' 'deepin-menu' 'deepin-daemon' 'deepin-launcher' 'deepin-qt5integration'
-         'deepin-qt-dbus-factory' 'libdbusmenu-qt5')
+         'deepin-qt-dbus-factory' 'libdbusmenu-qt5' 'deepin-network-core')
 makedepends=('cmake' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 conflicts=('dde-dock')
 replaces=('dde-dock')
 groups=('deepin')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-dock/archive/$pkgver.tar.gz")
-sha512sums=('3d23f8913cbfe719803e31a1404ca3beebe6430dc15644a52eb4584111c52cb2b022a02ccc31219c54e84e6bf0a5e3d7b237e1c892e1bad0effb4d5d8dfad63d')
+sha512sums=('eaa93652bc24eedd70c122d6bf901e174db63a819956090cebf36344b54943638b3d54d3572c920377b1e7d860e9bcf4593f4b9d21a21564f9e546640d7e9cf6')
 
 build() {
   cd dde-dock-$pkgver

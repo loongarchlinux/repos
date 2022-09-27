@@ -3,8 +3,8 @@
 
 _hkgname=brick
 pkgname=haskell-brick
-pkgver=0.71
-pkgrel=1
+pkgver=0.72
+pkgrel=3
 pkgdesc="A declarative terminal user interface library"
 url="https://github.com/jtdaugherty/brick"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-vty' 'haskell-data-clist' 'haskell-dlist' 'haskell-
          'haskell-contravariant' 'haskell-text-zipper' 'haskell-word-wrap')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('383769c00a97f1ff0b53a65a38852d7eaf3426ea0fc36fec94767d267ae1a174fc2f85913c94d4c1d5ae9d8d588397a939b320e161a4223e83d0fafed47b1222')
+sha512sums=('0a9946b0cffcbb808493d6f9155f24d112d7e17973419e8fe39fd2ee58dbdc5af3e9d11f822b725e7c1486cb1bed346b6ef77d0e99e0bff80a8577f73f1b4811')
 
 build() {
     cd $_hkgname-$pkgver

@@ -1,18 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-openapi-spec-validator
-pkgver=0.4.0
-pkgrel=2
-pkgdesc="A Python library that validates OpenAPI Specs against the OpenAPI 2.0 (aka Swagger) and OpenAPI 3.0.0 specification"
+pkgver=0.5.1
+pkgrel=1
+pkgdesc="OpenAPI 2.0 (aka Swagger) and OpenAPI 3 spec validator"
 url="https://github.com/p1c2u/openapi-spec-validator"
 license=('Apache')
 arch=('any')
-depends=('python-jsonschema' 'python-openapi-schema-validator' 'python-six' 'python-yaml' 'python-setuptools' 'python-requests')
-makedepends=('python-build' 'python-installer' 'python-poetry')
-checkdepends=('python-pytest-runner' 'python-mock' 'python-pytest-flake8' 'python-pytest-cov'
-              'python-tox')
+depends=('python-jsonschema' 'python-openapi-schema-validator' 'python-yaml'
+         'python-importlib_resources' 'python-jsonschema-spec' 'python-lazy-object-proxy')
+makedepends=('python-build' 'python-installer' 'python-poetry-core')
+checkdepends=('python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/p1c2u/openapi-spec-validator/archive/$pkgver.tar.gz")
-sha512sums=('d2eaf22c75e72eb5061a916eb37b13179a5ba65eb8a00ec42e81c6b4168239bc8613388f2d77ce35113d260385b175280d8863a3deedf18ea5aa93a79f058419')
+sha512sums=('b70a2f926d889fec9d4fd26c51e1fbbeb5e75f13449d2d0205b1b7edb12ab2ba49e4cac69426f782ca3a4430c79a6de8f66b4aad2fc552bcfcf7005e866522ff')
+
+prepare() {
+  cd openapi-spec-validator-$pkgver
+  sed -i '/--cov/d' pyproject.toml
+}
 
 build() {
   cd openapi-spec-validator-$pkgver

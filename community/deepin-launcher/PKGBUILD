@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-launcher
-pkgver=5.5.19.1
+pkgver=5.5.33
 pkgrel=1
 pkgdesc='Deepin desktop-environment - Launcher module'
 arch=('loong64' 'x86_64')
@@ -16,7 +16,7 @@ conflicts=('dde-launcher')
 replaces=('dde-launcher')
 groups=('deepin')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-launcher/archive/$pkgver.tar.gz")
-sha512sums=('dfb2b0d5fa9b17e35fc787d0e6fbdab7b539ae56a0f8046e5f9a4698094aa3e055544fcc3965a13487bca0003991bc3d499dbac7692c6c36960adf4208da1860')
+sha512sums=('b92585b84bb0811d6d8702cf57239cf81bdc1c7f62270c5eb2d90abaeb0c7801ad3cc995e2a5eda5c990828d6fa4f864b2e6620fe4bddca1a86df3cda911bf74')
 
 prepare() {
   cd dde-launcher-$pkgver

@@ -3,7 +3,7 @@
 
 _name=selene
 pkgname=selene-linter
-pkgver=0.20.0
+pkgver=0.21.1
 pkgrel=1
 pkgdesc='Blazing-fast modern Lua linter written in Rust'
 arch=('loong64' 'x86_64')
@@ -13,7 +13,7 @@ depends=('gcc-libs' 'openssl')
 makedepends=('rust')
 options=('!lto')
 source=("$url/archive/$pkgver/$_name-$pkgver.tar.gz")
-b2sums=('69f885db88acc85d34fe28afc37157b074c268c6ed279e5edf77769976d88aa17c2fe12a627d94805f746438469eb40ea2db421b134abddfba01854a15138e2f')
+b2sums=('19516c0e109c1f3f0afa3edf84bf7c232e048a17233bfd350c02f7454463bcbf190d01e7834548ab6c1ff1ae38f38c603747a19abf639b5329a24e0731700f18')
 
 prepare() {
   cd $_name-$pkgver

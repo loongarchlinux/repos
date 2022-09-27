@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_qtver=6.4.0-beta3
+_qtver=6.4.0-rc
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(loong64 x86_64)
@@ -20,7 +20,7 @@ groups=(qt6)
 options=(debug)
 _pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
 source=(https://download.qt.io/development_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('1fb0899911e1fc0f17f1fa54b3ddc47b3806f4fec0ff69242515f35c08e88af9')
+sha256sums=('68691176dd9d154fc89a948e088f196fd16ee613b9c031ee3fd02baf3033759e')
 
 build() {
   export CXXFLAGS+=" -ffat-lto-objects"

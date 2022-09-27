@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkwidget
-pkgver=5.5.42
-pkgrel=3
+pkgver=5.5.50
+pkgrel=1
 pkgdesc='Deepin graphical user interface library'
 arch=('loong64' 'x86_64')
 url="https://github.com/linuxdeepin/dtkwidget"
@@ -16,7 +16,7 @@ makedepends=('qt5-tools' 'gtest')
 replaces=('deepin-tool-kit')
 conflicts=('deepin-tool-kit<0.3.4')
 source=("https://github.com/linuxdeepin/dtkwidget/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('55e932cd51d0bd03a22e564b504cb1a76cea2a5697767d34ca3c29f881ca36971032b21cabbcc751061ec3fcddf02ba99eb8669c9fed0cf7d3cd1e73eb84899d')
+sha512sums=('5626c4f2870c2480d70ed08b5bb328c0c029bd4371d7911a125e2988a149f26e0906235bb68a310f26cf0fc781c30bd0e8cedc0abdfe11bc500e8319062372f6')
 
 build() {
   cd dtkwidget-$pkgver

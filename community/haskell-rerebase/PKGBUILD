@@ -3,8 +3,8 @@
 
 _hkgname=rerebase
 pkgname=haskell-rerebase
-pkgver=1.15.0.3
-pkgrel=47
+pkgver=1.16.1
+pkgrel=1
 pkgdesc='Reexports from "base" with a bunch of other standard libraries'
 url="https://github.com/nikita-volkov/rerebase"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-rebase')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('7887c40a92a84df9361e7745c001476d6e0984c9da973f841feb3f6a413062d16a5dfe4be3171ee8d0bb96a9554384e831a1a4217eef764b97c726051c22ae1f')
+sha512sums=('d9fc5677dfa06889f1f48ac3be0d3ea4e03531b8547d64c85f2154dac01bda0437a7131d60f07688afa2ac6d748f49030c70a64834507980846aaa66a205786b')
 
 prepare() {
     cd $_hkgname-$pkgver

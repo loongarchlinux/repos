@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-cliff
-pkgver=0.9.0
-pkgrel=2
+pkgver=0.9.2
+pkgrel=1
 pkgdesc="A highly customizable changelog generator"
 arch=('loong64' 'x86_64')
 url="https://github.com/orhun/git-cliff"
@@ -11,7 +11,7 @@ license=('GPL3')
 depends=('gcc-libs' 'zlib' 'libgit2' 'libgit2.so')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('cf24532f068a3a0efdececf1f066130cbb33fbc343884627a095a67f1dc7d8b4bcc83f99e056cb2edce61ecfe866bc45f9062f24faf38b6b881083b3691e2bd4')
+sha512sums=('8af87bcbcbaa80e004935f68a0f25ca293f0c68bcdc900d550cea515ef44f8e5e2eabfbdbcd939009f3ee90d34b42ccc5ff980ffa62521d5126ad91bf6d9d604')
 
 prepare() {
   cd "$pkgname-$pkgver"

@@ -3,7 +3,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.81.0
+pkgver=0.85.0
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -22,7 +22,7 @@ optdepends=(
   'python-ujson: for faster JSON parsing and UJSONResponse'
   'uvicorn: for Uvicorn as ASGI server'
 )
-makedepends=(python-build python-installer python-flit python-wheel)
+makedepends=(python-build python-installer python-hatchling python-wheel)
 checkdepends=(
   # test dependencies
   python-aiosqlite
@@ -54,8 +54,8 @@ checkdepends=(
   python-passlib
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('b1cd55d125e9cfcadbd9f41b40bb5c7d2d14c6fbb082b7bdca15408bfcca575ff7ab52b414a7c22f8eed5ff480f737619de2abb03a3634e52b652f27623541b5')
-b2sums=('38de43ca7e93a4ce9ed3ad144ccca1b82f49b409f1db018a68e3c6b2087f605d72769902defc6e521c679ef4b57b83dabd0dff8af29087d16523c1124b375629')
+sha512sums=('c0d1745a7530347a8b0a188e8b4276da2780fa49aafdb4847039684ebf12f1ea70ebc7c0f5002c20f01429159ab7b1a7e8d469cfc42466d2e5954926733ba215')
+b2sums=('29ad07f3f470195464519f5ec7272b34b71db21af65b69d5db2b1d693c1c91646af8356a82a94da8d3c44f4834fe33bd41eb29981eab6d1ea71fb0d2be15e3df')
 
 prepare() {
   cd $_name-$pkgver

@@ -2,8 +2,8 @@
 
 _hkgname=hspec-smallcheck
 pkgname=haskell-hspec-smallcheck
-pkgver=0.5.2
-pkgrel=234
+pkgver=0.5.3
+pkgrel=2
 pkgdesc="SmallCheck support for the Hspec testing framework"
 url="http://hspec.github.io/"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-call-stack' 'haskell-hspec-core' 'haskell-hunit' 'haskell-smallcheck')
 makedepends=('ghc' 'haskell-base-orphans' 'haskell-hspec' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('2fd27126285e7d308f277480dcadcb6b047f67a82389edaf7d4761504f88ffedd8831db5b6b4f178c429cf3e8009e8aee8c6b05040dd960e7d2813e50908bd05')
+sha512sums=('cbf1130e11a75c6042762f94e60b51b286061b175d7d3b5b5c4c4f1477b0aa54d8bc17546b8aafe6a1601ca9a2a765bf392af80850c11cc30e68c1ae5e51146a')
 
 build() {
     cd $_hkgname-$pkgver
