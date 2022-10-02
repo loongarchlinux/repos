@@ -1,0 +1,25 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=go-licenses
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="Reports on the licenses used by a Go package and its dependencies"
+url="https://github.com/google/go-licenses"
+arch=('loong64' 'x86_64')
+license=('Apache')
+makedepends=('go')
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/google/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz)
+b2sums=('453d9b0a8944c8b78216065b5814da8f4df8943ea0351500d2e8166d173a62d90eaaff9160a20b02881c347c6d29b6142658334930940964fce520153a243ed6')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  go build .
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm755 ${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+# vim: ts=2 sw=2 et:

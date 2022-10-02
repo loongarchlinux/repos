@@ -6,7 +6,7 @@
 _electron=electron20
 pkgbase=element.io
 pkgname=(element-web element-desktop)
-pkgver=1.11.4
+pkgver=1.11.8
 pkgrel=1
 pkgdesc="Glossy Matrix collaboration client — "
 arch=(loong64 x86_64)
@@ -21,9 +21,9 @@ source=(element-web-${pkgver}.tar.gz::${_url}-web/archive/v${pkgver}.tar.gz
         autolaunch.patch
         io.element.Element.desktop
         element-desktop.sh)
-sha256sums=('12c62ba6ed5a19a2af52797599917bbabbf42f1a0babf30dc9e787bbeb0329df'
+sha256sums=('9d9bb42a3d004ab4659d2945e6752aa278c59bc3b7f75919ce076bf3fb2b5f73'
             'SKIP'
-            '156e34306695f2233bd7a34089f803e742b439eca0e11ce6cbc9ff4c94ff67bf'
+            '541c01fdac38db2a4e7c058be5d2196ace0cd987c37f58a79631ec43c260182f'
             'SKIP'
             '268485f35103d00a89be7f5c84703e3d393350c71f4f90932f7bcb5ea2fd094f'
             '0103f28a32fe31f698836516783c1c70a76a0117b5df7fd0af5c422c224220f9'
