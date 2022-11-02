@@ -3,11 +3,11 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-_pkgver=2022.9.0
-pkgver=2022.9.0
+_pkgver=2022.10.2
+pkgver=2022.10.2
 _upstreamver=${_pkgver%[[:lower:]]}
 #_patchver=$_upstreamver
-_patchver=2022.9.0 # almost always out of sync now
+_patchver=2022.10.0 # almost always out of sync now
 pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=('any')
@@ -21,7 +21,7 @@ install=$pkgname.install
 source=("bitwarden-clients::git+https://github.com/bitwarden/clients.git#tag=web-v$_upstreamver"
         "$pkgname-v$_pkgver-$_patchver.patch::https://raw.githubusercontent.com/dani-garcia/bw_web_builds/v$_pkgver/patches/v$_patchver.patch")
 b2sums=('SKIP'
-        '0eb35247f40c5451bb69dc0e1a8d54fa189584059606ee2001fca495d3ace0118044070d96b6d7b6948c9da6f026d5452cc9d4d7411daa3c541db283588be9a8')
+        '3a4f2de3d62b4d1462d76bd58de048214bb5ff83ffe65c53710e6605d1c6c38c1138dc7fb9c09a92c050e24dc0dbe98acb7d76fd0aa7dd04acae39a06444faae')
 
 pkgver() {
   echo $_pkgver | sed 's/[[:lower:]]$/.&/'

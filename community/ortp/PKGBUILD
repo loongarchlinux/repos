@@ -4,7 +4,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=ortp
-pkgver=5.1.64
+pkgver=5.1.67
 pkgrel=1
 pkgdesc='A Real-time Transport Protocol (RTP) library'
 arch=(loong64 x86_64)
@@ -13,7 +13,7 @@ license=(GPL3)
 depends=(bctoolbox)
 makedepends=(cmake doxygen)
 source=(https://gitlab.linphone.org/BC/public/$pkgname/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2)
-sha256sums=('0e558a70697fab0c9aa395b789ca0230a41c737b5d9259a49b377132cdd7c42c')
+sha256sums=('9d2f939647dd74658213447ff05ccc492bab60e0d37d16cfca614185208dc19c')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \

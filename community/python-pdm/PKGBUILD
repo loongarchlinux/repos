@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.1.4
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="A modern Python package manager with PEP 582 support"
 arch=(any)
@@ -32,8 +32,8 @@ makedepends=(python-build python-wheel)
 checkdepends=(python-pytest python-pytest-mock python-pytest-xdist)
 optdepends=('python-keyring: for storing credentials')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('c91965b8f727f56ecae2beba3086e4b691fe72fbb5bcd8aed480821b30f89b76fc65b4b4cea2c69faba870164c1c9bc2d1d83f99ca5eddbdd60ed1a58ab25918')
-b2sums=('fb8b5a6f9a1c4af8f7e357a346f68f303699173ab64add18fe283b25e99129f84ca64fc680f3dc7a0bdeffd02a143d717d137d0047b5b07cdeba78a1f05b8b9e')
+sha512sums=('63444c20358c680b6bb1977443796d1e9d1543199b809d823ed3681208e1bb47780f85b0794d93d17727baa86c02145c111b87ba8c05966dea10be9874763e61')
+b2sums=('8305afca4cfa8f5714289131d29b53819f0ef7163a738191a922b80f0254c56e26450b95f3c7a3d12cf45511ff5a335a5f754a0d3a06d623e509e59e1390ec37')
 
 build() {
   cd $_name-$pkgver
@@ -49,7 +49,7 @@ check() {
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
   # skip tests that would fail because of missing interpreters: https://github.com/pdm-project/pdm/issues/1175
-  pytest -vv -c /dev/null -k 'not test_basic_integration'
+  pytest -vv -c /dev/null -k 'not test_basic_integration and not test_use_invalid_wrapper_python'
 }
 
 package() {
@@ -58,12 +58,8 @@ package() {
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
   # completions
-  install -vd \
-    "$pkgdir/usr/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
-  "$pkgdir"/usr/bin/pdm completion bash > \
-    "$pkgdir/usr/share/bash-completion/completions/$_name"
-  "$pkgdir"/usr/bin/pdm completion fish > \
-    "$pkgdir/usr/share/fish/vendor_completions.d/$_name.fish"
-  "$pkgdir"/usr/bin/pdm completion zsh > \
-    "$pkgdir/usr/share/zsh/site-functions/_$_name"
+  install -vd "$pkgdir/usr/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
+  "$pkgdir"/usr/bin/pdm completion bash > "$pkgdir/usr/share/bash-completion/completions/$_name"
+  "$pkgdir"/usr/bin/pdm completion fish > "$pkgdir/usr/share/fish/vendor_completions.d/$_name.fish"
+  "$pkgdir"/usr/bin/pdm completion zsh > "$pkgdir/usr/share/zsh/site-functions/_$_name"
 }

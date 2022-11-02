@@ -2,7 +2,7 @@
 # Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 
 pkgname=xplr
-pkgver=0.19.3
+pkgver=0.20.0
 pkgrel=1
 pkgdesc="A hackable, minimal, fast TUI file explorer"
 arch=('loong64' 'x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'hicolor-icon-theme')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname-$pkgver.tar.gz.asc::$url/releases/download/v${pkgver}/source.tar.gz.asc")
-sha512sums=('82c77c6bda5b690b2311de26e407715189f77d462e0d13365d2790db358b323302e07306b66d45b0527af28286b6612c45328ff3cdd6ddf6b33b72a778e77a17'
+sha512sums=('d6f09610e3a2e2d29d391c6350734e26d435ab72be629c6590b09f3991b337ad7d086bc82024815cfb934eb2c1f69dd0e46da63f4b90a1305edc879668ad5f26'
             'SKIP')
 validpgpkeys=('D59CA14710C17C6B24717AF90F8EF5258DC38077') # Arijit Basu (June 3, 2021)
 options=('!lto')

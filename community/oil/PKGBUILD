@@ -5,7 +5,7 @@
 # Contributor: andychu <andy@oilshell.org>
 
 pkgname=oil
-pkgver=0.12.6
+pkgver=0.12.8
 pkgrel=1
 pkgdesc='A new Unix shell'
 arch=('loong64' 'x86_64')
@@ -17,8 +17,8 @@ replaces=('osh')
 install=oil.install
 options=('!lto' '!strip')
 source=("$url/download/$pkgname-$pkgver.tar.xz")
-sha512sums=('ad48448b55b868286e34d82795d4783b0ba200877755cf34b7d95df1683af5cf53e22233528be8cecdf434643cc7d5179ca960b812202cfed5b3ec152bbc296e')
-b2sums=('bf36e2eb81dcf7fcd78f7e73bcaa7251b4fa72dc5878ddc380b89e6eb49350984562dd13a1940f4360c237fa8cae1d88ef310cf3a69b71ba91b77528c19a1d9a')
+sha512sums=('b9480021f79b08a9ee25dd0e4718f4f9511d6c28e50888caad6b431800410b299408dd524f8d01e3ac88a9383c9df13109d7708da0e88476d8c28844c86c3aa1')
+b2sums=('a58df1bb2dcc9d191c7254c4970ffdc5101c609a58288c037be25997f37dbfec5b0c959e50b5d0c79765e7a133ad89a97fbb99537d670c33b184bbcef5291694')
 
 build() {
 	cd "$pkgname-$pkgver"

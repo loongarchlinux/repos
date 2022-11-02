@@ -3,6 +3,7 @@
 pkgname=jacktrip
 pkgver=1.6.4
 pkgrel=1
+epoch=1
 pkgdesc="Multi-machine audio network performance over the Internet"
 arch=(loong64 x86_64)
 url="https://github.com/jacktrip/jacktrip"

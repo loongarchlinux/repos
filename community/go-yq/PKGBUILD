@@ -3,7 +3,7 @@
 # Contributor: Mario Finelli <mario at finel dot li>
 
 pkgname=go-yq
-pkgver=4.27.5
+pkgver=4.29.2
 pkgrel=1
 pkgdesc='Portable command-line YAML processor'
 arch=('loong64' 'x86_64')
@@ -13,7 +13,7 @@ depends=('glibc')
 makedepends=('go')
 conflicts=('yq')
 source=("$url/archive/v$pkgver/yq-$pkgver.tar.gz")
-b2sums=('fd69367f7c8a9ba0a22050eba92c7e90b1e3ff1b1c428f550c104775e85c3e079931b710e684d37ba4690e2489060181c8ec1cefcbb5982b640a1ce9edb17a6c')
+b2sums=('17293c70c59b0110da6b0300a6a51bdf69074bf8d7dda953fbc96726e454a709d30463e1660422a292d45b7b5c3a85b9fd3e643f2a2c214165dee5cd90770c08')
 
 prepare() {
   cd yq-$pkgver

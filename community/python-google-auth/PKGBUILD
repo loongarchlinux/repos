@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-google-auth
-pkgver=2.3.1
+pkgver=2.6.5
 pkgrel=1
 pkgdesc="Google Authentication Library"
 url="https://github.com/GoogleCloudPlatform/google-auth-library-python"
@@ -13,11 +13,11 @@ checkdepends=('python-pytest' 'python-mock' 'python-requests' 'python-flask'
               'python-oauth2client' 'python-pytest-localserver' 'python-cryptography'
               'python-freezegun' 'python-responses' 'python-pyopenssl' 'python-pyu2f')
 source=("https://github.com/GoogleCloudPlatform/google-auth-library-python/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('44b9e06b0ac759c579d070f3d6ba6a84d4d1d36dec9ee2581c29e3c7949714e87b3bb41805a905ef2a803ca94816e636670b90256705ade8b669fabde66a8747')
+sha512sums=('10cd921e00fe35acf463134223846a5f5ee19f023f923ae2148dcbd08dbaf43619f03a5b0233c91b9e6bc45b52eefef43192646f13850d130fec1722ef96e84c')
 
 prepare() {
-  sed -i 's|cachetools>=2.0.0,<5.0|cachetools>=2.0.0|' google-auth-library-python-$pkgver/setup.py
-  sed -i 's|utils.int_from_bytes|int.from_bytes|' google-auth-library-python-$pkgver/google/auth/crypt/es256.py
+  cd google-auth-library-python-$pkgver
+  sed -i 's/from requests.packages.urllib3.util.ssl_ import/from urllib3.util.ssl_ import/' google/auth/transport/requests.py
 }
 
 build() {

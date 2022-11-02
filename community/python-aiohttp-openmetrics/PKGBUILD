@@ -2,8 +2,8 @@
 
 _name=aiohttp-openmetrics
 pkgname=python-aiohttp-openmetrics
-pkgver=0.0.7
-pkgrel=2
+pkgver=0.0.10
+pkgrel=1
 pkgdesc='OpenMetrics provider for aiohttp'
 arch=('any')
 url=https://github.com/jelmer/aiohttp-openmetrics
@@ -12,8 +12,8 @@ depends=('python-aiohttp' 'python-prometheus_client')
 makedepends=('python-build' 'python-installer' 'python-setuptools'
              'python-wheel')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('91ce41e6d95c951eaf43f313452821d3607b044870070f4d802f74961c9f2526')
-b2sums=('cb6f5a432847cb6b054237970eee379df3a7a9898b97aa00ffab45de855fa0ecfd906dfe804992e3ccfe7f420daf86f0c4065b7fd24a5f150be808b656e635fd')
+sha256sums=('4e372b6ba8f17a0e27792282ee26ed1a69791aa0e33474fa7b6a162ca0d7c655')
+b2sums=('f8f56885e19286014ee8466eba0adbbc6fa9cd54774b98b3056e8c2de6d0cbc4f04b5bd7bd2c7129579e602daa830b63a3a83cef46e59081ec40a04cee25cf8a')
 
 build() {
   cd $_name-$pkgver

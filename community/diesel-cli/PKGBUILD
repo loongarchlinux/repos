@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <git@rxv.cc>
 
 pkgname=diesel-cli
-pkgver=2.0.0
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="CLI for the Diesel crate"
 arch=('loong64' 'x86_64')
@@ -12,10 +12,10 @@ depends=('sqlite' 'postgresql-libs' 'libmariadbclient')
 makedepends=('cargo')
 source=(https://github.com/diesel-rs/diesel/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         Cargo.lock)
-sha512sums=('06fd83c781aa212922df4dd4f95145d36fec041dd1daeeef4e7770774315330b6e932e09f13db88b4b12ec06ccb4477cda766fc5f81d586ab24376b99341730a'
-            '44b6fa793d2c69a62ebff11e85def41d5d0b7672f1ed6e9039b701c8da53db58205f207e6b843cba4cecd8497c05555c3718e8f38f14ed3b2365929ae4e35bb0')
-b2sums=('e19dd241a014c9419e8c3cb5a75c6d8d2ffc1429304d486b252846e851a9fce349f9e9b770251408840dc4f07894d880f794266680a709aee89f9bd282d8a08f'
-        'e1942e36a621a25219b411a729af1bf45af5414c5c702b69e7fa8f3fe2ff7eeed59aaa72d0e8e07c2e099daaa527680a07d67cffbf42123bee13dc253722cb83')
+sha512sums=('efeb4e70cffd154563d5fd8928749b1820ea8c6ea07b504306f7c9ab145c22b3f86f04acfa2c90338179506e4829ec0e2f5456192ef0f19c7b647d523868462f'
+            '3700bcaa0b9e19cf1f6f5199b558bc0a877f124d9fce3476fdb7c765ecebac93b893f1eb47e5e3181ed0f0b9a7eb17760f34792712952086c4e7479abbb8074c')
+b2sums=('aa1fa24d18dedbd51dcac48f0c285b83b8a737c73b6093590d5a9bced0cfcb6b93a7ae9d16c5813983264b3e97e3e94c60f5ceb1b565a3043b5dc5a8d41d1eaf'
+        'efb492f013aac1863ce0afa418973470d8917e5b607b4f25884bfc2401ad7018e820ba181ebd1a90cb979989d3683b737734bf5497b3498cf96fe779f4038107')
 
 prepare() {
   cp Cargo.lock "diesel-${pkgver}"

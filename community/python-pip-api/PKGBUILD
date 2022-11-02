@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pip-api
-pkgver=0.0.24
+pkgver=0.0.28
 pkgrel=1
 pkgdesc="An unofficial, importable pip API"
 url="https://github.com/di/pip-api"
@@ -11,7 +11,7 @@ depends=('python-packaging' 'python-pyparsing' 'python-pip')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest-runner' 'python-pretend' 'python-virtualenv')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/di/pip-api/archive/$pkgver.tar.gz")
-sha512sums=('357aaa0f73c00b83af9261a60d9b09e7642ddc290a2443d797b36b1f90a2a38596bf20e79b0025eed80f133e2b26dc8e903d6fdec4efbc2ed2fb9865b5ff4f14')
+sha512sums=('369a59912572e48b54e0edac3dc398cf9cb9d043a4165a0c140f8e710c518a8828697766de53e08cf1afee54f898541fc5dbcafef16afa0595a7df904e276b95')
 
 prepare() {
   cd pip-api-$pkgver

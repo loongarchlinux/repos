@@ -6,7 +6,7 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=1.7.2
+pkgver=1.7.4
 pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
@@ -18,8 +18,8 @@ makedepends=('python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-flexmock' 'python-pytest')
 optdepends=('python-llfuse: for mount action')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('d28dad2a0ec17e190db7f93c5dd6756a069227128ee4ec41e5a691815f483de5')
-b2sums=('fd628e9c77547686d4edf5d1066d3c171575f4d923ebc5205c5eb64f3a960e94c121282e9f4fb02b1291a81011a18dc393c6d13a07f215585459e7a5b55f8107')
+sha256sums=('b1b1e46252e12f42c17a0984c40ace10fc22d52806f0d687f2d0a1a99869a007')
+b2sums=('cbdf22c7428d2bd098a8bec0608c9d2fe41ab945aca4921cf78f72a5b73e2ea562a1e9e37705ada615f830b2655977179beca0f9a9bfa2937cc1cde0c292caed')
 
 prepare() {
   cd $pkgname-$pkgver

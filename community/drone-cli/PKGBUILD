@@ -4,8 +4,8 @@
 # Contributor: Christian Höppner <chris@mkaito.com>
 
 pkgname=drone-cli
-pkgver=1.5.0
-pkgrel=2
+pkgver=1.6.1
+pkgrel=1
 pkgdesc='Command line interface for Drone CI'
 arch=('loong64' 'x86_64')
 url='https://docs.drone.io/cli'
@@ -13,7 +13,7 @@ license=('Apache')
 depends=('glibc')
 makedepends=('go' 'git')
 options=('!lto')
-_commit='92e84c4e2452f82ad093722d87ad054e1821805e'
+_commit='d32315e6671030780095222d84f7280c23491dd4'
 source=("$pkgname::git+https://github.com/harness/drone-cli.git#commit=$_commit")
 md5sums=('SKIP')
 

@@ -1,17 +1,18 @@
 # Maintainer: kpcyrd <git@rxv.cc>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-audit
-pkgver=0.17.0
+pkgver=0.17.3
 pkgrel=1
 pkgdesc="Audit Cargo.lock for crates with security vulnerabilities"
 url="https://github.com/RustSec/cargo-audit"
 depends=('cargo')
 arch=('loong64' 'x86_64')
 license=('MIT' 'APACHE')
-options=(!lto)
+options=('debug' !lto)
 source=("https://github.com/RustSec/rustsec/archive/${pkgname}/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('18fc40de40b95adc55e4c4e767f969d62f60bba23805ea9455dd12c1c19f01c0')
-b2sums=('1dce9dcc94c75e1df9f8d955c4f86bb08905e18de6eb875f6a4380ed55190874e512b89aa507350ee2d87ca93b05848ec07524168ff34819ce21cb7016b7ff50')
+sha256sums=('e8b4c3d9178c93818493a33c2524b3b1362fb198d25bb8cbf2887f7ee7bd1c28')
+b2sums=('1a8d7ee407eae66b02ab9cffa5c3687caf4a4982275825b523efb9a91ea501d23b961820c641c379cda50418ad58d82736e8cb318e21ca7a49b5d786a0f990c8')
 
 prepare() {
   cd rustsec-${pkgname}-v${pkgver}/${pkgname}
@@ -19,7 +20,7 @@ prepare() {
 }
 
 build() {
-  cd rustsec-${pkgname}-v${pkgver}/${pkgname}
+  cd rustsec-${pkgname}-v${pkgver}
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo build --release --locked
@@ -33,6 +34,6 @@ check() {
 
 package() {
   cd rustsec-${pkgname}-v${pkgver}/${pkgname}
-  install -Dm755 target/release/${pkgname} -t "${pkgdir}"/usr/bin
+  install -Dm755 "../target/release/${pkgname}" -t "${pkgdir}"/usr/bin
   install -Dm644 LICENSE-MIT -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }

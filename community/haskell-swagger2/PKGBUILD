@@ -3,8 +3,8 @@
 
 _hkgname=swagger2
 pkgname=haskell-swagger2
-pkgver=2.8.1
-pkgrel=2
+pkgver=2.8.6
+pkgrel=1
 pkgdesc="Swagger 2.0 data model"
 url="https://github.com/GetShopTV/swagger2"
 license=("BSD")
@@ -14,16 +14,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base-compat-
          'haskell-insert-ordered-containers' 'haskell-lens' 'haskell-network' 'haskell-optics-core'
          'haskell-optics-th' 'haskell-quickcheck' 'haskell-scientific'
          'haskell-unordered-containers' 'haskell-vector' 'haskell-uuid-types')
-makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck-instances'
+makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck-instances'
              'haskell-hspec-discover' 'haskell-doctest' 'haskell-cabal-doctest' 'haskell-glob'
              'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('08fa89cae42eed5cbe7936c08d17f308faedc218d6670e24fd9979aad605d7746b76ec56f282cb25f0e9abdfa040bf972d33b98bf7ab7d3dacc3c6bbdeef86ca')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u hspec $_hkgname.cabal
-}
+sha512sums=('34fd648d329a9cd60d32b5eadb19bf254dcde8772474c97c58a719fe591d92b160680a7ba0c9527d1627f708dc29e372fcd176fac61f874c419808e0e97decdc')
 
 build() {
     cd $_hkgname-$pkgver

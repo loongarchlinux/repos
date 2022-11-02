@@ -3,13 +3,13 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger
-pkgver=1.26.1
-pkgrel=33
+pkgver=1.27.1
+pkgrel=7
 pkgdesc="Command-line interface for the hledger accounting system"
 url="http://hledger.org"
 license=("GPL")
 arch=('loong64' 'x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-breakpoint' 'haskell-cmdargs'
          'haskell-data-default' 'haskell-decimal' 'haskell-diff' 'haskell-githash'
          'haskell-hashable' 'haskell-hledger-lib' 'haskell-lucid' 'haskell-math-functions'
          'haskell-megaparsec' 'haskell-microlens' 'haskell-regex-tdfa' 'haskell-safe'
@@ -18,7 +18,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-cmdargs'
          'haskell-utility-ht' 'haskell-wizards')
 makedepends=('ghc' 'haskell-extra' 'haskell-timeit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('498076acb775e006d6f24f04138500ccbe4db98dfab6d60331def20bccaa3204c3320a873a304035fbe37f9d0236027e3bcfd0791cea84a2d8258d19fb49b729')
+sha512sums=('59d1b6d2209a029603725156200dca6dd73296e544b70fe1c4f2bcb053befb91f78b161db98f414425c774c56a73ecc13ee4f06db5b4c8100d52e0484f5125da')
 
 build() {
     cd $pkgname-$pkgver

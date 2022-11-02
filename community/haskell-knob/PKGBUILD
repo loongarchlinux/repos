@@ -3,22 +3,16 @@
 
 _hkgname=knob
 pkgname=haskell-knob
-pkgver=0.1.1
-pkgrel=90
+pkgver=0.2.1
+pkgrel=4
 pkgdesc="Memory-backed handles"
-url="https://github.com/felixonmars/knob"
+url="https://github.com/ncfavier/knob"
 license=("MIT")
 arch=('loong64' 'x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-chell')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
-        base4.15.patch)
-sha512sums=('b13e9a88de99fa941521135c7f61be4ad5b838806e7424ac4b38607d59635ec2ddd6808560f1568f6d974c531185d43b5e1510886e07bcb567b859a12659277b'
-            '80b0f41c2e874fc004908afae26bea0fdd83094460e22a26ec4617f6adcfbe3671da16e2c59ef32b90c75414ddcd3ac3b667667e151be7b7f5c0fefd07851ba4')
-
-prepare() {
-    patch -d $_hkgname-$pkgver -p1 < base4.15.patch
-}
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('97e7b784bd89dce15bf9d48bc1dacfd37191a6c6a83a50a794222cc8b1a4d0a912007373c51196e772733a6abd3ff6d0391c3893441bf79091494c81a1e49dea')
 
 build() {
     cd $_hkgname-$pkgver

@@ -2,22 +2,16 @@
 # Contributor: Maxime Schmitt <maxime.schmitt91@gmail.com>
 
 pkgname=nvtop
-pkgver=2.0.3
+pkgver=3.0.0
 pkgrel=1
-pkgdesc="An htop like monitoring tool for AMD and NVIDIA GPUs"
+pkgdesc="GPUs process monitoring for AMD, Intel and NVIDIA"
 arch=('loong64' 'x86_64')
 url="https://github.com/Syllo/nvtop"
 license=('GPL3')
-depends=('ncurses')
-makedepends=('cmake' 'libdrm')
-source=("https://github.com/Syllo/nvtop/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        format-security.patch)
-sha512sums=('ffd9d88898b7c6365d8bcff3c7b187760bc0036fba80ab6a0e3a586217ebf48b3377cdbe84f2fbbe10fb650f96de108973f95ccd29766e45da3901ee5d45f63c'
-            'a388de418586c8569d119dbd6845e2257160a81e370ed75ba60a9823afb90267cb5522200a06925db9ce3ca39b8d589dd02b7ade47de712abe830b02fbd2bd6e')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < format-security.patch
-}
+depends=('ncurses' 'systemd-libs')
+makedepends=('cmake' 'libdrm' 'systemd')
+source=("https://github.com/Syllo/nvtop/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('fc1525e4040cdf75c09705eefc351c957c815d15d5e8f06591294f4f901c5f3a235a706dc249740f478a3e0b5812d061d142ea7095dbb2a0f620b3511a387f79')
 
 build() {
   cd $pkgname-$pkgver

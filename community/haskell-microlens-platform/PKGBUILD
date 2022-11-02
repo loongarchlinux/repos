@@ -3,8 +3,8 @@
 
 _hkgname=microlens-platform
 pkgname=haskell-microlens-platform
-pkgver=0.4.3.0
-pkgrel=1
+pkgver=0.4.3.2
+pkgrel=3
 pkgdesc="microlens + all batteries included (best for apps)"
 url="https://github.com/monadfix/microlens"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' "haskell-hashable" "haskell-microlens" "haskell-microlens-gh
          "haskell-vector")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b92de3ed92db4fef83c19df16a715a8600b5546a5002aa7dd791d82f0f1d84b25d7b36c29502fb1db3501e6c6f2c646d7ca2466526f3792b4660c48b0a70669d')
+sha512sums=('35327edf11fa6da7f1f873fb9f9c04d1257b45e27c25ef474a3ab6e88ac6ade176c0f7342b5b42551d5d468fb2bba2155b5b64d008e447e38c4376bcab6a8981')
 
 build() {
     cd $_hkgname-$pkgver
