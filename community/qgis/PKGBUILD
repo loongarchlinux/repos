@@ -9,8 +9,8 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=3.26.3
-pkgrel=1
+pkgver=3.28.1
+pkgrel=2
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 url='https://qgis.org/'
 license=('GPL')
@@ -18,14 +18,14 @@ arch=('loong64' 'x86_64')
 depends=('exiv2' 'gdal' 'gsl' 'hicolor-icon-theme' 'libzip' 'ocl-icd' 'pdal' 'protobuf'
          'python-gdal' 'python-jinja' 'python-owslib' 'python-psycopg2' 'python-pygments'
          'python-qscintilla-qt5' 'python-yaml' 'qca' 'qt5-3d' 'qt5-imageformats'
-         'qt5-serialport' 'qt5-webkit' 'qtkeychain-qt5' 'qwt' 'spatialindex')
+         'qt5-serialport' 'qt5-location' 'qtkeychain-qt5' 'qwt' 'spatialindex')
 makedepends=('cmake' 'fcgi' 'ninja' 'opencl-clhpp' 'python-setuptools' 'python-six' 'qt5-tools'
              'txt2tags' 'sip' 'pyqt-builder')
 optdepends=('fcgi: Map server'
             'gpsbabel: GPS Tools plugin')
 source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2"
          qgstyle-infinite-loop.patch::https://github.com/qgis/QGIS/commit/19823b76.patch)
-sha256sums=('512b64e2778bcea02dcc70a1c4fac2cc47b4f9a685a62b08eec0ec23636104e6'
+sha256sums=('09015bb68c45556ffe9d480272d24048e6276a6bf1c010fd77beae64329ff674'
             'c5bc388da987c7c21451b3f0f74220c8bd82cfba04657ff599d1896e6ae4b304')
 
 prepare() {
@@ -40,6 +40,7 @@ build() {
     -DWITH_CUSTOM_WIDGETS=TRUE \
     -DBINDINGS_GLOBAL_INSTALL=TRUE \
     -DQGIS_MANUAL_SUBDIR=share/man \
+    -DWITH_QTWEBKIT=FALSE \
     -DWITH_QWTPOLAR=TRUE \
     -DQWTPOLAR_LIBRARY=/usr/lib/libqwt.so \
     -DQWTPOLAR_INCLUDE_DIR=/usr/include/qwt \

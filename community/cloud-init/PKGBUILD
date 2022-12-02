@@ -7,7 +7,7 @@
 # Contributor: Sparadox <etienne.lafarge at gmail.com>
 
 pkgname=cloud-init
-pkgver=22.3.4
+pkgver=22.4.2
 pkgrel=1
 pkgdesc="Cloud instance initialization"
 arch=(any)
@@ -28,9 +28,9 @@ source=(
   $pkgname-$pkgver.tar.gz::https://github.com/canonical/cloud-init/archive/refs/tags/$pkgver.tar.gz
   $pkgname-22.1-lib_dir.patch
 )
-sha512sums=('cda3fe917e9777c82d780afe77c9c62c3784e99e41f500dc35c1aee050a5c55fff97467b9be9b8cc2f986f8f087aa1c568d9dbe6d8cfdb11fea31b94cd137943'
+sha512sums=('b7d4629205ef2b184786908a3f922d635c811fed8f468649b1a892e93fbcbd54bc9eb366a49ceefb33acd32de1fc8d1a9a34c577c3b9d77825deb5f24e4fe18e'
             '32b7521f0ae4d61a4d86f2f840fb0670e2cdc7bab708fc7b7676b5178b6d660beb3a46b803f5bcd7e0f18c6d6339fc96e20a951dfafadbb0312e4a0cafce325f')
-b2sums=('1fdba5774f2f96effc34240b9e4bfe29f0210d9ae0b3f42885b05623881c485f777c9441db6cd42dff2b5a0f779ae1558a6e9a08c0d09dcc8bdc4a899c2df0ca'
+b2sums=('9208053502f641da760dc3983838a7eddaad83ce18a8edd0f34437e3df0407a0370fcf45e1727284935426bf4d052192da7c1be7efe7aeaeaad466faf93e1cbe'
         '4e03bd647ca9e1bc3d9c507824d43e4013a20d5bbcb7215755b427d0c7ded9ee48dbfb9faaae703ab2d519aee7c48a40277603c8f874347b574b7ac2b1e1a9fd')
 
 prepare() {

@@ -1,14 +1,14 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=v2ray-geoip
-pkgver=202210270100
+pkgver=202212010055
 pkgrel=1
 pkgdesc="GeoIP List for V2Ray"
 arch=('any')
 url="https://github.com/v2fly/geoip"
 license=('CCPL:by-sa')
 source=("geoip-$pkgver.dat::https://github.com/v2fly/geoip/releases/download/$pkgver/geoip.dat")
-sha512sums=('abe6e56e9e862fce214c5d841474b420db5a5297f254e8c1c1a6470c746534da55aca048f4cec8b25d253ea3d2a59f9cca780fcf7a3c8b4dd9bb4a3c7bf37186')
+sha512sums=('e4658911d1af8c598357ffb5e89c60ab113c1ff224810269bcbf05f543da4a87c678e5cb3ea0e8995998fa178c3d09685e7ea054f93fb2fce2c7d2c75902d529')
 
 package() {
   install -Dm644 geoip-$pkgver.dat "$pkgdir"/usr/share/v2ray/geoip.dat

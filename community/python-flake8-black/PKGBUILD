@@ -3,8 +3,8 @@
 
 _name=flake8-black
 pkgname=python-flake8-black
-pkgver=0.3.3
-pkgrel=2
+pkgver=0.3.5
+pkgrel=1
 pkgdesc='Flake8 plugin to call black as a code style validator'
 arch=('any')
 url=https://github.com/peterjc/flake8-black
@@ -13,8 +13,8 @@ depends=('flake8' 'python-black' 'python-tomli')
 makedepends=('python-build' 'python-installer' 'python-setuptools'
              'python-wheel')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('8211f5e20e954cb57c709acccf2f3281ce27016d4c4b989c3e51f878bb7ce12a')
-b2sums=('35b782024519ca75075b0389b0cec3746c30e2dc4c5f07a9bee54636fa3708936eebf6ab0e1e203f1227db97778373b5c2127714c10bf7f2c801a96d010eaea3')
+sha256sums=('9e93252b1314a8eb3c2f55dec54a07239e502b12f57567f2c105f2202714b15e')
+b2sums=('bda2b0d022b36d1fccdf38df390b9d4660846817b887f28f489fa4c2975aba989a96e8c70f1fd00fd47cde9645f448cf23ec7478a62fc85aab16a9b74cd23df8')
 
 build() {
   cd $_name-$pkgver

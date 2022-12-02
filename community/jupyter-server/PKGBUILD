@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jupyter-server
-pkgver=1.21.0
+pkgver=1.23.3
 pkgrel=1
 pkgdesc='Provides the backend for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila'
 arch=(any)
@@ -13,7 +13,7 @@ makedepends=(python-build python-installer python-pre-commit)
 checkdepends=(python-pytest-tornasync python-pytest-console-scripts python-pytest-timeout)
 optdepends=('jupyter-server-mathjax: to use local MathJax')
 source=(https://pypi.io/packages/source/j/${pkgname/-/_}/${pkgname/-/_}-$pkgver.tar.gz)
-sha256sums=('d0adca19913a3763359be7f0b8c2ea8bfde356f4b8edd8e3149d7d0fbfaa248b')
+sha256sums=('f7f7a2f9d36f4150ad125afef0e20b1c76c8ff83eb5e39fb02d3b9df0f9b79ab')
 
 build() {
   cd ${pkgname/-/_}-$pkgver

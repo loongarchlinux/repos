@@ -3,8 +3,8 @@
 # Contributor: lifning <definelightning@gmail.com>
 
 pkgname=retroarch
-pkgver=1.12.0
-pkgrel=1
+pkgver=1.13.0
+pkgrel=2
 pkgdesc='Reference frontend for the libretro API'
 arch=(loong64 x86_64)
 url=http://www.libretro.com/
@@ -59,7 +59,7 @@ optdepends=(
   'wayland: Wayland support'
 )
 backup=(etc/retroarch.cfg)
-_tag=415925c5dc73e9f080d8edf36398434038648507
+_tag=0bf818af8dda4ef96993889d3ea23f2a2b054136
 source=(
   git+https://github.com/libretro/RetroArch.git#tag=${_tag}
   retroarch-config.patch

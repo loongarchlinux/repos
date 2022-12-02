@@ -2,7 +2,7 @@
 # Contributor: Jesús Espino <jespinog@gmail.com>
 
 pkgname=mmctl
-pkgver=7.4.0
+pkgver=7.5.1
 pkgrel=1
 pkgdesc='A remote CLI tool for Mattermost'
 arch=(loong64 x86_64)
@@ -13,7 +13,7 @@ makedepends=(go
              git)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('c795823388253ac55bfa7941640ba3eaea22e2e31ac508369448bc141beccedc')
+sha256sums=('62addf7ed94eab6bcb7bac26e703774a91f285bac227a57f2edfbb38b7da146d')
 
 prepare() {
 	cd "$_archive"

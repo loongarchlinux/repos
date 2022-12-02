@@ -1,0 +1,51 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=cxxbridge
+pkgver=1.0.82
+pkgrel=1
+pkgdesc='Safe interop between Rust and C++'
+url='https://github.com/dtolnay/cxx'
+arch=('loong64' 'x86_64')
+license=('Apache' 'MIT')
+makedepends=('cargo')
+options=(!lto)
+source=(https://github.com/dtolnay/cxx/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+        Cargo.lock)
+sha512sums=('70bf1302e8a1c9d2b3d063dcc44d077fa58501e92050971e15ddb9bed526438331c729aeba20568f598f73b65e139e0e3fde4ff1e08bd916fd9faf9d8893814a'
+            '0eb6f2114aeebdf3bb6ea9609611c2ec9957d73d930a10a2f8359dd94687f9ea415047ada16c3f734c1f10689d4adee2b27ae35d63a7d0ed85517d6e9d54160e')
+b2sums=('ee515855b9edcaab83252d380ee429d9d9200824235f5336c326b2b0d1a781e29ef41b8c1a134e9ee9888f0b20b71b64474d985c885609300f5db9ebb82c0e6c'
+        '080933d865e0ccd75ac3378c6b5ecabc4eedebbc3a34cd9cd5d691874f46529c7472cf754bd4f7a2215c32eba379da56110370a901af84f8d7e85106e51e0543')
+
+prepare() {
+  cd "cxx-${pkgver}"
+  cp ../Cargo.lock .
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+updlockfiles() {
+  cd "cxx-${pkgver}"
+  rm -f Cargo.lock
+  cargo update
+  cp Cargo.lock "${outdir}/"
+}
+
+build() {
+  cd "cxx-${pkgver}/gen/cmd"
+  cargo build --frozen --release
+}
+
+check() {
+  cd "cxx-${pkgver}"
+  cargo test --frozen
+}
+
+package() {
+  cd "cxx-${pkgver}"
+  install -Dm 755 target/release/${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 755 include/cxx.h -t "${pkgdir}/usr/share/${pkgname}/"
+
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

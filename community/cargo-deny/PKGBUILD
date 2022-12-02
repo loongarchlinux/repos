@@ -3,8 +3,8 @@
 # Contributor: Vlad Frolov <frolvlad@gmail.com>
 
 pkgname=cargo-deny
-_commit='9a6d7c5eb65c1f403a04f216bf3c0f2b1efdfb38'
-pkgver=0.13.2
+_commit='7d884cfb1101d94a54d6b1dc3e06120faaf69d2f'
+pkgver=0.13.5
 pkgrel=1
 pkgdesc='Cargo plugin for linting your dependencies'
 arch=('loong64' 'x86_64')

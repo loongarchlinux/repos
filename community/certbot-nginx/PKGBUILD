@@ -3,7 +3,7 @@
 # Contributor: Gordian Edenhofer <gordian.edenhofer[at]yahoo[dot]de>
 
 pkgname=certbot-nginx
-pkgver=1.31.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Nginx plugin for Certbot"
 arch=('any')
@@ -29,9 +29,9 @@ validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '86379B4F0AF371B50CD9E5FF3402831161D1D280'
               '20F201346BF8F3F455A73F9A780CC99432A28621'
               'F2871B4152AE13C49519111F447BF683AA3B26C3')
-sha512sums=('3bc760c3b522c80418751fd4b5833a9ff181c721fd8bd11549f8554535dc2968983ec159b349ebe041bbc9170ed31de793cfccaaae442f2af38d5cc846d9ade2'
+sha512sums=('51e22cc79e9395791caa956baf9c537ed629a775ac55dce24eb7066515855ddd21f0e1c1df169cca644d13c34b102786e00155b38048038d08d97add364b6c26'
             'SKIP')
-b2sums=('4011db1d2ce7ddf052fdb8ba98e3eb7c3ea9e6913a151ddda9dc1133e8407fc3db81e5893f4af560ba8d8b5c909147b6897c36474fe2b0ce4f3bf61d139d1e80'
+b2sums=('d96c28e8e0d9f9041d9bc417b1aa73967c74d6f0b385ba09f534304a739bc1ba0ebcab373ac558f7597b53ed738b8d6b8efa426f7e5991899da74d257b74db34'
         'SKIP')
 
 prepare() {

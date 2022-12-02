@@ -2,7 +2,7 @@
 
 _name=pyphen
 pkgname=python-pyphen
-pkgver=0.13.0
+pkgver=0.13.2
 pkgrel=1
 pkgdesc="Pure Python module to hyphenate text"
 arch=(any)
@@ -12,8 +12,8 @@ depends=(python)
 makedepends=(python-build python-flit-core python-installer python-wheel)
 checkdepends=(python-pytest)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('0238627cbde87601be0731a097488342a2f6a48d9ca7510066bb7a3674e0a4581653bc829a22716873b7eafff750025e6ff5b5a8c9ec095d8ccd1e4f801a101b')
-b2sums=('520ac4f0ce30fa4701a2ff72f03871c222a5529d79ff276c96cd4e7dec5a324a65878e7988666c972755f46b0a7359b82bcb67d33dfad838062bfeea143e9e04')
+sha512sums=('1f6388050b6ac4fed26d67fde6adfa78b95da22cdc4aac3f45e273455fb3d7acf9d2dd019248c04048a9361e7d3aa6c954136426a520799eb51e1fab7e539c80')
+b2sums=('77b9f257bd171a2f5e57a2d8cba78e86f8badff6ff0bd130eebca99f931552e5d4d82bc81273afb15dc11c8635be914b33062b078c9593bced7a353c69d905ab')
 
 build() {
   cd $_name-$pkgver

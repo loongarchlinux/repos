@@ -1,9 +1,10 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: NOGISAKA Sadata <ngsksdt@gmail.com>
 # Contributor: Bennett Piater <bennett at piater dot name>
 
 pkgname=doctl
-pkgver=1.84.1
+pkgver=1.88.0
 pkgrel=1
 pkgdesc='The official command line interface for the DigitalOcean API'
 url='https://github.com/digitalocean/doctl'
@@ -12,8 +13,8 @@ license=('Apache')
 depends=('glibc')
 makedepends=('go')
 source=(https://github.com/digitalocean/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('dca4654a47e0d7c609aacd3c777c4e338f97d01f1505aa64b14027c5246d75d0f4395504b08b5ed4e5783d227f6060ce9e656d242b756a86729b3eb45a269c9f')
-b2sums=('958ca129b0a4771093210d44b879c6d681a640df92a0acfd4f1593450e63ac7237f560b2456067990c29ebeee39c73e2cda69a1a1769db254da071b5152a97b2')
+sha512sums=('629bcc806c9270b4f0e70f6959316c6a7a3195e9d8105243be7a9a3e311b01c01f9389fbb93cd8c9cd1c23451d98fe5802e106b19378e427e941cc817218e589')
+b2sums=('e77ed8fbccf00533b35fae962279c01f60c9ad3a458cadf5fcb9632f31784761f648fea171f634290ec17941fc05a39babc81f1bce56eb50f718f67340181e2f')
 
 build() {
   cd ${pkgname}-${pkgver}

@@ -2,18 +2,18 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=1.6.0
+pkgver=1.7.1
 pkgrel=1
+_commit='d4bc87bfe12515ade842cb28553b974608c88adc'
 pkgdesc='A Modern Linker'
 arch=('loong64' 'x86_64')
 url='https://github.com/rui314/mold'
 license=('AGPL3')
 # xxhash is bundled
 depends=('gcc-libs' 'mimalloc' 'openssl' 'zlib' 'tbb')
-makedepends=('git' 'python' 'cmake')
+makedepends=('git' 'python' 'cmake' 'mold')
 checkdepends=('clang' 'libdwarf')
 options=('debug')
-_commit='323ad30e25c2c81efdb07ab76601a119335a40c8'
 source=("$pkgname::git+$url.git#commit=$_commit")
 b2sums=('SKIP')
 
@@ -27,12 +27,13 @@ build() {
   cmake \
   -S "$pkgname" \
   -B build \
-  -DCMAKE_BUILD_TYPE='None' \
-  -DCMAKE_INSTALL_PREFIX='/usr' \
-  -DCMAKE_INSTALL_LIBEXECDIR='lib' \
-  -DMOLD_USE_SYSTEM_MIMALLOC=ON \
-  -DMOLD_USE_SYSTEM_TBB=ON \
-  -DMOLD_LTO=ON
+  -D CMAKE_BUILD_TYPE='None' \
+  -D CMAKE_INSTALL_PREFIX='/usr' \
+  -D CMAKE_INSTALL_LIBEXECDIR='lib' \
+  -D MOLD_USE_SYSTEM_MIMALLOC=ON \
+  -D MOLD_USE_SYSTEM_TBB=ON \
+  -D MOLD_LTO=ON \
+  -D MOLD_USE_MOLD=ON
 
   cmake --build build
 }

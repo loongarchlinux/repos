@@ -1,8 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=jedi-language-server
-pkgver=0.37.0
-pkgrel=2
+pkgver=0.39.0
+pkgrel=1
 pkgdesc='Language server for Jedi'
 arch=('any')
 url=https://github.com/pappasam/jedi-language-server
@@ -11,7 +11,7 @@ depends=('python-docstring-to-markdown' 'python-jedi' 'python-pygls')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-jsonrpc-server' 'python-pyhamcrest' 'python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('738f2409c0b99b3494650fa2207aa17975963743ba3ed4cb37a2e6c292696e5bb5bbbd9f31aa53a63b26578de139606b881f5ed5a5a8708cdae662e39c40ce75')
+b2sums=('a001d324dbb17f5d60dcf60a282a66f0f25213e00e224ff96c63eeb648808fd488de8b48aa8564b1e162cb1ce6e953629a0d2524f2b01b3be9984fd68fdd5d45')
 
 prepare() {
   cd $pkgname-$pkgver

@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zope-proxy
-pkgver=4.5.1
+pkgver=4.6.1
 pkgrel=1
 pkgdesc="Generic Transparent Proxies"
 arch=('loong64' 'x86_64')
@@ -10,7 +10,7 @@ license=('ZPL')
 depends=('python-setuptools' 'python-zope-interface')
 checkdepends=('python-zope-security' 'python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.proxy/archive/$pkgver.tar.gz")
-sha512sums=('0c62e97c01148c544f4c33aec8a64b15e10c3d289b80617ff771fce97715a5a354b7df8897ef8ce314dc13f7148bc3e156f46f437bc2365fbb25463ff5254e47')
+sha512sums=('b4c776c393ac86f6606520f0588c6d5bbe0dca6675afe6aca1c05897a5c17866bd0142115eb1ccbc2cdde1285eba8500e2dd0f3b1be1e4291dd43ae665389c2a')
 
 build() {
   cd "$srcdir"/zope.proxy-$pkgver

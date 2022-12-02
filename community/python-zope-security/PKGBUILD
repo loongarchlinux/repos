@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zope-security
-pkgver=5.4
+pkgver=5.8
 pkgrel=1
 pkgdesc="Zope Security Framework"
 arch=('loong64' 'x86_64')
@@ -12,7 +12,7 @@ depends=('python-setuptools' 'python-zope-component' 'python-zope-i18nmessageid'
 checkdepends=('python-btrees' 'python-nose' 'python-zope-configuration' 'python-zope-testing'
               'python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.security/archive/$pkgver.tar.gz")
-sha512sums=('c15b90f8dc34ff0cb16a44262913f283f17e39b2825a691e79f1a0629db4ece0ec78cc4e5dc772cf98e10fd45e8e791250d9226a5f3599723455f15dda404391')
+sha512sums=('095f50cb5e22bbdc4b4e1b20cac0d5e0eb18d108e8ac5812915d5ef3f64ff5828c35153aa641ad690eed4be206e7fc99c93b1023b99d8f125f3f5fcf82acbc2a')
 
 build() {
   cd zope.security-$pkgver

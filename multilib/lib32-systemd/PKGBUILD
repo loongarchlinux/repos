@@ -2,8 +2,8 @@
 
 pkgname=lib32-systemd
 _pkgbasename=systemd
-_tag='7442d25a54b6dd494299b3a932b28953f4e67b21' # git rev-parse v${_tag_name}
-_tag_name=251.7
+_tag='2306696b774a8c23f3796a0c9ebd8486fbb2a069' # git rev-parse v${_tag_name}
+_tag_name=252.2
 pkgver="${_tag_name/-/}"
 pkgrel=1
 pkgdesc='system and service manager (32-bit)'
@@ -38,10 +38,6 @@ prepare() {
 
   # add upstream repository for cherry-picking
   git remote add -f upstream ../systemd
-
-  # this test fails due to missing libtss2-esys.so.0
-  # disable for now
-  sed -i '/test-dlopen-so/d' src/test/meson.build
 
   local _c
   for _c in "${_backports[@]}"; do
@@ -103,6 +99,7 @@ build() {
     -Dresolve=true
     -Defi=false
     -Dtpm=false
+    -Dtpm2=false
     -Denvironment-d=false
     -Dbinfmt=false
     -Drepart=false
@@ -167,5 +164,5 @@ package() {
   meson install -C build --destdir "$pkgdir"
 
   rm -rf "${pkgdir}"/{etc,var}
-  rm -rf "${pkgdir}"/usr/{bin,include,lib,share}
+  rm -rf "${pkgdir}"/usr/{bin,include,lib,lib32/systemd,share}
 }

@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-dnsmadeeasy
-pkgver=1.31.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="DNS Made Easy DNS Authenticator plugin for Certbot"
 arch=('any')
@@ -26,9 +26,9 @@ validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '86379B4F0AF371B50CD9E5FF3402831161D1D280'
               '20F201346BF8F3F455A73F9A780CC99432A28621'
               'F2871B4152AE13C49519111F447BF683AA3B26C3')
-sha512sums=('640dd3d435ede17c794942f8c86ca728f3dba4ac4281011ab8b7f6ec2817b28eed17efa2714b5b437ac902f41704f7ebdab909e84aebaa5ac4633713828a218b'
+sha512sums=('97049d5e7ebabce9b5f81aee46ef56d51904a45f05363dfa5d6dab31ae2d5720d107a6cea7e948f19008a780f947908552dbda197bc4ac8080e2a31b82277d41'
             'SKIP')
-b2sums=('c4bc1bd59a8db5f58f6f1f221c22ce7e03e3a3362b2347c3f3676502f6986f5553398697b833093f1489b07b57936422fc0740a8fd09f61d61669935c4c7be37'
+b2sums=('8008a88c79990c25bcc76cd780e9fd5c0cf7af40a7447cdeb5396b78c7dc317203bdcac627e9b6d01670cd43faeacf49d01328ef1018a7d462250ab527943045'
         'SKIP')
 
 prepare() {

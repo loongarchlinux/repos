@@ -3,7 +3,7 @@
 # Contributor: Gordian Edenhofer <gordian.edenhofer[at]yahoo[dot]de>
 
 pkgname=certbot-apache
-pkgver=1.31.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='Apache plugin for Certbot'
 arch=('any')
@@ -29,9 +29,9 @@ validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '86379B4F0AF371B50CD9E5FF3402831161D1D280'
               '20F201346BF8F3F455A73F9A780CC99432A28621'
               'F2871B4152AE13C49519111F447BF683AA3B26C3')
-sha512sums=('31c5d9b7da854a910747225cd94c33e9b08d4c1a4c4f57dbc80292612900a16a78956f9241234856c0d7442b4551ff720f0577a7f93d8b3b1e6f0b4cfa66a1c9'
+sha512sums=('b6acaf69210cfa08c937e032063e6967c235094d2489ae28ea70496089fe2e566abb5b00beb6bf63dd66af3bf93d3213b4a423edded53a1b4910c07397c2bc58'
             'SKIP')
-b2sums=('1fb054b270a2692594c1a81926b648eeb9cf0513c4c9961e518d41a57f787633b309c7eaddcd08a9a6b8c283a824d6730746d2f269caa55ee3a41c53eea12980'
+b2sums=('91215c97adafc8cb5668cd634db40187c4a6644f6f151884f04aee85ed503ac525c5a7555cd6335e3b4b8ca7116770a8af088cbbe6333f317cadc23692163abc'
         'SKIP')
 
 prepare() {

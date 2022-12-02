@@ -5,8 +5,8 @@
 # Contributor: Daniel YC Lin <dlin.tw at gmail>
 
 pkgname=python-texttable
-pkgver=1.6.4
-pkgrel=3
+pkgver=1.6.7
+pkgrel=1
 pkgdesc="Generate a formatted text table using ASCII characters"
 arch=('any')
 url="https://pypi.python.org/pypi/texttable/"
@@ -16,7 +16,7 @@ optdepends=('python-cjkwrap: for better CJK support')
 makedepends=('python-cjkwrap' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/foutaise/texttable/archive/v$pkgver.tar.gz")
-sha512sums=('300b02f5b682f1c09a3eb5abfd4ee9c724354505a3f9e8f68207fd7d244402f234437807d68b6b526c3d4ade9e527e66c921bcd47a5e86d680698d559da3fe1a')
+sha512sums=('204dcad0d2438dab8880088d1ea6ab1d0a5d81348294547a6967938bf8e1c27a6c5f91c59c2fe22ce8d1266d7efdb165749e0aebc738644215ab9b1d5a28c419')
 
 build() {
   cd texttable-$pkgver

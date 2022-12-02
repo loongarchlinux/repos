@@ -3,9 +3,9 @@
 _hkgname=postgresql-simple
 pkgname=haskell-postgresql-simple
 pkgver=0.6.4
-pkgrel=139
+pkgrel=142
 pkgdesc="Mid-Level PostgreSQL client library"
-url="http://github.com/haskellari/postgresql-simple"
+url="https://github.com/haskellari/postgresql-simple"
 license=("BSD")
 arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-only' 'haskell-aeson' 'haskell-attoparsec' 'haskell-case-insensitive'

@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zope-hookable
-pkgver=5.2
+pkgver=5.4
 pkgrel=1
 pkgdesc="Represents the core of the Zope hookable Architecture"
 arch=('loong64' 'x86_64')
@@ -10,7 +10,7 @@ license=('ZPL')
 depends=('python-setuptools')
 checkdepends=('python-nose')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.hookable/archive/$pkgver.tar.gz")
-sha512sums=('7b7503636f30dd65a30c3ad959239a7b0e350d63c695cbbc49dc35382845720caa1ddd75e2198ffc486d24459fb3aea0e783e4f8db46ef8408b5864f9bb627c8')
+sha512sums=('e109589dc67b155be99bceb5cb100ab1a728d3201126b2b17125054fc3b3f4f3424a11d28d222557ab74be3d67289e26dd6f3f161544970e09aad26e993e3103')
 
 build() {
   cd "$srcdir"/zope.hookable-$pkgver

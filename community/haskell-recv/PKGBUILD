@@ -3,9 +3,9 @@
 _hkgname=recv
 pkgname=haskell-recv
 pkgver=0.0.0
-pkgrel=5
+pkgrel=7
 pkgdesc="Efficient netowrk recv"
-url="http://github.com/yesodweb/wai"
+url="https://github.com/yesodweb/wai"
 license=("BSD")
 arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-network')

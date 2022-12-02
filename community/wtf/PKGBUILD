@@ -2,8 +2,8 @@
 # Contributor: Jeff Mickey <j@codemac.net>
 
 pkgname=wtf
-pkgver=20220320
-pkgrel=1
+pkgver=20220926
+pkgrel=2
 pkgdesc="Acronym dictionary, with additions from NetBSD and wikipedia"
 arch=('any')
 url="http://www.mu.org/~mux/wtf/"
@@ -14,9 +14,12 @@ makedepends=('git')
 source=("https://sourceforge.net/projects/bsdwtf/files/wtf-$pkgver.tar.gz"
         "https://raw.github.com/keenerd/wtf/0623381d92b2c5d3e94b00c9eb06fb5d4d85d014/acronyms.computing"
         'LICENSE')
-md5sums=('9c21f6bfbe9ad881e684cdd7a73c20de'
+md5sums=('fcf774ca93e2509f1a7a38b268db6be1'
          '3d99862438ec7977ff8d7f4e3e5dd300'
          'abac213cf24e9d5cab4e8115441eb717')
+sha256sums=('34cd594b8e8393dd7b3d223a45622652373a3fc4fc00d98d32cc3a57f7f3f294'
+            '02b01850b1364cb83953a5a339df8e4f6f26df2cefa0017035a702146ab8b969'
+            '933517d5add733f555c1c73426ab1a6fa18c7e5f413a6317c1e018b2951fe708')
 
 prepare() {
   cd "$srcdir/wtf-$pkgver"

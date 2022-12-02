@@ -3,7 +3,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.85.1
+pkgver=0.88.0
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -18,7 +18,7 @@ optdepends=(
   'python-orjson: for ORJSONResponse'
   'python-python-multipart: for form parsing support'
   'python-pyyaml: for starlette SchemaGenerator support'
-  'python-requests: for TestClient support'
+  'python-httpx: for TestClient support'
   'python-ujson: for faster JSON parsing and UJSONResponse'
   'uvicorn: for Uvicorn as ASGI server'
 )
@@ -32,7 +32,6 @@ checkdepends=(
   python-httpx
   python-peewee
   python-pytest
-  python-pytest-cov
   python-sqlalchemy
   python-trio
 
@@ -43,7 +42,6 @@ checkdepends=(
   python-orjson
   python-python-multipart
   python-pyyaml
-  python-requests
   python-ujson
   uvicorn
 
@@ -54,8 +52,8 @@ checkdepends=(
   python-passlib
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('608be993d17ed26a61681326d0d39063355548324389f12c2c244c1789b681077056bfc405fcb36a175758141c168e903ee71c0dd80c23a5d9f7e693913fbabe')
-b2sums=('2c396f17bceb33335cd5f7e264a643f101af8c14012389071307801e78ac20358f1ceeeba7b65d1cd2e08fc84b03d0eed23b332c3934420ccd9ff6edb20ba0c9')
+sha512sums=('0bae0b51a086ec09a0cfe423ec85ca0e9b704f59204a8ae61bcd9d826aa85b751ed270f0ac8591d36f89297c0c5a2ffa243326b915c61c5cc638d02f58f5068e')
+b2sums=('5b65c6db297b655ca9739a3a408fc698c6c956143ea95cb3b1f8c0e1cf7cbca01ee3d0a63ca534e9821a1a0357757a75224370a3449017d08833e6a2117ff7b4')
 
 prepare() {
   cd $_name-$pkgver
@@ -73,16 +71,8 @@ check() {
   local _deselected=(
     --deselect docs_src/sql_databases/sql_app_py310/tests/test_sql_app.py::test_create_user
     --deselect docs_src/sql_databases/sql_app_py39/tests/test_sql_app.py::test_create_user
-    # disable tests that break due to our python-starlette being too new and using python-httpx instead of python-requests
-    --deselect tests/test_enforce_once_required_parameter.py::test_get_invalid
-    --deselect tests/test_extra_routes.py::test_delete
     --deselect tests/test_generate_unique_id_function.py::test_warn_duplicate_operation_id
-    --deselect tests/test_get_request_body.py::test_get_with_body
-    --deselect tests/test_tuples.py::test_tuple_form_valid
-    --deselect tests/test_tutorial/test_cookie_params/test_tutorial001.py::test[/items-cookies2-200-expected_response2]
-    --deselect tests/test_tutorial/test_cookie_params/test_tutorial001.py::test[/items-cookies3-200-expected_response3]
-    --deselect tests/test_tutorial/test_cookie_params/test_tutorial001_py310.py::test[/items-cookies2-200-expected_response2]
-    --deselect tests/test_tutorial/test_cookie_params/test_tutorial001_py310.py::test[/items-cookies3-200-expected_response3]
+    --deselect tests/test_tutorial/test_async_sql_databases/test_tutorial001.py::test_create_read
   )
 
   cd $_name-$pkgver

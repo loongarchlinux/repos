@@ -1,8 +1,8 @@
 # Maintainer: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=qpid-proton
-pkgver=0.37.0
-pkgrel=2
+pkgver=0.38.0
+pkgrel=1
 pkgdesc='High-performance, lightweight messaging library'
 arch=('loong64' 'x86_64')
 url='https://qpid.apache.org/proton'
@@ -11,30 +11,24 @@ depends=('libjsoncpp.so' 'python')
 makedepends=('cmake' 'doxygen' 'go' 'python-setuptools' 'python-sphinx' 'python-wheel' 'swig')
 options=(!emptydirs)
 source=("https://www.apache.org/dist/qpid/proton/${pkgver}/qpid-proton-${pkgver}.tar.gz")
-sha512sums=('84d67aab0e81f371fbcee3db89a8a585794966e17ffcd2e2e9418cb587efc0bc4e635c6ce251ebefd716817632ea5b049b759678cebbad64a0d0c07285bd5962')
+sha512sums=('5333046c954d8b63c59579b05173fa2345e0a61f37a305d23b9e3afee461280c82f9f1c19c30954ba32176ce5fef9ce1f0afc57c99d6c614b2d66cdbb71ff00e')
 
 build() {
-    cd ${pkgname}-${pkgver}
-
-    mkdir build
-    cd build
-    cmake \
+    cmake -B build -S $pkgname-$pkgver \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DLIB_SUFFIX='' \
         -DSYSINSTALL_BINDINGS=ON \
         -DENABLE_TOX_TEST=OFF \
-        ..
-    make
+        -DBUILD_TLS=ON
+    cmake --build build
 }
 
 check() {
-    cd ${pkgname}-${pkgver}/build
+    cd build
 
     make test || true
 }
 
 package() {
-    cd ${pkgname}-${pkgver}/build
-
-    make DESTDIR="${pkgdir}" install
+    DESTDIR="${pkgdir}" cmake --install build
 }

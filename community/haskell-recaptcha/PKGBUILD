@@ -3,9 +3,9 @@
 _hkgname=recaptcha
 pkgname=haskell-recaptcha
 pkgver=0.1.0.4
-pkgrel=40
+pkgrel=44
 pkgdesc="Functions for using the reCAPTCHA service in web applications."
-url="http://github.com/jgm/recaptcha/tree/master"
+url="https://github.com/jgm/recaptcha/tree/master"
 license=("BSD")
 arch=('loong64' 'x86_64')
 depends=('ghc-libs' 'haskell-http' 'haskell-network' 'haskell-network-uri')

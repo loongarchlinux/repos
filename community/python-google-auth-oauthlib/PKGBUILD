@@ -3,17 +3,17 @@
 
 pkgname=python-google-auth-oauthlib
 _pkgname='google-auth-oauthlib'
-pkgver=0.5.2
-pkgrel=1
+pkgver=0.7.1
+pkgrel=2
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
-checkdepends=('python-click' 'python-pytest' 'python-mock')
+checkdepends=('python-click' 'python-pytest')
 depends=('python' 'python-google-auth' 'python-requests-oauthlib')
 optdepends=('python-click')
 license=('Apache')
 arch=('any')
 source=("https://pypi.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz")
-sha256sums=('d5e98a71203330699f92a26bc08847a92e8c3b1b8d82a021f1af34164db143ae')
+sha256sums=('9940f543f77d1447432a93781d7c931fb53e418023351ad4bf9e92837a1154ec')
 
 # check() {
 #     cd "${srcdir}/${_pkgname}-${pkgver}"

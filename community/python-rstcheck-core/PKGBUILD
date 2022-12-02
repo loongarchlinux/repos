@@ -1,22 +1,21 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
-_name=rstcheck-core
+_name=rstcheck_core
 pkgname=python-rstcheck-core
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='Checks syntax of reStructuredText and code blocks nested within it'
 arch=('any')
-url=https://github.com/rstcheck/rstcheck
+url=https://github.com/rstcheck/rstcheck-core
 license=('MIT')
 depends=('python-docutils' 'python-pydantic' 'python-typing_extensions')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('python-mock' 'python-pytest' 'python-pytest-mock'
-              'python-sphinx')
+checkdepends=('python-pytest' 'python-pytest-mock' 'python-sphinx')
 optdepends=('python-sphinx: for Sphinx support'
             'python-tomli: for pyproject.toml support')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('b06bee11f3679b283cbd6abf707bfe4d5fd2cf480cfa3ffe6d5c9238c6d4ae89')
-b2sums=('7cf348e19cd63d8e34d81b98884310c9e917b4985d13128920a5e2037538a4afa145e24a0dcb9ac03b862b385fa4df397e2272e7952c8f81a489aa4f726fa34d')
+sha256sums=('add19c9a1b97d9087f4b463b49c12cd8a9c03689a255e99089c70a2692f16369')
+b2sums=('df7efd50fa7b5acd5e1a8a3c1a16252d8a8c59a1632b463bdeed6fc14f0c655e4bf831e1e10a04a8701da2e3efd734dca6e9ac9ced6e7df8270d1e56063bb7c6')
 
 prepare() {
   cd $_name-$pkgver
@@ -46,5 +45,3 @@ package() {
   ln -s "$site_packages"/rstcheck_core-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
-
-# vim:set ts=2 sw=2 et:

@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-sakuracloud
-pkgver=1.31.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Sakura Cloud DNS Authenticator plugin for Certbot"
 arch=('any')
@@ -26,9 +26,9 @@ validpgpkeys=('148C30F6F7E429337A72D992B00B9CC82D7ADF2C'
               '86379B4F0AF371B50CD9E5FF3402831161D1D280'
               '20F201346BF8F3F455A73F9A780CC99432A28621'
               'F2871B4152AE13C49519111F447BF683AA3B26C3')
-sha512sums=('3a6df1afb888ce2eeedd41e7352f5cb50c4b9a664a4c377ed738ca35044eb9730759dbe016ec350b926b9d6f4ee98ee0cd10d060f7a4219802e1ae681242eb8f'
+sha512sums=('ab9388b17c4cfdc4ed82ee99095c3988381edd411634d49d7f6f8af8dcdea527ccdb0febdcfa38eef5575c64749c7bc6171dd9a611438cef58d284fd475037a4'
             'SKIP')
-b2sums=('00f58be169ef623b81a8f7d9ba4f3c1c8f71e9a6b90b14741955fa13d0935196851ce96b6d54f333c0164425fc688ffbdf51e65e1d3425e8be4ed3f85868fe29'
+b2sums=('ba98e14fce7e844fdd16ef8d83048bb2175c194e969c4a19485895e6c1b4169bb3963da0483675f614d0ef083a2d4039f3839c0ca745704b87babf37aee39e23'
         'SKIP')
 
 prepare() {

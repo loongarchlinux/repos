@@ -3,8 +3,8 @@
 
 _name=cbor2
 pkgname=python-cbor2
-pkgver=5.4.3
-pkgrel=2
+pkgver=5.4.5
+pkgrel=1
 pkgdesc="Pure Python CBOR (de)serializer with extensive tag support"
 arch=(loong64 x86_64)
 url="https://github.com/agronholm/cbor2"
@@ -14,8 +14,8 @@ makedepends=(python-build python-installer python-setuptools-scm python-toml pyt
 checkdepends=(python-pytest)
 options=(debug)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha256sums=('62b863c5ee6ced4032afe948f3c1484f375550995d3b8498145237fe28e546c2')
-b2sums=('0303ed49a1c468a3aa13e12a4bebef17479f106bc3f0a92e35c6029ff1bd86aea6a77f557ac0c8acb5e055ec0b56c82e5c95e9417d00715a1fb244bd94d0f60d')
+sha256sums=('2256fdcc11613b0297a4b844e268d20db4f7d4be79d2002f51613bd8105366ef')
+b2sums=('2911cf15d31ec77aab79129719f9fc869392da8383b8a1afbff7e7d9c0d90ad341f66b5b76ae5142eae7036b7446dd54d545a48695de43aaf54e0824e9d8052c')
 
 build() {
   cd $_name-$pkgver

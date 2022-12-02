@@ -4,7 +4,7 @@
 
 pkgname=uboot-tools
 pkgver=2022.10
-pkgrel=1
+pkgrel=4
 pkgdesc='U-Boot bootloader utility tools'
 arch=(loong64 x86_64)
 url='https://www.denx.de/wiki/U-Boot/WebHome'
@@ -16,6 +16,8 @@ validpgpkeys=('1A3C7F70E08FAB1707809BBF147C39FF9634B72C')
 options=(!lto)
 sha1sums=('7b4cab68c38c3f449f80eabb63183a271405f6b4'
           'SKIP')
+sha256sums=('50b4482a505bc281ba8470c399a3c26e145e29b23500bc35c50debd7fa46bdf8'
+            'SKIP')
 
 build() {
   cd u-boot-$pkgver
@@ -27,5 +29,5 @@ package() {
   install -m 755 -d "$pkgdir"/usr/bin
   install -m 755 -t "$pkgdir"/usr/bin/ u-boot-$pkgver/tools/{mk{,env}image,env/fw_printenv,img2srec,dumpimage,netconsole,jtagconsole,ncb}
   ln -s fw_printenv "$pkgdir"/usr/bin/fw_setenv
-  install -m 644 -D u-boot-$pkgver/doc/mkimage.1 "$pkgdir"/usr/share/man/man1/mkimage.1
+  install -m 644 -Dt "$pkgdir"/usr/share/man/man1/ u-boot-$pkgver/doc/{mkimage,dumpimage}.1
 }
