@@ -3,19 +3,19 @@
 
 _name=pygls
 pkgname=python-pygls
-pkgver=0.13.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc='Pythonic generic implementation of the Language Server Protocol'
 arch=('any')
 url=https://github.com/openlawlibrary/pygls
 license=('APACHE')
-depends=('python-pydantic' 'python-typeguard')
+depends=('python-lsprotocol' 'python-typeguard')
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm'
              'python-toml' 'python-wheel')
 checkdepends=('python-mock' 'python-pytest' 'python-pytest-asyncio')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('d76e44768d75805da26dfbaec187c6251450af4b7b1cc0b7eb3587e6e27e32a4')
-b2sums=('74b357add149d6fc6b3cb75136587c024b82989a5c6bcf88981f6e2f285e9d5b2014212757bb2526010f03278ac89b3d105755b8185eb61302992b309414dd97')
+sha256sums=('c2a1c22e30028f7ca9d3f0a04da8eef29f0f1701bdbd97d8614d8e1e6711f336')
+b2sums=('9b5c59c9ca6cdd81ad85a355f5eaf4a9fa03198c00573192028489495d0cc832a939a61985fb95710a7032f25c8a6f280e898b4a49c4259b293b82ebc45cdfa2')
 
 build() {
   cd $_name-$pkgver

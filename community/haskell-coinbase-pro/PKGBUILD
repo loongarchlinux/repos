@@ -2,8 +2,8 @@
 
 _hkgname=coinbase-pro
 pkgname=haskell-coinbase-pro
-pkgver=0.9.3.0
-pkgrel=28
+pkgver=0.9.3.2
+pkgrel=3
 pkgdesc="Client for Coinbase Pro"
 url="https://github.com/mdunnio/coinbase-pro#readme"
 license=("MIT")
@@ -16,12 +16,12 @@ depends=('ghc-libs' 'haskell-hsopenssl' 'haskell-aeson' 'haskell-aeson-casing' '
          'haskell-unordered-containers' 'haskell-uuid' 'haskell-vector' 'haskell-websockets'
          'haskell-wuss')
 makedepends=('ghc' 'uusi')
-source=("https://github.com/mdunnio/coinbase-pro/archive/$pkgver/$pkgname-$pkgver.tar.gz.tar.gz")
-sha256sums=('3a528ca36814c3d866ea63ae85c9dda23bd4481aca3eb89ad0179b980ddf33fb')
+source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
+sha256sums=('da7462aad8d3f7436a9e1d92f696c47720c4d6ac73b84af7ff4db73a99f5ff19')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u aeson -u cryptonite -u http-api-data -u http-client -u memory -u servant -u servant-client -u servant-client-core -u vector -u wuss $_hkgname.cabal
+  uusi -u aeson -u http-api-data -u vector $_hkgname.cabal
 }
 
 build() {

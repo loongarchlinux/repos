@@ -1,0 +1,49 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+
+pkgname=ruff
+pkgver=0.0.211
+pkgrel=1
+pkgdesc="An extremely fast Python linter, written in Rust"
+arch=(loong64 x86_64)
+url="https://github.com/charliermarsh/ruff"
+license=(MIT)
+depends=(gcc-libs glibc python)
+makedepends=(cargo maturin python-installer)
+options=(!lto debug)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('dff6f3525583dc39d4472649b4b41acff722c144b4b5f00197b7507dc1b595d7fd8f625efd421e976af59d3bfa8a01bcf1c9f92fe86e718476ab517a2eea59b5')
+b2sums=('744bd32af6a81f0c9203dcf43d847789d8a015c7eac5ce76ac7d96ed67e466429d46cf561cc168af6f795cd15a67fef41442d7ac0e108600fdb49ef714846e04')
+
+prepare() {
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  local maturin_options=(
+    --release
+    --strip
+    --locked
+    --all-features
+    --target $CARCH-unknown-linux-gnu
+  )
+
+  cd $pkgname-$pkgver
+
+  maturin build "${maturin_options[@]}"
+}
+
+check() {
+  cd $pkgname-$pkgver
+
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+
+  python -m installer --destdir="$pkgdir" target/wheels/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}

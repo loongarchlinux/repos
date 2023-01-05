@@ -2,7 +2,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=rclone
-pkgver=1.60.1
+pkgver=1.61.1
 pkgrel=1
 pkgdesc="Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage"
 arch=('loong64' 'x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 optdepends=('fuse2: for rclone mount')
 makedepends=('python' 'pandoc' 'go' 'git' 'fuse2')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/rclone/rclone/archive/v$pkgver.tar.gz")
-sha512sums=('ba4e4a3a57ae639665ca22576a4c8ed6d8818aa903a7d4211bf2cfbb0fb81a95162521806b7174a042bb684262786dfee4c204d6080d33e59bd9705dc9d8db9c')
+sha512sums=('739b976a4538586670b797c92f9cbd416c3589444a611926b5edd074e8249dfcff9d95e8053459aa42c4cbe90009a9ba1c3abb9be8e8718db6276fdc39386273')
 options=(!lto)
 
 prepare() {
@@ -49,4 +49,8 @@ package() {
   install -Dm644 rclone.1 "$pkgdir"/usr/share/man/man1/rclone.1
   install -d "$pkgdir"/usr/share/doc/$pkgname
   install -t "$pkgdir"/usr/share/doc/$pkgname -m644 MANUAL.html MANUAL.txt
+
+  # Mount helper symlinks
+  ln -s /usr/bin/rclone "${pkgdir}"/usr/bin/mount.rclone
+  ln -s /usr/bin/rclone "${pkgdir}"/usr/bin/rclonefs
 }

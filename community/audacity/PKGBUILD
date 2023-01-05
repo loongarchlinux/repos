@@ -4,8 +4,8 @@
 _name=Audacity
 pkgbase=audacity
 pkgname=(audacity audacity-docs)
-pkgver=3.2.1
-pkgrel=2
+pkgver=3.2.3
+pkgrel=1
 epoch=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=(loong64 x86_64)
@@ -52,10 +52,10 @@ source=(
   https://github.com/audacity/audacity/archive/refs/tags/$_name-$pkgver.tar.gz
   https://github.com/$pkgbase/$pkgbase/releases/download/$_name-$pkgver/$pkgbase-manual-$pkgver.tar.gz
 )
-sha512sums=('8203d655461bda8c3b1a6773dbd260e7e6a50db858c26b328a8cc2caa4d557027622afd9d08124017d934f79a4f48c210584883a63f92fd4cc8eed5928537e18'
-            '9c3021c8830e99ac063113a856b658be5813fcb7d24723c2316399d93447b0ef9d6ffcf1cea8e752f89a615e82aa651ebaac3f56cc78797b85a669c63da49188')
-b2sums=('2c21409fcc1dacd2f6121b20602b0e257645c050126123b7136e2f2d6e244e10dd6c8160ea1c871677f63afcc957d535106775f27d582e797296f14099946a2e'
-        '445568c3fe1728cf19c211917c58c5ce811af41773a5d1e37f6e320fe106be4261e1bdb5b2943b5bda2b5aa0543357d2a68a015b579d88c45dc6d368e4b7f385')
+sha512sums=('759eb951ecbc690501c32a7cfc78b3c6f083ed62a4b57cc7935eef7b5dfd930ab4022c54e90de9523a4664ae7749868303fc4e597f19b319f23b07a9776a23cb'
+            '6978ac874f9318fd283098ea5a4b6aa7096acdab229c7bb96c8da33413ed326b1de0c262132e03e4e8127cf0a430a182fb718c9c753556832aea7c527bf5c2cb')
+b2sums=('3b74c381c9d8e5cbd22e3e53a2e497a45cc48f61b79395b1e17c15e4c645c661ad544cd050885f104562f0f05d08c9e52821f1b9737c32f5f7942d6b8f3102fb'
+        '7b9441a7d6c2ca05d1be0a2635a7685cff3960f03380c04229a6b2155453a8da861f185adf38f430f2c23214a6fc794533ed7ee23362801fb31eef32977e4a25')
 
 build() {
   local cmake_options=(

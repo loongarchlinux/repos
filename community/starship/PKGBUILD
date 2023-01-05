@@ -4,9 +4,9 @@
 
 pkgname=starship
 pkgdesc='The cross-shell prompt for astronauts'
-_tag=dfc9cf6861c00cd331370f5bdc72eb1db8eba356
-pkgver=1.11.0
-pkgrel=1
+_tag=4316eeb57fc998aec6dd0c62202bd9a312ce73df
+pkgver=1.12.0
+pkgrel=2
 arch=(loong64 x86_64)
 url=https://starship.rs/
 license=(ISC)
@@ -15,7 +15,6 @@ depends=(
   glibc
   libgit2.so
   openssl
-  ttf-font-nerd
 )
 makedepends=(
   cmake
@@ -23,6 +22,7 @@ makedepends=(
   rust
 )
 checkdepends=(python)
+optdepends=('ttf-font-nerd: Nerd Font Symbols preset')
 source=(git+https://github.com/starship/starship.git#tag=${_tag})
 b2sums=('SKIP')
 

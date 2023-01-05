@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gping
-pkgver=1.4.0
+pkgver=1.6.3
 pkgrel=1
 pkgdesc="Ping, but with a graph"
 arch=('loong64' 'x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('iputils')
 makedepends=('cargo' 'libgit2')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-v$pkgver.tar.gz")
-sha512sums=('6aca7011fba4e15f41c7c7f194375e699afe2ba1ae21f2075ac6b9abb06092eb1df279a2eb78ee63ec796107ab1b7d92a52bdffa07c7e453390f2f8f1806e826')
+sha512sums=('2426fb5e1547d083f51852014963f2157d5622ab25bd9fe9c486485843c208a555d7095bfe06903b077de8a589d95eaa5d7fb079fd687ca4cc038a3d7c05c491')
 
 prepare() {
   mv "$pkgname-$pkgname-v$pkgver" "$pkgname-$pkgver"

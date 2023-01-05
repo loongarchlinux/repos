@@ -3,7 +3,7 @@
 # Contributor: Maikel Wever <maikelwever@gmail.com>
 
 pkgname=python-pipenv
-pkgver=2022.11.30
+pkgver=2022.12.19
 pkgrel=1
 pkgdesc="Sacred Marriage of Pipfile, Pip, & Virtualenv."
 url="https://pipenv.pypa.io"
@@ -21,7 +21,7 @@ makedepends=('python-build'
 checkdepends=('python-pytest'
               'python-pytz')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pypa/pipenv/archive/v${pkgver}.tar.gz")
-b2sums=('3d33475932a59dfb862869becb792aea420b8c9fffd9179866dc01eb5e0b2ba77a23c5de8be5570f9ed2e46f098bc000173d74766d42953f93ab2439c20d7f2c')
+b2sums=('812aa7eacd2b1eaa42a586e64b73e7a13d2ac3ed4c2abf834e190ed5a8a4398d3d17999c1e196de6b01eb755f6771493967b8497710ac3fe20d73408f6251f80')
 
 build() {
   cd "pipenv-${pkgver}"
@@ -47,4 +47,10 @@ package() {
   PYTHONPATH="${pkgdir}/${_site_packages}" _PIPENV_COMPLETE=bash_source "${pkgdir}"/usr/bin/pipenv | install -Dm644 /dev/stdin "${pkgdir}/usr/share/bash-completion/completions/pipenv"
   PYTHONPATH="${pkgdir}/${_site_packages}" _PIPENV_COMPLETE=zsh_source  "${pkgdir}"/usr/bin/pipenv | install -Dm644 /dev/stdin "${pkgdir}/usr/share/zsh/site-functions/_pipenv"
   PYTHONPATH="${pkgdir}/${_site_packages}" _PIPENV_COMPLETE=fish_source "${pkgdir}"/usr/bin/pipenv | install -Dm644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_completions.d/pipenv.fish"
+
+  # Remove vendored cacert.pem
+  # Taken from python-certifi
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  rm "$pkgdir"/$site_packages/pipenv/patched/pip/_vendor/certifi/cacert.pem
+  ln -sf /etc/ssl/certs/ca-certificates.crt "$pkgdir"/$site_packages/pipenv/patched/pip/_vendor/certifi/cacert.pem
 }

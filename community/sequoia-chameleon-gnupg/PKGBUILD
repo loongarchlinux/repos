@@ -1,0 +1,44 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=sequoia-chameleon-gnupg
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="A re-implementation and drop-in replacement of gpg and gpgv"
+arch=(loong64 x86_64)
+url="https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg"
+license=(GPL3)
+depends=(gcc-libs glibc gmp)
+makedepends=(bzip2 cargo clang nettle)
+checkdepends=(gnupg)
+source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
+sha512sums=('e5beaddfafffd8b4c3e95da7c95b2834615cea0a0c8509e88236101f971066dd553df2a26bda7e5a9786e40329ad989a301cc5c6be9e46ba439dd1195ed7548d')
+b2sums=('07874027d49be47621d166d5bf098fb106f7051b3747481e61fef651537aa79644a96c0dbd03fdaf951770c053a6111e90c87d5ecb6915c7f05111857d0079f5')
+
+prepare() {
+  cd $pkgname-v$pkgver
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd $pkgname-v$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+}
+
+# checks broken: https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/8
+# check() {
+#   cd $pkgname-v$pkgver
+#   export RUSTUP_TOOLCHAIN=stable
+#   cargo test --frozen --all-features
+# }
+
+package() {
+  depends+=(
+    bzip2 libbz2.so
+    nettle libnettle.so libhogweed.so
+  )
+  cd $pkgname-v$pkgver
+  install -vDm 755 target/release/sequoia-chameleon-gpg{,v} -t "$pkgdir/usr/bin/"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}

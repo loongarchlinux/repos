@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-music
-pkgver=6.2.21
+pkgver=6.2.23
 pkgrel=1
 pkgdesc='Awesome music player with brilliant and tweakful UI Deepin-UI based.'
 arch=('loong64' 'x86_64')
@@ -15,7 +15,7 @@ makedepends=('cmake' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 options=('!lto')
 source=("https://github.com/linuxdeepin/deepin-music/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d7f9938ea7678679e665029a08b16f077364e330d1484b1fb72fe5e6ad5d3998187ebd0f791346ab4fc440698ab495eb9ddcf93241931f392239653b453a43d7')
+sha512sums=('982a05f7ea8eaa144c8469c02060d22d8868de494c15088492be65c225170e97645153b45097ad31b8a1d07e9b45cdf48d3496e08747913b440129562dade2c3')
 
 build() {
   cd deepin-music-$pkgver

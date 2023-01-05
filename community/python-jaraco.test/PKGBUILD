@@ -1,18 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-jaraco.test
-pkgver=5.1.0
-pkgrel=2
+pkgver=5.3.0
+pkgrel=1
 pkgdesc="Testing support by jaraco"
 url="https://github.com/jaraco/jaraco.test"
 license=('MIT')
 arch=('any')
-depends=('python-jaraco.collections' 'python-jaraco.context' 'python-jaraco.functools' 'python-toml'
-         'python-more-itertools')
+depends=('python-jaraco.context' 'python-jaraco.functools')
 makedepends=('python-setuptools-scm' 'python-wheel' 'python-build' 'python-installer')
 checkdepends=('python-pytest-enabler' 'python-pytest-mypy')
 source=("https://github.com/jaraco/jaraco.test/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6cd810b8075e622b7a631b3bcca953c6210f2f427ea35f9958f98110fcfb5ef9bd7046ad2909355451208983aa2a25abee29fec829cc18dc94ad491d319e1361')
+sha512sums=('a2fe426aeb5e9eec58d6bd86e6db7267a353e3543e4f27c70ece30ecd2e17cae5f99bbe7d1c5e3f02a05397c7cc9c3ef4f093386d3e92f7f09ab1fda1710672c')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 

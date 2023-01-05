@@ -2,22 +2,22 @@
 
 _hkgname=polysemy
 pkgname=haskell-polysemy
-pkgver=1.7.1.0
-pkgrel=35
+pkgver=1.9.0.0
+pkgrel=2
 pkgdesc="Higher-order, low-boilerplate, zero-cost free monads"
 url="https://github.com/isovector/polysemy"
 license=('BSD')
 arch=('loong64' 'x86_64')
-depends=('ghc-libs' 'haskell-quickcheck' 'haskell-async' 'haskell-first-class-families' 'haskell-syb'
+depends=('ghc-libs' 'haskell-async' 'haskell-first-class-families' 'haskell-syb'
          'haskell-th-abstraction' 'haskell-type-errors' 'haskell-unagi-chan')
 makedepends=('ghc' 'uusi' 'haskell-cabal-doctest' 'haskell-hspec-discover' 'haskell-doctest' 'haskell-hspec'
              'haskell-inspection-testing')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('1469f977f0d6202af9ce7665063c555fa57b8ee671969ad5d22ff36d4ee1729d981135cd9f026ecfcbda8924e322810878a9973597894f7074093abdb4e9b29b')
+sha512sums=('a4bf89972f6afe8811dd5c6bb5e402ff48d37fe1916c4316c80b87e22c7c8298f5d379424aa186d102bb36010298a19f4545e45b709ed02f4ac8b93538e5aacb')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u doctest -u inspection-testing $_hkgname.cabal
+  uusi -u inspection-testing $_hkgname.cabal
 }
 
 build() {
@@ -38,8 +38,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # https://github.com/polysemy-research/polysemy/pull/410#issuecomment-868183832
-  runhaskell Setup test --show-details=direct || echo "Tests failed"
+  runhaskell Setup test --show-details=direct
 }
 
 package() {

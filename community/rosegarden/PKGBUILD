@@ -5,7 +5,7 @@
 # Contributor: Robert Emil Berge <robert@rebi.no>
 
 pkgname=rosegarden
-pkgver=22.06
+pkgver=22.12.1
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=(loong64 x86_64)
@@ -29,8 +29,8 @@ optdepends=(
 provides=(dssi-host ladspa-host)
 options=(debug)
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2)
-sha512sums=('42ce03a65f9c9401cb3f641c0ae80a827e18d6f47420add382f63273f4644eac5997befe70cac972380441a43d74153a4e37a276fc3dc8d9889eb8671759ab5a')
-b2sums=('d4ba13ac6b4cba6d0b5bc555933737d696d380737e56a3e4e1dd782aff641dcbd49af50aade75550b8a0e22a45f491585ffb4166b21cb9889eca1a2e546c585a')
+sha512sums=('9195c20581edeae82934d1b89095791c39850dde34547bc26f2c63dd8272715ec7b2ca63eaae2b32c8de584df4845cb72a2fc8b3d866b958584ce3aabd1fd13c')
+b2sums=('76d193171dae451e9262f52679e2bad2f884d1edb48259ad9f33e573c56213124fa67194d100247a24ef363856d876096c5bfe4b3c4a2d17339d090778efccd5')
 
 build() {
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
@@ -51,10 +51,17 @@ check() {
 }
 
 package() {
-  depends+=(libasound.so libfftw3f.so libjack.so liblrdf.so liblo.so
-  libsamplerate.so libsndfile.so)
+  depends+=(
+    alsa-lib libasound.so
+    fftw libfftw3f.so
+    jack libjack.so
+    liblrdf liblrdf.so
+    liblo liblo.so
+    libsamplerate libsamplerate.so
+    libsndfile libsndfile.so
+  )
 
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm 644 $pkgname-$pkgver/{AUTHORS,CHANGELOG,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname-$pkgver/{AUTHORS,CHANGELOG,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 # vim:set ts=2 sw=2 et:

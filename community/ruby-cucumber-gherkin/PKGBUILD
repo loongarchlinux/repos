@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-cucumber-gherkin
-pkgver=25.0.2
+pkgver=26.0.3
 pkgrel=1
 pkgdesc="Gherkin for Ruby"
 arch=(any)
@@ -11,11 +11,11 @@ depends=(ruby-cucumber-messages)
 makedepends=(ruby-rake ruby-rspec)
 options=(!emptydirs)
 source=(https://github.com/cucumber/gherkin/archive/v$pkgver/cucumber-gherkin-$pkgver.tar.gz)
-sha256sums=('ce51bf317c1f18e076872b9a85f9b5673132758b2e28788b995522cb8e7e7b98')
+sha256sums=('c00c41a6e3da00579634cf7cc77813314ac43df060ad6823b4e1da5dd995d870')
 
 prepare() {
   cd gherkin-$pkgver/ruby
-  sed -r 's|~>|>=|g' -i cucumber-gherkin.gemspec
+  sed -r -e 's|~>|>=|g' -e "s/, '< 22.0'//" -i cucumber-gherkin.gemspec
 }
 
 build() {

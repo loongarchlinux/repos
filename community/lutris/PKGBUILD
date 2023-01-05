@@ -3,7 +3,7 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=lutris
-pkgver=0.5.11
+pkgver=0.5.12
 pkgrel=2
 pkgdesc='Open Gaming Platform'
 arch=('any')
@@ -18,6 +18,7 @@ depends=(
   'mesa-utils'
   'p7zip'
   'psmisc'
+  'python-certifi'
   'python-dbus'
   'python-distro'
   'python-evdev'
@@ -54,7 +55,7 @@ optdepends=(
   'wine: Windows support'
   'xorg-xgamma: Restore gamma on game exit'
 )
-_tag=98a4005a7babe7cc9aae47cb2e453c0978aedde0
+_tag=10933ba9203a3f008646010005cdf19a6d97552c
 source=("git+https://github.com/lutris/lutris.git#tag=${_tag}")
 b2sums=('SKIP')
 
@@ -70,7 +71,6 @@ build() {
 
 #check() {
 #  cd $pkgname-$pkgver
-#
 #  xvfb-run nosetests --cover-erase --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-package=lutris --cover-xml-file=coverage.xml
 #}
 

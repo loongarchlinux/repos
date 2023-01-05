@@ -2,7 +2,7 @@
 # Contributor: genofire
 
 pkgname=ovenmediaengine
-pkgver=0.14.16
+pkgver=0.14.18
 pkgrel=1
 pkgdesc='Open-source streaming video service with sub-second latency'
 arch=('loong64' 'x86_64')
@@ -39,7 +39,7 @@ source=(
 	"${pkgname}-${pkgver}.tar.gz::https://github.com/AirenSoft/OvenMediaEngine/archive/refs/tags/v${pkgver}.tar.gz"
 	"ovenmediaengine.service"
 )
-sha512sums=('f887610ab4a88bfeff26396d37a02f8bf832ef7cf3887f802e5bf3acee27fc3e27c1f94a433a6139809b3cb5f2c618085fa3f33650e9dda6673ecd67c83dfa6c'
+sha512sums=('c2d67d67ea32c993349e7fb7992aba43111af062601db8d94d87749e0d99a422d3fa4f7c4ee68fa3863702c8030fa1d6055587cb810ee6c7fb657539a2d03f0b'
             'c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1')
 
 backup=(

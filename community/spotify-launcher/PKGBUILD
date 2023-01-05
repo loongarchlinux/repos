@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=spotify-launcher
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.4.1
+pkgrel=1
 pkgdesc="Client for spotify's apt repository in Rust for Arch Linux"
 url='https://github.com/kpcyrd/spotify-launcher'
 arch=('loong64' 'x86_64')
@@ -12,7 +12,7 @@ makedepends=('cargo')
 backup=('etc/spotify-launcher.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-b2sums=('a4726367c8fd20889336250ada447552cd06ee1cf799406456c2aaa3756c8b2105c2cbbd0289ba6e42eae04d3be454815fdd15b87fbf1629692068c20550c787'
+b2sums=('e472a418309cc3ef5bbf8e2ca43758a432eafe3063721cbafb6d0739259306e77b34e3cc89b7c6a492358c45afa9b77bb1b9d6b8ce71623f6d1fcdc8f107cfc1'
         'SKIP')
 options=('!lto')
 

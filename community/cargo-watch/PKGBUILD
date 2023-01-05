@@ -2,7 +2,7 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=cargo-watch
-pkgver=8.1.2
+pkgver=8.2.1
 pkgrel=1
 pkgdesc="Utility for Cargo to compile projects when sources change"
 url='https://github.com/passcod/cargo-watch'
@@ -11,8 +11,8 @@ license=('CC0-1.0')
 depends=('cargo')
 makedepends=('ruby-ronn')
 source=("https://github.com/passcod/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3a62091eb382ce4c90426bef3b7aa7a6b9e68c876531d98f5222da29b409705b9ed92c60aa79f73eed3ee406e92e3233bd009ab5944665b9b27cee76de7206e4')
-b2sums=('bddb358bb1f074a87507adfd7c4269e514b86ecd11f29cf5d2b58afc435f601b2450413083489ce66b281a77a74777a5c463461267adedcf7c4ada09d7aa4b7e')
+sha256sums=('70f8e6d7da016062aa085cc2d86b2467482249d0e4ea0610a54b556890e24153')
+b2sums=('e8f525cb39e3a7fda481ecda9ce2226e0cd3e324df6b2d940e0a55668531a3f8a3ef1eb3cb756681205081d33c414835513172cbdea4c327b0b84bcea4f17746')
 
 prepare() {
   cd "${pkgname}-${pkgver}"

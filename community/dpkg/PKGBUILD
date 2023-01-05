@@ -11,20 +11,20 @@
 # Contributor: hugelgupf <ckoch (at) cs.nmt.edu>
 
 pkgname=dpkg
-pkgver=1.21.9
+pkgver=1.21.13
 pkgrel=1
 pkgdesc='The Debian Package Manager tools'
 arch=('loong64' 'x86_64')
 url="https://tracker.debian.org/pkg/dpkg"
 license=('GPL')
 options=('emptydirs')
-depends=('xz' 'zlib' 'bzip2' 'perl')
+depends=('xz' 'zlib' 'bzip2' 'perl' 'libmd')
 makedepends=('perl-io-string' 'perl-timedate' 'git')
 checkdepends=('perl-io-string' 'perl-test-pod')
 install=dpkg.install
 source=(https://salsa.debian.org/dpkg-team/dpkg/-/archive/$pkgver/dpkg-$pkgver.tar.bz2
         origin.archlinux)
-sha256sums=('730e6528ebf015430c6248f3833f317fccdaf5e08ef5cdd83264b438e97d7cc8'
+sha256sums=('e1c476f39f71dc7e430d80738db63f52d6d2a62ea01ad88f5b20e45af6d1ea0f'
             '193ac1929ea93157c0173db3c871d2f7fe53385391f48078190b03904c5b1f2d')
 
 prepare() {

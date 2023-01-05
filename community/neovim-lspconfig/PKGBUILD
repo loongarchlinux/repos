@@ -1,0 +1,22 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=lspconfig
+_upstream=nvim-lspconfig
+pkgname=neovim-lspconfig
+pkgver=0.1.4
+pkgrel=1
+pkgdesc="Collection of common configurations for Neovim's built-in language server client"
+arch=(any)
+url="https://github.com/neovim/nvim-lspconfig"
+license=(Apache)
+groups=(neovim-plugins)
+depends=(luajit neovim)
+source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
+sha512sums=('e6573ccff26018475e7e56c750ba7dfd20efd4f8e60be02b314a44866cb36b9d81b73355b2d90253d04db84815e645ee359dc12270dc57fd7c5f93a2ebae6d10')
+b2sums=('176dc2585ad72a5349de5ce5b55622865ccd5850ae0f8eef05c4ecbac16fb9f5a5127c3e2d56e9cbb15fe0ef0896bce2bb753b1954bc744b6bf334abb491b174')
+
+package() {
+  cd $_upstream-$pkgver
+  find doc lua plugin -type f -exec install -vDm 644 {} "$pkgdir/usr/share/nvim/site/pack/dist/start/$_name/{}" \;
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}

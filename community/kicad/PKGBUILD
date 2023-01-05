@@ -6,8 +6,8 @@
 # Contributor: Rachel Mant <aur@dragonmux.network>
 
 pkgname=kicad
-pkgver=6.0.9
-pkgrel=2
+pkgver=6.0.10
+pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=('loong64' 'x86_64')
 url='http://kicad.org/'
@@ -34,7 +34,8 @@ optdepends=(
   'kicad-library: for footprints, symbols and templates'
   'kicad-library-3d: for 3D models of components'
 )
-_commit='b29f91cc1569c31a96e7e20541e9f35c1c762cd0'
+options=('debug')
+_commit='38e09789e55844e40d328f030d8d8a84d5c20e41'
 source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#commit=$_commit"
   'fix-archive-permissions.patch'
@@ -64,21 +65,24 @@ build() {
   cmake \
     -S "$pkgname" \
     -B build \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DKICAD_USE_OCC=ON \
-    -DKICAD_USE_EGL=ON \
-    -DKICAD_SCRIPTING_WXPYTHON=ON \
-    -DKICAD_BUILD_I18N=ON \
-    -DKICAD_I18N_UNIX_STRICT_PATH=ON \
-    -DKICAD_BUILD_QA_TESTS=OFF \
-    -Wno-dev
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D KICAD_USE_OCC=ON \
+    -D KICAD_USE_EGL=ON \
+    -D KICAD_SCRIPTING_WXPYTHON=ON \
+    -D KICAD_BUILD_I18N=ON \
+    -D KICAD_I18N_UNIX_STRICT_PATH=ON \
+    -D KICAD_BUILD_QA_TESTS=OFF \
+    -W no-dev
 
   cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  strip "$STRIP_SHARED" "${pkgdir}${site_packages}/_pcbnew.so"
 }
 
 # vim:set ts=2 sw=2 et:

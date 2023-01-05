@@ -1,9 +1,9 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=psalm
-pkgver=4.30.0
+pkgver=5.4.0
 pkgrel=1
-_commit=d0bc6e25d89f649e4f36a534f330f8bb4643dd69
+_commit=62db5d4f6a7ae0a20f7cc5a4952d730272fc0863
 pkgdesc='A static analysis tool for finding errors in PHP applications'
 url="https://psalm.dev/"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('composer' 'php7' 'git')
 source=("git+https://github.com/vimeo/psalm.git#commit=${_commit}"
         "composer.lock")
 b2sums=('SKIP'
-        '0ddef661e88f22fe4b1b4882c7cfd5877a232744655b486ca6b682bb93f0ba3e8d06d2dfb155c6146b8c411c04ce857862bcd08de3d2a64c94e61c93bc1b36f3')
+        '9c1001233cc6a4ec404bb485686c6a235d2fd91a7ec6d55657194390bc4b81778b6e325a1d6db37ab8533bff60bb15f751c65c73dc43fd4e7722cc8602f4dce6')
 
 prepare() {
   cd ${pkgname}
@@ -22,12 +22,13 @@ prepare() {
   composer install
   php7 /usr/bin/composer bin box install
   php bin/improve_class_alias.php
+  php -r 'require "vendor/autoload.php"; Psalm\Internal\VersionUtils::dump();'
 }
 
 updlockfiles() {
   cd ${pkgname}
   rm -f composer.lock
-  composer update
+  composer update --no-install
   cp composer.lock "${outdir}/"
 }
 

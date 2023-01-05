@@ -3,7 +3,7 @@
 # Contributor: Emanuele Rampichini <emanuele.rampichini@gmail.com>
 
 pkgname=smb4k
-pkgver=3.1.4
+pkgver=3.1.6
 pkgrel=1
 pkgdesc='A KDE program that browses samba shares'
 arch=(loong64 x86_64)
@@ -12,7 +12,7 @@ license=(GPL)
 depends=(kparts kdnssd hicolor-icon-theme smbclient)
 makedepends=(extra-cmake-modules kdoctools plasma-framework)
 source=(https://downloads.sourceforge.net/project/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('681ad8571a50a3f86b81a5a4ae15e022e8d858d06a81052048eff9664b400c2e')
+sha256sums=('44dfdc6a068963ba3d2da736c4fdb3bb7dd24faf2dabf5829d509099299e2f67')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \

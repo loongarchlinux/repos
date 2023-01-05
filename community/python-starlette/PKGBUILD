@@ -3,13 +3,13 @@
 
 _name=starlette
 pkgname=python-$_name
-pkgver=0.22.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
 url="https://github.com/encode/starlette"
 license=(BSD)
-depends=(python python-anyio)
+depends=(python python-anyio python-typing-extensions)
 makedepends=(python-build python-installer python-hatchling python-wheel)
 checkdepends=(
   python-aiosqlite
@@ -35,8 +35,8 @@ optdepends=(
   'python-httpx: for test client'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('989319ec1bfa1f95083bc867470397ea45db9f4f1b7ac2521d7e3319a773b1de9fe3ee98929be99e8bfa5f14cf8bcb622aa59170645eae2019490f7504d1c20f')
-b2sums=('b51db199df4eb2039d0159070e1b9e278b085365496e0448591668306dc6c1da32148ced37a22218db0e3c1f86cf0fd84943f128ab77ca8a7bb7ce393dcb413c')
+sha512sums=('9af4ab2b2e3af4e7acd2e93a9a4b4f4c8c3b56ba971f7a8faf65308d76a4f30b8ab0ab263535480af614a5082420cafb3d939c7477472710cce9241bd947139b')
+b2sums=('b1eaf59421d413179ad294b240babb9b1beabbf10d8364187eb406a3b87a1412b3959b90f44ac1bbada7858c3ffc90560208bc433ca5aaf835dda1766282fe65')
 
 build() {
   cd $_name-$pkgver

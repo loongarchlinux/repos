@@ -7,8 +7,8 @@
 # fine with them.
 
 pkgname=blender
-pkgver=3.3.1
-pkgrel=6
+pkgver=3.4.1
+pkgrel=4
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('loong64' 'x86_64')
@@ -19,9 +19,11 @@ depends=('libpng' 'libtiff' 'openexr' 'python' 'desktop-file-utils' 'python-requ
          'freetype2' 'openal' 'ffmpeg' 'fftw' 'boost-libs' 'opencollada' 'alembic' 'openxr'
          'openimageio' 'libsndfile' 'jack' 'opencolorio' 'openshadinglanguage' 'openimagedenoise'
          'jemalloc' 'libspnav' 'ptex' 'opensubdiv' 'openvdb' 'log4cplus' 'sdl2' 'embree' 'libharu'
-         'draco')
-makedepends=('cmake' 'boost' 'mesa' 'git' 'llvm' 'cuda' 'ninja')
-optdepends=('cuda: cycles renderer cuda support')
+         'draco' 'openpgl')
+makedepends=('cmake' 'boost' 'mesa' 'git' 'llvm' 'cuda' 'ninja' 'wayland-protocols' 'libxkbcommon'
+             'libdecor')
+optdepends=('cuda: cycles renderer cuda support'
+            'libdecor: wayland support')
 options=(!strip)
 source=("git+https://git.blender.org/blender.git#tag=v$pkgver"
         "git+https://git.blender.org/blender-addons.git"

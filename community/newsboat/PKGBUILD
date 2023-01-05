@@ -1,11 +1,12 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 # Contributor: Sven Pfleiderer <pfleidi@roothausen.de>
 
 pkgname=newsboat
-pkgver=2.29
+pkgver=2.30.1
 pkgrel=1
-pkgdesc="An RSS/Atom feed reader for text terminals"
+pkgdesc="RSS/Atom feed reader for text terminals"
 arch=('loong64' 'x86_64')
 url="https://newsboat.org/"
 license=('MIT')
@@ -20,7 +21,7 @@ replaces=('newsbeuter')
 options=('!makeflags' '!lto')
 changelog=$pkgname.changelog
 source=("https://newsboat.org/releases/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('18b9801e0c2948f29248bfd8f319a9f9f670993fdbd494c6464aaab9e325fd6b'
+sha256sums=('413ffdb44a2c348eb22491dc85ac73e1ca2489925f7cf59e96c62b1b0755602f'
             'SKIP')
 validpgpkeys=('B8B1756A0DDBF0760CE67CCF4ED6CD61932B9EBE') # Newsboat project <newsboat@googlegroups.com>
 

@@ -1,0 +1,35 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=clap
+pkgver=1.1.6
+pkgrel=1
+pkgdesc="CLever Audio Plugin API"
+arch=(any)
+url="https://github.com/free-audio/clap"
+license=(MIT)
+makedepends=(cmake)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+sha512sums=('85203e411822d1122ff47e1baf658edd93eedfd1fdb3a7590f4aaaf1c0c801f9b1358de15c9f70c8c0f111feb6aea104e51a9f19e6c0cffd2337f93c0b5829da')
+b2sums=('24a4980e1a1b2a1ac4fa6d2fc63b9043fc3e8e0c0bd8271e00b2fbcc76d7f80b45bcb79953893c0100abc0e1c19d770d7c7fe3b46b5bfeedc44aa700de4973c0')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $pkgname-$pkgver
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -Wno-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

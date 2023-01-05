@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=jacktrip
-pkgver=1.6.6
+pkgver=1.6.8
 pkgrel=1
 epoch=1
 pkgdesc="Multi-machine audio network performance over the Internet"
@@ -13,8 +13,8 @@ depends=(gcc-libs glibc hicolor-icon-theme qt5-base qt5-declarative qt5-networka
 makedepends=(help2man meson jack python-jinja python-yaml)
 options=(debug)
 source=($pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz)
-sha512sums=('b12e8f09b0cd0a20437e918ef1e09a4415704f2751c4f9bc0f5ed7aaf1a83ab2d66331fd07223d57964402365a8f617d48d2a63e6419c3b5f3d23d420ab5d6b2')
-b2sums=('0cd170c549d3e03670df66b9e524b2a3398364dec99b3501947f2966006927aa067bd5c4c43d6c66cd9f688d909ba9c711b0fac63e55227a11690cdc1a6376a8')
+sha512sums=('dc0bf64461eddfbedaa773c177a4c1387e205b5f3efeaf1e999b5ead21abe53122eebdeb75e853cdaeeb03c73eeb968ac7d5d6962b4af27b5009b724775a823c')
+b2sums=('ebe1b0c6ade7b40ff6e06bd9f628ba6423542dd496aeb447e5eed5865901b27c3f4ab5dbbc55bfdf22daa0ca03d8a2b734dcd8f80f3c9d64a0c8efda95941fbb')
 
 build() {
   arch-meson -Drtaudio=disabled build $pkgname-$pkgver
