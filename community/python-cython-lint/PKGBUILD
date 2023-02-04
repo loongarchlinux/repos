@@ -1,0 +1,53 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-cython-lint
+pkgver=0.12.0
+pkgrel=1
+pkgdesc='A tool to lint Cython files'
+arch=('any')
+url='https://github.com/MarcoGorelli/cython-lint'
+license=('MIT')
+depends=(
+  'python'
+  'cython'
+  'python-tokenize-rt'
+  'python-pycodestyle'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-wheel'
+  'python-setuptools'
+)
+checkdepends=('python-pytest')
+_commit='3a096b67345e5d0828bc0cbfe2ab55f22abd0ee4'
+source=("$pkgname::git+$url#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  PYTHONPATH="$(pwd)" pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}

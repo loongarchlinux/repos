@@ -1,0 +1,41 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contriubtor: Markus Näther <naetherm@informatik.uni-freiburg.de>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+
+pkgname=rccl
+pkgver=5.4.2
+pkgrel=1
+pkgdesc="ROCm Communication Collectives Library"
+arch=('loong64' 'x86_64')
+url='https://rccl.readthedocs.io/en/rocm-5.4.2/'
+license=('custom')
+depends=('hip' 'rocm-smi-lib')
+makedepends=('rocm-cmake' 'python')
+_git='https://github.com/ROCmSoftwarePlatform/rccl'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('067b19f952d88422afbeb2d3cdd2effa7d33e8503826bba712ac19fb00ddb379')
+options=(!lto)
+_dirname="$(basename $_git)-$(basename ${source[0]} .tar.gz)"
+
+build() {
+  # -fcf-protection is not supported by HIP, see
+  # https://docs.amd.com/bundle/ROCm-Compiler-Reference-Guide-v5.4/page/Appendix_A.html
+  CXXFLAGS="${CXXFLAGS} -fcf-protection=none" \
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_CXX_COMPILER=/opt/rocm/hip/bin/hipcc \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  echo "/opt/rocm/$pkgname/lib" > "$pkgname.conf"
+  install -Dm644 "$pkgname.conf" "$pkgdir/etc/ld.so.conf.d/$pkgname.conf"
+
+  install -Dm644 "$srcdir/$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

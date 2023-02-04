@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=cargo-pgx
-pkgver=0.6.1
+pkgver=0.7.1
 pkgrel=1
 pkgdesc='Build PostgreSQL extensions with Rust'
 arch=('loong64' 'x86_64')
@@ -13,7 +13,7 @@ optdepends=(
 )
 makedepends=('git' 'rust')
 options=('!lto')
-_commit='5b3b3fa3e702ff837f5490f2b33713cdcf6c7a4c'
+_commit='4b9467aebfd88c71cf0531b76cb524350ef0b698'
 source=("$pkgname::git+$url.git#commit=$_commit")
 b2sums=('SKIP')
 

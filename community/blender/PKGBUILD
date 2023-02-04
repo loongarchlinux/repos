@@ -8,7 +8,7 @@
 
 pkgname=blender
 pkgver=3.4.1
-pkgrel=4
+pkgrel=12
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('loong64' 'x86_64')
@@ -24,7 +24,6 @@ makedepends=('cmake' 'boost' 'mesa' 'git' 'llvm' 'cuda' 'ninja' 'wayland-protoco
              'libdecor')
 optdepends=('cuda: cycles renderer cuda support'
             'libdecor: wayland support')
-options=(!strip)
 source=("git+https://git.blender.org/blender.git#tag=v$pkgver"
         "git+https://git.blender.org/blender-addons.git"
         "git+https://git.blender.org/blender-addons-contrib.git"
@@ -53,6 +52,9 @@ prepare() {
   git -c protocol.file.allow=always submodule update
   git submodule foreach git checkout v${pkgver}
 
+  # fix build with boost 1.81.0
+  git format-patch -1 --stdout 79837c5ed4b5 | patch -Np1
+
   patch -p1 -i "$srcdir"/force-draco1.patch
   patch -p1 -d release/scripts/addons -i "$srcdir"/force-draco2.patch
 }
@@ -79,12 +81,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DWITH_INSTALL_PORTABLE=OFF \
-    -DWITH_PYTHON_INSTALL=OFF \
-    -DPYTHON_VERSION="$PYTHON_VER" \
-    -DPYTHON_LIBPATH=/usr/lib \
-    -DPYTHON_LIBRARY="python$PYTHON_VER" \
-    -DPYTHON_INCLUDE_DIRS="/usr/include/python$PYTHON_VER" \
-    -DCMAKE_CXX_FLAGS="-I /usr/include/python$PYTHON_VER"
+    -DWITH_PYTHON_INSTALL=OFF
   cmake --build build
 }
 

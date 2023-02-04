@@ -1,27 +1,29 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus
-pkgver=0.15.3
-pkgrel=1
+pkgver=0.16.0
+_commit=8d492b0713be793b72054c9ba7bf0a191188090b
+pkgrel=2
 pkgdesc='A fast and scalable test runner'
 arch=(any)
 url='https://github.com/ioquatix/sus'
 license=(MIT)
 depends=(ruby)
+makedepends=(git)
 checkdepends=(ruby-bake-test ruby-bake-test-external ruby-covered)
 options=(!emptydirs)
-source=(https://github.com/ioquatix/sus/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('a0330f50bbb1c3a1b8989412d3d50a2eb7b2b1121a683da6454c76513c3d8928')
+source=(git+https://github.com/ioquatix/sus.git#commit=$_commit)
+sha256sums=('SKIP')
 
 prepare() {
-  cd sus-$pkgver
+  cd sus
   sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i sus.gemspec
   echo gemspec > gems.rb
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd sus-$pkgver
+  cd sus
   gem build sus.gemspec
   gem install \
     --local \
@@ -47,12 +49,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd sus-$pkgver
+  cd sus
   PATH="$PWD/tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
-  cd sus-$pkgver
+  cd sus
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 license.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

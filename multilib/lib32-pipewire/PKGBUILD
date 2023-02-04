@@ -8,9 +8,9 @@ pkgname=(
   lib32-pipewire-jack
   lib32-pipewire-v4l2
 )
-_commit=5ff00f40b9d3ecfc38305edc27e9c2b01629802c  # tags/0.3.63
-pkgver=0.3.63
-pkgrel=3
+_commit=9558a5d5e0360d8af822431c76ee858a8c7495ac  # tags/0.3.65
+pkgver=0.3.65
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit client library"
 url="https://pipewire.org"
@@ -24,7 +24,6 @@ makedepends=(
   lib32-systemd
   meson
 )
-options=(debug)
 source=(git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=$_commit)
 sha256sums=('SKIP')
 
@@ -36,11 +35,8 @@ pkgver() {
 prepare() {
   cd pipewire
 
-  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2893
-  git cherry-pick -n 89ac6b353521fb9a6d6eb6bb74724c4fa968f75c
-
-  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2898
-  git cherry-pick -n c7b3ef0d9ff16a1e69a299870860bebcb628e298
+  # Actually install module-combine-stream
+  git cherry-pick -n fba7083f8ceb210c7c20aceafeb5c9a8767cf705
 }
 
 build() {
@@ -48,9 +44,12 @@ build() {
     --libdir /usr/lib32
     -D avahi=disabled
     -D avb=disabled
+    -D bluez5-codec-lc3=disabled
     -D bluez5-codec-lc3plus=disabled
     -D bluez5-codec-opus=disabled
     -D bluez5=disabled
+    -D compress-offload=disabled
+    -D docs=disabled
     -D echo-cancel-webrtc=disabled
     -D examples=disabled
     -D gstreamer-device-provider=disabled

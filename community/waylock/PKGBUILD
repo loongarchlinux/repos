@@ -1,39 +1,43 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=waylock
-pkgver=0.3.5
-_commit=20f1f5c5b0349eeb0a8d5d98bba81245b84cc16e  # refs/tags/v0.3.5^{}
-pkgrel=1
+pkgver=0.6.1
+pkgrel=2
 pkgdesc="A simple screenlocker for wayland compositors"
 arch=(loong64 x86_64)
 url="https://github.com/ifreund/waylock"
 license=(MIT)
 depends=(gcc-libs glibc)
-makedepends=(git libxkbcommon pam rust)
-source=(git+https://github.com/ifreund/waylock#commit=$_commit?signed)
-sha256sums=('SKIP')
-validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <ifreund@ifreund.xyz>
-
-prepare() {
-  cd $pkgname
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
-}
+makedepends=(libxkbcommon pam scdoc wayland wayland-protocols zig)
+source=("https://github.com/ifreund/waylock/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.sig})
+sha256sums=('4d3fc46b0f48c964362fdfceff27314a87b28cb3c40fbf782d24ca755bfa8c55'
+            'SKIP')
+validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
 
 build() {
-  cd $pkgname
-  cargo build --frozen --release --all-features --target-dir=target
-}
+  cd $pkgname-$pkgver
 
-check() {
-  cd $pkgname
-  cargo test --release --locked --target-dir=target
+  DESTDIR="build" zig build \
+    --prefix /usr \
+    --search-prefix /usr \
+    -Dtarget=native-linux.5.15-gnu \
+    -Dcpu=baseline \
+    -Drelease-safe \
+    -Dpie
 }
 
 package() {
-  depends+=(libpam.so libxkbcommon.so)
+  depends+=(
+    pam libpam.so
+    wayland libwayland-client.so
+    libxkbcommon libxkbcommon.so
+  )
 
-  cd $pkgname
-  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin"
+  cd $pkgname-$pkgver
+
+  mv -v build/* "$pkgdir"
+
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 {README.md,waylock.toml} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }

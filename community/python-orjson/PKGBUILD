@@ -2,7 +2,7 @@
 
 _name=orjson
 pkgname=python-orjson
-pkgver=3.8.3
+pkgver=3.8.5
 pkgrel=1
 pkgdesc="Fast, correct Python JSON library supporting dataclasses and datetimes"
 arch=(loong64 x86_64)
@@ -14,8 +14,8 @@ checkdepends=(python-arrow python-pendulum python-psutil python-pytest
 python-pytz python-xxhash)
 options=(debug)
 source=($pkgname-$pkgver.tar.gz::https://github.com/ijl/$_name/archive/$pkgver.tar.gz)
-sha512sums=('3d111bf797958b8bca933340a016082aa802ea5b380bb007fbe9f48924e777aab62cec4f4f7e647c6b189687d13d6def5201162b5f6883022d7c8e9aff41ec0a')
-b2sums=('f8adedfef9a8a2f07aab14e52d7d9b236cd28569ac1878abe8afb19896cd3eaedffa54e421ee48256bad95db20b33812f1da27df6b19cceab088a839513197ca')
+sha512sums=('1944729e1cb50da06f8496a0bf3212fc14da1f3870a74ca72da75de602243399132977d662f57f741efb47bc76d74c2c81b1188f0cc377a8c037aed7b864f633')
+b2sums=('980455a3c8f00effa545bab56ddd62e31417c1257a5c823da33cd5f0d59f4629ebd258d7931250b39ce4c52cca7b3c7b4a2d9e88ea383af331d9d36f194f1cc9')
 
 build() {
   cd $_name-$pkgver

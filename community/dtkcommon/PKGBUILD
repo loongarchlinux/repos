@@ -1,29 +1,28 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtkcommon
-pkgver=5.5.23
-pkgrel=1
+pkgver=5.6.4
+pkgrel=2
 pkgdesc='DTK common files'
 arch=('any')
 url="https://github.com/linuxdeepin/dtkcommon"
 license=('LGPL3')
 depends=('dconf')
-makedepends=('qt5-tools')
+makedepends=('cmake' 'ninja')
 source=("https://github.com/linuxdeepin/dtkcommon/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('2cda6f7a097664791ef6408e23eab7f70fc3e0d1021605eda66854d70259e903e8084faed9a81a8a93b7e5742b5527dc3a331dc58fdbf2f1709962a20c541355')
-
-prepare() {
-  cd dtkcommon-$pkgver
-  sed -i 's|qt5/mkspecs|qt/mkspecs|;s|/etc/dbus-1|/usr/share/dbus-1|' dtkcommon.pro
-}
+sha512sums=('fed4ea3b10e00530c79fe6eba59af4d1f0d45f4f720b7ad967827e9319e97ed0a8ff6d6d7dcdab7cd328de03a7d24f1f0130a184b90268aecc9bb391294aaef0')
 
 build() {
   cd dtkcommon-$pkgver
-  qmake-qt5 PREFIX=/usr VERSION=$pkgver LIB_INSTALL_DIR=/usr/lib
-  make
+  cmake . -GNinja \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DMKSPECS_INSTALL_DIR=/usr/lib/qt/mkspecs/ \
+    -DCMAKE_INSTALL_PREFIX=/usr  \
+    -DDVERSION=$pkgver
+  ninja
 }
 
 package() {
   cd dtkcommon-$pkgver
-  make INSTALL_ROOT="$pkgdir" install
+  DESTDIR="$pkgdir" ninja install
 }

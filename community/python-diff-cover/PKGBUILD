@@ -2,7 +2,7 @@
 
 _name=diff_cover
 pkgname=python-diff-cover
-pkgver=7.3.0
+pkgver=7.4.0
 pkgrel=1
 pkgdesc="Automatically find diff lines that need test coverage"
 arch=(any)
@@ -13,9 +13,9 @@ makedepends=(python-build python-installer python-poetry-core python-wheel)
 checkdepends=(python-pytest python-pytest-mock python-tomli)
 optdepends=('python-tomli: for TOML support')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz{,.asc})
-sha512sums=('1ddffe659dee5e3a088521415246474b1d1faff523490abcaede7eaca1335e942e896b6a280caa912574501d92504a6376f5ce6787a54c22f7467d0877b30c6c'
+sha512sums=('8d3c89dbe1d8316ead73b111ecc33e15ed9bc72169354e5b84f2345d9a9f8bb9b59e29361023bace0e20af152fbdaba645f11ab2d32d541568a8f39b9928681d'
             'SKIP')
-b2sums=('13d05e5b7493884233ee2c12d42d36a6c854b2396f4a1d59e5bd51f657a0dbe079b828836332c30f45e6d2bca45487578ad57a6ceb6de4ebd0a923ee4d1388bc'
+b2sums=('a9cbf430324258d684a232d5d9c74c8702c87f4d136a23b8aa87a422615174a51b47e2fc820ee48a4d5543b39a80efa8fb0b080df9099a65d3b36395c5122e1c'
         'SKIP')
 validpgpkeys=('54CAEABCAC2956D407348256972401BDE60128CB') # Matt Bachmann <matt.bachmann@lola.com>
 

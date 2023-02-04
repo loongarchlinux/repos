@@ -2,29 +2,22 @@
 # Contributor: Johan Rehnberg <cleanrock@gmail.com>
 
 pkgname=naev
-pkgver=0.10.1
-pkgrel=1
+pkgver=0.10.3
+pkgrel=2
 pkgdesc='2D action/rpg space game'
 arch=('loong64' 'x86_64')
 url="https://github.com/naev/naev"
 license=('GPL3')
 depends=('glu' 'openal' 'libvorbis' 'sdl2' 'sdl2_image' 'sdl2_mixer' 'libgl' 'libxml2' 'freetype2'
-         'libpng' 'libzip' 'luajit' 'glpk' 'physfs' 'libunibreak' 'suitesparse' 'openblas' 'cblas')
+         'libpng' 'libzip' 'luajit' 'glpk' 'physfs' 'libunibreak' 'suitesparse' 'cblas')
 makedepends=('freeglut' 'zip' 'meson' 'git' 'python-yaml')
-source=("https://github.com/naev/naev/releases/download/v$pkgver/naev-$pkgver-source.tar.xz"
-         binutils-2.39.patch)
-sha512sums=('91a1f3909462cb00a366a5006a1ea5da289f10dfe8ec3a5b8ab21bc281a74742724bb287fc8ffc31277e38b0f4c778812b800eb814f399b480ba72deb957249c'
-            '274b2189a9c81d75ff649ae777fdca0cba0ed41fd1c62e8079fc3cd4e48617cde49d930742e7786dbe98a46a02e8733ac9a6d551d6e418f27ecfaeff91c63679')
-
-# prepare() {
-#   # patch -d $pkgname-$pkgver -p1 < binutils-2.39.patch # Fix build with binutils 2.39
-# }
+source=("https://github.com/naev/naev/releases/download/v$pkgver/naev-$pkgver-source.tar.xz")
+sha512sums=('7491c61bae446aa98f3847be8719cf822955d3cd0a1b01e4a0d55d49a58628ec07f4872140b3fc77b6c1a928da9d4c8b112a2814ae3ce7edfcc98841f6812a59')
 
 build() {
   cd "$pkgname-$pkgver"
 
-  export LDFLAGS+=' -lcblas' # Workaround our openblas not providing cblas
-  meson setup -Dprefix=/usr -Dndata_path=/usr/share/naev/ndata build .
+  meson setup -Dprefix=/usr -Dndata_path=/usr/share/naev/ndata -Dblas=cblas build .
   cd build
   meson compile
 }

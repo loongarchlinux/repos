@@ -2,7 +2,7 @@
 
 _name=myMPD
 pkgname=mympd
-pkgver=10.1.7
+pkgver=10.2.1
 pkgrel=1
 pkgdesc="A standalone and lightweight web-based MPD client"
 arch=(loong64 x86_64)
@@ -10,23 +10,22 @@ url="https://github.com/jcorporation/myMPD"
 license=(GPL3)
 depends=(glibc lua)
 makedepends=(cmake flac jq libid3tag openssl pcre2 perl)
-options=(debug)
 source=($pkgname-$pkgver.tar.gz::https://github.com/jcorporation/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('822cc8e29c289a733121da9ddb0467eadb9dab192da0b6f77cead31ac33dc0b5e2d398835399c3d3a4c2a6c26e997c3b2a0c75b1eaf442d0baeb2eeba9753c3f')
-b2sums=('43a258f62c44570e0c29fd7772e888684023cd156097ee0f92a3f4e6ac95b37af38b94b01e5c4d03b88c71601f248c6d1fea0cbff5f3658c8ab1aaff335a5652')
+sha512sums=('d5d123c73d5e7537646734a2f1a6cfa9dfbecd9b53a3a1f51cb51cb82dfe1bb33d1c1ee901911e1966f0b3b50d6db2e00068c688c959017a13003e94078f11a0')
+b2sums=('80a15d58e3137c65414d755a83ce864ca803c614bdb4fd61d59b6399dd7e2883d0954eef9a553a08add7342b2d30bb6f9800389b40cf04350236ea226801626b')
 
 build() {
   local cmake_options=(
     -B build
-    -S $_name-$pkgver
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DENABLE_FLAC=ON
+    -S $_name-$pkgver
     -Wno-dev
   )
 
   cmake "${cmake_options[@]}"
-  cmake --build build
+  cmake --build build --verbose
 }
 
 check() {
@@ -43,4 +42,6 @@ package() {
 
   DESTDIR="$pkgdir" cmake --install build
   install -vDm 644 $_name-$pkgver/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  # move service file to correct location: https://github.com/jcorporation/myMPD/issues/955
+  mv -v "$pkgdir/"{lib,usr/lib}
 }

@@ -1,18 +1,25 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.24.0
+pkgver=1.27.0
 pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
 url="https://tmuxp.git-pull.com/en/latest/"
 license=(MIT)
-depends=(python-click python-colorama python-kaptan python-libtmux python-typing-extensions)
+depends=(python python-colorama python-libtmux python-pyyaml)
 makedepends=(python-build python-installer python-poetry-core python-wheel)
 checkdepends=(python-pytest python-pytest-mock python-pytest-rerunfailures)
+optdepends=(
+  'python-shtab: for workspace completion and import'
+  'ipython: for alternative CLI'
+  'python-prompt_toolkit: for alternative CLI'
+  # TODO: package ptpython for additional alternative CLI
+  # TODO: package bpython for additional alternative CLI
+)
 source=(https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('eb2be2a1d1bc93e237a9f24d244d116d188a9aecb85bffeab90b0872b8404b6a97680fecd6bdb199f3c2e6b9d66002757af1e7db0eaacbf094f80d84142e7df0')
-b2sums=('4bd149b37beffc0fc6ff58bcab1f01c220565286f0dd2c9dbfdac04d86b4e8d65a2e375c20289025695ef35fe423a83c21182a899c4232ffad5a73b77545a099')
+sha512sums=('f5e300b3b5db26fed52d365d68759944052c63790634abee70eb91bacc846166cfb2d829cb8f69b943ebddaada90d9c88b5d0a8aa6f54abc0d9a6f9fbd67a104')
+b2sums=('93eef869bd8f15642103ae49f8125ed23e41a88eefd392889011dfcf26f81f3857cac7ad6be0f67b9828cb068f461b25f9f8dc8637d3b7191fdb20de7d06838a')
 
 build() {
   cd $pkgname-$pkgver

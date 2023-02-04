@@ -2,31 +2,32 @@
 # Contributor: Philipp A. <flying-sheep@web.de>
 
 pkgname=cargo-generate
-pkgver=0.17.4
-pkgrel=1
+pkgver=0.17.6
+pkgrel=2
 pkgdesc="Use pre-existing git repositories as templates"
 arch=('loong64' 'x86_64')
 url="https://github.com/cargo-generate/cargo-generate"
 license=('MIT' 'Apache')
-depends=('curl' 'libgit2')
-makedepends=('cargo' 'libssh2' 'openssl')
+depends=('curl' 'libgit2' 'libssh2' 'openssl')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('302605a5517819a59a459e2c74744eafd8230288b03db3738c867e35ffb70509')
+sha256sums=('1d0516be0e4c0c04c63862cf639e1788cf54122d0eacb6acbecd92fa87494dd2')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  sed -i 's/\"vendored-libgit2\", \"vendored-openssl\"//' Cargo.toml
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd "$pkgname-$pkgver"
   CFLAGS+=" -ffat-lto-objects"
-  cargo build --release --frozen
+  LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen --lib
+  LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo test --frozen --lib
 }
 
 package() {

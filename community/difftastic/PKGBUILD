@@ -4,8 +4,8 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.40.0
-_commit=00ecf36a229c9797b707b6f8fa8c56abc9014b28
+pkgver=0.42.0
+_commit=daa7156a2ca972638a61b479dc6fbe433e1ca98b
 pkgrel=1
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=('loong64' 'x86_64')

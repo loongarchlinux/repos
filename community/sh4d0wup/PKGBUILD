@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=sh4d0wup
-pkgver=0.6.0
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Signing-key abuse and update exploitation framework"
 url='https://github.com/kpcyrd/sh4d0wup'
@@ -12,8 +12,8 @@ checkdepends=('sequoia-sq')
 makedepends=('cargo' 'clang')
 options=(!lto)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4554af40d4c4286e7e183107504e1afff3476e76d77edc85ecf82e501ba8515b')
-b2sums=('7e3bbc9b78fce5bf133cc1870d8f96bc5bef8de320edb4410af86f6b76c96b758a8de601f50b924a9beedb7f2041907fdd790ebfdf52b7d21e6ea4a4ba2bab93')
+sha256sums=('0ffb632129f600ab8f6584ba291e308e0c4adc5e61625d035d9abc6dae46a8bd')
+b2sums=('40d2aaccbac02f37c107ac2a2b1f33cccdb9a4e80f03bb8f5f023a1748a3835ffbcf0a6b69bfcfaa8a788e156599e7b252b46ddb642ab548b672983b65780884')
 
 prepare() {
   cd "${pkgname}-${pkgver}"

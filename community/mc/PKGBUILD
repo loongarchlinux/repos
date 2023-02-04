@@ -4,7 +4,8 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=mc
-pkgver=4.8.28
+pkgver=4.8.29
+_commit=e99f44c5e7ec2060195239b0448afa27e477a0ff # git rev-parse ${pkgver}
 pkgrel=2
 pkgdesc='A file manager that emulates Norton Commander'
 arch=('loong64' 'x86_64')
@@ -20,6 +21,7 @@ depends=(
 )
 makedepends=(
   'aspell'
+  'git'
   'libxt'
   'libx11'
   'unzip'
@@ -37,7 +39,6 @@ optdepends=(
   'python: to access uc1541 or s3 storage'
   'python-boto: s3+ extfs'
   'python-pytz: s3+ extfs'
-  'samba: VFS support'
   'unace: uace extfs'
   'unarj: uarj extfs'
   'unrar: urar extfs'
@@ -55,30 +56,31 @@ backup=(
 )
 options=('!emptydirs')
 source=(
-  "http://ftp.midnight-commander.org/${pkgname}-${pkgver}.tar.xz"
+  #"https://ftp.osuosl.org/pub/midnightcommander/${pkgname}-${pkgver}.tar.xz"
+  "git+https://github.com/MidnightCommander/mc.git?signed#tag=${_commit}"
   'mc-python3.patch'
 )
-sha512sums=('ca3b3a57281e9387cb52bf1fcfc3f39a4d5f438aafc256dc492c192678824f67c983a852c759664efc5bc6d0de471c9b3929834f8301f6302ca1ebeee513fdfd'
-            '516c25cdc482afba6b0fa78737e4e10815acdc4d528a908e118025e44f44be0bb86b90b5044d4675e835d8ff64be551b5d48943c2c2ddd9716c34b39b1e627bc')
-b2sums=('f4218e6c166df85b7b3736f0fd1414c9507c72074f06001f12b114ce6c6fbbf3688ab850aa70f5063eb3920736f878e113eb39a5d261ccfc3ffa9dab473a8436'
-        'b0e20d89c7c1ba25f76f564481ed7e2b9f8614b460dc170bb3d1998411c3d7945dee5200e9a2db81f706a8bdbffffb72665a0c43353b520c02fcf5fee4d251db')
+sha256sums=('SKIP'
+            '78df8592c86445fa6249433e8587889e3923c0bb8b604cae32d5e739d2cc025c')
+validpgpkeys=(CC37C2244E2FF0ED548D5DD5F722EE79BCBBE0EF) # Yury V. Zaytsev <yury@shurup.com>
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd mc
 
   # port to Python 3
   # ref: https://github.com/MidnightCommander/mc/pull/149
   patch -p1 -i "$srcdir/mc-python3.patch"
+
+  ./autogen.sh
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd mc
 
   ./configure \
     --prefix=/usr \
     --libexecdir=/usr/lib \
     --sysconfdir=/etc \
-    --enable-vfs-smb \
     --enable-aspell \
     --with-screen=slang \
     --with-x
@@ -87,7 +89,7 @@ build() {
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd mc
 
   make DESTDIR="$pkgdir" install
 

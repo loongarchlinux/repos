@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=3.0.1
+pkgver=3.0.3
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/theia-ide/typescript-language-server
@@ -11,7 +11,7 @@ depends=('typescript')
 makedepends=('jq' 'yarn')
 checkdepends=('npm')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('a731f85c291a3c3fb2fffaf16bf4859c173ec18f931d4a6092de5d068cbebbdfe8681a4926ecf94d8483ac8dc08675dd7be242f0f3c82c2c8c21ae3925114c35')
+b2sums=('a1246b1a801d9f69ddb3071281009198cfde540417764e487bbb9b37251f6fc0866dd99fa253083e25d0d18cd7ff6865e86e1e82cb596c167e1b8b7dfc34eb4d')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -38,8 +38,8 @@ package() {
   mv package.json{.bak,}
 
   install -d "$pkgdir"/usr/{bin,lib/node_modules/$pkgname}
-  ln -s ../lib/node_modules/$pkgname/lib/cli.js "$pkgdir"/usr/bin/$pkgname
-  chmod +x lib/cli.js
-  cp -r lib node_modules package.json "$pkgdir"/usr/lib/node_modules/$pkgname
+  ln -s ../lib/node_modules/$pkgname/lib/cli.mjs "$pkgdir"/usr/bin/$pkgname
+  cp -r lib package.json "$pkgdir"/usr/lib/node_modules/$pkgname
+  chmod +x "$pkgdir"/usr/lib/node_modules/$pkgname/lib/cli.mjs
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname {CHANGELOG,README}.md
 }

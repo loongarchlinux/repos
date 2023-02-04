@@ -3,10 +3,10 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=bash-language-server
-pkgver=4.2.2
+pkgver=4.6.2
 pkgrel=1
 pkgdesc="Bash language server implementation based on Tree Sitter and its grammar for Bash"
-arch=("loong64" "x86_64")
+arch=("any")
 url="https://github.com/bash-lsp/bash-language-server"
 license=("MIT")
 depends=("nodejs")
@@ -15,7 +15,7 @@ optdepends=('bash-completion: for CLI args completion'
             'man-db: for documentation via manual pages'
             'shellcheck: to enable linting')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/server-$pkgver.tar.gz")
-b2sums=('6cca3f61ee9cce4d6fb2586d74c7b4634deb0b61701122ca75341f92ee7e3dd5351aedf07ef8a60ad9defe2140769f3a2e787357193b48da2b29eb16a9d9b380')
+b2sums=('fa91e29a4ac65198190547372c44f928e5494780ea88b6bab4a58c557ea4ab19df634480ad6a1c97d18ae48e88072a5f37abec093ff16272f7688032da3cb637')
 
 build() {
     cd "$pkgname-server-$pkgver"
@@ -35,8 +35,9 @@ package() {
     install -d "$pkgdir/usr/lib/$pkgname"
     cd "$pkgdir/usr/lib/$pkgname"
     cp -a "$srcdir/$pkgname-server-$pkgver/server/"* .
+    chmod +x out/cli.js
     install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" "$srcdir/$pkgname-server-$pkgver/LICENSE"
 
     install -d "$pkgdir/usr/bin"
-    ln -s "/usr/lib/$pkgname/bin/main.js" "$pkgdir/usr/bin/$pkgname"
+    ln -s "/usr/lib/$pkgname/out/cli.js" "$pkgdir/usr/bin/$pkgname"
 }

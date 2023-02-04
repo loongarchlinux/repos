@@ -3,17 +3,16 @@
 # Contributor: Franco Iacomella <yaco@gnu.org>
 
 pkgname=synfig
-pkgver=1.4.3
+pkgver=1.4.4
 pkgrel=1
 pkgdesc='Professional vector animation program (CLI renderer only)'
 arch=('loong64' 'x86_64')
 url='https://www.synfig.org/'
 license=('GPL3')
-depends=('boost-libs' 'fftw' 'imagemagick' 'libjpeg-turbo' 'libmng' 'libxml++2.6' 'mlt6' 'openexr'
-         'pango')
+depends=('fftw' 'imagemagick' 'libjpeg-turbo' 'libmng' 'libxml++2.6' 'mlt' 'openexr' 'pango')
 makedepends=('boost' 'etl' 'intltool')
 source=("https://downloads.sourceforge.net/synfig/$pkgname-$pkgver.tar.gz")
-sha256sums=('0c8d02ff6c77e468021a4497be34323d38246208d199ab1c3bbf65c9794752e7')
+sha256sums=('cd9882a091433e22e484e47d7bfe542aaefd3f62bfd746d306be4ce964756f06')
 
 build() {
   cd $pkgname-$pkgver

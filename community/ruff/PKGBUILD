@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ruff
-pkgver=0.0.211
+pkgver=0.0.240
 pkgrel=1
 pkgdesc="An extremely fast Python linter, written in Rust"
 arch=(loong64 x86_64)
@@ -10,10 +10,10 @@ url="https://github.com/charliermarsh/ruff"
 license=(MIT)
 depends=(gcc-libs glibc python)
 makedepends=(cargo maturin python-installer)
-options=(!lto debug)
+options=(!lto)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('dff6f3525583dc39d4472649b4b41acff722c144b4b5f00197b7507dc1b595d7fd8f625efd421e976af59d3bfa8a01bcf1c9f92fe86e718476ab517a2eea59b5')
-b2sums=('744bd32af6a81f0c9203dcf43d847789d8a015c7eac5ce76ac7d96ed67e466429d46cf561cc168af6f795cd15a67fef41442d7ac0e108600fdb49ef714846e04')
+sha512sums=('1b4d95b90bf9b7182d143d4407e0de4ff24722e069c7a58c007689076cf2777fa3ca0556aa245f1c573b3cc107c0cedd0110d1e84a13882aee36686429a66d6e')
+b2sums=('d6911837470ae5203fa5453542ff35c0b92c07de77efaa16a386feade21f0bbb5140c268c28dd747874f08efbed667580ad571f2f8c8e02f1ed0475f7ff41191')
 
 prepare() {
   cd $pkgname-$pkgver

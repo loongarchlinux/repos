@@ -2,8 +2,9 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-db
-pkgver=12.2.0
-pkgrel=2
+pkgver=12.3.1
+_commit=b689b6320cdb7dbbb366bf35f23083814f5e79ec
+pkgrel=1
 pkgdesc="OpenStack Database Pattern Library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.db/$pkgver"
@@ -11,30 +12,24 @@ license=('Apache')
 depends=('python-six' 'python-pbr' 'python-alembic' 'python-debtcollector' 'python-oslo-i18n'
          'python-oslo-config' 'python-oslo-utils' 'python-sqlalchemy' 'python-sqlalchemy-migrate'
          'python-stevedore')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-setuptools')
 checkdepends=('python-testresources' 'python-oslotest' 'python-oslo-context')
 options=('!emptydirs')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/openstack/oslo.db/archive/$pkgver.tar.gz")
-sha512sums=('431ca5d3f994d38ec31fd8b38e58222035609f9e965077ee5b4db2db4dea737b51b4b91e0d476436c0efd61a227d1d14b61edc2444cdf50a2c60943eefd7017d')
-
-export PBR_VERSION=$pkgver
-
-prepare() {
-  sed -i 's/import unittest2/import unittest as unittest2/' oslo.db-$pkgver/oslo_db/tests/sqlalchemy/test_async_eventlet.py
-}
+source=("git+https://github.com/openstack/oslo.db.git#commit=$_commit")
+sha512sums=('SKIP')
 
 build() {
-  cd oslo.db-$pkgver
+  cd oslo.db
   python setup.py build
 }
 
 check() {
-  cd oslo.db-$pkgver
+  cd oslo.db
   stestr run
 }
 
 package() {
-  cd oslo.db-$pkgver
+  cd oslo.db
   python setup.py install --root="$pkgdir" --optimize=1
 }
 

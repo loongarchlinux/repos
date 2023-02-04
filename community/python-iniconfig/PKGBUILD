@@ -1,31 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-iniconfig
-pkgver=1.1.1
-pkgrel=5
+pkgver=2.0.0
+_commit=93f5930e668c0d1ddf4597e38dd0dea4e2665e7a
+pkgrel=2
 pkgdesc="brain-dead simple config-ini parsing"
 url="https://github.com/RonnyPfannschmidt/iniconfig"
 license=('MIT')
 arch=('any')
-makedepends=('python-setuptools' 'python-setuptools-scm')
-checkdepends=('python-pytest-runner')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/RonnyPfannschmidt/iniconfig/archive/v$pkgver.tar.gz")
-sha512sums=('3e86490e424adefcc36b498ed0e6c6a6d4c6a2804a95b99163cef456f303b1913e9afe34035039cf0f2e96f7624719dc85e4ab3917ccd59278b22894a00dbf26')
-
-export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
+checkdepends=('python-pytest')
+source=("git+https://github.com/RonnyPfannschmidt/iniconfig.git#commit=$_commit")
+sha512sums=('SKIP')
 
 build() {
-  cd "$srcdir"/iniconfig-$pkgver
-  python setup.py build
+  cd iniconfig
+  python -m build -nw
 }
 
 check() {
-  cd "$srcdir"/iniconfig-$pkgver
-  python setup.py pytest
+  cd iniconfig
+  PYTHONPATH="$PWD/src" pytest
 }
 
 package() {
-  cd iniconfig-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  cd iniconfig
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

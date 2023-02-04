@@ -8,7 +8,8 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=19.3.0
+pkgver=19.6.0
+_commit=3ecd96f0636c9e36c2baf4606e57931c08dc24e2
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript'
 arch=('loong64' 'x86_64')
@@ -16,13 +17,13 @@ url='https://nodejs.org/'
 license=('MIT')
 options=(!lto)
 depends=('brotli' 'openssl' 'zlib' 'icu' 'libuv' 'libnghttp2' 'c-ares') # 'http-parser' 'v8')
-makedepends=('python' 'procps-ng')
+makedepends=('git' 'python' 'procps-ng')
 optdepends=('npm: nodejs package manager')
-source=("https://github.com/nodejs/node/archive/v$pkgver/nodejs-$pkgver.tar.gz")
-sha512sums=('892e63ebd63eabd34c0fce39914535b9a02c70efbc7d52cacb86bb7f935c73c6e3bc08f006b55e88337967e612ec5469acc38d1268dac5b85daf5bf8dec3c632')
+source=("git+https://github.com/nodejs/node.git#commit=$_commit")
+sha512sums=('SKIP')
 
 build() {
-  cd node-$pkgver
+  cd node
 
   ./configure \
     --prefix=/usr \
@@ -43,17 +44,14 @@ build() {
 }
 
 check() {
-  cd node-$pkgver
+  cd node
   make test || :
 }
 
 package() {
-  cd node-$pkgver
-
+  cd node
   make DESTDIR="$pkgdir" install
-
-  install -D -m644 LICENSE \
-    "$pkgdir"/usr/share/licenses/nodejs/LICENSE
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/nodejs/
 
   cd "$pkgdir"/usr/lib
   ln -s libnode.so.* libnode.so

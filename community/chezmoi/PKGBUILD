@@ -4,7 +4,7 @@
 # Contributor:  <godeater@gmail.com>
 
 pkgname=chezmoi
-pkgver=2.29.1
+pkgver=2.29.4
 pkgrel=1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('loong64' 'x86_64')
@@ -13,9 +13,9 @@ license=('MIT')
 makedepends=('go' 'git')
 depends=('glibc')
 checkdepends=('zip')
-options=('!lto')
+options=('!lto' 'debug')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
-sha512sums=('144471219d1dfb33ae3a6ddb2569675a63a2d64d14159b14c32b6060daac29bc8da5caa219079a8caf2845e573c18483b8ea78f37639ae4f6178e5719b77b47b')
+sha512sums=('0b1dfbc51437434e5d35bac392446bb0782785322c3ea54abe61d0dc6251b55b4bfa1731cc1e2d85e2f7e0cf85ac7ee41b2db518f267c7027ef9ad70fa865263')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -32,11 +32,11 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export GOPROXY=off
   go build \
-    -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -tags noupgrade \
-    -ldflags "-X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
+    -ldflags "-compressdwarf=false \
+              -X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
               -X main.version=$pkgver \
               -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@${SOURCE_DATE_EPOCH}) \
               -extldflags ${LDFLAGS}" \

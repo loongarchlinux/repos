@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=pd-lua
-pkgver=0.10.2
+pkgver=0.11.5
 pkgrel=1
 pkgdesc="LUA embedding for pd"
 arch=(loong64 x86_64)
@@ -10,23 +10,14 @@ license=(GPL2)
 groups=(pd-externals pro-audio)
 depends=(gcc-libs glibc lua pd)
 source=($pkgname-$pkgver.tar.gz::https://github.com/agraef/$pkgname/archive/$pkgver.tar.gz)
-sha512sums=('0f61159bbb67c48ce379e4c1f7f1223004cc43065417e08a26d9ae40dd745ad01cc6c01921703a7118873055abc782eff0479713e187a61bd8edf2a98df72a30')
-b2sums=('605e01a7d76a9d01819c6133cb9a2976729ed233e02da71d48b63708b6c4bc3bc5fb2aa67ec1732ff00d7240033d78ef4505bf15e0e7e8f8a50568d374927ab4')
-
-prepare() {
-  # not installing license and README (to wrong location)
-  sed -e '/COPYING /d;/README /d' -i $pkgname-$pkgver/Makefile
-}
+sha512sums=('29376a6026864cc58a7235fad9b79a6ab1b6ac8f02d793149c84ff7853fd03eb5977832e828171ec702a851f68ce21b5d40ef8f9328007f384be7b3f258fa777')
+b2sums=('836ccf037ea75c6ce177ae45770958c5646b045aed277a4c8086ba9e71f7fa3cd8a0085619372d2ade584b003a800b13a8e092de0ca32112188318e0c71ca009')
 
 build() {
   make LDFLAGS="$LDFLAGS" CFLAGS="$CFLAGS" -C $pkgname-$pkgver
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir/" prefix=/usr install
-  # docs
-  install -vDm 644 README -t "$pkgdir/usr/share/doc/$pkgname/"
-  mv -v "$pkgdir/usr/lib/pd/extra/pdlua/doc/"* "$pkgdir/usr/share/doc/$pkgname/"
-  rmdir -v "$pkgdir/usr/lib/pd/extra/pdlua/doc/"
+  make DESTDIR="$pkgdir/" PDLIBDIR=/usr/lib/pd/extra prefix=/usr install -C $pkgname-$pkgver
+  install -vDm 644 $pkgname-$pkgver/README -t "$pkgdir/usr/share/doc/$pkgname/"
 }

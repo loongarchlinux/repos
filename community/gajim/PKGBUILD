@@ -2,11 +2,11 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gajim
-_pkgver=1.5.4
+_pkgver=1.6.1
 #_fixupver=2
 pkgver=${_pkgver}
 #pkgver=${_pkgver}.r${_fixupver}
-pkgrel=2
+pkgrel=1
 pkgdesc='Full featured and easy to use XMPP (Jabber) client'
 url='https://gajim.org/'
 arch=('any')
@@ -31,8 +31,8 @@ optdepends=('farstream: start audio and video chat'
             'gsound: Notification Sounds')
 source=(https://www.gajim.org/downloads/${_pkgver%.*}/gajim-${_pkgver}.tar.gz)
 #source=(https://www.gajim.org/downloads/${_pkgver%.*}/gajim-${_pkgver}-${_fixupver}.tar.gz)
-sha512sums=('616bcef40a46196e0b390c1f455036f1959f3aaeccf9b06cb7b3ecdd7d303df5ca72fe7b3ceaa3856e744b6de83be8afe8f3ffe054ab7ceb6d9c097e41ce631c')
-b2sums=('5d2555963cd4f3d200cf2d9b7c02c0df7018257087532ccf3ac8f70963619301ef7a98f9f9225b57b782e270fa7ffe6a675a2273946337b3bd187c19c43dc237')
+sha512sums=('080ae0c5c86170085361b30fa7e60e4b8bbcf002e0b46307d809a6e1a1bbcd070391bc03dcb44399d73dab2562434308aaf907cd05813e6dc5b464e6cdebf537')
+b2sums=('f675b21321cbed2480f92beec37dd886e1e954839c6f1b13550a23ba9ab7c9e22000d5d28b8fe2b1c4fa09ae7518c6f7805124114a228f7271669de35c8aadef')
 
 build() {
   cd ${pkgname}-${_pkgver}

@@ -2,7 +2,7 @@
 
 _name=libtmux
 pkgname=python-libtmux
-pkgver=0.18.2
+pkgver=0.21.0
 pkgrel=1
 pkgdesc="Python api for tmux"
 arch=(any)
@@ -13,8 +13,8 @@ makedepends=(python-build python-installer python-poetry-core python-wheel)
 checkdepends=(python-pytest procps-ng)
 optdepends=('python-pytest: for pytest plugin')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('4e37477872accfc1e194c5cb05feb894374e7db000b5d4943c8e2e0312ac6facf85d082d4e49c4e0bdb9ed38fd4919f7b576647536a9f7a552856bd0280bd7d5')
-b2sums=('7e82fd7b97c3d137900e40e629f2c8853b415bc7ccef6a537509b5b01af3c16af751604ae0be786e9550a040860c951de5a00e1ff89e7e91fbd4758150c77582')
+sha512sums=('8e069b0a7835382de04d440820f67977c587e4be6bdf4a8fa90b9180f9bccb622e05c6d79bd028bb8bc93ff911c6573f6ac32246f4388679bb64d457c086a08a')
+b2sums=('919483a364923a9257dc9a5ca6413680b98f87049b7032b0df187439bc681e1120e8e78f28b58b8ee39df2ec6b3b634152dd59c62b04ec085e4c646f5a3cda97')
 
 build() {
   cd $_name-$pkgver

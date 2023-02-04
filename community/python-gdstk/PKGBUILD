@@ -1,31 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-gdstk
-pkgver=0.9.14
+pkgver=0.9.17
+_commit=a705e266cf4026c61893f3531cfb2f0ca53e80ed
 pkgrel=1
 pkgdesc="Python module for creating GDSII stream files, usually CAD layouts"
 url="https://github.com/heitzmann/gdstk"
 license=('custom:BSL')
 arch=('loong64' 'x86_64')
 depends=('python-numpy')
-makedepends=('python-setuptools' 'cmake')
+makedepends=('git' 'python-setuptools' 'cmake')
 checkdepends=('python-pytest-runner')
-source=("https://github.com/heitzmann/gdstk/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('8e609dc9da7b23964fbb4699d3661a1260c0afad474427ae9df3c3d7f070268fb911e0386f9f94c04d115b2dfb1d947172eeae74ae409159a0c4326eb2dff74c')
+source=("git+https://github.com/heitzmann/gdstk.git#commit=$_commit")
+sha512sums=('SKIP')
 
 build() {
-  cd gdstk-$pkgver
+  cd gdstk
   python setup.py build
 }
 
 check() {
-  cd gdstk-$pkgver
+  cd gdstk
   python setup.py pytest
 }
 
 package() {
-  cd gdstk-$pkgver
+  cd gdstk
   python setup.py install --root="$pkgdir" --optimize=1
-
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

@@ -1,8 +1,8 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
-pkgname=nextcloud-app-contacts
-pkgver=5.0.2
 _name=contacts
+pkgname=nextcloud-app-contacts
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="Contacts app for nextcloud"
 arch=(any)
@@ -12,13 +12,13 @@ makedepends=(nextcloud yq)
 groups=(nextcloud-apps)
 options=(!strip)
 source=($pkgname-$pkgver.tar.gz::https://github.com/nextcloud-releases/contacts/releases/download/v$pkgver/contacts-v$pkgver.tar.gz)
-sha256sums=('291204c4fd951e49bbfd5255edbbfc02d09621caa95e8e40d5d70fcaec938a57')
-b2sums=('173b68a7a1e62a75f9ffa9129bd9ed3b364f6c08e3e6853b5768c0a0cca6c162cb9c319ac943e24b172e18602d946995ef09725fcca3f3f572b6efcacc050e5f')
+sha256sums=('cab96b6de22624700b8b72a13210e04e98d2ac6bf08040f78363b2db9f324e56')
+b2sums=('1bfb794c046b4df51425a33b03fe5d785a54af09b601051fef4841383cc474e16177b25fe22c2fcd305bc4995bd6c45081cc04ef412e6ff5d239e07fbf4230ad')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
 # 2. Add makedepends+=(nextcloud yq)
-_phps=(php7 php)
+_phps=(php php-legacy)
 _get_supported_ranges() {
   _app_min_nextcloud="$(< appinfo/info.xml xq -r '.info.dependencies.nextcloud["@min-version"] | values')"
   _app_max_nextcloud="$(< appinfo/info.xml xq -r '.info.dependencies.nextcloud["@max-version"] | values | tonumber | .+1')"

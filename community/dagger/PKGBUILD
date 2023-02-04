@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=dagger
-pkgver=0.3.7
+pkgver=0.3.10
 pkgrel=1
 pkgdesc='A portable devkit for CI/CD pipelines'
 arch=('loong64' 'x86_64')
@@ -10,7 +10,7 @@ license=('Apache')
 depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
-_commit='2bd84ee24a5f7a04b44048006da20208f276d32a'
+_commit='51e04bd219bcd10cf4b08e24f9fa49d85da81fea'
 source=("$pkgname::git+https://github.com/dagger/dagger.git#commit=$_commit")
 b2sums=('SKIP')
 
@@ -37,17 +37,20 @@ build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOPATH="${srcdir}"
 
   go build -v \
-    -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags $LDFLAGS \
+    -ldflags "-compressdwarf=false \
+    -linkmode external \
+    -extldflags ${LDFLAGS} \
     -X go.dagger.io/dagger/version.Revision=$_commit \
     -X go.dagger.io/dagger/version.Version=$pkgver" \
     -o build \
     ./cmd/...
+
 }
 
 # TODO tests now require docker *kicks docker*

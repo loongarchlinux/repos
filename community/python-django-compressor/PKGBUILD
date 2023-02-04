@@ -2,30 +2,37 @@
 
 _name=django_compressor
 pkgname=python-django-compressor
-pkgver=4.1
-pkgrel=2
+pkgver=4.3.1
+pkgrel=1
 pkgdesc="Compresses linked and inline javascript or CSS into a single cached file"
 arch=(any)
 url="https://github.com/django-compressor/django-compressor"
 license=(Apache BSD MIT)
 depends=(python-django-appconf python-rcssmin python-rjsmin)
 makedepends=(python-build python-installer python-setuptools python-wheel)
-checkdepends=(python-beautifulsoup4 python-brotli python-calmjs python-coverage
-python-csscompressor python-django-sekizai python-html5lib python-jinja
-python-lxml slimit)
+checkdepends=(
+  python-beautifulsoup4
+  python-brotli
+  python-calmjs
+  python-csscompressor
+  python-django-sekizai
+  python-html5lib
+  python-jinja
+  python-lxml
+)
 optdepends=(
   'python-beautifulsoup4: for compressor.parser.BeautifulSoupParser and compressor.parser.LxmlParser'
   'python-brotli: for compressor.storage.BrotliCompressorFileStorage'
   'python-calmjs: for compressor.filters.jsmin.CalmjsFilter'
   'python-csscompressor: for compressor.filters.cssmin.CSSCompressorFilter'
+  'python-django-sekizai: for including template code into main template'
   'python-html5lib: for compressor.parser.Html5LibParser'
   'python-jinja: for jinja2 templating support'
   'python-lxml: for compressor.parser.LxmlParser'
-  'python-django-sekizai: for including template code into main template'
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('6624336fdecff85205f73e1545c3bd704dc8aa8d46bd56fa14db33688555a3ddf409fac292f1c129fe17e7c8f4ad9401e903bb8c44e3166761df351bfc10d4ac')
-b2sums=('ed0dd4403dc2024d0cb4664094c2f05a7eba9f018184b6de6100635b5bf2cf1dcc397884219530a8e216b064b6f34dd8f3d314d1fcbf34c6da1fdf2c02bb2b65')
+sha512sums=('285dfd21f4b2e25788151f1ac652cbd1302958454872769c6a0d88f5b003de75e93471ec50efdea37388f3050e25a5b4063261d4f635dfcc8fd4edf27c57aa43')
+b2sums=('8048c55d3bc62e15c8093d8feb134ff87b05188c0ad755e30c76b090a9717dd3796f6b4efc32ec7bd502051b1bc0b3d68332dae728acd5b7a0b9c2158016af71')
 
 prepare() {
   cd $_name-$pkgver
