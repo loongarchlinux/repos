@@ -1,15 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-fakefs
-pkgver=2.0.0
-_commit=b10c593f341ef08c0b36af3d521bcb1e82badb2b
-pkgrel=2
+pkgver=2.4.0
+_commit=5aa29fe01ae7033627e45854f3be3833c5c96055
+pkgrel=1
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
 url='https://github.com/fakefs/fakefs'
 license=(MIT)
 depends=(ruby)
-makedepends=(git ruby-bump ruby-maxitest ruby-rake ruby-rspec ruby-rubocop)
+makedepends=(git)
+checkdepends=(ruby-bump ruby-maxitest ruby-pry ruby-rake ruby-rspec ruby-rubocop)
 options=(!emptydirs)
 source=(git+https://github.com/fakefs/fakefs.git#commit=$_commit)
 sha256sums=('SKIP')

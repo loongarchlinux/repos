@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.4.0
+pkgver=2.4.5
 pkgrel=1
 pkgdesc="A modern Python package manager with PEP 582 support"
 arch=(any)
@@ -36,8 +36,8 @@ optdepends=(
   'python-pytest-mock: for pytest plugin'
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('a1a7d8d06f086a1ef652a487c85aad7d23c9dc8362e80805983ba311f8406d7d365e13011323929d1455815b65412b52100e4c4033a79b2025642471bcbeea63')
-b2sums=('c6aee5507c0c0eb6b939e26f30825ae78a5aba4d1e7d227793556cb9d174b3f2b400868320ac38ee18bbf93c807a0e4773a7049f3e313cc24f47841b84f0e4a7')
+sha512sums=('92aa4f20feeb7eb51ebf9f213258b9edd1cbaa83b7ef9de4b8b4a9638a015f3d66e8e13c7229db8d54ebad8bacca6460b3f2413abb9a8176649d9a29b2c55338')
+b2sums=('39f7331f61d923751f470c7cc2c83a3f94a8f7450272c15c5abac92e39fcaba8499cdfdfd4b2aad6537df765942a10073f63d5a0c64b69deb5be31358d5769ec')
 
 build() {
   cd $_name-$pkgver
@@ -46,12 +46,12 @@ build() {
 }
 
 check() {
-  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
   cd $_name-$pkgver
   # install to temporary location, as importlib is used
   python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
+  export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
   # skip tests that would fail because of missing interpreters: https://github.com/pdm-project/pdm/issues/1175
   pytest -vv -c /dev/null -k 'not test_basic_integration and not test_use_invalid_wrapper_python'
 }

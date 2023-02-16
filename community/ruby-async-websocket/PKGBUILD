@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-websocket
-pkgver=0.23.0
-_commit=154d6130641b953541e59ccffe713d46b2f5be71
+pkgver=0.24.0
+_commit=cff18c07ee46034d9d3a84b6771e06a130feb009
 pkgrel=1
 pkgdesc='An async websocket library on top of websocket-driver'
 arch=(any)

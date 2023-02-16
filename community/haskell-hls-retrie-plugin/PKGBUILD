@@ -2,8 +2,8 @@
 
 _hkgname=hls-retrie-plugin
 pkgname=haskell-hls-retrie-plugin
-pkgver=1.0.2.0
-pkgrel=11
+pkgver=1.0.2.2
+pkgrel=2
 pkgdesc="Retrie integration plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-retrie-plugin"
 license=("Apache")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghc' 'haskell-ghcid
          'haskell-retrie' 'haskell-safe-exceptions' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('b911b8cde59e05d0e63e8be1b5d9074cf8d392b436e3ccb62243e08f59b65036b49b0397305d49da24308ff338ea1e38b2faaba27ebc6cf24156648f3dacb325')
+sha512sums=('f833c389ca7d3baf47231242848845de91c0b3d9968153ad9db2ecfbc9eafd50c602125695573153aecb45b9b460393f18d0e81bac03226159247d10af6cdd62')
 
 prepare() {
   cd $_hkgname-$pkgver
