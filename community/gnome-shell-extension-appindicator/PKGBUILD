@@ -1,12 +1,12 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gnome-shell-extension-appindicator
-pkgver=46
+pkgver=48
 pkgrel=1
 pkgdesc='AppIndicator/KStatusNotifierItem support for GNOME Shell'
 url='https://github.com/ubuntu/gnome-shell-extension-appindicator'
 arch=('any')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('gnome-shell>=3.34')
 makedepends=('meson' 'jq')
 optdepends=(
@@ -14,7 +14,7 @@ optdepends=(
   'libappindicator-gtk3: support GTK+3 applications'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('cb5ce9a29354413025b0a5f9da94632f661fc0e3a91774a178a13f5fa8be0a48')
+sha256sums=('7557372bd0e35956c1087472a96a42407ad606bf702feb1e320045a85946b60c')
 
 build() {
   cd "${pkgname}-${pkgver}"

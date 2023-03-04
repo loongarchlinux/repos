@@ -1,30 +1,30 @@
-# Maintainer: Andrea Scarpino <andrea@archlinux.org>
+# Maintainer: Brett Cornwall <ainola@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: Eric Gillingham <sysrq@sysrq.tk>
 
 pkgname=libdiscid
-pkgver=0.6.2
-pkgrel=4
+pkgver=0.6.4
+pkgrel=1
 pkgdesc="A Library for creating MusicBrainz DiscIDs"
 arch=('loong64' 'x86_64')
 url="https://musicbrainz.org/doc/libdiscid"
 license=('LGPL')
-depends=('glibc')
-source=("http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/${pkgname}-${pkgver}.tar.gz")
-md5sums=('2812bb678f5142efdfd0d0f7d6ea87d6')
-sha256sums=('f9e443ac4c0dd4819c2841fcc82169a46fb9a626352cdb9c7f65dd3624cd31b9')
+makedepends=('cmake')
+source=("$pkgname-$pkgver"::"https://github.com/metabrainz/libdiscid/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('c581baeabaf6e410398005645d66acaaa41ff2cab272c267a2d6839e41486ebb')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  ./configure --prefix=/usr
-  make
+    cmake -B build -S "$pkgname-$pkgver" \
+        -DCMAKE_BUILD_TYPE='None' \
+        -DCMAKE_INSTALL_PREFIX='/usr' \
+        -Wno-dev
+    cmake --build build
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  make check
+    make -C build check
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR="${pkgdir}" install
+    DESTDIR="$pkgdir" cmake --install build
 }

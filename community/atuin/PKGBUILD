@@ -2,16 +2,17 @@
 # Contributor: Ellie Huxtable <e@elm.sh>
 
 pkgname=atuin
-pkgver=12.0.0
-pkgrel=1
+pkgver=13.0.1
+pkgrel=2
 pkgdesc="Magical shell history"
 arch=('loong64' 'x86_64')
 url="https://github.com/ellie/atuin"
 license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
+optdepends=('bash-preexec: bash integration')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('bfeeb14c3fd94862e2cb7c57ac2b77db78686b0afe49b5597ead9cca02dcc403')
+sha256sums=('c012ae65b7093954bc2d614633223f181261208ca282a409f245040f6ad976a1')
 options=('!lto')
 
 prepare() {

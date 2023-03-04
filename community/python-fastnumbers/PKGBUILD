@@ -2,7 +2,7 @@
 
 _name=fastnumbers
 pkgname=python-fastnumbers
-pkgver=4.0.1
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Super-fast and clean conversions to numbers"
 arch=(loong64 x86_64)
@@ -10,10 +10,13 @@ url="https://github.com/SethMMorton/fastnumbers"
 license=(MIT)
 depends=(python)
 makedepends=(python-build python-installer python-setuptools python-wheel)
-checkdepends=(python-hypothesis python-pytest python-typing_extensions)
+checkdepends=(python-hypothesis python-numpy python-pytest python-typing_extensions)
+optdepends=(
+  'python-numpy: for conversion to numpy arrays'
+)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('d3ed9811a64c2292925b30891414b69e2a65411d919fb05fc15905a5e38a651fbfdcfccc52084b7757d5f5f52a0763129934cdcf4e36e6bb727e08d6f44d41b2')
-b2sums=('f1acbd713abb9cb99c933a3f0e50212948aa66a53e3b90718618c96ec6981c0f26c56ea361730402d633aff701201f5672f0948a751263241c1079bbcafa0413')
+sha512sums=('fce2c2b71863d26bd8e93f11530a63f07ef00ea1006ea35c3d31091a352d72d4b97a3b358ba67f14522fd62e2a8e13ce3460ab3c75bbf950f664ab0eee1a7341')
+b2sums=('ad7bcf62413399b1b90ece384215b1f7f19984af3b5cf6cad419052c5c76d211a2b28abcee5ffa3de57137c63f3494418589d55bd39f3037c931bde13ce02b90')
 
 build() {
   cd $_name-$pkgver

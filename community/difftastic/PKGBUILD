@@ -4,16 +4,16 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.43.1
-_commit=829ab7b50cf227e896228f9984d61ccdbc60e47a
+pkgver=0.45.0
+_commit=2d1a2c906e03720c9f74999a80af0ca84b707b29
 pkgrel=1
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=('loong64' 'x86_64')
 url='https://difftastic.wilfred.me.uk'
 license=('MIT')
 depends=('gcc-libs' 'shared-mime-info')
-makedepends=('git' 'rust' 'mdbook' 'jq')
-source=("$pkgname::git+https://github.com/Wilfred/difftastic.git#commit=$_commit")
+makedepends=('cargo' 'git' 'mdbook' 'jq')
+source=("git+https://github.com/Wilfred/difftastic.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {

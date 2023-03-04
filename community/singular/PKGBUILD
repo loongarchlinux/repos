@@ -2,11 +2,11 @@
 # Contributor: Rémy Oudompheng <oudomphe@clipper.ens.fr>
 
 pkgname=singular
-_majver=4-3-1
+_majver=4-3-2
 _patchver=3
-pkgver=${_majver//-/.}.p${_patchver}
-#pkgver=${_majver//-/.}
-pkgrel=1
+#pkgver=${_majver//-/.}.p${_patchver}
+pkgver=${_majver//-/.}
+pkgrel=2
 pkgdesc='Computer Algebra System for polynomial computations'
 arch=(loong64 x86_64)
 url='https://www.singular.uni-kl.de/'
@@ -14,12 +14,12 @@ license=(GPL)
 depends=(flint cddlib)
 makedepends=(doxygen)
 provides=(singular-factory)
-source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_majver//-/.}p${_patchver}.tar.gz
-#source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_majver//-/.}.tar.gz
+#source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_majver//-/.}p${_patchver}.tar.gz
+source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_majver//-/.}.tar.gz
          doc-$_majver.tbz2::ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/doc.tbz2)
-sha256sums=('66cfaeee7ab909272fd81050a09cae3ec115652a01adde014a5128a54b97397a'
-            'a1d6500d37ae237a1841202a685d2631048c06fe6d0547038e161d8f059eb767')
-options=(!zipman debug)
+sha256sums=('3fd565d1bd4265fa8ba7cc189137a36d9daf9939b5bb411466c2028d9191f6db'
+            '10334afd99fe3a3e91669185ef5c104a25c97f0fd0dd6c53d98b47d5243df939')
+options=(!zipman)
 
 build() {
   cd singular-${_majver//-/.}

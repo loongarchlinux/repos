@@ -1,44 +1,40 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgbase=cataclysm-dda
 pkgname=(cataclysm-dda cataclysm-dda-tiles)
 pkgname=cataclysm-dda
-pkgver=0.F.3
-_pkgver=0.F-3
-pkgrel=2
+pkgver=0.G
+_pkgver=0.G
+pkgrel=1
 pkgdesc="A post-apocalyptic roguelike."
-#url="http://cataclysmrl.blogspot.com/"
-#url="http://www.cataclysm.glyphgryph.com/"
-#url="http://en.cataclysmdda.com/"
 url="https://cataclysmdda.org/"
 arch=('loong64' 'x86_64')
-license=("CCPL:by-sa")
+license=("CCPL")
 depends=('ncurses' 'hicolor-icon-theme' 'gettext')
 makedepends=('sdl2_image' 'sdl2_ttf' 'sdl2_mixer' 'freetype2' 'astyle')
 source=("$pkgname-$_pkgver.tar.gz::https://github.com/CleverRaven/Cataclysm-DDA/archive/$_pkgver.tar.gz")
-md5sums=('4c6d8c5b55973f6a78f59db04b435a32')
+sha256sums=('e559d0d495b314ed39890920b222b4ae5067db183b5d39d4263700bfd66f36fb')
 
 prepare() {
   cd "Cataclysm-DDA-$_pkgver"
-  sed -i 's/-Werror//' Makefile
-  sed -i 's/ncursesw5-config/ncursesw6-config/' Makefile
-  sed -i 's/shell git/shell false/' Makefile
+
+  # They forgot to adjust the version in 0.G!
+  sed -i "s/0.F/0.G/" Makefile
 }
 
 build() {
   cd "Cataclysm-DDA-$_pkgver"
 
-  # tests "ifdef TILES" so "TILES=0" will enable tiles!
-  # DYNAMIC_LINKING appears to be a windows flag?
-  make PREFIX=/usr RELEASE=1 USE_XDG_DIR=1 BACKTRACE=0 RUNTESTS=0 ZLEVELS=1 LTO=1 LOCALIZE=1 LANGUAGES=all
-  make PREFIX=/usr RELEASE=1 USE_XDG_DIR=1 BACKTRACE=0 RUNTESTS=0 ZLEVELS=1 LTO=1 LOCALIZE=1 LANGUAGES=all TILES=1 SOUND=1
+  make PREFIX=/usr PCH=0 RELEASE=1 USE_XDG_DIR=1 LTO=1 RUNTESTS=0 LOCALIZE=1 LANGUAGES=all
+  make PREFIX=/usr PCH=0 RELEASE=1 USE_XDG_DIR=1 LTO=1 RUNTESTS=0 LOCALIZE=1 LANGUAGES=all TILES=1 SOUND=1
   ./lang/compile_mo.sh
 }
 
 package_cataclysm-dda() {
   cd "Cataclysm-DDA-$_pkgver"
 
-  make DESTDIR="$pkgdir" PREFIX="/usr" RELEASE=1 ZLEVELS=1 USE_HOME_DIR=1 LTO=1 LOCALIZE=1 LANGUAGES=all install
+  make DESTDIR="$pkgdir" PREFIX=/usr PCH=0 RELEASE=1 USE_XDG_DIR=1 LTO=1 RUNTESTS=0 LOCALIZE=1 LANGUAGES=all install
 
   # Docs
   install -d "$pkgdir/usr/share/doc/cataclysm-dda"
@@ -46,6 +42,10 @@ package_cataclysm-dda() {
   # undo symlink
   rm "$pkgdir/usr/share/doc/cataclysm-dda/JSON_LOADING_ORDER.md"
   cp 'data/json/LOADING_ORDER.md' "$pkgdir/usr/share/doc/cataclysm-dda/JSON_LOADING_ORDER.md"
+
+  # Manpage
+  rm "$pkgdir/usr/share/doc/cataclysm-dda/"*.6
+  install -Dm644 -t "$pkgdir/usr/share/man/man6" "doc/cataclysm.6"
 
   # License
   install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
@@ -56,7 +56,7 @@ package_cataclysm-dda() {
     install -d "${pkgdir}/usr/share/locale/${i}/LC_MESSAGES"
     cp "${i}/LC_MESSAGES/cataclysm-dda.mo" "${pkgdir}/usr/share/locale/${i}/LC_MESSAGES"
   done
- 
+
   # Help
   cd ./../..
   cp -r --no-preserve=ownership "./data/help" "${pkgdir}/usr/share/${pkgname}/"
@@ -67,10 +67,19 @@ package_cataclysm-dda-tiles() {
   depends=('cataclysm-dda' 'sdl2_image' 'sdl2_ttf' 'freetype2' 'sdl2_mixer')
   cd "Cataclysm-DDA-$_pkgver"
 
-  make DESTDIR="$pkgdir" PREFIX="/usr" RELEASE=1 ZLEVELS=1 TILES=1 SOUND=1 LTO=1 LOCALIZE=1 LANGUAGES=all install
+  make DESTDIR="$pkgdir" PREFIX=/usr PCH=0 RELEASE=1 USE_XDG_DIR=1 LTO=1 LOCALIZE=1 LANGUAGES=all TILES=1 SOUND=1 install
 
-  # Icon
-  install -D 'build-data/osx/AppIcon.iconset/icon_128x128.png' "$pkgdir/usr/share/icons/hicolor/128x128/apps/cataclysm-dda.png"
+  # Icons
+  cd build-data/osx/AppIcon.iconset
+  for i in *.png
+  do
+    local _isize="$(echo "$i" | sed -Ee 's/icon_([[:digit:]]+)x\1\.png/\1x\1/')"
+    install -Dm644 "$i" "$pkgdir/usr/share/icons/hicolor/$_isize/apps/cataclysm-dda.png"
+  done
+  cd ../../..
+
+  # Manpage
+  install -Dm644 -t "$pkgdir/usr/share/man/man6" "doc/cataclysm-tiles.6"
 
   install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
