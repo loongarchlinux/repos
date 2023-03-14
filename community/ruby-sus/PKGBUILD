@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus
-pkgver=0.17.1
-_commit=e668fbcc13f7aa199b22c3d81c21187591cde0a7
+pkgver=0.20.0
+_commit=65e408bad260d168701bad79b2cb905ef65435e8
 pkgrel=1
 pkgdesc='A fast and scalable test runner'
 arch=(any)
