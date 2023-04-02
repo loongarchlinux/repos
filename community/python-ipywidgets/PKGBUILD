@@ -1,19 +1,20 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-ipywidgets
 _pipname=ipywidgets
-pkgver=8.0.4
+pkgver=8.0.6
 pkgrel=1
-pkgdesc="IPython HTML widgets for Jupyter"
-arch=('any')
-url="https://github.com/ipython/ipywidgets"
-license=('BSD')
-depends=('python-ipykernel' 'python-jsonschema' 'python-ipython-genutils')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+pkgdesc='IPython HTML widgets for Jupyter'
+arch=(any)
+url='https://github.com/ipython/ipywidgets'
+license=(BSD)
+depends=(python-ipykernel python-jsonschema python-ipython-genutils)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 optdepends=('jupyterlab-widgets: widgets for Jupyter lab' 'jupyter-widgetsnbextension: widgets for the legacy notebook')
-checkdepends=('python-pytest' 'python-pytz')
+checkdepends=(python-pytest python-pytz)
 source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
-sha256sums=('c0005a77a47d77889cafed892b58e33b4a2a96712154404c6548ec22272811ea')
+sha256sums=('de7d779f2045d60de9f6c25f653fdae2dba57898e6a1284494b3ba20b6893bb8')
 
 build() {
   cd ipywidgets-$pkgver

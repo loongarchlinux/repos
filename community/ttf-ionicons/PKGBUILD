@@ -3,14 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ttf-ionicons
-pkgver=6.1.3
+pkgver=7.1.0
 pkgrel=1
 pkgdesc='Font from the Ionic mobile framework'
 arch=('any')
 license=('MIT')
 url='https://ionicons.com/'
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ionic-team/ionicons/archive/v${pkgver/_/-}.tar.gz")
-sha256sums=('511e9977eae5d81e1f08d49b5c93b1f477fd6e47c746aef76dc984ec27fa4e25')
+sha256sums=('18a4a32ae7726fe21e041914179d1c91d7f90b2cc66d9391ddef3cb8b3075e73')
 
 package() {
     cd "ionicons-${pkgver/_/-}"

@@ -2,7 +2,7 @@
 # Contributor: Adria Arrufat <swiftscythe at gmail dot com>
 
 pkgname=ugrep
-pkgver=3.10.0
+pkgver=3.11.0
 pkgrel=1
 pkgdesc='ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more'
 arch=(loong64 x86_64)
@@ -16,7 +16,7 @@ depends=(bzip2
          zstd)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('9bde11c055b922b6c3cecf9e8eb0cb02db9832c46deaa76424df4c4b8a57a718')
+sha256sums=('35ed29b251f71a7165b059b99b17cffe6947abebb8db025383aa9b897408e0be')
 
 build() {
 	cd "$_archive"

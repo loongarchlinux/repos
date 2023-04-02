@@ -4,17 +4,17 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=broot
-pkgver=1.20.2
+pkgver=1.21.2
 pkgrel=1
 pkgdesc='Fuzzy Search + tree + cd'
 arch=('loong64' 'x86_64')
 url=https://github.com/Canop/broot
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'libgit2')
-makedepends=('cargo')
+depends=('gcc-libs' 'zlib' 'libgit2' 'libxcb')
+makedepends=('rust')
 options=('!lto')
 source=("https://github.com/Canop/broot/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha256sums=('372623ac1affc2473bcf75ce6be2862d8cc61ac4372a622a599b4c7f2ea06161')
+sha256sums=('492806ffa225f74025120a353a40c89d08c1b2b2ce2d5f0a412dca47f21f28e3')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -23,14 +23,13 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  cargo build --release --frozen
+  cargo build --release --frozen --features clipboard
 }
 
-# https://github.com/Canop/glassbench/pull/2
-# check() {
-#   cd $pkgname-$pkgver
-#   cargo test --frozen
-# }
+check() {
+  cd $pkgname-$pkgver
+  cargo test --frozen
+}
 
 package() {
   cd $pkgname-$pkgver

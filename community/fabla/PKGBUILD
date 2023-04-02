@@ -1,56 +1,58 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
+_name=Fabla
 pkgname=fabla
-pkgver=1.3.2
-pkgrel=3
+pkgver=1.4
+pkgrel=1
 pkgdesc="An open-source LV2 drum sampler plugin instrument"
-arch=('loong64' 'x86_64')
+arch=(loong64 x86_64)
 url="http://openavproductions.com/fabla/"
-license=('GPL2')
-groups=('lv2-plugins' 'pro-audio')
-depends=('cairo' 'gcc-libs' 'glibc')
-makedepends=('cmake' 'libglvnd' 'libsndfile' 'lv2' 'ntk')
-checkdepends=('lv2lint')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/openAVproductions/openAV-${pkgname}/archive/release-${pkgver}.tar.gz"
-        "${pkgname}-1.3.2-lv2-1.18.0.patch::https://github.com/openAVproductions/openAV-Fabla/pull/57/commits/6d692c374178ae7efd373ca309bfa4a3dcc86156.patch"
-        "${pkgname}-1.3.2-cmake.patch::https://github.com/openAVproductions/openAV-Fabla/pull/58/commits/c4fe4c79022951777960ac2ebbcc83a3e7f8a0cb.patch"
+license=(GPL2)
+groups=(
+  lv2-plugins
+  pro-audio
 )
-sha512sums=('009aa11b50743fe3a8f401657b0c67eb9e8b757f35d713d07e763a23f5e3e5be398858a766e6b116be85fae11969baddafd5d98623858cf0ebedc2a8e3b02f66'
-            '208b94860f67cf8033ebcce9a6152fa6312ddc3563cb10a41e2c1366383e71bd019552b7050cb1bc2335899181cdbcce50d3e5772eaa37b0d8f26542b8a4ca93'
-            'acf6bcd362e22fbb853385c29219429f97db62fdfa30672fd7ce2e94724b57bae7b7cb46b39f791b3c1fef4af4e8f75d1f08b7554bb56686fe81203d4b2f9a99')
-
-prepare() {
-  mv -v "openAV-Fabla-release-$pkgver" "${pkgname}-${pkgver}"
-  cd "$pkgname-$pkgver"
-  # fixing build with lv2 >= 1.18.0
-  patch -Np1 -i "../${pkgname}-1.3.2-lv2-1.18.0.patch"
-  # fixing cmake setupt to respect CFLAGS/CXXFLAGS/LDFLAGS
-  patch -Np1 -i "../${pkgname}-1.3.2-cmake.patch"
-}
+depends=(
+  cairo
+  gcc-libs
+  glibc
+)
+makedepends=(
+  cmake
+  libglvnd
+  libsndfile
+  lv2
+  ntk
+)
+checkdepends=(lv2lint)
+source=(https://github.com/openAVproductions/openAV-$_name/archive/release-$pkgver/openAV-$_name-$pkgname-release-$pkgver.tar.gz)
+sha512sums=('134d7c0f33e5f5b5769e56285122357349d7203debba222c4e33956b15f6c6115019fb5a552309465a5ec7fc0d1d9ceec9338d3abb6c611eceee8badafd76767')
+b2sums=('4595320711d3a9aef4aa1eefe1a0aedaab2db172a8f6f82495cc430f48c2eb0c57b9e20877ead6f3e1552920a8383359d42cb6ccee7f9be0e2b925e6c593d2f5')
 
 build() {
-  cd "$pkgname-$pkgver"
-  export CFLAGS+=" ${CPPFLAGS}"
-  export CXXFLAGS+=" ${CPPFLAGS}"
-  cmake -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DCMAKE_BUILD_TYPE='None' \
-        -Wno-dev\
-        -B build\
-        -S .
-  make -C build
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -S openAV-$_name-release-$pkgver
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  cp -v "build/${pkgname}.so" dsp/
-  lv2lint -Mpack -I "dsp/" "http://www.openavproductions.com/fabla" || echo "Known issues: https://github.com/openAVproductions/openAV-Fabla/issues/59"
-  rm -v "dsp/${pkgname}.so"
+  cp -v build/$pkgname.so openAV-$_name-release-$pkgver/dsp/
+  lv2lint -Mpack -I openAV-$_name-release-$pkgver/dsp/ "http://www.openavproductions.com/fabla"
 }
 
 package() {
-  depends+=('libntk.so' 'libsndfile.so')
-  cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir/" install -C build
-  install -vDm 644 {CHANGELOG,README.md} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  depends+=(
+    ntk libntk.so
+    libsndfile libsndfile.so
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 openAV-$_name-release-$pkgver/{CHANGELOG,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
 }

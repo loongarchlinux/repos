@@ -2,8 +2,7 @@
 # Contributor: Lubomir 'Kuci' Kucera <kuci24-at-gmail-dot-com>
 
 pkgname=gitlab-runner
-pkgver=15.9.1
-_commit=d540b510
+pkgver=15.10.1
 pkgrel=1
 pkgdesc="The official GitLab CI runner written in Go"
 arch=('loong64' 'x86_64')
@@ -24,7 +23,7 @@ noextract=("prebuilt-alpine-arm-${pkgver}.tar.xz"
            "prebuilt-ubuntu-s390x-${pkgver}.tar.xz"
            "prebuilt-ubuntu-x86_64-pwsh-${pkgver}.tar.xz"
            "prebuilt-ubuntu-x86_64-${pkgver}.tar.xz")
-source=("git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=${_commit}"
+source=("git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=v${pkgver}"
         "prebuilt-alpine-arm-${pkgver}.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-arm.tar.xz"
         "prebuilt-alpine-arm64-${pkgver}.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-arm64.tar.xz"
         "prebuilt-alpine-s390x-${pkgver}.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-s390x.tar.xz"
@@ -40,16 +39,16 @@ source=("git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=${_commit}"
         "gitlab-runner.tmpfiles"
         "config.toml")
 sha512sums=('SKIP'
-            'ce8b81db2dee7789234d2238fc3996eea3872ab695660e1fbd802923a53ab97926038c8628eabfbc2776eec5dee2fd6ca9076e2b25241c510c49bd65d925ee42'
-            '2173230a01d161b0c991d5b7cdc0015a83fb18f4830e358c73c81c1de148892535673d17d85cb8750f20b7f561aee6c9ecdbcb1e4c625137ae3bda10fff0b9c7'
-            '3bbdfae078d0ccbc40e1b983b49dd58b069ed4c407074505f13674dd8d4c0f22f6b72865dd11792c6870ac564e5185faf111a857915fdddc52447b6721599872'
-            '6af58a1d7044b5450c81e3190d1a0725684a987b5164c48ea75fb4a86292dcd65857ea2dea6e3888d2ec2ddd91b7b17f0b0c44c5ef26153c565ce2902732d49f'
-            'e517531ddbcc061f1171fc59d45eeef52ea03315977ed56a36ce82176d57219b7748bd0c2e186e70437da5f6bd7a820d4676bf2469546494c6ea57225b5dcf44'
-            'd290ab8ec7055dae50108c408ba56159fabf908cfc170c5f48c29fe395acdab8e50fac4fa05a2ed484262777f53501ed34ba25e97358e8c022f385797a64c503'
-            '92fbf855345bdd97ece1f90c4554b24f78009c2f411850bb488d3ceb7f826bf94614b3e87401016cc414cbf9733bbf5423679f93fb2ea698a0514ce43dac9d7a'
-            '65a474f59dad6bc8a4b76a8bcab8255c283ba9d7420df2b5698736ebf9b5419bd800c120cf997470fb4798b5d2de3a864d9ea9a55b0896fb0a28db20966883fb'
-            'd08e6b8543ad8c6f07137cf0610463dceb23c260d00f72c85df959e806546c7b36f418eaf6b5e99e558e898e6ae6a86f4d98a80f322f6faca4e9353181e2c462'
-            'b9eaa9b18de28ee566783f47d3e3c46f90bb85f315f2ea3940876043b676c951e3ab72682283a94fcd851cb955d1e7764ef6ff703fa2c9b8962420c39288db07'
+            'b73f297f3184a5e1d2bab1e3c5907cf712b544cc0bf0fb074e7aee6603cfee9d803a48e5be9da1b89cfd42b6e0ff6374da05c643c0f52856d3ea411f531032d8'
+            '893bcf1dcf925ce29675d7fbc73bf4b464468180b1d8111cc3994b7d0ea81254747b022185d2e64273b331f496535b5a2d32fbbeff4009e9e4e17a63dd837b30'
+            'a90983074acff23e993d15602db1e7ac28e27b4746b2dab9d9cac6479b5faf0ca499cca905cf64f75419c04164c6d93e87442cb0a1682a148ae765b46cab16e3'
+            '82b7dc001659f5e2086fee604f07eb54ae6f8d8b3eaa7ff169d94351a19c33f056fab696e4064c03aa34c02cde7848d1934026d0eaca0bf5ee4ebe5fd0648a4f'
+            'ad44cb7d1ebb032b8319461cee3f1ce5cfc332516fef095d7cd2a1393c0eed8f79421db8990706d0d7d8bcdb10777d10bd6c2bf5edeab9d0b8549043a0b8aab2'
+            'e7e70c2fa6d5ef01c67cb2eec7e3831e74786fb6da6190ccf3dde3d66ee0e139b64aae8612696d7833ed9ec0f522b0fdeca34456c2552187cbaac1c7b045fe1a'
+            '0cdc7975aa000c5fc5cd863d3cc143706566684a3d106b1cabac3c314de363fc03ab222e898d5072667945972ec1327bb2f0c5d8e435b6899bfa455900bb5f67'
+            '191fff3cca641e28ca412278a0a16a09774e01d6986411809520eccb6786173ca04ebaa4824135116ea86138c33a49b8abe8f42e83af54d4c6c3c3bec1717f29'
+            '22142fa4390a84538019228edd56875bf8fe8fe3967e02e48864c2e5b299cf97ed84c7f981def052da7f6f35cdce520b04aef9029cfb3bf421374b20d34e0ff6'
+            '3c5ddb71a57cc237a68f1ead386dc631ae26db09e57c3626160f78b237633709ea99ec4dd4d5b55c865df6500894ba92cc0bd22f7aa6f5121ab0c0c2758e36d5'
             'c0af374b9986895aedcfaee6c67cfad68f0f7289f87e4611358adaff59a2f349f55764fe28b2b1f61f8bfeb61126d4f90d433c626fdf9b826a2de6217f86574f'
             '8aa7f08702e99053c696fcc2aaba83beb9e9cd6f31973d82862db9350ac46df3a095377625d31fe909677525290d2de922d7a97930ed235774cb8f0da8944d40'
             '6751d9fa0b27172d1b419c4138f5ac15cbc7c9147653a7258cf1470216142c637210bb60608c7ed0974e0e4057e5ddeae32225df1bb36e7dd1f20fec71e33cc3'

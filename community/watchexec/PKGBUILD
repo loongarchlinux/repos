@@ -2,7 +2,7 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=watchexec
-pkgver=1.21.1
+pkgver=1.22.2
 pkgrel=1
 pkgdesc="Executes commands in response to file modifications"
 url='https://github.com/watchexec/watchexec'
@@ -10,9 +10,9 @@ depends=('gcc-libs' 'zlib')
 makedepends=('cargo')
 arch=('loong64' 'x86_64')
 license=('Apache')
-source=("https://github.com/watchexec/watchexec/archive/refs/tags/v${pkgver}.tar.gz")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/watchexec/watchexec/archive/refs/tags/v${pkgver}.tar.gz")
 options=('!lto')
-sha256sums=('c41a2215505be5a71ecca8d47f30c1de1f0db3644a0da844ca70bc1ed05a0be3')
+sha256sums=('af12016b1ee1f64feb1514872279326f72b1061c85f3add32997f89a1816dd74')
 
 build() {
   cd "watchexec-$pkgver"

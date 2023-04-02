@@ -3,16 +3,16 @@
 
 pkgname=python-symengine
 _pkgname=symengine.py
-pkgver=0.9.2
-pkgrel=1
+pkgver=0.10.0
+pkgrel=3
 arch=(loong64 x86_64)
 pkgdesc='Python wrappers for SymEngine'
 url='https://github.com/symengine/symengine.py'
 depends=(python symengine)
-makedepends=(cmake cython cereal)
+makedepends=(cmake cython cereal llvm)
 license=(MIT)
 source=(https://github.com/symengine/symengine.py/archive/v$pkgver/$_pkgname-$pkgver.tar.gz)
-sha256sums=('9da048692d741bb001d9947a0e2bdf8909600cb4e6f3b9273d518cf93300955d')
+sha256sums=('923944ab54aa0a787629424c101f5ec6a87b44177c669d21c7d3b0257f725927')
 
 build() {
   cmake -B build -S $_pkgname-$pkgver \

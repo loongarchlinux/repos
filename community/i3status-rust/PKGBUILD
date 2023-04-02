@@ -3,14 +3,14 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=i3status-rust
-pkgver=0.30.4
+pkgver=0.30.6
 pkgrel=1
 pkgdesc='Resourcefriendly and feature-rich replacement for i3status, written in pure Rust'
 arch=('loong64' 'x86_64')
 url='https://github.com/greshake/i3status-rust'
 license=('GPL3')
 depends=('libpulse' 'lm_sensors')
-makedepends=('rust')
+makedepends=('rust' 'pandoc')
 optdepends=('alsa-utils: for the volume block'
             'bluez: for the bluetooth block'
             'fakeroot: for the pacman block to show pending updates'
@@ -21,7 +21,7 @@ optdepends=('alsa-utils: for the volume block'
             'ttf-font-awesome: for the awesome icons'
             'upower: for the battery block')
 source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/greshake/i3status-rust/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('945e2c81d96d618da6f29c555db795a54b17888f41ac5228bdcf9aa32998619b2db997041d9c61de8ec4395a14c2c62626684e76560f914fcab218e163f80f6f')
+b2sums=('3bb6ed4e3bd649763dafdc55ea088efab6e8a1e0381c37581beb981223e2ade83f02dba805b50bb853cea8f547aae2b67637f24103b0ef2a7d17f0282a317aa0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -34,6 +34,7 @@ build() {
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo build --release --locked --features 'pulseaudio maildir'
+  cargo xtask generate-manpage
 }
 
 package() {

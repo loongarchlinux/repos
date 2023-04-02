@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=halp
-pkgver=0.1.1
+pkgver=0.1.4
 pkgrel=1
 pkgdesc="A CLI tool to get help with CLI tools"
 arch=('loong64' 'x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f93c0ecd9e7099043e1c0577c8d7d54a6aca92dfb5af9cf20e3e840c6d98a9e910596c0168bddd7112d4429dcdc13ff5915c3ecf97e016aa73fcbe8697a55e55')
+sha512sums=('a52d28bbc0a4b092d0e7822f18bff3a750a7d837d231a02f252895aac97304bb2dfd8155c812524d56afa7cac6be8962f6336e5988441db4d58a1f1c5eb370eb')
 options=('!lto')
 
 prepare() {

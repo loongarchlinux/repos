@@ -2,8 +2,8 @@
 # Contributor: Metal A-wing <1 at 233 dot email>
 
 pkgname=deno
-pkgver=1.31.1
-_commit=86785f21194460d713276dca212302fa1bb1c943
+pkgver=1.32.2
+_commit=24e0b31096682f0ec576e0021c1925611ec4e090
 pkgrel=1
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('loong64' 'x86_64')
