@@ -1,0 +1,51 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+
+pkgname=ibus-typing-booster
+pkgver=2.22.2
+pkgrel=1
+pkgdesc="Predictive input method for the IBus platform"
+url="https://mike-fabian.github.io/ibus-typing-booster/"
+arch=(any)
+license=(
+  Apache
+  GPL3
+)
+depends=(
+  ibus
+  m17n-lib
+  python-dbus
+  python-gobject
+  python-pyenchant
+  sqlite
+)
+makedepends=(git)
+_commit=0938f05ebca7bc8b0778071280892b4ec06f575b  # tags/2.22.2
+source=("git+https://github.com/mike-fabian/ibus-typing-booster#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd $pkgname
+  autoreconf -fvi
+}
+
+build() {
+  cd $pkgname
+  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+    --libexecdir=/usr/lib/ibus
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+
+  cd "$pkgdir/usr/share/$pkgname/data"
+  gzip -nf --best *.{txt,json} annotations{,Derived}/*.xml
+}
+
+# vim:set sw=2 sts=-1 et:
