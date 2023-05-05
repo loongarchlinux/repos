@@ -2,8 +2,8 @@
 
 pkgname=awxkit
 _pkgname=awx
-_commit=32a5186eea31c1ae51e83680c13c97a1f29e8ff5
-pkgver=21.14.0
+_commit=2db29e5ce214699cee8551f21da3c687a9f4fe79
+pkgver=22.0.0
 pkgrel=2
 pkgdesc="The official command line interface for Ansible AWX"
 arch=('any')
@@ -42,6 +42,8 @@ check() {
       # NOTE: deselect tests that require python-websocket-client
       --deselect test/test_ws.py::test_explicit_hostname
       --deselect test/test_ws.py::test_urlparsing
+      # Python 3.11 test failure https://github.com/ansible/awx/issues/13820
+      --deselect test/cli/test_options.py::TestOptions::test_actions_with_primary_key
     )
     cd "${_pkgname}/${pkgname}"
     pytest -vv "${deselected[@]}"

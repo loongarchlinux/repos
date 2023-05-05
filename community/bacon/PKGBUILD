@@ -2,55 +2,40 @@
 # Contributor: Jokler <aur@jokler.xyz>
 
 pkgname=bacon
-pkgver=2.5.0
+pkgver=2.8.1
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('loong64' 'x86_64')
 url='https://dystroy.org/bacon'
 license=('AGPL3')
-depends=('gcc-libs')
-makedepends=('git' 'rust')
+depends=('glibc' 'gcc-libs')
+makedepends=('rust')
 options=('!lto')
-_commit='a611a6bda67dd9acf95ee0f4e1fc646d65a5876c'
-source=(
-  "$pkgname::git+https://github.com/Canop/bacon.git#commit=$_commit"
-  'Cargo.lock.patch'
-)
-b2sums=('SKIP'
-        '0e265d376c0126aabcd3f5aa210e899206827339aac0b45602aad9b1ddd1c5c26497eaf9a17de486a93910fce961e9df483270e39e081327cb12c0199c169304')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Canop/bacon/archive/refs/tags/v${pkgver}.tar.gz")
+b2sums=('911ad71c80b8adfcc57853df7c6efa730a24d4538fd1d1b1d888514537689a5ea89af8ff037e97e8bff2df7d89d993ef3c31d3e755b986b97926f9c7903ad88d')
 
 prepare() {
-  cd "$pkgname"
-
-  patch -p1 -i "$srcdir/Cargo.lock.patch"
+  cd "$pkgname-$pkgver"
 
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   cargo build --frozen --release --all-features
 }
 
 check() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   cargo test --frozen --all-features
 }
 
 package() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
-  # binary
   install -vDm755 -t "$pkgdir/usr/bin" "target/release/$pkgname"
-
-  # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+  install -vDm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname"
 }

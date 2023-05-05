@@ -1,26 +1,28 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-wot
-pkgver=0.7.0
-pkgrel=1
+pkgver=0.8.1
+pkgrel=2
 pkgdesc="An implementation of OpenPGP's web of trust"
 arch=(loong64 x86_64)
 url="https://gitlab.com/sequoia-pgp/sequoia-wot"
 license=(GPL2)
+groups=(sequoia)
 depends=(
   gcc-libs
   glibc
   gmp
+  nettle
+  openssl
+  sqlite
 )
 makedepends=(
   cargo
   clang
-  nettle
-  openssl
 )
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('ea8db57b6db5ed8ba347d691f21ce9173c91fe66c6cb534018371b0ce2c9202b5fca138102b3350198e30851825f0f5c69e7d6d297c3d8ef62fb8880c308d62c')
-b2sums=('e54c7b4bc0efd8cb9826285468a5049bfdae8bd402edf74fb1c248efa12851f16f97114fe8d9e237d92f65e0a94b91ab1890f11c1b289a3fe98c0323da916cdc')
+sha512sums=('348cfdd13098355a5b7bc192fb530c18db6d005889a54a90319dafd9269dd84f565f89967e1bf234765856fae948f238d63b9110d6cdca649c5faf0cf988a9b7')
+b2sums=('e4cdfb68eaf542ae8783735ca1ae40b30c2fde4e97c08583e5dcd1afcdd21494176e60a2d724f6e2d8813d2aa9aaa50a4c6f43f5ba9eb80886f9e7ab9caa06c9')
 
 prepare() {
   cd $pkgname-v$pkgver
@@ -41,11 +43,6 @@ check() {
 }
 
 package() {
-  depends+=(
-    nettle libhogweed.so libnettle.so
-    openssl libcrypto.so libssl.so
-  )
-
   cd $pkgname-v$pkgver
   install -vDm 755 target/release/sq-wot -t "$pkgdir/usr/bin/"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"

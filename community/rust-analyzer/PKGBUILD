@@ -2,7 +2,7 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rust-analyzer
-_pkgver=2023-04-03
+_pkgver=2023-05-01
 pkgver=${_pkgver//-}
 pkgrel=1
 pkgdesc='Rust compiler front-end for IDEs'
@@ -13,6 +13,12 @@ depends=('gcc-libs' 'rust-src')
 makedepends=('git')
 source=("git+https://github.com/rust-lang/$pkgname.git#tag=$_pkgver")
 b2sums=('SKIP')
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2
 
 prepare() {
   cd $pkgname
@@ -26,6 +32,6 @@ build() {
 
 package() {
   cd $pkgname
-  install -Dt "$pkgdir"/usr/bin target/release/$pkgname{,-proc-macro-srv}
+  install -Dt "$pkgdir"/usr/bin target/release/$pkgname
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE-MIT
 }

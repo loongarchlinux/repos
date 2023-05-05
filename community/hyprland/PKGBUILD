@@ -2,8 +2,8 @@
 # Contributor: ThatOneCalculator <kainoa@t1c.dev>
 
 pkgname=hyprland
-pkgver=0.23.0beta
-pkgrel=4
+pkgver=0.25.0
+pkgrel=1
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(loong64 x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
@@ -51,13 +51,15 @@ makedepends=(cmake
              xorgproto)
 _archive="${pkgname^}-$pkgver"
 source=("$_archive.tar.gz::$url/releases/download/v$pkgver/source-v$pkgver.tar.gz")
-sha256sums=('779c35b0256cffe681586e4c34d63cf46fe4f263eff5370d06ae77a96e5de01f')
+sha256sums=('c91029085daa80437b1ef5ac10cd849795a8ce32d36663eff949af5f9337217b')
 
 prepare() {
 	ln -sf hyprland-source "$_archive"
 	cd "$_archive"
 	make fixwlr
 	sed -i -e '/^release:/{n;s/-D/-DCMAKE_SKIP_RPATH=ON -D/}' Makefile
+	# https://github.com/hyprwm/Hyprland/issues/2226
+	sed -i -e 's/\(.*GIT_COMMIT_HASH \)\(.*\)/\1"\2"/' src/defines.hpp
 }
 
 build() {

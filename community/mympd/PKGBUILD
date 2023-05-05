@@ -2,17 +2,28 @@
 
 _name=myMPD
 pkgname=mympd
-pkgver=10.2.6
+pkgver=10.3.1
 pkgrel=1
 pkgdesc="A standalone and lightweight web-based MPD client"
 arch=(loong64 x86_64)
 url="https://github.com/jcorporation/myMPD"
 license=(GPL3)
-depends=(glibc lua)
-makedepends=(cmake flac jq libid3tag openssl pcre2 perl)
+depends=(
+  glibc
+  lua
+)
+makedepends=(
+  cmake
+  flac
+  jq
+  libid3tag
+  openssl
+  pcre2
+  perl
+)
 source=(https://github.com/jcorporation/$pkgname/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('57a7b3e65dcea88fbaf72e4f0d9a13f7c4d0a579ccc3903a5e9c676b11a234169ac437429efea62ecb8c70ec5e67a6077507e98f986079315f1aedc5cb945ee5')
-b2sums=('f94233b8bb08fcd220aa61cb77e066dad5d2ca495a1faac33c385cb21b6c451e77b42f3e6e57a00e6786b61c256b5fbdc9744d807c92b6574c7bf57069c6e7c0')
+sha512sums=('c6e9019d76da3577a94610b4f4866b8beb092d241885003eab5216df6fd3d01612448b5afe9d403ee91936fe0af032ec6585afe4c3263a789b7aefba4517aa84')
+b2sums=('b0e2eb111ad1123200f86ad7ef1a6c302fcd0c2414006bc24970d045ae51ee302c68521974868ef0c14f5d259e8344206509ee05cce3bc10c51b68943d9478a9')
 
 build() {
   local cmake_options=(

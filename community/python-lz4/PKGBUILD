@@ -9,7 +9,7 @@
 pkgname=python-lz4
 _pkgname=lz4
 pkgver=3.1.10
-pkgrel=7
+pkgrel=8
 pkgdesc="LZ4 bindings for Python"
 arch=('loong64' 'x86_64')
 license=('BSD')

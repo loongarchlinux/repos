@@ -3,16 +3,16 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=matrix-synapse
-_tag=c4381a3cd3406128b7c24973ac2d3259cc8bfcf7
-pkgver=1.79.0
-pkgrel=1
+_tag=ba9ea5b1472ebc3e15392986bbd95ed356099611
+pkgver=1.82.0
+pkgrel=2
 pkgdesc="Matrix reference homeserver"
 url="https://github.com/matrix-org/synapse"
 arch=('loong64' 'x86_64')
 license=('Apache')
 depends=('libwebp' 'python-ijson' 'python-jsonschema' 'python-twisted'
          'python-pyopenssl' 'python-yaml' 'python-pyasn1' 'python-pynacl'
-         'python-bcrypt' 'python-frozendict'
+         'python-bcrypt' 'python-immutabledict'
          'python-pillow' 'python-pysaml2'
          'python-systemd' 'python-unpaddedbase64' 'python-canonicaljson'
          'python-signedjson' 'python-pymacaroons'
