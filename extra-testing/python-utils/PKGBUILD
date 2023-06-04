@@ -1,0 +1,48 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Maxim Andersson <thesilentboatman@gmail.com>
+# Contributor: NicoHood <archlinux {cat} nicohood {dog} de>
+
+pkgdesc="A module with some convenient utilities not included with the standard Python install"
+pkgname=python-utils
+pkgver=3.6.0
+pkgrel=1
+arch=(any)
+url="https://github.com/WoLpH/python-utils"
+license=(BSD)
+depends=(python)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-loguru
+  python-pytest-runner
+)
+optdepends=('python-loguru: for logging support')
+source=(
+  $url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz{,.asc}
+)
+sha512sums=('2d26e9c37f42d525640b9573cd794acb93e44a01d817e4c9ccf2d07261581dd16a04f38d245f97efb01952476fbc312e1831b5b617659787cbaac38692853bdd'
+            'SKIP')
+b2sums=('0426943a631ad68afafdbe603d14a32e179e58f8c45ac98248096de40bb67243196ca4498e1b908a25e213301e26d42f3f2c175cfa282c18b1db8f15b14385e6'
+        'SKIP')
+validpgpkeys=('149325FD15904E9C4EB89E95E81444E9CE1F695D') # Rick van Hattem <wolph@wol.ph>
+
+build() {
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgname-$pkgver
+  pytest -vv -c /dev/null
+}
+
+package() {
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+}

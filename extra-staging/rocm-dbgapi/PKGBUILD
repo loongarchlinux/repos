@@ -1,0 +1,29 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+
+pkgname=rocm-dbgapi
+pkgver=5.5.1
+pkgrel=1
+pkgdesc="Support library necessary for a debugger of AMD's GPUs"
+arch=('loong64' 'x86_64')
+url='https://github.com/ROCm-Developer-Tools/ROCdbgapi'
+license=('MIT')
+depends=('comgr' 'hsa-rocr')
+makedepends=('rocm-cmake' 'doxygen' 'texlive-latexextra')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('c41dfc62591bcf42003fe744d8bd03a51311d54e4b012f946ca0ede0c14dd977')
+_dirname=$(basename "$url")-$(basename "${source[0]}" ".tar.gz")
+
+build() {
+    cmake \
+      -Wno-dev \
+      -B build \
+      -S "$_dirname" \
+      -DCMAKE_BUILD_TYPE=None \
+      -DCMAKE_INSTALL_PREFIX=/opt/rocm
+    cmake --build build --target doc all
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+    install -Dm644 "$srcdir/$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
