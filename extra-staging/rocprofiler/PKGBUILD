@@ -1,30 +1,30 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=rocprofiler
-pkgver=5.5.1
+pkgver=5.6.0
 pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('loong64' 'x86_64')
 url='https://docs.amd.com/bundle/ROCProfiler-User-Guide-v5.1/page/ROCProfiler_Profiling_API.html'
 license=('MIT')
 depends=('hip' 'python-lxml' 'hsa-amd-aqlprofile')
-makedepends=('cmake' 'rocm-llvm' 'hsa-rocr' 'rocm-dbgapi' 'gtest'
+makedepends=('cmake' 'rocm-llvm' 'hsa-rocr' 'rocm-dbgapi' 'gtest' 'rocm-smi-lib'
              'python-cppheaderparser' 'python-yaml' 'python-barectf')
 _git='https://github.com/ROCm-Developer-Tools/rocprofiler'
 _roctracer='https://github.com/ROCm-Developer-Tools/roctracer'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-roctracer-$pkgver.tar.gz::$_roctracer/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "rocprofiler-stdint.patch")
-sha256sums=('f5dbece5c205e37383fed4a2bd6042ff1c11f11f64dfbf65d7e23c0af6889a5a'
-            '3afc31ebfdb14b0365185ca6b9326a83b1503a94a51d910f5ce7ced192d8c133'
-            '4fcbbe649d7a92f85240476401ff8617076caefe1bf91c6e08356b6bf25f6953')
+        "$pkgname-stdint.patch")
+sha256sums=('ff811bd91580f60b6b4d397b6fce38d96f07debc6fd8a631b81d1b266cc9542d'
+            'cbcfe4fa2e8b627006b320a93992fb3078696d8ef2ef049b4b880b6b7d57e13e'
+            '97b099051f13f5d631e466abf849cb2eb1f5a3a801890de9654268488b6baa8f')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 _dirtracer="$(basename "$_roctracer")-$(basename "${source[1]}" ".tar.gz")"
 
 prepare() {
     cd "$_dirname"
-    patch -Np1 -i "$srcdir/rocprofiler-stdint.patch"
+    patch -Np1 -i "$srcdir/$pkgname-stdint.patch"
 }
 
 build() {

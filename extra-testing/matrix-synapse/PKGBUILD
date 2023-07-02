@@ -3,8 +3,8 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=matrix-synapse
-_tag=c1f7c89c5331dccce2c65112a6a7ee901efb0201
-pkgver=1.84.1
+_tag=77465956405ddc71c6ff0efdf96613f1432c7e47
+pkgver=1.86.0
 pkgrel=1
 pkgdesc="Matrix reference homeserver"
 url="https://github.com/matrix-org/synapse"
@@ -62,7 +62,7 @@ validpgpkeys=('02450A9EDDFEE3E0C730B786A7E4A57880C3A4A9'
 prepare() {
 	cd $pkgname
 	# allow any poetry-core to be used
-	sed 's/poetry-core>=1.0.0,<=1.5.0/poetry-core>=1.0.0/' -i pyproject.toml
+	sed 's/poetry-core>=1.1.0,<=1.6.0/poetry-core>=1.0.0/' -i pyproject.toml
 }
 
 build() {

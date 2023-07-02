@@ -1,0 +1,106 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Contributor: Ali H. Caliskan <ali.h.caliskan AT gmail DOT com>
+# Contributor: Ryan Coyner <rcoyner@gmail.com>
+# Contributor: Stefan Husmann <stefan-husmann@t-online.de>
+
+pkgname=mixxx
+pkgver=2.3.5
+pkgrel=2
+pkgdesc="Free, open source software for digital DJing"
+arch=(loong64 x86_64)
+url="https://www.mixxx.org"
+license=(GPL2)
+groups=(pro-audio)
+# TODO: package libshout-idjc
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  hidapi
+  lame
+  libmad
+  libmodplug
+  libx11
+  openssl
+  opus
+  opusfile
+  qt5-base
+  qt5-script
+  qt5-svg
+  qt5-x11extras
+  qtkeychain
+  soundtouch
+  speex
+  sqlite
+  taglib
+  upower
+  wavpack
+)
+makedepends=(
+  chromaprint
+  cmake
+  faad2
+  ffmpeg
+  fftw
+  flac
+  glib2
+  glu
+  gperftools
+  libid3tag
+  libogg
+  libsndfile
+  libusb
+  libvorbis
+  lilv
+  lv2
+  qt5-tools
+  portaudio
+  portmidi
+  protobuf
+  rubberband
+  vamp-plugin-sdk
+)
+checkdepends=(xorg-server-xvfb)
+source=(https://github.com/${pkgname}dj/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('d81208e8fe91e1843bac7ab512dc248457266b935bf8720694f2bedf96389ba35789d68ea77fcecf0a02682fb75de2752612b2c44a49b8eba52323cab2b82e51')
+b2sums=('311dc36c5544e34651b4eb824fac2ab70827382295ba1912d53ec9706fc976a89d5417c969cb41e23c22a456953046e472fcbdbe78316949e02e6db7e15704b4')
+
+build() {
+  local cmake_options=(
+    -B build
+    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -S $pkgname-$pkgver
+    -Wno-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+check() {
+  xvfb-run ctest --test-dir build --output-on-failure
+}
+
+package() {
+  depends+=(
+    chromaprint libchromaprint.so
+    flac libFLAC.so
+    ffmpeg libavcodec.so libavformat.so libavutil.so
+    fftw libfftw3.so
+    glib2 libgobject-2.0.so
+    libid3tag libid3tag.so
+    libogg libogg.so
+    libsndfile libsndfile.so
+    libusb libusb-1.0.so
+    libvorbis libvorbis.so libvorbisenc.so libvorbisfile.so
+    lilv liblilv-0.so
+    portaudio libportaudio.so
+    portmidi libportmidi.so
+    protobuf libprotobuf-lite.so
+    rubberband librubberband.so
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+}

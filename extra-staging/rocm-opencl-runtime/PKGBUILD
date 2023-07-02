@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-opencl-runtime
-pkgver=5.5.1
+pkgver=5.6.0
 pkgrel=1
 pkgdesc='OpenCL implementation for AMD'
 arch=('loong64' 'x86_64')
@@ -15,20 +15,16 @@ provides=('opencl-driver')
 _rocclr='https://github.com/ROCm-Developer-Tools/ROCclr'
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocclr-$pkgver.tar.gz::$_rocclr/archive/rocm-$pkgver.tar.gz"
-        "hip-amd-stdint.patch"
-        "rocm-opencl-stdint.patch")
-sha256sums=('a8a62a7c6fc5398406d2203b8cb75621a24944688e545d917033d87de2724498'
-            '1375fc7723cfaa0ae22a78682186d4804188b0a54990bfd9c0b8eb421b85e37e'
-            '48849a16c9c72d24cd62a94d49987424e737908fbd0a776b4b4911153f057da8'
-            'c992807029033708b0c5d58b7494448b6df2bd68c21e77138919cb7fc5e02e82')
+        "hip-amd-stdint.patch")
+sha256sums=('52ab260d00d279c2a86c353901ffd88ee61b934ad89e9eb480f210656705f04e'
+            '864f87323e793e60b16905284fba381a7182b960dd4a37fb67420c174442c03c'
+            '48849a16c9c72d24cd62a94d49987424e737908fbd0a776b4b4911153f057da8')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 _rocclr_dir="$(basename "$_rocclr")-$(basename "${source[1]}" .tar.gz)"
 
 prepare() {
     cd "$_rocclr_dir"
     patch -Np1 -i "$srcdir/hip-amd-stdint.patch"
-    cd "$srcdir/$_dirname"
-    patch -Np1 -i "$srcdir/rocm-opencl-stdint.patch"
 }
 
 build() {

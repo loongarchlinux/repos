@@ -2,7 +2,7 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail dot com>
 
 pkgname=rocm-device-libs
-pkgver=5.5.1
+pkgver=5.6.0
 pkgrel=1
 pkgdesc='ROCm Device Libraries'
 arch=('loong64' 'x86_64')
@@ -11,7 +11,7 @@ license=('custom:NCSAOSL')
 makedepends=('rocm-cmake' 'rocm-llvm')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
         "${pkgname}-rm-gfx700.patch")
-sha256sums=('3b5f6dd85f0e3371f6078da7b59bf77d5b210e30f1cc66ef1e2de6bbcb775833'
+sha256sums=('efb5dcdca9b3a9fbe408d494fb4a23e0b78417eb5fa8eebd4a5d226088f28921'
             '0b38ab6d8b1a52bac198007af098d6ec5008a7359a4ee174283e6c69c8b1a868')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
