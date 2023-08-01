@@ -1,0 +1,106 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+_name=fastapi
+pkgname=python-$_name
+pkgver=0.100.1
+pkgrel=1
+pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
+arch=(any)
+url="https://github.com/tiangolo/fastapi"
+license=(MIT)
+depends=(
+  python
+  python-anyio  # implicitly required for concurrency
+  python-dirty-equals
+  python-pydantic
+  python-pydantic-core
+  python-pydantic-extra-types
+  python-pydantic-settings
+  python-starlette
+  python-typing-extensions
+)
+makedepends=(
+  python-build
+  python-installer
+  python-hatchling
+  python-wheel
+)
+checkdepends=(
+  # test dependencies
+  python-aiosqlite
+  python-anyio
+  python-databases
+  python-flask
+  python-httpx
+  python-peewee
+  python-pytest
+  python-sqlalchemy
+  python-trio
+
+  # optdepends
+  python-email-validator
+  python-itsdangerous
+  python-jinja
+  python-orjson
+  python-python-multipart
+  python-pyyaml
+  python-ujson
+  uvicorn
+
+  # dev depends
+  python-bcrypt
+  python-cryptography
+  python-jose
+  python-passlib
+)
+optdepends=(
+  'hypercorn: for Hypercorn as ASGI server'
+  'python-email-validator: for email validation'
+  'python-itsdangerous: for SessionMiddleware support'
+  'python-jinja: for default starlette template configuration'
+  'python-orjson: for ORJSONResponse'
+  'python-python-multipart: for form parsing support'
+  'python-pyyaml: for starlette SchemaGenerator support'
+  'python-httpx: for TestClient support'
+  'python-ujson: for faster JSON parsing and UJSONResponse'
+  'uvicorn: for Uvicorn as ASGI server'
+)
+source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
+sha512sums=('901a32033f6f0d68f330fe888958705a6de95afe2f2fa2714a933eb88d4a3bc8e16248823eb376cd3a0ffd6bc4eaf8a05444cb3f20e962b4170bf8ba9dbff930')
+b2sums=('e79014ef0988d8f3b61ff688ea17cb7f100150c9de702322b91e8f1873c2ab06911e18eef52a295a97f175def340576d1aee2fad2859369a266842af93561eda')
+
+prepare() {
+  cd $_name-$pkgver
+  # do not pin starlette dependency
+  sed -i 's|starlette.*"|starlette"|' pyproject.toml
+}
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --skip-dependency-check --no-isolation
+}
+
+check() {
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  local pytest_options=(
+    -vv
+    -p no:warnings
+    --deselect tests/test_dependency_normal_exceptions.py::test_dependency_gets_exception
+    --deselect tests/test_filter_pydantic_sub_model_pv2.py::test_validator_is_cloned
+    --deselect tests/test_multi_body_errors.py::test_jsonable_encoder_requiring_error
+    --deselect tests/test_multi_body_errors.py::test_put_incorrect_body_multiple
+  )
+
+  cd $_name-$pkgver
+  # install to temporary location, as importlib is used
+  python -m installer --destdir=test_dir dist/*.whl
+  export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

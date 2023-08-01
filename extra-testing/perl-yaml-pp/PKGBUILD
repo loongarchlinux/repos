@@ -1,0 +1,41 @@
+# Maintainer: Ash Berlin-Taylor <ash_archlinux@firemirror.com>
+pkgname='perl-yaml-pp'
+pkgver=0.036
+pkgrel=2
+pkgdesc="Simple configuration automation"
+arch=('any')
+license=('PerlArtistic' 'GPL')
+options=('!emptydirs')
+depends=('perl>=0')
+makedepends=('perl-test-deep>=0' 'perl-test-warn>=0')
+url='https://search.cpan.org/dist/YAML-PP'
+source=("https://search.cpan.org/CPAN/authors/id/T/TI/TINITA/YAML-PP-$pkgver.tar.gz")
+sha512sums=('62134d8d64617658f03543552675b5dfcf495bd55294bd4fd96988093fca7e8c1bfd93faa1db88baaa994d2b3bc2f1eb2d2826ac767ac3c6d6d4899abd4544b9')
+_distdir="YAML-PP-$pkgver"
+
+build() {
+  ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
+      PERL_AUTOINSTALL=--skipdeps                            \
+      PERL_MM_OPT="INSTALLDIRS=vendor DESTDIR='$pkgdir'"     \
+      PERL_MB_OPT="--installdirs vendor --destdir '$pkgdir'" \
+      MODULEBUILDRC=/dev/null
+
+    cd "$srcdir/$_distdir"
+    /usr/bin/perl Makefile.PL
+    make
+  )
+}
+
+check() {
+  cd "$srcdir/$_distdir"
+  ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""
+    make test
+  )
+}
+
+package() {
+  cd "$srcdir/$_distdir"
+  make install
+
+  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
+}

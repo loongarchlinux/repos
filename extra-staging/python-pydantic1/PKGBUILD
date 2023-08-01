@@ -1,0 +1,58 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=pydantic
+pkgname=python-pydantic1
+pkgver=1.10.12
+pkgrel=1
+pkgdesc='Data parsing and validation using Python type hints (v1)'
+arch=(loong64 x86_64)
+url="https://github.com/pydantic/pydantic"
+license=(MIT)
+depends=(
+  glibc
+  python
+  python-typing-extensions
+)
+makedepends=(
+  cython
+  python-build
+  python-installer
+  python-importlib-metadata
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-hypothesis
+  python-pytest
+  python-pytest-mock
+)
+optdepends=(
+  'python-dotenv: for .env file support'
+  'python-email-validator: for email validation'
+)
+conflicts=(python-pydantic)
+source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
+sha512sums=('413d433decfa3bb7173d6f4e6e06f746cfbf95f6d27c6a17098216ba81d64d7f8bb956cda195d0676559f96278f3800c77be53ecf46496ac009f130120642cc2')
+b2sums=('b00885b86ef331f3f8531d1514f4e3e1ef10d009b35453c6d5a6295ecfe2d2b842f66c7ea2a79ca1d235d54fa38b42432e14804163f944c4455f05c06869815a')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    # we don't care about pytest warnings leading to errors
+    --pythonwarnings ignore::DeprecationWarning:pkg_resources
+  )
+
+  cd $_name-$pkgver
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

@@ -1,0 +1,11 @@
+diff --git a/cl_headers/CMakeLists.txt b/cl_headers/CMakeLists.txt
+index 69cf11e..1d16a71 100644
+--- a/cl_headers/CMakeLists.txt
++++ b/cl_headers/CMakeLists.txt
+@@ -1,5 +1,5 @@
+ set(CL_HEADERS_LIB cl_headers)
+-set(CLANG_COMMAND $<TARGET_FILE:clang> )
++set(CLANG_COMMAND /usr/lib/llvm14/bin/clang)
+ if(LLVM_USE_HOST_TOOLS AND NOT OPENCL_CLANG_BUILD_EXTERNAL)
+   build_native_tool(clang CLANG_COMMAND)
+ endif()

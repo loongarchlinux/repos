@@ -1,0 +1,56 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=repod
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Tooling to maintain binary package repositories"
+arch=(any)
+url="https://repod.archlinux.page/"
+license=(GPL3)
+depends=(
+  pyalpm
+  python
+  python-aiofiles
+  python-email-validator
+  python-jinja
+  python-magic
+  python-orjson
+  python-pydantic
+  python-pydantic-settings
+  python-pyxdg
+  python-pyzstd
+  python-subprocess-tee
+  python-tomli
+)
+makedepends=(
+  python-build
+  python-installer
+  python-pdm-backend
+  python-sphinx
+  python-sphinx-argparse
+  python-sphinx_rtd_theme
+  python-sphinxcontrib-programoutput
+)
+checkdepends=(python-pytest python-pytest-asyncio python-pytest-lazy-fixture)
+source=(
+  https://gitlab.archlinux.org/archlinux/$pkgname/-/archive/$pkgver/$pkgname-$pkgver.tar.gz
+)
+sha256sums=('1d7763d0234aeb64ba21772b9de33e4b05b575ff916c0bcf7055109f06168468')
+b2sums=('ba17d42856ba032d564fe8bdc5083f6524bc2b2d47bb353c68fd10f36a5a55795eba479f10853937772f470abe44dd9c582b49c3d905feea349c363e9249baa0')
+
+build() {
+  export PDM_BUILD_SCM_VERSION=$pkgver
+  cd $pkgname-$pkgver
+  make build
+  make system-docs
+}
+
+check() {
+  cd $pkgname-$pkgver
+  make test
+}
+
+package() {
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" make install
+}

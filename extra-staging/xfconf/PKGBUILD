@@ -1,0 +1,33 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: tobias <tobias funnychar archlinux.org>
+
+pkgname=xfconf
+pkgver=4.18.1
+pkgrel=2
+pkgdesc="D-Bus-based configuration storage system"
+arch=('loong64' 'x86_64')
+url="https://docs.xfce.org/xfce/xfconf/start"
+license=('GPL2')
+groups=('xfce4')
+depends=('libxfce4util')
+makedepends=('intltool' 'gobject-introspection' 'vala')
+source=(https://archive.xfce.org/src/xfce/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+sha256sums=('d9714751bbcfdc5a59340da6ef8ddfc0807221587b962d907f97dc0a8a002257')
+
+build() {
+  cd $pkgname-$pkgver
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

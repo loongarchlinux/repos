@@ -1,0 +1,45 @@
+# Maintainer: Florian Pritz <bluewind@xinu.at>
+
+pkgname=perl-mail-authenticationresults
+pkgver=2.20230112
+pkgrel=2
+pkgdesc='Object Oriented Authentication-Results Headers'
+arch=(any)
+license=(PerlArtistic GPL)
+options=(!emptydirs)
+depends=('perl>=5.8' perl-clone perl-json)
+checkdepends=(perl-test-exception)
+url=https://metacpan.org/release/Mail-AuthenticationResults
+source=("https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-AuthenticationResults-$pkgver.tar.gz")
+md5sums=(6a0c22bb56634bc0ff656a01e23b4674)
+sha512sums=(78ea5067e2386ccbbe5bb9c86150c8255e6f735319968180a59c992fac35a918704792b2f18bf10c0568a41690044fbdb14b9d23e7829c178a42eb64126725fb)
+_ddir="Mail-AuthenticationResults-$pkgver"
+
+build()
+(
+  cd "$srcdir/$_ddir"
+  export PERL_MM_USE_DEFAULT=1 PERL_AUTOINSTALL=--skipdeps
+  unset PERL5LIB PERL_MM_OPT
+  /usr/bin/perl Makefile.PL
+  make
+)
+
+check()
+(
+  cd "$srcdir/$_ddir"
+  export PERL_MM_USE_DEFAULT=1
+  unset PERL5LIB
+  make test
+)
+
+package()
+(
+  cd "$srcdir/$_ddir"
+  make install INSTALLDIRS=vendor DESTDIR="$pkgdir"
+)
+
+# Local Variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# End:
+# vim:set ts=2 sw=2 et:

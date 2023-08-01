@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=perl-file-mimeinfo
+pkgver=0.33
+pkgrel=2
+pkgdesc='Determine file type, includes mimeopen and mimetype'
+arch=('any')
+url="https://metacpan.org/release/File-MimeInfo"
+license=('GPL' 'PerlArtistic')
+depends=('perl-encode-locale' 'perl-file-basedir' 'perl-file-desktopentry' 'shared-mime-info')
+checkdepends=('perl-test-pod' 'perl-test-pod-coverage')
+options=('!emptydirs')
+source=(https://cpan.metacpan.org/authors/id/M/MI/MICHIELB/File-MimeInfo-$pkgver.tar.gz)
+sha512sums=('5fbba13775079da56928175f48db1c1ab8ac4d7fa3e85bdb5384c4021cab7cf8c363a3d8219cf34318136b1470e32163abae7c37a119416a5e510d8d07848c9d')
+
+build() {
+  cd File-MimeInfo-$pkgver
+  perl Makefile.PL INSTALLDIRS=vendor
+  make
+}
+
+check() {
+  cd File-MimeInfo-$pkgver
+  make test
+}
+
+package() {
+  cd File-MimeInfo-$pkgver
+  make DESTDIR="${pkgdir}" install
+}
