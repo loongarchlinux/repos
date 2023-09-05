@@ -2,7 +2,7 @@
 
 _name=pydantic-settings
 pkgname=python-pydantic-settings
-pkgver=2.0.2
+pkgver=2.0.3
 pkgrel=1
 pkgdesc="Settings management using pydantic"
 arch=(any)
@@ -25,8 +25,8 @@ checkdepends=(
   python-pytest-mock
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('9ae345f7d5e3f83629c09ba5729096215fea570e4120824030d60f5e24996964ab4d264115bb5c286ba94eb66da10253178990df36dff8292471c669cdb90bdd')
-b2sums=('efdeefe717fb7760c0f4df2aef055a2a5cbe5e5ca7bc98494c65645477ee34d5799fbc5de01a7085e4e413260e62abbff3fba744de24f61d6fa53ebd29139cff')
+sha512sums=('e972ee999599c07faca9504de87c87fe5f104b06bd063058e878ef6b04df4dbda147089089f3c33dcf101a94c8d1925462d9a9da08bdcb33a0c6756dbcfa1f69')
+b2sums=('bc366a8f76f8a4402c2ca3df5d150a7025745bbd73ab1416f5690e05b4a2bc70b0d6249daf4e863120842a29ecd7c49f7517ec775471514e00e18fced8949e4c')
 
 build() {
   cd $_name-$pkgver

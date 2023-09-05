@@ -1,0 +1,62 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: muzhed <chustokes@126.com>
+
+pkgname=din
+pkgver=57
+pkgrel=3
+pkgdesc="A sound synthesizer and musical instrument."
+arch=(loong64 x86_64)
+url="https://dinisnoise.org/"
+license=(GPL2)
+groups=(pro-audio)
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  libglvnd
+  sdl
+  tcl
+)
+makedepends=(
+  boost
+  glu
+  rtaudio
+  rtmidi
+)
+source=(
+  https://archive.org/download/dinisnoise_source_code/$pkgname-$pkgver.tar.gz
+  $pkgname-57-devendor_rtaudio_rtmidi.patch
+)
+sha512sums=('03dfa45fb8c58f3f8dc739ec3c4c31029c544d9f0b1cf3dbae61643e5accd951ad65ebf19c078bfb1d30d3a8ccea7ffec2f1cb44f38bab1b07cfd2071361590c'
+            'daf86cbf0a6ea19f8afc60a0f0ed8f2e7864674414c08dc11c17562f849594747a60c2c3430d6b075804772d9136edc5271bd8df5ec1b3b4b42c1e9953fb2bd3')
+b2sums=('b9e56c067830f3e164ac6e3e2d7a189569d5abf25ca3281491ad3ed29155a6e85fef5d7d4336d918104df3a8156f60c61294856665e775a8ef3c593bd17f08b7'
+        '751a4dfe87a0e68fdc67fa1a3f55ec178ca0e24014afd8e6c00145a6e2c8601228df0babc6796f57503826c0d97633069eced7a83363f40d90d261b6ee491164')
+
+prepare() {
+  # use system rtaudio/rtmidi, instead of vendored versions
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-57-devendor_rtaudio_rtmidi.patch
+
+  cd $pkgname-$pkgver
+  rm -fv src/{RtAudio,RtMidi}.*
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname-$pkgver
+  export CXXFLAGS+=" -D__UNIX_JACK__ $(pkg-config --cflags rtaudio rtmidi)"
+  export CFLAGS+=" -D__UNIX_JACK__ $(pkg-config --cflags rtaudio rtmidi)"
+  export LIBS+=" $(pkg-config --libs rtaudio rtmidi)"
+  ./configure --prefix='/usr'
+  make
+}
+
+package() {
+  depends+=(
+    rtaudio librtaudio.so
+    rtmidi librtmidi.so
+  )
+
+  make install DESTDIR="$pkgdir" -C $pkgname-$pkgver
+  # docs
+  install -vDm 644 $pkgname-$pkgver/{AUTHORS,BUGS,CHANGELOG,NEWS,README,TODO} -t "$pkgdir/usr/share/doc/$pkgname/"
+}

@@ -1,28 +1,25 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=jedi-language-server
-pkgver=0.40.0
-pkgrel=4
+pkgver=0.41.0
+pkgrel=1
 pkgdesc='Language server for Jedi'
 arch=('any')
 url=https://github.com/pappasam/jedi-language-server
 license=('MIT')
-depends=('python-docstring-to-markdown' 'python-jedi' 'python-pydantic'
-         'python-pygls')
+depends=(
+  'python-docstring-to-markdown'
+  'python-jedi'
+  'python-pydantic'
+  'python-pygls'
+)
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-lsp-jsonrpc' 'python-pyhamcrest' 'python-pytest')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-        'jedi-ls-migrate-to-python-lsp-jsonrpc.patch::https://github.com/pappasam/jedi-language-server/commit/5e6cdca4936271f0f85d06d4da59718c67efae9c.patch'
-        'pydantic2.patch')
-b2sums=('956b28824557e9910feac8274d3441ec7428481a58df253f0f066c4834882a115eaea21d4c026a7e1a023305fa99e2547f3df930971ac3c44be84eaae743e4d0'
-        '67d4688ce37b31bdcfd0192e118a9845f8c722f1bb6b73a175eb5fa78197fb6b9e62f62bd2b52084a6fa4f035a31168a37d17d17932af91a9e613ae08039efda'
-        '4175c81737ca8529758e4541ea664a7bee581e0c0a98180c3687892daade1f1bab7e30175a9c0fce0e60fce90a08b84346aabdaad831acf991b4aab7acbf0dc7')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('3bd112f17665e5d2273c3c880697c5f4aa7335b8f29b770e00a61a3204a619cd51d14bdf6ae6b3fce1193b816c3177670088447ba4bb1b783027072f419a1a9d')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch --forward --strip=1 --input=../jedi-ls-migrate-to-python-lsp-jsonrpc.patch
-  patch --forward --strip=1 --input=../pydantic2.patch
-
   # Remove include list https://github.com/pypa/wheel/issues/92
   sed -i '/include = \["README.md"\]/d' pyproject.toml
 }
