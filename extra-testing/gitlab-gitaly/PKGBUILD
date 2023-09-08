@@ -1,0 +1,48 @@
+# Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Sven-Hendrik Haase <svenstaro@gmail.com>
+# Contributor: loqs <bugs-archlinux@entropy-collector.net>
+
+pkgname=gitlab-gitaly
+pkgver=16.2.4
+pkgrel=1
+pkgdesc='Speed up Git access using caching'
+arch=(loong64 x86_64)
+url='https://gitlab.com/gitlab-org/gitaly'
+license=(MIT)
+depends=(glibc
+         libxml2
+         libxslt
+         libssh2)
+makedepends=(cmake
+             git
+             go)
+options=(!buildflags)
+backup=("etc/$pkgname/config.toml")
+_archive="gitaly-v$pkgver"
+source=("$url/-/archive/v$pkgver/$_archive.tar.gz"
+        "$pkgname-configs.patch"
+        "$pkgname.service")
+sha256sums=('2883e6d68eb142d64774b2e4776de4c087efe4e539b2a06437e2d211f6909034'
+            '90f9bf6baae8386f2800797703f7e7f6cb70401e2391cbff3c3cdf9018517d35'
+            'a047c82481ccbaa3b00ba1bb769135934fa4fa939eb6506d09c77f3a7aec08cd')
+
+prepare() {
+	cd "$_archive"
+	patch -p1 -i ../$pkgname-configs.patch
+	# At this point the config file should not contain any references to '/home/git'
+}
+
+build() {
+	cd "$_archive"
+	make V=1 BUILD_TAGS="tracer_static tracer_static_jaeger"
+}
+
+package() {
+	cd "$_archive"
+	make PREFIX=/usr DESTDIR="$pkgdir" install
+	mkdir -p "$pkgdir/usr/share/webapps/gitlab-gitaly"
+	install -Dm0644 config.toml.example "$pkgdir/etc/$pkgname/config.toml"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	install -Dm0644 -t "$pkgdir/usr/lib/systemd/system/" ../gitlab-gitaly.service
+}
