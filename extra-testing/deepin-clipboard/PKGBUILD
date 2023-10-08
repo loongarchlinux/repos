@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-clipboard
+pkgver=6.0.5
+pkgrel=3
+pkgdesc='DDE clipboard manager component'
+arch=('loong64' 'x86_64')
+url="https://github.com/linuxdeepin/dde-clipboard"
+license=('GPL3')
+depends=('deepin-qt5integration' 'gio-qt' 'dtkcore' 'dwayland' 'kwayland5')
+makedepends=('cmake' 'ninja' 'gtest' 'qt5-tools' 'extra-cmake-modules')
+groups=('deepin-extra')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-clipboard/archive/$pkgver.tar.gz")
+sha512sums=('63cc9ef4fd98f1f3e25146db03f6ec38e68d84b08227c208f04e810889be005d74215bec78ad0bc4d98f150812a0e0ac130ece98d6ff30bdba3017a0d4edf8f7')
+
+prepare() {
+  mkdir -p build
+  sed -i 's|DESTINATION /lib/systemd/user|DESTINATION /usr/lib/systemd/user|' dde-clipboard-$pkgver/CMakeLists.txt
+}
+
+build() {
+  cd build
+  cmake -GNinja ../dde-clipboard-$pkgver
+  ninja
+}
+
+package() {
+  cd build
+  DESTDIR="$pkgdir" ninja install
+}

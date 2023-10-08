@@ -1,0 +1,44 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+_hkgname=invariant
+pkgname=haskell-invariant
+pkgver=0.6.2
+pkgrel=9
+pkgdesc="Haskell98 invariant functors"
+url="https://github.com/nfrisby/invariant-functors"
+license=('custom:BSD2')
+arch=('loong64' 'x86_64')
+depends=('ghc-libs' 'haskell-bifunctors' 'haskell-comonad' 'haskell-contravariant'
+         'haskell-profunctors' 'haskell-statevar' 'haskell-tagged' 'haskell-th-abstraction'
+         'haskell-transformers-compat' 'haskell-unordered-containers')
+makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
+source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
+sha512sums=('a66d21cebbcef1c247ae329e4d607573308060056c22efaedf6f16fb658b6f71d0dade7deb073bf4fd0f9b595e524d190f94b23695ad98cd40a0f141988fa2ee')
+
+build() {
+    cd $_hkgname-$pkgver
+    
+    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+    runhaskell Setup build $MAKEFLAGS
+    runhaskell Setup register --gen-script
+    runhaskell Setup unregister --gen-script
+    sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
+    sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
+}
+
+package() {
+    cd $_hkgname-$pkgver
+    
+    install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
+    install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
+    runhaskell Setup copy --destdir="$pkgdir"
+    install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
+}

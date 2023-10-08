@@ -1,0 +1,43 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+_hkgname=xcffib
+pkgname=haskell-xcffib
+pkgver=1.4.0
+pkgrel=4
+pkgdesc="A cffi-based python binding for X"
+url="https://github.com/tych0/xcffib"
+license=('Apache')
+arch=('loong64' 'x86_64')
+depends=('ghc-libs' 'haskell-attoparsec' 'haskell-either' 'haskell-filemanip' 'haskell-language-python'
+         'haskell-optparse-applicative' 'haskell-split' 'haskell-xcb-types')
+makedepends=('ghc' 'uusi')
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('8f055c89dc7fe741258255cbeb3729aa5b5bba2e0a5ae16d34d8f7234f85be6f14a05fabe5f1ed2f2807c88e3a03db6df6b492b314866eb602ecf413c2799a6a')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
+
+build() {
+    cd $_hkgname-$pkgver
+    
+    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+    runhaskell Setup build $MAKEFLAGS
+    runhaskell Setup register --gen-script
+    runhaskell Setup unregister --gen-script
+    sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
+    sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+package() {
+    cd $_hkgname-$pkgver
+    
+    install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
+    install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
+    runhaskell Setup copy --destdir="$pkgdir"
+    install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
+}

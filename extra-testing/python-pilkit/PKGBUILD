@@ -1,0 +1,43 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=pilkit
+pkgname=python-pilkit
+pkgver=3.0
+pkgrel=1
+pkgdesc="A collection of utilities for working with PIL (the Python Imaging Library)"
+arch=(any)
+url="https://github.com/matthewwithanm/pilkit"
+license=(BSD-3-Clause)
+depends=(
+  python
+  python-pillow
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+)
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+sha512sums=('bc8c8a0b27e47407d95866b0d6a477becb4afcf7684243776db22c7f59a4b020de17edb18799dad01d9ce167bbd9adae8128434f56cdbea330089a45bb89806f')
+b2sums=('851d024c01c270bcb41271b7b3d23846b402e8472312b0687235bfd4ded99b20f878bc099802900a4929b0abc097d45499e32a8b3cb086918d1c0593bac4f07f')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name-$pkgver
+  pytest -vv
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 {AUTHORS,README.rst} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

@@ -3,14 +3,14 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=5.6.1
+pkgver=5.7.0
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('loong64' 'x86_64')
 url='https://rocmsoftwareplatform.github.io/MIOpen/doc/html/'
 license=('MIT')
 depends=('rocblas' 'rocm-clang-ocl' 'hip' 'composable-kernel' 'sqlite')
-makedepends=('cmake' 'ninja' 'rocm-cmake' 'boost'
+makedepends=('cmake' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
              'nlohmann-json' 'eigen' 'half' 'functional-plus' 'frugally-deep')
 provides=('miopen')
 conflicts=('miopen')
@@ -19,7 +19,7 @@ _mlir='https://github.com/ROCmSoftwarePlatform/rocMLIR'
 _mlirver=5.5.0 #No changes between 5.5.0 and 5.6.0, so no upstream tag
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocmlir-$pkgver.tar.gz::$_mlir/archive/rocm-$_mlirver.tar.gz")
-sha256sums=('ff627d68ed9e52433a3c808b5d3ff179a398b77ce81b00cfea7b2c4da5162c6c'
+sha256sums=('5cd0b62254469e1c246d5890d2b78f8aedcf42cf8a327eabc1a391b83bcd14e1'
             'a5f62769d28a73e60bc8d61022820f050e97c977c8f6f6275488db31512e1f42')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"

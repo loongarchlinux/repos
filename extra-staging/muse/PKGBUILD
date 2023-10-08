@@ -1,0 +1,96 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=muse
+pkgver=4.2.1
+pkgrel=1
+pkgdesc="A digital audio workstation with support for both Audio and MIDI"
+arch=(loong64 x86_64)
+url="https://github.com/muse-sequencer/muse"
+license=(GPL-2.0-or-later)
+groups=(pro-audio)
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  python
+  python-pyqt5
+  python-pyro
+  python-six
+  qt5-base
+  qt5-svg
+)
+makedepends=(
+  alsa-lib
+  cmake
+  dssi
+  extra-cmake-modules
+  fluidsynth
+  glib2
+  jack
+  ladspa
+  liblo
+  liblrdf
+  libsamplerate
+  libsndfile
+  lilv
+  lv2
+  qt5-tools
+  rtaudio
+  rubberband
+  serd
+)
+provides=(
+  dssi-host
+  ladspa-host
+  lv2-host
+  vst-host
+)
+source=(
+  $url/archive/$pkgver/$pkgname-$pkgver.tar.gz
+)
+sha512sums=('cf033cf77cb328a2aa704bf04d69dd515108e9c789e2ec9321a577b5b3b3bb73ce738142903b69b2c9c3ec5c27e921adc52511932f48809149f5a5cf5fd7deb2')
+b2sums=('09edaed143d689ec909829b586c5edd57488e4d70c091f75c952a79cdfeefd6adaa0f3eb408898a6de506f916d3a7c2853e20d24619df151f4f880814d454921')
+
+prepare() {
+  # rename MusE-INSTALL_NAME to muse, because this reflects the package name
+  sed -e 's/muse-4.2/muse/g' -i $pkgname-$pkgver/src/CMakeLists.txt
+}
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D ENABLE_PYTHON=ON
+    -D ENABLE_LV2_GTK2=OFF
+    -S $pkgname-$pkgver/src
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
+}
+
+package() {
+  depends+=(
+    alsa-lib libasound.so
+    fluidsynth libfluidsynth.so
+    glib2 libglib-2.0.so libgobject-2.0.so
+    jack libjack.so
+    libinstpatch libinstpatch-1.0.so
+    liblo liblo.so
+    liblrdf liblrdf.so
+    libsamplerate libsamplerate.so
+    libsndfile libsndfile.so
+    lilv liblilv-0.so
+    rtaudio librtaudio.so
+    rubberband librubberband.so
+    serd libserd-0.so
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+}

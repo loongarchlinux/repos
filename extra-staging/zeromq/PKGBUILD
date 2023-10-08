@@ -1,0 +1,106 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
+
+pkgname=zeromq
+pkgver=4.3.4
+pkgrel=5
+pkgdesc='Fast messaging system built on sockets. C and C++ bindings. aka 0MQ, ZMQ.'
+arch=('loong64' 'x86_64')
+url='http://www.zeromq.org'
+license=('LGPL')
+depends=(
+  'glibc'
+  'gnutls'
+  'gcc-libs'
+  'util-linux'
+  'libsodium'
+  'libpgm'
+)
+makedepends=(
+  'git'
+  'cmake'
+  'asciidoc'
+  'xmlto'
+)
+optdepends=('cppzmq: C++ binding for libzmq')
+provides=('libzmq.so')
+_commit='4097855ddaaa65ed7b5e8cb86d143842a594eebd'
+source=(
+  "$pkgname::git+https://github.com/zeromq/libzmq#commit=$_commit"
+  'fix-doc-install.patch'
+)
+sha512sums=('SKIP'
+            'fcaf3e6147b9a759f8ba3cc71365d78d0b16e93c025eae4b9ebcbf4c832d09db81b61840b6c9b69bb4fbffcb8a0c7221598d866158902ff878bf150e23aa73e6')
+b2sums=('SKIP'
+        '98aed4ff26fd1da40b7a1a4d5b101c7906a0f95bc0cfec936879418a857bfe7d4c8b6951de2247d1301ce9273dfe30442b3a03b9cc84f4d6ea737fdff46d43c6')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  cd "$pkgname"
+
+  # FTBFS: undefined references (openpgm)
+  git cherry-pick --no-commit 5381be6c71f2a34fea40a29c12e3f6f8dcf3bad2
+
+  # FTBFS: gcc 13
+  git cherry-pick --no-commit 438d5d88392baffa6c2c5e0737d9de19d6686f0d
+
+  # install documentation to correct directory
+  patch -p1 -i "$srcdir/fix-doc-install.patch"
+}
+
+build() {
+  cmake \
+    -S "$pkgname" \
+    -B build \
+    -D CMAKE_BUILD_TYPE=None \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_CURRENT_BINARY_DIR=/usr \
+    -D BUILD_SHARED=ON \
+    -D BUILD_STATIC=OFF \
+    -D ENABLE_CPACK=OFF \
+    -D ZMQ_BUILD_TESTS=ON \
+    -D WITH_OPENPGM=ON \
+    -D OPENPGM_PKGCONFIG_NAME=openpgm-5.3 \
+    -D WITH_LIBBSD=ON \
+    -D WITH_DOC=ON \
+    -W no-dev
+
+  cmake --build build
+
+  # https://github.com/zeromq/libzmq/issues/4160
+  # manpages aren't created when using cmake, so this script does the job
+  cd "$pkgname/doc"
+  for FILE in ./*.txt; do
+    asciidoc \
+      -d manpage \
+      -b docbook \
+      -f asciidoc.conf \
+      -azmq_version="$pkgver" \
+      "${FILE}"
+
+    xmlto man "${FILE%.txt}.xml"
+  done
+}
+
+check() {
+  # -j1: due to segfaults when running simultaneous tests
+  ctest \
+    --test-dir build \
+    --output-on-failure \
+    -j1 \
+    -E "test_(diffserv|security_curve|zmq_poll_fd|connect_rid|heartbeats)"
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  # manpages
+  cd "$pkgname"
+  install -vDm644 -t "$pkgdir/usr/share/man/man3" doc/*.3
+  install -vDm644 -t "$pkgdir/usr/share/man/man7" doc/*.7
+}

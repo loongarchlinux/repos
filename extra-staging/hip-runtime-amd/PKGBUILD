@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=hip-runtime-amd
-pkgver=5.6.1
+pkgver=5.7.0
 pkgrel=1
 pkgdesc="Heterogeneous Interface for Portability ROCm"
 arch=('loong64' 'x86_64')
@@ -20,9 +20,9 @@ _hipcc='https://github.com/ROCm-Developer-Tools/HIPCC'
 source=("$pkgname-$pkgver.tar.gz::$_hip/archive/rocm-$pkgver.tar.gz"
         "$pkgname-clr-$pkgver.tar.gz::$_clr/archive/rocm-$pkgver.tar.gz"
         "$pkgname-hipcc-$pkgver.tar.gz::$_hipcc/archive/rocm-$pkgver.tar.gz")
-sha256sums=('4b3c4dfcf8595da0e1b8c3e8067b1ccebeaac337762ff098db14375fa8dd4487'
-            '0b88af1e99643899d11b1c8cf8a3c46601051b328a5e0ffbd44ee88b7eb0db33'
-            '5800fac92b841ef6f52acda78d9bf86f83970bec0fb848a6265d239bdb7eb51a')
+sha256sums=('cb61234eec7879fb7e20937659ad535b93a6e66fc8de0a543da8b7702474f2fc'
+            'bc2447cb6fd86dff6a333b04e77ce85755104d9011a14a044af53caf02449573'
+            '9f839bf7226e5e26f3150f8ba6eca507ab9a668e68b207736301b3bb9040c973')
 _dirhip="$(basename "$_hip")-$(basename "${source[0]}" ".tar.gz")"
 _dirclr="$(basename "$_clr")-$(basename "${source[1]}" ".tar.gz")"
 _dirhipcc="$(basename "$_hipcc")-$(basename "${source[2]}" ".tar.gz")"

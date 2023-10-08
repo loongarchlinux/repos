@@ -1,0 +1,135 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+
+pkgbase=libportal
+pkgname=(
+  libportal
+  libportal-gtk3
+  libportal-gtk4
+  libportal-qt5
+  libportal-docs
+)
+pkgver=0.7.1
+pkgrel=2
+pkgdesc="GIO-style async APIs for most Flatpak portals"
+url="https://github.com/flatpak/libportal"
+arch=(loong64 x86_64)
+license=(LGPL3)
+makedepends=(
+  gi-docgen
+  git
+  gjs
+  gobject-introspection
+  gtk3
+  gtk4
+  meson
+  qt5-base
+  qt5-x11extras
+  vala
+  xdg-desktop-portal
+)
+checkdepends=(
+  python-dbusmock
+  python-pytest
+  xorg-server-xvfb
+)
+_commit=e9ed3a50cdde321eaf42361212480a66eb94a57a  # tags/0.7.1^0
+source=("git+https://github.com/flatpak/libportal#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd libportal
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd libportal
+}
+
+build() {
+  arch-meson libportal build
+  meson compile -C build
+}
+
+check() {
+  xvfb-run -s '-nolisten local' \
+    meson test -C build --print-errorlogs
+}
+
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_libportal() {
+  depends=(
+    libg{lib,object,io}-2.0.so
+    xdg-desktop-portal
+  )
+  provides=(libportal.so)
+
+  meson install -C build --destdir "$pkgdir"
+
+  cd "$pkgdir"
+
+  _pick gtk3 usr/include/libportal-gtk3
+  _pick gtk3 usr/lib{,/pkgconfig}/libportal-gtk3.*
+  _pick gtk3 {usr/lib/girepository-1.0,usr/share/gir-1.0}/XdpGtk3-1.0.*
+  _pick gtk3 usr/share/vala/vapi/libportal-gtk3.*
+
+  _pick gtk4 usr/include/libportal-gtk4
+  _pick gtk4 usr/lib{,/pkgconfig}/libportal-gtk4.*
+  _pick gtk4 {usr/lib/girepository-1.0,usr/share/gir-1.0}/XdpGtk4-1.0.*
+  _pick gtk4 usr/share/vala/vapi/libportal-gtk4.*
+
+  _pick qt5 usr/include/libportal-qt5
+  _pick qt5 usr/lib{,/pkgconfig}/libportal-qt5.*
+
+  _pick docs usr/share/doc
+}
+
+package_libportal-gtk3() {
+  pkgdesc+=" - GTK 3 backend"
+  depends=(
+    libg{d,t}k-3.so
+    libportal
+  )
+  provides=(libportal-gtk3.so)
+
+  mv gtk3/* "$pkgdir"
+}
+
+package_libportal-gtk4() {
+  pkgdesc+=" - GTK 4 backend"
+  depends=(
+    libgtk-4.so
+    libportal
+  )
+  provides=(libportal-gtk4.so)
+
+  mv gtk4/* "$pkgdir"
+}
+
+package_libportal-qt5() {
+  pkgdesc+=" - Qt 5 backend"
+  depends=(
+    libportal
+    qt5-base
+    qt5-x11extras
+  )
+  provides=(libportal-qt5.so)
+
+  mv qt5/* "$pkgdir"
+}
+
+package_libportal-docs() {
+  pkgdesc+=" - documentation"
+
+  mv docs/* "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

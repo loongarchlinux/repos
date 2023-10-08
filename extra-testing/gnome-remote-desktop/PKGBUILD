@@ -1,0 +1,76 @@
+# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+
+pkgname=gnome-remote-desktop
+pkgver=45.0
+pkgrel=1
+pkgdesc="GNOME Remote Desktop server"
+url="https://wiki.gnome.org/Projects/Mutter/RemoteDesktop"
+arch=(loong64 x86_64)
+license=(GPL2)
+depends=(
+  cairo
+  dconf
+  freerdp
+  fuse3
+  glib2
+  libdrm
+  libei
+  libepoxy
+  libfdk-aac
+  libnotify
+  libpipewire
+  libsecret
+  libvncserver
+  libxkbcommon
+  pipewire
+  systemd
+  tpm2-tss
+)
+makedepends=(
+  asciidoc
+  ffnvcodec-headers
+  git
+  meson
+)
+checkdepends=(
+  dbus-broker
+  libegl
+  mutter
+  python-dbus
+  python-gobject
+  pipewire-alsa
+  wireplumber
+)
+groups=(gnome)
+_commit=a7c4f2dd87fe09389dd93268b0ce3e32a6ceb6eb  # tags/45.0^0
+source=("git+https://gitlab.gnome.org/GNOME/gnome-remote-desktop.git#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd $pkgname
+}
+
+build() {
+  local meson_options=(
+    -D vnc=true
+  )
+
+  arch-meson $pkgname build "${meson_options[@]}"
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs -t 3
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

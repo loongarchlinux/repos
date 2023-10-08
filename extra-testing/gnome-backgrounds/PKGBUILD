@@ -1,0 +1,36 @@
+# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=gnome-backgrounds
+pkgver=45.0
+pkgrel=1
+pkgdesc="Background images and data for GNOME"
+url="https://gitlab.gnome.org/GNOME/gnome-backgrounds"
+arch=(any)
+license=(CCPL:by-sa)
+makedepends=(
+  glib2
+  meson
+)
+groups=(gnome)
+source=(https://download.gnome.org/sources/$pkgname/${pkgver%%.*}/$pkgname-$pkgver.tar.xz)
+b2sums=('f8ac82069fb6beb71c7776356c7d87e6b57c9de1c8dd1becdff6a60f22b73284b0231c10c6af5a64addb4a890704808c00757b5f71d6f3a9deeaf59d97441d88')
+
+# https://download.gnome.org/sources/gnome-backgrounds/
+sha256sums=('cee0e688fbae5ef7a75f335ada2d10779e08ebca9445f1586de32c5a9b6dee2d')
+
+build() {
+  arch-meson $pkgname-$pkgver build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

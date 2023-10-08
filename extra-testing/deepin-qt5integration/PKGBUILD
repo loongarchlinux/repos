@@ -1,0 +1,29 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-qt5integration
+pkgver=5.6.17
+pkgrel=2
+pkgdesc='Qt platform theme integration plugins for DDE'
+arch=('loong64' 'x86_64')
+url="https://github.com/linuxdeepin/qt5integration"
+license=('GPL3')
+depends=('dtkcore' 'dtkgui' 'dtkwidget' 'libqtxdg' 'qt5-x11extras' 'qt5-base' 'libx11' 'glibc'
+         'gcc-libs')
+makedepends=('cmake' 'ninja' 'qt5-tools' 'xcb-util-renderutil' 'gtest')
+groups=('deepin')
+source=("https://github.com/linuxdeepin/qt5integration/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('2e431fbe3e64d4d032cd75701dec2b5520c6cfc1a9eba9168ddc997566cbed438f88622c096b1a3af8d3bca14aee2c5efbfd7de1d47c19ffeb6e9ee2413e79f3')
+
+build() {
+  cd qt5integration-$pkgver
+  cmake . -GNinja \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+    -DPLUGIN_INSTALL_BASE_DIR=lib/qt/plugins
+  ninja
+}
+
+package() {
+  cd qt5integration-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}

@@ -1,0 +1,62 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: sh4nks <sh4nks7@gmail.com
+
+pkgname=lightdm-pantheon-greeter
+pkgver=7.0.0
+pkgrel=2
+pkgdesc='Pantheon greeter for LightDM'
+arch=(loong64 x86_64)
+url=https://github.com/elementary/greeter
+license=(GPL)
+groups=(pantheon)
+depends=(
+  accountsservice
+  cairo
+  gdk-pixbuf2
+  glibc
+  libgdk-3.so
+  libgee
+  libgio-2.0.so
+  libglib-2.0.so
+  libgl
+  libgobject-2.0.so
+  libgranite.so
+  libgtk-3.so
+  libhandy-1.so
+  lightdm
+  mutter
+)
+makedepends=(
+  cmake
+  meson
+  git
+  libglvnd
+  vala
+)
+install=lightdm-pantheon-greeter.install
+_tag=bed49e46baaebf9bcc405e3e5577b99b925f56a1
+source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=${_tag})
+b2sums=(SKIP)
+
+pkgver() {
+  cd lightdm-pantheon-greeter
+  git describe --tags | sed 's/-/.r/; s/-g/./'
+}
+
+prepare() {
+  cd lightdm-pantheon-greeter
+
+  # mutter 45
+  git cherry-pick -n dbd9b6f9701f5992c3b3257c025b9cd80d041cc8
+}
+
+build() {
+  arch-meson lightdm-pantheon-greeter build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim: ts=2 sw=2 et:

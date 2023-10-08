@@ -1,0 +1,41 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+
+pkgname=composable-kernel
+pkgver=5.7.0
+pkgrel=1
+pkgdesc="High Performance Composable Kernel for AMD GPUs"
+arch=('loong64' 'x86_64')
+url="https://github.com/ROCmSoftwarePlatform/composable_kernel"
+license=('MIT')
+depends=('hip')
+makedepends=('rocm-cmake' 'rocm-llvm' 'openmp')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('d9624dbaef04e0138f9f73596c49b4fe9ded69974bae7236354baa32649bf21a')
+# Build without default flags as they cause the final linking step to fail
+# https://github.com/ROCmSoftwarePlatform/composable_kernel/issues/736
+options=(!lto !buildflags)
+_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+
+prepare() {
+    # Remove tests as they require a supported AMD GPU to run
+    sed -i '/add_subdirectory(test)/d' "$_dirname/CMakeLists.txt"
+}
+
+build() {
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname" \
+    -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_DEV=OFF \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm \
+    -DGPU_TARGETS='gfx900;gfx906;gfx908;gfx90a;gfx1030;gfx1100;gfx1101;gfx1102'
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
