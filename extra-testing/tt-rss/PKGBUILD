@@ -1,0 +1,84 @@
+# Maintainer:  Anatol Pomozov <anatol@archlinux.org>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Clément Démoulins <clement@archivel.fr>
+# Contributor: David Rosenstrauch <darose@darose.net>
+# Contributor: Erik Mank <erik@braindisorder.org>
+
+pkgname=tt-rss
+pkgver=r11654.1fe1132a1
+pkgrel=2
+epoch=2
+pkgdesc='Web-based news feed (RSS/Atom) aggregator'
+arch=(any)
+url='https://tt-rss.org'
+license=(GPL)
+backup=(etc/webapps/tt-rss/config.php)
+depends=(php-interpreter)
+install=tt-rss.install
+optdepends=('mysql'
+            'postgresql'
+            'php-gd-interpreter: for coloured feed badges')
+makedepends=('git')
+_commit=1fe1132a1a68bd0fedc313823b942130167fad86
+# periodic releases are over https://srv.tt-rss.org/oldforum/viewtopic.php@f=10&t=3262.html
+source=(git+https://gitlab.tt-rss.org/tt-rss/tt-rss.git#commit=$_commit
+       tt-rss.service
+       fix-sanitizer-new-libxml2.patch::https://gitlab.tt-rss.org/tt-rss/tt-rss/-/merge_requests/12.patch)
+sha1sums=('SKIP'
+          'd764e22065f8e0104b4f1d5dcf41cce01cd7bec5'
+          '1dc8fcff379411bc16d499d234fcb5f56eaae54d')
+sha512sums=('SKIP'
+            'ffc4316d8f332b75932b36e9e0a18fb346a62a8f83094d3ca510b06b0d9ae0478bdc05e23bca4fe5e6dfcfc8a8c57ab1654b7c6d16a007f151afbcad31e359a5'
+            '547973b70458757f6f74ec3b800db97c969a89a6600517976fc9f59decbdbf6e425cdcec11938b523a2b33d714dd370cf6d6fc4f3a731f5e83cc1e53f6ffb9dd')
+
+pkgver() {
+  cd tt-rss
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd tt-rss
+  patch -Np1 -i ../fix-sanitizer-new-libxml2.patch
+}
+
+build() {
+  cd tt-rss
+
+  # Generate version string following the logic of get_version_from_git()
+  # https://gitlab.tt-rss.org/tt-rss/tt-rss/-/blob/3468317bd34f63ba3c65904a8856cc41afa28102/classes/config.php#L324
+  commiter_timestamp=$(git --no-pager log --pretty=%ct -n1 HEAD)
+  abbrev_hash=$(git --no-pager log --pretty=%h -n1 HEAD)
+  echo $(date --date=@$commiter_timestamp --utc +%y.%m)-$abbrev_hash > version_static.txt
+
+  echo -n "Generated version: "
+  cat version_static.txt
+}
+
+check() {
+  cd tt-rss
+  # See https://gitlab.tt-rss.org/ci/ci-templates/-/blob/master/.ci-lint-common.yml
+  # Skip integration tests as those need a running TT-RSS server
+  php ./vendor/bin/phpunit --exclude integration
+  php -d memory_limit=-1 ./vendor/bin/phpstan --memory-limit=2G
+}
+
+package() {
+  cd tt-rss
+  _instdir="$pkgdir"/usr/share/webapps/$pkgname
+
+  install -d "$_instdir"
+  cp -ra * "$_instdir/"
+
+  install -Dm640 -g 33 config.php-dist "$pkgdir"/etc/webapps/tt-rss/config.php
+  ln -s /etc/webapps/tt-rss/config.php "$_instdir"/config.php
+
+  install -d "$pkgdir"/var/lib/tt-rss
+  mv "$_instdir"/{lock,feed-icons,cache} "$pkgdir"/var/lib/tt-rss
+  ln -s /var/lib/tt-rss/lock "$_instdir"/lock
+  ln -s /var/lib/tt-rss/feed-icons "$_instdir"/feed-icons
+  ln -s /var/lib/tt-rss/cache "$_instdir"/cache
+  chown -R 33:33 "$pkgdir"/var/lib/tt-rss
+  chmod -R 777 "$pkgdir"/var/lib/tt-rss/*
+
+  install -Dm644 "$srcdir"/tt-rss.service "$pkgdir"/usr/lib/systemd/system/tt-rss.service
+}

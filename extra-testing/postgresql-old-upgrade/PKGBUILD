@@ -2,9 +2,9 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=postgresql-old-upgrade
-pkgver=15.4
+pkgver=15.5
 _majorver=${pkgver%.*}
-pkgrel=2
+pkgrel=1
 pkgdesc='PostgreSQL build for migrating between major versions with pg_upgrade'
 url='https://www.postgresql.org/'
 arch=('loong64' 'x86_64')
@@ -16,9 +16,9 @@ optdepends=('python: for PL/Python 3 support'
             'perl: for PL/Perl support'
             'tcl: for PL/Tcl support')
 source=(https://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2)
-md5sums=('f2f861fb99d742cb9c2f8aa46a8a947d')
-sha256sums=('baec5a4bdc4437336653b6cb5d9ed89be5bd5c0c58b94e0becee0a999e63c8f9')
-b2sums=('e17c62c4e3f048f28073c1706bfa1d3eb065c1416117061fd07b325072c19348f8f2badea1364a054aebccf6d65c2ca21bb46d9cf621d78bd0a75f5dc4b21fe5')
+md5sums=('9a7d6515408ecb5823546d0a3d7b318c')
+sha256sums=('8f53aa95d78eb8e82536ea46b68187793b42bba3b4f65aa342f540b23c9b10a6')
+b2sums=('e3731b973242d4de8b4b78e00842df52e006f08510efc0ff02bf7b8b479e17aa9e1c8116644d9a82f23d4334f527f1a82a1c2eec7f7c199a2fdf500b46740264')
 
 # Upstream provides md5 and sha256
 
