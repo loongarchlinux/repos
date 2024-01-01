@@ -1,0 +1,47 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+pkgname=hiprand
+pkgver=6.0.0
+pkgrel=1
+pkgdesc='rocRAND marshalling library'
+arch=('loong64' 'x86_64')
+url='https://rocm.docs.amd.com/projects/hipRAND/en/latest/'
+license=('MIT')
+depends=('hip' 'rocrand')
+makedepends=('rocm-cmake' 'gcc-fortran')
+optdepends=('gcc-fortran: Use Fortran wrapper')
+_git='https://github.com/ROCm/hipRAND'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
+        "$pkgname-rocm-bin-path.patch")
+sha256sums=('7e06c98f9da7c0b20b55b2106cf3a48b9ef6577a79549a455667ae97bd15b61d'
+            '144fb5162222d81559e847d31226f7b56215fa558a549c8be534cfba3fbca241')
+options=(!lto)
+_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+
+prepare() {
+  cd "$_dirname"
+  patch -Np1 -i "$srcdir/$pkgname-rocm-bin-path.patch"
+}
+
+build() {
+  # -fcf-protection is not supported by HIP, see
+  # https://rocm.docs.amd.com/en/latest/reference/rocmcc/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS="${CXXFLAGS} -fcf-protection=none" \
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_TOOLCHAIN_FILE=toolchain-linux.cmake \
+    -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm \
+    -DBUILD_FORTRAN_WRAPPER=ON
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  echo '/opt/rocm/hiprand/lib' > hiprand.conf
+  install -Dm644 hiprand.conf "$pkgdir/etc/ld.so.conf.d/$pkgname.conf"
+  install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

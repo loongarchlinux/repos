@@ -1,0 +1,44 @@
+# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+
+libgmobile_commit=a3c67a1184bfa73c593edefabe77cce57a5e38f6
+
+pkgname=phoc
+pkgver=0.34.0
+pkgrel=2
+pkgdesc='Display compositor designed for phones'
+arch=(loong64 x86_64 aarch64)
+url='https://gitlab.gnome.org/World/Phosh/phoc'
+license=(GPL3)
+depends=(gnome-desktop wlroots gsettings-desktop-schemas pixman libinput libxcb libxkbcommon
+	 json-glib glib2 dconf cairo wayland)
+checkdepends=(xorg-server-xvfb xorg-xauth mutter pixman)
+makedepends=(cmake meson git wayland-protocols python-jinja python-pygments python-typogrify libgirepository)
+optdepends=('xorg-wayland: run X clients under phoc')
+# source=(https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz
+source=(https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v${pkgver}_beta1/${pkgname}-v${pkgver}_beta1.tar.gz
+	https://gitlab.gnome.org/guidog/gmobile/-/archive/${libgmobile_commit}/gmobile-${libgmobile_commit}.tar.gz
+	allow-build-wlroots.patch::https://gitlab.gnome.org/World/Phosh/phoc/-/commit/56999dc54c3baadd11a112b87591d71c0e3f2117.patch)
+sha256sums=('a13b419b192f8d0be27eb8e3792647a94751d7c5f42c7e79b59679dc81996c4a'
+            '1aeac55a790525c2028a66562de877a8f99ce391636d8e0e3d059b0899c7a7ec'
+            'f4a6978759bd2881f9be4f3e7cebb684cf6a6cdc5041259cc3d3876a91f5394e')
+
+prepare() {
+  mv "${pkgname}-v${pkgver}_beta1" "${pkgname}-v${pkgver}"
+  mv "gmobile-${libgmobile_commit}" "${pkgname}-v${pkgver}/subprojects/gmobile"
+  cd "${pkgname}-v${pkgver}"
+  patch -Np1 -i ${srcdir}/allow-build-wlroots.patch
+}
+
+build() {
+  arch-meson "${pkgname}-v${pkgver}" build -Dembed-wlroots=disabled
+  meson compile -C build
+}
+
+check() {
+  LC_ALL=C.UTF-8 WLR_RENDERER=pixman xvfb-run meson test -C build --print-errorlogs
+}
+
+package() {
+  depends+=(libwlroots.so=12)
+  DESTDIR="${pkgdir}" meson install -C build
+}

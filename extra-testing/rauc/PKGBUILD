@@ -1,0 +1,78 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=rauc
+pkgver=1.11
+pkgrel=1
+pkgdesc="Safe and secure software updates for embedded Linux"
+arch=(loong64 x86_64)
+url="https://rauc.io"
+license=(LGPL-2.1-or-later)
+depends=(
+  gcc-libs
+  glibc
+  libnl
+  openssl
+  sh
+)
+makedepends=(
+  curl
+  dbus
+  glib2
+  json-glib
+  meson
+  python
+  systemd
+  util-linux
+)
+checkdepends=(squashfs-tools)
+optdepends=(
+  'casync: for casync conversion support'
+  'cryptsetup: for disk encryption support'
+  'dosfstools: for creating and checking FAT filesystems'
+  'e2fsprogs: for creating and checking ext2/3/4 filesystems'
+  'efibootmgr: for interacting with EFI boot manager'
+  'grub: for GRUB support'
+  'mtd-utils: for interacting with MTD devices'
+  'squashfs-tools: for creating and inspecting bundles'
+  'uboot-tools: for u-boot support'
+)
+source=(https://github.com/rauc/rauc/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz{,.asc})
+sha512sums=('0842e79b77a057ac83c93098dd9edad9eb39637950a9b05e6f31d86ed867214a5d852914d2881ae9b146be1b10f8a940705f2dcc43071ef489d6ec052b55c5a0'
+            'SKIP')
+b2sums=('61aa1c40addbc5e2e76020e0794656d14f107375d1cf20559f023e240d9a10de5c6119a3007677c943143c4ca13beedf6362e287a4947b4ad95269a58ef55ca0'
+        'SKIP')
+validpgpkeys=("977843FD5C3EBF76BAD4008EA58CC53DBF05E090")  # Jan Lübbe <jlu@pengutronix.de>
+
+build() {
+  arch-meson $pkgname-$pkgver build
+  meson compile -C build
+
+}
+
+check() {
+  local meson_tests=($(meson test -C build --list))
+  # disable broken tests: https://github.com/rauc/rauc/issues/1311
+  local disabled_tests=(bundle service)
+  for target in "${disabled_tests[@]}"; do
+    for i in "${!meson_tests[@]}"; do
+      if [[ ${meson_tests[i]} = $target ]]; then
+        unset 'meson_tests[i]'
+      fi
+    done
+  done
+
+  meson test -C build "${meson_tests[@]}"
+}
+
+package() {
+  depends+=(
+    curl libcurl.so
+    glib2 lib{gobject,gio,glib}-2.0.so
+    json-glib libjson-glib-1.0.so
+    util-linux-libs libfdisk.so
+  )
+
+  meson install -C build --destdir "$pkgdir"
+  install -vdm 755 "$pkgdir/etc/$pkgname/"
+  install -vDm 644 $pkgname-$pkgver/contrib/{grub.conf,uboot.sh} -t "$pkgdir/usr/share/doc/$pkgname/"
+}

@@ -1,0 +1,37 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
+# Contributor: Jakub Okoński <jakub@okonski.org>
+# Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+
+pkgname=rocminfo
+pkgver=6.0.0
+pkgrel=1
+pkgdesc='ROCm Application for Reporting System Info '
+arch=('loong64' 'x86_64')
+url='https://github.com/RadeonOpenCompute/rocminfo'
+license=('NCSA')
+depends=('pciutils' 'python' 'hsa-rocr')
+makedepends=('cmake' 'rocm-cmake')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('bc29f1798644b6dea73895353dffada9db7366d0058274e587ebd3291a4d3844')
+_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+
+build() {
+  # ROCRTST_BLD_TYPE=Release fixes a build error regarding _FORTIFY_SOURCE=2
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname" \
+    -DCMAKE_PREFIX_PATH=/opt/rocm \
+    -DROCRTST_BLD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/License.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

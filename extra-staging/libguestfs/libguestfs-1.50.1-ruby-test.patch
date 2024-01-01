@@ -1,0 +1,206 @@
+From d25a48e2dd2c2a2063b8d03a33b5e3cbe773c47d Mon Sep 17 00:00:00 2001
+From: "Richard W.M. Jones" <rjones@redhat.com>
+Date: Thu, 21 Sep 2023 15:16:51 +0100
+Subject: [PATCH] ruby: Replace MiniTest with Minitest
+
+See this commit in hivex:
+https://github.com/libguestfs/hivex/commit/fbcff7fbd8f96214c7f13f36bd7669a9142824ab
+---
+ ruby/t/tc_010_load.rb              | 2 +-
+ ruby/t/tc_020_create.rb            | 2 +-
+ ruby/t/tc_030_create_flags.rb      | 2 +-
+ ruby/t/tc_040_create_multiple.rb   | 2 +-
+ ruby/t/tc_050_handle_properties.rb | 2 +-
+ ruby/t/tc_060_explicit_close.rb    | 2 +-
+ ruby/t/tc_070_optargs.rb           | 2 +-
+ ruby/t/tc_090_retvalues.rb         | 2 +-
+ ruby/t/tc_100_launch.rb            | 2 +-
+ ruby/t/tc_410_close_event.rb       | 2 +-
+ ruby/t/tc_420_log_messages.rb      | 2 +-
+ ruby/t/tc_800_rhbz507346.rb        | 2 +-
+ ruby/t/tc_810_rhbz664558c6.rb      | 2 +-
+ ruby/t/tc_820_rhbz1046509.rb       | 2 +-
+ 14 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/ruby/t/tc_010_load.rb b/ruby/t/tc_010_load.rb
+index 9dc2db6722..40ddccd851 100644
+--- a/ruby/t/tc_010_load.rb
++++ b/ruby/t/tc_010_load.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test010Load < MiniTest::Unit::TestCase
++class Test010Load < Minitest::Test
+   def test_010_load
+   end
+ end
+diff --git a/ruby/t/tc_020_create.rb b/ruby/t/tc_020_create.rb
+index 840dd8587d..c3f5307ef6 100644
+--- a/ruby/t/tc_020_create.rb
++++ b/ruby/t/tc_020_create.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test020Create < MiniTest::Unit::TestCase
++class Test020Create < Minitest::Test
+   def test_020_create
+     g = Guestfs::Guestfs.new()
+     refute_nil (g)
+diff --git a/ruby/t/tc_030_create_flags.rb b/ruby/t/tc_030_create_flags.rb
+index ac6d1f46b0..4949d2a8c7 100644
+--- a/ruby/t/tc_030_create_flags.rb
++++ b/ruby/t/tc_030_create_flags.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test030CreateFlags < MiniTest::Unit::TestCase
++class Test030CreateFlags < Minitest::Test
+   def test_030_create_flags
+     g = Guestfs::Guestfs.new(:environment => false, :close_on_exit => true)
+     refute_nil (g)
+diff --git a/ruby/t/tc_040_create_multiple.rb b/ruby/t/tc_040_create_multiple.rb
+index 36e8edc74f..623ccc6e66 100644
+--- a/ruby/t/tc_040_create_multiple.rb
++++ b/ruby/t/tc_040_create_multiple.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test040CreateMultiple < MiniTest::Unit::TestCase
++class Test040CreateMultiple < Minitest::Test
+   def test_040_create_multiple
+     g1 = Guestfs::Guestfs.new()
+     g2 = Guestfs::Guestfs.new()
+diff --git a/ruby/t/tc_050_handle_properties.rb b/ruby/t/tc_050_handle_properties.rb
+index 5928532e59..b22c51fd22 100644
+--- a/ruby/t/tc_050_handle_properties.rb
++++ b/ruby/t/tc_050_handle_properties.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test050HandleProperties < MiniTest::Unit::TestCase
++class Test050HandleProperties < Minitest::Test
+   def test_050_handle_properties
+     g = Guestfs::Guestfs.new()
+     refute_nil (g)
+diff --git a/ruby/t/tc_060_explicit_close.rb b/ruby/t/tc_060_explicit_close.rb
+index 0c9118aa2f..20afd0de8e 100644
+--- a/ruby/t/tc_060_explicit_close.rb
++++ b/ruby/t/tc_060_explicit_close.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test060ExplicitClose < MiniTest::Unit::TestCase
++class Test060ExplicitClose < Minitest::Test
+   def test_060_explicit_close
+     g = Guestfs::Guestfs.new()
+     refute_nil (g)
+diff --git a/ruby/t/tc_070_optargs.rb b/ruby/t/tc_070_optargs.rb
+index fff5fbf78f..a2360b2f61 100644
+--- a/ruby/t/tc_070_optargs.rb
++++ b/ruby/t/tc_070_optargs.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test070Optargs < MiniTest::Unit::TestCase
++class Test070Optargs < Minitest::Test
+   def test_070_optargs
+     g = Guestfs::Guestfs.new()
+ 
+diff --git a/ruby/t/tc_090_retvalues.rb b/ruby/t/tc_090_retvalues.rb
+index 4bcc8b545d..c9a842765a 100644
+--- a/ruby/t/tc_090_retvalues.rb
++++ b/ruby/t/tc_090_retvalues.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test090RetValues < MiniTest::Unit::TestCase
++class Test090RetValues < Minitest::Test
+   def test_090_retvalues
+     g = Guestfs::Guestfs.new()
+ 
+diff --git a/ruby/t/tc_100_launch.rb b/ruby/t/tc_100_launch.rb
+index 43db4b676b..096cbd627f 100644
+--- a/ruby/t/tc_100_launch.rb
++++ b/ruby/t/tc_100_launch.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test100Launch < MiniTest::Unit::TestCase
++class Test100Launch < Minitest::Test
+   def test_100_launch
+     g = Guestfs::Guestfs.new()
+ 
+diff --git a/ruby/t/tc_410_close_event.rb b/ruby/t/tc_410_close_event.rb
+index 1b98957e05..9a4e055840 100644
+--- a/ruby/t/tc_410_close_event.rb
++++ b/ruby/t/tc_410_close_event.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test410CloseEvent < MiniTest::Unit::TestCase
++class Test410CloseEvent < Minitest::Test
+   def test_410_close_event
+     g = Guestfs::Guestfs.new()
+ 
+diff --git a/ruby/t/tc_420_log_messages.rb b/ruby/t/tc_420_log_messages.rb
+index 936e0fd469..a113c62ebb 100644
+--- a/ruby/t/tc_420_log_messages.rb
++++ b/ruby/t/tc_420_log_messages.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test420LogMessages < MiniTest::Unit::TestCase
++class Test420LogMessages < Minitest::Test
+   def test_420_log_messages
+     g = Guestfs::Guestfs.new()
+ 
+diff --git a/ruby/t/tc_800_rhbz507346.rb b/ruby/t/tc_800_rhbz507346.rb
+index 4b7cc01089..0676735280 100644
+--- a/ruby/t/tc_800_rhbz507346.rb
++++ b/ruby/t/tc_800_rhbz507346.rb
+@@ -17,7 +17,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test800RHBZ507346 < MiniTest::Unit::TestCase
++class Test800RHBZ507346 < Minitest::Test
+   def test_800_rhbz507346
+     g = Guestfs::Guestfs.new()
+     exception = assert_raises TypeError do
+diff --git a/ruby/t/tc_810_rhbz664558c6.rb b/ruby/t/tc_810_rhbz664558c6.rb
+index f5e9adeecc..1504c0709c 100644
+--- a/ruby/t/tc_810_rhbz664558c6.rb
++++ b/ruby/t/tc_810_rhbz664558c6.rb
+@@ -21,7 +21,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test810RHBZ664558C6 < MiniTest::Unit::TestCase
++class Test810RHBZ664558C6 < Minitest::Test
+   def test_810_rhbz_664558c6
+     g = Guestfs::Guestfs.new()
+ 
+diff --git a/ruby/t/tc_820_rhbz1046509.rb b/ruby/t/tc_820_rhbz1046509.rb
+index 882ddb55c1..0595293dc9 100644
+--- a/ruby/t/tc_820_rhbz1046509.rb
++++ b/ruby/t/tc_820_rhbz1046509.rb
+@@ -20,7 +20,7 @@
+ 
+ require File::join(File::dirname(__FILE__), 'test_helper')
+ 
+-class Test820RHBZ1046509 < MiniTest::Unit::TestCase
++class Test820RHBZ1046509 < Minitest::Test
+   def _handleok(g)
+     g.add_drive("/dev/null")
+     g.close()

@@ -1,0 +1,33 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+pkgname=roctracer
+pkgver=6.0.0
+pkgrel=1
+pkgdesc='ROCm tracer library for performance tracing'
+arch=('loong64' 'x86_64')
+url='https://rocm.docs.amd.com/projects/roctracer/en/latest'
+license=('MIT')
+depends=('hip')
+makedepends=('cmake' 'python-cppheaderparser' 'python-ply')
+_git='https://github.com/ROCm-Developer-Tools/roctracer'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('941166a0363c5689bfec118d54e986c43fb1ec8cbf18d95721d9a824bd52c0f8')
+options=('!lto')
+_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+
+build() {
+  cmake \
+    -B build \
+    -Wno-dev \
+    -S "$_dirname" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm \
+    -DHIP_ROOT_DIR=/opt/rocm/hip
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

@@ -1,0 +1,43 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+# Contributor: Olaf Leidinger <oleid@mescharet.de>
+# Contributor: Bruno Filipe <bmilreu@gmail.com>
+# Contributor: Jakub Okoński <jakub@okonski.org>
+# Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
+
+pkgname=hsa-rocr
+pkgver=6.0.0
+pkgrel=2
+pkgdesc='HSA Runtime API and runtime for ROCm'
+arch=('loong64' 'x86_64')
+url='https://rocmdocs.amd.com/en/latest/Installation_Guide/ROCR-Runtime.html'
+license=('NCSA')
+depends=('libelf' 'hsakmt-roct' 'rocm-device-libs')
+makedepends=('cmake' 'rocm-llvm' 'xxd')
+_git='https://github.com/RadeonOpenCompute/ROCR-Runtime'
+source=("${pkgname}-${pkgver}.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('99e8fa1af52d0bf382f28468e1a345af1ff3452c35914a6a7b5eeaf69fc568db')
+_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
+options=(!lto)
+
+build() {
+  # Silence warnings on optional libraries,
+  # https://github.com/RadeonOpenCompute/ROCR-Runtime/issues/89#issuecomment-613788944
+  CXXFLAGS="$CXXFLAGS -DNDEBUG" \
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname/src" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm \
+    -DCMAKE_PREFIX_PATH=/opt/rocm
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  echo "/opt/rocm/hsa/lib" > "$pkgname.conf"
+  install -Dm644 "$pkgname.conf" "$pkgdir/etc/ld.so.conf.d/$pkgname.conf"
+}

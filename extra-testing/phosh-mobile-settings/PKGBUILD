@@ -1,0 +1,31 @@
+# Maintainer: Jelle van der Waa <jelle@archlinux.org
+# Contributor: Thomas Booker <tw.booker@outlook.com>
+
+libgmobile_commit=a3c67a1184bfa73c593edefabe77cce57a5e38f6
+
+pkgname=phosh-mobile-settings
+pkgver=0.34.0
+pkgrel=2
+pkgdesc='A settings app for mobile specific things'
+arch=(loong64 x86_64 aarch64)
+url='https://gitlab.gnome.org/guidog/phosh-mobile-settings'
+license=(GPL3)
+depends=(feedbackd libadwaita lm_sensors phoc phosh)
+makedepends=(git meson wayland-protocols)
+source=("${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
+	https://gitlab.gnome.org/guidog/gmobile/-/archive/${libgmobile_commit}/gmobile-${libgmobile_commit}.tar.gz)
+sha256sums=('2d6c0ddba86b1b18112addd13856ad076ffc957f182a957769f7ab346b03651c'
+            '1aeac55a790525c2028a66562de877a8f99ce391636d8e0e3d059b0899c7a7ec')
+
+prepare() {
+  mv "gmobile-${libgmobile_commit}" "${pkgname}-v${pkgver}/subprojects/gmobile"
+}
+
+build() {
+  arch-meson "${pkgname}-v${pkgver}" build
+  meson compile -C build
+}
+
+package() {
+  DESTDIR="${pkgdir}" meson install -C build
+}

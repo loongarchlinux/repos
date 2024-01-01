@@ -1,0 +1,44 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contriubtor: Markus Näther <naetherm@informatik.uni-freiburg.de>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+
+pkgname=rccl
+pkgver=6.0.0
+pkgrel=1
+pkgdesc="ROCm Communication Collectives Library"
+arch=('loong64' 'x86_64')
+url='https://rocm.docs.amd.com/projects/rccl/en/latest/index.html'
+license=('custom')
+depends=('hip' 'rocm-smi-lib')
+makedepends=('rocm-cmake' 'rocm-core' 'hipify-clang' 'python')
+_git='https://github.com/ROCmSoftwarePlatform/rccl'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('0496d5a5f2e48c92cd390ab318df31a53cf7ec590988c2574c9f3d99c38b0fa7')
+options=(!lto)
+_dirname="$(basename $_git)-$(basename ${source[0]} .tar.gz)"
+
+build() {
+  # Compile source code for supported GPU archs in parallel
+  export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
+  export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
+  # -fcf-protection is not supported by HIP, see
+  # https://rocm.docs.amd.com/en/latest/reference/rocmcc/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS="${CXXFLAGS} -fcf-protection=none" \
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  echo "/opt/rocm/$pkgname/lib" > "$pkgname.conf"
+  install -Dm644 "$pkgname.conf" "$pkgdir/etc/ld.so.conf.d/$pkgname.conf"
+
+  install -Dm644 "$srcdir/$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

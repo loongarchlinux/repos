@@ -1,0 +1,48 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+
+pkgname=hipfft
+pkgver=6.0.0
+pkgrel=1
+pkgdesc='rocFFT marshalling library.'
+arch=('loong64' 'x86_64')
+url='https://hipfft.readthedocs.io/en/latest/'
+license=('MIT')
+depends=('hip' 'rocfft')
+makedepends=('rocm-cmake' 'git')
+_git='https://github.com/ROCmSoftwarePlatform/hipFFT'
+_rocfft='https://github.com/ROCmSoftwarePlatform/rocFFT'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
+        "$pkgname-rocfft-$pkgver.tar.gz::$_rocfft/archive/rocm-$pkgver.tar.gz")
+sha256sums=('44f328b7862c066459089dfe62833cb7d626c6ceb71c57d8c7d6bba45dad491e'
+            'fb8ba56572702e77e4383d922cd1fee4ad3fa5f63a5ebdb3d9c354439a446992')
+options=(!lto)
+_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+
+prepare() {
+  rm -r "$srcdir/$_dirname"/clients/rocFFT
+  ln -s "$srcdir"/rocFFT-rocm-$pkgver "$srcdir/$_dirname"/clients/rocFFT
+}
+
+build() {
+  # -fcf-protection is not supported by HIP, see
+  # //rocm.docs.amd.com/en/latest/reference/rocmcc/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS="${CXXFLAGS} -fcf-protection=none" \
+  ROCM_PATH=/opt/rocm \
+  cmake \
+    -Wno-dev \
+    -B build \
+    -S "$_dirname" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc \
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  echo "/opt/rocm/$pkgname/lib" > "$pkgname.conf"
+  install -Dm644 "$pkgname.conf" "$pkgdir/etc/ld.so.conf.d/hipfft.conf"
+
+  install -Dm644 "$srcdir/$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

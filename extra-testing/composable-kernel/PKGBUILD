@@ -1,0 +1,44 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+
+pkgname=composable-kernel
+pkgver=6.0.0
+pkgrel=1
+pkgdesc="High Performance Composable Kernel for AMD GPUs"
+arch=('loong64' 'x86_64')
+url="https://github.com/ROCmSoftwarePlatform/composable_kernel"
+license=('MIT')
+depends=('hip')
+makedepends=('git' 'cmake' 'ninja' 'rocm-cmake' 'rocm-llvm' 'openmp')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('a8f736f2f2a8afa4cddd06301205be27774d85f545429049b4a2bbbe6fcd67df')
+# Build without default flags as they cause the final linking step to fail
+# https://github.com/ROCmSoftwarePlatform/composable_kernel/issues/736
+options=(!lto !buildflags)
+_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+
+prepare() {
+    # Remove tests as they require a supported AMD GPU to run
+    sed -i '/add_subdirectory(test)/d' "$_dirname/CMakeLists.txt"
+}
+
+build() {
+  local _cmake_args=(
+    -Wno-dev
+    -G Ninja
+    -B build
+    -S "$_dirname"
+    -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
+    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_INSTALL_PREFIX=/opt/rocm
+    -DBUILD_DEV=OFF
+    -DINSTANCES_ONLY=ON
+  )
+  cmake "${_cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
