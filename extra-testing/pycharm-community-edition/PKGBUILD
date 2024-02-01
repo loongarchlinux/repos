@@ -1,0 +1,100 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: David Keogh <davekeogh@archlinux.us>
+
+pkgname=pycharm-community-edition
+pkgver=2023.3.3
+_build=233.13763.11
+_jrever=17
+_jdkver=17
+pkgrel=1
+pkgdesc='Python IDE for Professional Developers'
+arch=(loong64 x86_64)
+options=(!debug)
+url=https://www.jetbrains.com/pycharm/
+license=(Apache)
+depends=(
+  giflib
+  glib2
+  "java-runtime=${_jrever}"
+  python
+  sh
+  ttf-font
+  fontconfig
+  libdbusmenu-glib
+)
+optdepends=(
+  'ipython: IPython integration for Python 3'
+)
+makedepends=(
+  git
+  "java-environment-openjdk=${_jdkver}"
+  python-setuptools
+)
+source=(
+  "git+https://github.com/JetBrains/intellij-community.git#tag=pycharm/${_build}"
+  idea-android::"git+https://github.com/JetBrains/android.git#tag=pycharm/${_build}"
+  pycharm.desktop
+  pycharm.sh
+  # enable-no-jdr.patch
+)
+sha256sums=('SKIP'
+            'SKIP'
+            '70ae8df10243db2dbc454c0d8e273235707ecb1821a9e8a2e70669a1739fc1af'
+            '447714bf41a215b38f8c31418e09bf65145bb3d9427d6966772c9b2b8ae16f1d')
+
+prepare() {
+  cd intellij-community
+
+  echo ${_build} > build.txt
+  mv "${srcdir}"/idea-android android
+
+  sed -e 's/var targetOs: String/var targetOs: String = OS_LINUX/' \
+      -e 's/System.getProperty(TARGET_OS_PROPERTY, OS_ALL)/OS_LINUX/' \
+      -i "platform/build-scripts/src/org/jetbrains/intellij/build/BuildOptions.kt"
+  # sed 's|../build/plugins-autoupload.txt|plugins-autoupload.txt|' \
+  #     -i "platform/build-scripts/src/org/jetbrains/intellij/build/impl/DistributionJARsBuilder.kt"
+  # touch plugins-autoupload.txt
+  # Fix pycharm python/installer.cmd & python/plugin.cmd
+  # sed 's|intellij.pycharm.community.build|"$(cd "$(dirname "$0")"; pwd)/../" intellij.pycharm.community.build|' -i python/installers.cmd
+  #sed 's|intellij.pycharm.community.build|"$(cd "$(dirname "$0")"; pwd)/../" intellij.pycharm.community.build|' -i python/plugin.cmd
+  #patch -Np1 < "${srcdir}/enable-no-jdr.patch"
+  # https://youtrack.jetbrains.com/issue/IDEA-343872/Community-build-performanceTesting-plugin-raises-exceptions
+  git cherry-pick -n -m1 "c2d297177eb31f7fbbc13fdbfb9c8fce48e51014"
+
+}
+
+build() {
+  cd intellij-community
+
+  export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
+  export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
+  export MAVEN_REPOSITORY=/build/.m2/repository
+
+  ./python/installers.cmd -Dintellij.build.use.compiled.classes=false -Dintellij.build.target.os=linux
+  #./python/plugin.cmd -Dintellij.build.target.os=linux
+
+  tar -xf out/pycharm-ce/artifacts/pycharmPC-${_build}.tar.gz -C "${srcdir}"
+
+  # Issues with cython and 3.11 -> https://youtrack.jetbrains.com/issues/PY?q=cython%203.11
+  # cd ../pycharm-community-${pkgver}
+  # python3 plugins/python-ce/helpers/pydev/setup_cython.py build_ext --build-temp build --build-lib .
+}
+
+package() {
+  cd pycharm-community-${pkgver}
+
+  # workaround FS#40934
+  sed -i 's/lcd/on/' bin/*.vmoptions
+
+  install -dm 755 "${pkgdir}"/usr/share/{licenses,pixmaps,pycharm}
+  cp -dr --no-preserve='ownership' bin lib plugins jbr "${pkgdir}"/usr/share/pycharm/
+  cp -dr --no-preserve='ownership' license "${pkgdir}"/usr/share/licenses/pycharm/
+  ln -s /usr/share/pycharm/bin/pycharm.png "${pkgdir}"/usr/share/pixmaps/
+  install -Dm 644 ../pycharm.desktop -t "${pkgdir}"/usr/share/applications/
+  install -Dm 755 ../pycharm.sh "${pkgdir}"/usr/bin/pycharm
+}
+
+# vim: ts=2 sw=2 et:
