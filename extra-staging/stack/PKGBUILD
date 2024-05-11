@@ -1,0 +1,86 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Arch Haskell Team <arch-haskell@haskell.org>
+
+pkgname=stack
+pkgver=2.9.1
+pkgrel=25
+pkgdesc="The Haskell Tool Stack"
+url="https://github.com/commercialhaskell/stack"
+license=("BSD")
+arch=('loong64' 'x86_64')
+depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-terminal'
+         'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-casa-client'
+         'haskell-casa-types' 'haskell-colour' 'haskell-conduit' 'haskell-conduit-extra'
+         'haskell-crypton' 'haskell-crypton-conduit' 'haskell-echo' 'haskell-extra'
+         'haskell-file-embed' 'haskell-filelock' 'haskell-fsnotify0.3' 'haskell-generic-deriving'
+         'haskell-githash' 'haskell-hackage-security' 'haskell-hashable' 'haskell-hi-file-parser'
+         'haskell-hpack' 'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-conduit'
+         'haskell-http-download' 'haskell-http-types' 'haskell-memory' 'haskell-microlens'
+         'haskell-mintty' 'haskell-mono-traversable' 'haskell-mustache'
+         'haskell-neat-interpolation' 'haskell-network-uri' 'haskell-open-browser'
+         'haskell-optparse-applicative' 'haskell-optparse-simple' 'haskell-pantry' 'haskell-path'
+         'haskell-path-io' 'haskell-persistent' 'haskell-persistent-sqlite' 'haskell-primitive'
+         'haskell-project-template' 'haskell-random' 'haskell-retry' 'haskell-rio'
+         'haskell-rio-prettyprint' 'haskell-split' 'haskell-streaming-commons' 'haskell-tar'
+         'haskell-temporary' 'haskell-text-metrics' 'haskell-th-reify-many' 'haskell-tls'
+         'haskell-typed-process' 'haskell-unicode-transforms' 'haskell-unix-compat'
+         'haskell-unliftio' 'haskell-unordered-containers' 'haskell-vector' 'haskell-yaml'
+         'haskell-zip-archive' 'haskell-zlib')
+makedepends=('ghc' 'uusi' 'git' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
+             'haskell-raw-strings-qq' 'haskell-smallcheck')
+checkdepends=('cabal-install')
+conflicts=('haskell-stack')
+replaces=('haskell-stack')
+install="stack.install"
+source=("git+https://github.com/commercialhaskell/stack.git#tag=v$pkgver"
+        stack-persistent-2.14.patch)
+sha512sums=('SKIP'
+            'c0a3830988f878fa4c51667842dd2852523a5bc3c736353c9e7dbbf3b5be676e287393eb439f0a115a23a79fc1daa68a0c284a3a0ee133be07dbefe10a9cbb32')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i ../stack-persistent-2.14.patch
+  uusi -d semigroups -d persistent-template -r cryptonite:crypton -r cryptonite-conduit:crypton-conduit $pkgname.cabal
+  sed -i 's/cryptonite/crypton/' src/Stack/Setup.hs
+
+  # rio-prettyprint 0.1.4.0
+  sed -i 's|RIO.PrettyPrint|RIO.PrettyPrint hiding (string)|' src/Stack/Build/Execute.hs
+
+  # unix-compat 0.7 removed System.PosixCompat.User
+  sed -i 's/System.PosixCompat.User/System.Posix.User/' src/Stack/{Config,Docker}.hs
+}
+
+build() {
+  cd $pkgname
+
+  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
+      -f-disable-git-info -f-integration-tests -f-static -f-hide-dependency-versions -f-supported-build \
+      --ghc-option='-pie'
+  runhaskell Setup build $MAKEFLAGS
+  runhaskell Setup register --gen-script
+  runhaskell Setup unregister --gen-script
+  sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
+  sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $pkgname
+  # cabal update
+  LD_LIBRARY_PATH="$PWD"/dist/build PATH="$PWD"/dist/build/stack:"$PATH" runhaskell Setup test --show-details=direct
+  # Integration tests will result in 4 failures on Arch currently
+}
+
+package() {
+  cd $pkgname
+
+  install -D -m744 register.sh   "${pkgdir}/usr/share/haskell/register/${pkgname}.sh"
+  install -D -m744 unregister.sh "${pkgdir}/usr/share/haskell/unregister/${pkgname}.sh"
+  runhaskell Setup copy --destdir="${pkgdir}"
+  install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
+
+  LD_PRELOAD=$(ls "$pkgdir"/usr/lib/libHSstack-*-ghc*.so) "${pkgdir}"/usr/bin/stack --bash-completion-script /usr/bin/stack > stack_completion_script
+  install -Dm644 stack_completion_script "${pkgdir}/usr/share/bash-completion/completions/stack"
+}

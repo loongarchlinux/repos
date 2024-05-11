@@ -1,0 +1,41 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Eric Bélanger <eric@archlinux.org>
+
+pkgname=libqalculate
+pkgver=5.1.1
+pkgrel=2
+pkgdesc='Multi-purpose desktop calculator'
+arch=(loong64 x86_64)
+url='https://qalculate.github.io/'
+license=(GPL-2.0-only)
+depends=(curl
+         icu
+         gcc-libs
+         glibc
+         gmp
+         libxml2
+         mpfr
+         readline)
+makedepends=(doxygen
+             git
+             intltool)
+optdepends=('gnuplot: for plotting support')
+source=(git+https://github.com/Qalculate/libqalculate#tag=v$pkgver)
+sha256sums=('1395ac191c8cd6ab68a6c486634af9c2c305cbc9e1e46ced40e1d286254819f1')
+
+prepare() {
+  cd $pkgname
+  ./autogen.sh
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}

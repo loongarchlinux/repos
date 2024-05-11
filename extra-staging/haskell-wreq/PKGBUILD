@@ -1,0 +1,57 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+_hkgname=wreq
+pkgname=haskell-wreq
+pkgver=0.5.4.3
+pkgrel=8
+pkgdesc="An easy-to-use HTTP client library."
+url="https://github.com/bos/wreq"
+license=('BSD')
+arch=('loong64' 'x86_64')
+depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-authenticate-oauth'
+         'haskell-base16-bytestring' 'haskell-case-insensitive' 'haskell-crypton'
+         'haskell-hashable' 'haskell-http-client' 'haskell-http-client-tls'
+         'haskell-http-types' 'haskell-lens' 'haskell-lens-aeson' 'haskell-memory'
+         'haskell-mime-types' 'haskell-psqueues' 'haskell-time-locale-compat'
+         'haskell-unordered-containers' 'haskell-aeson-pretty' 'haskell-base64-bytestring'
+         'haskell-snap-core' 'haskell-snap-server' 'haskell-unix-compat' 'haskell-uuid')
+makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-hunit' 'haskell-quickcheck'
+             'haskell-network-info' 'haskell-temporary' 'haskell-test-framework'
+             'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2' 'haskell-vector')
+source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
+sha512sums=('ea2e601f6a07921e43f355b0d42f025f17ccf5cc69f71919fb79efce2874ec3afc0e165a34eb5ccf5899c6b6815ab5288965533172bea03966edff65dc5d08e9')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    # httpbin.org is very unstable
+    sed -i 's|httpbin.org|ddosgan.com|' tests/UnitTests.hs Network/Wreq.hs Network/Wreq/Lens.hs
+}
+
+build() {
+    cd $_hkgname-$pkgver
+    
+    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
+            -fdoctest -f-aws -fhttpbin -f-developer
+    runhaskell Setup build $MAKEFLAGS
+    runhaskell Setup register --gen-script
+    runhaskell Setup unregister --gen-script
+    sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
+    sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
+}
+
+package() {
+    cd $_hkgname-$pkgver
+    
+    install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
+    install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
+    runhaskell Setup copy --destdir="$pkgdir"
+    install -D -m644 LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.md
+    rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE.md
+}

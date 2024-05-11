@@ -1,0 +1,4 @@
+[tesseract]
+source = "github"
+github = "tesseract-ocr/tesseract"
+use_max_tag = true

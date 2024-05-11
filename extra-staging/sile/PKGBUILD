@@ -1,0 +1,70 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Adrián Pérez de Castro <aperez@igalia.com>
+
+pkgname=sile
+pkgdesc='a modern typesetting engine inspired by LaTeX, fully customizable in Lua'
+pkgver=0.14.17
+pkgrel=3
+arch=(loong64 x86_64)
+url=https://www.sile-typesetter.org
+_url="https://github.com/sile-typesetter/$pkgname"
+license=(MIT)
+_luadeps=(cassowary
+          cldr
+          cliargs
+          compat53 # Not needed for Lua 5.3+, LuaJIT is 5.1(ish)
+          cosmo
+          expat
+          filesystem
+          fluent
+          linenoise
+          loadkit
+          lpeg
+          luaepnf
+          luarepl
+          luautf8
+          penlight
+          sec
+          socket
+          vstruct
+          zlib)
+depends=("${_luadeps[@]/#/lua51-}"
+         fontconfig libfontconfig.so
+         freetype2 libfreetype.so
+         ttf-gentium-plus
+         git
+         glibc
+         harfbuzz libharfbuzz.so libharfbuzz-subset.so
+         icu libicudata.so libicui18n.so libicuio.so libicuuc.so
+         libpng libpng16.so # this goes with libtexpdf if ever split out to a library package
+         luajit
+         zlib libz.so)
+optdepends=('libertinus-font: default math font'
+            'luarocks: manage addon packages'
+            'noto-fonts-cjk: default font for tate enabled classes'
+            'ttf-hack: default mono font')
+checkdepends=(poppler)
+provides=(libtexpdf.so)
+replaces=("$pkgname-luajit")
+_archive="$pkgname-$pkgver"
+source=("$_url/releases/download/v$pkgver/$_archive.tar.xz")
+sha256sums=('7f89bedecedabb5168250ad9dd80c09ed289c8e88c3d0d756d2d1d92ee065e04')
+
+build () {
+	cd "$_archive"
+	./configure \
+		--prefix /usr \
+		--with-luajit \
+		--with-system-luarocks
+	make all
+}
+
+check () {
+	cd "$_archive"
+	make check
+}
+
+package () {
+	cd "$_archive"
+	make install DESTDIR="$pkgdir"
+}

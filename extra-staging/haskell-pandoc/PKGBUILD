@@ -1,0 +1,76 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Arch Haskell Team <arch-haskell@haskell.org>
+
+_hkgname=pandoc
+pkgname=haskell-pandoc
+pkgver=3.1.8
+pkgrel=24
+pkgdesc='Conversion between markup formats'
+url='https://pandoc.org'
+license=('GPL')
+arch=('loong64' 'x86_64')
+depends=('ghc-libs' 'haskell-glob' 'haskell-juicypixels' 'haskell-sha' 'haskell-aeson'
+         'haskell-aeson-pretty' 'haskell-attoparsec' 'haskell-base64' 'haskell-blaze-html'
+         'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-citeproc' 'haskell-commonmark'
+         'haskell-commonmark-extensions' 'haskell-commonmark-pandoc' 'haskell-crypton-connection'
+         'haskell-data-default' 'haskell-doclayout' 'haskell-doctemplates' 'haskell-emojis'
+         'haskell-file-embed' 'haskell-gridtables' 'haskell-haddock-library' 'haskell-http-client'
+         'haskell-http-client-tls' 'haskell-http-types' 'haskell-ipynb' 'haskell-jira-wiki-markup'
+         'haskell-mime-types' 'haskell-network' 'haskell-network-uri' 'haskell-pandoc-types'
+         'haskell-pretty-show' 'haskell-random' 'haskell-safe' 'haskell-scientific'
+         'haskell-skylighting' 'haskell-skylighting-core' 'haskell-split' 'haskell-syb'
+         'haskell-tagsoup' 'haskell-temporary' 'haskell-texmath' 'haskell-text-conversions'
+         'haskell-typst' 'haskell-unicode-collation' 'haskell-unicode-transforms' 'haskell-vector'
+         'haskell-xml' 'haskell-xml-conduit' 'haskell-xml-types' 'haskell-yaml'
+         'haskell-zip-archive' 'haskell-zlib')
+optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross-references to them with pandoc-crossref filter'
+            'texlive-context: for pdf output using context engine'
+            'groff: for pdf output using pdfroff engine'
+            'python-weasyprint: for pdf output using weasyprint engine'
+            'typst: for pdf output using typst engine'
+            'tectonic: for pdf output using tectonic engine'
+            'texlive-fontsrecommended: for pdf output using latex or xelatex engines'
+            'texlive-latex: for pdf output using pdflatex engine'
+            'texlive-xetex: for pdf output using xelatex engine')
+makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-tasty' 'haskell-tasty-golden'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('2de648e7f3808d3139c214882a53157b2003c3fd340d7beee77a1cc49c2438004c03016f870d2348032457da5c6a63dd075eb7098e6f126db5a185325cbcc528')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+    # TODO: find a better solution
+    sed -i "s|let env' = dynlibEnv ++ |let env' = dynlibEnv ++ [(\"LD_LIBRARY_PATH\", \"$PWD/dist/build\")] ++ |" test/Tests/Command.hs
+}
+
+build() {
+    cd $_hkgname-$pkgver
+
+    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+        --prefix=/usr --docdir="/usr/share/doc/$pkgname" --datasubdir=$pkgname --enable-tests \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
+            -f-embed_data_files
+    runhaskell Setup build $MAKEFLAGS
+    runhaskell Setup register --gen-script
+    runhaskell Setup unregister --gen-script
+    sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
+    sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    LC_CTYPE=en_US.UTF-8 runhaskell Setup test --show-details=direct || echo "Tests failed"
+}
+
+package() {
+    cd $_hkgname-$pkgver
+    install -D -m744 register.sh   "${pkgdir}/usr/share/haskell/register/${_hkgname}.sh"
+    install -D -m744 unregister.sh "${pkgdir}/usr/share/haskell/unregister/${_hkgname}.sh"
+    runhaskell Setup copy --destdir="${pkgdir}"
+    rm "${pkgdir}/usr/share/doc/${pkgname}/COPYING.md"
+
+    # Should be in pandoc-cli, I think. 
+    install -Dm644 man/pandoc.1 -t "${pkgdir}"/usr/share/man/man1/
+}
