@@ -1,0 +1,4 @@
+[ascii]
+source = "regex"
+url = "http://www.catb.org/~esr/ascii/"
+regex = 'ascii-(\d+\.\d+).tar.gz'

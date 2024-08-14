@@ -1,0 +1,48 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Serge Victor <arch@random.re>
+# Contributor: Kevin Azzam <aur@azz.am>
+
+_pyname=flask-sqlalchemy
+pkgname=python-flask-sqlalchemy
+pkgver=3.1.1
+pkgrel=2
+pkgdesc='Adds SQLAlchemy support to your Flask application'
+url='http://flask-sqlalchemy.pocoo.org/'
+arch=('any')
+license=('BSD-3-Clause')
+depends=('python' 'python-flask' 'python-sqlalchemy')
+makedepends=('python-build' 'python-installer' 'python-flit-core' 'python-sphinx' 'python-pallets-sphinx-themes' 'python-sphinx-issues')
+checkdepends=('python-pytest' 'python-blinker')
+source=(
+  ${pkgname}-${pkgver}.tar.gz::https://github.com/pallets-eco/flask-sqlalchemy/archive/${pkgver}.tar.gz
+)
+sha512sums=('67d78b5109b0397f95308d74f6926aa418a4dd7f3a52f91a3e159396fbd71bd048e4403a65182113cc0c0f1e348e2fd8d765ca46de5cae10af204dcf1101563a')
+
+prepare() {
+  sed -r "s|(release =)|\\1 '${pkgver}'  #|" -i ${_pyname}-${pkgver}/docs/conf.py
+}
+
+build() {
+  cd ${_pyname}-${pkgver}
+  python -m build --wheel --no-isolation
+  python -m installer --destdir=tmp_install dist/*.whl
+  PYTHONPATH="$PWD"/tmp_install/`python -c "import site; print(site.getsitepackages()[0])"` \
+  make -j1 -C docs man text SPHINXBUILD=sphinx-build
+}
+
+check() {
+  cd ${_pyname}-${pkgver}
+  PYTHONPATH="$PWD"/tmp_install/`python -c "import site; print(site.getsitepackages()[0])"` \
+  py.test -vs -Wignore --disable-pytest-warnings
+}
+
+package() {
+  cd ${_pyname}-${pkgver}
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm 644 LICENSE.rst -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 CHANGES.rst README.rst  -t "${pkgdir}/usr/share/doc/${pkgname}"
+  cp -r docs/_build/text "${pkgdir}/usr/share/doc/${pkgname}/text"
+  install -Dm 644 docs/_build/man/${_pyname}.1 "${pkgdir}/usr/share/man/man1/${pkgname}.1"
+}
+
+# vim: ts=2 sw=2 et:

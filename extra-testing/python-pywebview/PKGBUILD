@@ -1,0 +1,38 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: keutain < quentin dot aniere at gmail dot com>
+# Contributor: Shae VanCleave
+
+pkgname=python-pywebview
+_name=${pkgname#python-}
+pkgver=5.1
+pkgrel=2
+pkgdesc='Build GUI for your Python program with JavaScript, HTML, and CSS'
+arch=(any)
+url='https://github.com/r0x0r/pywebview'
+license=(BSD-3-Clause)
+depends=(python glib2 python-bottle python-cryptography python-proxy_tools python-typing_extensions)
+makedepends=(python-build python-installer python-setuptools-scm python-wheel git)
+optdepends=('pyside6: use with QtPy, PySide6'
+            'python-gobject: use with GTK'
+            'python-pygobject-stubs: use with GTK'
+            'python-pyqt5: use with Qt'
+            'python-pyqt5-webengine: use with Qt'
+            'python-qtpy: use with Qt'
+            'webkit2gtk-4.1: use with GTK')
+source=("git+$url.git#tag=$pkgver")
+b2sums=('9579ae2b06192751b3ba1bf20393ccaed5c8c28b624e70ed16dd0a23e01dcfd9800a03a68c5f14fbdb9dce2da620c892c2f69dac7b776be11d4e99184a0ce75c')
+
+build() {
+  cd $_name
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $_name
+  
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+# vim:set ts=2 sw=2 et:

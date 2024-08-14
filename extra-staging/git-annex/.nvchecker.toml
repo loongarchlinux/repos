@@ -1,3 +1,0 @@
-[git-annex]
-source = "git"
-git = "https://git.joeyh.name/index.cgi/git-annex.git"

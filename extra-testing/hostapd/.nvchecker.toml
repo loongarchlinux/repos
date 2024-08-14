@@ -1,0 +1,6 @@
+[hostapd]
+source = "git"
+git = "https://w1.fi/hostap.git"
+exclude_regex = '^(hostap-1-bp)$'
+from_pattern = '^hostap_(\d+)_(\d+)$'
+to_pattern = '\1.\2'

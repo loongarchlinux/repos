@@ -1,0 +1,21 @@
+diff --unified --recursive --text --new-file ascii-3.30.orig/Makefile ascii-3.30/Makefile
+--- ascii-3.30.orig/Makefile	2024-08-11 02:32:05.170254380 +0200
++++ ascii-3.30/Makefile	2024-08-11 02:35:46.214135093 +0200
+@@ -5,7 +5,7 @@
+ 
+ VERS=$(shell sed -n <NEWS.adoc '/^[0-9]/s/:.*//p' | head -1)
+ 
+-CFLAGS = -O
++CFLAGS ?= -O
+ 
+ PREFIX = /usr/local
+ 
+@@ -15,7 +15,7 @@
+ all: ascii ascii.1
+ 
+ ascii: ascii.c splashscreen.h nametable.h
+-	$(CC) $(CFLAGS) -DREVISION='"$(VERS)"' ascii.c -o ascii
++	$(CC) $(CFLAGS) $(LDFLAGS) -DREVISION='"$(VERS)"' ascii.c -o ascii
+ 
+ splashscreen.h: splashscreen
+ 	sed <splashscreen >splashscreen.h \

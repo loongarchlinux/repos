@@ -1,0 +1,3 @@
+[ruby-terminal-table]
+source = "gems"
+gems = "terminal-table"

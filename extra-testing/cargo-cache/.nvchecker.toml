@@ -1,0 +1,3 @@
+[cargo-cache]
+source = "cratesio"
+cratesio = "cargo-cache"

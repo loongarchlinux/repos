@@ -1,0 +1,4 @@
+[python-pypresence]
+source = "git"
+git = "https://github.com/qwertyquerty/pypresence.git"
+prefix = "v"

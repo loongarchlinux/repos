@@ -1,0 +1,31 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: Alexander Fehr <pizzapunk@gmail.com>
+
+pkgname=pychess
+pkgver=1.0.5
+pkgrel=3
+pkgdesc="Chess client"
+arch=('any')
+url="https://pychess.github.io"
+license=('GPL-3.0-only')
+depends=('gst-plugins-base' 'gtksourceview3' 'python-cairo' 'python-gobject'
+         'python-ptyprocess' 'python-psutil' 'python-sqlalchemy' 'python-pexpect'
+         'python-websockets')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+source=("https://github.com/pychess/pychess/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('2a5d90747d2d07e9a5a48b42c0e81e79677803f493c8bb8fc48388bd011da9b6')
+
+build() {
+	cd "${pkgname}-${pkgver}"
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+
+	# FS#59882
+	find "${pkgdir}" -wholename 'external/pexpect' -type d -delete
+}

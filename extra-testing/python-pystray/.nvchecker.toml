@@ -1,0 +1,4 @@
+[python-pystray]
+source = "git"
+git = "https://github.com/moses-palmer/pystray.git"
+prefix = "v"

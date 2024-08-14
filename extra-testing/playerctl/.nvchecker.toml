@@ -1,0 +1,4 @@
+[playerctl]
+source = "git"
+git = "https://github.com/altdesktop/playerctl.git"
+prefix = "v"

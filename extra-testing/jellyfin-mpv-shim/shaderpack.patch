@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index 1c5efbe..83fca59 100644
+--- a/setup.py
++++ b/setup.py
+@@ -26,8 +26,6 @@ if not sys.platform.startswith("win32"):
+     packages.extend(
+         [
+             "jellyfin_mpv_shim.messages",
+-            "jellyfin_mpv_shim.default_shader_pack",
+-            "jellyfin_mpv_shim.default_shader_pack.shaders",
+             "jellyfin_mpv_shim.integration",
+         ]
+     )

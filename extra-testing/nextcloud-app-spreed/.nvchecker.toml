@@ -1,5 +1,0 @@
-[nextcloud-app-spreed]
-source = "git"
-git = "https://github.com/nextcloud/spreed"
-prefix = "v"
-exclude_regex = ".*(rc|RC|alpha|beta).*"

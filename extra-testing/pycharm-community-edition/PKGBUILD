@@ -1,0 +1,87 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: David Keogh <davekeogh@archlinux.us>
+
+pkgname=pycharm-community-edition
+pkgver=2024.1.5
+_build=241.18968.29
+_jrever=17
+_jdkver=17
+pkgrel=1
+pkgdesc='Python IDE for Professional Developers'
+arch=(loong64 x86_64)
+options=(!debug)
+url=https://www.jetbrains.com/pycharm/
+license=(Apache-2.0)
+depends=(
+  giflib
+  glib2
+  "java-runtime=${_jrever}"
+  python
+  sh
+  ttf-font
+  fontconfig
+  libdbusmenu-glib
+)
+optdepends=(
+  'ipython: IPython integration for Python 3'
+)
+makedepends=(
+  git
+  "java-environment-openjdk=${_jdkver}"
+  python-setuptools
+)
+source=(
+  "git+https://github.com/JetBrains/intellij-community.git#tag=pycharm/${_build}"
+  idea-android::"git+https://github.com/JetBrains/android.git#tag=pycharm/${_build}"
+  pycharm.desktop
+  pycharm.sh
+  # enable-no-jdr.patch
+)
+sha256sums=('SKIP'
+            'SKIP'
+            '70ae8df10243db2dbc454c0d8e273235707ecb1821a9e8a2e70669a1739fc1af'
+            '447714bf41a215b38f8c31418e09bf65145bb3d9427d6966772c9b2b8ae16f1d')
+
+prepare() {
+  cd intellij-community
+
+  sed -e "s/buildNumber = null/buildNumber = \"${_build}\"/" \
+      -i "python/build/src/PyCharmCommunityInstallersBuildTarget.kt"
+  mv "${srcdir}"/idea-android android
+
+  sed -e 's/System.getProperty(TARGET_OS_PROPERTY, OS_ALL)/OS_LINUX/' \
+      -i "platform/build-scripts/src/org/jetbrains/intellij/build/BuildOptions.kt"
+  # Disabled until we package JBR outselves
+  #patch -Np1 < "${srcdir}/enable-no-jdr.patch"
+}
+
+build() {
+  cd intellij-community
+
+  export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
+  export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
+  export MAVEN_REPOSITORY=/build/.m2/repository
+
+  ./python/installers.cmd -Dintellij.build.use.compiled.classes=false -Dintellij.build.target.os=linux -Dbuild.number="${_build}"
+
+  tar -xf out/pycharm-ce/artifacts/pycharmPC-${_build}.tar.gz -C "${srcdir}"
+}
+
+package() {
+  cd pycharm-community-${pkgver}
+
+  # workaround FS#40934
+  sed -i 's/lcd/on/' bin/*.vmoptions
+
+  install -dm 755 "${pkgdir}"/usr/share/{licenses,pixmaps,pycharm}
+  cp -dr --no-preserve='ownership' bin lib plugins jbr "${pkgdir}"/usr/share/pycharm/
+  cp -dr --no-preserve='ownership' license "${pkgdir}"/usr/share/licenses/pycharm/
+  ln -s /usr/share/pycharm/bin/pycharm.png "${pkgdir}"/usr/share/pixmaps/
+  install -Dm 644 ../pycharm.desktop -t "${pkgdir}"/usr/share/applications/
+  install -Dm 755 ../pycharm.sh "${pkgdir}"/usr/bin/pycharm
+}
+
+# vim: ts=2 sw=2 et:

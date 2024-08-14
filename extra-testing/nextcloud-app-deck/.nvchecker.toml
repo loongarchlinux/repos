@@ -1,5 +1,0 @@
-[nextcloud-app-deck]
-source = "git"
-git = "https://github.com/nextcloud/deck"
-prefix = "v"
-exclude_regex = ".*(rc|RC|alpha|beta).*"

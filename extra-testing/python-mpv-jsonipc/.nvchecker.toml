@@ -1,0 +1,4 @@
+[python-mpv-jsonipc]
+source = "git"
+git = "https://github.com/iwalton3/python-mpv-jsonipc.git"
+prefix = "v"

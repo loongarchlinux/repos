@@ -1,0 +1,87 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+_name=rspec-rerun
+pkgname=ruby-$_name
+pkgver=1.1.0
+pkgrel=1
+pkgdesc='rerun failed RSpec examples for brittle tests'
+url='https://github.com/dblock/rspec-rerun'
+arch=('any')
+license=('MIT')
+makedepends=('git' 'ruby-rdoc')
+depends=('ruby' 'ruby-rspec')
+checkdepends=('ruby-bundler' 'ruby-rake' 'ruby-rubocop' 'ruby-bump')
+options=('!emptydirs')
+source=(${pkgname}::git+https://github.com/dblock/${_name}.git#tag=v$pkgver)
+sha512sums=('009a8ca9036a78d944fa1444484954be9f15f3683629c19cc50b004c7d4beb916a1c4ed3b2170e5d4e1b811f132ffcdd151cc5dbfaed3f7731fbdb875e71806d')
+
+
+prepare() {
+  cd $pkgname
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+
+  # Don't depend on rubycop, it's just linting
+  sed --in-place '/rubocop/d' "${_name}.gemspec"
+  sed --in-place '/rubocop/Id' Rakefile
+}
+
+build() {
+  cd $pkgname
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install/${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd $pkgname
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/${_gemdir}" rspec
+}
+
+package() {
+  cd $pkgname
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE.md --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}

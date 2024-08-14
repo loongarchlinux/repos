@@ -1,0 +1,89 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: farawayer <farwayer@gmail.com>
+
+_name=terminal-table
+pkgname=ruby-$_name
+pkgver=3.0.2
+pkgrel=3
+pkgdesc='Simple, feature rich ascii table generation library'
+arch=(any)
+url='https://github.com/tj/terminal-table'
+license=(MIT)
+depends=(
+  ruby
+  'ruby-unicode-display_width'
+)
+checkdepends=("ruby-rspec" "ruby-term-ansicolor")
+options=(!emptydirs)
+source=($pkgname-$pkgver.tar.gz::https://github.com/tj/terminal-table/archive/v${pkgver}.tar.gz)
+sha256sums=('817d1644eeef962f1a1b54ff79d2bd17543eb08c8fa095152c50485f85a2f6c6')
+
+prepare() {
+  cd "${_name}-${pkgver}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+
+  # we don't build from a git checkout
+  sed --in-place --regexp-extended 's|git ls-files -z|find . -print0 -type f -not -path "*/\.git/*"|' "${_name}.gemspec"
+}
+
+build() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install/${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/${_gemdir}" rspec
+}
+
+package() {
+  cd "${_name}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE.txt --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}

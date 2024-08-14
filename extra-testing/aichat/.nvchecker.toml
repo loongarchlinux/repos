@@ -1,0 +1,4 @@
+[aichat]
+source = "git"
+git = "https://github.com/sigoden/aichat"
+prefix = "v"

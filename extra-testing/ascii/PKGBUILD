@@ -1,0 +1,36 @@
+# Maintainer : Christian Rebischke <Chris.Rebischke@archlinux.org>
+# Contributor: Peter Lewis <plewis@aur.archlinux.org>
+# Contributor: Grigorios Bouzakis <grbzks@xsmail.com>
+# Contributor: Damir Perisa <damir.perisa@bluewin.ch>
+
+pkgname=ascii
+pkgver=3.30
+pkgrel=1
+pkgdesc="Utility for conversion between various byte representations and the ASCII character table"
+arch=('loong64' 'x86_64')
+url='http://www.catb.org/~esr/ascii'
+license=('BSD-2-Clause')
+depends=('glibc')
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/$pkgname-$pkgver.tar.gz"
+  "respect-cflags-and-ldflags.patch"
+)
+sha512sums=('1096afac6aaa043c4ecf7f3f9a010edcec3caefc980fd44a3e613aad579d838f5be0fc6a31bb3fdd680a102885f34fcf3cd5ea50739ef134e9eb929a18e7fdce'
+            '0ea22d5c329d0226eba855d6bacc93ee49fd527ac9f8873eb892cf3f42f429938d19d47c9d40ca301e31c915516f6054ee4836fcd3116afdebf8e7e8a0577983')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  patch -Np1 -i "$srcdir/respect-cflags-and-ldflags.patch"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  make
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -vDm755 -t "$pkgdir/usr/bin" ascii
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" ascii.1
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
+}

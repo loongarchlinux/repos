@@ -1,0 +1,4 @@
+[python-jellyfin-apiclient]
+source = "git"
+git = "https://github.com/iwalton3/jellyfin-apiclient-python.git"
+prefix = "v"

@@ -1,0 +1,4 @@
+[xdg-desktop-portal-wlr]
+source = "git"
+git = "https://github.com/emersion/xdg-desktop-portal-wlr.git"
+prefix = "v"

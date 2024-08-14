@@ -1,0 +1,48 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: George Woodall <georgewoodall82@gmail.com>
+
+pkgname=tgpt
+pkgver=2.8.0
+pkgrel=1
+pkgdesc="AI Chatbots in terminal without needing API keys"
+arch=(loong64 x86_64)
+url="https://github.com/aandrew-me/tgpt"
+license=(GPL-3.0-or-later)
+depends=(glibc)
+makedepends=(go)
+options=(!lto)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('a22d5fffedefecb19dde210af52cac8db0ed57394e81ff4abfc75b03f2140dd4')
+
+prepare() {
+  cd $pkgname-$pkgver
+  GOFLAGS="-mod=readonly" go mod vendor -v
+}
+
+build() {
+  cd $pkgname-$pkgver
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
+  export GOPATH="$srcdir"
+  local ld_flags="-compressdwarf=false -linkmode=external"
+  go build -v -ldflags "$ld_flags"
+}
+
+check() {
+  cd $pkgname-$pkgver
+  # OpenGPT tests failing due to 'Response: Service Unavailable'.
+  local unit_tests=$(
+    go list ./... \
+      | grep -v github.com/aandrew-me/tgpt/v2/providers/opengpts
+  )
+  # shellcheck disable=SC2086
+  go test -v $unit_tests
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" tgpt
+}

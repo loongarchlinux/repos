@@ -1,3 +1,0 @@
-[libpsl]
-source = "git"
-git = "https://github.com/rockdaboot/libpsl.git"

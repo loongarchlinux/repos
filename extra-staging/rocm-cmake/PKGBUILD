@@ -1,0 +1,59 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
+# Contributor: fermyon <antifermion@protonmail.com>
+# Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
+
+pkgname=rocm-cmake
+pkgver=6.2.0
+pkgrel=1
+pkgdesc='CMake modules for common build tasks needed for the ROCm software stack'
+arch=('any')
+url='https://github.com/ROCm/rocm-cmake'
+license=('MIT')
+depends=('rocm-core' 'cmake')
+checkdepends=('git' 'rocm-llvm')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
+        "${pkgname}-old-policy-cmp0079.patch")
+sha256sums=('7b6aaa1bb616669636aa2cd5dbc7fdb7cd05642a8dcc61138e0efb7d0dc7e1a3'
+            '7c8d8351a8e85a0d122421d02ad967c75d4dd8442192662c1a1a68bacdfad67d')
+_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+
+prepare() {
+    cd "$_dirname"
+    # Git version tests fail because we're not working in a local git checkout
+    rm test/pass/{version-norepo.cmake,version-parent.cmake}
+    # sphinx tests require a python module named rocm_docs,
+    # https://github.com/RadeonOpenCompute/rocm-docs-core
+    # As we don't package it, disable also this test
+    rm test/pass/doc-sphinxdoxygen.cmake
+
+    cd share/rocmcmakebuildtools
+    # With cmake 3.28.1+ setting cmp0079 to old results in a deprecation error
+    patch -Np3 -i "$srcdir/$pkgname-old-policy-cmp0079.patch"
+}
+
+build() {
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+check() {
+    export GIT_AUTHOR_NAME="builduser"
+    export GIT_AUTHOR_EMAIL="builduser@archlinux.local"
+    export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+    export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+    cmake --build build --target check
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

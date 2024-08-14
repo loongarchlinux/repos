@@ -1,0 +1,4 @@
+[ruby-parallel]
+source = "git"
+git = "https://github.com/grosser/parallel.git"
+prefix = "v"

@@ -1,0 +1,3 @@
+[ruby-em-websocket]
+source = "gems"
+gems = "em-websocket"

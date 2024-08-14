@@ -1,4 +1,0 @@
-[Service]
-RuntimeDirectory=tarantool
-StateDirectory=tarantool
-LogsDirectory=tarantool

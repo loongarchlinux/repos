@@ -1,0 +1,31 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: Marius Lindvall <(firstname) {cat} varden {dog} info>
+
+pkgname=python-proxy_tools
+_name=${pkgname#python-}
+pkgver=0.1.0
+pkgrel=2
+pkgdesc='Simple proxy implementation for Python'
+arch=(any)
+url='https://github.com/jtushman/proxy_tools'
+license=(BSD-2-Clause)
+depends=(python)
+makedepends=(python-build python-installer python-setuptools python-sphinx python-wheel)
+source=("$pkgname-$pkgver.tar.gz::https://pypi.python.org/packages/source/p/$_name/$_name-$pkgver.tar.gz"
+        "https://raw.githubusercontent.com/jtushman/proxy_tools/master/LICENSE.txt")
+b2sums=('98322f16dde8efa0fb014de2bcf9b5c8b4856fbb6cef15977e524742c20218db1288d7bdc0b21970dba2d42d5950bd242023fde76baaa09186793e6bf8eb2d3a'
+        'fe1b2b41eb19b8fbe3b882bec31eae42d13912e67519a7a95482598a0ba8091d1b49711a2b096d626cffb8adc60ba94fa483625762cce3796610e815c7d81eb1')
+
+build() {
+	cd $_name-$pkgver
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd $_name-$pkgver
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+	install -Dm644 ../LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

@@ -1,0 +1,41 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: Carl Smedstad <carl.smedstad at protonmail dot com>
+# Contributor: Luis Martinez <luis dot martinez at disroot dot org>
+# Contributor: Ronan Pigott <rpigott@berkeley.edu>
+
+pkgname=python-pypresence
+_name=${pkgname#python-}
+pkgver=4.3.0
+pkgrel=3
+pkgdesc='Discord RPC and Rich Presence wrapper library'
+url='https://github.com/qwertyquerty/pypresence'
+arch=(any)
+license=(MIT)
+depends=(python)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-sphinx
+  python-wheel
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+b2sums=('27cbbaee11145e01610b515344dcefec62adc6dc1071ff744bce03029ba447ddc400806f3bc3f1bce87c6a1efa3f2b76b7f5414a72b70852a2fb6fc3c9722861')
+
+build() {
+  cd $_name-$pkgver
+
+  python -m build --wheel --no-isolation
+  sphinx-build -b man docs/sphinx man
+}
+
+package() {
+  cd $_name-$pkgver
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -Dm644 -t "$pkgdir"/usr/share/man/man1 man/pypresence.1
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

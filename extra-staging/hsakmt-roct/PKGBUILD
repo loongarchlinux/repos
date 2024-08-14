@@ -1,0 +1,46 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+# Contributor: Jakub Okoński <jakub@okonski.org>
+# Contributor: Olaf Leidinger <oleid@mescharet.de>
+# Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
+
+pkgname=hsakmt-roct
+pkgver=6.2.0
+pkgrel=2
+pkgdesc='Radeon Open Compute Thunk Interface'
+arch=('loong64' 'x86_64')
+url='https://rocmdocs.amd.com/en/latest/Installation_Guide/ROCt.html'
+license=('MIT')
+depends=('rocm-core' 'glibc' 'numactl' 'pciutils' 'libdrm')
+makedepends=('cmake')
+_git='https://github.com/ROCm/ROCT-Thunk-Interface'
+source=("${pkgname}-${pkgver}.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
+        "hsakmt-global-visibility.patch")
+sha256sums=('73df98ca2be8a887cb76554c23f148ef6556bdbccfac99f34111fa1f87fd7c5d'
+            'd464b4c08457ba84ebe65a0967c3e82c17c1a9451d4c131e52c84c811d5c0c26')
+options=(!lto)
+_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
+
+prepare() {
+  cd "$_dirname"
+  patch -Np1 -i "$srcdir/hsakmt-global-visibility.patch"
+}
+
+build() {
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D BUILD_SHARED_LIBS=ON
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

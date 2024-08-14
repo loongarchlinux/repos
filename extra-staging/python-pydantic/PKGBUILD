@@ -1,0 +1,78 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+_name=pydantic
+pkgname=python-$_name
+# WARNING: upstream pins pydantic-core down to the patch-level and using other versions breaks tests! only update in lock-step with python-pydantic-core!
+pkgver=2.8.2
+pkgrel=2
+pkgdesc='Data parsing and validation using Python type hints'
+arch=(any)
+url="https://github.com/pydantic/pydantic"
+license=(MIT)
+depends=(
+  python
+  python-annotated-types
+  python-pydantic-core
+  python-typing_extensions
+)
+makedepends=(
+  cython
+  python-build
+  python-installer
+  python-hatchling
+  python-hatch-fancy-pypi-readme
+  python-wheel
+)
+checkdepends=(
+  python-ansi2html
+  python-cloudpickle
+  python-devtools
+  python-dirty-equals
+  python-email-validator
+  python-faker
+  python-hypothesis
+  python-pygments
+  python-pytest
+  python-pytest-benchmark
+  python-pytest-examples
+  python-pytest-mock
+  python-pytest-pretty
+  python-sqlalchemy
+)
+optdepends=(
+  'mypy: for type validation with mypy'
+  'python-dotenv: for .env file support'
+  'python-email-validator: for email validation'
+  'python-hypothesis: for hypothesis plugin when using legacy v1'
+)
+source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
+sha512sums=('a9ef0ee54fac0d06e53effd4db793559e5d2779b5df53b5b9eceb0839c3c7dbd56224424b4d418d18932dc5341132c8a9bc159138badcbc12b957412d4d229f2')
+b2sums=('953499ce736b62ff5c1b96b4292265a3fac720968949ed2e4929328da634a022cfad5c576e34eddfe301856f9cd86cdefd8678c764765d1c767bec6acfae5227')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    --deselect tests/test_docs.py  # we are not interested in code formatting
+    --deselect tests/test_types.py::test_string_fails
+    --deselect 'tests/test_networks.py::test_address_invalid[foobar-An email address must have an @-sign.]'
+  )
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  cd $_name-$pkgver
+  # install to temporary location, as importlib is used
+  python -m installer --destdir=test_dir dist/*.whl
+  export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

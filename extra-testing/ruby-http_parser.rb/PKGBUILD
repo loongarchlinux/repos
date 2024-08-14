@@ -1,0 +1,78 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Mario Finelli <mario dot finelli at yahoo dot com>
+
+_name=http_parser.rb
+pkgname=ruby-$_name
+pkgver=0.8.0
+pkgrel=3
+pkgdesc="Ruby bindings to https://github.com/ry/http-parser and https://github.com/a2800276/http-parser.java"
+arch=(i686 loong64 x86_64)
+url='http://github.com/tmm1/http_parser.rb'
+license=(MIT)
+depends=(ruby)
+makedepends=(git ruby-rdoc)
+options=(!emptydirs)
+source=("$pkgname::git+https://github.com/tmm1/http_parser.rb.git#tag=v$pkgver")
+noextract=($_name-$pkgver.gem)
+sha256sums=('48588fccf047ac8115ded1ce4fd4cc745c39ef6334f4ad05dc1591d3a7cf947e')
+
+prepare() {
+  cd "$pkgname"
+
+  git submodule update --init --recursive
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+}
+
+build() {
+  cd "$pkgname"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install/${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+package() {
+  cd "$pkgname"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE-MIT --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}

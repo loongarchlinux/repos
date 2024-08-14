@@ -1,0 +1,4 @@
+[mpv-shim-default-shaders]
+source = "git"
+git = "https://github.com/iwalton3/default-shader-pack.git"
+prefix = "v"

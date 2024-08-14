@@ -1,3 +1,0 @@
-[xmobar]
-source = "git"
-git = "https://codeberg.org/xmobar/xmobar.git"

@@ -1,0 +1,80 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: David Runge <dvzrv@archlinux.org>
+
+pkgname=hostapd
+_name=hostap
+pkgver=2.11
+pkgrel=2
+pkgdesc="IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
+arch=(loong64 x86_64)
+url="https://w1.fi/hostapd/"
+license=(BSD-3-Clause)
+depends=(
+  glibc
+  libnl
+  openssl
+  sqlite
+)
+makedepends=(
+  git
+)
+backup=(
+  etc/$pkgname/$pkgname.{accept,conf,deny,eap_user,radius_clients,vlan,wpa_psk}
+)
+source=(
+  "git+https://w1.fi/$_name.git?signed#tag=${_name}_${pkgver//./_}"
+  config
+  hostapd.service
+  hostapd@.service
+  $pkgname.tmpfiles
+  $pkgname-2.11-fhs-config.patch
+)
+sha512sums=('de2ba10af60bc88f0f900fe4a90681d9f08318bf12f88227881f6c4f2c4c628b89515a5425242048b8867b1791f5613fbfa1c3adeecf345aeb4093cac5eb62e4'
+            'eacd2ad295ec8786dac9814218a785eba0ca88e3dcf8b6f3694cba6a8330a8d020ac137623ef35bb0e5c1248f489c79c7fe07a7129a643d5e0dc4804e47f8b17'
+            '34e16c5d46383477bcb9e0dba5073b7f01354a6adca8e591050aeff6319255f8939926b70d76d109735496bbaf9ff2d04be9cf6e0d057c4d2f4a4140067957a3'
+            '51f472ed969037bd4d480d13e356a03207316169ef0ac532c40d2e7a618d0fef0529eb060a7d146d28c31efef9b5942bc12661f29d970a6ea0d972f7d2b9d3dc'
+            '1de8d11d6306d8f498785ace66689fcdfe06d192891214c6b51efc5e6fc54086a1220fc74dcb26004daca34ebee2bc568abeae4f04a0c633ca35edcbc97d5eb7'
+            'd1dba5160d784e0194de70a7b0009ea41ada6c944cb448299d4a05e33d8ac4350b05e570f21622fc5c39d3737a0bf782e498d2c6916808505eaac119e7273c0a')
+b2sums=('163d2e6644902f36b3b5f25e328221fa34495d745801e8d3dce874b05366c81370ef75c8f7e0198e206a3d04c5ea4bb501bf97693fa481e15cf5067d80ab0c1e'
+        '72cc3d216b87d9efc1782ddb46bd1258d7e41a83c175144acb4cba54610b05d7c0f40bc03b76c56ddf6ff71e51912a48f6a4c8cc906b01795e2d8e0f755c1802'
+        'dbb4d1ad4359931bd70d6ad428b509e0c40dab3a55ba7b87cf1c00a458d737c2a4ed6f06dd23286d9e4a38a481e4af9ab4ffa8e6fb27d852aa4eb7d16d046bf8'
+        'a36556144a4e98b2be15fb2920ce18bc13377dc2fa4becb5f122f40aaaa7ece4e169fdaa39a60b96275fdc94ee08a31a21684c6ffd14a5417b9752c79215edb4'
+        '956689018c649c444c3f18289461be067f096089ce3815b78ccc242cbb077535057429c8095660493a5df359628cf894bda52ecbf1147f78cf8480b1815d6635'
+        'cafdd75caaa01298d310a8ae272ed4ac647b12b59a474ab16f4fe4e4feea63e6cf4f131bc486dd7539077969257524d919820ab30cc15a86ec7deb24c2af4926')
+# NOTE: The upstream developer has been contacted on 2024-07-22 about their 1024bit DSA key being unsafe for artifact signing
+validpgpkeys=(EC4AA0A991A5F2464582D52D2B6EF432EFC895FA) # Jouni Malinen <j@w1.fi>
+
+prepare() {
+  # make include locations in main configuration file filesystem compliant
+  patch -Np1 -d $_name -i ../$pkgname-2.11-fhs-config.patch
+
+  # link build configuration into place:
+  # an up-to-date version of the build configuration can be found in
+  # hostapd/defconfig and should be diffed with the packaged one before every
+  # build
+  ln -sv ../../config $_name/$pkgname/.config
+}
+
+build() {
+  make -C $_name/$pkgname
+}
+
+package() {
+  cd $_name
+  make -C $pkgname install DESTDIR="$pkgdir" BINDIR=/usr/bin
+  # systemd service
+  install -vDm 644 ../$pkgname.service -t "$pkgdir/usr/lib/systemd/system/"
+  install -vDm 644 ../$pkgname@.service -t "$pkgdir/usr/lib/systemd/system/"
+  # license
+  install -vDm 644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
+  # config
+  install -vDm 640 $pkgname/$pkgname.{accept,conf,deny,eap_user,radius_clients,vlan,wpa_psk} -t "$pkgdir/etc/$pkgname/"
+  install -vDm 640 $pkgname/$pkgname.{accept,conf,deny,eap_user,radius_clients,vlan,wpa_psk} -t "$pkgdir/usr/share/factory/etc/$pkgname/"
+  # docs
+  install -vDm 644 $pkgname/{hostapd.sim_db,wired.conf,hlr_auc_gw.{txt,milenage_db}} "$pkgname/"{README*,ChangeLog} -t "$pkgdir/usr/share/doc/$pkgname/"
+  # man pages
+  install -vDm 644 $pkgname/$pkgname.8 -t "$pkgdir/usr/share/man/man8/"
+  install -vDm 644 $pkgname/${pkgname}_cli.1 -t "$pkgdir/usr/share/man/man1/"
+  # tmpfiles.d
+  install -vDm 644 ../$pkgname.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
+}

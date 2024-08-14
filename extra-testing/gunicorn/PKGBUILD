@@ -1,0 +1,58 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Jeremy "Ichimonji10" Audet <ichimonji10 at gmail dot com>
+# Contributor: pumpkin <pumpkin at mailoo dot org>
+# Contributor: Vsevolod Balashov <vsevolod at balashov dot name>
+
+pkgname=gunicorn
+pkgver=23.0.0
+pkgrel=1
+pkgdesc='WSGI HTTP Server for UNIX'
+arch=('any')
+url='https://gunicorn.org/'
+license=('MIT')
+depends=('python-packaging')
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-eventlet'
+  'python-gevent'
+  'python-pytest'
+)
+optdepends=(
+  'python-eventlet: for asynchronous request handling with eventlet'
+  'python-gevent: for asynchronous request handling with gevent'
+  'python-setproctitle: for process renaming'
+  'python-tornado: for asynchronous request handling with tornado'
+)
+source=("git+https://github.com/benoitc/$pkgname.git#tag=$pkgver")
+b2sums=('0836b34726af4aceb5ceb040afdf9f71ed0a978259f455ff925f526b79b2e150c61c5dc93e9e9b58a71c1112e2c12c8040bdb0aeb36f8acf67480a835b33936b')
+
+build() {
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgname
+  # Override addopts as they invoke coverage testing
+  python -m pytest --override-ini="addopts="
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+# vim:set ts=2 sw=2 et:

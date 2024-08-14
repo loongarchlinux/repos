@@ -1,4 +1,0 @@
-[gnome-text-editor]
-source = "git"
-git = "https://gitlab.gnome.org/GNOME/gnome-text-editor.git"
-include_regex = '[0-9]+(\.[0-9]+)*'

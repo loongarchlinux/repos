@@ -1,0 +1,4 @@
+[kompose]
+source = "git"
+git = "https://github.com/kubernetes/kompose.git"
+prefix = "v"

@@ -1,0 +1,4 @@
+[tgpt]
+source = "git"
+git = "https://github.com/aandrew-me/tgpt"
+prefix = "v"

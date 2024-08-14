@@ -1,0 +1,61 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+
+_pkgname=flask-security
+pkgname=python-flask-security-too
+pkgver=5.4.3
+pkgrel=3
+pkgdesc='Quick and simple security for Flask applications'
+url='https://github.com/Flask-Middleware/flask-security'
+arch=('any')
+license=('MIT')
+depends=('python' 'python-flask' 'python-flask-login' 'python-flask-mailman' 'python-flask-principal'
+         'python-flask-wtf' 'python-flask-babel' 'python-itsdangerous' 'python-passlib'
+         'python-email-validator' 'python-importlib_resources')
+makedepends=('python-sphinx' 'python-pallets-sphinx-themes' 'python-sphinx-issues' 'python-setuptools'
+             'python-build' 'python-installer' 'python-wheel')
+checkdepends=('python-pytest' 'python-pytest-cov' 'python-peewee'
+              'python-sqlalchemy' 'python-flask-sqlalchemy' 'python-bcrypt'
+              'python-zxcvbn' 'python-cryptography' 'python-qrcode' 'python-bleach'
+              'python-phonenumbers' 'python-argon2_cffi' 'python-freezegun'
+              'python-pymongo' 'python-mongomock' 'python-mongoengine')
+optdepends=('python-bleach: scrub user input')
+provides=('python-flask-security')
+conflicts=('python-flask-security')
+source=(https://github.com/Flask-Middleware/flask-security/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('9fdce3dfbfd622ae417166da383bb8bf744648b92026b4f28640e6658d355d25f7267382636bc1a5cc47969a7c0ebdd43d66b29aaafdd0cf7a6cafb248aff7a6')
+b2sums=('b57bb06e673bd8cb77f4ad67b1857a5546bae543eb685ec06c982e5c7c6cab83ad69f53a497762f99191a6ee27c22659f948ce10f8aa1e3a97db9c4bd845f7bb')
+
+prepare() {
+  cd ${_pkgname}-${pkgver}
+  sed -e 's/ --translations//' \
+      -e 's/ --pep8//' \
+      -e 's/ --black//' \
+      -e 's/ --flake8//' \
+      -e 's/ --flakes//' \
+      -i pytest.ini
+}
+
+build() {
+  cd ${_pkgname}-${pkgver}
+  python -m build --wheel --no-isolation
+  pybabel compile --domain flask_security -d flask_security/translations
+  sphinx-build -b text docs docs/_build/text
+  sphinx-build -b man docs docs/_build/man
+}
+
+check() {
+  cd ${_pkgname}-${pkgver}
+  pytest -v
+}
+
+package() {
+  cd ${_pkgname}-${pkgver}
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm 644 README.rst CHANGES.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 docs/_build/text/*.txt -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 docs/_build/man/flask-security.1 "${pkgdir}/usr/share/man/man1/${pkgname}.1"
+  install -Dm 644 docs/_build/man/flask-security.1 "${pkgdir}/usr/share/man/man1/python-flask-security.1"
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,4 +1,0 @@
-[cocogitto]
-source = "github"
-github = "cocogitto/cocogitto"
-use_max_tag = true

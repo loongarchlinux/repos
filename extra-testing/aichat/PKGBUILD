@@ -1,0 +1,59 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Sergey A. <murlakatamenka@disroot.org>
+
+pkgname=aichat
+pkgver=0.20.0
+pkgrel=2
+pkgdesc="All-in-one AI CLI tool featuring Chat-REPL, Shell Assistant, RAG, AI tools & agents"
+arch=(loong64 x86_64)
+url="https://github.com/sigoden/aichat"
+license=('MIT OR Apache-2.0')
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  cargo
+  mold
+)
+options=(!lto)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('e7ef65102b346504bfa60a9db5b49cec981f4c99f40c3ebfa88a7e1dad947fa1')
+
+prepare() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+}
+
+check() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/aichat
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE-MIT
+
+  install -vDm644 scripts/completions/aichat.bash "$pkgdir/usr/share/bash-completion/completions/aichat"
+  install -vDm644 scripts/completions/aichat.fish "$pkgdir/usr/share/fish/completions/aichat.fish"
+  install -vDm644 scripts/completions/aichat.nu "$pkgdir/usr/share/nu/completions/aichat.nu"
+  install -vDm644 scripts/completions/aichat.ps1 "$pkgdir/usr/share/powershell/completions/aichat.ps1"
+  install -vDm644 scripts/completions/aichat.zsh "$pkgdir/usr/share/zsh/site-functions/_aichat"
+
+  install -vDm644 -t "$pkgdir/usr/share/aichat" scripts/shell-integration/integration.bash
+  install -vDm644 -t "$pkgdir/usr/share/aichat" scripts/shell-integration/integration.nu
+  install -vDm644 -t "$pkgdir/usr/share/aichat" scripts/shell-integration/integration.zsh
+  install -vDm644 -t "$pkgdir/usr/share/aichat" scripts/shell-integration/integration.fish
+  install -vDm644 -t "$pkgdir/usr/share/aichat" scripts/shell-integration/integration.ps1
+}

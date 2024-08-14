@@ -1,0 +1,42 @@
+# Maintainer: Guillaume ALAUX <guillaume@archlinux.org>
+_libname=jline
+pkgname=("java-${_libname}")
+pkgver=1.0
+pkgrel=8
+pkgdesc="Java library for handling console input"
+arch=('any')
+url="https://jline.github.io/"
+license=('BSD')
+makedepends=('maven' 'java-environment=8')
+checkdepends=('maven')
+source=(https://downloads.sourceforge.net/project/${_libname}/${_libname}/${pkgver}/${_libname}-${pkgver}.zip)
+sha256sums=('761458d1541a44e678b3847917116a90001cf5cd22287c24c55dcf2c69ec73ca')
+_M2_REPO=$(mktemp -d)
+
+build() {
+  cd "${srcdir}/${_libname}-${pkgver}/src"
+
+  mvn -Dmaven.repo.local=${_M2_REPO} \
+    clean \
+    package \
+    -Dmaven.test.skip=true
+}
+
+check() {
+  cd "${srcdir}/${_libname}-${pkgver}/src"
+
+  mvn -Dmaven.repo.local=${_M2_REPO} \
+    test
+}
+
+package() {
+  depends=('java-runtime-headless')
+
+  cd "${srcdir}/${_libname}-${pkgver}"
+
+  install -Dm644 src/target/${_libname}-${pkgver}.jar \
+                 "${pkgdir}"/usr/share/java/${_libname}-${pkgver}.jar
+  ln -s ${_libname}-${pkgver}.jar "${pkgdir}"/usr/share/java/${_libname}.jar
+
+  install -Dm644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}

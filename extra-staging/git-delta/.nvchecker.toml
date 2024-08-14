@@ -1,4 +1,0 @@
-[git-delta]
-source = "github"
-github = "dandavison/delta"
-use_max_tag = true

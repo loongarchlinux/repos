@@ -1,0 +1,91 @@
+# Maintainer: Christian Rebischke <Chris.Rebischke[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
+# Contributor: Lucas De Marchi <lucas.de.marchi@gmail.com>
+
+pkgname=connman
+pkgver=1.42
+pkgrel=1
+pkgdesc="Intel's modular network connection manager"
+url="https://01.org/connman"
+arch=('loong64' 'x86_64')
+license=('GPL-2.0-only')
+depends=(
+  'dbus'
+  'glib2'
+  'glibc'
+  'gnutls'
+  'iptables'
+  'libmnl'
+  'readline'
+)
+makedepends=(
+  'bluez'
+  'iwd'
+  'openconnect'
+  'openvpn'
+  'ppp'
+  'wpa_supplicant'
+)
+optdepends=(
+  'bluez: Support for Bluetooth devices'
+  'iwd: for WiFi devices'
+  'openconnect: for VPN Support'
+  'openvpn: for VPN Support'
+  'pptpclient: for ppp support'
+  'wpa_supplicant: for WiFi devices'
+)
+backup=('etc/connman/main.conf')
+source=(
+  "$pkgname-$pkgver.tar.xz::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.xz"
+  "$pkgname-$pkgver.tar.sign::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.sign"
+  "https://sources.debian.org/data/main/c/connman/1.42-5/debian/patches/03-Add-libppp-compat.h.patch"
+  "allow_group_network.diff"
+)
+sha512sums=('d919080b91fb61806c0e948be14e26bfe5d2501865f76b2e2dddd4cef8c46c0f7aa26406ed938b347889e48adc726e53bbb415bf9c280f9310597045da784ace'
+            'SKIP'
+            'ede0e6976bbadb92b976bc308a5b2765b97850e9b800de9b052fa42c9757556b7a8aebdcbccf4357baef3c89bbb9cccedb7f238d7d8241df704d26d30a353d54'
+            '06dd5867d460f1c3cf6c359e650ca2ef24495493a99cd03dbd17f23e587e9066d9bc98758d85d5c690d1ae21fa77ad8da5e2fa83d0b52c95d7a535784c5c4964')
+validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # Marcel Holtmann <marcel@holtmann.org>
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i "$srcdir/03-Add-libppp-compat.h.patch"
+  patch -Np1 -i "$srcdir/allow_group_network.diff"
+}
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --bindir=/usr/bin \
+    --sbindir=/usr/bin \
+    --with-systemdunitdir=/usr/lib/systemd/system \
+    --enable-pptp \
+    --enable-openconnect \
+    --enable-vpnc \
+    --enable-openvpn \
+    --enable-polkit \
+    --enable-client \
+    --enable-nmcompat \
+    --enable-test \
+    --enable-pie \
+    --enable-iwd
+  make
+}
+
+check() {
+  cd $pkgname-$pkgver
+  make check
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+  install -vDm755 -t "$pkgdir/usr/bin" client/connmanctl
+  install -vDm644 -t "$pkgdir/etc/connman" src/main.conf
+  # See FS#48044
+  sed -i 's/ProtectSystem=full/ProtectSystem=true/' "$pkgdir/usr/lib/systemd/system/connman.service"
+}

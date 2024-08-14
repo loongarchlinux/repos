@@ -1,0 +1,67 @@
+# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Contribtor: Achmad Fathoni <fathoni.id(at)gmail.com>
+
+_pkgname=papermill
+pkgname="python-${_pkgname}"
+pkgver=2.6.0
+pkgrel=1
+pkgdesc="Parametrize and run Jupyter and nteract Notebooks"
+arch=('any')
+url="https://github.com/nteract/papermill"
+license=('BSD-3-Clause')
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
+)
+checkdepends=(
+  # python-azure  # TODO: package
+  python-boto3
+  python-moto
+  python-pytest
+)
+depends=(
+  python
+  python-click
+  python-pyyaml
+  jupyter-nbformat
+  jupyter-nbclient
+  python-tqdm
+  python-requests
+  python-entrypoints
+  python-tenacity
+  # aiohttp is not used but declared since https://github.com/nteract/papermill/pull/733
+  python-aiohttp
+  python-ansicolors
+)
+optdepends=('python-boto3: AWS functionality')
+source=("${_pkgname}-${pkgver}.tar.gz::$url/archive/refs/tags/${pkgver}.tar.gz")
+b2sums=('0fdcf88c1ab9f4d8a7d1dbf7b3be51a188885bd2e7f84de4570eeaedf69e8b2e2ad0017e68ebc3df208ff92bc592c6ecfbf8f257acf54b68697c2f7a5505983a')
+
+build() {
+  cd "${_pkgname}-${pkgver}"
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    --ignore papermill/tests/test_abs.py  # requires python-azure
+    --ignore papermill/tests/test_adl.py  # requires python-azure
+    # probably failing because of network access?
+    --deselect papermill/tests/test_gcs.py::GCSTest::test_gcs_fallback_retry_unknown_failure_code
+    --deselect papermill/tests/test_gcs.py::GCSTest::test_gcs_handle_exception
+    --deselect papermill/tests/test_gcs.py::GCSTest::test_gcs_retry
+    --deselect papermill/tests/test_gcs.py::GCSTest::test_gcs_retry_older_exception
+    -vv
+  )
+
+  cd "${_pkgname}-${pkgver}"
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd "${_pkgname}-${pkgver}"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -D LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

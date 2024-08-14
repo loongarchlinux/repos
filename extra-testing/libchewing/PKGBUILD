@@ -1,0 +1,50 @@
+# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Contributor: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: whisky <archlinux.cle(at)gmail.com>
+# Contributor: damir <damir@archlinux.org>
+
+pkgname=libchewing
+_pkgver=0.9.0
+pkgver=${_pkgver/-rc./rc}
+pkgrel=1
+pkgdesc='Intelligent Chinese phonetic input method'
+url='https://chewing.im/'
+arch=('loong64' 'x86_64')
+# See discussions at https://github.com/chewing/libchewing/issues/433
+license=('LGPL-2.1-or-later')
+depends=('sqlite')
+makedepends=('cmake' 'minisign' 'rust' 'corrosion')
+optdepends=(
+  'chewing-editor: view and modify libchewing user phrases database'
+)
+source=("https://github.com/chewing/libchewing/releases/download/v${_pkgver}/libchewing-${_pkgver}.tar.zst"{,.minisig})
+sha256sums=('58e62cd0649ba3856ffa7c67560c1cfbcbb8713342a533f7700587b51efe84e3'
+            '7d85582f8e7419e9897e25227222e1e3203d789184dd3ab2715c095fa7c64d2c')
+# The key is mentioned on https://github.com/chewing/libchewing
+_validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
+
+# XXX: move to verify() when devtools supports it
+# https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
+prepare() {
+  minisign -Vm libchewing-$_pkgver.tar.zst -P $_validminisignkey
+}
+
+build() {
+  cd libchewing-$_pkgver
+  # Specify the existence of ncurses.h manually as FindCurses.cmake cannot identify it
+  cmake -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_INFO=ON \
+    -DCURSES_HAVE_NCURSES_H=ON
+  make -C build
+}
+
+check() {
+  # parallel testing is broken (https://github.com/chewing/libchewing/issues/293)
+  make -C libchewing-$_pkgver/build -j1 check
+}
+
+package() {
+  make -C libchewing-$_pkgver/build DESTDIR="${pkgdir}" install
+}

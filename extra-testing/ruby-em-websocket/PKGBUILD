@@ -1,0 +1,83 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: George Rawlinson <grawlinson@archlinux.com>
+# Contributor: Shengyu Zhang <la@archlinuxcn.org>
+
+_name=em-websocket
+pkgname=ruby-$_name
+pkgver=0.5.3
+pkgrel=2
+pkgdesc='EventMachine based WebSocket server'
+arch=('any')
+url='https://github.com/igrigorik/em-websocket'
+license=('MIT')
+depends=(
+  'ruby'
+  'ruby-eventmachine'
+  'ruby-http_parser.rb'
+)
+# Check not included as it adds too many dependencies
+options=(!emptydirs)
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/igrigorik/em-websocket/archive/v${pkgver}.tar.gz)
+sha512sums=('28d5cf042899319f50ff0d3b140d75fb281b7e0635118a63df243151c4f442dbabf7dbe15b26b44167d925ed00819b01eeeef110107e4058d8a534f84913b232')
+
+prepare() {
+  cd "${_name}-${pkgver}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+
+  # we don't build from a git checkout
+  sed --in-place --regexp-extended 's|git ls-files|find . -type f -not -path "*/\.git/*"|' "${_name}.gemspec"
+}
+
+build() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install/${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+package() {
+  cd "${_name}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENCE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}

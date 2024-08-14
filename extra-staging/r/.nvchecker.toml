@@ -1,4 +1,0 @@
-[r]
-source = 'regex'
-url = 'https://cran.r-project.org/src/base/R-4/'
-regex = 'R-([\d.]+)\.[a-z]'

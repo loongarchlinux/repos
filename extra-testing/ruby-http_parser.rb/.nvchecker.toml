@@ -1,0 +1,3 @@
+[ruby-http-parser.rb]
+source = "gems"
+gems = "http-parser.rb"

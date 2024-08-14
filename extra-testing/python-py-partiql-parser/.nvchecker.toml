@@ -1,0 +1,7 @@
+[python-py-partiql-parser]
+source = "pypi"
+pypi = "py-partiql-parser"
+
+# Custom attributes used by https://gitlab.com/yan12125/aur/
+__custom_attributes__.group = "moto"
+__custom_attributes__.non_nvchecker = true
